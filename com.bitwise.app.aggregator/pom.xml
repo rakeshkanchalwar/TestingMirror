@@ -13,13 +13,5 @@
     <relativePath>../com.bitwise.app.parent</relativePath>
   </parent>
      
-     <modules>
-        <module>../com.bitwise.app.mainPerspective</module>
-        <module>../RCPSample</module>
-        <module>../com.bitwise.app.menus</module>
-        <module>../com.bitwise.etl.view</module>
-        <module>../com.bitwise.app.product</module>
-        
-        
-    </modules>
+     <modules>  </modules>
 </project>
