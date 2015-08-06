@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Project_structure
+Bundle-SymbolicName: com.bitwise.app.project.structure;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.bitwise.app.project.structure.Activator
+Bundle-Vendor: BITWISE
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.ide;bundle-version="3.7.0",
+ org.eclipse.core.resources,
+ org.eclipse.ui.navigator,
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.jdt.core;bundle-version="3.7.3",
+ org.eclipse.ui.console;bundle-version="3.5.100"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
