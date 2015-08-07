@@ -102,6 +102,14 @@
                      label="Config"
                      style="push">
                </command>
+               <separator
+                     name="com.bitwise.app.menus.separator1"
+                     visible="true">
+               </separator>
+               <command
+                     commandId="org.eclipse.ui.newWizard"
+                     label="&amp;Other...">
+               </command>
             </menu>
             <command
                   commandId="org.eclipse.ui.edit.text.openLocalFile"
