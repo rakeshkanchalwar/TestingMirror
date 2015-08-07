@@ -1,6 +1,8 @@
 package com.bitwise.app.project.structure.wizard;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
@@ -11,7 +13,13 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jdt.launching.LibraryLocation;
 
 import com.bitwise.app.project.structure.natures.ProjectNature;
 
@@ -26,12 +34,26 @@ public class ProjectSupport {
 			addNature(project);
 			String[] paths = { "src", "scripts", "xml", "lib" }; //$NON-NLS-1$ //$NON-NLS-2$
             addToProjectStructure(project, paths);
-            /*IJavaProject javaProject = JavaCore.create(project);
+            IJavaProject javaProject = JavaCore.create(project);
+            IFolder binFolder = project.getFolder("bin");
+            javaProject.setOutputLocation(binFolder.getFullPath(), null);
+            
+            List<IClasspathEntry> entries = new ArrayList<IClasspathEntry>();
+            IVMInstall vmInstall = JavaRuntime.getDefaultVMInstall();
+            LibraryLocation[] locations = JavaRuntime.getLibraryLocations(vmInstall);
+            for (LibraryLocation element : locations) {
+             entries.add(JavaCore.newLibraryEntry(element.getSystemLibraryPath(), null, null));
+            }
+            //add libs to project class path
+            javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
+            
+            IFolder sourceFolder = project.getFolder("src");
+            IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(sourceFolder);
             IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
             IClasspathEntry[] newEntries = new IClasspathEntry[oldEntries.length + 1];
             System.arraycopy(oldEntries, 0, newEntries, 0, oldEntries.length);
-            newEntries[oldEntries.length] = JavaCore.newSourceEntry(project.getFolder("src").getProjectRelativePath());
-            javaProject.setRawClasspath(newEntries, null);*/
+            newEntries[oldEntries.length] = JavaCore.newSourceEntry(root.getPath());
+            javaProject.setRawClasspath(newEntries, null);
 		} catch (CoreException e) {
 			e.printStackTrace();
 			project = null;
