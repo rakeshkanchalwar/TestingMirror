@@ -18,7 +18,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-        configurer.setInitialSize(new Point(400, 300));
+        //System.out.println(configurer.getInitialSize());
+        configurer.setInitialSize(configurer.getInitialSize());
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(false);
         configurer.setTitle("ETL Tool"); //$NON-NLS-1$
