@@ -19,6 +19,7 @@
 		<module>../com.bitwise.app.menus</module>
 		<module>../com.bitwise.app.graph</module>						
 		<module>../com.bitwise.app.product</module>
+		<module>../com.bitwise.app.unittest</module>
 	</modules>
 
 </project>
