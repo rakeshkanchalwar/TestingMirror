@@ -44,6 +44,10 @@
             id="com.bitwise.menuBar.projectExplorer"
             name="projectExplorer">
       </command>
+      <command
+            id="com.bitwise.menuBar.properties"
+            name="properties">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -58,6 +62,10 @@
       <handler
             class="com.bitwise.app.menus.handlers.ProjectExplorerHandler"
             commandId="com.bitwise.menuBar.projectExplorer">
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.PropertiesHandler"
+            commandId="com.bitwise.menuBar.properties">
       </handler>
    </extension>
    <extension
@@ -155,6 +163,11 @@
             <command
                   commandId="com.bitwise.menuBar.projectExplorer"
                   label="ProjectExplorer"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.bitwise.menuBar.properties"
+                  label="Properties"
                   style="push">
             </command>
          </menu>
