@@ -25,6 +25,8 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.bitwise.app.graph.components.commands.ConnectionCreateCommand;
 import com.bitwise.app.graph.components.commands.ConnectionReconnectCommand;
+import com.bitwise.app.graph.components.editpolicies.AppRenamePolicy;
+import com.bitwise.app.graph.components.editpolicies.GraphComponentEditPolicy;
 import com.bitwise.app.graph.components.figure.ComponentFigure;
 import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.Connection;

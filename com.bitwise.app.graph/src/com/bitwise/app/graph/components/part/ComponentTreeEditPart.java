@@ -7,6 +7,8 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.swt.graphics.Image;
 
+import com.bitwise.app.graph.components.editpolicies.AppRenamePolicy;
+import com.bitwise.app.graph.components.editpolicies.GraphComponentEditPolicy;
 import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.ModelElement;
 

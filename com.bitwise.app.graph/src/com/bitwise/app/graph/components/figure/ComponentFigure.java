@@ -60,6 +60,9 @@ public class ComponentFigure extends Figure{
 		add(image);
 		setConstraint(image, new Rectangle(5, 19, -1, -1));
 		
+		//Label myLable=new Label("Test");
+		//add(myLable);
+		//setConstraint(myLable,  new Rectangle(5, 19, -1, -1));
 		
 		setForegroundColor(ColorConstants.black);
 		setBackgroundColor(ColorConstants.gray);
