@@ -50,11 +50,14 @@ public class RenameAction extends SelectionAction{
 	}
 	public Command createRenameCommand(String name) {
 		Request renameReq = new Request("rename");
+		Command cmd=null;
 		HashMap<String, String> reqData = new HashMap<String, String>();
 		reqData.put("newName", name);
 		renameReq.setExtendedData(reqData);
-		EditPart object = (EditPart)getSelectedObjects().get(0);
-		Command cmd = object.getCommand(renameReq);
+		if(!getSelectedObjects().isEmpty()){
+			EditPart object = (EditPart)getSelectedObjects().get(0);
+			cmd = object.getCommand(renameReq);
+		}
 		return cmd;
 	}
 	public void run() {
