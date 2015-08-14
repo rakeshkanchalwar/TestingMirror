@@ -46,10 +46,10 @@ PropertyChangeListener{
 	protected void createEditPolicies() {
 		// If this editpart is the root content of the viewer, then disallow
 		// removal
-		if (getParent() instanceof RootEditPart) {
+/*		if (getParent() instanceof RootEditPart) {
 			installEditPolicy(EditPolicy.COMPONENT_ROLE,
 					new RootComponentEditPolicy());
-		}
+		}*/
 	}
 
 	/**

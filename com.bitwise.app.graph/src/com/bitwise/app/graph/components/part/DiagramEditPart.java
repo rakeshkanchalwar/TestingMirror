@@ -101,6 +101,7 @@ PropertyChangeListener{
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
 	 */
 	protected List getModelChildren() {
+		System.out.println("DiagramEditPart->getModelChildren");
 		return getCastedModel().getChildren(); // return a list of shapes
 	}
 

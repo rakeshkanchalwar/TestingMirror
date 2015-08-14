@@ -36,12 +36,15 @@ public class ComponentsEditPartFactory implements EditPartFactory{
 	 */
 	private EditPart getPartForElement(Object modelElement) {
 		if (modelElement instanceof ComponentsDiagram) {
+			System.out.println("modelElement:"+modelElement.getClass());
 			return new DiagramEditPart();
 		}
 		if (modelElement instanceof Component) {
+			System.out.println("modelElement:"+modelElement.getClass());
 			return new ComponentEditPart();
 		}
 		if (modelElement instanceof Connection) {
+			System.out.println("modelElement:"+modelElement.getClass());			
 			return new ConnectionEditPart();
 		}
 		throw new RuntimeException("Can't create part for model element: "
