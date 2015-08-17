@@ -41,8 +41,8 @@
             name="outline">
       </command>
       <command
-            id="com.bitwise.menuBar.projectExplorer"
-            name="projectExplorer">
+            id="com.bitwise.menuBar.ETLNavigator"
+            name="ETLNavigator">
       </command>
       <command
             id="com.bitwise.menuBar.properties"
@@ -60,8 +60,8 @@
             commandId="com.bitwise.menuBar.outline">
       </handler>
       <handler
-            class="com.bitwise.app.menus.handlers.ProjectExplorerHandler"
-            commandId="com.bitwise.menuBar.projectExplorer">
+            class="com.bitwise.app.menus.handlers.EtlNavigatorHandler"
+            commandId="com.bitwise.menuBar.ETLNavigator">
       </handler>
       <handler
             class="com.bitwise.app.menus.handlers.PropertiesHandler"
@@ -161,8 +161,8 @@
                   style="push">
             </command>
             <command
-                  commandId="com.bitwise.menuBar.projectExplorer"
-                  label="ProjectExplorer"
+                  commandId="com.bitwise.menuBar.ETLNavigator"
+                  label="ETLNavigator"
                   style="push">
             </command>
             <command
