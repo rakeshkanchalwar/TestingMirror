@@ -11,14 +11,9 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import com.bitwise.app.adapters.ComponentAdapter;
 import com.bitwise.app.graph.components.model.Component;
-import com.bitwise.app.graph.components.model.CopyToManyComponent;
-import com.bitwise.app.graph.components.model.InputComponent;
-import com.bitwise.app.graph.components.model.JoinComponent;
-import com.bitwise.app.graph.components.model.OutputComponent;
-import com.bitwise.app.graph.components.model.TransformComponent;
-
-
+import com.bitwise.app.graph.components.model.GenericComponent;
 
 
 public class ComponentFigure extends Figure{
@@ -36,33 +31,22 @@ public class ComponentFigure extends Figure{
 	public void setLabelName(Label labelName) {
 		this.labelName = labelName;
 	}
-	public ComponentFigure(String name) {
+	public ComponentFigure(String componentName) {
 		layout = new XYLayout();
 		setLayoutManager(layout);
 		
 		labelName.setForegroundColor(ColorConstants.blue);
-		labelName.setText(name);
+		labelName.setText(componentName);
 		add(labelName);
 		setConstraint(labelName, new Rectangle(5, 5, -1, -1));
 		
-		if(name.equals("Input"))
-			component=new InputComponent();
-		else if(name.equals("Output"))
-			component=new OutputComponent();
-		else if(name.equals("Join"))
-			component=new JoinComponent();
-		else if(name.equals("Transform"))
-			component=new TransformComponent();
-		else if(name.equals("CopyToMany"))
-			component=new CopyToManyComponent();
+		GenericComponent genericComponent=new GenericComponent();
+		genericComponent.initPropertyDescriptors(ComponentAdapter.getComponentProperty(componentName));
+		component=genericComponent;
 		
 		image=new ImageFigure(component.getIcon());
 		add(image);
 		setConstraint(image, new Rectangle(5, 19, -1, -1));
-		
-		//Label myLable=new Label("Test");
-		//add(myLable);
-		//setConstraint(myLable,  new Rectangle(5, 19, -1, -1));
 		
 		setForegroundColor(ColorConstants.black);
 		setBackgroundColor(ColorConstants.gray);

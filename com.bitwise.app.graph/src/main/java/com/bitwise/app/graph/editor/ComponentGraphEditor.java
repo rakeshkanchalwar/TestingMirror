@@ -56,11 +56,7 @@ import com.bitwise.app.graph.components.ComponentsPlugin;
 import com.bitwise.app.graph.components.commands.RenameAction;
 import com.bitwise.app.graph.components.model.ComponentsDiagram;
 import com.bitwise.app.graph.components.model.Connection;
-import com.bitwise.app.graph.components.model.CopyToManyComponent;
-import com.bitwise.app.graph.components.model.InputComponent;
-import com.bitwise.app.graph.components.model.JoinComponent;
-import com.bitwise.app.graph.components.model.OutputComponent;
-import com.bitwise.app.graph.components.model.TransformComponent;
+import com.bitwise.app.graph.components.model.GenericComponent;
 
 
 public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
@@ -253,7 +249,6 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		List categories = new ArrayList();
 		palette.add(createToolsGroup(palette));
 		palette.add(createShapesDrawer());
-		palette.add(createShapesDrawer2());
 		return categories;
 	}
 	private static PaletteContainer createToolsGroup(PaletteRoot palette) {
@@ -290,106 +285,22 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 
 	private static PaletteContainer createShapesDrawer() {
 		PaletteDrawer componentsDrawer = new PaletteDrawer("Components");
-
 		CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-				"Input", "Create an Input component", InputComponent.class,
-				new SimpleFactory(InputComponent.class),
+				"Input", "Create an Input component", GenericComponent.class,
+				new SimpleFactory(GenericComponent.class),
 				ImageDescriptor.createFromFile(ComponentsPlugin.class,
 						"icons/InputFile_Palette.png"), ImageDescriptor.createFromFile(
 								ComponentsPlugin.class, "icons/InputFile.png"));
 		componentsDrawer.add(component);
-
-		component = new CombinedTemplateCreationEntry("Output",
-				"Create a Output component", OutputComponent.class,
-				new SimpleFactory(OutputComponent.class),
+		
+		CombinedTemplateCreationEntry component2 = new CombinedTemplateCreationEntry("Output",
+				"Create a Output component", GenericComponent.class,
+				new SimpleFactory(GenericComponent.class),
 				ImageDescriptor.createFromFile(ComponentsPlugin.class,
 						"icons/OutputFile_Palette.png"),
 						ImageDescriptor.createFromFile(ComponentsPlugin.class,
 								"icons/OutputFile.png"));
-		componentsDrawer.add(component);
-
-
-		component = new CombinedTemplateCreationEntry("CopyToMany",
-				"Create a CopyToMany component", CopyToManyComponent.class,
-				new SimpleFactory(CopyToManyComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/CopyToMany_Palette.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/CopyToMany.png"));
-		componentsDrawer.add(component);
-
-		component = new CombinedTemplateCreationEntry("Join",
-				"Create a Join component", JoinComponent.class,
-				new SimpleFactory(JoinComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/Join_Palette.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/Join.png"));
-		componentsDrawer.add(component);
-
-		component = new CombinedTemplateCreationEntry("Transform",
-				"Create a Transform component", TransformComponent.class,
-				new SimpleFactory(TransformComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/Transform_Palette.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/Transform.png"));
-		componentsDrawer.add(component);
-		System.out.println("createShapesDrawer");
-		return componentsDrawer;
-	}
-	//------------Images 2------------------------
-
-	private static PaletteContainer createShapesDrawer2() {
-		
-		PaletteDrawer componentsDrawer = new PaletteDrawer("Components");
-		CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-				"Input", "Create an Input component", InputComponent.class,
-				new SimpleFactory(InputComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/input2.png"), ImageDescriptor.createFromFile(
-								ComponentsPlugin.class, "icons/input2.png"));
-		componentsDrawer.add(component);
-
-		component = new CombinedTemplateCreationEntry("Output",
-				"Create a Output component", OutputComponent.class,
-				new SimpleFactory(OutputComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/output2.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/output2.png"));
-		componentsDrawer.add(component);
-
-
-		component = new CombinedTemplateCreationEntry("CopyToMany",
-				"Create a CopyToMany component", CopyToManyComponent.class,
-				new SimpleFactory(CopyToManyComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/broadcast2.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/broadcast2.png"));
-		componentsDrawer.add(component);
-
-		component = new CombinedTemplateCreationEntry("Join",
-				"Create a Join component", JoinComponent.class,
-				new SimpleFactory(JoinComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/join2.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/join2.png"));
-		componentsDrawer.add(component);
-
-		component = new CombinedTemplateCreationEntry("Transform",
-				"Create a Transform component", TransformComponent.class,
-				new SimpleFactory(TransformComponent.class),
-				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/transform2.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/transform2.png"));
-		componentsDrawer.add(component);
-
-		//------------Images 2------------------------
-
+		componentsDrawer.add(component2);
 		System.out.println("createShapesDrawer2");
 		return componentsDrawer;
 	}

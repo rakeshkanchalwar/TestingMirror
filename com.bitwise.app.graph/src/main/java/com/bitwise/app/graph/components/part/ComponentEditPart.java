@@ -30,12 +30,8 @@ import com.bitwise.app.graph.components.editpolicies.GraphComponentEditPolicy;
 import com.bitwise.app.graph.components.figure.ComponentFigure;
 import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.Connection;
-import com.bitwise.app.graph.components.model.CopyToManyComponent;
-import com.bitwise.app.graph.components.model.InputComponent;
-import com.bitwise.app.graph.components.model.JoinComponent;
+import com.bitwise.app.graph.components.model.GenericComponent;
 import com.bitwise.app.graph.components.model.ModelElement;
-import com.bitwise.app.graph.components.model.OutputComponent;
-import com.bitwise.app.graph.components.model.TransformComponent;
 
 
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
@@ -165,28 +161,12 @@ PropertyChangeListener, NodeEditPart {
 	private IFigure createFigureForModel() {
 		ComponentFigure figure;
 		
-		if(getModel() instanceof InputComponent){
-			//ImageFigure inputFigure = new ImageFigure(new InputComponent().getIcon());
+		if(getModel() instanceof GenericComponent){
+			GenericComponent tempModel = (GenericComponent) getModel();
 			figure = new ComponentFigure("Input");			
+			
 			return figure;
-			//return new ImageFigure(new InputComponent().getIcon());
-		}else if(getModel() instanceof OutputComponent){
-			//return new ImageFigure(new OutputComponent().getIcon());
-			figure = new ComponentFigure("Output");			
-			return figure;
-		}else if(getModel() instanceof CopyToManyComponent){
-			//return new ImageFigure(new CopyToManyComponent().getIcon());
-			figure = new ComponentFigure("CopyToMany");			
-			return figure;
-		}else if(getModel() instanceof JoinComponent){
-			//return new ImageFigure(new JoinComponent().getIcon());
-			figure = new ComponentFigure("Join");			
-			return figure;
-		}else if(getModel() instanceof TransformComponent){
-			//return new ImageFigure(new TransformComponent().getIcon());
-			figure = new ComponentFigure("Transform");			
-			return figure;
-		} else {
+		}else {
 			// if Shapes gets extended the conditions above must be updated
 			throw new IllegalArgumentException();
 		}
@@ -208,22 +188,10 @@ PropertyChangeListener, NodeEditPart {
 	}
 
 	protected ConnectionAnchor getConnectionAnchor() {
-		if (anchor == null) {
-			if (getModel() instanceof InputComponent)
-				anchor = new ChopboxAnchor(getFigure());
-			else if (getModel() instanceof OutputComponent)
-				anchor = new ChopboxAnchor(getFigure());
-			else if (getModel() instanceof CopyToManyComponent)
-				anchor = new ChopboxAnchor(getFigure());
-			else if (getModel() instanceof JoinComponent)
-				anchor = new ChopboxAnchor(getFigure());
-			else if (getModel() instanceof TransformComponent)
-				anchor = new ChopboxAnchor(getFigure());
-			else
-				// if Shapes gets extended the conditions above must be updated
-				throw new IllegalArgumentException("unexpected model");
-
-		}
+		if (getModel() instanceof GenericComponent)
+			anchor = new ChopboxAnchor(getFigure());
+		else
+			throw new IllegalArgumentException("unexpected model");
 		return anchor;
 	}
 

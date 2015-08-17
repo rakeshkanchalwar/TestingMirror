@@ -26,13 +26,7 @@ import com.bitwise.app.graph.components.commands.ComponentCreateCommand;
 import com.bitwise.app.graph.components.commands.ComponentSetConstraintCommand;
 import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.ComponentsDiagram;
-import com.bitwise.app.graph.components.model.CopyToManyComponent;
-import com.bitwise.app.graph.components.model.InputComponent;
-import com.bitwise.app.graph.components.model.JoinComponent;
 import com.bitwise.app.graph.components.model.ModelElement;
-import com.bitwise.app.graph.components.model.OutputComponent;
-import com.bitwise.app.graph.components.model.TransformComponent;
-
 
 public class DiagramEditPart extends AbstractGraphicalEditPart implements
 PropertyChangeListener{
@@ -167,20 +161,9 @@ PropertyChangeListener{
 		 * @see LayoutEditPolicy#getCreateCommand(CreateRequest)
 		 */
 		protected Command getCreateCommand(CreateRequest request) {
-			Object childClass = request.getNewObjectType();
-			if (childClass == InputComponent.class
-					|| childClass == OutputComponent.class
-					|| childClass == CopyToManyComponent.class
-					|| childClass == JoinComponent.class
-					|| childClass == TransformComponent.class) {
-				
-				return new ComponentCreateCommand((Component) request.getNewObject(),
+			return new ComponentCreateCommand((Component) request.getNewObject(),
 						(ComponentsDiagram) getHost().getModel(),
 						(Rectangle) getConstraintFor(request));
-				
-				
-			}
-			return null;
 		}
 
 
