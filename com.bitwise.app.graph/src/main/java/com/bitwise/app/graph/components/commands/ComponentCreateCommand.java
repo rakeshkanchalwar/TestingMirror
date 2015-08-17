@@ -1,13 +1,10 @@
 package com.bitwise.app.graph.components.commands;
-import org.eclipse.gef.commands.Command;
-
-
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.commands.Command;
 
 import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.ComponentsDiagram;
-import com.bitwise.app.graph.components.model.InputComponent;
 
 public class ComponentCreateCommand extends Command {
 	/** The new shape. */
