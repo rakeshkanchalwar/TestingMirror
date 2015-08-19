@@ -13,6 +13,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.eclipse.core.runtime.Platform;
 
+import com.bitwise.app.common.Messages;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.component.config.Config;
 

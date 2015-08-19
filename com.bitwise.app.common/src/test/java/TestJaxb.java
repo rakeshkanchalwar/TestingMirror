@@ -13,10 +13,10 @@ import junit.framework.Assert;
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
 
+import com.bitwise.app.common.Messages;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.component.config.Config;
 import com.bitwise.app.common.component.config.ObjectFactory;
-import com.bitwise.app.common.util.Messages;
 import com.bitwise.app.common.util.XMLConfigUtil;
 
 

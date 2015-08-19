@@ -1,9 +1,9 @@
-package com.bitwise.app.common.util;
+package com.bitwise.app.common;
 
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "com.bitwise.app.common.util.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "com.bitwise.app.common.messages"; //$NON-NLS-1$
 	public static String XMLConfigUtil_CONFIG_FOLDER;
 	public static String XMLConfigUtil_FILE_EXTENTION;
 	static {
