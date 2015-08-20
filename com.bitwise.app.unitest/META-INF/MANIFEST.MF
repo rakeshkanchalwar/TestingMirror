@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Unitest
+Bundle-SymbolicName: com.bitwise.app.unitest
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: BITWISE
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.junit
