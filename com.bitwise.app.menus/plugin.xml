@@ -34,7 +34,7 @@
       </command>
       <command
             id="com.bitwise.menuBar.console"
-            name="Job Log Panel">
+            name="console">
       </command>
       <command
             id="com.bitwise.menuBar.outline"
