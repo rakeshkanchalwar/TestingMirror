@@ -1,6 +1,7 @@
 package com.bitwise.app.graph.components.model;
 
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import com.bitwise.app.graph.components.ComponentsPlugin;
 import com.bitwise.app.graph.components.model.Connection;
 import com.bitwise.app.graph.components.model.ModelElement;
 
-public abstract class Component extends ModelElement{
+public abstract class Component extends ModelElement {
 	private static final long serialVersionUID = 1;
 	/**
 	 * A static array of property descriptors. There is one IPropertyDescriptor
@@ -28,24 +29,23 @@ public abstract class Component extends ModelElement{
 	 * @see #getPropertyValue(Object)
 	 * @see #setPropertyValue(Object, Object)
 	 */
-	
-	
+
 	private static IPropertyDescriptor[] descriptors;
-	
+
 	public static final String NAME_PROP = "Component.Name";
-	
+
 	/** Property ID to use when the location of this Component is modified. */
 	public static final String LOCATION_PROP = "Component.Location";
-	
+
 	/** Property ID to use then the size of this Component is modified. */
 	public static final String SIZE_PROP = "Component.Size";
-	
+
 	/** Property ID to use when the list of outgoing connections is modified. */
 	public static final String SOURCE_CONNECTIONS_PROP = "Component.SourceConn";
-	
+
 	/** Property ID to use when the list of incoming connections is modified. */
 	public static final String TARGET_CONNECTIONS_PROP = "Component.TargetConn";
-	
+
 	public static final String RENAME_PROP = "Component.Rename";
 
 	/*
@@ -59,9 +59,9 @@ public abstract class Component extends ModelElement{
 	 */
 	static {
 		descriptors = new IPropertyDescriptor[] {
-				
-				new TextPropertyDescriptor(NAME_PROP, "Name"),};
-				
+
+		new TextPropertyDescriptor(NAME_PROP, "Name"), };
+
 	} // static
 
 	protected static Image createImage(String name) {
@@ -78,8 +78,8 @@ public abstract class Component extends ModelElement{
 	private Point location = new Point(0, 0);
 	/** Size of this Component. */
 	private Dimension size = new Dimension(95, 105);
-	private String componentName = ""; 
-	
+	private String componentName = "";
+
 	/** List of outgoing Connections. */
 	private List sourceConnections = new ArrayList();
 	/** List of incoming Connections. */
@@ -164,9 +164,9 @@ public abstract class Component extends ModelElement{
 	public void setComponentName(String componentName) {
 		this.componentName = componentName;
 		firePropertyChange(NAME_PROP, null, componentName);
-		//getListeners().firePropertyChange(PROPERTY_RENAME, oldName, this.name);
+		// getListeners().firePropertyChange(PROPERTY_RENAME, oldName,
+		// this.name);
 	}
-	
 
 	/**
 	 * Return the Size of this Component.
@@ -242,8 +242,8 @@ public abstract class Component extends ModelElement{
 	public void setPropertyValue(Object propertyId, Object value) {
 
 		if (NAME_PROP.equals(propertyId)) {
-			setComponentName((String)value);
-		} 
+			setComponentName((String) value);
+		}
 
 		else {
 			super.setPropertyValue(propertyId, value);
@@ -251,7 +251,8 @@ public abstract class Component extends ModelElement{
 	}
 
 	/**
-	 * Set the Size of this Component. Will not modify the size if newSize is null.
+	 * Set the Size of this Component. Will not modify the size if newSize is
+	 * null.
 	 * 
 	 * @param newSize
 	 *            a non-null Dimension instance or null

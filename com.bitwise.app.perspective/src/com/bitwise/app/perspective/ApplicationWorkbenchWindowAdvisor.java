@@ -1,7 +1,6 @@
 package com.bitwise.app.perspective;
 
 
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -25,16 +24,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowStatusLine(false);
         configurer.setTitle("ETL Tool"); //$NON-NLS-1$
         configurer.setShowPerspectiveBar(true);
-             
-    }
-    
-    
-    
-    @Override
-    public void postWindowCreate() {
-        IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-        IWorkbenchWindow window = configurer.getWindow();
-        window.getShell().setMaximized(true); // will open the window in fullscreen
-               
+        
+        
     }
 }
