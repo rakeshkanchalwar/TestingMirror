@@ -12,11 +12,11 @@ public class ComponentsDiagram extends ModelElement{
 	private List components = new ArrayList();
 
 	/**
-	 * Add a shape to this diagram.
+	 * Add a component to this diagram.
 	 * 
 	 * @param s
 	 *            a non-null shape instance
-	 * @return true, if the shape was added, false otherwise
+	 * @return true, if the component was added, false otherwise
 	 */
 	public boolean addChild(Component s) {
 		if (s != null && components.add(s)) {
@@ -27,7 +27,7 @@ public class ComponentsDiagram extends ModelElement{
 	}
 
 	/**
-	 * Return a List of Shapes in this diagram. The returned List should not be
+	 * Return a List of components in this diagram. The returned List should not be
 	 * modified.
 	 */
 	public List getChildren() {
@@ -35,11 +35,11 @@ public class ComponentsDiagram extends ModelElement{
 	}
 
 	/**
-	 * Remove a shape from this diagram.
+	 * Remove a component from this diagram.
 	 * 
 	 * @param s
 	 *            a non-null shape instance;
-	 * @return true, if the shape was removed, false otherwise
+	 * @return true, if the component was removed, false otherwise
 	 */
 	public boolean removeChild(Component s) {
 		if (s != null && components.remove(s)) {

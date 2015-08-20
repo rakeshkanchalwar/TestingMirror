@@ -79,7 +79,15 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 
 		getSite().registerContextMenu(cmProvider, viewer);
 
-		//----------------------
+		configureZoomSettings(viewer);
+		
+		IAction action = new RenameAction(this);
+		getActionRegistry().registerAction(action);
+		getSelectionActions().add(action.getId());
+
+	}
+	
+	private void configureZoomSettings(GraphicalViewer viewer){
 		double[] zoomLevels;
 		ArrayList<String> zoomContributions;
 
@@ -116,22 +124,9 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 				MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
 				MouseWheelZoomHandler.SINGLETON);
 		viewer.setKeyHandler(keyHandler);
-		//----------------------
-		//getActionRegistry().registerAction(new RenameAction(this));
-		IAction action = new RenameAction(this);
-		getActionRegistry().registerAction(action);
-		getSelectionActions().add(action.getId());
-
 	}
 
-	//	public void createActions() {
-	//		super.createActions();
-	//		ActionRegistry registry = getActionRegistry();
-	//		IAction action = new RenameAction(this);
-	//		registry.registerAction(action);
-	//		getSelectionActions().add(action.getId());
-	//	}
-
+	
 	@Override
 	protected void initializeGraphicalViewer() {
 		System.out.println("initializeGraphicalViewer");
@@ -197,8 +192,6 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 
 		setPartName("Components Graph");
 		diagram = new ComponentsDiagram();
-
-
 	}
 
 
@@ -305,105 +298,6 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		return componentsDrawer;
 	}
 
-	//	public Object getAdapter(Class type) {
-	//	if (type == IContentOutlinePage.class)
-	//		return new ShapesOutlinePage(new TreeViewer());
-	//	return super.getAdapter(type);
-	//}
-
-
-	//	//----------------------------New class-------------
-	//	/**
-	//	 * Creates an outline pagebook for this editor.
-	//	 */
-	//	public class ShapesOutlinePage extends ContentOutlinePage {
-	//		/**
-	//		 * Create a new outline page for the shapes editor.
-	//		 * 
-	//		 * @param viewer
-	//		 *            a viewer (TreeViewer instance) used for this outline page
-	//		 * @throws IllegalArgumentException
-	//		 *             if editor is null
-	//		 */
-	//		public ShapesOutlinePage(EditPartViewer viewer) {
-	//			super(viewer);
-	//		}
-	//
-	//		/*
-	//		 * (non-Javadoc)
-	//		 * 
-	//		 * @see
-	//		 * org.eclipse.ui.part.IPage#createControl(org.eclipse.swt.widgets.Composite
-	//		 * )
-	//		 */
-	//		public void createControl(Composite parent) {
-	//			// create outline viewer page
-	//			getViewer().createControl(parent);
-	//			// configure outline viewer
-	//			getViewer().setEditDomain(getEditDomain());
-	//			getViewer().setEditPartFactory(new ComponentsTreeEditPartFactory());
-	//			// configure & add context menu to viewer
-	//			ContextMenuProvider cmProvider = new ComponentsEditorContextMenuProvider(
-	//					getViewer(), getActionRegistry());
-	//			getViewer().setContextMenu(cmProvider);
-	//			getSite().registerContextMenu(
-	//					"org.eclipse.gef.examples.shapes.outline.contextmenu",
-	//					cmProvider, getSite().getSelectionProvider());
-	//			// hook outline viewer
-	//			getSelectionSynchronizer().addViewer(getViewer());
-	//			// initialize outline viewer with model
-	//			getViewer().setContents(getModel());
-	//			// show outline viewer
-	//		}
-	//
-	//		/*
-	//		 * (non-Javadoc)
-	//		 * 
-	//		 * @see org.eclipse.ui.part.IPage#dispose()
-	//		 */
-	//		public void dispose() {
-	//			// unhook outline viewer
-	//			getSelectionSynchronizer().removeViewer(getViewer());
-	//			// dispose
-	//			super.dispose();
-	//		}
-	//
-	//		/*
-	//		 * (non-Javadoc)
-	//		 * 
-	//		 * @see org.eclipse.ui.part.IPage#getControl()
-	//		 */
-	//		public Control getControl() {
-	//			return getViewer().getControl();
-	//		}
-	//
-	//		/**
-	//		 * @see org.eclipse.ui.part.IPageBookViewPage#init(org.eclipse.ui.part.IPageSite)
-	//		 */
-	//		public void init(IPageSite pageSite) {
-	//			System.out.println("MyGraph:init()");
-	//			super.init(pageSite);
-	//			ActionRegistry registry = getActionRegistry();
-	//			IActionBars bars = pageSite.getActionBars();
-	//
-	//			String id = ActionFactory.UNDO.getId();
-	//			bars.setGlobalActionHandler(id, registry.getAction(id));
-	//
-	//			id = ActionFactory.REDO.getId();
-	//			bars.setGlobalActionHandler(id, registry.getAction(id));
-	//
-	//			id = ActionFactory.DELETE.getId();
-	//			bars.setGlobalActionHandler(id, registry.getAction(id));
-	//
-	//			//--------------------
-	//
-	//			id = ActionFactory.NEW.getId();
-	//			bars.setGlobalActionHandler(id, registry.getAction(id));
-	//
-	//			id = ActionFactory.OPEN_PERSPECTIVE_DIALOG.getId();
-	//			bars.setGlobalActionHandler(id, registry.getAction(id));
-	//
-	//		}
-	//	}
+	
 
 }
