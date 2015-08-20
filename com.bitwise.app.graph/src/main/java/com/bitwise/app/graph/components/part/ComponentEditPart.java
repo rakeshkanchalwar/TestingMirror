@@ -174,6 +174,7 @@ PropertyChangeListener, NodeEditPart {
 			// if Shapes gets extended the conditions above must be updated
 			throw new IllegalArgumentException();
 		}*/
+		
 		if(getModel() instanceof TestInputComp){
 			GenericComponent tempModel = (GenericComponent) getModel();
 			figure = new ComponentFigure("Input");			

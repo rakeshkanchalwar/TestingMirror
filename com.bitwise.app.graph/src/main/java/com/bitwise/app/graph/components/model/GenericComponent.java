@@ -6,18 +6,36 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
+import com.bitwise.app.adapters.ComponentAdapter;
 import com.bitwise.app.adapters.ComponentProperty;
 
 public class GenericComponent extends Component{
 	
-	private static final long serialVersionUID = 9104772738878171710L;
-	private static IPropertyDescriptor[] propertyDescriptors;
-	private static LinkedHashMap<String,ComponentProperty> componentProperties;
+	//private static final long serialVersionUID = 9104772738878171710L;
+	private IPropertyDescriptor[] propertyDescriptors;
+	private LinkedHashMap<String,ComponentProperty> componentProperties;
+	//private String compName;
 	
 	
-	public void initPropertyDescriptors(LinkedHashMap<String,ComponentProperty> componentProperties){
+	/*public  String getComponentName() {
+		return compName;
+	}
+
+	public void setComponentName(String componentName) {
+		compName = componentName;
+	}*/
+
+	/*public void ReInitPropertyDescriptors(String compName){
 		
-		this.componentProperties = componentProperties;
+	}*/
+	
+	//public void initPropertyDescriptors(LinkedHashMap<String,ComponentProperty> componentProperties,String compName){
+	public void initPropertyDescriptors(String compName){
+		//this.compName = compName;
+		//ComponentAdapter.getComponentProperty(compName);
+		//this.componentProperties = componentProperties;
+		this.componentProperties = ComponentAdapter.getComponentProperty(compName);
+		
 		propertyDescriptors = new IPropertyDescriptor[componentProperties.size()];
 		int index=0;
 		for(String key : componentProperties.keySet()){
@@ -31,6 +49,7 @@ public class GenericComponent extends Component{
 
 	@Override
 	public Object getPropertyValue(Object propertyId) {
+		initPropertyDescriptors((String)super.getPropertyValue("Shape.Name"));
 		if(componentProperties.containsKey(propertyId)){
 			return componentProperties.get(propertyId).getPropValue();
 		}else{
@@ -55,6 +74,7 @@ public class GenericComponent extends Component{
 	
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
+		initPropertyDescriptors((String)super.getPropertyValue("Shape.Name"));
 		IPropertyDescriptor[] parentDescriptors = super
 				.getPropertyDescriptors();
 		int totalArraySize = parentDescriptors.length + propertyDescriptors.length;

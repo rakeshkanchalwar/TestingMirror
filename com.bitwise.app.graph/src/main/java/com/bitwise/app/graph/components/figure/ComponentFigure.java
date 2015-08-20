@@ -41,7 +41,8 @@ public class ComponentFigure extends Figure{
 		setConstraint(labelName, new Rectangle(5, 5, -1, -1));
 		
 		GenericComponent genericComponent=new GenericComponent();
-		genericComponent.initPropertyDescriptors(ComponentAdapter.getComponentProperty(componentName));
+		//genericComponent.initPropertyDescriptors(ComponentAdapter.getComponentProperty(componentName),componentName);
+		genericComponent.initPropertyDescriptors(componentName);
 		//ComponentAdapter.getComponentProperty(componentName).get("Shape.icon");
 		component=genericComponent;
 		

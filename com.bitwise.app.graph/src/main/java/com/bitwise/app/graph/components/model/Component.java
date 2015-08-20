@@ -110,6 +110,7 @@ public abstract class Component extends ModelElement{
 		return image;
 	}
 
+		
 	/** Location of this shape. */
 	private Point location = new Point(0, 0);
 	/** Size of this shape. */
