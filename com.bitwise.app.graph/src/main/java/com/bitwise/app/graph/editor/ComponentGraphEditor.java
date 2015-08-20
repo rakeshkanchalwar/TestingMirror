@@ -345,8 +345,10 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 								"icons/OutputFile.png"));
 		componentsDrawer.add(component2);*/
 		Class testInputClass = null;
+		Class testOutputClass = null;
 		try {
 			testInputClass=Class.forName("com.bitwise.app.graph.components.model.TestInputComp");
+			testOutputClass=Class.forName("com.bitwise.app.graph.components.model.TestOutputComp");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -360,8 +362,8 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		componentsDrawer.add(component);
 		
 		CombinedTemplateCreationEntry component2 = new CombinedTemplateCreationEntry("Output",
-				"Create a Output component", TestOutputComp.class,
-				new SimpleFactory(TestOutputComp.class),
+				"Create a Output component", testOutputClass,
+				new SimpleFactory(testOutputClass),
 				ImageDescriptor.createFromFile(ComponentsPlugin.class,
 						"icons/OutputFile_Palette.png"),
 						ImageDescriptor.createFromFile(ComponentsPlugin.class,
