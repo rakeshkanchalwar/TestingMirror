@@ -25,7 +25,7 @@
       <view
             class="org.eclipse.ui.navigator.CommonNavigator"
             id="com.bitwise.app.project.structure.navigator"
-            name="ETL Navigator">
+            name="Project Explorer">
       </view>
    </extension>
    <extension
