@@ -80,25 +80,17 @@
             <menu
                   id="com.bitwise.app.menus.NewMenu"
                   label="New">
-                <command
-                     commandId="org.eclipse.ui.newWizard"
+               <command
+                     commandId="com.bitwise.menuBar.class"
                      id="com.bitwise.app.menus.NewMenu.Class"
                      label="Class"
                      style="push">
-                  <parameter
-                        name="newWizardId"
-                        value="org.eclipse.jdt.ui.wizards.NewClassCreationWizard">
-                  </parameter>
                </command>
                <command
-                     commandId="org.eclipse.ui.newWizard"
+                     commandId="com.bitwise.menuBar.xml"
                      id="com.bitwise.app.menus.NewMenu.XmlFile"
                      label="Xml File..."
                      style="push">
-                  <parameter
-                        name="newWizardId"
-                        value="org.eclipse.wst.xml.ui.internal.wizards.NewXMLWizard">
-                  </parameter>
                </command>
                <command
                      commandId="com.bitwise.menuBar.script"
