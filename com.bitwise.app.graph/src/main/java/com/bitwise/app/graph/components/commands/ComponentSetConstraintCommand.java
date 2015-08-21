@@ -17,13 +17,13 @@ public class ComponentSetConstraintCommand extends Command {
 	private final ChangeBoundsRequest request;
 
 	/** Shape to manipulate. */
-	private final Component shape;
+	private final Component component;
 
 	/**
-	 * Create a command that can resize and/or move a shape.
+	 * Create a command that can resize and/or move a component.
 	 * 
-	 * @param shape
-	 *            the shape to manipulate
+	 * @param component
+	 *            the component to manipulate
 	 * @param req
 	 *            the move and resize request
 	 * @param newBounds
@@ -31,12 +31,12 @@ public class ComponentSetConstraintCommand extends Command {
 	 * @throws IllegalArgumentException
 	 *             if any of the parameters is null
 	 */
-	public ComponentSetConstraintCommand(Component shape, ChangeBoundsRequest req,
+	public ComponentSetConstraintCommand(Component component, ChangeBoundsRequest req,
 			Rectangle newBounds) {
-		if (shape == null || req == null || newBounds == null) {
+		if (component == null || req == null || newBounds == null) {
 			throw new IllegalArgumentException();
 		}
-		this.shape = shape;
+		this.component = component;
 		this.request = req;
 		this.newBounds = newBounds.getCopy();
 		setLabel("move / resize");
@@ -62,7 +62,7 @@ public class ComponentSetConstraintCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		oldBounds = new Rectangle(shape.getLocation(), shape.getSize());
+		oldBounds = new Rectangle(component.getLocation(), component.getSize());
 		redo();
 	}
 
@@ -72,8 +72,8 @@ public class ComponentSetConstraintCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#redo()
 	 */
 	public void redo() {
-		shape.setSize(newBounds.getSize());
-		shape.setLocation(newBounds.getLocation());
+		component.setSize(newBounds.getSize());
+		component.setLocation(newBounds.getLocation());
 	}
 
 	/*
@@ -82,8 +82,8 @@ public class ComponentSetConstraintCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		shape.setSize(oldBounds.getSize());
-		shape.setLocation(oldBounds.getLocation());
+		component.setSize(oldBounds.getSize());
+		component.setLocation(oldBounds.getLocation());
 	}
 
 }

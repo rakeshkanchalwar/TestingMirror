@@ -8,29 +8,29 @@ import com.bitwise.app.graph.components.model.ComponentsDiagram;
 
 public class ComponentCreateCommand extends Command {
 	/** The new shape. */
-	private Component newShape;
+	private Component newComponent;
 	/** ShapeDiagram to add to. */
 	private final ComponentsDiagram parent;
 	/** The bounds of the new Shape. */
 	private Rectangle bounds;
 
 	/**
-	 * Create a command that will add a new Shape to a ShapesDiagram.
+	 * Create a command that will add a new Component to a graph.
 	 * 
-	 * @param newShape
-	 *            the new Shape that is to be added
+	 * @param newComponent
+	 *            the new Component that is to be added
 	 * @param parent
-	 *            the ShapesDiagram that will hold the new element
+	 *            the graph that will hold the new element
 	 * @param bounds
-	 *            the bounds of the new shape; the size can be (-1, -1) if not
+	 *            the bounds of the new component; the size can be (-1, -1) if not
 	 *            known
 	 * @throws IllegalArgumentException
 	 *             if any parameter is null, or the request does not provide a
 	 *             new Shape instance
 	 */
-	public ComponentCreateCommand(Component newShape, ComponentsDiagram parent,
+	public ComponentCreateCommand(Component newComponent, ComponentsDiagram parent,
 			Rectangle bounds) {
-		this.newShape = newShape;
+		this.newComponent = newComponent;
 		this.parent = parent;
 		this.bounds = bounds;
 		setLabel("component creation");
@@ -42,7 +42,7 @@ public class ComponentCreateCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
-		return newShape != null && parent != null && bounds != null;
+		return newComponent != null && parent != null && bounds != null;
 	}
 
 	/*
@@ -51,21 +51,11 @@ public class ComponentCreateCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		newShape.setLocation(bounds.getLocation());
+		newComponent.setLocation(bounds.getLocation());
 		Dimension size = bounds.getSize();
 		if (size.width > 0 && size.height > 0)
-			newShape.setSize(size);
-		redo();
-		
-//		if(newShape instanceof InputComponent){
-//			String FILE_PROP = "Shape.File";
-//			String SCHEMA_PROP = "Shape.Schema";
-//			
-//			Component ip = (InputComponent)newShape;
-//			ip.setPropertyValue(FILE_PROP, "myFile");
-//			ip.setPropertyValue(SCHEMA_PROP, "mySchema");
-//			
-//		}
+			newComponent.setSize(size);
+		redo();		
 	}
 
 	/*
@@ -74,7 +64,7 @@ public class ComponentCreateCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#redo()
 	 */
 	public void redo() {
-		parent.addChild(newShape);
+		parent.addChild(newComponent);
 	}
 
 	/*
@@ -83,7 +73,7 @@ public class ComponentCreateCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		parent.removeChild(newShape);
+		parent.removeChild(newComponent);
 	}
 
 }

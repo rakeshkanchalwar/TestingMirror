@@ -1,6 +1,7 @@
 package com.bitwise.app.adapters;
 
 import java.util.ArrayList;
+
 import java.util.LinkedHashMap;
 
 public class ComponentAdapter {

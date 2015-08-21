@@ -20,6 +20,7 @@
 		<module>../com.bitwise.app.graph</module>						
 		<module>../com.bitwise.app.product</module>
 		<module>../com.bitwise.app.unitest</module>
+		<module>../com.bitwise.app.common</module>
 	</modules>
 
 </project>

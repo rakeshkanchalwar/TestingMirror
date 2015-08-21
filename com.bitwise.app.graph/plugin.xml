@@ -2,25 +2,8 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         id="application"
-         point="org.eclipse.core.runtime.applications">
-      <application>
-         <run
-               class="com.bitwise.app.graph.Application">
-         </run>
-      </application>
-   </extension>
    
    
-   <extension
-         point="org.eclipse.ui.perspectives">
-      <perspective
-            name="RCP Perspective"
-            class="com.bitwise.app.graph.Perspective"
-            id="com.bitwise.app.graph.perspective">
-      </perspective>
-   </extension>
    
    
    <extension
