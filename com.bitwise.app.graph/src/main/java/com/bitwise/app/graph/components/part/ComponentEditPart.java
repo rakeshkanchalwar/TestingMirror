@@ -60,6 +60,8 @@ PropertyChangeListener, NodeEditPart {
 	 */
 	protected void createEditPolicies() {
 		// allow removal of the associated model element
+		
+		System.out.println("----:"+getModel());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE,
 				new GraphComponentEditPolicy());
 		
@@ -177,12 +179,14 @@ PropertyChangeListener, NodeEditPart {
 		
 		if(getModel() instanceof TestInputComp){
 			GenericComponent tempModel = (GenericComponent) getModel();
-			figure = new ComponentFigure("Input");			
+			//figure = new ComponentFigure("Input");
+			figure = new ComponentFigure(tempModel,"Input");
 			
 			return figure;
 		}else if (getModel() instanceof TestOutputComp){
 			GenericComponent tempModel = (GenericComponent) getModel();
-			figure = new ComponentFigure("Output");			
+			figure = new ComponentFigure(tempModel,"Output");
+			//figure = new ComponentFigure("Output");			
 			
 			return figure;
 		}

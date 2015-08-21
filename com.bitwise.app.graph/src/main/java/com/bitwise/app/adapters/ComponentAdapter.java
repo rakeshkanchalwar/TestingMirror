@@ -16,6 +16,9 @@ public class ComponentAdapter {
 		ComponentProperty componentProperty3=new ComponentProperty("Shape.Schema","schema","");
 		ComponentProperty componentProperty4=new ComponentProperty("Shape.Delimiter","delimiter","");
 		ComponentProperty componentProperty5=new ComponentProperty("Shape.shrirang","shrirang","");
+		//ComponentProperty componentProperty6=new ComponentProperty("Shape.Name","Name","Input");
+		
+		
 		
 		LinkedHashMap<String,ComponentProperty> componentProperties=new LinkedHashMap<>();
 		componentProperties.put("Shape.icon",componentProperty1);
@@ -23,6 +26,7 @@ public class ComponentAdapter {
 		componentProperties.put("Shape.Schema",componentProperty3);
 		componentProperties.put("Shape.Delimiter",componentProperty4);
 		componentProperties.put("Shape.shrirang",componentProperty5);
+		//componentProperties.put("Shape.Name",componentProperty6);
 		
 		component.put("Input", componentProperties);
 		

@@ -31,7 +31,33 @@ public class ComponentFigure extends Figure{
 	public void setLabelName(Label labelName) {
 		this.labelName = labelName;
 	}
-	public ComponentFigure(String componentName) {
+	
+	public ComponentFigure(GenericComponent tempModel, String componentName) {
+		layout = new XYLayout();
+		setLayoutManager(layout);
+		
+		labelName.setForegroundColor(ColorConstants.blue);
+		labelName.setText(componentName);
+		add(labelName);
+		setConstraint(labelName, new Rectangle(5, 5, -1, -1));
+		
+		//GenericComponent genericComponent=new GenericComponent();
+		GenericComponent genericComponent=tempModel;
+		//genericComponent.initPropertyDescriptors(ComponentAdapter.getComponentProperty(componentName),componentName);
+		genericComponent.initPropertyDescriptors(componentName,tempModel);
+		//ComponentAdapter.getComponentProperty(componentName).get("Shape.icon");
+		//genericComponent.setComponentName(tempModel); 
+		component=genericComponent;
+		
+		image=new ImageFigure(component.getIcon());
+		add(image);
+		setConstraint(image, new Rectangle(5, 19, -1, -1));
+		
+		setForegroundColor(ColorConstants.black);
+		setBackgroundColor(ColorConstants.gray);
+		setBorder(new LineBorder(1));
+		}
+	/*public ComponentFigure(String componentName) {
 		layout = new XYLayout();
 		setLayoutManager(layout);
 		
@@ -44,6 +70,7 @@ public class ComponentFigure extends Figure{
 		//genericComponent.initPropertyDescriptors(ComponentAdapter.getComponentProperty(componentName),componentName);
 		genericComponent.initPropertyDescriptors(componentName);
 		//ComponentAdapter.getComponentProperty(componentName).get("Shape.icon");
+		genericComponent.setComponentName(componentName); 
 		component=genericComponent;
 		
 		image=new ImageFigure(component.getIcon());
@@ -53,7 +80,8 @@ public class ComponentFigure extends Figure{
 		setForegroundColor(ColorConstants.black);
 		setBackgroundColor(ColorConstants.gray);
 		setBorder(new LineBorder(1));
-		}
+		}*/
+	
 		public void setLayout(Rectangle rect) {
 			setBounds(rect);
 		}

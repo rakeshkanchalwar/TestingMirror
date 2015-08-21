@@ -3,6 +3,7 @@ package com.bitwise.app.graph.components.model;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -14,6 +15,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
+import com.bitwise.app.adapters.ComponentProperty;
 import com.bitwise.app.graph.components.ComponentsPlugin;
 import com.bitwise.app.graph.components.model.Connection;
 import com.bitwise.app.graph.components.model.ModelElement;
@@ -75,30 +77,9 @@ public abstract class Component extends ModelElement{
 	 */
 	static {
 		descriptors = new IPropertyDescriptor[] {
-				//new TextPropertyDescriptor(XPOS_PROP, "X"), // id and
-															// description pair
-				//new TextPropertyDescriptor(YPOS_PROP, "Y"),
-				//new TextPropertyDescriptor(WIDTH_PROP, "Width"),
-				//new TextPropertyDescriptor(HEIGHT_PROP, "Height"), 
 				new TextPropertyDescriptor(NAME_PROP, "Name"),};
-				//new TextPropertyDescriptor(DELIMITER_PROP, "Delimiter")};
-		// use a custom cell editor validator for all four array entries
-		/*for (int i = 0; i < descriptors.length; i++) {
-			((PropertyDescriptor) descriptors[i])
-					.setValidator(new ICellEditorValidator() {
-						public String isValid(Object value) {
-							int intValue = -1;
-							try {
-								intValue = Integer.parseInt((String) value);
-							} catch (NumberFormatException exc) {
-								return "Not a number";
-							}
-							return (intValue >= 0) ? null
-									: "Value must be >=  0";
-						}
-					});
-		}*/
-	} // static
+				
+	} 
 
 	protected static Image createImage(String name) {
 		InputStream stream = ComponentsPlugin.class.getResourceAsStream(name);
@@ -121,6 +102,7 @@ public abstract class Component extends ModelElement{
 	private List sourceConnections = new ArrayList();
 	/** List of incoming Connections. */
 	private List targetConnections = new ArrayList();
+	private LinkedHashMap<String,ComponentProperty> componentProperties=null;
 
 	/**
 	 * Add an incoming or outgoing connection to this shape.
@@ -200,11 +182,17 @@ public abstract class Component extends ModelElement{
 		}
 		if (NAME_PROP.equals(propertyId)) {
 			return componentName;
+		}else{
+			if(componentProperties.containsKey(propertyId)){
+				return componentProperties.get(propertyId).getPropValue();
+			}else{
+				return super.getPropertyValue(propertyId);
+			}
 		}
 //		if (DELIMITER_PROP.equals(propertyId)) {
 //			return delimiter;
 //		}
-		return super.getPropertyValue(propertyId);
+//		return super.getPropertyValue(propertyId);
 	}
 
 	public String getComponentName() {
@@ -331,5 +319,30 @@ public abstract class Component extends ModelElement{
 			size.setSize(newSize);
 			firePropertyChange(SIZE_PROP, null, size);
 		}
+	}
+
+	public void addPropertyDescriptors(IPropertyDescriptor[] propertyDescriptors) {
+		IPropertyDescriptor[] tempdescriptors = new IPropertyDescriptor[propertyDescriptors.length + descriptors.length]; 
+		/*for(int i=0;i<propertyDescriptors.length;i++){
+			tempdescriptors[i] = propertyDescriptors[i];
+		}*/
+		System.arraycopy(propertyDescriptors, 0, tempdescriptors, 0, propertyDescriptors.length);
+		System.arraycopy(descriptors, 0, tempdescriptors, propertyDescriptors.length, descriptors.length);
+		
+	
+		descriptors = tempdescriptors;
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addNewProperties(
+			LinkedHashMap<String, ComponentProperty> componentProperties) {
+		this.componentProperties=componentProperties;
+		// TODO Auto-generated method stub		
+	}
+	
+	public LinkedHashMap<String, ComponentProperty> getExtraProps(){
+		return this.componentProperties;
 	}
 }
