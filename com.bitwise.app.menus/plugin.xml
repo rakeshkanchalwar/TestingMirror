@@ -109,7 +109,7 @@
                <command
                      commandId="com.bitwise.menuBar.textFile"
                      id="com.bitwise.app.menus.NewMenu.TextFile"
-                     label="Text file..."
+                     label="Text File..."
                      style="push">
                </command>
                <command
@@ -170,7 +170,7 @@
             </command>
             <command
                   commandId="com.bitwise.menuBar.ETLNavigator"
-                  label="ETLNavigator"
+                  label="Project Explorer"
                   style="push">
             </command>
             <command
