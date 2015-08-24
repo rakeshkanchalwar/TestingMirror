@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Toolbar
 Bundle-SymbolicName: com.bitwise.app.toolbar; singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.bitwise.app.toolbar.Activator
 Bundle-Vendor: BITWISE
 Require-Bundle: org.eclipse.ui,
