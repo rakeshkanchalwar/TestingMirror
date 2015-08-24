@@ -79,6 +79,17 @@
                relative="org.eclipse.ui.console.ConsoleView"
                visible="true">
          </view>
+         <view
+               closeable="true"
+               id="org.eclipse.gef.ui.palette_view"
+               minimized="false"
+               moveable="true"
+               ratio="0.25"
+               relationship="bottom"
+               relative="com.bitwise.app.project.structure.navigator"
+               showTitle="true"
+               visible="true">
+         </view>
       </perspectiveExtension>
    </extension>
    <extension

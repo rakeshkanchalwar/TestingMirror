@@ -31,22 +31,5 @@
          </property>
       </product>
    </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="*">
-         <view
-               closeable="true"
-               id="org.eclipse.gef.ui.palette_view"
-               minimized="true"
-               moveable="true"
-               ratio="0.25"
-               relationship="top"
-               relative="com.bitwise.app.project.structure.navigator"
-               showTitle="true"
-               visible="true">
-         </view>
-      </perspectiveExtension>
-   </extension>
 
 </plugin>
