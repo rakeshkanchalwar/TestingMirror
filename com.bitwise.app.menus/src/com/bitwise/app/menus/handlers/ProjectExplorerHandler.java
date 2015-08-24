@@ -7,7 +7,7 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-public class EtlNavigatorHandler extends AbstractHandler implements IHandler {
+public class ProjectExplorerHandler extends AbstractHandler implements IHandler {
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		// TODO Auto-generated method stub

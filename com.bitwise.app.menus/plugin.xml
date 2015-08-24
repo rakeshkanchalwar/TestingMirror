@@ -60,7 +60,7 @@
             commandId="com.bitwise.menuBar.outline">
       </handler>
       <handler
-            class="com.bitwise.app.menus.handlers.EtlNavigatorHandler"
+            class="com.bitwise.app.menus.handlers.ProjectExplorerHandler"
             commandId="com.bitwise.menuBar.ETLNavigator">
       </handler>
       <handler
