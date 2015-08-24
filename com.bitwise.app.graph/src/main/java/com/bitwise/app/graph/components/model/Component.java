@@ -46,7 +46,9 @@ public abstract class Component extends ModelElement{
 	static {
 		propertyNames= new LinkedHashMap<>();
 		descriptors = new IPropertyDescriptor[] {
-				new TextPropertyDescriptor(NAME_PROP, "Name"),};
+				new TextPropertyDescriptor(NAME_PROP, "Name"),
+				new TextPropertyDescriptor(XPOS_PROP, "xPos")
+		};
 	} 
 	
 	public static void setDescriptors(IPropertyDescriptor[] descriptors) {
@@ -121,9 +123,11 @@ public abstract class Component extends ModelElement{
 			setComponentName((String)value);
 		} else if (propertyNames.containsKey(propertyId)){
 			propertyValues.put((String)propertyId, (String) value);
+			firePropertyChange((String) propertyId, null, value);
 		}else {
 			super.setPropertyValue(propertyId, value);
 		}
+		
 	}
 
 	

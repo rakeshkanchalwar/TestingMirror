@@ -24,8 +24,9 @@ public class GenericComponent extends Component{
 	public void initPropertyDescriptors(String compName, GenericComponent tempModel){
 			
 		LinkedHashMap<String,ComponentProperty> componentProperties = ComponentAdapter.getComponentProperty(compName);
-		
+		//getTempPropertyDescriptors();
 		propertyDescriptors = new IPropertyDescriptor[componentProperties.size()];
+		super.setOtherPropertyNames(componentProperties);
 		int index=0;
 		for(String key : componentProperties.keySet()){
 			propertyDescriptors[index] = new TextPropertyDescriptor(
@@ -36,7 +37,8 @@ public class GenericComponent extends Component{
 			index++;
 		}
 		IconPath=componentProperties.get("Shape.icon").getPropValue();
-		super.setOtherPropertyNames(componentProperties);
+		//super.setOtherPropertyNames(componentProperties);
+		//firePropertyChange((String) propertyId, null, value);
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class GenericComponent extends Component{
 		return createImage(IconPath);
 	}
 	
-	/*public IPropertyDescriptor[] getTempPropertyDescriptors() {		
+	public IPropertyDescriptor[] getTempPropertyDescriptors() {		
 		IPropertyDescriptor[] parentDescriptors = super
 				.getPropertyDescriptors();
 		int totalArraySize = parentDescriptors.length + propertyDescriptors.length;
@@ -64,7 +66,7 @@ public class GenericComponent extends Component{
 		System.arraycopy(parentDescriptors, 0, compDescriptors, 0, parentDescriptors.length);
 		System.arraycopy(propertyDescriptors, 0, compDescriptors, parentDescriptors.length, propertyDescriptors.length);
 		return compDescriptors;
-	}*/
+	}
 	
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {		
