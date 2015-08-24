@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MainPerspective
+Bundle-SymbolicName: com.bitwise.app.perspective;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.bitwise.app.perspective.Activator
+Bundle-Vendor: BITWISE
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.ide;bundle-version="3.7.0"
+Bundle-ActivationPolicy: lazy

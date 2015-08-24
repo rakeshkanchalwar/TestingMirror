@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.bitwise.app.graph.Application">
+         </run>
+      </application>
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="com.bitwise.app.graph.Perspective"
+            id="com.bitwise.app.graph.perspective">
+      </perspective>
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.bitwise.app.graph.editor.ComponentGraphEditor"
+            contributorClass="com.bitwise.app.graph.editor.ComponentGraphicalEditorActionBarContributor"
+            default="false"
+            id="com.bitwise.app.graph.editor.mygraphicaleditor"
+            name="MyGraphicalEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.bitwise.app.graph.components.handlers.NewGraphHandler1"
+            commandId="com.bitwise.app.graph.newGraphcommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="menu:com.bitwise.app.menus.NewMenu?before=com.bitwise.app.menus.NewMenu.Class">
+         <menu
+               label="Job">
+            <command
+                  commandId="com.bitwise.app.graph.newGraphcommand"
+                  id="com.bitwise.app.graph.newGraphcommand_id"
+                  label="New Graph">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="com.bitwise.app.graph.newGraphcategory"
+            id="com.bitwise.app.graph.newGraphcommand"
+            name="New graph">
+      </command>
+      <category
+            id="com.bitwise.app.graph.newGraphcategory"
+            name="New Graph Category">
+      </category>
+   </extension>
+
+</plugin>
