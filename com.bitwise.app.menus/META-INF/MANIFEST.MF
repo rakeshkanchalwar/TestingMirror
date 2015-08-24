@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Menus
+Bundle-SymbolicName: com.bitwise.app.menus; singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.bitwise.app.menus.Activator
+Bundle-Vendor: BITWISE
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.wst.xml.ui;bundle-version="1.1.202"
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.ui.console
