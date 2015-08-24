@@ -190,7 +190,7 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 
-		setPartName("Components Graph");
+		setPartName(getEditorInput().getName());
 		diagram = new ComponentsDiagram();
 	}
 

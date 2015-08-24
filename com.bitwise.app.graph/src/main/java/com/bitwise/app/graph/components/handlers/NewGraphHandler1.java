@@ -15,7 +15,7 @@ import com.bitwise.app.graph.editor.GraphEditorInput;
 
 
 public class NewGraphHandler1 extends AbstractHandler{
-	
+	private int graphCounter=1; 
 	public NewGraphHandler1() {
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +26,7 @@ public class NewGraphHandler1 extends AbstractHandler{
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		//page.openEditor(new MyEditorInput("com.bitwise.app.graph"), CompanyGraphEditor.ID, false);
 		try {
-			page.openEditor(new GraphEditorInput("com.bitwise.app.graph"), ComponentGraphEditor.ID, false);
+			page.openEditor(new GraphEditorInput("Graph "+graphCounter++), ComponentGraphEditor.ID, false);
 		} catch (PartInitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

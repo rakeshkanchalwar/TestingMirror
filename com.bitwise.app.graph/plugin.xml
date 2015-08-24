@@ -12,6 +12,7 @@
             class="com.bitwise.app.graph.editor.ComponentGraphEditor"
             contributorClass="com.bitwise.app.graph.editor.ComponentGraphicalEditorActionBarContributor"
             default="false"
+            extensions="graph"
             id="com.bitwise.app.graph.editor.mygraphicaleditor"
             name="MyGraphicalEditor">
       </editor>
@@ -33,7 +34,8 @@
             <command
                   commandId="com.bitwise.app.graph.newGraphcommand"
                   id="com.bitwise.app.graph.newGraphcommand_id"
-                  label="New Graph">
+                  label="New Graph"
+                  mnemonic="N">
             </command>
          </menu>
       </menuContribution>
