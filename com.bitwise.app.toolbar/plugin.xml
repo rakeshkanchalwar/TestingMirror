@@ -40,11 +40,6 @@
             <separator
                   name="com.bitwise.app.toolbar.separator3">
             </separator>
-            <command
-                  commandId="org.eclipse.jdt.debug.ui.localJavaShortcut.run"
-                  id="Run"
-                  style="push">
-            </command>
          </toolbar>
       </menuContribution>
    </extension>
