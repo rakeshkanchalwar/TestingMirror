@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.bitwise.app.perspective.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="com.bitwise.app.perspective.Perspective"
+            id="com.bitwise.app.perspective.perspective">
+      </perspective>
+   </extension>
+   <extension
+         id="productId"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.bitwise.app.perspective.application"
+            name="ETL UI Tool">
+         <property
+               name="appName"
+               value="ETL UI Tool">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               closeable="true"
+               id="org.eclipse.gef.ui.palette_view"
+               minimized="true"
+               moveable="true"
+               ratio="0.25"
+               relationship="top"
+               relative="com.bitwise.app.project.structure.navigator"
+               showTitle="true"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>
