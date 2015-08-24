@@ -58,6 +58,7 @@ import com.bitwise.app.graph.components.ComponentsEditPartFactory;
 import com.bitwise.app.graph.components.ComponentsEditorContextMenuProvider;
 import com.bitwise.app.graph.components.ComponentsPlugin;
 import com.bitwise.app.graph.components.commands.RenameAction;
+import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.ComponentsDiagram;
 import com.bitwise.app.graph.components.model.Connection;
 import com.bitwise.app.graph.components.model.GenericComponent;
@@ -250,7 +251,12 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		//getCommandStack().markSaveLocation();
 		firePropertyChange(PROP_DIRTY);
 
-
+		//System.out.println(((Component)getModel()).getPropertyValuesJSON());
+		
+		ComponentsDiagram componentsDiagram=getModel();
+		Component compx=(Component) componentsDiagram.getChildren().get(0);
+		System.out.println(compx.getPropertyValuesJSON());
+		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
 

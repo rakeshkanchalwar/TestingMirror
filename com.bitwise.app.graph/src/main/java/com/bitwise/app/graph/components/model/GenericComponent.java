@@ -68,6 +68,14 @@ public class GenericComponent extends Component{
 		return compDescriptors;
 	}
 	
+	
+	
+	@Override
+	public String getPropertyValuesJSON() {
+		// TODO Auto-generated method stub
+		return super.getPropertyValuesJSON();
+	}
+
 	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {		
 		IPropertyDescriptor[] parentDescriptors = super

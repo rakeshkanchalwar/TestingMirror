@@ -43,6 +43,11 @@ public abstract class Component extends ModelElement{
 	private List targetConnections = new ArrayList();
 	private LinkedHashMap<String, String> propertyValues = new LinkedHashMap<>();
 	
+	
+	public String getPropertyValuesJSON() {
+		return "Component [propertyValues=" + propertyValues + "]";
+	}
+
 	static {
 		propertyNames= new LinkedHashMap<>();
 		descriptors = new IPropertyDescriptor[] {
