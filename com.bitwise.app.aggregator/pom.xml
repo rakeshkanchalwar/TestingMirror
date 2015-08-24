@@ -18,6 +18,7 @@
         <module>../com.bitwise.app.menus</module>
         <module>../com.bitwise.app.project.structure</module>
         <module>../com.bitwise.app.product</module>
+        <module>../com.bitwise.app.toolbar</module>
         
         
     </modules>
