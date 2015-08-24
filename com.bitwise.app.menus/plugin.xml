@@ -52,6 +52,10 @@
             id="com.bitwise.app.menus.job"
             name="job">
       </command>
+      <command
+            id="com.bitwise.menuBar.palette"
+            name="Palette">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -70,6 +74,10 @@
       <handler
             class="com.bitwise.app.menus.handlers.PropertiesHandler"
             commandId="com.bitwise.menuBar.properties">
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.PaletteHandler"
+            commandId="com.bitwise.menuBar.palette">
       </handler>
    </extension>
    <extension
@@ -186,6 +194,10 @@
                   commandId="com.bitwise.menuBar.properties"
                   label="Properties"
                   style="push">
+            </command>
+            <command
+                  commandId="com.bitwise.menuBar.palette"
+                  label="Palette">
             </command>
          </menu>
          <menu
