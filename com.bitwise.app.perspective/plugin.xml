@@ -14,9 +14,9 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
+            name="ETL Perspective"
             class="com.bitwise.app.perspective.Perspective"
-            id="com.bitwise.app.perspective.perspective">
+            id="com.bitwise.app.perspective.etlperspective">
       </perspective>
    </extension>
    <extension
