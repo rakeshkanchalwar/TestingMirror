@@ -306,6 +306,7 @@ PropertyChangeListener, NodeEditPart {
 		} else if (Component.TARGET_CONNECTIONS_PROP.equals(prop)) {
 			refreshTargetConnections();
 		}
+		//refreshVisuals();
 	}
 
 	protected void refreshVisuals() {

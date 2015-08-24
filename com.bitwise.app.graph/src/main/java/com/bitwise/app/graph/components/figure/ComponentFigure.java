@@ -2,6 +2,9 @@ package com.bitwise.app.graph.components.figure;
 
 
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
@@ -10,8 +13,10 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Image;
 
 import com.bitwise.app.adapters.ComponentAdapter;
+import com.bitwise.app.graph.components.ComponentsPlugin;
 import com.bitwise.app.graph.components.model.Component;
 import com.bitwise.app.graph.components.model.GenericComponent;
 
@@ -49,7 +54,8 @@ public class ComponentFigure extends Figure{
 		//genericComponent.setComponentName(tempModel); 
 		component=genericComponent;
 		
-		image=new ImageFigure(component.getIcon());
+		//image=new ImageFigure(component.getIcon());
+		image=new ImageFigure(createImage(genericComponent.IconPath));
 		add(image);
 		setConstraint(image, new Rectangle(5, 19, -1, -1));
 		
@@ -57,6 +63,16 @@ public class ComponentFigure extends Figure{
 		setBackgroundColor(ColorConstants.gray);
 		setBorder(new LineBorder(1));
 		}
+	
+	private Image createImage(String name) {
+		InputStream stream = ComponentsPlugin.class.getResourceAsStream(name);
+		Image image = new Image(null, stream);
+		try {
+			stream.close();
+		} catch (IOException ioe) {
+		}
+		return image;
+	}
 	/*public ComponentFigure(String componentName) {
 		layout = new XYLayout();
 		setLayoutManager(layout);
