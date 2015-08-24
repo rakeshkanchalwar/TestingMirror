@@ -48,6 +48,10 @@
             id="com.bitwise.menuBar.properties"
             name="properties">
       </command>
+      <command
+            id="com.bitwise.app.menus.job"
+            name="job">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -80,6 +84,11 @@
             <menu
                   id="com.bitwise.app.menus.NewMenu"
                   label="New">
+               <command
+                     commandId="com.bitwise.app.menus.job"
+                     label="Job"
+                     style="push">
+               </command>
                 <command
                      commandId="org.eclipse.ui.newWizard"
                      id="com.bitwise.app.menus.NewMenu.Class"
