@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: MainPerspective
+Bundle-Name: perspective
 Bundle-SymbolicName: com.bitwise.app.perspective;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.bitwise.app.perspective.Activator
