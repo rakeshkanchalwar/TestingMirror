@@ -14,9 +14,10 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="ETL Perspective"
             class="com.bitwise.app.perspective.Perspective"
-            id="com.bitwise.app.perspective.etlperspective">
+            icon="icons/etlperspective.ico"
+            id="com.bitwise.app.perspective.etlperspective"
+            name="ETL">
       </perspective>
    </extension>
    <extension
