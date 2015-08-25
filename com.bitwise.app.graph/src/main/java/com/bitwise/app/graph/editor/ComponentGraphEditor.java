@@ -253,13 +253,15 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette {
 		}
 
 		if (getEditorInput() instanceof FileStoreEditorInput) {
-
-			File file = new File(
+			FileOutputStream fsout;
+			ObjectOutputStream objout;
+			File file;
+			file = new File(
 					((FileStoreEditorInput) getEditorInput()).getToolTipText());
 			{
 				try {
-					FileOutputStream fsout = new FileOutputStream(file);
-					ObjectOutputStream objout = new ObjectOutputStream(fsout);
+					fsout = new FileOutputStream(file);
+					objout = new ObjectOutputStream(fsout);
 					objout.writeObject(getModel());
 					objout.close();
 					fsout.close();
@@ -353,6 +355,7 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette {
 	public void doSaveAs() {
 		IFile file;
 		IPath filePath;
+		ByteArrayOutputStream out;
 		SaveAsDialog obj = new SaveAsDialog(new Shell());
 		if (getEditorInput().getName().endsWith(".graph"))
 			obj.setOriginalName(getEditorInput().getName());
@@ -363,7 +366,7 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette {
 			filePath = obj.getResult().removeFileExtension()
 					.addFileExtension("graph");
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			out = new ByteArrayOutputStream();
 			try {
 				createOutputStream(out);
 				if (file.exists())
