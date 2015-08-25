@@ -21,18 +21,6 @@
             name="xml">
       </command>
       <command
-            id="com.bitwise.menuBar.config"
-            name="config">
-      </command>
-      <command
-            id="com.bitwise.menuBar.script"
-            name="script">
-      </command>
-      <command
-            id="com.bitwise.menuBar.textFile"
-            name="textFile">
-      </command>
-      <command
             id="com.bitwise.menuBar.console"
             name="console">
       </command>
@@ -101,22 +89,13 @@
                   </parameter>
                </command>
                <command
-                     commandId="com.bitwise.menuBar.script"
-                     id="com.bitwise.app.menus.NewMenu.Script"
-                     label="Script"
+                     commandId="org.eclipse.ui.newWizard"
+                     label="File"
                      style="push">
-               </command>
-               <command
-                     commandId="com.bitwise.menuBar.textFile"
-                     id="com.bitwise.app.menus.NewMenu.TextFile"
-                     label="Text File..."
-                     style="push">
-               </command>
-               <command
-                     commandId="com.bitwise.menuBar.config"
-                     id="com.bitwise.app.menus.NewMenu.Config"
-                     label="Config"
-                     style="push">
+                  <parameter
+                        name="newWizardId"
+                        value="org.eclipse.ui.wizards.new.file">
+                  </parameter>
                </command>
                <separator
                      name="com.bitwise.app.menus.separator1"
