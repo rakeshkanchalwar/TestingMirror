@@ -2,7 +2,11 @@ package com.bitwise.app.graph.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -10,7 +14,9 @@ import java.util.EventObject;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
@@ -45,10 +51,14 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.dialogs.SaveAsDialog;
+import org.eclipse.ui.ide.FileStoreEditorInput;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.bitwise.app.graph.components.ComponentsEditPartFactory;
 import com.bitwise.app.graph.components.ComponentsEditorContextMenuProvider;
@@ -58,8 +68,7 @@ import com.bitwise.app.graph.components.model.ComponentsDiagram;
 import com.bitwise.app.graph.components.model.Connection;
 import com.bitwise.app.graph.components.model.GenericComponent;
 
-
-public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
+public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette {
 	private ComponentsDiagram diagram;
 	public static final String ID = "com.bitwise.app.graph.editor.mygraphicaleditor";
 
@@ -80,17 +89,16 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		getSite().registerContextMenu(cmProvider, viewer);
 
 		configureZoomSettings(viewer);
-		
+
 		IAction action = new RenameAction(this);
 		getActionRegistry().registerAction(action);
 		getSelectionActions().add(action.getId());
 
 	}
-	
-	private void configureZoomSettings(GraphicalViewer viewer){
+
+	private void configureZoomSettings(GraphicalViewer viewer) {
 		double[] zoomLevels;
 		ArrayList<String> zoomContributions;
-
 
 		ScalableFreeformRootEditPart rootEditPart = new ScalableFreeformRootEditPart();
 		viewer.setRootEditPart(rootEditPart);
@@ -98,8 +106,8 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		getActionRegistry().registerAction(new ZoomInAction(manager));
 		getActionRegistry().registerAction(new ZoomOutAction(manager));
 
-		zoomLevels = new double[] {0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 10.0,
-				20.0};
+		zoomLevels = new double[] { 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0,
+				4.0, 5.0, 10.0, 20.0 };
 		manager.setZoomLevels(zoomLevels);
 
 		zoomContributions = new ArrayList<String>();
@@ -108,25 +116,19 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		zoomContributions.add(ZoomManager.FIT_WIDTH);
 		manager.setZoomLevelContributions(zoomContributions);
 
-
 		KeyHandler keyHandler = new KeyHandler();
-		keyHandler.put(
-				KeyStroke.getPressed(SWT.DEL, 127, 0),
+		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
 				getActionRegistry().getAction(ActionFactory.DELETE.getId()));
-		keyHandler.put(
-				KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
+		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
 				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
-		keyHandler.put(
-				KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
+		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
 				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
 
-		viewer.setProperty(
-				MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
+		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
 				MouseWheelZoomHandler.SINGLETON);
 		viewer.setKeyHandler(keyHandler);
 	}
 
-	
 	@Override
 	protected void initializeGraphicalViewer() {
 		System.out.println("initializeGraphicalViewer");
@@ -189,35 +191,84 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 	@Override
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
+		if (getEditorInput() instanceof GraphEditorInput) {
+			setPartName(getEditorInput().getName());
+			diagram = new ComponentsDiagram();
+		}
+		try {
+			System.out.println("SetInput Loded");
+			if (input instanceof IFileEditorInput) {
+				IFile file = ((IFileEditorInput) input).getFile();
 
-		setPartName(getEditorInput().getName());
-		diagram = new ComponentsDiagram();
+				System.out.println("<<<<<<<<<<I M HERE>>>>>>");
+				ObjectInputStream in = new ObjectInputStream(file.getContents());
+				diagram = (ComponentsDiagram) in.readObject();
+				in.close();
+
+				setPartName(file.getName());
+			}
+			if (input instanceof FileStoreEditorInput) {
+				File file = new File(
+						((FileStoreEditorInput) input).getToolTipText());
+				FileInputStream fs = new FileInputStream(file);
+				ObjectInputStream in = new ObjectInputStream(fs);
+				diagram = (ComponentsDiagram) in.readObject();
+				in.close();
+
+				setPartName(file.getName());
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		System.out.println("doSave called from MyGraph");
-		//getCommandStack().markSaveLocation();
 		firePropertyChange(PROP_DIRTY);
 
+		if (getEditorInput() instanceof GraphEditorInput) {
+			doSaveAs();
+		}
 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
+		if (getEditorInput() instanceof FileEditorInput) {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
 
-			createOutputStream(out);
-			IFile file = ((IFileEditorInput) getEditorInput()).getFile();
+				createOutputStream(out);
+				IFile file = ((IFileEditorInput) getEditorInput()).getFile();
 
-			file.setContents(new ByteArrayInputStream(out.toByteArray()), true, 
-					false, // dont keep history
-					monitor); // progress monitor
+				file.setContents(new ByteArrayInputStream(out.toByteArray()),
+						true, false, // dont keep history
+						monitor); // progress monitor
 
-			getCommandStack().markSaveLocation();
-		} catch (CoreException ce) {
-			ce.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+				getCommandStack().markSaveLocation();
+			} catch (CoreException ce) {
+				ce.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+
+		if (getEditorInput() instanceof FileStoreEditorInput) {
+
+			File file = new File(
+					((FileStoreEditorInput) getEditorInput()).getToolTipText());
+			{
+				try {
+					FileOutputStream fsout = new FileOutputStream(file);
+					ObjectOutputStream objout = new ObjectOutputStream(fsout);
+					objout.writeObject(getModel());
+					objout.close();
+					fsout.close();
+					getCommandStack().markSaveLocation();
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+			}
+
 		}
 	}
 
@@ -226,7 +277,6 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		oos.writeObject(getModel());
 		oos.close();
 	}
-
 
 	@Override
 	protected PaletteRoot getPaletteRoot() {
@@ -244,6 +294,7 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		palette.add(createShapesDrawer());
 		return categories;
 	}
+
 	private static PaletteContainer createToolsGroup(PaletteRoot palette) {
 		PaletteToolbar toolbar = new PaletteToolbar("Tools");
 
@@ -258,17 +309,17 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 		// Add (solid-line) connection tool
 		tool = new ConnectionCreationToolEntry("Solid connection",
 				"Create a solid-line connection", new CreationFactory() {
-			public Object getNewObject() {
-				return null;
-			}
+					public Object getNewObject() {
+						return null;
+					}
 
-			// see ShapeEditPart#createEditPolicies()
-			// this is abused to transmit the desired line style
-			public Object getObjectType() {
-				return Connection.SOLID_CONNECTION;
-			}
-		}, ImageDescriptor.createFromFile(ComponentsPlugin.class,
-				"icons/connection_s16.gif"),
+					// see ShapeEditPart#createEditPolicies()
+					// this is abused to transmit the desired line style
+					public Object getObjectType() {
+						return Connection.SOLID_CONNECTION;
+					}
+				}, ImageDescriptor.createFromFile(ComponentsPlugin.class,
+						"icons/connection_s16.gif"),
 				ImageDescriptor.createFromFile(ComponentsPlugin.class,
 						"icons/connection_s24.gif"));
 		toolbar.add(tool);
@@ -282,22 +333,59 @@ public class ComponentGraphEditor extends GraphicalEditorWithFlyoutPalette{
 				"Input", "Create an Input component", GenericComponent.class,
 				new SimpleFactory(GenericComponent.class),
 				ImageDescriptor.createFromFile(ComponentsPlugin.class,
-						"icons/InputFile_Palette.png"), ImageDescriptor.createFromFile(
-								ComponentsPlugin.class, "icons/InputFile.png"));
+						"icons/InputFile_Palette.png"),
+				ImageDescriptor.createFromFile(ComponentsPlugin.class,
+						"icons/InputFile.png"));
 		componentsDrawer.add(component);
-		
-		CombinedTemplateCreationEntry component2 = new CombinedTemplateCreationEntry("Output",
-				"Create a Output component", GenericComponent.class,
+
+		CombinedTemplateCreationEntry component2 = new CombinedTemplateCreationEntry(
+				"Output", "Create a Output component", GenericComponent.class,
 				new SimpleFactory(GenericComponent.class),
 				ImageDescriptor.createFromFile(ComponentsPlugin.class,
 						"icons/OutputFile_Palette.png"),
-						ImageDescriptor.createFromFile(ComponentsPlugin.class,
-								"icons/OutputFile.png"));
+				ImageDescriptor.createFromFile(ComponentsPlugin.class,
+						"icons/OutputFile.png"));
 		componentsDrawer.add(component2);
 		System.out.println("createShapesDrawer2");
 		return componentsDrawer;
 	}
 
-	
+	public void doSaveAs() {
+		IFile file;
+		IPath filePath;
+		SaveAsDialog obj = new SaveAsDialog(new Shell());
+		if (getEditorInput().getName().endsWith(".graph"))
+			obj.setOriginalName(getEditorInput().getName());
+		else
+			obj.setOriginalName(getEditorInput().getName() + ".graph");
+		obj.open();
+		if (obj.getReturnCode() == 0) {
+			filePath = obj.getResult().removeFileExtension()
+					.addFileExtension("graph");
+			file = ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				createOutputStream(out);
+				if (file.exists())
+					file.setContents(
+							new ByteArrayInputStream(out.toByteArray()), true,
+							false, null);
+				else
+					file.create(new ByteArrayInputStream(out.toByteArray()),
+							true, null);
+				setInput(new FileEditorInput(file));
+				getCommandStack().markSaveLocation();
+			} catch (CoreException ce) {
+				ce.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+	}
 
+	@Override
+	public boolean isSaveAsAllowed() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

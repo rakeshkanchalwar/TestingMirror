@@ -34,10 +34,25 @@
             <command
                   commandId="com.bitwise.app.graph.newGraphcommand"
                   id="com.bitwise.app.graph.newGraphcommand_id"
-                  label="New Graph"
-                  mnemonic="N">
+                  label="New Graph">
             </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="menu:com.bitwise.app.menus.FileMenu?before=com.bitwise.app.menus.FileMenu.OpenFile">
+         <command
+               commandId="org.eclipse.ui.file.save"
+               id="com.bitwise.app.graph.Save"
+               label="Save"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.file.saveAs"
+               id="com.bitwise.app.graph.SaveAs"
+               label="Save As"
+               style="push">
+         </command>
       </menuContribution>
    </extension>
    <extension
