@@ -7,8 +7,10 @@
   <groupId>com.bitwise.app</groupId>
   <version>2.0.0-SNAPSHOT</version>
   <!-- RCPTT Maven Plugin provides this packaging type -->
+  
   <packaging>rcpttTest</packaging>
 
+  
   <!-- RCPTT Maven Plugin and RCPTT Runner are hosted in this repository -->
   <pluginRepositories>
     <pluginRepository>
