@@ -222,5 +222,26 @@
          </hiddenMenuItem>
       </perspectiveExtension>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.bitwise.menuBar.palette"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+P">
+      </key>
+      <key
+            commandId="com.bitwise.menuBar.ETLNavigator"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+E">
+      </key>
+      <key
+            commandId="com.bitwise.menuBar.properties"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+T">
+      </key>
+   </extension>
 
 </plugin>
