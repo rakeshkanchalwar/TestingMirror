@@ -16,7 +16,7 @@
       <perspective
             class="com.bitwise.app.perspective.Perspective"
             icon="icons/etlperspective.ico"
-            id="com.bitwise.app.perspective.etlperspective"
+            id="com.bitwise.app.perspective.ETLPerspective"
             name="ETL">
       </perspective>
    </extension>
