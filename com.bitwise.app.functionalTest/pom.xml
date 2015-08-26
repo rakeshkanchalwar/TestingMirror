@@ -41,15 +41,15 @@
           <runner>
             <version>${rcptt-maven-version}</version>
 
-            <vmArgs>
+            <!-- <vmArgs>
               <vmArg>-Xmx1024m</vmArg>
               <vmArg>-XX:MaxPermSize=256m</vmArg>
-            </vmArgs>
+            </vmArgs> -->
           </runner>
-      <!--  <testOptions>
+   <testOptions>
             <execTimeout>1800</execTimeout>
             <testExecTimeout>300</testExecTimeout>
-       </testOptions> -->
+       </testOptions>
           <suites>
 			<suite>TestSuite</suite>
 		  </suites>
