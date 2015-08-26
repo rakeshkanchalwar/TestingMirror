@@ -59,7 +59,7 @@
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="com.bitwise.app.perspective.etlperspective">
+            targetID="com.bitwise.app.perspective.ETLPerspective">
          <view
                closeable="true"
                id="org.eclipse.gef.ui.palette_view"
