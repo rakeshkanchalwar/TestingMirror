@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="com.bitwise.app.graph.commands"
+         name="Graph Commands"
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="com.bitwise.app.graph.newGraphcategory"
+            id="com.bitwise.app.graph.newGraphcommand"
+            name="New Graph">
+      </command>
+      <category
+            id="com.bitwise.app.graph.newGraphcategory"
+            name="New Graph Category">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.bitwise.app.graph.handler.NewGraphHandler"
+            commandId="com.bitwise.app.graph.newGraphcommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="menu:com.bitwise.app.menus.NewMenu?before=com.bitwise.app.menus.NewMenu.Class">
+         <menu
+               id="com.bitwise.app.graph.job.id"
+               label="Job">
+            <command
+                  commandId="com.bitwise.app.graph.newGraphcommand"
+                  id="com.bitwise.app.graph.newGraphcommand_id"
+                  label="New Graph">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.bitwise.app.graph.editor.ETLGraphicalEditor"
+            default="false"
+            id="com.bitwise.app.graph.etlgraphicaleditor"
+            name="My Graphical Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.bitwise.app.graph.newGraphcommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+J">
+      </key>
+   </extension>
+
+</plugin>
