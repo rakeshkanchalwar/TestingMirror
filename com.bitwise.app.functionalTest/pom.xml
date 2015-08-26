@@ -35,7 +35,7 @@
         <extensions>true</extensions>
         <configuration>
            <aut>
-      <explicit>/var/lib/jenkins/jobs/project_build/workspace/com.bitwise.app.product/target/products/com.bitwise.app.perspective.ID/linux/gtk/x86_64/</explicit>   
+      <explicit>/home/hduser/x86_64/com.bitwise.app.perspective.ID-linux.gtk.x86_64.zip</explicit>   
             </aut>
 
           <runner>
