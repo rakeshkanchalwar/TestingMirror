@@ -1,9 +1,13 @@
 package com.bitwise.app.perspective;
 
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.eclipse.ui.internal.WorkbenchWindow;
 
 import com.bitwise.app.perspective.config.ELTWorkbenchConfig;
 
