@@ -15,6 +15,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     }
 
     protected void fillMenuBar(IMenuManager menuBar) {
+    	
     }
     
 }

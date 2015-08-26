@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 
-public class ETLToolPerspetiveList {
+public class ELTToolPerspetiveList {
 	
 	public static ArrayList<String> requiredPerspetives;
 	

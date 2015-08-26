@@ -1,9 +1,13 @@
 package com.bitwise.app.perspective;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.ide.IDE;
+
+import sun.misc.Resource;
 
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
@@ -16,5 +20,10 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
 	public String getInitialWindowPerspectiveId() {
 		return PERSPECTIVE_ID;
+	}
+
+	@Override
+	public IAdaptable getDefaultPageInput() {
+		return ResourcesPlugin.getWorkspace().getRoot();
 	}
 }

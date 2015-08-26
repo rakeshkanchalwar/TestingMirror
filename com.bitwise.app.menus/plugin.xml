@@ -37,10 +37,6 @@
             name="properties">
       </command>
       <command
-            id="com.bitwise.app.menus.job"
-            name="job">
-      </command>
-      <command
             id="com.bitwise.menuBar.palette"
             name="Palette">
       </command>
@@ -80,11 +76,6 @@
             <menu
                   id="com.bitwise.app.menus.NewMenu"
                   label="New">
-               <command
-                     commandId="com.bitwise.app.menus.job"
-                     label="Job"
-                     style="push">
-               </command>
                 <command
                      commandId="org.eclipse.ui.newWizard"
                      id="com.bitwise.app.menus.NewMenu.Class"
@@ -180,6 +171,7 @@
             </command>
          </menu>
          <menu
+               id="com.bitwise.app.menus.HelpMenu"
                label="Help">
             <command
                   commandId="com.bitwise.menuBar.command18"

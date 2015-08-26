@@ -17,7 +17,7 @@
             class="com.bitwise.app.perspective.Perspective"
             icon="icons/etlperspective.ico"
             id="com.bitwise.app.perspective.ETLPerspective"
-            name="ETL">
+            name="ELT">
       </perspective>
    </extension>
    <extension
@@ -31,6 +31,52 @@
                value="ETL UI Tool">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?before=com.bitwise.app.menus.HelpMenu">
+         <menu
+               id="com.bitwise.app.menus.WindowMenu"
+               label="Window">
+            <menu
+                  label="Perspective">
+               <menu
+                     label="Open perspective">
+               </menu>
+               <command
+                     commandId="org.eclipse.ui.window.resetPerspective"
+                     label="Reset Perspective"
+                     style="radio">
+               </command>
+               <separator
+                     name="com.bitwise.app.perspective.separator"
+                     visible="true">
+               </separator>
+               <command
+                     commandId="org.eclipse.ui.window.customizePerspective"
+                     label="Customize Perspective.."
+                     style="push">
+               </command>
+               <command
+                     commandId="org.eclipse.ui.window.savePerspective"
+                     label="Save Perspective As.."
+                     style="push">
+               </command>
+               <command
+                     commandId="org.eclipse.ui.window.closePerspective"
+                     label="Close Perspective"
+                     style="push">
+               </command>
+               <command
+                     commandId="org.eclipse.ui.window.closeAllPerspectives"
+                     label="Close All Perspectives"
+                     style="push">
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
    </extension>
 
 </plugin>
