@@ -1,10 +1,15 @@
 package com.bitwise.app.perspective;
 
 
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+import com.bitwise.app.perspective.config.ETLToolPerspetiveList;
+import com.bitwise.app.perspective.utils.PerspectiveManager;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -24,6 +29,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setTitle("ETL Tool"); //$NON-NLS-1$
         configurer.setShowPerspectiveBar(true);
         
-        
+        PerspectiveManager.removeUnWantedPerspectives();
     }
 }

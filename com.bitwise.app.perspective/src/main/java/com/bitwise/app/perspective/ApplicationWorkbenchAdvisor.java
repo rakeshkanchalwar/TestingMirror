@@ -7,7 +7,7 @@ import org.eclipse.ui.ide.IDE;
 
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
-	private static final String PERSPECTIVE_ID = "com.bitwise.app.perspective.etlperspective"; //$NON-NLS-1$
+	private static final String PERSPECTIVE_ID = "com.bitwise.app.perspective.ETLPerspective"; //$NON-NLS-1$
 
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
     	IDE.registerAdapters();
