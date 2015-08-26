@@ -8,7 +8,7 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.PlatformUI;
 
-import com.bitwise.app.perspective.config.ETLToolPerspetiveList;
+import com.bitwise.app.perspective.config.ELTToolPerspetiveList;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class PerspectiveManager {
 		ArrayList<IPerspectiveDescriptor> addPerspectiveList = new ArrayList<>();
 		// Add the perspective descriptors with the matching perspective ids to the list
 		for (IPerspectiveDescriptor perspectiveDescriptor : registeredPerspetives) {
-			if(ETLToolPerspetiveList.requiredPerspetives.contains(perspectiveDescriptor.getId())) {
+			if(ELTToolPerspetiveList.requiredPerspetives.contains(perspectiveDescriptor.getId())) {
 				addPerspectiveList.add(perspectiveDescriptor);
 			}
 		}
@@ -56,7 +56,7 @@ public class PerspectiveManager {
 		ArrayList<IPerspectiveDescriptor> ignorePerspectiveList = new ArrayList<>();
 		// Add the perspective descriptors with the matching perspective ids to the list
 		for (IPerspectiveDescriptor perspectiveDescriptor : registeredPerspetives) {
-			if(!ETLToolPerspetiveList.requiredPerspetives.contains(perspectiveDescriptor.getId())) {
+			if(!ELTToolPerspetiveList.requiredPerspetives.contains(perspectiveDescriptor.getId())) {
 				ignorePerspectiveList.add(perspectiveDescriptor);
 			}
 		}
