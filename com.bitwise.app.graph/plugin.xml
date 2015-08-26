@@ -27,15 +27,11 @@
       <menuContribution
             allPopups="true"
             locationURI="menu:com.bitwise.app.menus.NewMenu?before=com.bitwise.app.menus.NewMenu.Class">
-         <menu
-               id="com.bitwise.app.graph.job.id"
-               label="Job">
-            <command
-                  commandId="com.bitwise.app.graph.newGraphcommand"
-                  id="com.bitwise.app.graph.newGraphcommand_id"
-                  label="New Graph">
-            </command>
-         </menu>
+         <command
+               commandId="com.bitwise.app.graph.newGraphcommand"
+               label="Job"
+               style="push">
+         </command>
       </menuContribution>
    </extension>
    <extension
