@@ -105,11 +105,6 @@
                   label="Open File...">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.exit"
-                  label="Exit"
-                  style="push">
-            </command>
-            <command
                   commandId="org.eclipse.ui.file.close"
                   id="bitwise.close.id"
                   label="Close"
@@ -118,6 +113,11 @@
             <command
                   commandId="org.eclipse.ui.file.closeAll"
                   label="Close All"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit"
                   style="push">
             </command>
          </menu>
