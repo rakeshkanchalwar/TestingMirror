@@ -83,6 +83,15 @@
             </command>
          </toolbar>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.bitwise.app.graph.newJob">
+         <command
+               commandId="com.bitwise.app.graph.newGraphcommand"
+               icon="icon/job.png"
+               style="push">
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
