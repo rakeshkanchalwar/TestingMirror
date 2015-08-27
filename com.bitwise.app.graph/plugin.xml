@@ -37,6 +37,56 @@
             </command>
          </menu>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="com.bitwise.app.graph.toolbar1">
+            <command
+                  commandId="org.eclipse.ui.newWizard"
+                  id="com.bitwise.app.newWizard"
+                  label="New"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.save"
+                  id="com.bitwise.app.save"
+                  label="Save"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.bitwise.app.graph.newGraphcommand"
+                  icon="icon/imag.png"
+                  id="com.bitwise.app.graph.newJob"
+                  style="pulldown">
+            </command>
+            <separator
+                  name="com.bitwise.app.graph.separator1"
+                  visible="true">
+            </separator>
+            <separator
+                  name="com.bitwise.app.graph.separator2"
+                  visible="false">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.edit.undo"
+                  id="com.bitwise.app.undo"
+                  label="Undo"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.redo"
+                  id="com.bitwise.app.redo"
+                  label="Redo"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.delete"
+                  label="Delete"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
