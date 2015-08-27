@@ -40,10 +40,11 @@
          <menu
                id="com.bitwise.app.menus.WindowMenu.Perspective"
                label="Perspective">
-            <menu
-                  id="com.bitwise.app.menus.WindowMenu.Perspective.Openperspective"
-                  label="Open perspective">
-            </menu>
+            <command
+                  commandId="org.eclipse.ui.perspectives.showPerspective"
+                  label="Open perspective"
+                  style="push">
+            </command>
             <command
                   commandId="org.eclipse.ui.window.resetPerspective"
                   label="Reset Perspective"
