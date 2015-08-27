@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
- <extension
-         point="org.eclipse.ui.commands">
-     
-      <command
-            id="com.bitwise.window.console"
-            name="console">
-      </command>
-      <command
-            id="com.bitwise.window.outline"
-            name="outline">
-      </command>
-      <command
-            id="com.bitwise.window.ETLNavigator"
-            name="ETLNavigator">
-      </command>
-      <command
-            id="com.bitwise.window.properties"
-            name="properties">
-      </command>
-      <command
-            id="com.bitwise.window.palette"
-            name="Palette">
-      </command>
-   </extension>
 
    <extension
          id="application"
@@ -57,97 +33,46 @@
       </product>
    </extension>
    <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="com.bitwise.app.perspective.handlers.ConsoleHandler"
-            commandId="com.bitwise.window.console">
-      </handler>
-      <handler
-            class="com.bitwise.app.perspective.handlers.OutlineHandler"
-            commandId="com.bitwise.window.outline">
-      </handler>
-      <handler
-            class="com.bitwise.app.perspective.handlers.ProjectExplorerHandler"
-            commandId="com.bitwise.window.ETLNavigator">
-      </handler>
-      <handler
-            class="com.bitwise.app.perspective.handlers.PropertiesHandler"
-            commandId="com.bitwise.window.properties">
-      </handler>
-      <handler
-            class="com.bitwise.app.perspective.handlers.PaletteHandler"
-            commandId="com.bitwise.window.palette">
-      </handler>
-   </extension>
-   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="menu:org.eclipse.ui.main.menu?before=com.bitwise.app.menus.HelpMenu">
+            locationURI="menu:com.bitwise.app.menus.WindowMenu?after=com.bitwise.window.palette">
          <menu
-               id="com.bitwise.app.menus.WindowMenu"
-               label="Window">
-                <command
-                  commandId="com.bitwise.window.console"
-                  label="Console"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.bitwise.window.outline"
-                  label="Outline"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.bitwise.window.ETLNavigator"
-                  label="Project Explorer"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.bitwise.window.properties"
-                  label="Properties"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.bitwise.window.palette"
-                  label="Palette">
-            </command>
+               id="com.bitwise.app.menus.WindowMenu.Perspective"
+               label="Perspective">
             <menu
-                  id="com.bitwise.app.menus.WindowMenu.Perspective"
-                  label="Perspective">
-               <menu
-                     id="com.bitwise.app.menus.WindowMenu.Perspective.Openperspective"
-                     label="Open perspective">
-               </menu>
-               <command
-                     commandId="org.eclipse.ui.window.resetPerspective"
-                     label="Reset Perspective"
-                     style="radio">
-               </command>
-               <separator
-                     name="com.bitwise.app.perspective.separator"
-                     visible="true">
-               </separator>
-               <command
-                     commandId="org.eclipse.ui.window.customizePerspective"
-                     label="Customize Perspective.."
-                     style="push">
-               </command>
-               <command
-                     commandId="org.eclipse.ui.window.savePerspective"
-                     label="Save Perspective As.."
-                     style="push">
-               </command>
-               <command
-                     commandId="org.eclipse.ui.window.closePerspective"
-                     label="Close Perspective"
-                     style="push">
-               </command>
-               <command
-                     commandId="org.eclipse.ui.window.closeAllPerspectives"
-                     label="Close All Perspectives"
-                     style="push">
-               </command>
+                  id="com.bitwise.app.menus.WindowMenu.Perspective.Openperspective"
+                  label="Open perspective">
             </menu>
+            <command
+                  commandId="org.eclipse.ui.window.resetPerspective"
+                  label="Reset Perspective"
+                  style="radio">
+            </command>
+            <separator
+                  name="com.bitwise.app.perspective.separator"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.window.customizePerspective"
+                  label="Customize Perspective.."
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.savePerspective"
+                  label="Save Perspective As.."
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.closePerspective"
+                  label="Close Perspective"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.closeAllPerspectives"
+                  label="Close All Perspectives"
+                  style="push">
+            </command>
          </menu>
       </menuContribution>
    </extension>
