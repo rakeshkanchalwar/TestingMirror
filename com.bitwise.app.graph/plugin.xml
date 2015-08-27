@@ -39,6 +39,11 @@
          <toolbar
                id="com.bitwise.app.graph.toolbar1">
             <command
+                  commandId="org.eclipse.ui.edit.text.openLocalFile"
+                  icon="icon/New.png"
+                  style="push">
+            </command>
+            <command
                   commandId="org.eclipse.ui.file.save"
                   id="com.bitwise.app.save"
                   label="Save"
@@ -75,9 +80,23 @@
                   label="Delete"
                   style="push">
             </command>
+            <separator
+                  name="com.bitwise.app.graph.separator4"
+                  visible="true">
+            </separator>
             <command
-                  commandId="org.eclipse.ui.edit.text.openLocalFile"
-                  icon="icon/New.png"
+                  commandId="org.eclipse.ui.edit.cut"
+                  label="cut"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.copy"
+                  label="copy"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.paste"
+                  label="paste"
                   style="push">
             </command>
          </toolbar>
