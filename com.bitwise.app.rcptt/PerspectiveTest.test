@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _DI38wEyYEeWx06sNG_5SNw
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/27/15 3:57 PM
+Save-Time: 8/27/15 4:33 PM
 Tags: Perspective Testing
 Testcase-Type: ecl
 
@@ -41,9 +41,6 @@ with [get-window "Open Perspective"] {
     get-button OK | click
 }
 
-//get-menu "File/Exit" | click
-//wait-until-eclipse-is-ready
-
 wait -ms 1000 
 
 get-view Palette | close
@@ -62,9 +59,6 @@ get-view Palette | close
 
 wait -ms 1000 
 
-//get-menu "File/Exit" | click
-
-//wait-until-eclipse-is-ready
 get-menu "Window/Perspective/Customize Perspective.." | click
 with [get-window "Customize Perspective - ELT"] {
     get-tab-folder | get-tab-item "Menu Visibility" | click
@@ -124,4 +118,6 @@ get-view Palette | close
 wait -ms 1000 
 
 get-menu "Window/Perspective/Reset Perspective" | click
+get-window "Reset Perspective" | get-button Yes | click
+
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
