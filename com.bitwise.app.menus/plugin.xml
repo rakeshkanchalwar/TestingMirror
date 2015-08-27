@@ -62,6 +62,17 @@
                   label="Exit"
                   style="push">
             </command>
+            <command
+                  commandId="org.eclipse.ui.file.close"
+                  id="bitwise.close.id"
+                  label="Close"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.closeAll"
+                  label="Close All"
+                  style="push">
+            </command>
          </menu>
          <menu
                label="Edit">
