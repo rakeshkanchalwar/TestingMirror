@@ -39,12 +39,6 @@
          <toolbar
                id="com.bitwise.app.graph.toolbar1">
             <command
-                  commandId="org.eclipse.ui.newWizard"
-                  id="com.bitwise.app.newWizard"
-                  label="New"
-                  style="push">
-            </command>
-            <command
                   commandId="org.eclipse.ui.file.save"
                   id="com.bitwise.app.save"
                   label="Save"
@@ -79,6 +73,11 @@
             <command
                   commandId="org.eclipse.ui.edit.delete"
                   label="Delete"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.text.openLocalFile"
+                  icon="icon/New.png"
                   style="push">
             </command>
          </toolbar>
