@@ -21,7 +21,7 @@
             class="com.bitwise.app.graph.handler.NewGraphHandler"
             commandId="com.bitwise.app.graph.newGraphcommand">
       </handler>
-   </extension>
+   </extension> 
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
