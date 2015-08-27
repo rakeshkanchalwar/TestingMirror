@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _TBwb4EvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/26/15 6:42 PM
+Save-Time: 8/27/15 1:05 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -19,14 +19,14 @@ get-view Palette | minimize
 get-button Palette | click
 get-button Restore | click
 get-view Palette | close
-get-menu "View/Palette" | click
+get-menu "Window/Palette" | click
 
 
 get-view "Project Explorer" | minimize
 get-button "Project Explorer" | click
 get-button Restore | click
 get-view "Project Explorer" | close
-get-menu "View/Project Explorer" | click
+get-menu "Window/Project Explorer" | click
 
 
 get-view Console | minimize
@@ -35,16 +35,16 @@ get-button Properties | click
 get-view Properties | close
 get-button Restore | click
 get-view Console | close
-get-menu "View/Console" | click
-get-menu "View/Properties" | click
+get-menu "Window/Console" | click
+get-menu "Window/Properties" | click
 
 
 get-tab-folder | minimize
 get-button Restore | click
 
 //code to test job launch and close from menu Item
-get-menu "File/New/Job/New Graph" | click
-get-menu "File/New/Job/New Graph" | click
+get-menu "File/New/Job" | click
+get-menu "File/New/Job" | click
 get-editor "Graph 2" | close
 get-tab-folder | get-tab-item "Graph 3" | click
 with [get-editor "Graph 3"] {
