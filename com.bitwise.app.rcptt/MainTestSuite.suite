@@ -5,7 +5,7 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/28/15 7:46 PM
+Save-Time: 8/28/15 8:31 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -19,5 +19,6 @@ _p1MS8E1QEeWztZD8rslrjw	// kind: 'test' name: 'MultipleTabsTestCase' path: 'com.
 _p17SwE1QEeWztZD8rslrjw	// kind: 'test' name: 'TestViewsInWindowMenuTestCase' path: 'com.bitwise.app.menubar/TestViewsInWindowMenuTestCase.test'
 _p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'Z_FileMenuTestCase' path: 'com.bitwise.app.menubar/Z_FileMenuTestCase.test'
 _UtHuYE2PEeWVXcFohWFibQ	// kind: 'test' name: '2_ProjectExplorer' path: 'com.bitwise.app.perspective/2_ProjectExplorer.test'
+_40a6cE2UEeW_rJv6exweGg	// kind: 'test' name: 'ToolBarCases' path: 'com.bitwise.app.toolbar/ToolBarCases.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--
