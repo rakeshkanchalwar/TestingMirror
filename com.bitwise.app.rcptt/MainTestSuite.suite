@@ -4,8 +4,8 @@ Element-Name: MainTestSuite
 Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
-Runtime-Version: 2.0.0.201508232315
-Save-Time: 8/28/15 2:41 PM
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/28/15 4:24 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -18,5 +18,6 @@ _DI38wEyYEeWx06sNG_5SNw	// kind: 'test' name: 'PerspectiveTest' path: 'com.bitwi
 _p1MS8E1QEeWztZD8rslrjw	// kind: 'test' name: 'MultipleTabsTestCase' path: 'com.bitwise.app.menubar/MultipleTabsTestCase.test'
 _p17SwE1QEeWztZD8rslrjw	// kind: 'test' name: 'TestViewsInWindowMenuTestCase' path: 'com.bitwise.app.menubar/TestViewsInWindowMenuTestCase.test'
 _p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'Z_FileMenuTestCase' path: 'com.bitwise.app.menubar/Z_FileMenuTestCase.test'
+_crVGcE1gEeWNrKGVbWE1GQ	// kind: 'test' name: 'ToolBarCase' path: 'com.bitwise.app.graph/ToolBarCase.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--

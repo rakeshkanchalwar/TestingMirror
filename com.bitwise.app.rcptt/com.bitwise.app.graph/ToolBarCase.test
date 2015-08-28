@@ -1,0 +1,81 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: ToolBarCase
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _crVGcE1gEeWNrKGVbWE1GQ
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 8/28/15 3:13 PM
+Tags: ToolBar Testing
+Testcase-Type: ecl
+
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
+Content-Type: text/plain
+Entry-Name: .description
+
+Testing the functionality of toolbar.
+1.Test Open File button
+2.Test new Job Button
+3.Test Undo,Redo,Delete Button
+4.Test Cut,Copy,Paste Button
+------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa--
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+
+
+
+
+with [get-button "New Job (M1+M3+J)"] {
+    click
+    click -arrow
+}
+get-menu "New Job" | click
+set-dialog-result File "C:\\Users\\vibhort\\Desktop\\sample.xml"
+get-button "Open File" | click
+with [get-editor "sample.xml" | get-text-viewer] {
+    set-caret-pos 7 10
+    key-type BackSpace
+}
+get-button "Delete (Delete)" | click
+with [get-editor "sample.xml" | get-text-viewer] {
+    set-caret-pos 6 31
+    select-range 6 32 6 9
+}
+get-button "Delete (Delete)" | click
+get-button "Undo (M1+Z)" | click
+get-button "Redo (M1+Y)" | click
+get-button "Undo (M1+Z)" | click
+with [get-editor "sample.xml" | get-text-viewer] {
+    set-caret-pos 4 10
+    select-range 4 9 6 32
+}
+get-button "cut (M1+X)" | click
+with [get-editor "sample.xml" | get-text-viewer] {
+    set-caret-pos 4 33
+    key-type "M1+y"
+}
+get-button "paste (M1+V)" | click
+with [get-editor "sample.xml" | get-text-viewer] {
+    set-caret-pos 4 10
+    select-range 4 9 7 13
+}
+get-button "copy (M1+C)" | click
+get-editor "sample.xml" | get-text-viewer | set-caret-pos 11 1
+get-button "paste (M1+V)" | click
+with [get-editor "sample.xml" | get-text-viewer] {
+    set-caret-pos 13 30
+    select-range 13 32 11 1
+}
+get-button "Delete (Delete)" | click
+get-button "Save (M1+S)" | click
+get-editor "sample.xml" | get-text-viewer | set-caret-pos 8 5
+
+get-editor "sample.xml" | close
+get-tab-folder | get-tab-item "Graph 2" | click
+get-editor "Graph 2" | click
+get-menu "File/Exit" | click
+//wait-until-eclipse-is-ready
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
