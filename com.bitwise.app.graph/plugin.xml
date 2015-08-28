@@ -52,7 +52,7 @@
             </command>
             <command
                   commandId="com.bitwise.app.graph.newGraphcommand"
-                  icon="resources/NwJob.png"
+                  icon="resources/New_File.png"
                   id="com.bitwise.app.graph.newJob"
                   label="New Job"
                   style="pulldown">
