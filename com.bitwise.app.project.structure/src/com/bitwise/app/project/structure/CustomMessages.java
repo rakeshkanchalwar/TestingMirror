@@ -6,6 +6,11 @@ public class CustomMessages extends NLS {
 	private static final String BUNDLE_NAME = "com.bitwise.app.project.structure.messages"; //$NON-NLS-1$
 	public static String CustomWizard_CREATE_ETL_PROJECT;
 	public static String CustomWizard_ENTER_PROJECT_NAME;
+	public static String ProjectSupport_BIN;
+	public static String ProjectSupport_LIB;
+	public static String ProjectSupport_SCRIPTS;
+	public static String ProjectSupport_SRC;
+	public static String ProjectSupport_XML;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, CustomMessages.class);

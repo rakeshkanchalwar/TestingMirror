@@ -36,7 +36,7 @@ public class CustomWizard extends Wizard implements INewWizard, IExecutableExten
 		if(!_pageOne.useDefaults()){
 			location = _pageOne.getLocationURI();
 		}
-		ProjectSupport.createProject(projectName, location);
+		ProjectStructureCreator.INSTANCE.createProject(projectName, location);
 	    BasicNewProjectResourceWizard.updatePerspective(_configurationElement);
 		return true;
 	}
