@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator.resources,
  org.eclipse.jdt.core;bundle-version="3.7.3",
  org.eclipse.ui.console;bundle-version="3.5.100",
- org.eclipse.jdt.launching;bundle-version="3.6.1"
+ org.eclipse.jdt.launching;bundle-version="3.6.1",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
