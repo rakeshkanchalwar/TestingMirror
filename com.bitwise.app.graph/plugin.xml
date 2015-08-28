@@ -40,7 +40,7 @@
                id="com.bitwise.app.graph.toolbar1">
             <command
                   commandId="org.eclipse.ui.edit.text.openLocalFile"
-                  icon="icon/OpenFile1.jpg"
+                  icon="resources/OpenFile1.jpg"
                   label="Open File"
                   style="push">
             </command>
@@ -52,7 +52,7 @@
             </command>
             <command
                   commandId="com.bitwise.app.graph.newGraphcommand"
-                  icon="icon/NwJob.png"
+                  icon="resources/NwJob.png"
                   id="com.bitwise.app.graph.newJob"
                   label="New Job"
                   style="pulldown">
