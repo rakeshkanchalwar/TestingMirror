@@ -41,6 +41,7 @@
             <command
                   commandId="org.eclipse.ui.edit.text.openLocalFile"
                   icon="icon/OpenFile1.jpg"
+                  label="Open File"
                   style="push">
             </command>
             <command
@@ -51,8 +52,9 @@
             </command>
             <command
                   commandId="com.bitwise.app.graph.newGraphcommand"
-                  icon="icon/job.png"
+                  icon="icon/New_File.png"
                   id="com.bitwise.app.graph.newJob"
+                  label="New Job"
                   style="pulldown">
             </command>
             <separator
