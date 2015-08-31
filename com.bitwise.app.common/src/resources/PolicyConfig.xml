@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:PolicyConfig xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig PolicyConfig.xsd ">
+  <tns:masterpolicies>
+    <tns:policy>
+      <tns:name>tns:name</tns:name>
+      <tns:value>tns:value</tns:value>
+    </tns:policy>
+  </tns:masterpolicies>
+  <tns:categorypolicies category="IO">
+    <tns:policy>
+      <tns:name>tns:name</tns:name>
+      <tns:value>tns:value</tns:value>
+    </tns:policy>
+  </tns:categorypolicies>
+  <tns:categorypolicies category="TRANSFORM">
+    <tns:policy>
+      <tns:name>tns:name</tns:name>
+      <tns:value>tns:value</tns:value>
+    </tns:policy>
+  </tns:categorypolicies>
+</tns:PolicyConfig>

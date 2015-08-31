@@ -17,14 +17,18 @@ import org.eclipse.core.runtime.Platform;
 import com.bitwise.app.common.Messages;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.component.config.Config;
-import com.bitwise.app.common.component.config.Property;
-import com.bitwise.app.common.component.config.PropertyType;
+import com.bitwise.app.common.component.config.Policy;
+import com.bitwise.app.common.component.policyconfig.CategoryPolicies;
+import com.bitwise.app.common.component.policyconfig.PolicyConfig;
+
 
 public class XMLConfigUtil {
 	private static Logger logger = Logger.getLogger(XMLConfigUtil.class.getName());
 	private static HashMap<String, Component> map = new HashMap<>();
 	
 	public final static String CONFIG_FILES_PATH = Platform.getInstallLocation().getURL().getPath() + Messages.XMLConfigUtil_CONFIG_FOLDER;
+	public final static List<Component> componentList = new ArrayList<>();
+	public static PolicyConfig policyConfig ;
 	
 	public static XMLConfigUtil INSTANCE = new XMLConfigUtil();
 	/** Reads the xml configuration files stored under the platform installation.
@@ -33,8 +37,12 @@ public class XMLConfigUtil {
 	 * @throws RuntimeException 
 	 */
 	public List<Component> getComponentConfig() throws RuntimeException {
+		if(componentList !=null && !componentList.isEmpty()){
+			fillMap(componentList);
+			return componentList;
+		}
+		else{
 		try{
-			List<Component> componentList = new ArrayList<>();
 			JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
@@ -47,6 +55,7 @@ public class XMLConfigUtil {
 		}catch(JAXBException jaxbException){
 			logger.log(Level.SEVERE, "Failed to load the config files"); //$NON-NLS-1$
 			throw new RuntimeException("Faild in reading XML Config files", jaxbException); //$NON-NLS-1$
+		}
 		}
 	}
 
@@ -81,7 +90,7 @@ public class XMLConfigUtil {
 	 * @return
 	 */
 	public String[] getFilteredFiles(String filePath, FilenameFilter filter){
-		File file = new File(CONFIG_FILES_PATH);
+		File file = new File(filePath);
 		String[] list = file.list(filter);
 		return (list == null) ? new String[0] : list;
 	}
@@ -115,4 +124,46 @@ public class XMLConfigUtil {
 		};
 		return filenameFilter;
 	}
+
+	public PolicyConfig getPolicyConfig() throws RuntimeException {
+		if(policyConfig !=null){
+			return policyConfig;
+		}
+		else{
+		try{
+			JAXBContext jaxbContext = JAXBContext.newInstance(PolicyConfig.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH+"/policy", getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
+			for (int i = 0; i < configFileList.length; i++) {
+				 policyConfig = (PolicyConfig) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + "/policy/" + configFileList[i]));
+				
+			}
+
+			return policyConfig;
+		}catch(JAXBException jaxbException){
+			logger.log(Level.SEVERE, "Failed to load the config files"); //$NON-NLS-1$
+			throw new RuntimeException("Faild in reading XML Config files", jaxbException); //$NON-NLS-1$
+		}
+		}
+	}
+	
+	public List<Policy> getPoliciesForComponent(
+			com.bitwise.app.common.component.config.Component component,String componentName) {
+		List<Policy> policies = new ArrayList<>();
+		PolicyConfig policyConfig = XMLConfigUtil.INSTANCE.getPolicyConfig();
+		policies.addAll(policyConfig.getMasterpolicies().getPolicy());
+		for (CategoryPolicies categoryPolicies : policyConfig
+				.getCategorypolicies()) {
+
+			if (categoryPolicies.getCategory().toString()
+					.equalsIgnoreCase(component.getCategory().toString())
+					&& componentName.equalsIgnoreCase(component.getName())) {
+				policies.addAll(categoryPolicies.getPolicy());
+				policies.addAll(component.getPolicy());
+			}
+
+		}
+		return policies;
+	}
+	
 }

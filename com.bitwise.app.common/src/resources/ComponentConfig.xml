@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+  <tns:component>
+    <tns:name>tns:name</tns:name>
+    <tns:category>IO</tns:category>
+    <tns:defaultNamePrefix>tns:defaultNamePrefix</tns:defaultNamePrefix>
+    <tns:iconPath>tns:iconPath</tns:iconPath>
+    <tns:inputPort>
+      <tns:numberOfPorts>0</tns:numberOfPorts>
+    </tns:inputPort>
+    <tns:outputPort>
+      <tns:numberOfPorts>0</tns:numberOfPorts>
+    </tns:outputPort>
+    <tns:property>
+      <tns:type>CONFIG</tns:type>
+      <tns:renderer>FILE</tns:renderer>
+      <tns:name>tns:name</tns:name>
+      <tns:value>tns:value</tns:value>
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+    <tns:properties>
+      <tns:property>
+        <tns:type>CONFIG</tns:type>
+        <tns:renderer>FILE</tns:renderer>
+        <tns:name>tns:name</tns:name>
+        <tns:value>tns:value</tns:value>
+        <tns:validation>
+          <tns:expression>tns:expression</tns:expression>
+          <tns:message>tns:message</tns:message>
+        </tns:validation>
+      </tns:property>
+      <tns:properties/>
+    </tns:properties>
+    <tns:policy>
+      <tns:name>tns:name</tns:name>
+      <tns:value>tns:value</tns:value>
+    </tns:policy>
+  </tns:component>
+</tns:Config>

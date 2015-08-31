@@ -41,6 +41,7 @@ public class ComponentCacheUtil {
 			}
 			propertyDescriptorCache.put(componentName, propertyDescriptorList);
 		}
+		
 		return propertyDescriptorList.toArray(new IPropertyDescriptor[propertyDescriptorList.size()]);
 	}
 	

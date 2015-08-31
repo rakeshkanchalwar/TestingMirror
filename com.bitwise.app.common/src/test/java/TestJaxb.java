@@ -85,4 +85,5 @@ public class TestJaxb {
 		
 		Assert.assertEquals(count, filteredFiles.length);
 	}
+	
 }
