@@ -73,5 +73,9 @@ public class MasterPolicies {
         }
         return this.policy;
     }
+    public void setPolicy(List<Policy> policies) {
+       
+        this.policy=policies;
+    }
 
 }
