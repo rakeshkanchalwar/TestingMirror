@@ -5,6 +5,8 @@ Bundle-SymbolicName: com.bitwise.app.eltproperties
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.bitwise.app.eltproperties.Activator
 Bundle-Vendor: BITWISE
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.swt;bundle-version="3.7.2",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
