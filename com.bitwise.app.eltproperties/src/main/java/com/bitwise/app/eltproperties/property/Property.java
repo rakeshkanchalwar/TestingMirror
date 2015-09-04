@@ -62,10 +62,14 @@ public class Property {
 		return propertyGroup;
 	}
 
-	public String getPropertySubGroup() {
+	public String getPropertySubGroupID() {
 		return propertyGroup + "." +propertySubGroup;
 	}
 
+	public String getPropertySubGroup() {
+		return propertyGroup + "." +propertySubGroup;
+	}
+	
 	public String getPropertyDataType() {
 		return propertyDataType;
 	}

@@ -8,6 +8,13 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.eltproperties.property.Property;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 03, 2015
+ * 
+ */
+
 public class ELTPropertyWindow {
 	
 	private Shell shell;

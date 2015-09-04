@@ -6,6 +6,13 @@ import org.junit.Test;
 
 import com.bitwise.app.eltproperties.property.Property;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 04, 2015
+ * 
+ */
+
 public class ELTPropertyWindowTest {
 
 	@Test
