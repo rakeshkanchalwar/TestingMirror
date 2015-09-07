@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig src/resources/ComponentConfig.xsd ">
+  <tns:component>
+    <tns:name>Output</tns:name>
+	<tns:category>OUTPUT</tns:category>
+    <tns:defaultNamePrefix>defaultNamePrefix</tns:defaultNamePrefix>
+    <tns:iconPath>/icons/OutputFile.png</tns:iconPath>
+	<tns:property>
+		<tns:name>Name</tns:name>
+		<tns:value>Output</tns:value>
+	</tns:property>
+	<tns:property>
+		<tns:name>Input</tns:name>
+		<tns:value>text file</tns:value>
+	</tns:property>
+  </tns:component>
+</tns:Config>
