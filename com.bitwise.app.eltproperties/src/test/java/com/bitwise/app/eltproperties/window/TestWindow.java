@@ -33,6 +33,8 @@ import com.bitwise.app.eltproperties.testdata.PropertyStore;
 
 public class TestWindow extends ApplicationWindow {
 
+	LinkedHashMap<String, Object> inputCompProps;
+	
 	/**
 	 * Create the application window.
 	 */
@@ -42,6 +44,9 @@ public class TestWindow extends ApplicationWindow {
 		addToolBar(SWT.FLAT | SWT.WRAP);
 		addMenuBar();
 		addStatusLine();
+		
+		ComponentModel componentModel = new ComponentModel(); 
+		inputCompProps = componentModel.getProperties("Input");
 	}
 
 	/**
@@ -68,11 +73,13 @@ public class TestWindow extends ApplicationWindow {
 				
 				IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(inputComponentProperties);
 				
-				ComponentModel componentModel = new ComponentModel(); 
-				LinkedHashMap<String, Object> inputCompProps = componentModel.getProperties("Input");
+				
 				
 				PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell(),propertyTreeBuilder.getPropertyTree(),inputCompProps);
+				
 				testDialog.open();
+				
+				System.out.println("In Test Window: " + inputCompProps);
 				
 			}
 			

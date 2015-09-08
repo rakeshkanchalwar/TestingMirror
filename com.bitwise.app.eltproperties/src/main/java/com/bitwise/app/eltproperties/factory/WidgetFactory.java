@@ -3,6 +3,7 @@ package com.bitwise.app.eltproperties.factory;
 import com.bitwise.app.eltproperties.widgets.IELTWidget;
 import com.bitwise.app.eltproperties.widgets.MyCustomWidget;
 import com.bitwise.app.eltproperties.widgets.runtimeproperties.RuntimeWidgetButton;
+import com.bitwise.app.eltproperties.widgets.schemagrid.ELTSchemaWidget;
 
 /**
  * 
@@ -14,7 +15,7 @@ import com.bitwise.app.eltproperties.widgets.runtimeproperties.RuntimeWidgetButt
 public class WidgetFactory {
 	public IELTWidget getWidget(String widgetName){
 		if(widgetName.equals("ELTSchemaWidget")){
-			return new MyCustomWidget();
+			return new ELTSchemaWidget();
 		}else if(widgetName.equals("ELTRuntimePropertiesWidget")){
 			//return new RuntimeWidgetButton();
 			return new MyCustomWidget();

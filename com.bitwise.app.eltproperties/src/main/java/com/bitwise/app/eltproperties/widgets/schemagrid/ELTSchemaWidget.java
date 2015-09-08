@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import com.bitwise.app.eltproperties.Messages;
 import com.bitwise.app.eltproperties.widgets.IELTWidget;
 
 /**

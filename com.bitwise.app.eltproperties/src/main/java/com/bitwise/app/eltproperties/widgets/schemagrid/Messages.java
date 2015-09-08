@@ -1,9 +1,9 @@
-package com.bitwise.app.eltproperties;
+package com.bitwise.app.eltproperties.widgets.schemagrid;
 
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "com.bitwise.app.eltproperties.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "com.bitwise.app.eltproperties.widgets.schemagrid.messages"; //$NON-NLS-1$
 	public static String DATATYPELIST ;
 	public static String FIELDNAME;
 	public static String DATATYPE;
