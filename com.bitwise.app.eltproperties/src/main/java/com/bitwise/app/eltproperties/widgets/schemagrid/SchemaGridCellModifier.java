@@ -41,11 +41,11 @@ class SchemaGridCellModifier implements ICellModifier {
    */ 
   public Object getValue(Object element, String property) {
     SchemaGrid p = (SchemaGrid) element;
-    if (SchemaEditor.FIELDNAME.equals(property))
+    if (ELTSchemaWidget.FIELDNAME.equals(property))
       return p.getFieldName();
-    else if (SchemaEditor.LIMIT.equals(property))
+    else if (ELTSchemaWidget.LIMIT.equals(property))
       return String.valueOf(p.getLimit());
-    else if (SchemaEditor.DATATYPE.equals(property))
+    else if (ELTSchemaWidget.DATATYPE.equals(property))
       return p.getDataType();
     else
       return null;
@@ -66,11 +66,11 @@ class SchemaGridCellModifier implements ICellModifier {
       element = ((Item) element).getData();
  
     SchemaGrid p = (SchemaGrid) element;
-    if (SchemaEditor.FIELDNAME.equals(property))
+    if (ELTSchemaWidget.FIELDNAME.equals(property))
       p.setFieldName((String) value);
-    else if (SchemaEditor.LIMIT.equals(property))
+    else if (ELTSchemaWidget.LIMIT.equals(property))
       p.setLimit( value.toString()); 
-    else if (SchemaEditor.DATATYPE.equals(property))
+    else if (ELTSchemaWidget.DATATYPE.equals(property))
       p.setDataType((Integer)value);
    
     viewer.refresh();

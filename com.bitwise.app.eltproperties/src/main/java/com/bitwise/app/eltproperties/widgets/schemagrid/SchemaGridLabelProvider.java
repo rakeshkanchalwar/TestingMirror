@@ -38,7 +38,7 @@ class SchemaGridLabelProvider implements ITableLabelProvider {
     case 0:
       return schemaGrid.getFieldName();
     case 1:
-    	 return SchemaEditor.getDataType()[schemaGrid.getDataType().intValue()];   
+    	 return ELTSchemaWidget.getDataType()[schemaGrid.getDataType().intValue()];   
     case 2:
     	 return schemaGrid.getLimit(); 
     }

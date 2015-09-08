@@ -34,17 +34,17 @@ import com.bitwise.app.eltproperties.Messages;
  * This class demonstrates CellEditors. It allows you to create and edit
  * SchemaGrid objects
  */
-public class SchemaEditor extends ApplicationWindow {
+public class ELTSchemaWidget extends ApplicationWindow {
 
 	private List<SchemaGrid> schemaGrids;
 	private Table table;
 	private Shell shell;
 
-	public SchemaEditor() {
+	public ELTSchemaWidget() {
 		super(null);
 		schemaGrids = new ArrayList<SchemaGrid>();
 	}
-
+ 
 	// Table column names/properties
 	public static final String FIELDNAME = Messages.FIELDNAME;
 	public static final String LIMIT = Messages.LIMIT;
@@ -155,7 +155,7 @@ public class SchemaEditor extends ApplicationWindow {
 		CellEditor[] editors = new CellEditor[3];
 		TextCellEditor fieldNametext = new TextCellEditor(table);
 		editors[0] = fieldNametext;
-		editors[1] = new ComboBoxCellEditor(table, SchemaEditor.getDataType(),
+		editors[1] = new ComboBoxCellEditor(table, ELTSchemaWidget.getDataType(),
 				SWT.READ_ONLY);
 		editors[2] = new TextCellEditor(table);
 		// Set the editors, cell modifier, and column properties
@@ -195,7 +195,7 @@ public class SchemaEditor extends ApplicationWindow {
 		
 		
 		Button btnRemove = new Button(c1, SWT.CENTER);
-		btnRemove.setBounds(0, 0, 105, 20);
+		btnRemove.setBounds(0, 0, 88, 25);
 		shell = composite.getShell();
 		
 		btnRemove.addSelectionListener(new SelectionAdapter() {
@@ -212,6 +212,18 @@ public class SchemaEditor extends ApplicationWindow {
 			}
 		});
 		btnRemove.setText("Remove");
+		
+		Button btnRemoveall = new Button(c1, SWT.NONE);
+		btnRemoveall.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				schemaGrids.removeAll(schemaGrids);
+				tableViewer.refresh();
+			}
+		}); 
+		btnRemoveall.setBounds(104, 0, 75, 25);
+		btnRemoveall.setText("RemoveAll");
+		
 		return composite;
 	}
 
@@ -222,6 +234,6 @@ public class SchemaEditor extends ApplicationWindow {
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
-		new SchemaEditor().run();
+		new ELTSchemaWidget().run();
 	}
 }
