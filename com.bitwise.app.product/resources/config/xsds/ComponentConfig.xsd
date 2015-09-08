@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.bitwise.com/ComponentConfig"
+	xmlns:tns="http://www.bitwise.com/ComponentConfig" elementFormDefault="qualified">
+	<include schemaLocation=""></include>
+	<element name="Config">
+		<complexType>
+			<sequence>
+				<element name="component" type="tns:Component" minOccurs="1"
+					maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="Component">
+	
+		<sequence>
+			 
+			<element name="category" type="tns:category_type" maxOccurs="1"
+				minOccurs="0"></element>
+			
+			<element name="inputPort" type="tns:IOPort" maxOccurs="1"
+				minOccurs="0" />
+			<element name="outputPort" type="tns:IOPort" maxOccurs="1"
+				minOccurs="0" />
+			<element name="property" type="tns:Property" maxOccurs="unbounded"
+				minOccurs="0" />
+			<!--  <element name="shape" type="string" maxOccurs="1"
+				minOccurs="1" />  -->
+			 <element name="policy" type="tns:Policy" maxOccurs="unbounded"
+				minOccurs="0"></element> 
+		</sequence>
+		 <attribute name="name" type="string" use="required"></attribute>
+		<attribute name="defaultNamePrefix" type="string" use="required"></attribute>
+		<attribute name="iconPath" type="string" use="required"></attribute>
+		<attribute name="shape" type="string" use="required"></attribute> 
+	</complexType>
+
+	
+
+	<complexType name="Property">
+	<sequence>
+	<element name="validation" type="tns:Validation" maxOccurs="unbounded" minOccurs="0"/>
+	</sequence>
+	<attribute name="type" type="tns:property_type" use="required"></attribute>
+	<attribute name="renderer" type="tns:property_renderer" use = "required"></attribute>
+	<attribute name = "dataType" type="tns:data_type" use = "required"></attribute>
+	<attribute name = "name" type="string" use = "required"></attribute>
+	<attribute name = "value" type="string" use = "optional"></attribute>
+	<attribute name="group" type="tns:group" use="required"></attribute> 
+	</complexType>
+
+	<complexType name="Validation">
+		<sequence>
+			<element name="expression" type="string" maxOccurs="1"
+				minOccurs="1" />
+			<element name="message" type="string" maxOccurs="1"
+				minOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="IOPort">
+		<sequence>
+			<element name="numberOfPorts" type="integer" maxOccurs="1"
+				minOccurs="1" />
+		</sequence>
+	</complexType>
+
+	 <complexType name="Policy">
+		<sequence>
+			<element name="name" type="string" maxOccurs="1" minOccurs="0" />
+			<element name="value" type="string" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<simpleType name="property_renderer">
+		<restriction base="string">
+			<enumeration value="FILE" />
+			<enumeration value="TEXT" />
+			<enumeration value="GRID" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="property_type">
+		<restriction base="string">
+			<enumeration value="CONFIG" />
+			<enumeration value="USER" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="group">
+		<restriction base="string">
+			<enumeration value="GENERAL" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="shape">
+		<restriction base="string">
+			<enumeration value="RECTANGLE" />
+		</restriction>
+	</simpleType>
+	<simpleType name="data_type">
+		<restriction base="string">
+			<enumeration value="string" />
+			<enumeration value="boolean" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="category_type">
+		<restriction base="string">
+			<enumeration value="INPUT" />
+			<enumeration value="OUTPUT" />
+		</restriction>
+	</simpleType>
+</schema>
