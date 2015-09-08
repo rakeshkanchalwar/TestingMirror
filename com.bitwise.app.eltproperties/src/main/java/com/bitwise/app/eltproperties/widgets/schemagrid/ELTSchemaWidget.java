@@ -1,6 +1,7 @@
 package com.bitwise.app.eltproperties.widgets.schemagrid;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -12,7 +13,6 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -24,28 +24,28 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import com.bitwise.app.eltproperties.Messages;
+import com.bitwise.app.eltproperties.widgets.IELTWidget;
 
 /**
  * @author rahulma
  * This class demonstrates CellEditors. It allows you to create and edit
  * SchemaGrid objects
  */
-public class ELTSchemaWidget extends ApplicationWindow {
+public class ELTSchemaWidget implements IELTWidget {
 
 	private List<SchemaGrid> schemaGrids;
 	private Table table;
 	private Shell shell;
+	private Object properties;
+	private String propertyName;
 
 	public ELTSchemaWidget() {
-		super(null);
 		schemaGrids = new ArrayList<SchemaGrid>();
 	}
  
@@ -66,52 +66,14 @@ public class ELTSchemaWidget extends ApplicationWindow {
 			return dataTypeList;
 		}
 	}
+	
+	@Override
+	public void attachToPropertySubGroup(Group subGroup) {
 
-	/**
-	 * Runs the application
-	 */
-	public void run() {
-		// Don't return from open() until window closes
-		setBlockOnOpen(true);
-
-		// Open the main window
-		open();
-
-		// Dispose the display
-		Display.getCurrent().dispose();
-	}
-
-	/**
-	 * Configures the shell
-	 * 
-	 * @param shell
-	 *            the shell
-	 */
-	protected void configureShell(Shell shell) {
-		super.configureShell(shell);
-		shell.setText("SchemaGrid Editor");
-		shell.setSize(500, 500);
-	}
-
-	/**
-	 * Creates the main window's contents
-	 * 
-	 * @param parent
-	 *            the main window
-	 * @return Control
-	 */
-	protected Control createContents(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
+		shell = subGroup.getShell();
+		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
-		final Label errorLabel = new Label(composite, SWT.COLOR_DARK_RED);
-		FormData fd_errorLabel = new FormData();
-		fd_errorLabel.top = new FormAttachment(0, 5);
-		fd_errorLabel.left = new FormAttachment(0, 5);
-		errorLabel.setLayoutData(fd_errorLabel);
-		errorLabel.setText("Error Message ");
-		errorLabel.setVisible(false);
-		errorLabel.setImage(Display.getDefault().getSystemImage(SWT.ICON_ERROR));
-		
+
 		// Add the TableViewer
 		final TableViewer tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
 		tableViewer.setContentProvider(new SchemaGridContentProvider());
@@ -123,9 +85,9 @@ public class ELTSchemaWidget extends ApplicationWindow {
 		FormData fd_table = new FormData();
 		fd_table.bottom = new FormAttachment(0, 290);
 		fd_table.right = new FormAttachment(0, 429);
-		fd_table.top = new FormAttachment(0, 42);
+		fd_table.top = new FormAttachment(0, 10);
 		fd_table.left = new FormAttachment(0, 5);
-		table.setLayoutData(fd_table);
+		table.setLayoutData(fd_table);  
 
 		new TableColumn(table, SWT.CENTER).setText(FIELDNAME);
 		new TableColumn(table, SWT.CENTER).setText(DATATYPE);
@@ -134,7 +96,7 @@ public class ELTSchemaWidget extends ApplicationWindow {
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
 			table.getColumn(i).pack();
 		}
-
+		
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
@@ -162,21 +124,14 @@ public class ELTSchemaWidget extends ApplicationWindow {
 		editors[1] = new ComboBoxCellEditor(table, ELTSchemaWidget.getDataType(),
 				SWT.READ_ONLY);
 		editors[2] = new TextCellEditor(table);
+		
 		// Set the editors, cell modifier, and column properties
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new SchemaGridCellModifier(tableViewer));
 		tableViewer.setCellEditors(editors);
 
-		//Adding the decorator
-				final ControlDecoration txtDecorator = new ControlDecoration(fieldNametext.getControl(), SWT.TOP|SWT.LEFT);
-				FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
-				Image img = fieldDecoration.getImage();
-				txtDecorator.setImage(img);
-				txtDecorator.setDescriptionText("Field name should not be same ");
-				// hiding it initially
-				txtDecorator.hide();
-			
-				
+		//Adding the decorator to show error message when field name same.
+		final ControlDecoration txtDecorator=	addDecorator(fieldNametext)	;
 				/*
 				 * Field name validation, It should not get repeated.  
 				 */
@@ -237,19 +192,37 @@ public class ELTSchemaWidget extends ApplicationWindow {
 			}
 		}); 
 		btnRemoveall.setBounds(104, 0, 75, 25);
-		btnRemoveall.setText("RemoveAll");
+		btnRemoveall.setText("RemoveAll");	
 		
-		return composite;
 	}
 
-	/** 
-	 * The application entry point
-	 * 
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String[] args) {
-		new ELTSchemaWidget().run();
+	
+	public ControlDecoration addDecorator(TextCellEditor fieldNametext){
+		final ControlDecoration txtDecorator = new ControlDecoration(fieldNametext.getControl(), SWT.TOP|SWT.LEFT);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+		Image img = fieldDecoration.getImage();
+		txtDecorator.setImage(img);
+		txtDecorator.setDescriptionText(Messages.FIELDNAMEERROR);
+		// hiding it initially
+		txtDecorator.hide();
+		return txtDecorator;
+	}
+	
+	
+	@Override
+	public LinkedHashMap<String,Object> getProperties() {
+		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+		property.put(propertyName, schemaGrids);
+		return property;
+	}  
+
+	@Override
+	public void setProperties(String propertyName, Object properties) {
+		this.properties =  properties;
+		this.propertyName = propertyName;
+		if(properties != null)
+			schemaGrids.addAll((List<SchemaGrid>)properties);
+		
 	}
 	
 }
