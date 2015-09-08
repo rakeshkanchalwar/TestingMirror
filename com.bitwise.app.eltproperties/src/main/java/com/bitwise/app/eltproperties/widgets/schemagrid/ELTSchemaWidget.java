@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -15,6 +18,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -163,25 +167,36 @@ public class ELTSchemaWidget extends ApplicationWindow {
 		tableViewer.setCellModifier(new SchemaGridCellModifier(tableViewer));
 		tableViewer.setCellEditors(editors);
 
-		/*
-		 * Field name validation, It should not get repeated.  
-		 */
-		ICellEditorValidator iCellEditorValidator = new ICellEditorValidator() {
+		//Adding the decorator
+				final ControlDecoration txtDecorator = new ControlDecoration(fieldNametext.getControl(), SWT.TOP|SWT.LEFT);
+				FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+				Image img = fieldDecoration.getImage();
+				txtDecorator.setImage(img);
+				txtDecorator.setDescriptionText("Field name should not be same ");
+				// hiding it initially
+				txtDecorator.hide();
+			
+				
+				/*
+				 * Field name validation, It should not get repeated.  
+				 */
+				ICellEditorValidator iCellEditorValidator = new ICellEditorValidator() {
 
-			@Override
-			public String isValid(Object value) {
-				String selectedGrid = table.getItem(table.getSelectionIndex()).getText();
-				for (SchemaGrid schemaGrid : schemaGrids) {
-					if (schemaGrid.getFieldName().equalsIgnoreCase(
-							(String) value) && !selectedGrid.equalsIgnoreCase((String) value)) {
-						errorLabel.setVisible(true);
-						return "Error";
-					} else
-						errorLabel.setVisible(false);
-				}
-				return null;
-			}
-		};
+					@Override
+					public String isValid(Object value) {
+						String selectedGrid = table.getItem(table.getSelectionIndex()).getText();
+						for (SchemaGrid schemaGrid : schemaGrids) {
+							if (schemaGrid.getFieldName().equalsIgnoreCase(
+									(String) value) && !selectedGrid.equalsIgnoreCase((String) value)) {
+					            txtDecorator.show();
+								return "Error";
+							} else{
+								txtDecorator.hide();
+							}
+						}
+						return null;
+					}
+				};
 		// Apply validator to text field.
 		fieldNametext.setValidator(iCellEditorValidator);
 		Composite c1=new Composite(composite, SWT.NONE);
@@ -227,7 +242,7 @@ public class ELTSchemaWidget extends ApplicationWindow {
 		return composite;
 	}
 
-	/**
+	/** 
 	 * The application entry point
 	 * 
 	 * @param args
@@ -236,4 +251,5 @@ public class ELTSchemaWidget extends ApplicationWindow {
 	public static void main(String[] args) {
 		new ELTSchemaWidget().run();
 	}
+	
 }
