@@ -30,6 +30,7 @@ import com.bitwise.app.common.component.policyconfig.PolicyConfig;
 
 
 public class XMLConfigUtil {
+	private static final String SEPARATOR = "/";
 	public static XMLConfigUtil INSTANCE = new XMLConfigUtil();
 	
 	private XMLConfigUtil() {}
@@ -61,9 +62,9 @@ public class XMLConfigUtil {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
 			for (int i = 0; i < configFileList.length; i++) {
-				if(validateXMLSchema(COMPONENTCONFIG_XSD_PATH, CONFIG_FILES_PATH + "/" + configFileList[i]))
+				if(validateXMLSchema(COMPONENTCONFIG_XSD_PATH, CONFIG_FILES_PATH + SEPARATOR + configFileList[i]))
 				{
-				Config config = (Config) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + "/" + configFileList[i]));
+				Config config = (Config) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + SEPARATOR + configFileList[i]));
 				componentList.addAll(config.getComponent());
 				}
 			}
@@ -150,10 +151,10 @@ public class XMLConfigUtil {
 			try{
 				JAXBContext jaxbContext = JAXBContext.newInstance(PolicyConfig.class);
 				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-				String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH+"/policy", getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
+				String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
 				for (int i = 0; i < configFileList.length; i++) {
-					if(validateXMLSchema(POLICYCONFIG_XSD_PATH, CONFIG_FILES_PATH + "/policy" + configFileList[i]))	{
-					 policyConfig = (PolicyConfig) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + "/policy/" + configFileList[i]));
+					if(validateXMLSchema(POLICYCONFIG_XSD_PATH, CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY + SEPARATOR + configFileList[i]))	{
+						policyConfig = (PolicyConfig) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY + SEPARATOR + configFileList[i]));
 					}
 				}
 				return policyConfig;
@@ -193,12 +194,20 @@ public class XMLConfigUtil {
 		policies.addAll(component.getPolicy());
 		return policies;
 	}
+	
+	/**
+	 * Validates the xmls based on the provided XSD's constraints
+	 * @param xsdPath
+	 * @param xmlPath
+	 * @return
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	public  boolean validateXMLSchema(String xsdPath, String xmlPath) throws SAXException, IOException{
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = factory.newSchema(new File(xsdPath));
         Validator validator = schema.newValidator();
         validator.validate(new StreamSource(new File(xmlPath)));
         return true;
-}
-	
+	}
 }
