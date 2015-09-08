@@ -2,6 +2,7 @@ package com.bitwise.app.common.util;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +12,14 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.eclipse.core.runtime.Platform;
+import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.Messages;
 import com.bitwise.app.common.component.config.Component;
@@ -31,6 +38,8 @@ public class XMLConfigUtil {
 	private static HashMap<String, Component> map = new HashMap<>();
 	
 	public final static String CONFIG_FILES_PATH = Platform.getInstallLocation().getURL().getPath() + Messages.XMLConfigUtil_CONFIG_FOLDER;
+	public final static String COMPONENTCONFIG_XSD_PATH = Platform.getInstallLocation().getURL().getPath()+Messages.XMLConfigUtil_COMPONENTCONFIG_XSD_PATH;
+	public final static String POLICYCONFIG_XSD_PATH = Platform.getInstallLocation().getURL().getPath()+Messages.XMLConfigUtil_POLICYCONFIG_XSD_PATH;
 	public final static List<Component> componentList = new ArrayList<>();
 	public static PolicyConfig policyConfig ;
 	
@@ -38,8 +47,10 @@ public class XMLConfigUtil {
 	 * 	These files contain the configuration required to create the component on UI. 
 	 * @return see {@link Component}
 	 * @throws RuntimeException 
+	 * @throws IOException 
+	 * @throws SAXException 
 	 */
-	public List<Component> getComponentConfig() throws RuntimeException {
+	public List<Component> getComponentConfig() throws RuntimeException, SAXException, IOException {
 		if(componentList !=null && !componentList.isEmpty()){
 			fillMap(componentList);
 			return componentList;
@@ -50,8 +61,11 @@ public class XMLConfigUtil {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
 			for (int i = 0; i < configFileList.length; i++) {
+				if(validateXMLSchema(COMPONENTCONFIG_XSD_PATH, CONFIG_FILES_PATH + "/" + configFileList[i]))
+				{
 				Config config = (Config) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + "/" + configFileList[i]));
 				componentList.addAll(config.getComponent());
+				}
 			}
 			fillMap(componentList);
 			return componentList;
@@ -128,7 +142,7 @@ public class XMLConfigUtil {
 		return filenameFilter;
 	}
 
-	public PolicyConfig getPolicyConfig() throws RuntimeException {
+	public PolicyConfig getPolicyConfig() throws RuntimeException, SAXException, IOException {
 		if(policyConfig !=null){
 			return policyConfig;
 		}
@@ -138,8 +152,9 @@ public class XMLConfigUtil {
 				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 				String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH+"/policy", getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
 				for (int i = 0; i < configFileList.length; i++) {
+					if(validateXMLSchema(POLICYCONFIG_XSD_PATH, CONFIG_FILES_PATH + "/policy" + configFileList[i]))	{
 					 policyConfig = (PolicyConfig) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + "/policy/" + configFileList[i]));
-					
+					}
 				}
 				return policyConfig;
 			}catch(JAXBException jaxbException){
@@ -159,8 +174,11 @@ public class XMLConfigUtil {
 	 * @param component
 	 * @param componentName
 	 * @return
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws RuntimeException 
 	 */
-	public List<Policy> getPoliciesForComponent(Component component) {
+	public List<Policy> getPoliciesForComponent(Component component) throws RuntimeException, SAXException, IOException {
 		List<Policy> policies = new ArrayList<>();
 		PolicyConfig policyConfig = XMLConfigUtil.INSTANCE.getPolicyConfig();
 		//put all master policies
@@ -175,5 +193,12 @@ public class XMLConfigUtil {
 		policies.addAll(component.getPolicy());
 		return policies;
 	}
+	public  boolean validateXMLSchema(String xsdPath, String xmlPath) throws SAXException, IOException{
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(new File(xsdPath));
+        Validator validator = schema.newValidator();
+        validator.validate(new StreamSource(new File(xmlPath)));
+        return true;
+}
 	
 }

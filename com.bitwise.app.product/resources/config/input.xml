@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+  <tns:component defaultNamePrefix="input" iconPath="/icons/InputFile.png" name="input" shape="RECTANGLE">
+     <tns:category>INPUT</tns:category>
+    <tns:inputPort>
+      <tns:numberOfPorts>0</tns:numberOfPorts>
+    </tns:inputPort>
+    <tns:outputPort>
+      <tns:numberOfPorts>1</tns:numberOfPorts>
+    </tns:outputPort>
+    <tns:property dataType="string" name="schema" renderer="GRID" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+    <tns:property dataType="string" name="path" renderer="TEXT" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+    <tns:property dataType="string" name="delimiter" renderer="TEXT" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+    <tns:property dataType="boolean" name="safe" renderer="TEXT" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+     <tns:property dataType="boolean" name="has_header" renderer="TEXT" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+     <tns:property dataType="string" name="charset" renderer="TEXT" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+     <tns:property dataType="string" name="runtime_properties" renderer="GRID" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+    <tns:property dataType="string" name="phase" renderer="TEXT" type="USER" group="GENERAL">
+      <tns:validation>
+        <tns:expression>tns:expression</tns:expression>
+        <tns:message>tns:message</tns:message>
+      </tns:validation>
+    </tns:property>
+  </tns:component>
+</tns:Config>

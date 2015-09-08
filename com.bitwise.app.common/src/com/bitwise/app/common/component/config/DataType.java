@@ -9,37 +9,50 @@
 package com.bitwise.app.common.component.config;
 
 import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for category_type.
+ * <p>Java class for data_type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="category_type">
+ * &lt;simpleType name="data_type">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="IO"/>
- *     &lt;enumeration value="TRANSFORM"/>
+ *     &lt;enumeration value="string"/>
+ *     &lt;enumeration value="boolean"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "category_type")
+@XmlType(name = "data_type")
 @XmlEnum
-public enum CategoryType {
+public enum DataType {
 
-    INPUT,
-    OUTPUT;
+    @XmlEnumValue("string")
+    STRING("string"),
+    @XmlEnumValue("boolean")
+    BOOLEAN("boolean");
+    private final String value;
 
-    public String value() {
-        return name();
+    DataType(String v) {
+        value = v;
     }
 
-    public static CategoryType fromValue(String v) {
-        return valueOf(v);
+    public String value() {
+        return value;
+    }
+
+    public static DataType fromValue(String v) {
+        for (DataType c: DataType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
     }
 
 }

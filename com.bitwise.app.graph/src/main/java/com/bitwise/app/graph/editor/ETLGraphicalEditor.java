@@ -58,6 +58,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.actions.ActionFactory;
+import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.XMLConfigUtil;
@@ -97,7 +98,18 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	protected PaletteRoot getPaletteRoot() {
 		PaletteRoot palette = new PaletteRoot();
 		createToolsGroup(palette);
-		createShapesDrawer(palette);
+		try {
+			createShapesDrawer(palette);
+		} catch (RuntimeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return palette;
 	}
 
@@ -223,7 +235,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.commandStackChanged(event);
 	}
 
-	private void createShapesDrawer(PaletteRoot palette) {
+	private void createShapesDrawer(PaletteRoot palette) throws RuntimeException, SAXException, IOException {
 		PaletteDrawer componentsDrawer = new PaletteDrawer("Components");
 		List<Component> componentsConfig = XMLConfigUtil.INSTANCE
 				.getComponentConfig();

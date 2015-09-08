@@ -2,6 +2,7 @@ package com.bitwise.app.graph.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.draw2d.ChopboxAnchor;
@@ -15,6 +16,7 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
+import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Policy;
 import com.bitwise.app.common.util.XMLConfigUtil;
@@ -59,15 +61,26 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 	@Override
 	protected void createEditPolicies() {
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(getModel().getClass());
-		for (com.bitwise.app.common.component.config.Component component : XMLConfigUtil.INSTANCE.getComponentConfig()) {
-			if(component.getName().equalsIgnoreCase(componentName)){
-				applyGeneralPolicy(component);
+		try {
+			for (com.bitwise.app.common.component.config.Component component : XMLConfigUtil.INSTANCE.getComponentConfig()) {
+				if(component.getName().equalsIgnoreCase(componentName)){
+					applyGeneralPolicy(component);
+				}
 			}
+		} catch (RuntimeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	
-	public void applyGeneralPolicy(com.bitwise.app.common.component.config.Component component) {
+	public void applyGeneralPolicy(com.bitwise.app.common.component.config.Component component) throws RuntimeException, SAXException, IOException {
 		
 		for (Policy generalPolicy : XMLConfigUtil.INSTANCE.getPoliciesForComponent(component)) {
 			try {

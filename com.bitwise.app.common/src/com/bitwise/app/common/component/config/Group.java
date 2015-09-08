@@ -13,32 +13,30 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for category_type.
+ * <p>Java class for group.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="category_type">
+ * &lt;simpleType name="group">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="IO"/>
- *     &lt;enumeration value="TRANSFORM"/>
+ *     &lt;enumeration value="GENERAL"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "category_type")
+@XmlType(name = "group")
 @XmlEnum
-public enum CategoryType {
+public enum Group {
 
-    INPUT,
-    OUTPUT;
+    GENERAL;
 
     public String value() {
         return name();
     }
 
-    public static CategoryType fromValue(String v) {
+    public static Group fromValue(String v) {
         return valueOf(v);
     }
 
