@@ -14,6 +14,7 @@ import com.bitwise.app.eltproperties.adapters.ELTComponentPropertyAdapter;
 
 public class PropertyTreeBuilder implements IPropertyTreeBuilder{
 
+	//<GroupName,<SubgroupName,[PropertyList...]>>
 	private LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree = new LinkedHashMap<>();
 	
 	private PropertyTreeBuilder(){
