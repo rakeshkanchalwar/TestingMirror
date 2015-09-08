@@ -64,7 +64,7 @@ import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
-import com.bitwise.app.graph.model.Connection;
+import com.bitwise.app.graph.model.ComponentConnection;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
@@ -280,7 +280,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					// see ShapeEditPart#createEditPolicies()
 					// this is abused to transmit the desired line style
 					public Object getObjectType() {
-						return Connection.SOLID_CONNECTION;
+						return ComponentConnection.SOLID_CONNECTION;
 					}
 				},
 				ImageDescriptor

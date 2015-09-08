@@ -4,10 +4,10 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
 import com.bitwise.app.graph.controller.ComponentEditPart;
-import com.bitwise.app.graph.controller.ConnectionEditPart;
+import com.bitwise.app.graph.controller.ComponentConnectionEditPart;
 import com.bitwise.app.graph.controller.ContainerEditPart;
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.model.Connection;
+import com.bitwise.app.graph.model.ComponentConnection;
 import com.bitwise.app.graph.model.Container;
 
 /**
@@ -27,8 +27,8 @@ public class ComponentsEditPartFactory implements EditPartFactory{
 		else if (model instanceof Component) {
 			part = new ComponentEditPart();
 		}
-		else if (model instanceof Connection) {
-			part = new ConnectionEditPart();
+		else if (model instanceof ComponentConnection) {
+			part = new ComponentConnectionEditPart();
 		}
 		else{
 			//TODO : Add logger
