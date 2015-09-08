@@ -16,15 +16,15 @@ public class ComponentModel {
 	
 	private LinkedHashMap<String, Object> getInputComponenetProperties(){
 		LinkedHashMap<String,Object> inputComponenetProperties = new LinkedHashMap<>();
-		inputComponenetProperties.put("path", new Object());
-		inputComponenetProperties.put("delimiter", new Object());
-		inputComponenetProperties.put("charset", new Object());
-		inputComponenetProperties.put("phase", new Object());
-		inputComponenetProperties.put("safe", new Object());
-		inputComponenetProperties.put("has_header", new Object());		
-		inputComponenetProperties.put("Schema", new Object());
-		inputComponenetProperties.put("RuntimeProps", new Object());
-		inputComponenetProperties.put("name", new Object());
+		inputComponenetProperties.put("path", null);
+		inputComponenetProperties.put("delimiter", null);
+		inputComponenetProperties.put("charset", null);
+		inputComponenetProperties.put("phase", null);
+		inputComponenetProperties.put("safe", null);
+		inputComponenetProperties.put("has_header", null);		
+		inputComponenetProperties.put("Schema", null);
+		inputComponenetProperties.put("RuntimeProps", null);
+		inputComponenetProperties.put("name", null);
 		
 		return inputComponenetProperties;
 	}

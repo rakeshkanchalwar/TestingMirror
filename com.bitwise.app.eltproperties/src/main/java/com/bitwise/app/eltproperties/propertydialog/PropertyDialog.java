@@ -23,6 +23,7 @@ import com.bitwise.app.eltproperties.property.IPropertyTreeBuilder;
 import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.testdata.PropertyStore;
+import com.bitwise.app.eltproperties.widgets.IELTWidget;
 
 /**
  * 
@@ -35,6 +36,7 @@ public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
 	private LinkedHashMap<String, Object> ComponentProperties;
+	PropertyDialogBuilder propertyDialogBuilder;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -62,7 +64,7 @@ public class PropertyDialog extends Dialog {
 		container.setLayout(cl_container);
 		
 		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
-		PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties);
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties);
 		propertyDialogBuilder.buildPropertyWindow();
 		
 		return container;
@@ -98,6 +100,9 @@ public class PropertyDialog extends Dialog {
 	protected void okPressed() {
 		// TODO Auto-generated method stub
 		System.out.println("Prop saved");
+		for(IELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+			System.out.println(eltWidget.getProperties());
+		}
 		super.okPressed();
 	}
 	

@@ -42,10 +42,12 @@ public class PropertyDialogBuilder {
 	private LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree;
 	private Composite container;
 	private LinkedHashMap<String, Object> componentProperties;
+	private ArrayList<IELTWidget> eltWidgetList;
 	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties){
 		this.container = container;
 		this.propertyTree = propertyTree;
 		this.componentProperties = componentProperties;
+		eltWidgetList= new ArrayList<>();
 	}
 	
 	public void buildPropertyWindow(){
@@ -67,9 +69,9 @@ public class PropertyDialogBuilder {
 				
 				for(Property property: subgroupTree.get(subgroupName)){
 					IELTWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
-					eltWidget.setProperties(componentProperties.get(property.getPropertyName()));
 					eltWidget.attachToPropertySubGroup(subGroup);
-					
+					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
+					eltWidgetList.add(eltWidget);
 				}
 				
 			}
@@ -125,6 +127,10 @@ public class PropertyDialogBuilder {
 		scrolledCompositeHolder.getScrolledComposite().setMinSize(scrolledCompositeHolder.getComposite().computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
 		return grpGroup;
+	}
+	
+	public ArrayList<IELTWidget> getELTWidgetList(){
+		return eltWidgetList;
 	}
 	
 }

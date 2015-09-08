@@ -1,5 +1,7 @@
 package com.bitwise.app.eltproperties.widgets;
 
+import java.util.LinkedHashMap;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -24,8 +26,8 @@ public class MyCustomWidget implements IELTWidget{
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	Group grpGroup_1;
-	
-	
+	private Object properties;
+	private String propertyName;
 	@Override
 	public void attachToPropertySubGroup(Group grpGroup_1){
 		this.grpGroup_1 = grpGroup_1;
@@ -70,14 +72,22 @@ public class MyCustomWidget implements IELTWidget{
 	}
 
 	@Override
-	public void setProperties(Object properties) {
+	public void setProperties(String propertyName,Object properties) {
+		this.properties =  properties;
+		this.propertyName = propertyName;
+		if(properties != null)
+			text_1.setText((String) properties);
+		else
+			text_1.setText("");
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public Object getProperties() {
+	public LinkedHashMap<String, Object> getProperties() {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+		property.put(propertyName, text_1.getText());
+		return property;
 	}
+
 }

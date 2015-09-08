@@ -2,6 +2,7 @@ package com.bitwise.app.eltproperties.factory;
 
 import com.bitwise.app.eltproperties.widgets.IELTWidget;
 import com.bitwise.app.eltproperties.widgets.MyCustomWidget;
+import com.bitwise.app.eltproperties.widgets.runtimeproperties.RuntimeWidgetButton;
 
 /**
  * 
@@ -15,6 +16,7 @@ public class WidgetFactory {
 		if(widgetName.equals("ELTSchemaWidget")){
 			return new MyCustomWidget();
 		}else if(widgetName.equals("ELTRuntimePropertiesWidget")){
+			//return new RuntimeWidgetButton();
 			return new MyCustomWidget();
 		}else if(widgetName.equals("ELTFilePathWidget")){
 			return new MyCustomWidget();

@@ -1,6 +1,7 @@
 package com.bitwise.app.eltproperties.widgets.runtimeproperties;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -44,10 +45,10 @@ public class RuntimeWidgetButton implements IELTWidget {
 				RunTimePropertyWizard runTimeWizardObj = new RunTimePropertyWizard();
 				runTimeWizardObj.setComponentName("Component Name");
 				if (getProperties() == null)
-					setProperties(new HashMap<String, String>());
+					//setProperties(new HashMap<String, String>());
 
-				runTimeWizardObj.setRuntimePropertyMap((HashMap<String, String>)getProperties());
-				setProperties(runTimeWizardObj.executeDemoWizard(shell));
+				//runTimeWizardObj.setRuntimePropertyMap((HashMap<String, String>)getProperties());
+				//setProperties(runTimeWizardObj.executeDemoWizard(shell));
 				System.out.println(getProperties());
 			}
 		});
@@ -90,15 +91,15 @@ public class RuntimeWidgetButton implements IELTWidget {
 	}
 
 	@Override
-	public void setProperties(Object properties) {
+	public void setProperties(String aaa,Object properties) {
 		
 		InstializeMap =(HashMap<String, String>)properties;
 		
 	}
 
 	@Override
-	public Object getProperties() {
+	public LinkedHashMap<String, Object> getProperties() {
 		// TODO Auto-generated method stub
-		return InstializeMap;
+		return null;
 	}
 }
