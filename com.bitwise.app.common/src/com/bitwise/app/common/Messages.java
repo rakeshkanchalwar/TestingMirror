@@ -8,6 +8,7 @@ public class Messages extends NLS {
 	public static String XMLConfigUtil_FILE_EXTENTION;
 	public static String XMLConfigUtil_COMPONENTCONFIG_XSD_PATH;
 	public static String XMLConfigUtil_POLICYCONFIG_XSD_PATH;
+	public static String XMLConfigUtil_POLICY;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -90,7 +90,7 @@ public class TestJaxb {
 	@Test
 	public void itShouldValidateXmlWithXsd() throws SAXException, IOException
 	{
-		String xsdPath="../com.bitwise.app.common/src/resources/ComponentConfig.xsd";
+		String xsdPath="../com.bitwise.app.product/resources/config/xsds/ComponentConfig.xsd";
 		String xmlPath="../com.bitwise.app.product/resources/config/input.xml";
 		Assert.assertTrue(XMLConfigUtil.INSTANCE.validateXMLSchema(xsdPath,xmlPath));
 	}

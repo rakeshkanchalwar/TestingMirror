@@ -47,7 +47,7 @@ public class PolicyConfig {
 
     @XmlElement(required = true)
     protected MasterPolicies masterpolicies;
-    @XmlElement(required = true)
+    @XmlElement
     protected List<CategoryPolicies> categorypolicies;
 
     /**
