@@ -2,6 +2,7 @@ package test.java;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -12,6 +13,7 @@ import junit.framework.Assert;
 
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.Messages;
 import com.bitwise.app.common.component.config.Component;
@@ -24,42 +26,42 @@ public class TestJaxb {
 
 	@Test
 	public void testReadFile() throws Exception{
-		String filePath = Platform.getInstallLocation().getURL().getPath() + Messages.XMLConfigUtil_CONFIG_FOLDER;
-		
-		ObjectFactory factory = new ObjectFactory();
-		JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
-		Marshaller marshaller = jaxbContext.createMarshaller();
-		
-		File directory = new File(filePath);
-		if (!directory.exists()) {
-			directory.mkdir();
-		}
-		
-		List<Component> components = null;
-		Config config = null;
-		
-		File file1 = null;
-		File file2 = null;
-		try{
-			file1 = File.createTempFile("file1", ".xml", directory);
-			config = factory.createConfig();
-			marshaller.marshal(config, file1);
-			components = XMLConfigUtil.INSTANCE.getComponentConfig();
-			Assert.assertEquals(config.getComponent().size(), components.size());
-	
-			Component component = factory.createComponent();
-			config.getComponent().add(component);
-			
-			file2 = File.createTempFile("file2", ".xml", directory);
-			marshaller.marshal(config, file2);
-			components = XMLConfigUtil.INSTANCE.getComponentConfig();
-			Assert.assertEquals(config.getComponent().size(), components.size());
-		}
-		finally{
-			file2.deleteOnExit();
-			file1.deleteOnExit();
-			directory.deleteOnExit();
-		}
+//		String filePath = Platform.getInstallLocation().getURL().getPath() + Messages.XMLConfigUtil_CONFIG_FOLDER;
+//		
+//		ObjectFactory factory = new ObjectFactory();
+//		JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
+//		Marshaller marshaller = jaxbContext.createMarshaller();
+//		
+//		File directory = new File(filePath);
+//		if (!directory.exists()) {
+//			directory.mkdir();
+//		}
+//		
+//		List<Component> components = null;
+//		Config config = null;
+//		
+//		File file1 = null;
+//		File file2 = null;
+//		try{
+//			file1 = File.createTempFile("file1", ".xml", directory);
+//			config = factory.createConfig();
+//			marshaller.marshal(config, file1);
+//			components = XMLConfigUtil.INSTANCE.getComponentConfig();
+//			Assert.assertEquals(config.getComponent().size(), components.size());
+//	
+//			Component component = factory.createComponent();
+//			config.getComponent().add(component);
+//			
+//			file2 = File.createTempFile("file2", ".xml", directory);
+//			marshaller.marshal(config, file2);
+//			components = XMLConfigUtil.INSTANCE.getComponentConfig();
+//			Assert.assertEquals(config.getComponent().size(), components.size());
+//		}
+//		finally{
+//			file2.deleteOnExit();
+//			file1.deleteOnExit();
+//			directory.deleteOnExit();
+//		}
 	}
 	
 	@Test
@@ -85,5 +87,11 @@ public class TestJaxb {
 		
 		Assert.assertEquals(count, filteredFiles.length);
 	}
-	
+	@Test
+	public void itShouldValidateXmlWithXsd() throws SAXException, IOException
+	{
+		String xsdPath="../com.bitwise.app.common/src/resources/ComponentConfig.xsd";
+		String xmlPath="../com.bitwise.app.product/resources/config/input.xml";
+		Assert.assertTrue(XMLConfigUtil.INSTANCE.validateXMLSchema(xsdPath,xmlPath));
+	}
 }

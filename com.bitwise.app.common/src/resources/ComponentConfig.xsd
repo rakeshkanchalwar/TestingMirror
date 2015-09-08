@@ -12,47 +12,41 @@
 	</element>
 
 	<complexType name="Component">
+	
 		<sequence>
-			<element name="name" type="string" maxOccurs="1" minOccurs="1" />
+			 
 			<element name="category" type="tns:category_type" maxOccurs="1"
 				minOccurs="0"></element>
-			<element name="defaultNamePrefix" type="string" maxOccurs="1"
-				minOccurs="1" />
-			<element name="iconPath" type="string" maxOccurs="1"
-				minOccurs="1" />
+			
 			<element name="inputPort" type="tns:IOPort" maxOccurs="1"
 				minOccurs="0" />
 			<element name="outputPort" type="tns:IOPort" maxOccurs="1"
 				minOccurs="0" />
 			<element name="property" type="tns:Property" maxOccurs="unbounded"
 				minOccurs="0" />
-			<element name="properties" type="tns:Properties" maxOccurs="1"
-				minOccurs="0" />
-			<element name="policy" type="tns:Policy" maxOccurs="unbounded"
-				minOccurs="0"></element>
+			<!--  <element name="shape" type="string" maxOccurs="1"
+				minOccurs="1" />  -->
+			 <element name="policy" type="tns:Policy" maxOccurs="unbounded"
+				minOccurs="0"></element> 
 		</sequence>
+		 <attribute name="name" type="string" use="required"></attribute>
+		<attribute name="defaultNamePrefix" type="string" use="required"></attribute>
+		<attribute name="iconPath" type="string" use="required"></attribute>
+		<attribute name="shape" type="string" use="required"></attribute> 
 	</complexType>
 
-	<complexType name="Properties">
-		<sequence>
-			<element name="property" type="tns:Property" maxOccurs="unbounded"
-				minOccurs="0" />
-			<element name="properties" type="tns:Properties" maxOccurs="1"
-				minOccurs="0" />
-		</sequence>
-	</complexType>
+	
 
 	<complexType name="Property">
-		<sequence>
-			<element name="type" type="tns:property_type" maxOccurs="1"
-				minOccurs="1" />
-			<element name="renderer" type="tns:property_renderer"
-				maxOccurs="1" minOccurs="1" />
-			<element name="name" type="string" maxOccurs="1" minOccurs="1" />
-			<element name="value" type="string" maxOccurs="1" minOccurs="1" />
-			<element name="validation" type="tns:Validation" maxOccurs="unbounded"
-				minOccurs="0" />
-		</sequence>
+	<sequence>
+	<element name="validation" type="tns:Validation" maxOccurs="unbounded" minOccurs="0"/>
+	</sequence>
+	<attribute name="type" type="tns:property_type" use="required"></attribute>
+	<attribute name="renderer" type="tns:property_renderer" use = "required"></attribute>
+	<attribute name = "dataType" type="tns:data_type" use = "required"></attribute>
+	<attribute name = "name" type="string" use = "required"></attribute>
+	<attribute name = "value" type="string" use = "optional"></attribute>
+	<attribute name="group" type="tns:group" use="required"></attribute> 
 	</complexType>
 
 	<complexType name="Validation">
@@ -71,7 +65,7 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="Policy">
+	 <complexType name="Policy">
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="0" />
 			<element name="value" type="string" maxOccurs="1" minOccurs="0" />
@@ -82,6 +76,7 @@
 		<restriction base="string">
 			<enumeration value="FILE" />
 			<enumeration value="TEXT" />
+			<enumeration value="GRID" />
 		</restriction>
 	</simpleType>
 
@@ -89,6 +84,24 @@
 		<restriction base="string">
 			<enumeration value="CONFIG" />
 			<enumeration value="USER" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="group">
+		<restriction base="string">
+			<enumeration value="GENERAL" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="shape">
+		<restriction base="string">
+			<enumeration value="RECTANGLE" />
+		</restriction>
+	</simpleType>
+	<simpleType name="data_type">
+		<restriction base="string">
+			<enumeration value="string" />
+			<enumeration value="boolean" />
 		</restriction>
 	</simpleType>
 
