@@ -13,4 +13,7 @@ public interface IELTWidget {
 
 	public void attachToPropertySubGroup(Group subGroup);
 	
+	public void setProperties(Object properties);
+	
+	public Object getProperties();
 }
