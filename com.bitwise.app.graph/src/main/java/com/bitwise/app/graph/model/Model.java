@@ -28,6 +28,9 @@ public abstract class Model implements Serializable {
 		pcsDelegate.addPropertyChangeListener(listner);
 	}
 	
+	protected void fireStructureChange(String prop, Object child) {
+		pcsDelegate.firePropertyChange(prop, null, child);
+	}
 	/**
 	 * Remove a PropertyChangeListener from this component.
 	 * @param listner PropertyChangeListener instance

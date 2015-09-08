@@ -2,7 +2,7 @@ package com.bitwise.app.graph.model;
 
 import org.eclipse.draw2d.Graphics;
 
-public class Connection extends Model {
+public class ComponentConnection extends Model {
 	private static final long serialVersionUID = -4969635974273718739L;
 
 	/** Line drawing style for this connection. */
@@ -25,6 +25,8 @@ public class Connection extends Model {
 	/** Connection's target endpoint. */
 	private Component target;
 	
+	protected String sourceTerminal, targetTerminal;
+	
 	
 	/**
 	 * Create a (solid) connection between two distinct components.
@@ -36,29 +38,67 @@ public class Connection extends Model {
 	 * @throws IllegalArgumentException
 	 *             if any of the parameters are null or source == target
 	 */
-	public Connection(Component source, Component target) {
-		reconnect(source, target);
+	public ComponentConnection(Component source, Component target) {
+		
 		
 	}
+	public ComponentConnection() {
+		// TODO Auto-generated constructor stub
+	}
 	
-	/**
-	 * Returns the source endpoint of this connection.
-	 * 
-	 * @return a non-null Shape instance
-	 */
+	public void attachSource() {
+		if (getSource() == null
+				|| getSource().getSourceConnections().contains(this))
+			return;
+		
+		getSource().connectOutput(this);
+	}
+
+	public void attachTarget() {
+		if (getTarget() == null
+				|| getTarget().getTargetConnections().contains(this))
+			return;
+		getTarget().connectInput(this);
+	}
+	
 	public Component getSource() {
 		return source;
 	}
 
-	/**
-	 * Returns the target endpoint of this connection.
-	 * 
-	 * @return a non-null Shape instance
-	 */
+	public String getSourceTerminal() {
+		return sourceTerminal;
+	}
+	
 	public Component getTarget() {
 		return target;
 	}
+
+	public String getTargetTerminal() {
+		return targetTerminal;
+	}
 	
+	public void setSource(Component e) {
+		Object old = source;
+		source = e;
+		firePropertyChange("source", old, source);
+	}
+	public void setSourceTerminal(String s) {
+		Object old = sourceTerminal;
+		sourceTerminal = s;
+		firePropertyChange("sourceTerminal", old, sourceTerminal);
+	}
+
+	public void setTarget(Component e) {
+		Object old = target;
+		target = e;
+		firePropertyChange("target", old, target);
+	}
+
+	public void setTargetTerminal(String s) {
+		Object old = targetTerminal;
+		targetTerminal = s;
+		firePropertyChange("targetTerminal", old, targetTerminal);
+	}
 	/**
 	 * Returns the line drawing style of this connection.
 	 * 
@@ -68,51 +108,7 @@ public class Connection extends Model {
 		return lineStyle;
 	}
 	
-	/**
-	 * Reconnect to a different source and/or target shape. The connection will
-	 * disconnect from its current attachments and reconnect to the new source
-	 * and target.
-	 * 
-	 * @param newSource
-	 *            a new source endpoint for this connection (non null)
-	 * @param newTarget
-	 *            a new target endpoint for this connection (non null)
-	 * @throws IllegalArgumentException
-	 *             if any of the paramers are null or newSource == newTarget
-	 */
-	public void reconnect(Component newSource, Component newTarget) {
-		if (newSource == null || newTarget == null || newSource == newTarget) {
-			throw new IllegalArgumentException();
-		}
-		disconnect();
-		this.source = newSource;
-		this.target = newTarget;
-		reconnect();
-	}
-	
-	/**
-	 * Reconnect this connection. The connection will reconnect with the shapes
-	 * it was previously attached to.
-	 */
-	public void reconnect() {
-		if (!isConnected) {
-			source.addConnection(this);
-			target.addConnection(this);
-			isConnected = true;
-		}
-	}
-	
-	/**
-	 * Disconnect this connection from the shapes it is attached to.
-	 */
-	public void disconnect() {
-		if (isConnected) {
-			source.removeConnection(this);
-			target.removeConnection(this);
-			isConnected = false;
-		}
-	}
-	
+		
 	/**
 	 * Set the line drawing style of this connection.
 	 * @param lineStyle one of following values: Graphics.LINE_SOLID
