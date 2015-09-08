@@ -13,8 +13,12 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
@@ -22,6 +26,7 @@ import org.eclipse.gef.MouseWheelHandler;
 import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
@@ -32,6 +37,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteToolbar;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
@@ -42,7 +48,12 @@ import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.TransferDropTargetListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -50,24 +61,28 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.model.Connection;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 /**
- *	Responsible to render the pellet and container.
- *	   
+ * Responsible to render the pellet and container.
+ * 
  */
-public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
-	
+public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
+
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
-	
+
+	private Point defaultCompLocation = new Point(0, 0);
+	private Dimension defaultCompSize = new Dimension(100, 100);
+
 	public ETLGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 	}
-	
+
 	@Override
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
@@ -77,7 +92,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 		setPartName(input.getName());
 		container = new Container();
 	}
-	
+
 	@Override
 	protected PaletteRoot getPaletteRoot() {
 		PaletteRoot palette = new PaletteRoot();
@@ -97,19 +112,19 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 			oos.close();
 			IFile file = ((IFileEditorInput) getEditorInput()).getFile();
 
-			file.setContents(new ByteArrayInputStream(out.toByteArray()), true, 
+			file.setContents(new ByteArrayInputStream(out.toByteArray()), true,
 					false, // dont keep history
 					monitor);
 
 			getCommandStack().markSaveLocation();
 		} catch (CoreException | IOException e) {
-			//TODO add logger
-			throw new RuntimeException("Could not save the file", e); 
-		} 
+			// TODO add logger
+			throw new RuntimeException("Could not save the file", e);
+		}
 	}
 
 	/**
-	 * Initialize the viewer with container 
+	 * Initialize the viewer with container
 	 */
 	@Override
 	protected void initializeGraphicalViewer() {
@@ -118,8 +133,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 		viewer.setContents(container);
 		// listen for dropped parts
 		viewer.addDropTargetListener(createTransferDropTargetListener());
+		// listener for selection on canvas
+		viewer.addSelectionChangedListener(createISelectionChangedListener());
 	}
-	
 
 	/**
 	 * Configure the graphical viewer with
@@ -137,10 +153,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 		prepareZoomContributions(viewer);
 		handleKeyStrokes(viewer);
 	}
-	
+
 	protected PaletteViewerProvider createPaletteViewerProvider() {
 		return new PaletteViewerProvider(getEditDomain()) {
-			protected void configurePaletteViewer(PaletteViewer viewer) {
+			protected void configurePaletteViewer(final PaletteViewer viewer) {
 				super.configurePaletteViewer(viewer);
 				// create a drag source listener for this palette viewer
 				// together with an appropriate transfer drop target listener,
@@ -151,25 +167,79 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 				// @see ShapesEditor#createTransferDropTargetListener()
 				viewer.addDragSourceListener(new TemplateTransferDragSourceListener(
 						viewer));
+				viewer.getControl().addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseUp(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseDown(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseDoubleClick(MouseEvent mouseEvent) {
+						EditPart editPart = viewer.findObjectAt(new Point(
+								mouseEvent.x, mouseEvent.y));
+
+						CombinedTemplateCreationEntry ctToolEntry = (CombinedTemplateCreationEntry) editPart
+								.getModel();
+
+						if (ctToolEntry == null) {
+							return;
+						}
+
+						CreateRequest request = new CreateRequest();
+
+						request.setFactory(new SimpleFactory(
+								(Class) ctToolEntry.getTemplate()));
+
+						defaultCompLocation.setLocation(
+								defaultCompLocation.getCopy().x + 5,
+								defaultCompLocation.getCopy().y + 5);
+
+						request.setLocation(defaultCompLocation);
+						request.setSize(defaultCompSize);
+
+						GraphicalViewer gViewer = getGraphicalViewer();
+						ComponentCreateCommand ccCommand = new ComponentCreateCommand(
+								(com.bitwise.app.graph.model.Component) request
+										.getNewObject(), (Container) gViewer
+										.getContents().getModel(),
+								new Rectangle(request.getLocation(), request
+										.getSize()));
+
+						gViewer.getEditDomain().getCommandStack()
+								.execute(ccCommand);
+
+					}
+				});
 			}
 		};
 	}
-	
+
 	public void commandStackChanged(EventObject event) {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
 	}
-	
+
 	private void createShapesDrawer(PaletteRoot palette) {
 		PaletteDrawer componentsDrawer = new PaletteDrawer("Components");
-		List<Component> componentsConfig = XMLConfigUtil.INSTANCE.getComponentConfig();
+		List<Component> componentsConfig = XMLConfigUtil.INSTANCE
+				.getComponentConfig();
 		for (Component componentConfig : componentsConfig) {
-			Class<?> clazz = DynamicClassProcessor.INSTANCE.createClass(componentConfig);
-			
+			Class<?> clazz = DynamicClassProcessor.INSTANCE
+					.createClass(componentConfig);
+
 			CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-					componentConfig.getName(), "Custom components", clazz, new SimpleFactory(clazz), 
-					ImageDescriptor.createFromURL(prepareIconPathURL(componentConfig.getIconPath())), 
-					ImageDescriptor.createFromURL(prepareIconPathURL(componentConfig.getIconPath())));
+					componentConfig.getName(), "Custom components", clazz,
+					new SimpleFactory(clazz),
+					ImageDescriptor
+							.createFromURL(prepareIconPathURL(componentConfig
+									.getIconPath())),
+					ImageDescriptor
+							.createFromURL(prepareIconPathURL(componentConfig
+									.getIconPath())));
 			componentsDrawer.add(component);
 		}
 		palette.add(componentsDrawer);
@@ -187,38 +257,42 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 		toolbar.add(new MarqueeToolEntry());
 
 		// Add (solid-line) connection tool
-		tool = new ConnectionCreationToolEntry("Solid connection",
-				"Create a solid-line connection", 
+		tool = new ConnectionCreationToolEntry(
+				"Solid connection",
+				"Create a solid-line connection",
 				new CreationFactory() {
 					public Object getNewObject() {
 						return null;
 					}
-		
+
 					// see ShapeEditPart#createEditPolicies()
 					// this is abused to transmit the desired line style
 					public Object getObjectType() {
 						return Connection.SOLID_CONNECTION;
 					}
-				}, 
-				ImageDescriptor.createFromURL(prepareIconPathURL("/icons/connection_s16.gif")),
-				ImageDescriptor.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")));
+				},
+				ImageDescriptor
+						.createFromURL(prepareIconPathURL("/icons/connection_s16.gif")),
+				ImageDescriptor
+						.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")));
 		toolbar.add(tool);
 
 		palette.add(toolbar);
 	}
 
-	private URL prepareIconPathURL(String iconPath){
+	private URL prepareIconPathURL(String iconPath) {
 		URL iconUrl = null;
-		
+
 		try {
-			iconUrl = new URL("file", null, (XMLConfigUtil.CONFIG_FILES_PATH  + iconPath));
+			iconUrl = new URL("file", null,
+					(XMLConfigUtil.CONFIG_FILES_PATH + iconPath));
 		} catch (MalformedURLException e) {
-			//TODO : Add Logger
+			// TODO : Add Logger
 			throw new RuntimeException();
 		}
 		return iconUrl;
 	}
-	
+
 	/**
 	 * Create a transfer drop target listener. When using a
 	 * CombinedTemplateCreationEntry tool in the palette, this will enable model
@@ -233,7 +307,26 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 			}
 		};
 	}
-	
+
+	private ISelectionChangedListener createISelectionChangedListener() {
+		return new ISelectionChangedListener() {
+
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				StructuredSelection sSelection = (StructuredSelection) event
+						.getSelection();
+
+				AbstractGraphicalEditPart selectedEditPart = (AbstractGraphicalEditPart) sSelection
+						.getFirstElement();
+
+				defaultCompLocation.setLocation(selectedEditPart.getFigure()
+						.getBounds().x, selectedEditPart.getFigure()
+						.getBounds().y);
+
+			}
+		};
+	}
+
 	private void handleKeyStrokes(GraphicalViewer viewer) {
 		KeyHandler keyHandler = new KeyHandler();
 		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
@@ -243,25 +336,28 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette{
 		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
 				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
 
-		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE), MouseWheelZoomHandler.SINGLETON);
+		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
+				MouseWheelZoomHandler.SINGLETON);
 		viewer.setKeyHandler(keyHandler);
 	}
 
-	private void configureViewer(GraphicalViewer viewer){
+	private void configureViewer(GraphicalViewer viewer) {
 		viewer.setEditPartFactory(new ComponentsEditPartFactory());
-		ContextMenuProvider cmProvider = new ComponentsEditorContextMenuProvider(viewer, getActionRegistry());
+		ContextMenuProvider cmProvider = new ComponentsEditorContextMenuProvider(
+				viewer, getActionRegistry());
 		viewer.setContextMenu(cmProvider);
 		getSite().registerContextMenu(cmProvider, viewer);
 	}
 
-	private void prepareZoomContributions(GraphicalViewer viewer){
+	private void prepareZoomContributions(GraphicalViewer viewer) {
 		ScalableFreeformRootEditPart rootEditPart = new ScalableFreeformRootEditPart();
 		viewer.setRootEditPart(rootEditPart);
 		ZoomManager manager = rootEditPart.getZoomManager();
 		getActionRegistry().registerAction(new ZoomInAction(manager));
 		getActionRegistry().registerAction(new ZoomOutAction(manager));
 
-		double[] zoomLevels = new double[] {0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 10.0, 20.0};
+		double[] zoomLevels = new double[] { 0.25, 0.5, 0.75, 1.0, 1.5, 2.0,
+				2.5, 3.0, 4.0, 5.0, 10.0, 20.0 };
 		manager.setZoomLevels(zoomLevels);
 
 		ArrayList<String> zoomContributions = new ArrayList<>();
