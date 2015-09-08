@@ -25,8 +25,6 @@ public class MyCustomWidget implements IELTWidget{
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	Group grpGroup_1;
 	
-	private MyCustomWidget(){
-	}
 	
 	@Override
 	public void attachToPropertySubGroup(Group grpGroup_1){

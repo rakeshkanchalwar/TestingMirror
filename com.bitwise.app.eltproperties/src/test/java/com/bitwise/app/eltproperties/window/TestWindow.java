@@ -1,5 +1,8 @@
 package com.bitwise.app.eltproperties.window;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.action.ToolBarManager;
@@ -14,7 +17,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.bitwise.app.eltproperties.property.IPropertyTreeBuilder;
+import com.bitwise.app.eltproperties.property.Property;
+import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.propertydialog.PropertyDialog;
+import com.bitwise.app.eltproperties.testdata.ComponentModel;
+import com.bitwise.app.eltproperties.testdata.PropertyStore;
 
 /**
  * 
@@ -54,8 +62,16 @@ public class TestWindow extends ApplicationWindow {
 				
 				//CopyOfPropertyWindowPOC2 copyOfPropertyWindowPOC2 = new CopyOfPropertyWindowPOC2(e.display.getActiveShell());
 				//copyOfPropertyWindowPOC2.open();
+				PropertyStore propertyStore = new PropertyStore();
 				
-				PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell());
+				ArrayList<Property> inputComponentProperties = propertyStore.getProperties("Input");
+				
+				IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(inputComponentProperties);
+				
+				ComponentModel componentModel = new ComponentModel(); 
+				LinkedHashMap<String, Object> inputCompProps = componentModel.getProperties("Input");
+				
+				PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell(),propertyTreeBuilder.getPropertyTree(),inputCompProps);
 				testDialog.open();
 				
 			}

@@ -26,7 +26,9 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Group;
 
 
+import com.bitwise.app.eltproperties.factory.WidgetFactory;
 import com.bitwise.app.eltproperties.property.Property;
+import com.bitwise.app.eltproperties.widgets.IELTWidget;
 
 /**
  * 
@@ -37,22 +39,39 @@ import com.bitwise.app.eltproperties.property.Property;
 
 public class PropertyDialogBuilder {
 	//<GroupName,<SubgroupName,[PropertyList...]>>
-	LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree;
-	Composite container;
-	
-	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree){
+	private LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree;
+	private Composite container;
+	private LinkedHashMap<String, Object> componentProperties;
+	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties){
 		this.container = container;
 		this.propertyTree = propertyTree;
+		this.componentProperties = componentProperties;
 	}
 	
 	public void buildPropertyWindow(){
-				
+		
+		WidgetFactory widgetFactory = new WidgetFactory();
+		
 		TabFolder tabFolder = addTabFolderToPropertyWindow();
 		for(String groupName : propertyTree.keySet()){
 			ScrolledCompositeHolder scrolledCompositeHolder = addGroupToPropertyWindowTab(groupName,tabFolder);
 			LinkedHashMap<String,ArrayList<Property>> subgroupTree = propertyTree.get(groupName);
 			for(String subgroupName: subgroupTree.keySet()){
-				addSubgroupToPropertyWindowTab(subgroupName,scrolledCompositeHolder);
+				Property property_1 = subgroupTree.get(subgroupName).get(0);
+				Group subGroup;
+				if(property_1 != null){
+					subGroup=addSubgroupToPropertyWindowTab(property_1.getPropertySubGroup(),scrolledCompositeHolder);
+				}else{
+					subGroup=addSubgroupToPropertyWindowTab(subgroupName,scrolledCompositeHolder);
+				}
+				
+				for(Property property: subgroupTree.get(subgroupName)){
+					IELTWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
+					eltWidget.setProperties(componentProperties.get(property.getPropertyName()));
+					eltWidget.attachToPropertySubGroup(subGroup);
+					
+				}
+				
 			}
 		}
 	}
@@ -94,7 +113,7 @@ public class PropertyDialogBuilder {
 		return scrolledCompositeHolder;
 	}
 	
-	public void addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
+	public Group addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
 		Group grpGroup = new Group(scrolledCompositeHolder.getComposite(), SWT.NONE);
 		grpGroup.setText(subgroupName);
 		ColumnLayout cl_grpGroup = new ColumnLayout();
@@ -104,6 +123,8 @@ public class PropertyDialogBuilder {
 		
 		scrolledCompositeHolder.getScrolledComposite().setContent(scrolledCompositeHolder.getComposite());
 		scrolledCompositeHolder.getScrolledComposite().setMinSize(scrolledCompositeHolder.getComposite().computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		
+		return grpGroup;
 	}
 	
 }
