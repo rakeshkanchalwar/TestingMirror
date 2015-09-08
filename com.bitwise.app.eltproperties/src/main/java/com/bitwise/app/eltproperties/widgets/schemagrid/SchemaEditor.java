@@ -1,0 +1,227 @@
+package com.bitwise.app.eltproperties.widgets.schemagrid;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.ICellEditorValidator;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.window.ApplicationWindow;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+
+import com.bitwise.app.eltproperties.Messages;
+
+/**
+ * @author rahulma
+ * This class demonstrates CellEditors. It allows you to create and edit
+ * SchemaGrid objects
+ */
+public class SchemaEditor extends ApplicationWindow {
+
+	private List<SchemaGrid> schemaGrids;
+	private Table table;
+	private Shell shell;
+
+	public SchemaEditor() {
+		super(null);
+		schemaGrids = new ArrayList<SchemaGrid>();
+	}
+
+	// Table column names/properties
+	public static final String FIELDNAME = Messages.FIELDNAME;
+	public static final String LIMIT = Messages.LIMIT;
+	public static final String DATATYPE = Messages.DATATYPE;
+	public static final String[] PROPS = { FIELDNAME, DATATYPE, LIMIT };
+	public static String[] dataTypeList;
+
+	//get the datatype list from property file.
+	public static String[] getDataType() {
+		if (dataTypeList != null)
+			return dataTypeList;
+		else {
+			String schemaList = Messages.DATATYPELIST;
+			dataTypeList = schemaList.split(",");
+			return dataTypeList;
+		}
+	}
+
+	/**
+	 * Runs the application
+	 */
+	public void run() {
+		// Don't return from open() until window closes
+		setBlockOnOpen(true);
+
+		// Open the main window
+		open();
+
+		// Dispose the display
+		Display.getCurrent().dispose();
+	}
+
+	/**
+	 * Configures the shell
+	 * 
+	 * @param shell
+	 *            the shell
+	 */
+	protected void configureShell(Shell shell) {
+		super.configureShell(shell);
+		shell.setText("SchemaGrid Editor");
+		shell.setSize(500, 500);
+	}
+
+	/**
+	 * Creates the main window's contents
+	 * 
+	 * @param parent
+	 *            the main window
+	 * @return Control
+	 */
+	protected Control createContents(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayout(new FormLayout());
+		final Label errorLabel = new Label(composite, SWT.COLOR_DARK_RED);
+		FormData fd_errorLabel = new FormData();
+		fd_errorLabel.top = new FormAttachment(0, 5);
+		fd_errorLabel.left = new FormAttachment(0, 5);
+		errorLabel.setLayoutData(fd_errorLabel);
+		errorLabel.setText("Error Message ");
+		errorLabel.setVisible(false);
+		errorLabel.setImage(Display.getDefault().getSystemImage(SWT.ICON_ERROR));
+		
+		// Add the TableViewer
+		final TableViewer tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
+		tableViewer.setContentProvider(new SchemaGridContentProvider());
+		tableViewer.setLabelProvider(new SchemaGridLabelProvider());
+		tableViewer.setInput(schemaGrids);
+
+		// Set up the table
+		table = tableViewer.getTable();
+		FormData fd_table = new FormData();
+		fd_table.bottom = new FormAttachment(0, 290);
+		fd_table.right = new FormAttachment(0, 429);
+		fd_table.top = new FormAttachment(0, 42);
+		fd_table.left = new FormAttachment(0, 5);
+		table.setLayoutData(fd_table);
+
+		new TableColumn(table, SWT.CENTER).setText(FIELDNAME);
+		new TableColumn(table, SWT.CENTER).setText(DATATYPE);
+		new TableColumn(table, SWT.CENTER).setText(LIMIT);
+
+		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
+			table.getColumn(i).pack();
+		}
+
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+
+		/*
+		 * Table mouse click event.
+		 * Add new column in schema grid with default values.
+		 * 
+		 */
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+
+				SchemaGrid schemaGrid = new SchemaGrid();
+				schemaGrid.setFieldName("Id" + schemaGrids.size());
+				schemaGrid.setLimit("\"|\"");
+				schemaGrid.setDataType(Integer.valueOf("0"));
+				schemaGrids.add(schemaGrid);
+				tableViewer.refresh(); 
+			}
+		});
+		
+		CellEditor[] editors = new CellEditor[3];
+		TextCellEditor fieldNametext = new TextCellEditor(table);
+		editors[0] = fieldNametext;
+		editors[1] = new ComboBoxCellEditor(table, SchemaEditor.getDataType(),
+				SWT.READ_ONLY);
+		editors[2] = new TextCellEditor(table);
+		// Set the editors, cell modifier, and column properties
+		tableViewer.setColumnProperties(PROPS);
+		tableViewer.setCellModifier(new SchemaGridCellModifier(tableViewer));
+		tableViewer.setCellEditors(editors);
+
+		/*
+		 * Field name validation, It should not get repeated.  
+		 */
+		ICellEditorValidator iCellEditorValidator = new ICellEditorValidator() {
+
+			@Override
+			public String isValid(Object value) {
+				String selectedGrid = table.getItem(table.getSelectionIndex()).getText();
+				for (SchemaGrid schemaGrid : schemaGrids) {
+					if (schemaGrid.getFieldName().equalsIgnoreCase(
+							(String) value) && !selectedGrid.equalsIgnoreCase((String) value)) {
+						errorLabel.setVisible(true);
+						return "Error";
+					} else
+						errorLabel.setVisible(false);
+				}
+				return null;
+			}
+		};
+		// Apply validator to text field.
+		fieldNametext.setValidator(iCellEditorValidator);
+		Composite c1=new Composite(composite, SWT.NONE);
+		FormData fd_c1 = new FormData();
+		fd_c1.right = new FormAttachment(0, 428);
+		fd_c1.top = new FormAttachment(0, 295);
+		fd_c1.left = new FormAttachment(0, 5);
+		c1.setLayoutData(fd_c1);
+		c1.setLayout(null);
+		
+		
+		
+		Button btnRemove = new Button(c1, SWT.CENTER);
+		btnRemove.setBounds(0, 0, 105, 20);
+		shell = composite.getShell();
+		
+		btnRemove.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int temp = table.getSelectionIndex();
+				if (temp == -1) {
+					MessageDialog.openError(shell, "Error",
+							"Please Select row to delete");
+				} else {
+					table.remove(temp);
+					schemaGrids.remove(temp);
+				}
+			}
+		});
+		btnRemove.setText("Remove");
+		return composite;
+	}
+
+	/**
+	 * The application entry point
+	 * 
+	 * @param args
+	 *            the command line arguments
+	 */
+	public static void main(String[] args) {
+		new SchemaEditor().run();
+	}
+}
