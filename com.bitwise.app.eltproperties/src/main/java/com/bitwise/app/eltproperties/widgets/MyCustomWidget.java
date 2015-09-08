@@ -70,4 +70,16 @@ public class MyCustomWidget implements IELTWidget{
 		formToolkit.adapt(btnAdd, true, true);
 		btnAdd.setText("Add");
 	}
+
+	@Override
+	public void setProperties(Object properties) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object getProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
