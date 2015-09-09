@@ -7,7 +7,10 @@ Bundle-Activator: com.bitwise.app.common.Activator
 Bundle-Vendor: BITWISE
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.views;bundle-version="3.6.0",
- org.junit;bundle-version="3.8.2"
+ org.junit;bundle-version="3.8.2",
+ ch.qos.logback.classic,
+ ch.qos.logback.core,
+ org.slf4j.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: com.bitwise.app.common.component.config,
