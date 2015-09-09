@@ -30,6 +30,8 @@ public class Component extends Model {
 	
 	private Map<String, String> properties = new HashMap<>();
 	
+	private Container parent;
+	
 	protected Hashtable inputs = new Hashtable(7);
 	protected Vector outputs = new Vector(4, 4);
 	
@@ -155,5 +157,13 @@ public class Component extends Model {
 	 */
 	public Dimension getSize() {
 		return size.getCopy();
+	}
+
+	public Container getParent() {
+		return parent;
+	}
+
+	public void setParent(Container parent) {
+		this.parent = parent;
 	}
 }

@@ -1,6 +1,7 @@
 package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Container extends Model {
@@ -14,7 +15,10 @@ public class Container extends Model {
 	/** Property ID to use when a child is removed from this diagram. */
 	public static final String CHILD_REMOVED_PROP = "ComponentsDiagram.ChildRemoved";
 	
+	private static final String NAME_PROP = "Name";
+	
 	private List<Component> components = new ArrayList<>();
+	private Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
 	
 	/**
 	 * Add a shape to this diagram.
@@ -22,6 +26,10 @@ public class Container extends Model {
 	 */
 	public boolean addChild(Component component) {
 		if (component != null && components.add(component)) {
+			component.setParent(this);
+			String comp = (String) component.getPropertyValue(NAME_PROP);
+			System.out.println("component : " + comp);
+			component.setPropertyValue(NAME_PROP, getDefaultNameForComponent(comp));
 			firePropertyChange(CHILD_ADDED_PROP, null, component);
 			return true;
 		}
@@ -46,6 +54,79 @@ public class Container extends Model {
 			return true;
 		}
 		return false;
+	}
+
+	public String getDefaultNameForComponent(String component) {
+
+		if (component == null) {
+			return null;
+		}
+		component = component.trim();
+		String newName = "";
+		Integer nextSuffix = componentNextNameSuffixes.get(component);
+		System.out.println("componentNextNameSuffixes.size(): " + componentNextNameSuffixes.size());
+		int next = 1;
+
+		if (nextSuffix == null) {
+			System.out
+					.println("component not present in the map! will check if default component name is already taken by some other component. If not, then return default name.");
+
+		} else {
+			System.out.println("component exists in the map. value of nextSuffix: " + nextSuffix.intValue());
+			next = nextSuffix.intValue();
+		}
+
+		newName = component + "_" + (next < 10 ? "0" : "") + next;
+
+		while (true) {
+			boolean continueFor = false;
+			for (Object obj : components) {
+				Component comp = (Component) obj;
+				String compName = (String) comp.getPropertyValue(NAME_PROP);
+				if (compName.equalsIgnoreCase(newName)) {
+					System.out.println("Found duplicate name: " + compName);
+					continueFor = true;
+					break;
+				}
+
+			}
+			if (continueFor) {
+				next++;
+				newName = component + "_" + (next < 10 ? "0" : "") + next;
+				System.out.println("still didn't get the new name for the component, now checking for " + newName);
+			} else {
+				System.out.println("Got the new name for the component! " + newName);
+				break;
+			}
+
+		}
+
+		// populate Hashtable
+		nextSuffix = new Integer(++next);
+		Integer i = componentNextNameSuffixes.put(component, nextSuffix);
+		System.out.println("previous value for component " + component + " in map: " + i);
+
+		return newName;
+
+	}
+
+	public boolean isUniqueCompName(String componentName) {
+		componentName = componentName.trim();
+		boolean result = true;
+
+		for (Object obj : components) {
+			Component comp = (Component) obj;
+			String compName = (String) comp.getPropertyValue(NAME_PROP);
+			;
+			if (compName.equalsIgnoreCase(componentName)) {
+				result = false;
+				break;
+			}
+
+		}
+		System.out.println("isUniqueCompName: result: " + result);
+
+		return result;
 	}
 	
 	
