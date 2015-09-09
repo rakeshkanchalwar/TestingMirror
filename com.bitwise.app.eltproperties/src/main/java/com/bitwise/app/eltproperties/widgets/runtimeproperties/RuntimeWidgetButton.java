@@ -102,4 +102,10 @@ public class RuntimeWidgetButton implements IELTWidget {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
 }

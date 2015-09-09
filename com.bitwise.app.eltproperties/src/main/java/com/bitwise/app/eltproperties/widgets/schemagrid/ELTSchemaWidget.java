@@ -242,6 +242,12 @@ public class ELTSchemaWidget implements IELTWidget {
 		tableViewer.setInput(schemaGrids);
 		tableViewer.refresh();
 		} 
+	}
+
+	@Override
+	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
 	} 
 	
 }

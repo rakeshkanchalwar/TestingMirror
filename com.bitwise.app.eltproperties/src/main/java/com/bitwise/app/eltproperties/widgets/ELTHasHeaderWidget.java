@@ -136,6 +136,12 @@ public class ELTHasHeaderWidget implements IELTWidget{
 		property.put(propertyName, combo.getText());
 		return property;
 	}
+
+	@Override
+	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 
