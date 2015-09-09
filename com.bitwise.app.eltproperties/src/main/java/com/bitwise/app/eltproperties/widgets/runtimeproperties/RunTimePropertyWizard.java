@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 public class RunTimePropertyWizard {
 	private Table table;
-	private int propertyCounter;
+	
 	private Shell shell;
 	private List<RuntimeProperties> propertyLst;
 	public static final String RUNTIMEPROPNAME = "Property Name";
@@ -55,7 +55,7 @@ public class RunTimePropertyWizard {
 	private Button addButton, deleteAll, applyButton, okButton, deleteButton,
 			cacelButton;
 	private boolean isAnyUpdatePerformed;
-	private RuntimeProperties currentObject;
+
 
 	public RunTimePropertyWizard() {
 
@@ -64,46 +64,24 @@ public class RunTimePropertyWizard {
 
 	}
 
+	// Add New Property After Validating old properties
 	private void addNewProperty(TableViewer tv) {
 
 		isAnyUpdatePerformed = true;
 		RuntimeProperties p = new RuntimeProperties();
-
-		// String autoGenratedPropertyName = "New Property" +
-		// (++propertyCounter);
-		// for (RuntimeProperties temp : propertyLst) {
-		// if (temp.getPropertyName().equalsIgnoreCase(
-		// autoGenratedPropertyName)) {
-		// autoGenratedPropertyName = "New Property" + (++propertyCounter);
-		// }
-		// }
-
 		if (propertyLst.size() != 0) {
-			if (!propertyLst.get(propertyLst.size() - 1).getPropertyName()
-					.isEmpty()
-					&& !propertyLst.get(propertyLst.size() - 1)
-							.getPropertyValue().isEmpty()) {
-				p.setPropertyName("");
-				p.setPropertyValue("");
-				propertyLst.add(p);
-				tv.refresh();
-//				disableButtons();
-//				lblPropertyError.setVisible(true);
-//				lblPropertyError
-//						.setText("Property name and value cannot be empty");
-			} else {
-				lblPropertyError.setVisible(true);
-				lblPropertyError
-						.setText("Property name and value cannot be empty");
-			}
+			if (!validate())
+				return;
+			p.setPropertyName("");
+			p.setPropertyValue("");
+			propertyLst.add(p);
+			tv.refresh();
+
 		} else {
 			p.setPropertyName("");
 			p.setPropertyValue("");
 			propertyLst.add(p);
 			tv.refresh();
-//			disableButtons();
-//			lblPropertyError.setVisible(true);
-//			lblPropertyError.setText("Property name and value cannot be empty");
 		}
 	}
 
@@ -292,7 +270,8 @@ public class RunTimePropertyWizard {
 					if (userAns) {
 						table.removeAll();
 						propertyLst.removeAll(propertyLst);
-						propertyCounter = 0;
+						lblPropertyError.setVisible(false);
+						disableButtons();
 					}
 				}
 			}
@@ -306,9 +285,9 @@ public class RunTimePropertyWizard {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 
-				if (isAnyUpdatePerformed) {
-					runtimePropertyMap.clear();
-					if (validate()) {
+				if (validate()) {
+					if (isAnyUpdatePerformed) {
+						runtimePropertyMap.clear();
 						for (RuntimeProperties temp : propertyLst) {
 							runtimePropertyMap.put(temp.getPropertyName(),
 									temp.getPropertyValue());
@@ -329,10 +308,9 @@ public class RunTimePropertyWizard {
 		okButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-
-				runtimePropertyMap.clear();
-				isOkPressed = true;
 				if (validate()) {
+					runtimePropertyMap.clear();
+					isOkPressed = true;
 					for (RuntimeProperties temp : propertyLst) {
 						runtimePropertyMap.put(temp.getPropertyName(),
 								temp.getPropertyValue());
@@ -362,20 +340,20 @@ public class RunTimePropertyWizard {
 
 	protected boolean validate() {
 		System.out.println("validating All Input In table");
-		int i = 0;
+		int propertyCounter = 0;
 		for (RuntimeProperties temp : propertyLst) {
-				if (!temp.getPropertyName().isEmpty()
+			if (!temp.getPropertyName().isEmpty()
 					&& !temp.getPropertyValue().isEmpty()) {
 				System.out.println(temp + "Validate");
 			} else {
-
-				table.setSelection(i);
+				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
 				lblPropertyError
 						.setText("Property name and value cannot be empty");
+				disableButtons();
 				return false;
 			}
-				i++;
+			propertyCounter++;
 		}
 		return true;
 	}

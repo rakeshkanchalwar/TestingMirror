@@ -43,10 +43,9 @@ public class ELTSchemaWidget implements IELTWidget {
 	private Shell shell;
 	private Object properties;
 	private String propertyName;
-	int gridCount=0;
 	public TableViewer tableViewer;
-
-	public ELTSchemaWidget() {
+	int counter=0;
+	public ELTSchemaWidget() { 
 	}
  
 	// Table column names/properties
@@ -68,7 +67,8 @@ public class ELTSchemaWidget implements IELTWidget {
 	}
 	
 	/**
-	 * @wbp.parser.entryPoint
+	 * This method has main logic for schema grid.
+	 * @param Group 
 	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -111,13 +111,7 @@ public class ELTSchemaWidget implements IELTWidget {
 		table.addMouseListener(new MouseAdapter() { 
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
-
-				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id"+gridCount++);
-				schemaGrid.setLimit("");
-				schemaGrid.setDataType(Integer.valueOf("0"));
-				schemaGrids.add(schemaGrid);
-				tableViewer.refresh(); 
+				createDefaultSchema(); 
 			}
 		});
 		 
@@ -166,22 +160,15 @@ public class ELTSchemaWidget implements IELTWidget {
 		c1.setLayout(null);
 		
 		
-	
 		Button addButton = new Button(c1, SWT.CENTER);
 		addButton.setBounds(0, 0, 88, 25);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id"+gridCount++);
-				schemaGrid.setLimit("");
-				schemaGrid.setDataType(Integer.valueOf("0"));
-				schemaGrids.add(schemaGrid);
-				tableViewer.refresh(); 			} 
+				createDefaultSchema(); 		
+				} 
 		});
 		addButton.setText("Add");
-	
-		
 		Button btnRemove = new Button(c1, SWT.CENTER);
 		btnRemove.setBounds(90, 0, 88, 25);
 		btnRemove.addSelectionListener(new SelectionAdapter() {
@@ -205,7 +192,6 @@ public class ELTSchemaWidget implements IELTWidget {
 			public void widgetSelected(SelectionEvent e) {
 				schemaGrids.removeAll(schemaGrids);
 				tableViewer.refresh();
-				gridCount=0;
 			}
 		}); 
 		btnRemoveall.setBounds(180, 0, 88, 25);
@@ -249,5 +235,18 @@ public class ELTSchemaWidget implements IELTWidget {
 		// TODO Auto-generated method stub
 		
 	} 
+	
+	public void createDefaultSchema(){
+		SchemaGrid schemaGrid = new SchemaGrid();
+		schemaGrid.setFieldName("Id"+counter++);
+		schemaGrid.setLimit(""); 
+		schemaGrid.setDataType(Integer.valueOf("0"));
+		if(schemaGrids.contains(schemaGrid))
+		{
+			schemaGrid.setFieldName("Id"+counter++); 
+		}
+		schemaGrids.add(schemaGrid); 
+		tableViewer.refresh(); 
+	}
 	
 }
