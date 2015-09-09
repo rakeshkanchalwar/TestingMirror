@@ -1,0 +1,39 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: PaletteTreeViewTest
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _nwsbcFK9EeW8Ad38PQJ-lQ
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 9/9/15 3:44 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+get-menu "File/New/Job" | click
+with [get-editor "Graph 3" | get-diagram] {
+    mouse-move 351 147 button1 -height 304 -width 741
+    mouse-press 351 147 button1 -height 304 -width 741
+    mouse-release 351 147 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette] {
+    with [get-palette-entry Input] {
+        mouse-move 45 9 button1 -height 22 -width 244
+        mouse-press 45 9 button1 -height 22 -width 244
+        mouse-release 45 9 button1 524288 -height 22 -width 244
+        mouse-press 45 9 button1 -height 106 -width 227
+        mouse-release 45 9 button1 524288 -height 106 -width 227
+    }
+    with [get-palette-entry Output] {
+        mouse-move 45 8 button1 -height 22 -width 244
+        mouse-press 45 8 button1 -height 22 -width 244
+        mouse-release 45 8 button1 524288 -height 22 -width 244
+        mouse-hover 45 8 -height 106 -width 227
+        mouse-press 45 8 button1 -height 106 -width 227
+        mouse-release 45 8 button1 524288 -height 106 -width 227
+    }
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
