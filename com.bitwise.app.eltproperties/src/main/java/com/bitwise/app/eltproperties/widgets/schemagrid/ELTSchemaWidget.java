@@ -144,8 +144,8 @@ public class ELTSchemaWidget implements IELTWidget {
 					public String isValid(Object value) {
 						String selectedGrid = table.getItem(table.getSelectionIndex()).getText();
 						for (SchemaGrid schemaGrid : schemaGrids) {
-							if (schemaGrid.getFieldName().equalsIgnoreCase(
-									(String) value) && !selectedGrid.equalsIgnoreCase((String) value)) {
+							if ((schemaGrid.getFieldName().equalsIgnoreCase(
+									(String) value) && !selectedGrid.equalsIgnoreCase((String) value) )|| ((String) value).isEmpty() ) {
 					            txtDecorator.show();
 								return "Error";
 							} else{
@@ -153,7 +153,7 @@ public class ELTSchemaWidget implements IELTWidget {
 							}
 						}
 						return null;
-					}
+					} 
 				};
 		// Apply validator to text field.
 		fieldNametext.setValidator(iCellEditorValidator);
