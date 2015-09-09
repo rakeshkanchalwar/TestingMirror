@@ -9,8 +9,8 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ManhattanConnectionRouter;
 import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.ShortestPathConnectionRouter;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -51,10 +51,9 @@ public class ContainerEditPart extends AbstractGraphicalEditPart implements Prop
 
 		// Create the static router for the connection layer
 		ConnectionLayer connLayer = (ConnectionLayer) getLayer(LayerConstants.CONNECTION_LAYER);
-		connLayer.setConnectionRouter(new ShortestPathConnectionRouter(f));
+		connLayer.setConnectionRouter(new ManhattanConnectionRouter());
 		return f;
 	}
-
 	@Override
 	protected void createEditPolicies() {
 		// disallows the removal of this edit part from its parent

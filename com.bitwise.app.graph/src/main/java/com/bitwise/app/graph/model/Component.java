@@ -39,21 +39,21 @@ public class Component extends Model {
 	protected int numberOfOutGoingLinks=0;
 	protected int numberOfInComingLinks=0;
 	
-	protected int numberOfOutGoingLinksLimit, numberOfInComingLinksLimit;
-	
+	//protected int numberOfOutGoingLinksLimit=1, numberOfInComingLinksLimit=1;
+	protected boolean allowMultipleLinks=false;
 	
 	public boolean allowMoreOutGoingLinks(){
-
-		if (numberOfOutGoingLinks<numberOfOutGoingLinksLimit)
+		
+		if(numberOfOutGoingLinks<1 || allowMultipleLinks)
 			return true;
 		return false;
 
 	}
 	public boolean allowMoreInComingLinks(){
-		if (numberOfInComingLinks<numberOfInComingLinksLimit)
+		
+		if(numberOfInComingLinks<1 || allowMultipleLinks)
 			return true;
 		return false;
-
 	}
 	
 	public void connectInput(ComponentConnection c) {
@@ -106,7 +106,14 @@ public class Component extends Model {
 		}
 	}
 	
+
+	public boolean isAllowMultipleLinks() {
+		return allowMultipleLinks;
+	}
 	
+	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
+		this.allowMultipleLinks = allowMultipleLinks;
+	}
 	/**
 	 * Set the Location of this shape.
 	 * @param newLocation a non-null Point instance

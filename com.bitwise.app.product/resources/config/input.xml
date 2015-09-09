@@ -7,6 +7,7 @@
     </tns:inputPort>
     <tns:outputPort>
       <tns:numberOfPorts>1</tns:numberOfPorts>
+      <tns:allowMultipleLinks>false</tns:allowMultipleLinks>
     </tns:outputPort>
     <tns:property dataType="string" name="schema" renderer="GRID" type="USER" group="GENERAL">
       <tns:validation>

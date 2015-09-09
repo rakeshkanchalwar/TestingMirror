@@ -62,6 +62,8 @@
 		<sequence>
 			<element name="numberOfPorts" type="integer" maxOccurs="1"
 				minOccurs="1" />
+			<element name="allowMultipleLinks" type="boolean" maxOccurs="1"
+				minOccurs="0" />
 		</sequence>
 	</complexType>
 

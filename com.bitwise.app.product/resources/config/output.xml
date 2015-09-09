@@ -4,9 +4,10 @@
     <tns:category>OUTPUT</tns:category>
     <tns:inputPort>
       <tns:numberOfPorts>1</tns:numberOfPorts>
+      <tns:allowMultipleLinks>false</tns:allowMultipleLinks>
     </tns:inputPort>
     <tns:outputPort>
-      <tns:numberOfPorts>1</tns:numberOfPorts>
+      <tns:numberOfPorts>0</tns:numberOfPorts>
     </tns:outputPort>
     <tns:property dataType="string" group="GENERAL" name="field_sequence" renderer="GRID" type="USER">
       <tns:validation>
