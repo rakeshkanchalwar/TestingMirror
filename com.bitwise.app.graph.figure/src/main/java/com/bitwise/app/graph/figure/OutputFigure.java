@@ -13,14 +13,15 @@ import org.eclipse.swt.graphics.Font;
 
 public class OutputFigure extends ComponentFigure 
 implements HandleBounds{
-	Point labelPoint = new Point(15, 16);
-	Font labelFont = new Font(null, "", 12, 0); 
+	Point labelPoint = new Point(10, 8);
+	Font labelFont = new Font(null, "", 10, 0);
+
 	//FixedConnectionAnchor in, out;
 	
 	
-	public OutputFigure(BigInteger inPorts) {
-
-		
+	public OutputFigure(BigInteger inPorts, String componentName) {
+		super(componentName);
+		System.out.println("OutputFigure.componentName: " + componentName);
 		FixedConnectionAnchor c;
 		c = new FixedConnectionAnchor(this);
 		c.setLeft(true);
@@ -28,36 +29,32 @@ implements HandleBounds{
 		connectionAnchors.put(inPorts.toString(), c);
 		inputConnectionAnchors.addElement(c);
 	}
-	
+
 	@Override
 	protected void paintFigure(Graphics graphics) {
-	
+
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
-			
+
 		System.out.println("OutputFigure:paintFigure");
-		
+
 		graphics.translate(r.getLocation());
 		graphics.setBackgroundColor(ColorConstants.lightGray);
 		graphics.setForegroundColor(ColorConstants.black);
 		graphics.fillRectangle(0, 0, r.width, r.height);
-		//setBorder(new LineBorder(1));
+		// setBorder(new LineBorder(1));
 		graphics.setFont(labelFont);
-		graphics.drawText("Output", labelPoint);
-		
-		
-		
-		
+		graphics.drawText(getLabelName(), labelPoint);
+
 	}
-	
+
 	@Override
 	public void validate() {
+		super.validate();
 		System.out.println("OutputFigure:validate");
 		if (isValid())
 			return;
-		
-		
-		super.validate();
+
 	}
 	
 

@@ -23,6 +23,8 @@ public class ComponentGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 		command.setSource(getComponentEditPart().getCastedModel());
 		ConnectionAnchor ctor = getComponentEditPart().getSourceConnectionAnchor(
 				request);
+		if (ctor == null)
+			return null;
 		command.setSourceTerminal(getComponentEditPart()
 				.mapConnectionAnchorToTerminal(ctor));
 		request.setStartCommand(command);
@@ -40,7 +42,7 @@ public class ComponentGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
 				request);
 		if (ctor == null)
 			return null;
-		System.out.println("mapping connection anchor.");
+		
 		command.setTargetTerminal(getComponentEditPart()
 				.mapConnectionAnchorToTerminal(ctor));
 		return command;

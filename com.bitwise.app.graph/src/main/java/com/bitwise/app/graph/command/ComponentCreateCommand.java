@@ -1,10 +1,13 @@
 package com.bitwise.app.graph.command;
 
+import java.util.Map;
+
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import com.bitwise.app.common.util.ComponentCacheUtil;
+import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -28,7 +31,10 @@ public class ComponentCreateCommand extends Command {
 	 */
 	public ComponentCreateCommand(Component component, Container parent, Rectangle bounds) {
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
-		component.setProperties(ComponentCacheUtil.INSTANCE.getProperties(componentName));
+		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
+		Map<String, String> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
+		properties.put("Name", components.getName());
+		component.setProperties(properties);
 		this.component = component;
 		this.parent = parent;
 		this.bounds = bounds;
