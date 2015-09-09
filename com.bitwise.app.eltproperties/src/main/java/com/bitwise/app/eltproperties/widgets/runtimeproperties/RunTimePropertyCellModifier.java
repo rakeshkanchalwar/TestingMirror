@@ -4,6 +4,8 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Item;
 
+
+
 public class RunTimePropertyCellModifier implements ICellModifier {
 	private Viewer viewer;
 
@@ -36,6 +38,7 @@ public class RunTimePropertyCellModifier implements ICellModifier {
 	 */
 	public Object getValue(Object element, String property) {
 		RuntimeProperties p = (RuntimeProperties) element;
+		
 		if (RunTimePropertyWizard.RUNTIMEPROPNAME.equals(property)) {
 
 			return p.getPropertyName();
@@ -62,6 +65,7 @@ public class RunTimePropertyCellModifier implements ICellModifier {
 			element = ((Item) element).getData();
 
 		RuntimeProperties p = (RuntimeProperties) element;
+		
 		if (RunTimePropertyWizard.RUNTIMEPROPNAME.equals(property))
 			p.setPropertyName(((String) value));
 
