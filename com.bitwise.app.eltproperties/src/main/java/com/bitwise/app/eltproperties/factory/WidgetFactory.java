@@ -7,7 +7,8 @@ import com.bitwise.app.eltproperties.widgets.ELTHasHeaderWidget;
 import com.bitwise.app.eltproperties.widgets.ELTPhaseWidget;
 import com.bitwise.app.eltproperties.widgets.IELTWidget;
 import com.bitwise.app.eltproperties.widgets.MyCustomWidget;
-import com.bitwise.app.eltproperties.widgets.runtimeproperties.RuntimeWidgetButton;
+
+import com.bitwise.app.eltproperties.widgets.runtimeproperties.ELTRuntimePropertiesWidget;
 import com.bitwise.app.eltproperties.widgets.schemagrid.ELTSchemaWidget;
 
 /**
@@ -22,8 +23,8 @@ public class WidgetFactory {
 		if(widgetName.equals("ELTSchemaWidget")){
 			return new ELTSchemaWidget();
 		}else if(widgetName.equals("ELTRuntimePropertiesWidget")){
-			//return new RuntimeWidgetButton();
-			return new MyCustomWidget();
+			return new ELTRuntimePropertiesWidget();
+			
 		}else if(widgetName.equals("ELTFilePathWidget")){
 			return new ELTFilePathWidget();
 		}else if(widgetName.equals("ELTCharacterSetWidget")){

@@ -90,4 +90,10 @@ public class MyCustomWidget implements IELTWidget{
 		return property;
 	}
 
+	@Override
+	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

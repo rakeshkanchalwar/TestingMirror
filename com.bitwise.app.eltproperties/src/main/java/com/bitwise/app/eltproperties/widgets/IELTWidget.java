@@ -19,4 +19,5 @@ public interface IELTWidget {
 	
 	public LinkedHashMap<String,Object> getProperties();
 	
+	public void setComponentName(String componentName);	
 }
