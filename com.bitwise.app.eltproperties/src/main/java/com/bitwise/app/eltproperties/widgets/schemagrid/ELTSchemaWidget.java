@@ -43,7 +43,6 @@ public class ELTSchemaWidget implements IELTWidget {
 	private Shell shell;
 	private Object properties;
 	private String propertyName;
-	int gridCount=0;
 	public TableViewer tableViewer;
 
 	public ELTSchemaWidget() {
@@ -68,7 +67,8 @@ public class ELTSchemaWidget implements IELTWidget {
 	}
 	
 	/**
-	 * @wbp.parser.entryPoint
+	 * This method has main logic for schema grid.
+	 * @param Group
 	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -113,10 +113,10 @@ public class ELTSchemaWidget implements IELTWidget {
 			public void mouseDoubleClick(MouseEvent e) {
 
 				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id"+gridCount++);
+				schemaGrid.setFieldName("Id"+schemaGrids.size());
 				schemaGrid.setLimit("");
 				schemaGrid.setDataType(Integer.valueOf("0"));
-				schemaGrids.add(schemaGrid);
+				schemaGrids.add(schemaGrid); 
 				tableViewer.refresh(); 
 			}
 		});
@@ -173,15 +173,13 @@ public class ELTSchemaWidget implements IELTWidget {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id"+gridCount++);
+				schemaGrid.setFieldName("Id"+schemaGrids.size());
 				schemaGrid.setLimit("");
 				schemaGrid.setDataType(Integer.valueOf("0"));
 				schemaGrids.add(schemaGrid);
 				tableViewer.refresh(); 			} 
 		});
 		addButton.setText("Add");
-	
-		
 		Button btnRemove = new Button(c1, SWT.CENTER);
 		btnRemove.setBounds(90, 0, 88, 25);
 		btnRemove.addSelectionListener(new SelectionAdapter() {
@@ -205,7 +203,6 @@ public class ELTSchemaWidget implements IELTWidget {
 			public void widgetSelected(SelectionEvent e) {
 				schemaGrids.removeAll(schemaGrids);
 				tableViewer.refresh();
-				gridCount=0;
 			}
 		}); 
 		btnRemoveall.setBounds(180, 0, 88, 25);
