@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _YrSbQFbeEeWCruwL5WXU-g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/9/15 4:42 PM
+Save-Time: 9/9/15 6:30 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -28,7 +28,7 @@ with [get-view Palette | get-palette] {
         mouse-release 102 9 button1 524288 -height 22 -width 244
         mouse-hover 102 9 -height 106 -width 227
     }
-    with [get-palette-entry input] {
+    with [get-palette-entry Input] {
         mouse-move 85 52 button1 -height 98 -width 227
         mouse-press 85 52 button1 -height 98 -width 227
         get-figure "0/0" | drag-start 69 49
@@ -54,7 +54,7 @@ with [get-view Palette | get-palette] {
         mouse-press 80 15 button1 -height 22 -width 244
         mouse-release 80 15 button1 524288 -height 22 -width 244
     }
-    with [get-palette-entry output] {
+    with [get-palette-entry Output] {
         mouse-move 82 37 button1 -height 97 -width 227
         mouse-press 82 37 button1 -height 97 -width 227
         get-figure "0/0" | drag-start 66 34
