@@ -17,7 +17,7 @@ import java.net.URLClassLoader;
 public class ELTLoggerUtil {
 	final public  String CLASSIC_FILE = "logback.xml";
     final public String BASE_PATH=Platform.getInstallLocation().getURL().getPath();
-    final public String LOG_DIR = "log4j/";
+    final public String LOG_DIR = "config/ELTLogging/";
     private static final String className = "ELTLoggerUtil";
     private static final ELTLoggerUtil eltLogger = new ELTLoggerUtil(className);
     
@@ -34,22 +34,22 @@ public class ELTLoggerUtil {
 
     public void debug(String debugMsg) {
         logger.debug(debugMsg);
-       // writeLogsOnFileAndConsole();
+        writeLogsOnFileAndConsole();
     }
 
     public void error(Exception e) {
         logger.error(e.getMessage());
-        //writeLogsOnFileAndConsole();
+        writeLogsOnFileAndConsole();
     }
 
     public void trace(String traceMsg) {
         logger.trace(traceMsg);
-        //writeLogsOnFileAndConsole();
+        writeLogsOnFileAndConsole();
     }
 
     public void warn(String warnMsg) {
         logger.warn(warnMsg);
-        //writeLogsOnFileAndConsole();
+        writeLogsOnFileAndConsole();
 
     }
     
