@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.ui,
  com.bitwise.app.asm;bundle-version="0.0.1",
  com.bitwise.app.common;bundle-version="0.0.1",
  com.bitwise.app.graph.figure;bundle-version="0.0.1",
- org.junit
+ org.junit,
+ com.bitwise.app.eltproperties;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
