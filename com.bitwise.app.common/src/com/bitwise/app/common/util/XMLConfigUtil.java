@@ -9,16 +9,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.Messages;
@@ -29,18 +32,24 @@ import com.bitwise.app.common.component.policyconfig.CategoryPolicies;
 import com.bitwise.app.common.component.policyconfig.PolicyConfig;
 
 
+/**
+ * Utility class to read and validate the xml configuration for following :
+ * <ul>
+ * 	<li>Component</li>
+ * 	<li>Policy</li>
+ * </ul>
+ */
 public class XMLConfigUtil {
-	private static final String SEPARATOR = "/";
+	private static Logger logger = Logger.getLogger(XMLConfigUtil.class.getName());
 	public static XMLConfigUtil INSTANCE = new XMLConfigUtil();
-	
 	private XMLConfigUtil() {}
 	
-	private static Logger logger = Logger.getLogger(XMLConfigUtil.class.getName());
 	private static HashMap<String, Component> map = new HashMap<>();
+	private static final String SEPARATOR = "/";
 	
 	public final static String CONFIG_FILES_PATH = Platform.getInstallLocation().getURL().getPath() + Messages.XMLConfigUtil_CONFIG_FOLDER;
-	public final static String COMPONENTCONFIG_XSD_PATH = Platform.getInstallLocation().getURL().getPath()+Messages.XMLConfigUtil_COMPONENTCONFIG_XSD_PATH;
-	public final static String POLICYCONFIG_XSD_PATH = Platform.getInstallLocation().getURL().getPath()+Messages.XMLConfigUtil_POLICYCONFIG_XSD_PATH;
+	public final static String COMPONENT_CONFIG_XSD_PATH = Platform.getInstallLocation().getURL().getPath()+Messages.XMLConfigUtil_COMPONENTCONFIG_XSD_PATH;
+	public final static String POLICY_CONFIG_XSD_PATH = Platform.getInstallLocation().getURL().getPath()+Messages.XMLConfigUtil_POLICYCONFIG_XSD_PATH;
 	public final static List<Component> componentList = new ArrayList<>();
 	public static PolicyConfig policyConfig ;
 	
@@ -52,28 +61,27 @@ public class XMLConfigUtil {
 	 * @throws SAXException 
 	 */
 	public List<Component> getComponentConfig() throws RuntimeException, SAXException, IOException {
-		if(componentList !=null && !componentList.isEmpty()){
-			fillMap(componentList);
+		if(componentList != null && !componentList.isEmpty()){
 			return componentList;
 		}
 		else{
-		try{
-			JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
-			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-			String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
-			for (int i = 0; i < configFileList.length; i++) {
-				if(validateXMLSchema(COMPONENTCONFIG_XSD_PATH, CONFIG_FILES_PATH + SEPARATOR + configFileList[i]))
-				{
-				Config config = (Config) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + SEPARATOR + configFileList[i]));
-				componentList.addAll(config.getComponent());
+			try{
+				JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
+				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+				String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
+				for (int i = 0; i < configFileList.length; i++){
+					if(validateXMLSchema(COMPONENT_CONFIG_XSD_PATH, CONFIG_FILES_PATH + SEPARATOR + configFileList[i])){
+						Config config = (Config) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + SEPARATOR + configFileList[i]));
+						componentList.addAll(config.getComponent());
+					}
 				}
+				validateAndFillComponentConfigList(componentList);
+				return componentList;
+			}catch(JAXBException jaxbException){
+				//TODO : show popup window to user
+				logger.log(Level.SEVERE, "Failed to load the config files"); //$NON-NLS-1$
+				throw new RuntimeException("Faild in reading XML Config files", jaxbException); //$NON-NLS-1$
 			}
-			fillMap(componentList);
-			return componentList;
-		}catch(JAXBException jaxbException){
-			logger.log(Level.SEVERE, "Failed to load the config files"); //$NON-NLS-1$
-			throw new RuntimeException("Faild in reading XML Config files", jaxbException); //$NON-NLS-1$
-		}
 		}
 	}
 
@@ -94,8 +102,16 @@ public class XMLConfigUtil {
 			return map.get(componentName);
 	}
 	
-	private void fillMap(List<Component> componentList) {
+	private void validateAndFillComponentConfigList(List<Component> componentList) {
 		for (Component component : componentList) {
+			if(map.containsKey(component.getName())){
+				Status status = new Status(IStatus.ERROR, "com.bitwise.app.common", 
+						"One or more configuration files have similar names, reconfigure the files", null);
+				StatusManager.getManager().handle(status, StatusManager.BLOCK);
+				//remove all component configuration from list
+				componentList.clear();
+				throw new RuntimeException("One or more Component names are similar");
+			}
 			map.put(component.getName(), component);	
 		}		
 	}
@@ -153,7 +169,7 @@ public class XMLConfigUtil {
 				Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 				String[] configFileList = getFilteredFiles(CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY, getFileNameFilter(Messages.XMLConfigUtil_FILE_EXTENTION));
 				for (int i = 0; i < configFileList.length; i++) {
-					if(validateXMLSchema(POLICYCONFIG_XSD_PATH, CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY + SEPARATOR + configFileList[i]))	{
+					if(validateXMLSchema(POLICY_CONFIG_XSD_PATH, CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY + SEPARATOR + configFileList[i]))	{
 						policyConfig = (PolicyConfig) unmarshaller.unmarshal(new File(CONFIG_FILES_PATH + SEPARATOR + Messages.XMLConfigUtil_POLICY + SEPARATOR + configFileList[i]));
 					}
 				}
