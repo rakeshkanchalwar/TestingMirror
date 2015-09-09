@@ -44,8 +44,8 @@ public class ELTSchemaWidget implements IELTWidget {
 	private Object properties;
 	private String propertyName;
 	public TableViewer tableViewer;
-
-	public ELTSchemaWidget() {
+	int counter=0;
+	public ELTSchemaWidget() { 
 	}
  
 	// Table column names/properties
@@ -68,7 +68,7 @@ public class ELTSchemaWidget implements IELTWidget {
 	
 	/**
 	 * This method has main logic for schema grid.
-	 * @param Group
+	 * @param Group 
 	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -111,13 +111,7 @@ public class ELTSchemaWidget implements IELTWidget {
 		table.addMouseListener(new MouseAdapter() { 
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
-
-				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id"+schemaGrids.size());
-				schemaGrid.setLimit("");
-				schemaGrid.setDataType(Integer.valueOf("0"));
-				schemaGrids.add(schemaGrid); 
-				tableViewer.refresh(); 
+				createDefaultSchema(); 
 			}
 		});
 		 
@@ -166,18 +160,13 @@ public class ELTSchemaWidget implements IELTWidget {
 		c1.setLayout(null);
 		
 		
-	
 		Button addButton = new Button(c1, SWT.CENTER);
 		addButton.setBounds(0, 0, 88, 25);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id"+schemaGrids.size());
-				schemaGrid.setLimit("");
-				schemaGrid.setDataType(Integer.valueOf("0"));
-				schemaGrids.add(schemaGrid);
-				tableViewer.refresh(); 			} 
+				createDefaultSchema(); 		
+				} 
 		});
 		addButton.setText("Add");
 		Button btnRemove = new Button(c1, SWT.CENTER);
@@ -246,5 +235,18 @@ public class ELTSchemaWidget implements IELTWidget {
 		// TODO Auto-generated method stub
 		
 	} 
+	
+	public void createDefaultSchema(){
+		SchemaGrid schemaGrid = new SchemaGrid();
+		schemaGrid.setFieldName("Id"+counter++);
+		schemaGrid.setLimit(""); 
+		schemaGrid.setDataType(Integer.valueOf("0"));
+		if(schemaGrids.contains(schemaGrid))
+		{
+			schemaGrid.setFieldName("Id"+counter++); 
+		}
+		schemaGrids.add(schemaGrid); 
+		tableViewer.refresh(); 
+	}
 	
 }
