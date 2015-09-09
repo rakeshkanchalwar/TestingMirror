@@ -1,8 +1,15 @@
 package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -15,22 +22,17 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-/**
- * 
- * @author Shrirang S. Kumbhar
- * Sep 08, 2015
- * 
- */
+public class ELTDelimeterWidget implements IELTWidget{
 
-public class MyCustomWidget implements IELTWidget{
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	Group grpGroup_1;
 	private Object properties;
 	private String propertyName;
+	
 	@Override
-	public void attachToPropertySubGroup(Group grpGroup_1){
-		this.grpGroup_1 = grpGroup_1;
+	public void attachToPropertySubGroup(Group subGroup) {
+		this.grpGroup_1 = subGroup;
 		Composite composite_3 = new Composite(grpGroup_1, SWT.NONE);
 		ColumnLayoutData cld_composite_3 = new ColumnLayoutData();
 		cld_composite_3.horizontalAlignment = ColumnLayoutData.LEFT;
@@ -51,7 +53,7 @@ public class MyCustomWidget implements IELTWidget{
 		fd_lblAdesss.right = new FormAttachment(0, 83);
 		lblAdesss.setLayoutData(fd_lblAdesss);
 		formToolkit.adapt(lblAdesss, true, true);
-		lblAdesss.setText("Adesss : ");
+		lblAdesss.setText("Delimeter : ");
 		
 		text_1 = new Text(composite_3, SWT.BORDER);
 		FormData fd_text_1 = new FormData();
@@ -60,7 +62,7 @@ public class MyCustomWidget implements IELTWidget{
 		text_1.setLayoutData(fd_text_1);
 		formToolkit.adapt(text_1, true, true);
 		
-		Button btnAdd = new Button(composite_3, SWT.CENTER);
+		/*Button btnAdd = new Button(composite_3, SWT.CENTER);
 		fd_text_1.right = new FormAttachment(btnAdd, -7);
 		FormData fd_btnAdd = new FormData();
 		fd_btnAdd.top = new FormAttachment(0);
@@ -68,23 +70,48 @@ public class MyCustomWidget implements IELTWidget{
 		fd_btnAdd.left = new FormAttachment(100, -110);
 		btnAdd.setLayoutData(fd_btnAdd);
 		formToolkit.adapt(btnAdd, true, true);
-		btnAdd.setText("Add");
+		btnAdd.setText("Add");*/
+		
+		text_1.addModifyListener(new ModifyListener() {
+			
+			@Override
+			public void modifyText(ModifyEvent e) {
+				if(text_1.getText().isEmpty()) {
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+				}
+				else{
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
+			}
+				
+			}
+		});
+		
+		text_1.addVerifyListener(new VerifyListener() {
+			
+			@Override
+			public void verifyText(VerifyEvent e) {
+				String string=e.text;
+				Matcher matchs=Pattern.compile("[|,;]$").matcher(string);
+				if(matchs.matches())
+					e.doit=false;
+			}
+		});
+		
 	}
 
 	@Override
-	public void setProperties(String propertyName,Object properties) {
+	public void setProperties(String propertyName, Object properties) {
 		this.properties =  properties;
 		this.propertyName = propertyName;
 		if(properties != null)
 			text_1.setText((String) properties);
 		else
 			text_1.setText("");
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		// TODO Auto-generated method stub
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 		property.put(propertyName, text_1.getText());
 		return property;
@@ -95,5 +122,7 @@ public class MyCustomWidget implements IELTWidget{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }

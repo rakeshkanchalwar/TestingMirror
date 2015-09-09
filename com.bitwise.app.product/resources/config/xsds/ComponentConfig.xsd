@@ -12,56 +12,42 @@
 	</element>
 
 	<complexType name="Component">
-	
 		<sequence>
-			 
-			<element name="category" type="tns:category_type" maxOccurs="1"
-				minOccurs="0"></element>
-			
-			<element name="inputPort" type="tns:IOPort" maxOccurs="1"
-				minOccurs="0" />
-			<element name="outputPort" type="tns:IOPort" maxOccurs="1"
-				minOccurs="0" />
-			<element name="property" type="tns:Property" maxOccurs="unbounded"
-				minOccurs="0" />
-			<!--  <element name="shape" type="string" maxOccurs="1"
-				minOccurs="1" />  -->
-			 <element name="policy" type="tns:Policy" maxOccurs="unbounded"
-				minOccurs="0"></element> 
+			<element name="category" type="tns:category_type" maxOccurs="1" minOccurs="0" />
+			<element name="inputPort" type="tns:IOPort" maxOccurs="1" minOccurs="0" />
+			<element name="outputPort" type="tns:IOPort" maxOccurs="1" minOccurs="0" />
+			<element name="property" type="tns:Property" maxOccurs="unbounded" minOccurs="0" />
+			 <element name="policy" type="tns:Policy" maxOccurs="unbounded" minOccurs="0" /> 
 		</sequence>
-		 <attribute name="name" type="string" use="required"></attribute>
-		<attribute name="defaultNamePrefix" type="string" use="required"></attribute>
+		<attribute name="name" type="string" use="required"></attribute>
 		<attribute name="iconPath" type="string" use="required"></attribute>
-		<attribute name="shape" type="string" use="required"></attribute> 
 	</complexType>
 
-	
 
 	<complexType name="Property">
-	<sequence>
-	<element name="validation" type="tns:Validation" maxOccurs="unbounded" minOccurs="0"/>
-	</sequence>
-	<attribute name="type" type="tns:property_type" use="required"></attribute>
-	<attribute name="renderer" type="tns:property_renderer" use = "required"></attribute>
-	<attribute name = "dataType" type="tns:data_type" use = "required"></attribute>
-	<attribute name = "name" type="string" use = "required"></attribute>
-	<attribute name = "value" type="string" use = "optional"></attribute>
-	<attribute name="group" type="tns:group" use="required"></attribute> 
+		<sequence>
+			<element name="validation" type="tns:Validation" maxOccurs="unbounded" minOccurs="0"/>
+		</sequence>
+		<attribute name="type" type="tns:property_type" use="required" />
+		<attribute name="renderer" type="tns:property_renderer" use="required" />
+		<attribute name="dataType" type="tns:data_type" use="required" />
+		<attribute name="name" type="string" use="required" />
+		<attribute name="value" type="string" use="optional" />
+		<attribute name="group" type="tns:group" use="required" />
+		<attribute name="subGroup" type="tns:sub_group" use="required" /> 
 	</complexType>
 
 	<complexType name="Validation">
 		<sequence>
-			<element name="expression" type="string" maxOccurs="1"
-				minOccurs="1" />
-			<element name="message" type="string" maxOccurs="1"
-				minOccurs="1" />
+			<element name="expression" type="string" maxOccurs="1" minOccurs="1" />
+			<element name="message" type="string" maxOccurs="1" minOccurs="1" />
 		</sequence>
 	</complexType>
 
 	<complexType name="IOPort">
 		<sequence>
-			<element name="numberOfPorts" type="integer" maxOccurs="1"
-				minOccurs="1" />
+			<element name="numberOfPorts" type="integer" maxOccurs="1" minOccurs="1" />
+			<element name="allowMultipleLinks" type="boolean" maxOccurs="1" minOccurs="0" />
 		</sequence>
 	</complexType>
 
@@ -74,9 +60,16 @@
 
 	<simpleType name="property_renderer">
 		<restriction base="string">
-			<enumeration value="FILE" />
-			<enumeration value="TEXT" />
-			<enumeration value="GRID" />
+			<enumeration value="ELTComponentNameWidget" />
+			<enumeration value="ELTSchemaWidget" />
+			<enumeration value="ELTRuntimePropertiesWidget" />
+			<enumeration value="ELTFilePathWidget" />
+			<enumeration value="ELTCharacterSetWidget" />
+			<enumeration value="ELTDelimeterWidget" />
+			<enumeration value="ELTPhaseWidget" />
+			<enumeration value="ELTHasHeaderWidget" />
+			<enumeration value="ELTSafePropertyWidget" />
+			<enumeration value="ELTFieldSequenceWidget" />
 		</restriction>
 	</simpleType>
 
@@ -90,14 +83,27 @@
 	<simpleType name="group">
 		<restriction base="string">
 			<enumeration value="GENERAL" />
+			<enumeration value="RUNTIME_PROPERTIES" />
+			<enumeration value="SCHEMA" />
+			<enumeration value="FIELD_SEQUENCE" />
 		</restriction>
 	</simpleType>
 	
-	<simpleType name="shape">
+	<simpleType name="sub_group">
 		<restriction base="string">
-			<enumeration value="RECTANGLE" />
+			<enumeration value="NAME" />
+			<enumeration value="SCHEMA" />
+			<enumeration value="DELIMITER" />
+			<enumeration value="SAFE" />
+			<enumeration value="HEADER" />
+			<enumeration value="CHARSET" />
+			<enumeration value="RUNTIME_PROPERTIES" />
+			<enumeration value="FIELD_SEQUENCE" />
+			<enumeration value="FILE_PATH" />
+			<enumeration value="PHASE" />
 		</restriction>
 	</simpleType>
+	
 	<simpleType name="data_type">
 		<restriction base="string">
 			<enumeration value="string" />

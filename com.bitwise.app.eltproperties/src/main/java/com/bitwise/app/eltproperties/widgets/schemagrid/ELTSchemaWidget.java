@@ -28,24 +28,25 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-
 import com.bitwise.app.eltproperties.widgets.IELTWidget;
 
 /**
  * @author rahulma
  * This class demonstrates CellEditors. It allows you to create and edit
  * SchemaGrid objects
- */
+ */ 
 public class ELTSchemaWidget implements IELTWidget {
 
-	private List<SchemaGrid> schemaGrids;
+	private List<SchemaGrid> schemaGrids = new ArrayList<SchemaGrid>();
+	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	private Table table;
 	private Shell shell;
 	private Object properties;
 	private String propertyName;
+	int gridCount=0;
+	public TableViewer tableViewer;
 
 	public ELTSchemaWidget() {
-		schemaGrids = new ArrayList<SchemaGrid>();
 	}
  
 	// Table column names/properties
@@ -66,15 +67,18 @@ public class ELTSchemaWidget implements IELTWidget {
 		}
 	}
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
-
-		shell = subGroup.getShell();
+	
+		shell = subGroup.getShell(); 
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
 
 		// Add the TableViewer
-		final TableViewer tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
+		tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
 		tableViewer.setContentProvider(new SchemaGridContentProvider());
 		tableViewer.setLabelProvider(new SchemaGridLabelProvider());
 		tableViewer.setInput(schemaGrids);
@@ -104,19 +108,19 @@ public class ELTSchemaWidget implements IELTWidget {
 		 * Add new column in schema grid with default values.
 		 * 
 		 */
-		table.addMouseListener(new MouseAdapter() {
+		table.addMouseListener(new MouseAdapter() { 
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 
 				SchemaGrid schemaGrid = new SchemaGrid();
-				schemaGrid.setFieldName("Id" + schemaGrids.size());
-				schemaGrid.setLimit("\"|\"");
+				schemaGrid.setFieldName("Id"+gridCount++);
+				schemaGrid.setLimit("");
 				schemaGrid.setDataType(Integer.valueOf("0"));
 				schemaGrids.add(schemaGrid);
 				tableViewer.refresh(); 
 			}
 		});
-		
+		 
 		CellEditor[] editors = new CellEditor[3];
 		TextCellEditor fieldNametext = new TextCellEditor(table);
 		editors[0] = fieldNametext;
@@ -162,11 +166,24 @@ public class ELTSchemaWidget implements IELTWidget {
 		c1.setLayout(null);
 		
 		
+	
+		Button addButton = new Button(c1, SWT.CENTER);
+		addButton.setBounds(0, 0, 88, 25);
+		addButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				SchemaGrid schemaGrid = new SchemaGrid();
+				schemaGrid.setFieldName("Id"+gridCount++);
+				schemaGrid.setLimit("");
+				schemaGrid.setDataType(Integer.valueOf("0"));
+				schemaGrids.add(schemaGrid);
+				tableViewer.refresh(); 			} 
+		});
+		addButton.setText("Add");
+	
 		
 		Button btnRemove = new Button(c1, SWT.CENTER);
-		btnRemove.setBounds(0, 0, 88, 25);
-		shell = composite.getShell();
-		
+		btnRemove.setBounds(90, 0, 88, 25);
 		btnRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -178,9 +195,9 @@ public class ELTSchemaWidget implements IELTWidget {
 					table.remove(temp);
 					schemaGrids.remove(temp);
 				}
-			}
+			} 
 		});
-		btnRemove.setText("Remove");
+		btnRemove.setText("Delete");
 		
 		Button btnRemoveall = new Button(c1, SWT.NONE);
 		btnRemoveall.addSelectionListener(new SelectionAdapter() {
@@ -188,11 +205,12 @@ public class ELTSchemaWidget implements IELTWidget {
 			public void widgetSelected(SelectionEvent e) {
 				schemaGrids.removeAll(schemaGrids);
 				tableViewer.refresh();
+				gridCount=0;
 			}
 		}); 
-		btnRemoveall.setBounds(104, 0, 75, 25);
-		btnRemoveall.setText("RemoveAll");	
-		
+		btnRemoveall.setBounds(180, 0, 88, 25);
+		btnRemoveall.setText("Delete All");	
+			
 	}
 
 	
@@ -204,24 +222,32 @@ public class ELTSchemaWidget implements IELTWidget {
 		txtDecorator.setDescriptionText(Messages.FIELDNAMEERROR);
 		// hiding it initially
 		txtDecorator.hide();
-		return txtDecorator;
+		return txtDecorator; 
 	}
-	
-	
+	 
+	  
 	@Override
 	public LinkedHashMap<String,Object> getProperties() {
-		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-		property.put(propertyName, schemaGrids);
-		return property;
+		property.put(propertyName, schemaGrids); 
+		return property; 
 	}  
-
+ 
 	@Override
 	public void setProperties(String propertyName, Object properties) {
 		this.properties =  properties;
 		this.propertyName = propertyName;
-		if(properties != null)
-			schemaGrids.addAll((List<SchemaGrid>)properties);
-		
+		if(this.properties!=null)   
+		{
+		schemaGrids =(List<SchemaGrid>) this.properties;
+		tableViewer.setInput(schemaGrids);
+		tableViewer.refresh();
+		} 
 	}
+
+	@Override
+	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
+	} 
 	
 }
