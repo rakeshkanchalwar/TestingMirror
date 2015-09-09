@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _YrSbQFbeEeWCruwL5WXU-g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/9/15 6:30 PM
+Save-Time: 9/9/15 6:47 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -73,6 +73,5 @@ with [get-editor "Graph 2"] {
     get-diagram | mouse-hover 447 104 -height 304 -width 741
     close
 }
-get-window "Save Resource" | get-button No | click
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
