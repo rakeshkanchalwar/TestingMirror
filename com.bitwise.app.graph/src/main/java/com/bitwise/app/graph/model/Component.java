@@ -1,12 +1,15 @@
 package com.bitwise.app.graph.model;
 
-import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+
 
 public class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
@@ -15,40 +18,74 @@ public class Component extends Model {
 	/** Property ID to use then the size of this shape is modified. */
 	public static final String SIZE_PROP = "Size";
 	/** Property ID to use when the list of outgoing connections is modified. */
-	public static final String SOURCE_CONNECTIONS_PROP = "SourceConnection";
+	//public static final String SOURCE_CONNECTIONS_PROP = "SourceConnection";
 	/** Property ID to use when the list of incoming connections is modified. */
-	public static final String TARGET_CONNECTIONS_PROP = "TargetConnection";
+	//public static final String TARGET_CONNECTIONS_PROP = "TargetConnection";
 	
-	private Map<String, String> properties = new HashMap<>();
-	
-	/** List of outgoing Connections. */
-	private List<Connection> sourceConnections = new ArrayList<>();
-	/** List of incoming Connections. */
-	private List<Connection> targetConnections = new ArrayList<>();
-	
-	
+
 	/** Location of this shape. */
 	private Point location = new Point(0, 0);
 	/** Size of this shape. */
-	private Dimension size = new Dimension(95, 105);
+	private Dimension size = new Dimension(80, 60);
 	
-	/**
-	 * Return a List of outgoing Connections.
-	 */
-	public List<Connection> getSourceConnections() {
-		return new ArrayList<Connection>(sourceConnections);
+	private Map<String, String> properties = new HashMap<>();
+	
+	protected Hashtable inputs = new Hashtable(7);
+	protected Vector outputs = new Vector(4, 4);
+	
+	public static final String INPUTS = "inputs", 
+			OUTPUTS = "outputs"; 
+	
+	protected int numberOfOutGoingLinks=0;
+	protected int numberOfInComingLinks=0;
+	
+	protected int numberOfOutGoingLinksLimit, numberOfInComingLinksLimit;
+	
+	
+	public boolean allowMoreOutGoingLinks(){
+
+		if (numberOfOutGoingLinks<numberOfOutGoingLinksLimit)
+			return true;
+		return false;
+
+	}
+	public boolean allowMoreInComingLinks(){
+		if (numberOfInComingLinks<numberOfInComingLinksLimit)
+			return true;
+		return false;
+
+	}
+	
+	public void connectInput(ComponentConnection c) {
+		inputs.put(c.getTargetTerminal(), c);
+		numberOfInComingLinks++;
+		fireStructureChange(INPUTS, c);
 	}
 
-	/**
-	 * Return a List of incoming Connections.
-	 */
-	public List<Connection> getTargetConnections() {
-		return new ArrayList<Connection>(targetConnections);
+	public void connectOutput(ComponentConnection c) {
+		outputs.addElement(c);
+		numberOfOutGoingLinks++;
+		fireStructureChange(OUTPUTS, c);
 	}
 	
+	public List getSourceConnections() {
+		
+		return (Vector) outputs.clone();
+	}
+
+	public List getTargetConnections() {
+		
+		Enumeration elements = inputs.elements();
+		Vector v = new Vector(inputs.size());
+		while (elements.hasMoreElements())
+			v.addElement(elements.nextElement());
+		return v;
+	}
+		
 	public void setProperties(Map<String, String> properties) {
 		this.properties = properties;
 	}
+	
 	
 	/**
 	 * Return the property value for the given propertyId, or null.
@@ -69,47 +106,6 @@ public class Component extends Model {
 		}
 	}
 	
-	/**
-	 * Add an incoming or outgoing connection to this shape.
-	 * 
-	 * @param connection
-	 *            a non-null connection instance
-	 * @throws IllegalArgumentException
-	 *             if the connection is null or has not distinct endpoints
-	 */
-	void addConnection(Connection connection) {
-		if (connection == null || connection.getSource() == connection.getTarget()) {
-			throw new IllegalArgumentException();
-		}
-		if (connection.getSource() == this) {
-			sourceConnections.add(connection);
-			firePropertyChange(SOURCE_CONNECTIONS_PROP, null, connection);
-		} else if (connection.getTarget() == this) {
-			targetConnections.add(connection);
-			firePropertyChange(TARGET_CONNECTIONS_PROP, null, connection);
-		}
-	}
-	
-	/**
-	 * Remove an incoming or outgoing connection from this shape.
-	 * 
-	 * @param connection
-	 *            a non-null connection instance
-	 * @throws IllegalArgumentException
-	 *             if the parameter is null
-	 */
-	void removeConnection(Connection connection) {
-		if (connection == null) {
-			throw new IllegalArgumentException();
-		}
-		if (connection.getSource() == this) {
-			sourceConnections.remove(connection);
-			firePropertyChange(SOURCE_CONNECTIONS_PROP, null, connection);
-		} else if (connection.getTarget() == this) {
-			targetConnections.remove(connection);
-			firePropertyChange(TARGET_CONNECTIONS_PROP, null, connection);
-		}
-	}
 	
 	/**
 	 * Set the Location of this shape.

@@ -67,7 +67,7 @@ public class Property {
 	}
 
 	public String getPropertySubGroup() {
-		return propertyGroup + "." +propertySubGroup;
+		return propertySubGroup;
 	}
 	
 	public String getPropertyDataType() {

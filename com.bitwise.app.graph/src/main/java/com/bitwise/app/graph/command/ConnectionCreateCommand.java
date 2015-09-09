@@ -1,28 +1,39 @@
 package com.bitwise.app.graph.command;
 
+import java.util.Iterator;
+
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.commands.Command;
 
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.model.Connection;
+import com.bitwise.app.graph.model.ComponentConnection;
 
 public class ConnectionCreateCommand extends Command{
 	/** The connection instance. */
-	private Connection connection;
+	private ComponentConnection connection;
 	/** The desired line style for the connection (dashed or solid). */
-	private final int lineStyle;
+	private int lineStyle;
 
-	/** Start endpoint for the connection. */
-	private final Component source;
-	/** Target endpoint for the connection. */
-	private Component target;
+	
+	private Component source, target;
+	protected String sourceTerminal, targetTerminal;
 
+	protected Component oldSource;
+	protected String oldSourceTerminal;
+	protected Component oldTarget;
+	protected String oldTargetTerminal;
 	/**
 	 * Instantiate a command that can create a connection between two shapes.
 	 * @param source the source endpoint (a non-null Shape instance)
 	 * @param lineStyle the desired line style. See Connection#setLineStyle(int) for details
 	 * @throws IllegalArgumentException if source is null
-	 * @see Connection#setLineStyle(int)
+	 * @see ComponentConnection#setLineStyle(int)
 	 */
+	
+	public ConnectionCreateCommand() {
+		super("connection");
+	}
+	
 	public ConnectionCreateCommand(Component source, int lineStyle) {
 		if (source == null) {
 			throw new IllegalArgumentException();
@@ -33,15 +44,27 @@ public class ConnectionCreateCommand extends Command{
 	}
 
 	public boolean canExecute() {
+		
+		// disallow source -> source connections
 		if (source.equals(target)) {
 			return false;
 		}
 		// return false, if the source -> target connection exists already
-		for (Connection connection : source.getSourceConnections()) {
-			if (connection.getTarget().equals(target)) {
+		for (Iterator iter = source.getSourceConnections().iterator(); iter
+				.hasNext();) {
+			ComponentConnection conn = (ComponentConnection) iter.next();
+			
+			if (conn.getTarget().equals(target)) {
 				return false;
 			}
 		}
+		
+		if(!source.allowMoreOutGoingLinks())
+			return false;
+		if(target!=null)
+			if(!target.allowMoreInComingLinks())
+			return false;
+		
 		return true;
 	}
 
@@ -51,24 +74,23 @@ public class ConnectionCreateCommand extends Command{
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		// create a new connection between source and target
-		connection = new Connection(source, target);
-		// use the supplied line style
-		connection.setLineStyle(lineStyle);
+		
+		if(source!=null){
+			
+			connection.setSource(source);
+			connection.setSourceTerminal(sourceTerminal);
+			connection.setLineStyle(Graphics.LINE_SOLID);
+			connection.attachSource();
+		}
+		if(target!=null){
+			
+			connection.setTarget(target);
+			connection.setTargetTerminal(targetTerminal);
+			connection.setLineStyle(Graphics.LINE_SOLID);
+			connection.attachTarget();
+		}
 	}
 
-	public void redo() {
-		connection.reconnect();
-	}
-
-	/**
-	 * Set the target endpoint for the connection.
-	 * 
-	 * @param target
-	 *            that target endpoint (a non-null Shape instance)
-	 * @throws IllegalArgumentException
-	 *             if target is null
-	 */
 	public void setTarget(Component target) {
 		if (target == null) {
 			throw new IllegalArgumentException();
@@ -76,7 +98,24 @@ public class ConnectionCreateCommand extends Command{
 		this.target = target;
 	}
 
-	public void undo() {
-		connection.disconnect();
+	public void setSource(Component newSource) {
+		source = newSource;
+	}
+	
+	public void setSourceTerminal(String newSourceTerminal) {
+		sourceTerminal = newSourceTerminal;
+	}
+	
+	public void setTargetTerminal(String newTargetTerminal) {
+		targetTerminal = newTargetTerminal;
+	}
+
+	
+	public void setConnection(ComponentConnection w) {
+		connection = w;
+		oldSource = w.getSource();
+		oldTarget = w.getTarget();
+		oldSourceTerminal = w.getSourceTerminal();
+		oldTargetTerminal = w.getTargetTerminal();
 	}
 }

@@ -23,6 +23,7 @@ import com.bitwise.app.eltproperties.property.IPropertyTreeBuilder;
 import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.testdata.PropertyStore;
+import com.bitwise.app.eltproperties.widgets.IELTWidget;
 
 /**
  * 
@@ -33,13 +34,19 @@ import com.bitwise.app.eltproperties.testdata.PropertyStore;
 
 public class PropertyDialog extends Dialog {
 	private Composite container;
-
+	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
+	private LinkedHashMap<String, Object> ComponentProperties;
+	PropertyDialogBuilder propertyDialogBuilder;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
+	 * @param propertyTree 
+	 * @param ComponentProperties 
 	 */
-	public PropertyDialog(Shell parentShell) {
+	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> ComponentProperties) {		
 		super(parentShell);
+		this.propertyTree = propertyTree;
+		this.ComponentProperties = ComponentProperties;
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE);
 	}
 
@@ -56,19 +63,9 @@ public class PropertyDialog extends Dialog {
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
 		
-		
-		PropertyStore propertyStore = new PropertyStore();
-		
-		ArrayList<Property> inputComponentProperties = propertyStore.getProperties("Input");
-		
-		IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(inputComponentProperties);
-		
-		PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
-		
+		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties);
 		propertyDialogBuilder.buildPropertyWindow();
-		
-		
-		
 		
 		return container;
 	}
@@ -98,4 +95,21 @@ public class PropertyDialog extends Dialog {
 		//
 		return bindingContext;
 	}
+
+	@Override
+	protected void okPressed() {
+		// TODO Auto-generated method stub
+		System.out.println("Prop saved");
+		for(IELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+			LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+			for(String propName : tempPropert.keySet()){
+				ComponentProperties.put(propName, tempPropert.get(propName));
+			}
+		}
+		
+		//System.out.println(ComponentProperties);
+		super.okPressed();
+	}
+	
+	
 }

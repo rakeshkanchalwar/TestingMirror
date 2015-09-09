@@ -64,7 +64,7 @@ import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
-import com.bitwise.app.graph.model.Connection;
+import com.bitwise.app.graph.model.ComponentConnection;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
@@ -234,9 +234,23 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
 	}
+	
+	public  PaletteDrawer createPaletteContainer(String CategoryName)
+    { 
+   	PaletteDrawer p=new PaletteDrawer(CategoryName);
+   	p.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
+       return p;
+    }
+    
+    public  void addContainerToPalette(PaletteRoot p1,PaletteDrawer p){
+    p1.add(p);
+    }
 
 	private void createShapesDrawer(PaletteRoot palette) throws RuntimeException, SAXException, IOException {
-		PaletteDrawer componentsDrawer = new PaletteDrawer("Components");
+		PaletteDrawer inputContainer = createPaletteContainer("Input");
+        PaletteDrawer outputContainer= createPaletteContainer("Output");
+        addContainerToPalette(palette,inputContainer);
+        addContainerToPalette(palette,outputContainer);
 		List<Component> componentsConfig = XMLConfigUtil.INSTANCE
 				.getComponentConfig();
 		for (Component componentConfig : componentsConfig) {
@@ -252,9 +266,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					ImageDescriptor
 							.createFromURL(prepareIconPathURL(componentConfig
 									.getIconPath())));
-			componentsDrawer.add(component);
+			if(componentConfig.getCategory().toString().equals("INPUT"))
+		    inputContainer.add(component);
+		    else if (componentConfig.getCategory().toString().equals("OUTPUT"))
+			outputContainer.add(component);
 		}
-		palette.add(componentsDrawer);
+		
 	}
 
 	private void createToolsGroup(PaletteRoot palette) {
@@ -280,7 +297,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					// see ShapeEditPart#createEditPolicies()
 					// this is abused to transmit the desired line style
 					public Object getObjectType() {
-						return Connection.SOLID_CONNECTION;
+						return ComponentConnection.SOLID_CONNECTION;
 					}
 				},
 				ImageDescriptor

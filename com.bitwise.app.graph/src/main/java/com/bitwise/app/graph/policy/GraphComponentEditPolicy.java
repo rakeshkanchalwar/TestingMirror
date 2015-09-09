@@ -4,7 +4,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
-import com.bitwise.app.graph.command.ComponentDeleteCommand;
+
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 
@@ -21,7 +21,7 @@ public class GraphComponentEditPolicy extends ComponentEditPolicy{
 		Object parent = getHost().getParent().getModel();
 		Object child = getHost().getModel();
 		if (parent instanceof Container && child instanceof Component) {
-			return new ComponentDeleteCommand((Container) parent, (Component) child);
+			//return new ComponentDeleteCommand((Container) parent, (Component) child);
 		}
 		return super.createDeleteCommand(deleteRequest);
 	}

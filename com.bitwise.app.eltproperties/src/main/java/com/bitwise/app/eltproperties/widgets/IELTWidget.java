@@ -1,5 +1,7 @@
 package com.bitwise.app.eltproperties.widgets;
 
+import java.util.LinkedHashMap;
+
 import org.eclipse.swt.widgets.Group;
 
 /**
@@ -13,7 +15,8 @@ public interface IELTWidget {
 
 	public void attachToPropertySubGroup(Group subGroup);
 	
-	public void setProperties(Object properties);
+	public void setProperties(String propertyName,Object properties);
 	
-	public Object getProperties();
+	public LinkedHashMap<String,Object> getProperties();
+	
 }

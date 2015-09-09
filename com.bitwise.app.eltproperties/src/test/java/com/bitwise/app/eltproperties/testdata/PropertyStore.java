@@ -25,39 +25,55 @@ public class PropertyStore {
 		
 		//--------------------
 		
-		Property path= new Property("String", "path", "TEXT");
+		Property name= new Property("String", "name", "ELTComponentNameWidget");
+		name.group("TextProperties");
+		
+		Property path= new Property("String", "path", "ELTFilePathWidget");
 		path.group("TextProperties");
 		
-		Property delimiter= new Property("String", "delimiter", "TEXT");
+		Property delimiter= new Property("String", "delimiter", "ELTDelimeterWidget");
 		delimiter.group("TextProperties");
 		
 		//------
 		
-		Property charset= new Property("String", "charset", "TEXT");
+		Property charset= new Property("String", "charset", "ELTCharacterSetWidget");
 		charset.group("TextProperties");
 		charset.subGroup("Opetional");
 				
-		Property phase= new Property("String", "phase", "TEXT");
+		Property phase= new Property("String", "phase", "ELTPhaseWidget");
 		phase.group("TextProperties");
 		phase.subGroup("Opetional");
 		
 		//--------------------
 		
-		Property safe= new Property("boolean", "safe", "RADIO");
+		Property safe= new Property("boolean", "safe", "ELTSafePropertyWidget");
 		safe.group("RadioProperties");
 		safe.subGroup("safe");
 		
-		Property has_header= new Property("boolean", "has_header", "RADIO");
+		Property has_header= new Property("boolean", "has_header", "ELTHasHeaderWidget");
 		has_header.group("RadioProperties");
 		has_header.subGroup("header");
 		//--------------------
 		
+				//--------------------
+		
+				Property schema= new Property("boolean", "Schema", "ELTSchemaWidget");
+				schema.group("Schema");
+				
+				Property runtimeProps= new Property("boolean", "RuntimeProps", "ELTRuntimePropertiesWidget");
+				runtimeProps.group("RuntimeProps");
+				//--------------------
+		
+		inputComponentProperties.add(name);
 		inputComponentProperties.add(path);
 		inputComponentProperties.add(delimiter);
 		inputComponentProperties.add(safe);
 		inputComponentProperties.add(has_header);
 		inputComponentProperties.add(charset);
 		inputComponentProperties.add(phase);
+		inputComponentProperties.add(schema);
+		inputComponentProperties.add(runtimeProps);
+		
 		properties.put("Input", inputComponentProperties);
 	}
 	
