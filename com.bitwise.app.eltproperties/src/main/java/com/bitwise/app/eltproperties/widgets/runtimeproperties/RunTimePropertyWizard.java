@@ -1,7 +1,7 @@
 package com.bitwise.app.eltproperties.widgets.runtimeproperties;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -38,6 +38,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+/**
+ * 
+ * @author Nitin Gupta Sep 09, 2015
+ * 
+ */
+
 public class RunTimePropertyWizard {
 	private Table table;
 	private int propertyCounter;
@@ -45,7 +51,7 @@ public class RunTimePropertyWizard {
 	private List<RuntimeProperties> propertyLst;
 	public static final String RUNTIMEPROPNAME = "Property Name";
 	public static final String RUNTIMEPROPVALUE = "Property Value";
-	private HashMap<String, String> runtimePropertyMap;
+	private TreeMap<String, String> runtimePropertyMap;
 	private String componentName;
 	private Label lblHeader;
 	private String PROPERTY_EXISTS_ERROR = "Property name already exists";
@@ -55,42 +61,39 @@ public class RunTimePropertyWizard {
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
+	private Button addButton, deleteAll, applyButton, okButton, deleteButton,
+			cacelButton;
+	private boolean isAnyUpdatePerformed;
 
 	public RunTimePropertyWizard() {
 
 		propertyLst = new ArrayList<RuntimeProperties>();
-		runtimePropertyMap = new HashMap<String, String>();
-	}
-
-	public static void main(String[] args) {
-		RunTimePropertyWizard obj = new RunTimePropertyWizard();
-		HashMap<String, String> obj2 = new HashMap<String, String>();
-		obj2.put("New 1", "Value");
-		obj2.put("New 2", "value");
-		obj.setRuntimePropertyMap(obj2);
-		System.out.println("Main Method::" + obj.executeDemoWizard(new Shell(Display.getDefault())));
+		runtimePropertyMap = new TreeMap<String, String>();
 	}
 
 	private void addNewProperty(TableViewer tv) {
-
+		
+		
+		isAnyUpdatePerformed=true;
 		RuntimeProperties p = new RuntimeProperties();
 		String autoGenratedPropertyName = "New Property" + (++propertyCounter);
 		for (RuntimeProperties temp : propertyLst) {
-			
-			System.out.println("Auto Genrated::"+autoGenratedPropertyName);
-			System.out.println("List Genrated::"+temp.getPropertyName());
+
+			System.out.println("Auto Genrated::" + autoGenratedPropertyName);
+			System.out.println("List Genrated::" + temp.getPropertyName());
 			if (temp.getPropertyName().equalsIgnoreCase(
 					autoGenratedPropertyName)) {
 				autoGenratedPropertyName = "New Property" + (++propertyCounter);
 			}
 		}
+		
 		p.setPropertyName(autoGenratedPropertyName);
 		p.setPropertyValue("Value");
 		propertyLst.add(p);
 		tv.refresh();
 	}
 
-	public void setRuntimePropertyMap(HashMap<String, String> runtimePropertyMap) {
+	public void setRuntimePropertyMap(TreeMap<String, String> runtimePropertyMap) {
 		this.runtimePropertyMap = runtimePropertyMap;
 	}
 
@@ -102,6 +105,7 @@ public class RunTimePropertyWizard {
 		this.componentName = componentName;
 	}
 
+	// Loads Already Saved Properties..
 	private void loadProperties(TableViewer tv) {
 
 		if (runtimePropertyMap != null && !runtimePropertyMap.isEmpty()) {
@@ -152,10 +156,11 @@ public class RunTimePropertyWizard {
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public HashMap<String, String> executeDemoWizard(Shell parentShell) {
-		
-		shell=new Shell(parentShell,SWT.WRAP|SWT.APPLICATION_MODAL);
+	public TreeMap<String, String> launchRuntimeWindow(Shell parentShell) {
+
+		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
+		isAnyUpdatePerformed=false;
 		shell.setSize(506, 540);
 		shell.setLayout(null);
 		lblHeader = new Label(shell, SWT.NONE);
@@ -163,11 +168,11 @@ public class RunTimePropertyWizard {
 		lblHeader.setText(getComponentName() + " Runtime Property");
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523,
 				2);
-		// Shell Close Event
+		// Below Event will be fired when user closes the Runtime window
 		shell.addListener(SWT.Close, new Listener() {
 			public void handleEvent(Event event) {
 
-				if (table.getItemCount() != 0 && !isOkPressed) {
+				if (table.getItemCount() != 0 && !isOkPressed && isAnyUpdatePerformed) {
 					int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
 					MessageBox messageBox = new MessageBox(shell, style);
 					messageBox.setText("Information");
@@ -185,9 +190,9 @@ public class RunTimePropertyWizard {
 		createButtons(composite);
 
 		lblPropertyError = new Label(composite, SWT.NONE);
-		lblPropertyError.setForeground(new Color(Display.getDefault(),255,0,0));
+		lblPropertyError.setForeground(new Color(Display.getDefault(), 255, 0,
+				0));
 		lblPropertyError.setBounds(28, 57, 258, 15);
-
 		lblPropertyError.setVisible(false);
 
 		final CellEditor propertyNameeditor = new TextCellEditor(table);
@@ -198,9 +203,9 @@ public class RunTimePropertyWizard {
 		propertyNameeditor.addListener(createEditorListners());
 		propertyValueeditor.addListener(createEditorListners());
 		propertyNameeditor
-				.setValidator(createEditorValidators(PROPERTY_NAME_BLANK_ERROR));
+				.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
 		propertyValueeditor
-				.setValidator(createEditorValidators(PROPERTY_VALUE_BLANK_ERROR));
+				.setValidator(createValueEditorValidator(PROPERTY_VALUE_BLANK_ERROR));
 
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer
@@ -232,7 +237,7 @@ public class RunTimePropertyWizard {
 	private void createButtons(Composite composite) {
 		new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 41,
 				513, 2);
-		Button addButton = new Button(composite, SWT.NONE);
+		addButton = new Button(composite, SWT.NONE);
 		addButton.setText("Add");
 		addButton.setBounds(10, 10, 75, 25);
 		addButton.addSelectionListener(new SelectionAdapter() {
@@ -242,12 +247,13 @@ public class RunTimePropertyWizard {
 			}
 		});
 
-		Button deleteButton = new Button(composite, SWT.NONE);
+		deleteButton = new Button(composite, SWT.NONE);
 		deleteButton.setText("Delete");
 		deleteButton.setBounds(91, 10, 75, 25);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 				int temp = table.getSelectionIndex();
 				if (temp == -1)
 					MessageDialog.openError(shell, "Error",
@@ -255,12 +261,13 @@ public class RunTimePropertyWizard {
 				else {
 					table.remove(temp);
 					propertyLst.remove(temp);
+					isAnyUpdatePerformed=true;
 				}
 			}
 		});
-			deleteButton.setImage(null);
+		deleteButton.setImage(null);
 
-		Button deleteAll = new Button(composite, SWT.NONE);
+		deleteAll = new Button(composite, SWT.NONE);
 		deleteAll.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if (table.getItemCount() != 0) {
@@ -278,7 +285,7 @@ public class RunTimePropertyWizard {
 		deleteAll.setBounds(172, 10, 75, 25);
 		deleteAll.setText("Delete All");
 
-		Button applyButton = new Button(composite, SWT.NONE);
+		applyButton = new Button(composite, SWT.NONE);
 		applyButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -287,13 +294,18 @@ public class RunTimePropertyWizard {
 					runtimePropertyMap.put(temp.getPropertyName(),
 							temp.getPropertyValue());
 				}
-
+				MessageBox messageBox = new MessageBox(shell, SWT.NONE);
+				messageBox.setText("Information");
+				messageBox
+						.setMessage("Property saved sucessfully");
+				messageBox.open();
+				isAnyUpdatePerformed=false;
 			}
 		});
 		applyButton.setBounds(253, 10, 75, 25);
 		applyButton.setText("Apply");
 
-		Button okButton = new Button(composite, SWT.NONE);
+		okButton = new Button(composite, SWT.NONE);
 		okButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -309,7 +321,7 @@ public class RunTimePropertyWizard {
 		});
 		okButton.setBounds(321, 52, 75, 25);
 		okButton.setText("OK");
-		Button cacelButton = new Button(composite, SWT.NONE);
+		cacelButton = new Button(composite, SWT.NONE);
 		cacelButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -334,11 +346,12 @@ public class RunTimePropertyWizard {
 
 			@Override
 			public void cancelEditor() {
-
+System.out.println("CancelEditor");
 			}
 
 			@Override
 			public void applyEditorValue() {
+				enableButtons();
 				lblPropertyError.setVisible(false);
 
 			}
@@ -346,18 +359,20 @@ public class RunTimePropertyWizard {
 		return propertyEditorListner;
 	}
 
-	// Creates data Validator for table's cells
-	private ICellEditorValidator createEditorValidators(
+	// Creates CellNAme Validator for table's cells
+	private ICellEditorValidator createNameEditorValidator(
 			final String ErrorMessage) {
 		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
 			@Override
 			public String isValid(Object value) {
+				isAnyUpdatePerformed=true;
 				String currentSelectedFld = table.getItem(
 						table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
 				if (valueToValidate.isEmpty()) {
 					lblPropertyError.setText(ErrorMessage);
 					lblPropertyError.setVisible(true);
+					disableButtons();
 					return "ERROR";
 				}
 
@@ -367,9 +382,11 @@ public class RunTimePropertyWizard {
 									.equalsIgnoreCase(valueToValidate)) {
 						lblPropertyError.setText(PROPERTY_EXISTS_ERROR);
 						lblPropertyError.setVisible(true);
+						disableButtons();
 						return "ERROR";
 					} else
-						lblPropertyError.setVisible(false);
+						enableButtons();
+					lblPropertyError.setVisible(false);
 				}
 
 				return null;
@@ -378,11 +395,39 @@ public class RunTimePropertyWizard {
 		};
 		return propertyValidator;
 	}
+	
+	// Creates Value Validator for table's cells
+	private ICellEditorValidator createValueEditorValidator(
+			final String ErrorMessage) {
+		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
+			@Override
+			public String isValid(Object value) {
+				isAnyUpdatePerformed=true;
+				String currentSelectedFld = table.getItem(
+						table.getSelectionIndex()).getText();
+				String valueToValidate = String.valueOf(value).trim();
+				if (valueToValidate.isEmpty()) {
+					lblPropertyError.setText(ErrorMessage);
+					lblPropertyError.setVisible(true);
+					disableButtons();
+					return "ERROR";
+				}
+				return null;
 
-	private void createLowerComposite() {
-		// TODO Auto-generated method stub
+			}
+		};
+		return propertyValidator;
+	}
+	void disableButtons() {
+		okButton.setEnabled(false);
+		applyButton.setEnabled(false);
+
+	}
+
+	void enableButtons() {
+		okButton.setEnabled(true);
+		applyButton.setEnabled(true);
 
 	}
 
 }
-

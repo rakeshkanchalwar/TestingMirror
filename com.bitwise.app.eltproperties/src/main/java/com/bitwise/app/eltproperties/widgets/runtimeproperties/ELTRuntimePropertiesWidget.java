@@ -1,7 +1,8 @@
 package com.bitwise.app.eltproperties.widgets.runtimeproperties;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -17,39 +18,55 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public class RuntimeWidgetButton implements IELTWidget {
-
-	private HashMap<String, String> InstializeMap;
-
+public class ELTRuntimePropertiesWidget implements IELTWidget {
+	private TreeMap<String, String> InstializeMap;
+	private String propertyName;
 	private Shell shell;
+	private String componentName;
+	
+	
+	public ELTRuntimePropertiesWidget() {
+		super();
+		tempPropertyMap=new LinkedHashMap<String, Object>();
+	}
 
+	
+private  LinkedHashMap<String,Object> tempPropertyMap;
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
 
 		shell = subGroup.getShell();
 		Composite composite = new Composite(subGroup, SWT.NONE);
+		
+		composite.setLayout(new FormLayout());
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100, -27);
 		fd_composite.right = new FormAttachment(0, 401);
 		fd_composite.top = new FormAttachment(0, 2);
 		fd_composite.left = new FormAttachment(0, 7);
-		composite.setLayoutData(fd_composite);
-		composite.setLayout(new FormLayout());
-
+		
+	
+//		formToolkit.adapt(composite);
+//		formToolkit.paintBordersFor(composite);
 		Button btnNewButton_1 = new Button(composite, SWT.NONE);
+//		formToolkit.adapt(btnNewButton_1, true, true);
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Temp Code
 				RunTimePropertyWizard runTimeWizardObj = new RunTimePropertyWizard();
-				runTimeWizardObj.setComponentName("Component Name");
-				if (getProperties() == null)
-					//setProperties(new HashMap<String, String>());
+				runTimeWizardObj.setComponentName(componentName);
+				if (getProperties().get(propertyName)==null){
+					setProperties(propertyName,new TreeMap<String, String>());
 
-				//runTimeWizardObj.setRuntimePropertyMap((HashMap<String, String>)getProperties());
-				//setProperties(runTimeWizardObj.executeDemoWizard(shell));
-				System.out.println(getProperties());
+				}
+				runTimeWizardObj.setRuntimePropertyMap((TreeMap<String, String>)getProperties().get(propertyName));
+				setProperties(propertyName,runTimeWizardObj.launchRuntimeWindow(shell));
 			}
 		});
 		FormData fd_btnNewButton_1 = new FormData();
@@ -61,45 +78,27 @@ public class RuntimeWidgetButton implements IELTWidget {
 
 	}
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	
-	public static void main(String[] args) {
-		Display d = new Display();
-		Shell shell = new Shell(d);
-		shell.setLayout(new FormLayout());
-
-		Group grpRuntimeProperty = new Group(shell, SWT.NONE);
-		grpRuntimeProperty.setText("Runtime Property");
-		grpRuntimeProperty.setLayout(new FormLayout());
-		FormData fd_grpRuntimeProperty = new FormData();
-		fd_grpRuntimeProperty.bottom = new FormAttachment(0, 101);
-		fd_grpRuntimeProperty.top = new FormAttachment(0, 10);
-		fd_grpRuntimeProperty.left = new FormAttachment(0, 10);
-		fd_grpRuntimeProperty.right = new FormAttachment(0, 424);
-		grpRuntimeProperty.setLayoutData(fd_grpRuntimeProperty);
-		new RuntimeWidgetButton().attachToPropertySubGroup(grpRuntimeProperty);
-
-		shell.open();
-
-		while (!shell.isDisposed()) {
-			if (!shell.getDisplay().readAndDispatch())
-				shell.getDisplay().sleep();
-		}
-
-	}
 
 	@Override
-	public void setProperties(String aaa,Object properties) {
-		
-		InstializeMap =(HashMap<String, String>)properties;
-		
+	public void setProperties(String propertyName, Object properties) {
+		this.propertyName=propertyName;
+		this.InstializeMap=(TreeMap<String, String>)properties;
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		tempPropertyMap.put(this.propertyName, this.InstializeMap);
+		return (tempPropertyMap);
 	}
+
+
+
+	@Override
+	public void setComponentName(String componentName) {
+		this.componentName="New Component Name";
+		
+	}
+
 }
