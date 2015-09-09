@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _TBwb4EvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 8/27/15 1:05 PM
+Save-Time: 9/9/15 4:47 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -45,9 +45,9 @@ get-button Restore | click
 //code to test job launch and close from menu Item
 get-menu "File/New/Job" | click
 get-menu "File/New/Job" | click
-get-editor "Graph 2" | close
-get-tab-folder | get-tab-item "Graph 3" | click
-with [get-editor "Graph 3"] {
+get-editor "Graph 4" | close
+get-tab-folder | get-tab-item "Graph 5" | click
+with [get-editor "Graph 5"] {
     click
     close
 }
