@@ -56,13 +56,14 @@ public class ELTDelimeterWidget implements IELTWidget{
 		lblAdesss.setText("Delimeter : ");
 		
 		text_1 = new Text(composite_3, SWT.BORDER);
+		//text_1.setText("|");
 		FormData fd_text_1 = new FormData();
 		fd_text_1.top = new FormAttachment(0, 2);
 		fd_text_1.left = new FormAttachment(0, 88);
 		text_1.setLayoutData(fd_text_1);
 		formToolkit.adapt(text_1, true, true);
 		
-		/*Button btnAdd = new Button(composite_3, SWT.CENTER);
+		Button btnAdd = new Button(composite_3, SWT.CENTER);
 		fd_text_1.right = new FormAttachment(btnAdd, -7);
 		FormData fd_btnAdd = new FormData();
 		fd_btnAdd.top = new FormAttachment(0);
@@ -70,7 +71,9 @@ public class ELTDelimeterWidget implements IELTWidget{
 		fd_btnAdd.left = new FormAttachment(100, -110);
 		btnAdd.setLayoutData(fd_btnAdd);
 		formToolkit.adapt(btnAdd, true, true);
-		btnAdd.setText("Add");*/
+		btnAdd.setText("Add");
+		btnAdd.setVisible(false);
+		
 		
 		text_1.addModifyListener(new ModifyListener() {
 			
@@ -91,7 +94,7 @@ public class ELTDelimeterWidget implements IELTWidget{
 			@Override
 			public void verifyText(VerifyEvent e) {
 				String string=e.text;
-				Matcher matchs=Pattern.compile("[|,;]$").matcher(string);
+				Matcher matchs=Pattern.compile("^[0-9a-zA-Z]$").matcher(string);
 				if(matchs.matches())
 					e.doit=false;
 			}
@@ -106,7 +109,7 @@ public class ELTDelimeterWidget implements IELTWidget{
 		if(properties != null)
 			text_1.setText((String) properties);
 		else
-			text_1.setText("");
+			text_1.setText("|");
 		
 	}
 

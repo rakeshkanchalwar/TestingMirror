@@ -9,7 +9,8 @@ public class Messages extends NLS {
 	public static String DATATYPE;
 	public static String LIMIT;
 	public static String FIELDNAMEERROR;
-
+	public static String FIELDPHASE;
+	public static String CHARACTERSET;
 	 
 	static {
 		// initialize resource bundle

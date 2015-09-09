@@ -4,12 +4,16 @@ import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -22,6 +26,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
+
 public class ELTPhaseWidget implements IELTWidget{
 
 	private Text text_1;
@@ -29,6 +35,7 @@ public class ELTPhaseWidget implements IELTWidget{
 	Group grpGroup_1;
 	private Object properties;
 	private String propertyName;
+	private ControlDecoration txtDecorator;
 	
 	@Override
 	public void attachToPropertySubGroup(Group  subGroup) {
@@ -45,6 +52,7 @@ public class ELTPhaseWidget implements IELTWidget{
 		fl_composite_3.marginBottom = 5;
 		composite_3.setLayout(fl_composite_3);
 		
+		
 		Label lblAdesss = new Label(composite_3, SWT.NONE);
 		lblAdesss.setAlignment(SWT.CENTER);
 		FormData fd_lblAdesss = new FormData();
@@ -56,6 +64,7 @@ public class ELTPhaseWidget implements IELTWidget{
 		lblAdesss.setText("Phase : ");
 		
 		text_1 = new Text(composite_3, SWT.BORDER);
+		
 		FormData fd_text_1 = new FormData();
 		fd_text_1.top = new FormAttachment(0, 2);
 		fd_text_1.left = new FormAttachment(0, 88);
@@ -72,15 +81,26 @@ public class ELTPhaseWidget implements IELTWidget{
 		formToolkit.adapt(label, true, true);
 		label.setText("* Enter only Numberic values 0-9");
 		label.setBackground(new Color(composite_3.getDisplay(),255,255,204));
+		label.setVisible(false);
 		
+		txtDecorator = new ControlDecoration(text_1, SWT.TOP|SWT.LEFT);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+		Image img = fieldDecoration.getImage();
+		txtDecorator.setImage(img);
+		txtDecorator.setDescriptionText(Messages.FIELDPHASE);
+		// hiding it initially
+		txtDecorator.hide();
+		//return txtDecorator;
 		text_1.addModifyListener(new ModifyListener() {
 			
 			@Override
 			public void modifyText(ModifyEvent e) {
 				if(text_1.getText().isEmpty()) {
+					
 					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
 				}
 				else{
+					//txtDecorator.hide();
 					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
 			}
 				
@@ -92,11 +112,17 @@ public class ELTPhaseWidget implements IELTWidget{
 			@Override
 			public void verifyText(VerifyEvent e) {
 				String string=e.text;
-				Matcher matchs=Pattern.compile("[^0-9]$").matcher(string);
-				if(matchs.matches())
+				Matcher matchs=Pattern.compile("[^0-9]+$").matcher(string);
+				if(matchs.matches()){
+					txtDecorator.show();
 					e.doit=false;
+				}else{
+					txtDecorator.hide();
+				}
 			}
 		});
+		
+	
 	}
 
 	@Override

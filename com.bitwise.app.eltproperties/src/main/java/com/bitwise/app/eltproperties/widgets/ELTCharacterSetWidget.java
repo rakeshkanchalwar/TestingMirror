@@ -1,13 +1,22 @@
 package com.bitwise.app.eltproperties.widgets;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -20,6 +29,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
+
 public class ELTCharacterSetWidget implements IELTWidget{
 
 	Combo combo;
@@ -28,6 +39,9 @@ public class ELTCharacterSetWidget implements IELTWidget{
 	Group grpGroup_1;
 	private Object properties;
 	private String propertyName;
+	private ControlDecoration txtDecorator;
+	
+	private static LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -56,11 +70,12 @@ public class ELTCharacterSetWidget implements IELTWidget{
 		
 
 		combo = new Combo(composite_3, SWT.NONE);
-		combo.setText("select");
+		/*combo.setText("select");
 		combo.add("True");
 		combo.add("False");
-		combo.add("Parameter");
-		//combo.setItems(new String[]{"True","False","Parameter"});
+		combo.add("Parameter");*/
+		combo.setItems(new String[]{"True","False","Parameter"});
+		//combo.setItems();
 		fd_lblAdesss.top = new FormAttachment(combo, 0, SWT.TOP);
 		fd_lblAdesss.bottom = new FormAttachment(combo, -8, SWT.BOTTOM);
 		fd_lblAdesss.right = new FormAttachment(combo, -6);
@@ -74,7 +89,7 @@ public class ELTCharacterSetWidget implements IELTWidget{
 		formToolkit.paintBordersFor(combo);
 		
 		text_1 = new Text(composite_3, SWT.BORDER);
-		text_1.setText("$");
+		//text_1.setText("$");
 		text_1.setVisible(false);
 		FormData fd_text = new FormData();
 		fd_text.top = new FormAttachment(0, 8);
@@ -83,6 +98,11 @@ public class ELTCharacterSetWidget implements IELTWidget{
 		text_1.setLayoutData(fd_text);
 		formToolkit.adapt(text_1, true, true);
 		
+		txtDecorator = new ControlDecoration(text_1, SWT.TOP|SWT.LEFT);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+		Image img = fieldDecoration.getImage();
+		txtDecorator.setImage(img);
+		txtDecorator.setDescriptionText(Messages.CHARACTERSET);
 		
 		//combo.setItems(Items);
 		//new AutoCompleteField(combo, new ComboContentAdapter(), Items);
@@ -105,6 +125,32 @@ public class ELTCharacterSetWidget implements IELTWidget{
 			
 			@Override
 			public void modifyText(ModifyEvent e) {
+				if( text_1.getText().isEmpty()||!check(text_1.getText())) {
+					
+					txtDecorator.show();
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+					
+				}
+				else{
+					txtDecorator.hide();
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
+					
+					
+			}
+				
+			}
+		});
+		
+	}
+		public boolean check(String string){
+			boolean isMatched = Pattern.matches("\\$(\\w+)", string);
+			return isMatched;
+
+	}
+		/*text_1.addModifyListener(new ModifyListener() {
+			
+			@Override
+			public void modifyText(ModifyEvent e) {
 				if(text_1.getText().isEmpty()) {
 					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
 				}
@@ -113,29 +159,45 @@ public class ELTCharacterSetWidget implements IELTWidget{
 			}
 				
 			}
-		});
+		});*/
+		/*text_1.addVerifyListener(new VerifyListener() {
+			
+			@Override
+			public void verifyText(VerifyEvent e) {
+				String string=e.text;
+				Matcher matchs=Pattern.compile("\\$(\\w+)").matcher(string);
+				if(matchs.matches()){
+					txtDecorator.show();
+					e.doit=false;
+			}else
+					txtDecorator.hide();
+			}
+		});*/
 		
-	}
+	
 
 	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
-		this.propertyName = propertyName;
-		if(properties != null){
-			text_1.setText((String) properties);
-			combo.setText((String)properties);
-		}else{
-			text_1.setText("");
-			combo.setText("select");
-		}
-		
-	}
+    public void setProperties(String propertyName, Object properties) {
+          this.properties =  properties; 
+          this.propertyName = propertyName;
+          if(properties != null){
+                if(((String) properties).equalsIgnoreCase("Parameter"))
+                      text_1.setVisible(true);  
+                text_1.setText((String) property.get("text_value"));
+                combo.setText((String)properties);
+          }else{
+                text_1.setText("$");
+                combo.setText("select");
+          }
+    }
+
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-		property.put(propertyName, text_1.getText());
+	
 		property.put(propertyName, combo.getText());
+		property.put("text_value", text_1.getText());
+		
 		return property;
 	}
 

@@ -2,12 +2,16 @@ package com.bitwise.app.eltproperties.widgets;
 
 import java.io.File;
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
@@ -32,8 +36,8 @@ public class ELTFilePathWidget implements IELTWidget{
 	private String propertyName;
 	
 	@Override
-	public void attachToPropertySubGroup(Group grpGroup_1) {
-		this.grpGroup_1 = grpGroup_1;
+	public void attachToPropertySubGroup(Group subGroup) {
+		this.grpGroup_1 = subGroup;
 		Composite composite_3 = new Composite(grpGroup_1, SWT.NONE);
 		ColumnLayoutData cld_composite_3 = new ColumnLayoutData();
 		cld_composite_3.horizontalAlignment = ColumnLayoutData.LEFT;
@@ -63,15 +67,17 @@ public class ELTFilePathWidget implements IELTWidget{
 		text_1.setLayoutData(fd_text_1);
 		formToolkit.adapt(text_1, true, true);
 		
-		/*text_1.addModifyListener(new ModifyListener() {
+		text_1.addModifyListener(new ModifyListener() {
 			
 			@Override
 			public void modifyText(ModifyEvent e) {
 				if(text_1.getText().isEmpty()){
-					text_1.setBackground(new Color(composite_3.getDisplay(),255,255,204));
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
 				}
+				else
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
 			}
-		});*/
+		});
 		
 		 final Composite composite = new Composite(grpGroup_1, SWT.NONE);
          composite.setLayout(new FillLayout());
@@ -101,6 +107,17 @@ public class ELTFilePathWidget implements IELTWidget{
 			}
 		});
 		
+		text_1.addVerifyListener(new VerifyListener() {
+			
+			@Override
+			public void verifyText(VerifyEvent e) {
+				String string=e.text;
+				Matcher matchs=Pattern.compile("[^0-9]*$").matcher(string);
+				if(!matchs.matches())
+					e.doit=false;
+			}
+		});
+		
 	}
 
 	@Override
@@ -116,7 +133,7 @@ public class ELTFilePathWidget implements IELTWidget{
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		// TODO Auto-generated method stub
+		
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 		property.put(propertyName, text_1.getText());
 		return property;
