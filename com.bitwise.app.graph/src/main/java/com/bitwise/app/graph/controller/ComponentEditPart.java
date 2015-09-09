@@ -119,16 +119,14 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 				boolean isAllowedMultipleLinks = component.getInputPort().isAllowMultipleLinks();
 				((Component)getModel()).setAllowMultipleLinks(isAllowedMultipleLinks);
 			}
-			return new InputFigure(inputPorts);
-			
+			return new InputFigure(inputPorts, componentName);			
 		}else if(getModel() instanceof OutputComponent){
 			BigInteger outputPorts = component.getOutputPort().getNumberOfPorts();
 			if(component.getOutputPort().isAllowMultipleLinks() != null){
 				boolean isAllowedMultipleLinks = component.getOutputPort().isAllowMultipleLinks();
 				((Component)getModel()).setAllowMultipleLinks(isAllowedMultipleLinks);
 			}
-			return new OutputFigure(outputPorts);
-			
+			return new OutputFigure(outputPorts, componentName);			
 		}else {
 			throw new IllegalArgumentException();
 		}
@@ -222,15 +220,18 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		// container
 		// (the Figure of the ShapesDiagramEditPart), will not know the bounds
 		// of this figure and will not draw it correctly.
-		/*Component component = (Component) getModel();
-		
-		Rectangle bounds = new Rectangle(component.getLocation(), component.getSize());
-		((ContainerEditPart) getParent()).setLayoutConstraint(this,	getFigure(), bounds);*/
-		
+		/*
+		 * Component component = (Component) getModel();
+		 * 
+		 * Rectangle bounds = new Rectangle(component.getLocation(), component.getSize()); ((ContainerEditPart)
+		 * getParent()).setLayoutConstraint(this, getFigure(), bounds);
+		 */
+
 		Component comp = getCastedModel();
-		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
-				getCastedModel().getSize());
-		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
-				getFigure(), bounds);
+		ComponentFigure c = getComponentFigure();
+		c.setLabelName((String) comp.getPropertyValue("Name"));
+		System.out.println("refreshVisuals:c.getLabelName(): " + c.getLabelName());
+		Rectangle bounds = new Rectangle(getCastedModel().getLocation(), getCastedModel().getSize());
+		((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), bounds);
 	}
 }
