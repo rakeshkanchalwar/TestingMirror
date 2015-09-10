@@ -31,7 +31,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
 
-public class ELTCharacterSetWidget implements IELTWidget{
+public class ELTCharacterSetWidget extends AbstractELTWidget{
 
 	Combo combo;
 	private Text text_1;
@@ -207,6 +207,4 @@ public class ELTCharacterSetWidget implements IELTWidget{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 }

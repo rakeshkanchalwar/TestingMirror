@@ -32,7 +32,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
 
-public class ELTSafeWidget implements IELTWidget{
+public class ELTSafeWidget extends AbstractELTWidget{
     private Combo combo;
 	private Text text;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -170,6 +170,4 @@ public class ELTSafeWidget implements IELTWidget{
 		
 	}
 	
-
-
 }

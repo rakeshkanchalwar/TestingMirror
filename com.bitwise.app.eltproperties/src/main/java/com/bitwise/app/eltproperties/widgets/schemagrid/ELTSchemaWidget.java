@@ -28,14 +28,14 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import com.bitwise.app.eltproperties.widgets.IELTWidget;
+import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 
 /**
  * @author rahulma
  * This class demonstrates CellEditors. It allows you to create and edit
  * SchemaGrid objects
  */ 
-public class ELTSchemaWidget implements IELTWidget {
+public class ELTSchemaWidget extends AbstractELTWidget {
 
 	private List<SchemaGrid> schemaGrids = new ArrayList<SchemaGrid>();
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();

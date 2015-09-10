@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Group;
 
 import com.bitwise.app.eltproperties.factory.WidgetFactory;
 import com.bitwise.app.eltproperties.property.Property;
-import com.bitwise.app.eltproperties.widgets.IELTWidget;
+import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class PropertyDialogBuilder {
 	private LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree;
 	private Composite container;
 	private LinkedHashMap<String, Object> componentProperties;
-	private ArrayList<IELTWidget> eltWidgetList;
+	private ArrayList<AbstractELTWidget> eltWidgetList;
 	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties){
 		this.container = container;
 		this.propertyTree = propertyTree;
@@ -68,7 +68,7 @@ public class PropertyDialogBuilder {
 				}
 				
 				for(Property property: subgroupTree.get(subgroupName)){
-					IELTWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
+					AbstractELTWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
 					eltWidget.attachToPropertySubGroup(subGroup);
 					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
 					eltWidgetList.add(eltWidget);
@@ -129,7 +129,7 @@ public class PropertyDialogBuilder {
 		return grpGroup;
 	}
 	
-	public ArrayList<IELTWidget> getELTWidgetList(){
+	public ArrayList<AbstractELTWidget> getELTWidgetList(){
 		return eltWidgetList;
 	}
 	

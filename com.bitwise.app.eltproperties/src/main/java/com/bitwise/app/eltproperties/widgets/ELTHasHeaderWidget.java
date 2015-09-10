@@ -30,7 +30,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
 
-public class ELTHasHeaderWidget implements IELTWidget{
+public class ELTHasHeaderWidget extends AbstractELTWidget{
 			Combo combo;
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -202,6 +202,4 @@ public class ELTHasHeaderWidget implements IELTWidget{
 		
 	}
 	
-
-
 }

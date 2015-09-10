@@ -10,6 +10,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -23,7 +24,7 @@ import com.bitwise.app.eltproperties.property.IPropertyTreeBuilder;
 import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.testdata.PropertyStore;
-import com.bitwise.app.eltproperties.widgets.IELTWidget;
+import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 
 /**
  * 
@@ -76,10 +77,16 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
+		
 		createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
+		
+		for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+			eltWidget.setOkButton(okButton);
+		}
+		
 		//initDataBindings();
 	}
 
@@ -100,7 +107,7 @@ public class PropertyDialog extends Dialog {
 	protected void okPressed() {
 		// TODO Auto-generated method stub
 		System.out.println("Prop saved");
-		for(IELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+		for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
 			for(String propName : tempPropert.keySet()){
 				ComponentProperties.put(propName, tempPropert.get(propName));
