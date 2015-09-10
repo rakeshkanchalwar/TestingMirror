@@ -117,6 +117,7 @@ public class ELTCharacterSetWidget implements IELTWidget{
 				}else {
 					
 					text_1.setVisible(false);
+					txtDecorator.hide();
 				}
 			}
 		});

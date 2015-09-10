@@ -107,6 +107,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 					if(combo.getText().equals("Parameter")) {
 						text_1.setVisible(true);
 					}else {
+						txtDecorator.hide();
 						text_1.setVisible(false);
 					}
 				}
