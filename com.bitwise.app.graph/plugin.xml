@@ -39,6 +39,13 @@
          <toolbar
                id="com.bitwise.app.graph.toolbar1">
             <command
+                  commandId="com.bitwise.app.graph.newGraphcommand"
+                  icon="resources/File.png"
+                  id="com.bitwise.app.graph.newJob"
+                  label="New Job"
+                  style="pulldown">
+            </command>
+            <command
                   commandId="org.eclipse.ui.edit.text.openLocalFile"
                   icon="resources/OpenFile1.jpg"
                   label="Open File"
@@ -49,13 +56,6 @@
                   id="com.bitwise.app.save"
                   label="Save"
                   style="push">
-            </command>
-            <command
-                  commandId="com.bitwise.app.graph.newGraphcommand"
-                  icon="resources/New_File.png"
-                  id="com.bitwise.app.graph.newJob"
-                  label="New Job"
-                  style="pulldown">
             </command>
             <separator
                   name="com.bitwise.app.graph.separator1"

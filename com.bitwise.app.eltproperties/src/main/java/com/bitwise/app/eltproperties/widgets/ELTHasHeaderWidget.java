@@ -71,6 +71,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 			combo.add("True");
 			combo.add("False");
 			combo.add("Parameter");
+			
 			//combo.setItems(new String[]{"True","False","Parameter"});
 			fd_lblAdesss.top = new FormAttachment(combo, 0, SWT.TOP);
 			fd_lblAdesss.bottom = new FormAttachment(combo, -8, SWT.BOTTOM);
