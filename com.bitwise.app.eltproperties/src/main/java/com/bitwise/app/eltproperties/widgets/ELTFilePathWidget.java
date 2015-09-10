@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public class ELTFilePathWidget implements IELTWidget{
+public class ELTFilePathWidget extends AbstractELTWidget{
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	Group grpGroup_1;
@@ -144,7 +144,4 @@ public class ELTFilePathWidget implements IELTWidget{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-
 }

@@ -254,10 +254,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter= new ELTComponentPropertyAdapter(rowProperties);
 		try {
 			eltComponentPropertyAdapter.transform();
-			
-			
-			/*Display display = new Display();
-		    Shell shell = new Shell(display);*/
 			Display display = Display.getDefault();
 			Shell shell = new Shell(display);
 						
@@ -266,14 +262,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 			System.out.println(propertyTreeBuilder.toString());
 			PropertyDialog testwindow = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),component.getProperties());
 			testwindow.open();
-			//shell.pack();
-		    //shell.open();
-		    /*while (!shell.isDisposed()) {
-		      if (!display.readAndDispatch()) {
-		        display.sleep();
-		      }
-		    }
-		    display.dispose();*/
 			
 		} catch (EmptyComponentPropertiesException e) {
 			// TODO Auto-generated catch block

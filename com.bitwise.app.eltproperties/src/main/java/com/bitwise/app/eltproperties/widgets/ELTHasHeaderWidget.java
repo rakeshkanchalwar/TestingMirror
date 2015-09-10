@@ -30,7 +30,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
 
-public class ELTHasHeaderWidget implements IELTWidget{
+public class ELTHasHeaderWidget extends AbstractELTWidget{
 			Combo combo;
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -66,7 +66,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 			lblAdesss.setText("Has Header: ");
 			
 
-			combo = new Combo(composite_3, SWT.NONE);
+			combo = new Combo(composite_3, SWT.READ_ONLY);
 			combo.setText("select");
 			combo.add("True");
 			combo.add("False");
@@ -202,6 +202,4 @@ public class ELTHasHeaderWidget implements IELTWidget{
 		
 	}
 	
-
-
 }

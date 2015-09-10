@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import com.bitwise.app.eltproperties.widgets.IELTWidget;
+import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
@@ -20,7 +20,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public class ELTRuntimePropertiesWidget implements IELTWidget {
+public class ELTRuntimePropertiesWidget extends AbstractELTWidget {
 	private TreeMap<String, String> InstializeMap;
 	private String propertyName;
 	private Shell shell;

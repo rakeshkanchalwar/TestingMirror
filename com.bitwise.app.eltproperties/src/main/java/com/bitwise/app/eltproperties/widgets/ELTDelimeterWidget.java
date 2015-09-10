@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public class ELTDelimeterWidget implements IELTWidget{
+public class ELTDelimeterWidget extends AbstractELTWidget{
 
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -124,8 +124,5 @@ public class ELTDelimeterWidget implements IELTWidget{
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	
-
+	}	
 }

@@ -3,6 +3,8 @@ package com.bitwise.app.eltproperties.widgets;
 import java.util.LinkedHashMap;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -22,7 +24,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * 
  */
 
-public class MyCustomWidget implements IELTWidget{
+public class MyCustomWidget extends AbstractELTWidget{
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	Group grpGroup_1;
@@ -69,6 +71,17 @@ public class MyCustomWidget implements IELTWidget{
 		btnAdd.setLayoutData(fd_btnAdd);
 		formToolkit.adapt(btnAdd, true, true);
 		btnAdd.setText("Add");
+		
+		btnAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				super.widgetSelected(e);
+				
+				System.out.println("Got it");
+				toggleOkButton(false);
+			}
+		});
 	}
 
 	@Override

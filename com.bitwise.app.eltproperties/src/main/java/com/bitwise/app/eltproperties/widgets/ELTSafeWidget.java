@@ -32,7 +32,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
 
-public class ELTSafeWidget implements IELTWidget{
+public class ELTSafeWidget extends AbstractELTWidget{
     private Combo combo;
 	private Text text;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -66,7 +66,7 @@ public class ELTSafeWidget implements IELTWidget{
 			lblAdesss.setText("Safe: ");
 			
 
-			combo = new Combo(composite_3, SWT.NONE);
+			combo = new Combo(composite_3, SWT.READ_ONLY);
 			combo.setText("select");
 			combo.setItems(new String[]{"True","False","Parameter"});
 			fd_lblAdesss.top = new FormAttachment(combo, 0, SWT.TOP);
@@ -170,6 +170,4 @@ public class ELTSafeWidget implements IELTWidget{
 		
 	}
 	
-
-
 }

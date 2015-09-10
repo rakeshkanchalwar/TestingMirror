@@ -28,7 +28,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
 
-public class ELTPhaseWidget implements IELTWidget{
+public class ELTPhaseWidget extends AbstractELTWidget{
 
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -147,7 +147,5 @@ public class ELTPhaseWidget implements IELTWidget{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 }
