@@ -5,7 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -13,6 +18,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -28,12 +34,15 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
+
 public class ELTFilePathWidget implements IELTWidget{
 	private Text text_1;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	Group grpGroup_1;
 	private Object properties;
 	private String propertyName;
+	//ControlDecoration txtDecorator;
 	
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -50,7 +59,7 @@ public class ELTFilePathWidget implements IELTWidget{
 		fl_composite_3.marginBottom = 5;
 		composite_3.setLayout(fl_composite_3);
 		
-		Label lblAdesss = new Label(composite_3, SWT.NONE);
+		Label lblAdesss = new Label(composite_3, SWT.READ_ONLY);
 		lblAdesss.setAlignment(SWT.CENTER);
 		FormData fd_lblAdesss = new FormData();
 		fd_lblAdesss.top = new FormAttachment(0, 5);
@@ -82,6 +91,12 @@ public class ELTFilePathWidget implements IELTWidget{
 		 final Composite composite = new Composite(grpGroup_1, SWT.NONE);
          composite.setLayout(new FillLayout());
 		
+       /* txtDecorator = new ControlDecoration(text_1, SWT.TOP|SWT.LEFT);
+ 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+ 		Image img = fieldDecoration.getImage();
+ 		txtDecorator.setImage(img);
+ 		txtDecorator.setDescriptionText(Messages.CHARACTERSET);*/
+ 		
 		Button btnAdd = new Button(composite_3, SWT.CENTER);
 		fd_text_1.right = new FormAttachment(btnAdd, -7);
 		FormData fd_btnAdd = new FormData();
@@ -117,6 +132,23 @@ public class ELTFilePathWidget implements IELTWidget{
 					e.doit=false;
 			}
 		});
+		
+		/*text_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e){
+				Text tx=(Text) e.getSource();
+				String string=text_1.getText();
+				char[] chars = new char[string.length()];
+				string.getChars(0, chars.length, chars, 0);
+		        for (int i = 0; i < chars.length; i++) {
+		            if (!('0' <= chars[i] && chars[i] <= '9')) {
+		                txtDecorator.show();
+		            } else {
+		               txtDecorator.hide();
+		            }
+		        }     
+			}
+		});*/
 		
 	}
 

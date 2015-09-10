@@ -55,7 +55,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 			fl_composite_3.marginBottom = 5;
 			composite_3.setLayout(fl_composite_3);
 			
-			Label lblAdesss = new Label(composite_3, SWT.NONE);
+			Label lblAdesss = new Label(composite_3, SWT.READ_ONLY);
 			lblAdesss.setAlignment(SWT.CENTER);
 			FormData fd_lblAdesss = new FormData();
 			fd_lblAdesss.top = new FormAttachment(0, 5);
@@ -66,7 +66,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 			lblAdesss.setText("Has Header: ");
 			
 
-			combo = new Combo(composite_3, SWT.NONE);
+			combo = new Combo(composite_3, SWT.READ_ONLY);
 			combo.setText("select");
 			combo.add("True");
 			combo.add("False");
@@ -110,7 +110,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 					}else {
 						txtDecorator.hide();
 						text_1.setVisible(false);
-						txtDecorator.hide();
+						
 					}
 				}
 			});

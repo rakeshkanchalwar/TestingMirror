@@ -66,7 +66,7 @@ public class ELTSafeWidget implements IELTWidget{
 			lblAdesss.setText("Safe: ");
 			
 
-			combo = new Combo(composite_3, SWT.NONE);
+			combo = new Combo(composite_3, SWT.READ_ONLY);
 			combo.setText("select");
 			combo.setItems(new String[]{"True","False","Parameter"});
 			fd_lblAdesss.top = new FormAttachment(combo, 0, SWT.TOP);
