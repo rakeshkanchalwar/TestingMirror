@@ -3,6 +3,7 @@ package com.bitwise.app.graph.model;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -28,7 +29,7 @@ public class Component extends Model {
 	/** Size of this shape. */
 	private Dimension size = new Dimension(80, 60);
 	
-	private Map<String, String> properties = new HashMap<>();
+	private Map<String, Object> properties = new LinkedHashMap<>();
 	
 	private Container parent;
 	
@@ -84,7 +85,7 @@ public class Component extends Model {
 		return v;
 	}
 		
-	public void setProperties(Map<String, String> properties) {
+	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}
 	
@@ -166,4 +167,9 @@ public class Component extends Model {
 	public void setParent(Container parent) {
 		this.parent = parent;
 	}
+	public LinkedHashMap<String, Object> getProperties() {
+		// TODO Auto-generated method stub
+		return  (LinkedHashMap<String, Object>) properties;
+	}
+	
 }

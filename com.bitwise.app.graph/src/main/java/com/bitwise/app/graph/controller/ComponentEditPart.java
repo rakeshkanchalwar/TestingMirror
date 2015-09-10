@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -18,10 +19,18 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Policy;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.eltproperties.adapters.ELTComponentPropertyAdapter;
+import com.bitwise.app.eltproperties.exceptions.EmptyComponentPropertiesException;
+import com.bitwise.app.eltproperties.property.IPropertyTreeBuilder;
+import com.bitwise.app.eltproperties.property.Property;
+import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
+import com.bitwise.app.eltproperties.propertydialog.PropertyDialog;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.FixedConnectionAnchor;
 import com.bitwise.app.graph.figure.InputFigure;
@@ -191,7 +200,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		return getComponentFigure().getConnectionAnchor(wire.getTargetTerminal());
 	}
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-		System.out.println("ComponentEditPart:getTargetConnectionAnchor");
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getTargetConnectionAnchorAt(pt);
 	}
@@ -230,8 +238,48 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		Component comp = getCastedModel();
 		ComponentFigure c = getComponentFigure();
 		c.setLabelName((String) comp.getPropertyValue("Name"));
-		System.out.println("refreshVisuals:c.getLabelName(): " + c.getLabelName());
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(), getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), bounds);
 	}
+	
+	@Override
+	public void performRequest(Request req) {
+		// TODO Auto-generated method stub
+		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(getModel().getClass());
+		Object rowProperties = XMLConfigUtil.INSTANCE.getComponent(componentName).getProperty();
+		
+		
+		Component component = (Component) getModel();
+		
+		ELTComponentPropertyAdapter eltComponentPropertyAdapter= new ELTComponentPropertyAdapter(rowProperties);
+		try {
+			eltComponentPropertyAdapter.transform();
+			
+			
+			/*Display display = new Display();
+		    Shell shell = new Shell(display);*/
+			Display display = Display.getDefault();
+			Shell shell = new Shell(display);
+						
+			ArrayList<Property> componentProperties = eltComponentPropertyAdapter.getProperties();
+			IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
+			System.out.println(propertyTreeBuilder.toString());
+			PropertyDialog testwindow = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),component.getProperties());
+			testwindow.open();
+			//shell.pack();
+		    //shell.open();
+		    /*while (!shell.isDisposed()) {
+		      if (!display.readAndDispatch()) {
+		        display.sleep();
+		      }
+		    }
+		    display.dispose();*/
+			
+		} catch (EmptyComponentPropertiesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.performRequest(req);
+	}
+	
 }

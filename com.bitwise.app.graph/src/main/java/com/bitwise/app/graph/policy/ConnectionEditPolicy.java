@@ -10,7 +10,7 @@ import com.bitwise.app.graph.command.ConnectionCreateCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
 import com.bitwise.app.graph.model.ComponentConnection;
 
-public class ComponentGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy{
+public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 
 
 	

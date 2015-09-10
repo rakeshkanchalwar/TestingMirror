@@ -39,7 +39,6 @@ implements HandleBounds{
 		Rectangle r = getBounds().getCopy();
 		// setBorder(SimpleEtchedBorder.singleton);
 
-		System.out.println("InputFigure:paintFigure");
 
 		graphics.translate(r.getLocation());
 

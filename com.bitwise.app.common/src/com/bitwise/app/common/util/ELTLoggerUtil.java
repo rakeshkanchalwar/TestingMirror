@@ -56,6 +56,7 @@ public class ELTLoggerUtil {
 	private void writeLogsOnFileAndConsole() {
         try {
             ClassLoader loader = new URLClassLoader(new URL[]{new File(BASE_PATH+LOG_DIR).toURI().toURL()});
+            System.out.println(new URL[]{new File(BASE_PATH+LOG_DIR).toURI().toURL()});
             LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
              URL url = Loader.getResource(CLASSIC_FILE, loader);
             if (url != null) {
@@ -71,6 +72,8 @@ public class ELTLoggerUtil {
         } catch (MalformedURLException e) {
         	eltLogger.error(e);
             e.printStackTrace();
+        } catch(Exception e){
+        	e.printStackTrace();
         }
     }
 

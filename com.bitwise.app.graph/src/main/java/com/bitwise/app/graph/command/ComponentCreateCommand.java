@@ -32,7 +32,7 @@ public class ComponentCreateCommand extends Command {
 	public ComponentCreateCommand(Component component, Container parent, Rectangle bounds) {
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
 		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
-		Map<String, String> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
+		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
 		properties.put("Name", components.getName());
 		component.setProperties(properties);
 		this.component = component;

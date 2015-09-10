@@ -231,6 +231,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 								.execute(ccCommand);
 						
 						eltLogger.info("Component is positioned at respective x and y location"+defaultCompLocation.getCopy().x +20+" and "+defaultCompLocation.getCopy().y + 20);
+						eltLogger.info("Component is positioned at respective x and y location"+defaultCompLocation.getCopy().x +20+" and "+defaultCompLocation.getCopy().y + 20);
 
 					}
 				});

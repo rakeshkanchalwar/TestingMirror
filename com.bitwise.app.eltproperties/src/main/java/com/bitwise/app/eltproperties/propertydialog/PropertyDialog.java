@@ -47,7 +47,7 @@ public class PropertyDialog extends Dialog {
 		super(parentShell);
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = ComponentProperties;
-		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE);
+		setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(479, 505);
+		return new Point(512, 505);
 	}
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
