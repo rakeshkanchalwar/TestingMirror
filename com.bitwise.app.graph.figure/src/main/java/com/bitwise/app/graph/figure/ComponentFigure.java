@@ -41,7 +41,7 @@ public class ComponentFigure extends Figure {
 	}
 	
 	public ConnectionAnchor getConnectionAnchor(String terminal) {
-		System.out.println("terminal: "+terminal);
+		
 		return (ConnectionAnchor) connectionAnchors.get(terminal);
 	}
 
@@ -50,7 +50,7 @@ public class ComponentFigure extends Figure {
 		String key;
 		while (keys.hasMoreElements()) {
 			key = (String) keys.nextElement();
-			System.out.println("getConnectionAnchorName: key"+key);
+			
 			if (connectionAnchors.get(key).equals(c))
 				return key;
 		}
@@ -58,7 +58,7 @@ public class ComponentFigure extends Figure {
 	}
 
 	public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
-		System.out.println("ComponentFigure:getSourceConnectionAnchorAt");
+		
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
 
@@ -76,12 +76,12 @@ public class ComponentFigure extends Figure {
 	}
 
 	public Vector getSourceConnectionAnchors() {
-		System.out.println("outputConnectionAnchors.size(): "+outputConnectionAnchors.size()); 
+		 
 		return outputConnectionAnchors;
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchorAt(Point p) {
-		System.out.println("NodeFigure:getTargetConnectionAnchorAt");
+		
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
 
@@ -100,43 +100,10 @@ public class ComponentFigure extends Figure {
 	}
 
 	public Vector getTargetConnectionAnchors() {
-		System.out.println("inputConnectionAnchors.size(): "+inputConnectionAnchors.size());
+		
 		return inputConnectionAnchors;
 	}
 	
-//	public ConnectionAnchor connectionAnchorAt(Point p) {
-//		System.out.println("ComponentFigure:connectionAnchorAtttttttt");
-//		ConnectionAnchor closest = null;
-//		long min = Long.MAX_VALUE;
-//
-//		Enumeration e = getSourceConnectionAnchors().elements();
-//	
-//		while (e.hasMoreElements()) {
-//			System.out.println("ComponentFigure:SourceConnectionAnchors iterating through enum");
-//			
-//			ConnectionAnchor c = (ConnectionAnchor) e.nextElement();
-//			Point p2 = c.getLocation(null);
-//			long d=(long) p.getDistance(p2);
-//			//long d = p.getDistance2(p2);
-//			if (d < min) {
-//				min = d;
-//				closest = c;
-//				
-//			}
-//		}
-//		e = getTargetConnectionAnchors().elements();
-//		while (e.hasMoreElements()) {
-//			System.out.println("ComponentFigure:TargetConnectionAnchors iterating through enum");
-//			ConnectionAnchor c = (ConnectionAnchor) e.nextElement();
-//			Point p2 = c.getLocation(null);
-//			long d = (long) p.getDistance(p2);
-//			//long d = p.getDistance2(p2);
-//			if (d < min) {
-//				min = d;
-//				closest = c;
-//			}
-//		}
-//		return closest;
-//	}
+
 
 }

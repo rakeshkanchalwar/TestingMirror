@@ -36,8 +36,6 @@ implements HandleBounds{
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 
-		System.out.println("OutputFigure:paintFigure");
-
 		graphics.translate(r.getLocation());
 		graphics.setBackgroundColor(ColorConstants.lightGray);
 		graphics.setForegroundColor(ColorConstants.black);
