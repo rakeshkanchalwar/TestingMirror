@@ -99,7 +99,7 @@ public class PropertyDialogBuilder {
 		TabItem tbtmPart = new TabItem(tabFolder, SWT.NONE);
 		tbtmPart.setText(groupName);
 				
-		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.H_SCROLL | SWT.V_SCROLL);
+		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
 		scrolledComposite.setAlwaysShowScrollBars(true);
 		tbtmPart.setControl(scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);

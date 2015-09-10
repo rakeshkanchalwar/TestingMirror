@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit,
  org.eclipse.jface;bundle-version="3.7.0",
  org.eclipse.jface.databinding;bundle-version="1.5.0",
- org.eclipse.jface.text;bundle-version="3.7.2"
+ org.eclipse.jface.text;bundle-version="3.7.2",
+ com.bitwise.app.common;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.databinding,
@@ -19,3 +20,12 @@ Import-Package: org.eclipse.core.databinding,
  org.eclipse.jface.databinding.swt,
  org.eclipse.jface.dialogs,
  org.eclipse.ui.forms.widgets
+Export-Package: com.bitwise.app.eltproperties.adapters,
+ com.bitwise.app.eltproperties.exceptions,
+ com.bitwise.app.eltproperties.factory,
+ com.bitwise.app.eltproperties.property,
+ com.bitwise.app.eltproperties.propertydialog,
+ com.bitwise.app.eltproperties.widgets,
+ com.bitwise.app.eltproperties.widgets.runtimeproperties,
+ com.bitwise.app.eltproperties.widgets.schemagrid,
+ com.bitwise.app.eltproperties.window

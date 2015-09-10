@@ -21,27 +21,27 @@ import com.bitwise.app.eltproperties.widgets.schemagrid.ELTSchemaWidget;
 
 public class WidgetFactory {
 	public IELTWidget getWidget(String widgetName){
-		if(widgetName.equals("ELTSchemaWidget")){
+		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
 			return new ELTSchemaWidget();
-		}else if(widgetName.equals("ELTRuntimePropertiesWidget")){
+		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
 			return new ELTRuntimePropertiesWidget();
-			
-		}else if(widgetName.equals("ELTFilePathWidget")){
+		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){
 			return new ELTFilePathWidget();
-		}else if(widgetName.equals("ELTCharacterSetWidget")){
+		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){
 			return new ELTCharacterSetWidget();
-		}else if(widgetName.equals("ELTDelimeterWidget")){
+		}else if(widgetName.equals("ELT_DELIMETER_WIDGET")){
 			return new ELTDelimeterWidget();
-		}else if(widgetName.equals("ELTPhaseWidget")){
+		}else if(widgetName.equals("ELT_PHASE_WIDGET")){
 			return new ELTPhaseWidget();
-		}else if(widgetName.equals("ELTHasHeaderWidget")){
+		}else if(widgetName.equals("ELT_HAS_HEADER_WIDGET")){
 			return new ELTHasHeaderWidget();
-		}else if(widgetName.equals("ELTComponentNameWidget")){
+		}else if(widgetName.equals("ELT_COMPONENT_NAME_WIDGET")){
 			return new MyCustomWidget();
-		}else if(widgetName.equals("ELTSafePropertyWidget")){
-			return new ELTSafeWidget();
+		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
+			return new MyCustomWidget();
 		}else{
-			return null;
+			return new MyCustomWidget();
 		}
+		
 	}
 }
