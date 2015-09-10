@@ -191,7 +191,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		return getComponentFigure().getConnectionAnchor(wire.getTargetTerminal());
 	}
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-		System.out.println("ComponentEditPart:getTargetConnectionAnchor");
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getTargetConnectionAnchorAt(pt);
 	}
@@ -230,7 +229,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		Component comp = getCastedModel();
 		ComponentFigure c = getComponentFigure();
 		c.setLabelName((String) comp.getPropertyValue("Name"));
-		System.out.println("refreshVisuals:c.getLabelName(): " + c.getLabelName());
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(), getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), bounds);
 	}

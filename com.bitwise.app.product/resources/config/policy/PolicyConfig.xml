@@ -7,7 +7,7 @@
 		</tns:policy>
 		<tns:policy>
 			<tns:name>GraphicalNodeEditPolicy</tns:name>
-			<tns:value>com.bitwise.app.graph.policy.ComponentGraphicalNodeEditPolicy</tns:value>
+			<tns:value>com.bitwise.app.graph.policy.ConnectionEditPolicy</tns:value>
 		</tns:policy>
 	</tns:masterpolicies>
 </tns:PolicyConfig>

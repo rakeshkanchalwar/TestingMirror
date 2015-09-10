@@ -5,6 +5,7 @@ import com.bitwise.app.eltproperties.widgets.ELTDelimeterWidget;
 import com.bitwise.app.eltproperties.widgets.ELTFilePathWidget;
 import com.bitwise.app.eltproperties.widgets.ELTHasHeaderWidget;
 import com.bitwise.app.eltproperties.widgets.ELTPhaseWidget;
+import com.bitwise.app.eltproperties.widgets.ELTSafeWidget;
 import com.bitwise.app.eltproperties.widgets.IELTWidget;
 import com.bitwise.app.eltproperties.widgets.MyCustomWidget;
 
@@ -38,7 +39,7 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELTComponentNameWidget")){
 			return new MyCustomWidget();
 		}else if(widgetName.equals("ELTSafePropertyWidget")){
-			return new MyCustomWidget();
+			return new ELTSafeWidget();
 		}else{
 			return null;
 		}
