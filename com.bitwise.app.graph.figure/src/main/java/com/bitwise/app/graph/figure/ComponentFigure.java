@@ -25,11 +25,19 @@ public class ComponentFigure extends Figure {
 	protected Vector inputConnectionAnchors = new Vector(2, 2);
 	protected Vector outputConnectionAnchors = new Vector(2, 2);
 	//private Label labelName = new Label();
-	
+	protected String labelName;
 
-	public ComponentFigure() {
-//		labelName.setText("xxxx");
-//		add(labelName);
+	public String getLabelName() {
+		return labelName;
+	}
+
+	public void setLabelName(String labelName) {
+		this.labelName = labelName;
+	}
+
+	public ComponentFigure(String componentName) {
+		this.labelName = componentName;
+		System.out.println("ComponentFigure.labelName: " + componentName);
 	}
 	
 	public ConnectionAnchor getConnectionAnchor(String terminal) {

@@ -61,6 +61,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Component;
+import com.bitwise.app.common.util.ELTLoggerUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
@@ -74,9 +75,10 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
  */
 public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
+	ELTLoggerUtil eltLogger = new ELTLoggerUtil(getClass().getName());
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
-
+	private com.bitwise.app.graph.model.Component sComponent; 
 	private Point defaultCompLocation = new Point(0, 0);
 	private Dimension defaultCompSize = new Dimension(100, 100);
 
@@ -202,27 +204,33 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 						}
 
 						CreateRequest request = new CreateRequest();
-
 						request.setFactory(new SimpleFactory(
 								(Class) ctToolEntry.getTemplate()));
-
+						
+						sComponent = (com.bitwise.app.graph.model.Component) request.getNewObject();
+						
+						request.setSize(sComponent.getSize());
+						
 						defaultCompLocation.setLocation(
-								defaultCompLocation.getCopy().x + 5,
-								defaultCompLocation.getCopy().y + 5);
+								defaultCompLocation.getCopy().x +20,
+								defaultCompLocation.getCopy().y + 20);
 
 						request.setLocation(defaultCompLocation);
-						request.setSize(defaultCompSize);
-
+						
+						
 						GraphicalViewer gViewer = getGraphicalViewer();
+						
 						ComponentCreateCommand ccCommand = new ComponentCreateCommand(
 								(com.bitwise.app.graph.model.Component) request
 										.getNewObject(), (Container) gViewer
 										.getContents().getModel(),
 								new Rectangle(request.getLocation(), request
 										.getSize()));
-
+						
 						gViewer.getEditDomain().getCommandStack()
 								.execute(ccCommand);
+						
+						eltLogger.info("Component is positioned at respective x and y location"+defaultCompLocation.getCopy().x +20+" and "+defaultCompLocation.getCopy().y + 20);
 
 					}
 				});

@@ -15,19 +15,26 @@ public class ComponentCacheUtil {
 	
 	
 	//TODO : refine for nested properties
-	public Map<String, String> getProperties(String componentName){
+	public Map<String, String> getProperties(String componentName) {
 		Map<String, String> propertyMap = null;
-		if(propertyCache.containsKey(componentName)){
+		if (propertyCache.containsKey(componentName)) {
 			propertyMap = propertyCache.get(componentName);
-		}
-		else{
-			Component component =  XMLConfigUtil.INSTANCE.getComponent(componentName);
+		} else {
+			Component component = XMLConfigUtil.INSTANCE.getComponent(componentName);
 			propertyMap = new HashMap<>();
 			for (Property property : component.getProperty()) {
 				propertyMap.put(property.getName(), property.getValue());
 			}
 			propertyCache.put(componentName, propertyMap);
 		}
-		return propertyMap;
+		return cloneTheMap(propertyMap);
+	}
+
+	private Map<String, String> cloneTheMap(Map<String, String> propertyMap) {
+		Map<String, String> clonedMap = new HashMap<>();
+		for (Map.Entry<String, String> mapEntry : propertyMap.entrySet()) {
+			clonedMap.put(mapEntry.getKey(), mapEntry.getValue());
+		}
+		return clonedMap;
 	}
 }
