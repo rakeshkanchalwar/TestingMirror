@@ -91,7 +91,12 @@ public class ELTSafeWidget implements IELTWidget{
 			text.setLayoutData(fd_text);
 			formToolkit.adapt(text, true, true);
 			
-			
+			final ControlDecoration txtDecorator = new ControlDecoration(text, SWT.TOP|SWT.LEFT);
+			FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+			Image img = fieldDecoration.getImage();
+			txtDecorator.setImage(img);
+			txtDecorator.setDescriptionText(Messages.FIELDSAFE);
+				txtDecorator.hide();
 			
 			combo.addSelectionListener(new SelectionAdapter() {
 				@Override 
@@ -104,15 +109,11 @@ public class ELTSafeWidget implements IELTWidget{
 					}else {
 						
 						text.setVisible(false);
+						txtDecorator.hide();
 					}
 				}
 			});
-			final ControlDecoration txtDecorator = new ControlDecoration(text, SWT.TOP|SWT.LEFT);
-			FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
-			Image img = fieldDecoration.getImage();
-			txtDecorator.setImage(img);
-			txtDecorator.setDescriptionText(Messages.FIELDSAFE);
-				txtDecorator.hide();
+			
 			 
 			text.addModifyListener(new ModifyListener() {
 				

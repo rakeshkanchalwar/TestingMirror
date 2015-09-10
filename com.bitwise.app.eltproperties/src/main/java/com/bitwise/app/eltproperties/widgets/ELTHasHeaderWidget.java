@@ -108,6 +108,7 @@ public class ELTHasHeaderWidget implements IELTWidget{
 						text_1.setVisible(true);
 					}else {
 						text_1.setVisible(false);
+						txtDecorator.hide();
 					}
 				}
 			});
