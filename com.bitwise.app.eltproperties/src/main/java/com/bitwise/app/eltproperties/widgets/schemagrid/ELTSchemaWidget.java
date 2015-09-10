@@ -103,18 +103,6 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
-		/*
-		 * Table mouse click event.
-		 * Add new column in schema grid with default values.
-		 * 
-		 */
-		table.addMouseListener(new MouseAdapter() { 
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				createDefaultSchema(); 
-			}
-		});
-		 
 		CellEditor[] editors = new CellEditor[3];
 		TextCellEditor fieldNametext = new TextCellEditor(table);
 		editors[0] = fieldNametext;
@@ -129,6 +117,24 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 
 		//Adding the decorator to show error message when field name same.
 		final ControlDecoration txtDecorator=	addDecorator(fieldNametext)	;
+		
+		
+		/*
+		 * Table mouse click event.
+		 * Add new column in schema grid with default values.
+		 * 
+		 */
+		table.addMouseListener(new MouseAdapter() { 
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				createDefaultSchema(); 
+			}
+			@Override
+			public void mouseDown(MouseEvent e) {
+
+				txtDecorator.hide();
+			}
+		});
 				/*
 				 * Field name validation, It should not get repeated.  
 				 */
