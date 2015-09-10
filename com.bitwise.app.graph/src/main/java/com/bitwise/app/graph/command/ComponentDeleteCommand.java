@@ -1,7 +1,6 @@
 package com.bitwise.app.graph.command;
 
 import org.eclipse.gef.commands.Command;
-
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 
