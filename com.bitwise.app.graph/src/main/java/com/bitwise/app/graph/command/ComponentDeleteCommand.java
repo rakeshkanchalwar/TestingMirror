@@ -1,10 +1,7 @@
 package com.bitwise.app.graph.command;
 
-import java.util.Iterator;
-
 import java.util.List;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.gef.commands.Command;
 
 import com.bitwise.app.graph.model.Component;
@@ -26,13 +23,6 @@ public class ComponentDeleteCommand extends Command {
 		this.child = child;
 	}
 
-	private void addConnections(List connections) {
-		for (Iterator iter = connections.iterator(); iter.hasNext();) {
-			Connection conn = (Connection) iter.next();
-			// conn.reconnect();
-		}
-	}
-
 	@Override
 	public boolean canUndo() {
 		return wasRemoved;
@@ -48,27 +38,13 @@ public class ComponentDeleteCommand extends Command {
 
 	@Override
 	public void redo() {
-		// remove the child and disconnect its connections
+		// remove the child
 		wasRemoved = parent.removeChild(child);
-		if (wasRemoved) {
-			removeConnections(sourceConnections);
-			removeConnections(targetConnections);
-		}
-	}
-
-	private void removeConnections(List connections) {
-		for (Iterator iter = connections.iterator(); iter.hasNext();) {
-			Connection conn = (Connection) iter.next();
-			// conn.disconnect();
-		}
 	}
 
 	@Override
 	public void undo() {
-		if (parent.addChild(child)) {
-			addConnections(sourceConnections);
-			addConnections(targetConnections);
-		}
+		parent.addChild(child);
 	}
 
 }
