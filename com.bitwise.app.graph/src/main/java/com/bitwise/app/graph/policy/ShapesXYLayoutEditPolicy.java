@@ -6,7 +6,6 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
-
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.command.ComponentSetConstraintCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
