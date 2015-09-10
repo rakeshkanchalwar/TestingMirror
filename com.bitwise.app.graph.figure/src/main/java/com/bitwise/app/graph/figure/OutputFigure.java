@@ -7,6 +7,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
 
@@ -28,6 +29,7 @@ implements HandleBounds{
 		c.setNumberOfInComingLinksLimit(1);
 		connectionAnchors.put(inPorts.toString(), c);
 		inputConnectionAnchors.addElement(c);
+		setBorder(new ComponentBorder());
 	}
 
 	@Override
@@ -37,7 +39,7 @@ implements HandleBounds{
 		Rectangle r = getBounds().getCopy();
 
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(ColorConstants.lightGray);
+		graphics.setBackgroundColor(new Color(null,166, 225, 245));
 		graphics.setForegroundColor(ColorConstants.black);
 		graphics.fillRectangle(0, 0, r.width, r.height);
 		// setBorder(new LineBorder(1));

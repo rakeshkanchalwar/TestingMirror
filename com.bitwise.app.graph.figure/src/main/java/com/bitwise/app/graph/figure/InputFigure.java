@@ -1,14 +1,17 @@
 package com.bitwise.app.graph.figure;
 
+
 import java.math.BigInteger;
 
 import org.eclipse.draw2d.ColorConstants;
+
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
 public class InputFigure extends ComponentFigure
@@ -29,7 +32,7 @@ implements HandleBounds{
 		c.setRight(true);
 		connectionAnchors.put(outPorts.toString(), c);
 		outputConnectionAnchors.addElement(c);
-
+		setBorder(new ComponentBorder());
 	}
 
 	@Override
@@ -37,13 +40,11 @@ implements HandleBounds{
 
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
-		// setBorder(SimpleEtchedBorder.singleton);
-
 
 		graphics.translate(r.getLocation());
 
-		// graphics.setBackgroundColor(ColorConstants.lightBlue);
-		graphics.setBackgroundColor(ColorConstants.lightGray);
+		graphics.setBackgroundColor(new Color(null,166, 225, 245));
+		
 		graphics.setForegroundColor(ColorConstants.black);
 
 		graphics.fillRectangle(0, 0, r.width, r.height);
