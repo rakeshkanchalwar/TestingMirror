@@ -38,7 +38,7 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_COMPONENT_NAME_WIDGET")){
 			return new MyCustomWidget();
 		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
-			return new MyCustomWidget();
+			return new ELTSafeWidget();
 		}else{
 			return new MyCustomWidget();
 		}
