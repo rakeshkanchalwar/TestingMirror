@@ -122,20 +122,20 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements Node
 		com.bitwise.app.common.component.config.Component component = XMLConfigUtil.INSTANCE.getComponent(componentName);
 		
 		if(getModel() instanceof InputComponent){
-		
-			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
-			if(component.getInputPort().isAllowMultipleLinks() != null){
-				boolean isAllowedMultipleLinks = component.getInputPort().isAllowMultipleLinks();
-				((Component)getModel()).setAllowMultipleLinks(isAllowedMultipleLinks);
-			}
-			return new InputFigure(inputPorts, componentName);			
-		}else if(getModel() instanceof OutputComponent){
+			
 			BigInteger outputPorts = component.getOutputPort().getNumberOfPorts();
 			if(component.getOutputPort().isAllowMultipleLinks() != null){
 				boolean isAllowedMultipleLinks = component.getOutputPort().isAllowMultipleLinks();
 				((Component)getModel()).setAllowMultipleLinks(isAllowedMultipleLinks);
 			}
-			return new OutputFigure(outputPorts, componentName);			
+			return new InputFigure(outputPorts, componentName);			
+		}else if(getModel() instanceof OutputComponent){
+			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
+			if(component.getInputPort().isAllowMultipleLinks() != null){
+				boolean isAllowedMultipleLinks = component.getInputPort().isAllowMultipleLinks();
+				((Component)getModel()).setAllowMultipleLinks(isAllowedMultipleLinks);
+			}
+			return new OutputFigure(inputPorts, componentName);			
 		}else {
 			throw new IllegalArgumentException();
 		}
