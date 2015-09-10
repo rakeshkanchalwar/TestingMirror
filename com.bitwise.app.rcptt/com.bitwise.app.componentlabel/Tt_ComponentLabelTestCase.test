@@ -1,12 +1,12 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
-Element-Name: ComponentLabelTestCase
+Element-Name: Tt_ComponentLabelTestCase
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
 Id: _rtczoFeZEeW08Mo9tQCunw
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/10/15 2:31 PM
+Save-Time: 9/10/15 3:24 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -28,14 +28,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 51 29
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 32 79 -detail move
     drag-over 217 78 -detail copy
     drag-exit
     drag-accept 216 79 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 216 79 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 216 79 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     get-palette-entry Input -index 1 | mouse-move 51 84 -height 98 -width 244
@@ -46,14 +46,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 51 37
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 23 141 -detail move
     drag-over 86 163 -detail copy
     drag-exit
     drag-accept 139 164 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 139 164 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 139 164 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Input -index 1] {
@@ -62,14 +62,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 57 57
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 180 151 -detail move
     drag-over 295 195 -detail copy
     drag-exit
     drag-accept 295 195 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 295 195 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 295 195 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Input -index 1] {
@@ -78,14 +78,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 48 56
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     get-edit-part -className ComponentEditPart | drag-enter 45 24 -detail move
     drag-over 399 110 -detail copy
     get-edit-part -className ComponentEditPart | drag-exit
     drag-accept 399 110 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 399 110 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 399 110 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Input -index 1] {
@@ -94,14 +94,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 56 67
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     get-edit-part -className ComponentEditPart | drag-enter 71 42 -detail move
     drag-over 706 110 -detail copy
     get-edit-part -className ComponentEditPart | drag-exit
     drag-accept 705 111 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 705 111 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 705 111 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Input -index 1] {
@@ -110,7 +110,7 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 66 54
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 283 226 -detail move
     drag-over 283 226 -detail move
     drag-over 654 273 -detail copy
@@ -118,7 +118,7 @@ with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEdi
     drag-accept 654 274 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 654 274 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 654 274 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Input -index 1] {
@@ -127,16 +127,16 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 14 57
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 266 206 -detail move
     drag-over 571 207 -detail copy
     drag-exit
     drag-accept 571 207 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 571 207 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 571 207 -detail copy
 get-view Palette | get-palette | drag-end -detail move
-with [get-editor "Graph 1" | get-diagram] {
+with [get-editor "Graph 6" | get-diagram] {
     with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
         mouse-move 53 40 button1 -height 60 -width 80
         mouse-press 53 40 button1 -height 60 -width 80
@@ -179,14 +179,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 59 37
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 100 306 -detail move
     drag-over 108 306 -detail copy
     drag-exit
     drag-accept 108 306 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 108 306 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 108 306 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -195,14 +195,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 58 41
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 197 319 -detail move
     drag-over 295 332 -detail copy
     drag-exit
     drag-accept 295 332 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 295 332 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 295 332 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -211,7 +211,7 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 45 57
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 265 334 -detail move
     drag-over 265 334 -detail move
     drag-over 489 367 -detail copy
@@ -219,7 +219,7 @@ with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEdi
     drag-accept 489 367 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 489 367 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 489 367 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -228,14 +228,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 20 40
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 74 384 -detail move
     drag-over 131 407 -detail copy
     drag-exit
     drag-accept 131 407 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 131 407 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 131 407 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -244,14 +244,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 74 65
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 285 401 -detail move
     drag-over 319 436 -detail copy
     drag-exit
     drag-accept 319 436 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 319 436 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 319 436 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -260,14 +260,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 32 73
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 387 413 -detail move
     drag-over 529 479 -detail copy
     drag-exit
     drag-accept 529 479 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 529 479 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 529 479 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -276,7 +276,7 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 76 52
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 466 370 -detail move
     drag-over 466 370 -detail move
     drag-over 854 419 -detail copy
@@ -284,7 +284,7 @@ with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEdi
     drag-accept 854 419 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 854 419 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 854 419 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -293,14 +293,14 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 29 64
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 390 300 -detail move
     drag-over 778 301 -detail copy
     drag-exit
     drag-accept 778 301 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 778 301 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 778 301 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
     with [get-palette-entry Output -index 1] {
@@ -309,35 +309,35 @@ with [get-view Palette | get-palette] {
         get-figure "0/0" | drag-start 34 54
     }
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 529 295 -detail move
     drag-over 852 204 -detail copy
     drag-exit
     drag-accept 852 204 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 852 204 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 852 204 -detail copy
 get-view Palette | get-palette | drag-end -detail move
-get-editor "Graph 1" | get-diagram | mouse-hover 845 201 -height 542 -width 996
+get-editor "Graph 6" | get-diagram | mouse-hover 845 201 -height 542 -width 996
 with [get-view Palette | get-palette | get-palette-entry Output -index 1] {
     mouse-move 61 70 button1 -height 97 -width 244
     mouse-press 61 70 button1 -height 97 -width 244
     get-figure "0/0" | drag-start 45 67
 }
-with [get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart] {
+with [get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart] {
     drag-enter 338 144 -detail move
     drag-over 589 72 -detail copy
     drag-exit
     drag-accept 589 72 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | drop 589 72 -detail copy
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | drop 589 72 -detail copy
 get-view Palette | get-palette | drag-end -detail move
-get-editor "Graph 1" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+get-editor "Graph 6" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
     -className ComponentEditPart -index 3 | mouse-hover 70 7 -height 60 -width 80
 get-view Properties | click
 get-view Console | click
-with [get-editor "Graph 1" | get-diagram] {
+with [get-editor "Graph 6" | get-diagram] {
     with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 10] {
         mouse-move 62 26 button1 -height 60 -width 80
         mouse-press 62 26 button1 -height 60 -width 80
@@ -347,7 +347,7 @@ with [get-editor "Graph 1" | get-diagram] {
     mouse-release 193 433 button1 524288 -height 542 -width 996
 }
 get-view Properties | click
-with [get-editor "Graph 1" | get-diagram] {
+with [get-editor "Graph 6" | get-diagram] {
     with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 10] {
         mouse-move 39 31 button3 -height 60 -width 80
         mouse-press 39 31 button3 -height 60 -width 80
@@ -368,7 +368,7 @@ with [get-editor "Graph 1" | get-diagram] {
     mouse-hover 55 401 -height 542 -width 996
 }
 get-view Palette | get-palette | get-palette-entry Input -index 1 | mouse-move 229 60 -height 98 -width 244
-get-editor "Graph 1" | close
+get-editor "Graph 6" | close
 get-window "Save Resource" | get-button No | click
 get-view Properties | click
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
