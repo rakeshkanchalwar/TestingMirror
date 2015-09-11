@@ -256,7 +256,8 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 		Component comp = getCastedModel();
 		ComponentFigure c = getComponentFigure();
-		c.setLabelName((String) comp.getPropertyValue("Name"));
+		c.setLabelName((String) comp.getPropertyValue("name"));
+		System.out.println("refreshVisuals: New component/figure name :"+c.getLabelName());
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
@@ -265,38 +266,29 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	public void performRequest(Request req) {
-		// TODO Auto-generated method stub
-		if (req.getType().equals(RequestConstants.REQ_OPEN))// Opens Property
-															// Window only on
-															// Double click.
-		{
-			String componentName = DynamicClassProcessor.INSTANCE
-					.getClazzName(getModel().getClass());
-			Object rowProperties = XMLConfigUtil.INSTANCE.getComponent(
-					componentName).getProperty();
+		// Opens Property Window only on Double click.
+		if (req.getType().equals(RequestConstants.REQ_OPEN)) {
+			String componentName = DynamicClassProcessor.INSTANCE.getClazzName(getModel().getClass());
+			Object rowProperties = XMLConfigUtil.INSTANCE.getComponent(componentName).getProperty();
 
 			Component component = (Component) getModel();
+			// Property Window will blink if we try to click outside without closing.
 
-			ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(
-					rowProperties);// Property Window will blink if we try to
-									// click outside without closing.
+			ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
 			try {
 				eltComponentPropertyAdapter.transform();
 				Display display = Display.getDefault();
-				Shell shell = new Shell(display.getActiveShell(), SWT.WRAP
-						| SWT.APPLICATION_MODAL);//
+				Shell shell = new Shell(display.getActiveShell(), SWT.WRAP | SWT.APPLICATION_MODAL);//
 
-				ArrayList<Property> componentProperties = eltComponentPropertyAdapter
-						.getProperties();
-				IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(
-						componentProperties);
+				ArrayList<Property> componentProperties = eltComponentPropertyAdapter.getProperties();
+				IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
 				System.out.println(propertyTreeBuilder.toString());
-				PropertyDialog testwindow = new PropertyDialog(shell,
-						propertyTreeBuilder.getPropertyTree(),
-						component.getProperties());
+				PropertyDialog testwindow = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),
+						component.getProperties(), component.getComponentNames());
 				testwindow.open();
+				refreshVisuals();
+				getFigure().repaint();
 
-				
 			} catch (EmptyComponentPropertiesException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

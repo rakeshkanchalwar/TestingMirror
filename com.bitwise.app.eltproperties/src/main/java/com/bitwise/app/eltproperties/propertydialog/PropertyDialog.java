@@ -38,17 +38,20 @@ public class PropertyDialog extends Dialog {
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
 	private LinkedHashMap<String, Object> ComponentProperties;
 	PropertyDialogBuilder propertyDialogBuilder;
+	private ArrayList<String> names = new ArrayList<>();
 	/**
 	 * Create the dialog.
 	 * @param parentShell
 	 * @param propertyTree 
 	 * @param ComponentProperties 
 	 */
-	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> ComponentProperties) {		
+	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> ComponentProperties, ArrayList<String> names) {		
 		super(parentShell);
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = ComponentProperties;
+		this.names=names;
 		setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
+		super.setBlockOnOpen(true);
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class PropertyDialog extends Dialog {
 		container.setLayout(cl_container);
 		
 		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
-		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties);
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,names);
 		propertyDialogBuilder.buildPropertyWindow();
 		
 		return container;
@@ -118,5 +121,12 @@ public class PropertyDialog extends Dialog {
 		super.okPressed();
 	}
 	
-	
+	public ArrayList<String> getNames() {
+		return names;
+	}
+
+	public void setNames(ArrayList<String> names) {
+		this.names = names;
+	}
+
 }

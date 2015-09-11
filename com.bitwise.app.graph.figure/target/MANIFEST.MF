@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Export-Package: com.bitwise.app.graph.figure
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.ge
+ f;bundle-version="3.7.2"
+Bundle-Vendor: BITWISE
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 0.0.1.201509111520
+Bundle-Name: Figure
+Bundle-Activator: com.bitwise.app.graph.figure.Activator
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.bitwise.app.graph.figure
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+

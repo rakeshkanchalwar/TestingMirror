@@ -1,14 +1,14 @@
 package com.bitwise.app.eltproperties.factory;
 
+import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 import com.bitwise.app.eltproperties.widgets.ELTCharacterSetWidget;
+import com.bitwise.app.eltproperties.widgets.ELTComponentNameWidget;
 import com.bitwise.app.eltproperties.widgets.ELTDelimeterWidget;
 import com.bitwise.app.eltproperties.widgets.ELTFilePathWidget;
 import com.bitwise.app.eltproperties.widgets.ELTHasHeaderWidget;
 import com.bitwise.app.eltproperties.widgets.ELTPhaseWidget;
 import com.bitwise.app.eltproperties.widgets.ELTSafeWidget;
-import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 import com.bitwise.app.eltproperties.widgets.MyCustomWidget;
-
 import com.bitwise.app.eltproperties.widgets.runtimeproperties.ELTRuntimePropertiesWidget;
 import com.bitwise.app.eltproperties.widgets.schemagrid.ELTSchemaWidget;
 
@@ -36,7 +36,7 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_HAS_HEADER_WIDGET")){
 			return new ELTHasHeaderWidget();
 		}else if(widgetName.equals("ELT_COMPONENT_NAME_WIDGET")){
-			return new MyCustomWidget();
+			return new ELTComponentNameWidget();
 		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
 			return new ELTSafeWidget();
 		}else{

@@ -43,11 +43,13 @@ public class PropertyDialogBuilder {
 	private Composite container;
 	private LinkedHashMap<String, Object> componentProperties;
 	private ArrayList<AbstractELTWidget> eltWidgetList;
-	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties){
+	private ArrayList<String> names;
+	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, ArrayList<String> names){
 		this.container = container;
 		this.propertyTree = propertyTree;
 		this.componentProperties = componentProperties;
 		eltWidgetList= new ArrayList<>();
+		this.names = names;
 	}
 	
 	public void buildPropertyWindow(){
@@ -71,6 +73,7 @@ public class PropertyDialogBuilder {
 					AbstractELTWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
 					eltWidget.attachToPropertySubGroup(subGroup);
 					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
+					eltWidget.setNames(this.names);
 					eltWidgetList.add(eltWidget);
 				}
 				

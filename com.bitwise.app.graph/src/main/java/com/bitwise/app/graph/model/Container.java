@@ -15,10 +15,11 @@ public class Container extends Model {
 	/** Property ID to use when a child is removed from this diagram. */
 	public static final String CHILD_REMOVED_PROP = "ComponentsDiagram.ChildRemoved";
 	
-	private static final String NAME_PROP = "Name";
+	private static final String NAME_PROP = "name";
 	
 	private List<Component> components = new ArrayList<>();
 	private Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
+	private ArrayList<String> componentNames = new ArrayList<>();
 	
 	/**
 	 * Add a shape to this diagram.
@@ -27,9 +28,9 @@ public class Container extends Model {
 	public boolean addChild(Component component) {
 		if (component != null && components.add(component)) {
 			component.setParent(this);
-			String comp = (String) component.getPropertyValue(NAME_PROP);
-			System.out.println("component : " + comp);
-			component.setPropertyValue(NAME_PROP, getDefaultNameForComponent(comp));
+			String compType = (String) component.getPropertyValue(NAME_PROP);
+			String compName = getDefaultNameForComponent(compType.trim()).trim();
+			component.setPropertyValue(NAME_PROP, compName);
 			firePropertyChange(CHILD_ADDED_PROP, null, component);
 			return true;
 		}
@@ -50,13 +51,14 @@ public class Container extends Model {
 	 */
 	public boolean removeChild(Component component) {
 		if (component != null && components.remove(component)) {
+			componentNames.remove(component.getPropertyValue(NAME_PROP));
 			firePropertyChange(CHILD_REMOVED_PROP, null, component);
 			return true;
 		}
 		return false;
 	}
 
-	public String getDefaultNameForComponent(String component) {
+	private String getDefaultNameForComponent(String component) {
 
 		if (component == null) {
 			return null;
@@ -80,11 +82,9 @@ public class Container extends Model {
 
 		while (true) {
 			boolean continueFor = false;
-			for (Object obj : components) {
-				Component comp = (Component) obj;
-				String compName = (String) comp.getPropertyValue(NAME_PROP);
-				if (compName.equalsIgnoreCase(newName)) {
-					System.out.println("Found duplicate name: " + compName);
+			for (String cname : componentNames) {
+				if (cname.equalsIgnoreCase(newName)) {
+					System.out.println("Found duplicate name: " + cname);
 					continueFor = true;
 					break;
 				}
@@ -105,6 +105,8 @@ public class Container extends Model {
 		nextSuffix = new Integer(++next);
 		Integer i = componentNextNameSuffixes.put(component, nextSuffix);
 		System.out.println("previous value for component " + component + " in map: " + i);
+		System.out.println("Adding New component name to the list: " + newName);
+		componentNames.add(newName);
 
 		return newName;
 
@@ -114,11 +116,8 @@ public class Container extends Model {
 		componentName = componentName.trim();
 		boolean result = true;
 
-		for (Object obj : components) {
-			Component comp = (Component) obj;
-			String compName = (String) comp.getPropertyValue(NAME_PROP);
-			;
-			if (compName.equalsIgnoreCase(componentName)) {
+		for (String cname : componentNames) {
+			if (cname.equalsIgnoreCase(componentName)) {
 				result = false;
 				break;
 			}
@@ -127,6 +126,14 @@ public class Container extends Model {
 		System.out.println("isUniqueCompName: result: " + result);
 
 		return result;
+	}
+	
+	public ArrayList<String> getComponentNames() {
+		return componentNames;
+	}
+
+	public void setComponentNames(ArrayList<String> componentNames) {
+		this.componentNames = componentNames;
 	}
 	
 	
