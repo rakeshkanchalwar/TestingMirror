@@ -7,23 +7,14 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
-import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
-import com.bitwise.app.eltproperties.property.IPropertyTreeBuilder;
 import com.bitwise.app.eltproperties.property.Property;
-import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
-import com.bitwise.app.eltproperties.testdata.PropertyStore;
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 
 /**
