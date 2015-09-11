@@ -8,7 +8,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -61,6 +63,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Component;
+import com.bitwise.app.common.component.policyconfig.CategoryType;
 import com.bitwise.app.common.util.ELTLoggerUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
@@ -263,9 +266,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	
 	public  PaletteDrawer createPaletteContainer(String CategoryName)
     { 
-   	PaletteDrawer p=new PaletteDrawer(CategoryName);
+    String name=CategoryName.substring(0, 1).toUpperCase()+CategoryName.substring(1).toLowerCase();
+   	PaletteDrawer p=new PaletteDrawer(name);
    	p.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
-       return p;
+    return p;
     }
     
     public  void addContainerToPalette(PaletteRoot p1,PaletteDrawer p){
@@ -273,10 +277,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     }
 
 	private void createShapesDrawer(PaletteRoot palette) throws RuntimeException, SAXException, IOException {
-		PaletteDrawer inputContainer = createPaletteContainer("Input");
-        PaletteDrawer outputContainer= createPaletteContainer("Output");
-        addContainerToPalette(palette,inputContainer);
-        addContainerToPalette(palette,outputContainer);
+		Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
+		for (CategoryType category : CategoryType.values()) {
+			PaletteDrawer p=createPaletteContainer(category.name());
+			addContainerToPalette(palette,p);
+			categoryPaletteConatiner.put(category.name(), p);
+		}
 		List<Component> componentsConfig = XMLConfigUtil.INSTANCE
 				.getComponentConfig();
 		for (Component componentConfig : componentsConfig) {
@@ -292,10 +298,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					ImageDescriptor
 							.createFromURL(prepareIconPathURL(componentConfig
 									.getIconPath())));
-			if(componentConfig.getCategory().toString().equals("INPUT"))
-		    inputContainer.add(component);
-		    else if (componentConfig.getCategory().toString().equals("OUTPUT"))
-			outputContainer.add(component);
+			 categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
+			
 		}
 		
 	}

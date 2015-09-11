@@ -53,7 +53,7 @@ public class ELTPhaseWidget extends AbstractELTWidget{
 		composite_3.setLayout(fl_composite_3);
 		
 		
-		Label lblAdesss = new Label(composite_3, SWT.NONE);
+		Label lblAdesss = new Label(composite_3, SWT.READ_ONLY);
 		lblAdesss.setAlignment(SWT.CENTER);
 		FormData fd_lblAdesss = new FormData();
 		fd_lblAdesss.top = new FormAttachment(0, 5);
@@ -67,11 +67,11 @@ public class ELTPhaseWidget extends AbstractELTWidget{
 		
 		FormData fd_text_1 = new FormData();
 		fd_text_1.top = new FormAttachment(0, 2);
-		fd_text_1.left = new FormAttachment(0, 88);
+		fd_text_1.left = new FormAttachment(3, 92);
 		text_1.setLayoutData(fd_text_1);
 		formToolkit.adapt(text_1, true, true);
 		
-		Label label = new Label(composite_3, SWT.CENTER);
+		/*Label label = new Label(composite_3, SWT.CENTER);
 		fd_text_1.right = new FormAttachment(label, -7);
 		FormData fd_btnAdd = new FormData();
 		fd_btnAdd.top = new FormAttachment(0);
@@ -81,7 +81,7 @@ public class ELTPhaseWidget extends AbstractELTWidget{
 		formToolkit.adapt(label, true, true);
 		label.setText("* Enter only Numberic values 0-9");
 		label.setBackground(new Color(composite_3.getDisplay(),255,255,204));
-		label.setVisible(false);
+		label.setVisible(false);*/
 		
 		txtDecorator = new ControlDecoration(text_1, SWT.TOP|SWT.LEFT);
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
