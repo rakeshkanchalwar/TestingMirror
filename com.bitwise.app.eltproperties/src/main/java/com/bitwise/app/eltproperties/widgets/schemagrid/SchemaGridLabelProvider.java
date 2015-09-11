@@ -1,15 +1,19 @@
 package com.bitwise.app.eltproperties.widgets.schemagrid;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * 
  * @author rahulma
  *
  */
-class SchemaGridLabelProvider implements ITableLabelProvider {
+class SchemaGridLabelProvider implements ITableLabelProvider , ITableColorProvider {
   /**
    * Returns the image
    * 
@@ -85,4 +89,15 @@ class SchemaGridLabelProvider implements ITableLabelProvider {
   public void removeListener(ILabelProviderListener listener) {
     // Ignore
   }
+
+  @Override
+	public Color getBackground(Object element, int columnIndex) {
+
+		return new Color(Display.getDefault(), new RGB(255, 255, 230));
+	}
+
+	@Override
+	public Color getForeground(Object element, int columnIndex) {
+		return new Color(Display.getDefault(), new RGB(100, 0, 0));
+	} 
 }

@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 /**
  * @author rahulma
@@ -44,6 +46,8 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 	private Object properties;
 	private String propertyName;
 	public TableViewer tableViewer;
+	public ControlDecoration txtDecorator;
+	private Label errorLable;
 	int counter=0;
 	public ELTSchemaWidget() { 
 	}
@@ -69,6 +73,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 	/**
 	 * This method has main logic for schema grid.
 	 * @param Group 
+	 * @wbp.parser.entryPoint
 	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -76,7 +81,15 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		shell = subGroup.getShell(); 
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
-
+		
+		errorLable = new Label(composite, SWT.NONE);
+		errorLable.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		FormData fd_errorLable = new FormData();
+		fd_errorLable.right = new FormAttachment(100, -36);
+		errorLable.setLayoutData(fd_errorLable);
+		errorLable.setText(Messages.FIELDNAMEERROR);
+		errorLable.setVisible(false);
+ 
 		// Add the TableViewer
 		tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
 		tableViewer.setContentProvider(new SchemaGridContentProvider());
@@ -86,9 +99,9 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		// Set up the table
 		table = tableViewer.getTable();
 		FormData fd_table = new FormData();
+		fd_table.top = new FormAttachment(errorLable, 6);
 		fd_table.bottom = new FormAttachment(0, 290);
 		fd_table.right = new FormAttachment(0, 429);
-		fd_table.top = new FormAttachment(0, 10);
 		fd_table.left = new FormAttachment(0, 5);
 		table.setLayoutData(fd_table);  
 
@@ -116,7 +129,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		tableViewer.setCellEditors(editors);
 
 		//Adding the decorator to show error message when field name same.
-		final ControlDecoration txtDecorator=	addDecorator(fieldNametext)	;
+		txtDecorator =	addDecorator(fieldNametext)	;
 		
 		
 		/*
@@ -149,6 +162,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 					            txtDecorator.show();
 								return "Error";
 							} else{
+								errorLable.setVisible(false); 
 								txtDecorator.hide();
 							}
 						}
@@ -189,7 +203,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 					schemaGrids.remove(temp);
 				}
 			} 
-		});
+		}); 
 		btnRemove.setText("Delete");
 		
 		Button btnRemoveall = new Button(c1, SWT.NONE);
@@ -207,7 +221,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 
 	
 	public ControlDecoration addDecorator(TextCellEditor fieldNametext){
-		final ControlDecoration txtDecorator = new ControlDecoration(fieldNametext.getControl(), SWT.TOP|SWT.LEFT);
+		txtDecorator = new ControlDecoration(fieldNametext.getControl(), SWT.TOP|SWT.LEFT);
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
 		Image img = fieldDecoration.getImage();
 		txtDecorator.setImage(img);
@@ -215,7 +229,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		// hiding it initially
 		txtDecorator.hide();
 		return txtDecorator; 
-	}
+	} 
 	 
 	  
 	@Override
@@ -236,23 +250,26 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		} 
 	}
 
-	@Override
+	@Override 
 	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub 
 		
 	} 
-	
+	 
 	public void createDefaultSchema(){
 		SchemaGrid schemaGrid = new SchemaGrid();
-		schemaGrid.setFieldName("Id"+counter++);
+		schemaGrid.setFieldName("");
 		schemaGrid.setLimit(""); 
 		schemaGrid.setDataType(Integer.valueOf("0"));
-		if(schemaGrids.contains(schemaGrid))
+		
+		if(!schemaGrids.contains(schemaGrid))
 		{
-			schemaGrid.setFieldName("Id"+counter++); 
+		schemaGrids.add(schemaGrid);  
+		tableViewer.refresh();
 		}
-		schemaGrids.add(schemaGrid); 
-		tableViewer.refresh(); 
+		else
+		{
+			errorLable.setVisible(true);
+		}
 	}
-	
 }
