@@ -1,7 +1,6 @@
 package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -12,8 +11,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
@@ -28,7 +25,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.bitwise.app.eltproperties.widgets.schemagrid.Messages;
+import com.bitwise.app.eltproperties.Messages;
 
 public class ELTHasHeaderWidget extends AbstractELTWidget{
 			Combo combo;
