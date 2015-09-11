@@ -297,7 +297,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 						component.getProperties());
 				testwindow.open();
 
-				System.out.println("GetModel::"+((InputComponent)getModel()).getProperties());
+				
 			} catch (EmptyComponentPropertiesException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

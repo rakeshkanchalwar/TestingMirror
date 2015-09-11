@@ -105,15 +105,27 @@ public class RunTimePropertyWizard {
 		if (runtimePropertyMap != null && !runtimePropertyMap.isEmpty()) {
 			for (String key : runtimePropertyMap.keySet()) {
 				RuntimeProperties p = new RuntimeProperties();
+				if(validateBeforeLoad(key,runtimePropertyMap.get(key))){
 				p.setPropertyName(key);
 				p.setPropertyValue(runtimePropertyMap.get(key));
 				propertyLst.add(p);
+			}
 			}
 			tv.refresh();
 
 		} else
 			System.out.println("LodProperties :: Empty Map"); //$NON-NLS-1$
 
+	}
+
+	private boolean validateBeforeLoad(String key, String keyValue) {
+		
+		if(key.trim().isEmpty() || keyValue.trim().isEmpty())
+		{
+			return false;
+		}
+		return true;
+		
 	}
 
 	// Method for creating Table
@@ -157,9 +169,13 @@ public class RunTimePropertyWizard {
 		isAnyUpdatePerformed = false;
 		shell.setSize(506, 540);
 		shell.setLayout(null);
+		shell.setText("Runtime Property");
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
-		lblHeader.setText(getComponentName() + " Runtime Property"); //$NON-NLS-1$
+		if(getComponentName()!=null)
+		lblHeader.setText(getComponentName() + "Runtime Property"); //$NON-NLS-1$
+		else
+			lblHeader.setText("Component Runtime Property");
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523,
 				2);
 		// Below Event will be fired when user closes the Runtime window
@@ -344,8 +360,8 @@ public class RunTimePropertyWizard {
 		System.out.println("validating All Input In table"); //$NON-NLS-1$
 		int propertyCounter = 0;
 		for (RuntimeProperties temp : propertyLst) {
-			if (!temp.getPropertyName().isEmpty()
-					&& !temp.getPropertyValue().isEmpty()) {
+			if (!temp.getPropertyName().trim().isEmpty()
+					&& !temp.getPropertyValue().trim().isEmpty()) {
 				System.out.println(temp + "Validate"); //$NON-NLS-1$
 			} else {
 				table.setSelection(propertyCounter);
