@@ -14,10 +14,8 @@ import org.eclipse.swt.graphics.Font;
 
 public class OutputFigure extends ComponentFigure 
 implements HandleBounds{
-	Point labelPoint = new Point(10, 8);
+	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 0);
-
-	//FixedConnectionAnchor in, out;
 	
 	
 	public OutputFigure(BigInteger inPorts, String componentName) {
@@ -42,7 +40,7 @@ implements HandleBounds{
 		graphics.setBackgroundColor(new Color(null,166, 225, 245));
 		graphics.setForegroundColor(ColorConstants.black);
 		graphics.fillRectangle(0, 0, r.width, r.height);
-		// setBorder(new LineBorder(1));
+		labelPoint = new Point(r.width/2-25, r.height/2-10);
 		graphics.setFont(labelFont);
 		graphics.drawText(getLabelName(), labelPoint);
 
@@ -66,7 +64,6 @@ implements HandleBounds{
 		
 		return getBounds().getCopy();
 	}
-
 	
 	
 }

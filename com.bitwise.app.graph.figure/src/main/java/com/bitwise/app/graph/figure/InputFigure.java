@@ -16,7 +16,7 @@ import org.eclipse.swt.graphics.Font;
 
 public class InputFigure extends ComponentFigure
 implements HandleBounds{
-	Point labelPoint = new Point(10, 8);
+	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 0); 
 	protected static PointList connector = new PointList();
 	private Label labelName = new Label();
@@ -48,7 +48,9 @@ implements HandleBounds{
 		graphics.setForegroundColor(ColorConstants.black);
 
 		graphics.fillRectangle(0, 0, r.width, r.height);
-
+		
+		labelPoint = new Point(r.width/2-20, r.height/2-10);
+	
 		graphics.setFont(labelFont);
 		graphics.drawText(getLabelName(), labelPoint);
 
