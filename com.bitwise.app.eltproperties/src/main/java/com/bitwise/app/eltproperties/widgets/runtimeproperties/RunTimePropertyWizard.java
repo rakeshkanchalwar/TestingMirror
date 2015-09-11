@@ -40,15 +40,15 @@ public class RunTimePropertyWizard {
 	
 	private Shell shell;
 	private List<RuntimeProperties> propertyLst;
-	public static final String RUNTIMEPROPNAME = "Property Name";
-	public static final String RUNTIMEPROPVALUE = "Property Value";
+	public static final String RUNTIMEPROPNAME = "Property Name"; //$NON-NLS-1$
+	public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
 	private TreeMap<String, String> runtimePropertyMap;
 	private String componentName;
 	private Label lblHeader;
-	private String PROPERTY_EXISTS_ERROR = "Property name already exists";
+	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
 	public static final String[] PROPS = { RUNTIMEPROPNAME, RUNTIMEPROPVALUE };
-	private String PROPERTY_NAME_BLANK_ERROR = "Property name cannot be blank";
-	private String PROPERTY_VALUE_BLANK_ERROR = "Property value cannot be blank";
+	private String PROPERTY_NAME_BLANK_ERROR = Messages.EmptyNameNotification;
+	private String PROPERTY_VALUE_BLANK_ERROR = Messages.EmptyValueNotification;
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
@@ -72,14 +72,14 @@ public class RunTimePropertyWizard {
 		if (propertyLst.size() != 0) {
 			if (!validate())
 				return;
-			p.setPropertyName("");
-			p.setPropertyValue("");
+			p.setPropertyName(""); //$NON-NLS-1$
+			p.setPropertyValue(""); //$NON-NLS-1$
 			propertyLst.add(p);
 			tv.refresh();
 
 		} else {
-			p.setPropertyName("");
-			p.setPropertyValue("");
+			p.setPropertyName(""); //$NON-NLS-1$
+			p.setPropertyValue(""); //$NON-NLS-1$
 			propertyLst.add(p);
 			tv.refresh();
 		}
@@ -110,7 +110,7 @@ public class RunTimePropertyWizard {
 			tv.refresh();
 
 		} else
-			System.out.println("LodProperties :: Empty Map");
+			System.out.println("LodProperties :: Empty Map"); //$NON-NLS-1$
 
 	}
 
@@ -132,9 +132,9 @@ public class RunTimePropertyWizard {
 		tableViewer.setInput(propertyLst);
 
 		TableColumn tc1 = new TableColumn(table, SWT.CENTER);
-		tc1.setText("Property Name");
+		tc1.setText("Property Name"); //$NON-NLS-1$
 		TableColumn tc2 = new TableColumn(table, SWT.LEFT_TO_RIGHT);
-		tc2.setText("Property Value");
+		tc2.setText("Property Value"); //$NON-NLS-1$
 
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
 			table.getColumn(i).pack();
@@ -157,7 +157,7 @@ public class RunTimePropertyWizard {
 		shell.setLayout(null);
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
-		lblHeader.setText(getComponentName() + " Runtime Property");
+		lblHeader.setText(getComponentName() + " Runtime Property"); //$NON-NLS-1$
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523,
 				2);
 		// Below Event will be fired when user closes the Runtime window
@@ -168,9 +168,9 @@ public class RunTimePropertyWizard {
 						&& isAnyUpdatePerformed) {
 					int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
 					MessageBox messageBox = new MessageBox(shell, style);
-					messageBox.setText("Information");
+					messageBox.setText("Information"); //$NON-NLS-1$
 					messageBox
-							.setMessage("Close the window? This will remove all unapplied changes.");
+							.setMessage(Messages.MessageBeforeClosingWindow);
 					event.doit = messageBox.open() == SWT.YES;
 				}
 			}
@@ -231,7 +231,7 @@ public class RunTimePropertyWizard {
 		new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 41,
 				513, 2);
 		addButton = new Button(composite, SWT.NONE);
-		addButton.setText("Add");
+		addButton.setText("Add"); //$NON-NLS-1$
 		addButton.setBounds(10, 10, 75, 25);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -241,7 +241,7 @@ public class RunTimePropertyWizard {
 		});
 
 		deleteButton = new Button(composite, SWT.NONE);
-		deleteButton.setText("Delete");
+		deleteButton.setText("Delete"); //$NON-NLS-1$
 		deleteButton.setBounds(91, 10, 75, 25);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -249,8 +249,8 @@ public class RunTimePropertyWizard {
 
 				int temp = table.getSelectionIndex();
 				if (temp == -1)
-					MessageDialog.openError(shell, "Error",
-							"Please Select row to delete");
+					MessageDialog.openError(shell, "Error", //$NON-NLS-1$
+							Messages.SelectRowToDelete);
 				else {
 					table.remove(temp);
 					propertyLst.remove(temp);
@@ -265,8 +265,8 @@ public class RunTimePropertyWizard {
 			public void widgetSelected(SelectionEvent e) {
 				if (table.getItemCount() != 0) {
 					boolean userAns = MessageDialog
-							.openConfirm(shell, "Remove all",
-									"Do you really want to delete all runtime properties?");
+							.openConfirm(shell, "Remove all", //$NON-NLS-1$
+									Messages.ConfirmToDeleteAllProperties);
 					if (userAns) {
 						table.removeAll();
 						propertyLst.removeAll(propertyLst);
@@ -277,7 +277,7 @@ public class RunTimePropertyWizard {
 			}
 		});
 		deleteAll.setBounds(172, 10, 75, 25);
-		deleteAll.setText("Delete All");
+		deleteAll.setText("Delete All"); //$NON-NLS-1$
 
 		applyButton = new Button(composite, SWT.NONE);
 		applyButton.addSelectionListener(new SelectionAdapter() {
@@ -293,8 +293,8 @@ public class RunTimePropertyWizard {
 									temp.getPropertyValue());
 						}
 						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
-						messageBox.setText("Information");
-						messageBox.setMessage("Property saved sucessfully");
+						messageBox.setText("Information"); //$NON-NLS-1$
+						messageBox.setMessage(Messages.PropertyAppliedNotification);
 						messageBox.open();
 						isAnyUpdatePerformed = false;
 					}
@@ -302,7 +302,7 @@ public class RunTimePropertyWizard {
 			}
 		});
 		applyButton.setBounds(253, 10, 75, 25);
-		applyButton.setText("Apply");
+		applyButton.setText("Apply"); //$NON-NLS-1$
 
 		okButton = new Button(composite, SWT.NONE);
 		okButton.addSelectionListener(new SelectionAdapter() {
@@ -323,7 +323,7 @@ public class RunTimePropertyWizard {
 			}
 		});
 		okButton.setBounds(321, 52, 75, 25);
-		okButton.setText("OK");
+		okButton.setText("OK"); //$NON-NLS-1$
 		cacelButton = new Button(composite, SWT.NONE);
 		cacelButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -334,22 +334,22 @@ public class RunTimePropertyWizard {
 		});
 		cacelButton.setBounds(400, 52, 75, 25);
 
-		cacelButton.setText("Cancel");
+		cacelButton.setText("Cancel"); //$NON-NLS-1$
 
 	}
 
 	protected boolean validate() {
-		System.out.println("validating All Input In table");
+		System.out.println("validating All Input In table"); //$NON-NLS-1$
 		int propertyCounter = 0;
 		for (RuntimeProperties temp : propertyLst) {
 			if (!temp.getPropertyName().isEmpty()
 					&& !temp.getPropertyValue().isEmpty()) {
-				System.out.println(temp + "Validate");
+				System.out.println(temp + "Validate"); //$NON-NLS-1$
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
 				lblPropertyError
-						.setText("Property name and value cannot be empty");
+						.setText(Messages.EmptyFiledNotification);
 				disableButtons();
 				return false;
 			}
@@ -360,21 +360,22 @@ public class RunTimePropertyWizard {
 
 	private ICellEditorListener createEditorListners() {
 		ICellEditorListener propertyEditorListner = new ICellEditorListener() {
-			boolean newValidState = false;
+			
 
 			@Override
 			public void editorValueChanged(boolean oldValidState,
 					boolean newValidState) {
-				this.newValidState = newValidState;
+				
 			}
 
 			@Override
 			public void cancelEditor() {
-				System.out.println("CancelEditor");
+				System.out.println("CancelEditor"); //$NON-NLS-1$
 			}
 
 			@Override
 			public void applyEditorValue() {
+				System.out.println("hhhh");
 				enableButtons();
 				lblPropertyError.setVisible(false);
 
@@ -397,7 +398,7 @@ public class RunTimePropertyWizard {
 					lblPropertyError.setText(ErrorMessage);
 					lblPropertyError.setVisible(true);
 					disableButtons();
-					return "ERROR";
+					return "ERROR"; //$NON-NLS-1$
 				}
 
 				for (RuntimeProperties temp : propertyLst) {
@@ -407,7 +408,7 @@ public class RunTimePropertyWizard {
 						lblPropertyError.setText(PROPERTY_EXISTS_ERROR);
 						lblPropertyError.setVisible(true);
 						disableButtons();
-						return "ERROR";
+						return "ERROR"; //$NON-NLS-1$
 					} else
 						enableButtons();
 					lblPropertyError.setVisible(false);
@@ -434,8 +435,12 @@ public class RunTimePropertyWizard {
 					lblPropertyError.setText(ErrorMessage);
 					lblPropertyError.setVisible(true);
 					disableButtons();
-					return "ERROR";
+					return "ERROR"; //$NON-NLS-1$
 				}
+				else
+					{enableButtons();
+				lblPropertyError.setVisible(false);
+					}
 				return null;
 
 			}

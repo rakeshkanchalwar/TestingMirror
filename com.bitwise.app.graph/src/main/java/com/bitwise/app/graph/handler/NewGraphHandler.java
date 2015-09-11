@@ -18,7 +18,7 @@ public class NewGraphHandler extends AbstractHandler {
 		IWorkbenchPage page = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage();
 		try {
-			page.openEditor(new ETLGraphicalEditorInput("Graph "+graphCounter++), ETLGraphicalEditor.ID, false);
+			page.openEditor(new ETLGraphicalEditorInput("Graph_"+graphCounter++), ETLGraphicalEditor.ID, false);
 		} catch (PartInitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
