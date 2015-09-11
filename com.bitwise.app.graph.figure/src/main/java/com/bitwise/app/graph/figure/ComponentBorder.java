@@ -29,8 +29,8 @@ public class ComponentBorder extends AbstractBorder {
 		g.setForegroundColor(ColorConstants.black);
 		g.drawLine(r.x, r.y, r.right() - 1, r.y);
 		g.drawLine(r.x, r.bottom()-1, r.right() - 1, r.bottom()-1);
-		g.drawLine(r.x, r.y + 2, r.x, r.bottom() - 3);
-		g.drawLine(r.right() - 1, r.bottom() - 3, r.right() - 1, r.y + 2);
+		g.drawLine(r.x, r.y + 1, r.x, r.bottom() - 1);
+		g.drawLine(r.right() - 1, r.bottom() - 1, r.right() - 1, r.y + 1);
 
 		
 		r.getExpanded(new Insets(0, 0, 0, 0));
