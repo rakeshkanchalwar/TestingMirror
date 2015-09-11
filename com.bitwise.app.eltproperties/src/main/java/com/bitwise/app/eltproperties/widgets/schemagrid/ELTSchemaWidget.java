@@ -18,19 +18,21 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.wb.swt.SWTResourceManager;
 
 /**
  * @author rahulma
@@ -83,13 +85,14 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		composite.setLayout(new FormLayout());
 		
 		errorLable = new Label(composite, SWT.NONE);
-		errorLable.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		errorLable.setForeground(new Color(Display.getDefault(), 255, 0,
+				0));
 		FormData fd_errorLable = new FormData();
 		fd_errorLable.right = new FormAttachment(100, -36);
 		errorLable.setLayoutData(fd_errorLable);
 		errorLable.setText(Messages.FIELDNAMEERROR);
 		errorLable.setVisible(false);
- 
+  
 		// Add the TableViewer
 		tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
 		tableViewer.setContentProvider(new SchemaGridContentProvider());
