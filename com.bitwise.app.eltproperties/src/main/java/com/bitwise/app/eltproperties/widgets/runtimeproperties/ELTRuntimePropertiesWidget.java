@@ -25,15 +25,14 @@ public class ELTRuntimePropertiesWidget extends AbstractELTWidget {
 	private String propertyName;
 	private Shell shell;
 	private String componentName;
-	
-	
+
 	public ELTRuntimePropertiesWidget() {
 		super();
-		tempPropertyMap=new LinkedHashMap<String, Object>();
+		tempPropertyMap = new LinkedHashMap<String, Object>();
 	}
 
-	
-private  LinkedHashMap<String,Object> tempPropertyMap;
+	private LinkedHashMap<String, Object> tempPropertyMap;
+
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -42,31 +41,33 @@ private  LinkedHashMap<String,Object> tempPropertyMap;
 
 		shell = subGroup.getShell();
 		Composite composite = new Composite(subGroup, SWT.NONE);
-		
+
 		composite.setLayout(new FormLayout());
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(100, -27);
 		fd_composite.right = new FormAttachment(0, 401);
 		fd_composite.top = new FormAttachment(0, 2);
 		fd_composite.left = new FormAttachment(0, 7);
-		
-	
-//		formToolkit.adapt(composite);
-//		formToolkit.paintBordersFor(composite);
+
+		// formToolkit.adapt(composite);
+		// formToolkit.paintBordersFor(composite);
 		Button btnNewButton_1 = new Button(composite, SWT.NONE);
-//		formToolkit.adapt(btnNewButton_1, true, true);
+		// formToolkit.adapt(btnNewButton_1, true, true);
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Temp Code
 				RunTimePropertyWizard runTimeWizardObj = new RunTimePropertyWizard();
 				runTimeWizardObj.setComponentName(componentName);
-				if (getProperties().get(propertyName)==null){
-					setProperties(propertyName,new TreeMap<String, String>());
+				if (getProperties().get(propertyName) == null) {
+					setProperties(propertyName, new TreeMap<String, String>());
 
 				}
-				runTimeWizardObj.setRuntimePropertyMap((TreeMap<String, String>)getProperties().get(propertyName));
-				setProperties(propertyName,runTimeWizardObj.launchRuntimeWindow(shell));
+				runTimeWizardObj
+						.setRuntimePropertyMap((TreeMap<String, String>) getProperties()
+								.get(propertyName));
+				setProperties(propertyName,
+						runTimeWizardObj.launchRuntimeWindow(shell));
 			}
 		});
 		FormData fd_btnNewButton_1 = new FormData();
@@ -78,27 +79,24 @@ private  LinkedHashMap<String,Object> tempPropertyMap;
 
 	}
 
-	
-
 	@Override
 	public void setProperties(String propertyName, Object properties) {
-		this.propertyName=propertyName;
-		this.InstializeMap=(TreeMap<String, String>)properties;
+		this.propertyName = propertyName;
+		this.InstializeMap = (TreeMap<String, String>) properties;
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		
+
 		tempPropertyMap.put(this.propertyName, this.InstializeMap);
 		return (tempPropertyMap);
 	}
 
-
-
 	@Override
 	public void setComponentName(String componentName) {
-		this.componentName="New Component Name";
-		
+
+		this.componentName = componentName;
+
 	}
 
 }

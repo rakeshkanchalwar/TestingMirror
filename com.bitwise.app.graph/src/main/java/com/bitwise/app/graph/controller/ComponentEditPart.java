@@ -10,6 +10,7 @@ import java.util.List;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
@@ -21,6 +22,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.xml.sax.SAXException;
@@ -113,15 +115,12 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	protected IFigure createFigure() {
-		// IFigure figure = new RoundedRectangle();
-		// figure.setOpaque(true); // non-transparent figure
-		// //TODO change the code for color
-		// figure.setBackgroundColor(ColorConstants.gray);
-		// return figure;
-
+		
 		IFigure f = createFigureForModel();
 		f.setOpaque(true); // non-transparent figure
 		f.setBackgroundColor(ColorConstants.white);
+		f.setForegroundColor(new Color(null,6, 105, 138));
+		f.setBorder(new LineBorder(2));
 		return f;
 	}
 
@@ -297,7 +296,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 						component.getProperties());
 				testwindow.open();
 
-				System.out.println("GetModel::"+((InputComponent)getModel()).getProperties());
+				
 			} catch (EmptyComponentPropertiesException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
