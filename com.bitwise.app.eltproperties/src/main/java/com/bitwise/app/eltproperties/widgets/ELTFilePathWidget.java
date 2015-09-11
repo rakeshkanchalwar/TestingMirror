@@ -82,11 +82,11 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		 final Composite composite = new Composite(grpGroup_1, SWT.NONE);
          composite.setLayout(new FillLayout());
 		
-		Button btnAdd = new Button(composite_3, SWT.CENTER);
+		Button btnAdd = new Button(composite_3, SWT.BOLD);
 		fd_text_1.right = new FormAttachment(btnAdd, -7);
 		FormData fd_btnAdd = new FormData();
 		fd_btnAdd.top = new FormAttachment(0);
-		fd_btnAdd.right = new FormAttachment(100, -10);
+		fd_btnAdd.right = new FormAttachment(80, -10);
 		fd_btnAdd.left = new FormAttachment(100, -110);
 		btnAdd.setLayoutData(fd_btnAdd);
 		formToolkit.adapt(btnAdd, true, true);

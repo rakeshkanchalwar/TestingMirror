@@ -45,7 +45,7 @@ public class ELTDelimeterWidget extends AbstractELTWidget{
 		fl_composite_3.marginBottom = 5;
 		composite_3.setLayout(fl_composite_3);
 		
-		Label lblAdesss = new Label(composite_3, SWT.NONE);
+		Label lblAdesss = new Label(composite_3, SWT.READ_ONLY);
 		lblAdesss.setAlignment(SWT.CENTER);
 		FormData fd_lblAdesss = new FormData();
 		fd_lblAdesss.top = new FormAttachment(0, 5);
@@ -89,7 +89,7 @@ public class ELTDelimeterWidget extends AbstractELTWidget{
 			}
 		});
 		
-		text_1.addVerifyListener(new VerifyListener() {
+		/*text_1.addVerifyListener(new VerifyListener() {
 			
 			@Override
 			public void verifyText(VerifyEvent e) {
@@ -98,7 +98,7 @@ public class ELTDelimeterWidget extends AbstractELTWidget{
 				if(matchs.matches())
 					e.doit=false;
 			}
-		});
+		});*/
 		
 	}
 
