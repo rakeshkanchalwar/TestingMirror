@@ -1,0 +1,117 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: RemoveComponent_Test
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _sgZLQFiQEeWeJNPCPBJGRg
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 9/11/15 8:22 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+get-menu "File/New/Job" | click
+with [get-editor "Graph 5" | get-diagram] {
+    mouse-move 160 69 button3 -height 304 -width 741
+    mouse-press 160 69 button3 -height 304 -width 741
+    mouse-release 160 69 button3 2097152 -height 304 -width 741
+}
+with [get-view Palette | get-palette] {
+    with [get-palette-entry Input] {
+        mouse-move 73 15 button1 -height 22 -width 244
+        mouse-press 73 15 button1 -height 22 -width 244
+        mouse-release 73 15 button1 524288 -height 22 -width 244
+    }
+    with [get-palette-entry Input -index 1] {
+        mouse-move 90 27 button1 -height 98 -width 227
+        mouse-press 90 27 button1 -height 98 -width 227
+        mouse-release 90 27 button1 524288 -height 98 -width 227
+    }
+}
+with [get-editor "Graph 5" | get-diagram] {
+    mouse-move 222 57 button1 -height 304 -width 741
+    mouse-press 222 57 button1 -height 304 -width 741
+    mouse-release 222 57 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette | get-palette-entry Input -index 1] {
+    mouse-move 63 38 button1 -height 98 -width 227
+    mouse-press 63 38 button1 -height 98 -width 227
+    mouse-release 63 38 button1 524288 -height 98 -width 227
+}
+with [get-editor "Graph 5" | get-diagram] {
+    mouse-move 421 89 button1 -height 304 -width 741
+    mouse-press 421 89 button1 -height 304 -width 741
+    mouse-release 421 89 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette | get-palette-entry Input -index 1] {
+    mouse-move 64 35 button1 -height 98 -width 227
+    mouse-press 64 35 button1 -height 98 -width 227
+    mouse-release 64 35 button1 524288 -height 98 -width 227
+}
+with [get-editor "Graph 5" | get-diagram] {
+    mouse-move 220 191 button1 -height 304 -width 741
+    mouse-press 220 191 button1 -height 304 -width 741
+    mouse-release 220 191 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette | get-palette-entry Input -index 1] {
+    mouse-move 65 48 button1 -height 98 -width 227
+    mouse-press 65 48 button1 -height 98 -width 227
+    mouse-release 65 48 button1 524288 -height 98 -width 227
+}
+with [get-editor "Graph 5"] {
+    with [get-diagram] {
+        mouse-move 410 210 button1 -height 304 -width 741
+        mouse-press 410 210 button1 -height 304 -width 741
+        mouse-release 410 210 button1 524288 -height 304 -width 741
+    }
+    with [get-diagram] {
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+            mouse-hover 34 24 -height 60 -width 80
+            mouse-move 34 24 button3 -height 60 -width 80
+            mouse-press 34 24 button3 -height 60 -width 80
+            mouse-release 34 24 button3 2097152 -height 60 -width 80
+        }
+        get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+            mouse-move 23 28 button3 -height 60 -width 80
+            mouse-press 23 28 button3 -height 60 -width 80
+            mouse-release 23 28 button3 2097152 -height 60 -width 80
+        }
+        get-menu Delete | click
+        get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart | mouse-hover 43 21 
+            -height 60 -width 80
+        mouse-hover 515 268 -height 304 -width 741
+        mouse-move 506 280 button1 -height 304 -width 741
+        mouse-press 506 280 button1 -height 304 -width 741
+        mouse-move 505 280 -mask 524288 -height 304 -width 741
+        with [get-edit-part -className ContainerEditPart] {
+            mouse-drag 176 185 button1 524288 -height 304 -width 741
+            mouse-release 176 185 button1 524288 -height 304 -width 741
+            with [get-edit-part -className ComponentEditPart] {
+                mouse-move 59 20 button3 -height 60 -width 80
+                mouse-press 59 20 button3 -height 60 -width 80
+                mouse-release 59 20 button3 2097152 -height 60 -width 80
+            }
+        }
+        get-menu Delete | click
+        mouse-move 227 57 button3 -height 304 -width 741
+        mouse-press 227 57 button3 -height 304 -width 741
+        mouse-release 227 57 button3 2097152 -height 304 -width 741
+        get-menu "Undo Delete" | click
+    }
+    with [get-diagram] {
+        mouse-move 294 84 button3 -height 304 -width 741
+        mouse-press 294 84 button3 -height 304 -width 741
+        mouse-release 294 84 button3 2097152 -height 304 -width 741
+        get-menu "Redo Delete" | click
+        mouse-move 292 79 button3 -height 304 -width 741
+        mouse-press 292 79 button3 -height 304 -width 741
+        mouse-release 292 79 button3 2097152 -height 304 -width 741
+        get-menu "Undo Delete" | click
+    }
+}
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
