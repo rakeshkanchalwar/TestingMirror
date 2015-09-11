@@ -27,7 +27,7 @@ implements HandleBounds{
 		c.setNumberOfInComingLinksLimit(1);
 		connectionAnchors.put(inPorts.toString(), c);
 		inputConnectionAnchors.addElement(c);
-		setBorder(new ComponentBorder());
+		//setBorder(new ComponentBorder());
 	}
 
 	@Override
