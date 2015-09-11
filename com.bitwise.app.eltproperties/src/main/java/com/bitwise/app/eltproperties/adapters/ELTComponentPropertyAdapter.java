@@ -1,12 +1,9 @@
 package com.bitwise.app.eltproperties.adapters;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import com.bitwise.app.eltproperties.exceptions.EmptyComponentPropertiesException;
-//import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.Property;
-import com.bitwise.app.eltproperties.testdata.PropertyStore;
 /**
  * 
  * @author Shrirang S. Kumbhar
@@ -40,7 +37,7 @@ public class ELTComponentPropertyAdapter implements IPropertyAdapter{
 			tempProperty.subGroup(property.getSubGroup().toString());
 			this.properties.add(tempProperty);
 			System.out.println(tempProperty.toString());
-		}
+		} 
 	}
 
 	@Override
