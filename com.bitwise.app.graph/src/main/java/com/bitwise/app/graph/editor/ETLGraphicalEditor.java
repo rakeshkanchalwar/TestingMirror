@@ -8,7 +8,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -61,6 +63,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Component;
+import com.bitwise.app.common.component.policyconfig.CategoryType;
 import com.bitwise.app.common.util.ELTLoggerUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
@@ -75,11 +78,81 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
  */
 public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
+	private final class PaletteContainerListener implements MouseListener {
+		private final PaletteViewer viewer;
+
+		private PaletteContainerListener(PaletteViewer viewer) {
+			this.viewer = viewer;
+		}
+
+		@Override
+		public void mouseUp(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseDown(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseDoubleClick(MouseEvent mouseEvent) {
+			CreateRequest componentRequest = getComponentRequest(mouseEvent);
+			placeComponentOnCanvasByDoubleClickOnPalette(componentRequest);
+			
+			eltLogger.info("Component is positioned at respective x and y location"+defaultComponentLocation.getCopy().x +20+" and "+defaultComponentLocation.getCopy().y + 20);
+			eltLogger.info("Component is positioned at respective x and y location"+defaultComponentLocation.getCopy().x +20+" and "+defaultComponentLocation.getCopy().y + 20);
+
+		}
+
+		private CreateRequest getComponentRequest(MouseEvent mouseEvent) {
+			EditPart paletteInternalController = viewer.findObjectAt(new Point(
+					mouseEvent.x, mouseEvent.y));
+
+			CombinedTemplateCreationEntry addedPaletteTool = (CombinedTemplateCreationEntry) paletteInternalController
+					.getModel();
+
+
+			CreateRequest componentRequest = new CreateRequest();
+			componentRequest.setFactory(new SimpleFactory(
+					(Class) addedPaletteTool.getTemplate()));
+			
+			genericComponent = (com.bitwise.app.graph.model.Component) componentRequest.getNewObject();
+			
+			setComponentRequestParams(componentRequest);
+			
+			return componentRequest;
+		}
+
+		private void setComponentRequestParams(CreateRequest componentRequest) {
+			componentRequest.setSize(genericComponent.getSize());
+			
+			defaultComponentLocation.setLocation(
+					defaultComponentLocation.getCopy().x +20,
+					defaultComponentLocation.getCopy().y + 20);
+
+			componentRequest.setLocation(defaultComponentLocation);
+		}
+		
+		private void placeComponentOnCanvasByDoubleClickOnPalette(
+				CreateRequest componentRequest) {
+			GraphicalViewer graphViewer = getGraphicalViewer();
+			
+			ComponentCreateCommand createComponent = new ComponentCreateCommand(
+					(com.bitwise.app.graph.model.Component) componentRequest
+							.getNewObject(), (Container) graphViewer
+							.getContents().getModel(),
+					new Rectangle(componentRequest.getLocation(), componentRequest
+							.getSize()));
+			
+			graphViewer.getEditDomain().getCommandStack()
+					.execute(createComponent);
+		}
+	}
+
 	ELTLoggerUtil eltLogger = new ELTLoggerUtil(getClass().getName());
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
-	private com.bitwise.app.graph.model.Component sComponent; 
-	private Point defaultCompLocation = new Point(0, 0);
+	private com.bitwise.app.graph.model.Component genericComponent; 
+	private Point defaultComponentLocation = new Point(0, 0);
 	private Dimension defaultCompSize = new Dimension(100, 100);
 
 	public ETLGraphicalEditor() {
@@ -181,60 +254,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				// @see ShapesEditor#createTransferDropTargetListener()
 				viewer.addDragSourceListener(new TemplateTransferDragSourceListener(
 						viewer));
-				viewer.getControl().addMouseListener(new MouseListener() {
-
-					@Override
-					public void mouseUp(MouseEvent e) {
-					}
-
-					@Override
-					public void mouseDown(MouseEvent e) {
-					}
-
-					@Override
-					public void mouseDoubleClick(MouseEvent mouseEvent) {
-						EditPart editPart = viewer.findObjectAt(new Point(
-								mouseEvent.x, mouseEvent.y));
-
-						CombinedTemplateCreationEntry ctToolEntry = (CombinedTemplateCreationEntry) editPart
-								.getModel();
-
-						if (ctToolEntry == null) {
-							return;
-						}
-
-						CreateRequest request = new CreateRequest();
-						request.setFactory(new SimpleFactory(
-								(Class) ctToolEntry.getTemplate()));
-						
-						sComponent = (com.bitwise.app.graph.model.Component) request.getNewObject();
-						
-						request.setSize(sComponent.getSize());
-						
-						defaultCompLocation.setLocation(
-								defaultCompLocation.getCopy().x +20,
-								defaultCompLocation.getCopy().y + 20);
-
-						request.setLocation(defaultCompLocation);
-						
-						
-						GraphicalViewer gViewer = getGraphicalViewer();
-						
-						ComponentCreateCommand ccCommand = new ComponentCreateCommand(
-								(com.bitwise.app.graph.model.Component) request
-										.getNewObject(), (Container) gViewer
-										.getContents().getModel(),
-								new Rectangle(request.getLocation(), request
-										.getSize()));
-						
-						gViewer.getEditDomain().getCommandStack()
-								.execute(ccCommand);
-						
-						eltLogger.info("Component is positioned at respective x and y location"+defaultCompLocation.getCopy().x +20+" and "+defaultCompLocation.getCopy().y + 20);
-						eltLogger.info("Component is positioned at respective x and y location"+defaultCompLocation.getCopy().x +20+" and "+defaultCompLocation.getCopy().y + 20);
-
-					}
-				});
+				viewer.getControl().addMouseListener(new PaletteContainerListener(viewer));
 			}
 		};
 	}
@@ -246,9 +266,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	
 	public  PaletteDrawer createPaletteContainer(String CategoryName)
     { 
-   	PaletteDrawer p=new PaletteDrawer(CategoryName);
+    String name=CategoryName.substring(0, 1).toUpperCase()+CategoryName.substring(1).toLowerCase();
+   	PaletteDrawer p=new PaletteDrawer(name);
    	p.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
-       return p;
+    return p;
     }
     
     public  void addContainerToPalette(PaletteRoot p1,PaletteDrawer p){
@@ -256,10 +277,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     }
 
 	private void createShapesDrawer(PaletteRoot palette) throws RuntimeException, SAXException, IOException {
-		PaletteDrawer inputContainer = createPaletteContainer("Input");
-        PaletteDrawer outputContainer= createPaletteContainer("Output");
-        addContainerToPalette(palette,inputContainer);
-        addContainerToPalette(palette,outputContainer);
+		Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
+		for (CategoryType category : CategoryType.values()) {
+			PaletteDrawer p=createPaletteContainer(category.name());
+			addContainerToPalette(palette,p);
+			categoryPaletteConatiner.put(category.name(), p);
+		}
 		List<Component> componentsConfig = XMLConfigUtil.INSTANCE
 				.getComponentConfig();
 		for (Component componentConfig : componentsConfig) {
@@ -275,10 +298,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					ImageDescriptor
 							.createFromURL(prepareIconPathURL(componentConfig
 									.getIconPath())));
-			if(componentConfig.getCategory().toString().equals("INPUT"))
-		    inputContainer.add(component);
-		    else if (componentConfig.getCategory().toString().equals("OUTPUT"))
-			outputContainer.add(component);
+			 categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
+			
 		}
 		
 	}
@@ -357,7 +378,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				AbstractGraphicalEditPart selectedEditPart = (AbstractGraphicalEditPart) sSelection
 						.getFirstElement();
 
-				defaultCompLocation.setLocation(selectedEditPart.getFigure()
+				defaultComponentLocation.setLocation(selectedEditPart.getFigure()
 						.getBounds().x, selectedEditPart.getFigure()
 						.getBounds().y);
 
