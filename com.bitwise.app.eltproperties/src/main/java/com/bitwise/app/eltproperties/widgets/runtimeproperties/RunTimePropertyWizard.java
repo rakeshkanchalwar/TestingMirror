@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -16,6 +19,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -39,12 +43,13 @@ import com.bitwise.app.eltproperties.Messages;
 
 public class RunTimePropertyWizard {
 	private Table table;
-	
+
 	private Shell shell;
 	private List<RuntimeProperties> propertyLst;
 	public static final String RUNTIMEPROPNAME = "Property Name"; //$NON-NLS-1$
 	public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
-	private TreeMap<String, String> runtimePropertyMap;
+	private TreeMap
+	<String, String> runtimePropertyMap;
 	private String componentName;
 	private Label lblHeader;
 	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
@@ -58,6 +63,7 @@ public class RunTimePropertyWizard {
 			cacelButton;
 	private boolean isAnyUpdatePerformed;
 
+	// private boolean firstTimeEdit;
 
 	public RunTimePropertyWizard() {
 
@@ -66,6 +72,9 @@ public class RunTimePropertyWizard {
 
 	}
 
+	
+	
+	
 	// Add New Property After Validating old properties
 	private void addNewProperty(TableViewer tv) {
 
@@ -105,11 +114,11 @@ public class RunTimePropertyWizard {
 		if (runtimePropertyMap != null && !runtimePropertyMap.isEmpty()) {
 			for (String key : runtimePropertyMap.keySet()) {
 				RuntimeProperties p = new RuntimeProperties();
-				if(validateBeforeLoad(key,runtimePropertyMap.get(key))){
-				p.setPropertyName(key);
-				p.setPropertyValue(runtimePropertyMap.get(key));
-				propertyLst.add(p);
-			}
+				if (validateBeforeLoad(key, runtimePropertyMap.get(key))) {
+					p.setPropertyName(key);
+					p.setPropertyValue(runtimePropertyMap.get(key));
+					propertyLst.add(p);
+				}
 			}
 			tv.refresh();
 
@@ -119,13 +128,12 @@ public class RunTimePropertyWizard {
 	}
 
 	private boolean validateBeforeLoad(String key, String keyValue) {
-		
-		if(key.trim().isEmpty() || keyValue.trim().isEmpty())
-		{
+
+		if (key.trim().isEmpty() || keyValue.trim().isEmpty()) {
 			return false;
 		}
 		return true;
-		
+
 	}
 
 	// Method for creating Table
@@ -138,8 +146,14 @@ public class RunTimePropertyWizard {
 			public void mouseDoubleClick(MouseEvent e) {
 				addNewProperty(tableViewer);
 			}
-		});
-
+		
+			@Override
+		public void mouseDown(MouseEvent e) {
+				enableButtons();
+				lblPropertyError.setVisible(false);
+			
+		}
+	});
 		table.setBounds(10, 50, 465, 365);
 		tableViewer.setContentProvider(new PropertyContentProvider());
 		tableViewer.setLabelProvider(new PropertyLabelProvider());
@@ -153,9 +167,19 @@ public class RunTimePropertyWizard {
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
 			table.getColumn(i).pack();
 		}
-		tc2.setWidth(368);
+		tc1.setWidth(230);
+		tc2.setWidth(230);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
+		
+	
+		
+			
+	}
+
+	public static void main(String[] args) {
+		RunTimePropertyWizard obj = new RunTimePropertyWizard();
+		obj.launchRuntimeWindow(new Shell(new Display(), SWT.NONE));
 	}
 
 	/**
@@ -172,8 +196,8 @@ public class RunTimePropertyWizard {
 		shell.setText("Runtime Property");
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
-		if(getComponentName()!=null)
-		lblHeader.setText(getComponentName() + "Runtime Property"); //$NON-NLS-1$
+		if (getComponentName() != null)
+			lblHeader.setText(getComponentName() + "Runtime Property"); //$NON-NLS-1$
 		else
 			lblHeader.setText("Component Runtime Property");
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523,
@@ -187,8 +211,7 @@ public class RunTimePropertyWizard {
 					int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
 					MessageBox messageBox = new MessageBox(shell, style);
 					messageBox.setText("Information"); //$NON-NLS-1$
-					messageBox
-							.setMessage(Messages.MessageBeforeClosingWindow);
+					messageBox.setMessage(Messages.MessageBeforeClosingWindow);
 					event.doit = messageBox.open() == SWT.YES;
 				}
 			}
@@ -282,9 +305,9 @@ public class RunTimePropertyWizard {
 		deleteAll.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if (table.getItemCount() != 0) {
-					boolean userAns = MessageDialog
-							.openConfirm(shell, "Remove all", //$NON-NLS-1$
-									Messages.ConfirmToDeleteAllProperties);
+					boolean userAns = MessageDialog.openConfirm(shell,
+							"Remove all", //$NON-NLS-1$
+							Messages.ConfirmToDeleteAllProperties);
 					if (userAns) {
 						table.removeAll();
 						propertyLst.removeAll(propertyLst);
@@ -312,7 +335,8 @@ public class RunTimePropertyWizard {
 						}
 						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
 						messageBox.setText("Information"); //$NON-NLS-1$
-						messageBox.setMessage(Messages.PropertyAppliedNotification);
+						messageBox
+								.setMessage(Messages.PropertyAppliedNotification);
 						messageBox.open();
 						isAnyUpdatePerformed = false;
 					}
@@ -334,7 +358,7 @@ public class RunTimePropertyWizard {
 								temp.getPropertyValue());
 					}
 
-					System.out.println(runtimePropertyMap);
+					
 					shell.close();
 				} else
 					return;
@@ -346,7 +370,7 @@ public class RunTimePropertyWizard {
 		cacelButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(runtimePropertyMap);
+				
 				shell.close();
 			}
 		});
@@ -357,17 +381,16 @@ public class RunTimePropertyWizard {
 	}
 
 	protected boolean validate() {
-		System.out.println("validating All Input In table"); //$NON-NLS-1$
+		
 		int propertyCounter = 0;
 		for (RuntimeProperties temp : propertyLst) {
 			if (!temp.getPropertyName().trim().isEmpty()
 					&& !temp.getPropertyValue().trim().isEmpty()) {
-				System.out.println(temp + "Validate"); //$NON-NLS-1$
+				
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
-				lblPropertyError
-						.setText(Messages.EmptyFiledNotification);
+				lblPropertyError.setText(Messages.EmptyFiledNotification);
 				disableButtons();
 				return false;
 			}
@@ -378,24 +401,22 @@ public class RunTimePropertyWizard {
 
 	private ICellEditorListener createEditorListners() {
 		ICellEditorListener propertyEditorListner = new ICellEditorListener() {
-			
 
 			@Override
 			public void editorValueChanged(boolean oldValidState,
 					boolean newValidState) {
-				
+
 			}
 
 			@Override
 			public void cancelEditor() {
-				System.out.println("CancelEditor"); //$NON-NLS-1$
+				
 			}
 
 			@Override
 			public void applyEditorValue() {
-				System.out.println("hhhh");
-				enableButtons();
-				lblPropertyError.setVisible(false);
+
+				
 
 			}
 		};
@@ -454,11 +475,10 @@ public class RunTimePropertyWizard {
 					lblPropertyError.setVisible(true);
 					disableButtons();
 					return "ERROR"; //$NON-NLS-1$
+				} else {
+					enableButtons();
+					lblPropertyError.setVisible(false);
 				}
-				else
-					{enableButtons();
-				lblPropertyError.setVisible(false);
-					}
 				return null;
 
 			}
