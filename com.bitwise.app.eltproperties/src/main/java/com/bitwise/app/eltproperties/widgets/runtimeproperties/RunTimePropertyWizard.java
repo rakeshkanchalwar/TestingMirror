@@ -177,11 +177,7 @@ public class RunTimePropertyWizard {
 			
 	}
 
-	public static void main(String[] args) {
-		RunTimePropertyWizard obj = new RunTimePropertyWizard();
-		obj.launchRuntimeWindow(new Shell(new Display(), SWT.NONE));
-	}
-
+	
 	/**
 	 * @return
 	 * @wbp.parser.entryPoint
