@@ -14,25 +14,52 @@ import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
-public class InputFigure extends ComponentFigure
+public class RectInOneOutTwo extends ComponentFigure
 implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1); 
 	protected static PointList connector = new PointList();
 	private Label labelName = new Label();
 	
-	FixedConnectionAnchor c;
+	FixedConnectionAnchor c_in1, c_out1, c_out2;
 	
 	
-	public InputFigure(BigInteger outPorts, String componentName) {
+	public RectInOneOutTwo(String componentName) {
 		super(componentName);
-		System.out.println("InputFigure.componentName: " + componentName);
-		c = new FixedConnectionAnchor(this);
-		c.setNumberOfOutGoingLinksLimit(1);
-		c.setRight(true);
-		connectionAnchors.put(outPorts.toString(), c);
-		outputConnectionAnchors.addElement(c);
-		//setBorder(new ComponentBorder());
+		System.out.println("FilterFigure.componentName: " + componentName);
+		
+		c_in1 = new FixedConnectionAnchor(this);
+		c_in1.setType("in");
+		c_in1.setTotalPortsOfThisType(1);
+		c_in1.setSequence(1);
+		c_in1.setAllowMultipleLinks(true);
+		c_in1.setLinkMandatory(true);
+		
+		connectionAnchors.put("in1", c_in1);
+		inputConnectionAnchors.addElement(c_in1);
+		//-------------------------------------
+		
+		c_out1 = new FixedConnectionAnchor(this);
+		c_out1.setType("out");
+		c_out1.setTotalPortsOfThisType(2);
+		c_out1.setSequence(1);
+		c_out1.setAllowMultipleLinks(true);
+		c_out1.setLinkMandatory(true);
+		
+		connectionAnchors.put("out1", c_out1);
+		outputConnectionAnchors.addElement(c_out1);
+		//-------------------------------------
+		
+		c_out2 = new FixedConnectionAnchor(this);
+		c_out2.setType("out");
+		c_out2.setTotalPortsOfThisType(2);
+		c_out2.setSequence(2);
+		c_out2.setAllowMultipleLinks(true);
+		c_out2.setLinkMandatory(false);
+		
+		connectionAnchors.put("out2", c_out2);
+		outputConnectionAnchors.addElement(c_out2);
+		//-------------------------------------
 	}
 
 	@Override
@@ -61,7 +88,7 @@ implements HandleBounds{
 	@Override
 	public void validate() {
 		super.validate();
-		System.out.println("InputFigure:validate");
+		System.out.println("FilterFigure:validate");
 		if (isValid())
 			return;
 

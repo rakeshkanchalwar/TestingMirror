@@ -12,22 +12,27 @@ import org.eclipse.swt.graphics.Font;
 
 
 
-public class OutputFigure extends ComponentFigure 
+public class RectInOneOutZero extends ComponentFigure 
 implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1);
 	
 	
-	public OutputFigure(BigInteger inPorts, String componentName) {
+	public RectInOneOutZero(String componentName) {
 		super(componentName);
 		System.out.println("OutputFigure.componentName: " + componentName);
 		FixedConnectionAnchor c;
 		c = new FixedConnectionAnchor(this);
-		c.setLeft(true);
-		c.setNumberOfInComingLinksLimit(1);
-		connectionAnchors.put(inPorts.toString(), c);
+		
+		c.setType("in");
+		c.setTotalPortsOfThisType(1);
+		c.setSequence(1);
+		c.setAllowMultipleLinks(false);
+		c.setLinkMandatory(true);
+		
+		connectionAnchors.put(c.getType()+c.getSequence(), c);
 		inputConnectionAnchors.addElement(c);
-		setBorder(new ComponentBorder());
+		//setBorder(new ComponentBorder());
 	}
 
 	@Override

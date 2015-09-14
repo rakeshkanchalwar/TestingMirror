@@ -60,6 +60,8 @@ public class ConnectionCreateCommand extends Command{
 		}
 		
 		if(!source.allowMoreOutGoingLinks())
+			
+		
 			return false;
 		if(target!=null)
 			if(!target.allowMoreInComingLinks())

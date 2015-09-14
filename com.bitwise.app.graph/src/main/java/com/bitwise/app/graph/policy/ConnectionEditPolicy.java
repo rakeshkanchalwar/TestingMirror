@@ -23,6 +23,7 @@ public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 		command.setSource(getComponentEditPart().getCastedModel());
 		ConnectionAnchor ctor = getComponentEditPart().getSourceConnectionAnchor(
 				request);
+		//System.out.println("ctor.toString() in getConnectionCreateCommand"+ctor.toString());
 		if (ctor == null)
 			return null;
 		command.setSourceTerminal(getComponentEditPart()

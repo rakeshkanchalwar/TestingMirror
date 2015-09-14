@@ -10,6 +10,7 @@
  *******************************************************************************/
 package com.bitwise.app.graph.figure;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -21,9 +22,9 @@ import org.eclipse.draw2d.geometry.Point;
 
 public class ComponentFigure extends Figure {
 
-	protected Hashtable connectionAnchors = new Hashtable(7);
-	protected Vector inputConnectionAnchors = new Vector(2, 2);
-	protected Vector outputConnectionAnchors = new Vector(2, 2);
+	protected Hashtable<String, FixedConnectionAnchor> connectionAnchors = new Hashtable<String, FixedConnectionAnchor>(7);
+	protected Vector<FixedConnectionAnchor> inputConnectionAnchors = new Vector<FixedConnectionAnchor>(2, 2);
+	protected Vector<FixedConnectionAnchor> outputConnectionAnchors = new Vector<FixedConnectionAnchor>(2, 2);
 	//private Label labelName = new Label();
 	protected String labelName;
 
@@ -46,10 +47,11 @@ public class ComponentFigure extends Figure {
 	}
 
 	public String getConnectionAnchorName(ConnectionAnchor c) {
-		Enumeration keys = connectionAnchors.keys();
+		Enumeration<String> keys = connectionAnchors.keys();
 		String key;
 		while (keys.hasMoreElements()) {
 			key = (String) keys.nextElement();
+			System.out.println("ComponentFigure:getConnectionAnchorName-> key: "+key);
 			
 			if (connectionAnchors.get(key).equals(c))
 				return key;
@@ -62,9 +64,12 @@ public class ComponentFigure extends Figure {
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
 
-		Enumeration e = getSourceConnectionAnchors().elements();
+		Enumeration<FixedConnectionAnchor> e = getSourceConnectionAnchors().elements();
+		
 		while (e.hasMoreElements()) {
+			
 			ConnectionAnchor c = (ConnectionAnchor) e.nextElement();
+			System.out.println("getSourceConnectionAnchorAt->c.toString(): "+c.toString());
 			Point p2 = c.getLocation(null);
 			double d = p.getDistance(p2);
 			if (d < min) {
@@ -75,7 +80,7 @@ public class ComponentFigure extends Figure {
 		return closest;
 	}
 
-	public Vector getSourceConnectionAnchors() {
+	public Vector<FixedConnectionAnchor> getSourceConnectionAnchors() {
 		 
 		return outputConnectionAnchors;
 	}
@@ -85,9 +90,10 @@ public class ComponentFigure extends Figure {
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
 
-		Enumeration e = getTargetConnectionAnchors().elements();
+		Enumeration<FixedConnectionAnchor> e = getTargetConnectionAnchors().elements();
 		while (e.hasMoreElements()) {
 			ConnectionAnchor c = (ConnectionAnchor) e.nextElement();
+			System.out.println("getTargetConnectionAnchorAt->c.toString(): "+c.toString());
 			Point p2 = c.getLocation(null);
 			
 			double d =p.getDistance(p2);
@@ -97,9 +103,10 @@ public class ComponentFigure extends Figure {
 			}
 		}
 		return closest;
+		
 	}
 
-	public Vector getTargetConnectionAnchors() {
+	public Vector<FixedConnectionAnchor> getTargetConnectionAnchors() {
 		
 		return inputConnectionAnchors;
 	}

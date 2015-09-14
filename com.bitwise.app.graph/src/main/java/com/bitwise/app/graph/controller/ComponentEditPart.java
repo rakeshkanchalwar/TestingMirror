@@ -10,6 +10,7 @@ import java.util.List;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
@@ -21,6 +22,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.xml.sax.SAXException;
@@ -34,11 +36,13 @@ import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.propertydialog.PropertyDialog;
 import com.bitwise.app.graph.figure.ComponentFigure;
+import com.bitwise.app.graph.figure.RectInOneOutTwo;
 import com.bitwise.app.graph.figure.FixedConnectionAnchor;
-import com.bitwise.app.graph.figure.InputFigure;
-import com.bitwise.app.graph.figure.OutputFigure;
+import com.bitwise.app.graph.figure.RectInZeroOutOne;
+import com.bitwise.app.graph.figure.RectInOneOutZero;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.ComponentConnection;
+import com.bitwise.app.graph.model.FilterComponent;
 import com.bitwise.app.graph.model.InputComponent;
 import com.bitwise.app.graph.model.OutputComponent;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -113,15 +117,11 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	protected IFigure createFigure() {
-		// IFigure figure = new RoundedRectangle();
-		// figure.setOpaque(true); // non-transparent figure
-		// //TODO change the code for color
-		// figure.setBackgroundColor(ColorConstants.gray);
-		// return figure;
-
 		IFigure f = createFigureForModel();
 		f.setOpaque(true); // non-transparent figure
 		f.setBackgroundColor(ColorConstants.white);
+		f.setForegroundColor(new Color(null,6, 105, 138));
+		f.setBorder(new LineBorder(2));
 		return f;
 	}
 
@@ -130,28 +130,46 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				.getClazzName(getModel().getClass());
 		com.bitwise.app.common.component.config.Component component = XMLConfigUtil.INSTANCE
 				.getComponent(componentName);
-
-		if (getModel() instanceof InputComponent) {
-
-			BigInteger outputPorts = component.getOutputPort()
-					.getNumberOfPorts();
-			if (component.getOutputPort().isAllowMultipleLinks() != null) {
-				boolean isAllowedMultipleLinks = component.getOutputPort()
-						.isAllowMultipleLinks();
-				((Component) getModel())
-						.setAllowMultipleLinks(isAllowedMultipleLinks);
-			}
-			return new InputFigure(outputPorts, componentName);
-		} else if (getModel() instanceof OutputComponent) {
-			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
-			if (component.getInputPort().isAllowMultipleLinks() != null) {
-				boolean isAllowedMultipleLinks = component.getInputPort()
-						.isAllowMultipleLinks();
-				((Component) getModel())
-						.setAllowMultipleLinks(isAllowedMultipleLinks);
-			}
-			return new OutputFigure(inputPorts, componentName);
-		} else {
+		System.out.println("componentName in createFigureForModel: "+componentName );
+		//if (getModel() instanceof InputComponent) {
+		if(componentName.equals("Input")){
+			System.out.println("in instanceof InputComponent");
+//			BigInteger outputPorts = component.getOutputPort()
+//					.getNumberOfPorts();
+//			if (component.getOutputPort().isAllowMultipleLinks() != null) {
+//				boolean isAllowedMultipleLinks = component.getOutputPort()
+//						.isAllowMultipleLinks();
+//				((Component) getModel())
+//						.setAllowMultipleLinks(isAllowedMultipleLinks);
+//			}
+			return new RectInZeroOutOne( componentName);
+		//} else if (getModel() instanceof OutputComponent) {
+		} else	if(componentName.equals("Output")){
+			System.out.println("in instanceof OutputComponent");
+//			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
+//			if (component.getInputPort().isAllowMultipleLinks() != null) {
+//				boolean isAllowedMultipleLinks = component.getInputPort()
+//						.isAllowMultipleLinks();
+//				((Component) getModel())
+//						.setAllowMultipleLinks(isAllowedMultipleLinks);
+//			}
+			return new RectInOneOutZero(componentName);
+		//} else if (getModel() instanceof FilterComponent) {
+		} else	if(componentName.equals("Filter")){
+			System.out.println("in instanceof FilterComponent");
+//			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
+//			if (component.getInputPort().isAllowMultipleLinks() != null) {
+//				boolean isAllowedMultipleLinks = component.getInputPort()
+//						.isAllowMultipleLinks();
+//				((Component) getModel())
+//						.setAllowMultipleLinks(isAllowedMultipleLinks);
+//			}
+			((Component) getModel())
+			.setAllowMultipleLinks(true);
+			return new RectInOneOutTwo(componentName);
+		} 
+		
+		else {
 			throw new IllegalArgumentException();
 		}
 	}
@@ -161,7 +179,8 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	}
 
 	public final String mapConnectionAnchorToTerminal(ConnectionAnchor c) {
-
+		System.out.println("ComponentEditPart:mapConnectionAnchorToTerminal");
+		System.out.println("ConnectionAnchor.toString()"+c.toString());;
 		return getComponentFigure().getConnectionAnchorName(c);
 	}
 
@@ -200,6 +219,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 
+		System.out.println("ComponentEditPart:getSourceConnectionAnchor");
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getSourceConnectionAnchorAt(pt);
 
