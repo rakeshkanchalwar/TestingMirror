@@ -1,8 +1,5 @@
 package com.bitwise.app.eltproperties.widgets.schemagrid;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
