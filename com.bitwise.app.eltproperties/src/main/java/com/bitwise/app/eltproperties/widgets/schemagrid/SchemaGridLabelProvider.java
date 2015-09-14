@@ -40,11 +40,13 @@ class SchemaGridLabelProvider implements ITableLabelProvider , ITableColorProvid
     SchemaGrid schemaGrid = (SchemaGrid) element;
     switch (columnIndex) {
     case 0:
-      return schemaGrid.getFieldName();
+      return schemaGrid.getFieldName(); 
     case 1:
     	 return ELTSchemaWidget.getDataType()[schemaGrid.getDataType().intValue()];   
     case 2:
-    	 return schemaGrid.getLimit(); 
+    	 return schemaGrid.getDateFormat();
+    case 3:
+   	 return schemaGrid.getScale(); 
     }
     return null;
   }

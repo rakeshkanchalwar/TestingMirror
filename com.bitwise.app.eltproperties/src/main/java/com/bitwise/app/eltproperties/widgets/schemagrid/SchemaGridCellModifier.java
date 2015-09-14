@@ -43,8 +43,10 @@ class SchemaGridCellModifier implements ICellModifier {
     SchemaGrid p = (SchemaGrid) element;
     if (ELTSchemaWidget.FIELDNAME.equals(property))
       return p.getFieldName();
-    else if (ELTSchemaWidget.LIMIT.equals(property))
-      return String.valueOf(p.getLimit());
+    else if (ELTSchemaWidget.DATEFORMAT.equals(property))
+      return String.valueOf(p.getDateFormat());
+    else if (ELTSchemaWidget.SCALE.equals(property))
+    	return String.valueOf(p.getScale());
     else if (ELTSchemaWidget.DATATYPE.equals(property))
       return p.getDataType();
     else
@@ -68,8 +70,10 @@ class SchemaGridCellModifier implements ICellModifier {
     SchemaGrid p = (SchemaGrid) element;
     if (ELTSchemaWidget.FIELDNAME.equals(property))
       p.setFieldName((String) value);
-    else if (ELTSchemaWidget.LIMIT.equals(property))
-      p.setLimit( value.toString()); 
+    else if (ELTSchemaWidget.DATEFORMAT.equals(property))
+      p.setDateFormat( value.toString()); 
+    else if (ELTSchemaWidget.SCALE.equals(property))
+        p.setScale( value.toString()); 
     else if (ELTSchemaWidget.DATATYPE.equals(property))
       p.setDataType((Integer)value);
    

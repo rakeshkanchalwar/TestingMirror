@@ -6,34 +6,27 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.fieldassist.FieldDecoration;
-import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 
 import com.bitwise.app.eltproperties.Messages;
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
+import com.bitwise.app.eltproperties.widgets.utility.WidgetUtility;
 
 /**
  * @author rahulma
@@ -49,7 +42,8 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 	private Object properties;
 	private String propertyName;
 	public TableViewer tableViewer;
-	public ControlDecoration txtDecorator;
+	public ControlDecoration fieldNameDecorator;
+	public ControlDecoration scaleDecorator;
 	private Label errorLable;
 	int counter=0;
 	public ELTSchemaWidget() { 
@@ -57,9 +51,10 @@ public class ELTSchemaWidget extends AbstractELTWidget {
  
 	// Table column names/properties
 	public static final String FIELDNAME = Messages.FIELDNAME;
-	public static final String LIMIT = Messages.LIMIT;
+	public static final String DATEFORMAT = Messages.DATEFORMAT;
 	public static final String DATATYPE = Messages.DATATYPE;
-	public static final String[] PROPS = { FIELDNAME, DATATYPE, LIMIT };
+	public static final String SCALE = Messages.SCALE;
+	public static final String[] PROPS = { FIELDNAME, DATATYPE, DATEFORMAT,SCALE };
 	public static String[] dataTypeList;
 
 	//get the datatype list from property file.
@@ -85,33 +80,22 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
 		
-		errorLable = new Label(composite, SWT.NONE);
-		errorLable.setForeground(new Color(Display.getDefault(), 255, 0,
-				0));
-		FormData fd_errorLable = new FormData();
-		fd_errorLable.right = new FormAttachment(100, -36);
-		errorLable.setLayoutData(fd_errorLable);
-		errorLable.setText(Messages.FIELDNAMEERROR);
-		errorLable.setVisible(false);
-  
+		// Create Error Lable
+		errorLable = WidgetUtility.createLable(new Label(composite, SWT.NONE));
 		// Add the TableViewer
-		tableViewer = new TableViewer(composite, SWT.FULL_SELECTION);
-		tableViewer.setContentProvider(new SchemaGridContentProvider());
-		tableViewer.setLabelProvider(new SchemaGridLabelProvider());
+		tableViewer = WidgetUtility.createTableViewer(new TableViewer(composite, SWT.FULL_SELECTION), new SchemaGridContentProvider(), new SchemaGridLabelProvider());
 		tableViewer.setInput(schemaGrids);
 
 		// Set up the table
 		table = tableViewer.getTable();
-		FormData fd_table = new FormData();
-		fd_table.top = new FormAttachment(errorLable, 6);
-		fd_table.bottom = new FormAttachment(0, 290);
-		fd_table.right = new FormAttachment(0, 429);
-		fd_table.left = new FormAttachment(0, 5);
-		table.setLayoutData(fd_table);  
+		
+		FormData fd_table = WidgetUtility.createFormData();
+		fd_table.top=new FormAttachment(errorLable, 6);
+		table.setLayoutData(fd_table); 
+		
+		//Create Table column 
+		WidgetUtility.createTableColumns(table, PROPS);
 
-		new TableColumn(table, SWT.CENTER).setText(FIELDNAME);
-		new TableColumn(table, SWT.CENTER).setText(DATATYPE);
-		new TableColumn(table, SWT.CENTER).setText(LIMIT);
 
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
 			table.getColumn(i).pack();
@@ -120,12 +104,8 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
-		CellEditor[] editors = new CellEditor[3];
-		TextCellEditor fieldNametext = new TextCellEditor(table);
-		editors[0] = fieldNametext;
-		editors[1] = new ComboBoxCellEditor(table, ELTSchemaWidget.getDataType(),
-				SWT.READ_ONLY);
-		editors[2] = new TextCellEditor(table);
+		CellEditor[] editors = SchemaUtility.createCellEditorList(table,4);
+
 		
 		// Set the editors, cell modifier, and column properties
 		tableViewer.setColumnProperties(PROPS);
@@ -133,9 +113,10 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		tableViewer.setCellEditors(editors);
 
 		//Adding the decorator to show error message when field name same.
-		txtDecorator =	addDecorator(fieldNametext)	;
-		
-		
+		fieldNameDecorator =	WidgetUtility.addDecorator(editors[0].getControl(),Messages.FIELDNAMEERROR)	;
+		scaleDecorator =	WidgetUtility.addDecorator(editors[3].getControl(),Messages.SCALEERROR)	;
+	  
+		 
 		/*
 		 * Table mouse click event.
 		 * Add new column in schema grid with default values.
@@ -149,7 +130,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 			@Override
 			public void mouseDown(MouseEvent e) {
 
-				txtDecorator.hide();
+				fieldNameDecorator.hide();
 			}
 		});
 				/*
@@ -163,21 +144,42 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 						for (SchemaGrid schemaGrid : schemaGrids) {
 							if ((schemaGrid.getFieldName().equalsIgnoreCase(
 									(String) value) && !selectedGrid.equalsIgnoreCase((String) value) )|| ((String) value).isEmpty() ) {
-					            txtDecorator.show();
+								fieldNameDecorator.show();
 								return "Error";
 							} else{
 								errorLable.setVisible(false); 
-								txtDecorator.hide();
+								fieldNameDecorator.hide();
 							}
 						}
 						return null;
 					} 
 				};
+				
+				/*
+				 * Field name validation, It should not get repeated.  
+				 */
+				ICellEditorValidator scaleFieldValidator = new ICellEditorValidator() {
+   
+					@Override 
+					public String isValid(Object value) {    
+						String selectedGrid=(String) value;
+							if(!selectedGrid.matches("\\d+")){     
+								scaleDecorator.show();   
+							return "Error";   
+						}else{       
+							scaleDecorator.hide(); 
+							    
+						}
+						return null; 
+					} 
+				};
+				
 		// Apply validator to text field.
-		fieldNametext.setValidator(iCellEditorValidator);
+		editors[0].setValidator(iCellEditorValidator);
+		editors[3].setValidator(scaleFieldValidator);
 		Composite c1=new Composite(composite, SWT.NONE);
 		FormData fd_c1 = new FormData();
-		fd_c1.right = new FormAttachment(0, 428);
+		fd_c1.right = new FormAttachment(0, 290); 
 		fd_c1.top = new FormAttachment(0, 295);
 		fd_c1.left = new FormAttachment(0, 5);
 		c1.setLayoutData(fd_c1);
@@ -222,20 +224,8 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 		btnRemoveall.setText("Delete All");	
 			
 	}
-
-	
-	public ControlDecoration addDecorator(TextCellEditor fieldNametext){
-		txtDecorator = new ControlDecoration(fieldNametext.getControl(), SWT.TOP|SWT.LEFT);
-		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
-		Image img = fieldDecoration.getImage();
-		txtDecorator.setImage(img);
-		txtDecorator.setDescriptionText(Messages.FIELDNAMEERROR);
-		// hiding it initially
-		txtDecorator.hide();
-		return txtDecorator; 
-	} 
-	 
-	  
+ 
+  
 	@Override
 	public LinkedHashMap<String,Object> getProperties() {
 		property.put(propertyName, schemaGrids); 
@@ -263,7 +253,8 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 	public void createDefaultSchema(){
 		SchemaGrid schemaGrid = new SchemaGrid();
 		schemaGrid.setFieldName("");
-		schemaGrid.setLimit(""); 
+		schemaGrid.setDateFormat("");
+		schemaGrid.setScale("");
 		schemaGrid.setDataType(Integer.valueOf("0"));
 		
 		if(!schemaGrids.contains(schemaGrid))
