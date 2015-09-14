@@ -53,7 +53,7 @@ public class PropertyDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		
 		container = (Composite) super.createDialogArea(parent);
-		
+		container.getShell().setText("Component Properties");
 		ColumnLayout cl_container = new ColumnLayout();
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
