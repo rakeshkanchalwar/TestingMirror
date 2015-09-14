@@ -65,12 +65,13 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 		lblAdesss.setText("Character Set: ");
 		
 
-		combo = new Combo(composite_3, SWT.READ_ONLY);
+		combo = new Combo(composite_3, SWT.DROP_DOWN);
 		/*combo.setText("select");
 		combo.add("True");
 		combo.add("False");
 		combo.add("Parameter");*/
 		combo.setItems(new String[]{"UniCode","UTF-8","ASCII","Parameter"});
+		combo.select(1);
 		//combo.setItems();
 		fd_lblAdesss.top = new FormAttachment(combo, 0, SWT.TOP);
 		fd_lblAdesss.bottom = new FormAttachment(combo, -8, SWT.BOTTOM);
@@ -184,7 +185,7 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
                 combo.setText((String)properties);
           }else{
                 text_1.setText("$");
-                combo.setText("select");
+               // combo.setText(" ");
           }
     }
 
