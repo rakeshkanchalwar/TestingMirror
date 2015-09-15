@@ -331,7 +331,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					}
 				},
 				ImageDescriptor
-						.createFromURL(prepareIconPathURL("/icons/connection_s16.gif")),
+						.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")),
 				ImageDescriptor
 						.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")));
 		toolbar.add(tool);
