@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-  <tns:component iconPath="/icons/InputFile.png" name="Input">
+  <tns:component iconPath="/icons/input.png" name="Input">
 	<tns:category>INPUT</tns:category>
 	<tns:inputPort>
 		<tns:numberOfPorts>0</tns:numberOfPorts>
