@@ -85,16 +85,8 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		this.sequence = sequence;
 	}
 
-	public boolean isAllowMultipleLinks() {
-		return allowMultipleLinks;
-	}
-
 	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
 		this.allowMultipleLinks = allowMultipleLinks;
-	}
-
-	public boolean isLinkMandatory() {
-		return linkMandatory;
 	}
 
 	public void setLinkMandatory(boolean linkMandatory) {
@@ -136,13 +128,10 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 					fa.getType().equals(this.getType()) &&
 					fa.getTotalPortsOfThisType()==this.getTotalPortsOfThisType() &&
 					fa.getSequence() == this.getSequence() &&
-					fa.isAllowMultipleLinks() == this.isAllowMultipleLinks() &&
-					fa.isLinkMandatory() == this.isLinkMandatory()
-			)
+					fa.allowMultipleLinks == this.allowMultipleLinks &&
+					fa.linkMandatory == this.linkMandatory
+				)
 				return true;
-			
-//			if ( fa.getOwner() == this.getOwner())
-//				return true;
 			
 		}
 

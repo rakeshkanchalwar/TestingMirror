@@ -16,25 +16,19 @@ public class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
 	
 	public static final String LOCATION_PROP = "Location";
-	/** Property ID to use then the size of this shape is modified. */
+//	/** Property ID to use then the size of this shape is modified. */
 	public static final String SIZE_PROP = "Size";
-	/** Property ID to use when the list of outgoing connections is modified. */
-	//public static final String SOURCE_CONNECTIONS_PROP = "SourceConnection";
-	/** Property ID to use when the list of incoming connections is modified. */
-	//public static final String TARGET_CONNECTIONS_PROP = "TargetConnection";
 	
-
-	/** Location of this shape. */
 	private Point location = new Point(0, 0);
-	/** Size of this shape. */
+	
 	private Dimension size = new Dimension(80, 60);
 	
 	private Map<String, Object> properties = new LinkedHashMap<>();
 	
 	private Container parent;
 	
-	protected Hashtable inputs = new Hashtable(7);
-	protected Vector outputs = new Vector(4, 4);
+	protected Hashtable<String, ComponentConnection> inputs = new Hashtable<String, ComponentConnection>(7);
+	protected Vector<ComponentConnection> outputs = new Vector<ComponentConnection>(4, 4);
 	
 	public static final String INPUTS = "inputs", 
 			OUTPUTS = "outputs"; 
@@ -71,15 +65,15 @@ public class Component extends Model {
 		fireStructureChange(OUTPUTS, c);
 	}
 	
-	public List getSourceConnections() {
+	public List<ComponentConnection> getSourceConnections() {
 		
-		return (Vector) outputs.clone();
+		return (Vector<ComponentConnection>) outputs.clone();
 	}
 
-	public List getTargetConnections() {
+	public List<ComponentConnection> getTargetConnections() {
 		
-		Enumeration elements = inputs.elements();
-		Vector v = new Vector(inputs.size());
+		Enumeration<ComponentConnection> elements = inputs.elements();
+		Vector<ComponentConnection> v = new Vector<ComponentConnection>(inputs.size());
 		while (elements.hasMoreElements())
 			v.addElement(elements.nextElement());
 		return v;
@@ -109,10 +103,6 @@ public class Component extends Model {
 		}
 	}
 	
-
-	public boolean isAllowMultipleLinks() {
-		return allowMultipleLinks;
-	}
 	
 	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
 		this.allowMultipleLinks = allowMultipleLinks;
@@ -137,7 +127,7 @@ public class Component extends Model {
 	public Point getLocation() {
 		return location.getCopy();
 	}
-	
+//	
 	/**
 	 * Set the Size of this shape. Will not modify the size if newSize is null.
 	 * 

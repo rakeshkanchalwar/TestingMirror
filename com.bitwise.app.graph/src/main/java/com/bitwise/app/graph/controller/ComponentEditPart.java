@@ -3,7 +3,6 @@ package com.bitwise.app.graph.controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +35,14 @@ import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.propertydialog.PropertyDialog;
 import com.bitwise.app.graph.figure.ComponentFigure;
-import com.bitwise.app.graph.figure.RectInOneOutTwo;
+import com.bitwise.app.graph.figure.CopyToManyFigure;
+import com.bitwise.app.graph.figure.FilterFigure;
 import com.bitwise.app.graph.figure.FixedConnectionAnchor;
-import com.bitwise.app.graph.figure.RectInZeroOutOne;
-import com.bitwise.app.graph.figure.RectInOneOutZero;
+import com.bitwise.app.graph.figure.GatherFigure;
+import com.bitwise.app.graph.figure.InputFigure;
+import com.bitwise.app.graph.figure.OutputFigure;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.ComponentConnection;
-import com.bitwise.app.graph.model.FilterComponent;
 import com.bitwise.app.graph.model.InputComponent;
 import com.bitwise.app.graph.model.OutputComponent;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -131,7 +131,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		com.bitwise.app.common.component.config.Component component = XMLConfigUtil.INSTANCE
 				.getComponent(componentName);
 		System.out.println("componentName in createFigureForModel: "+componentName );
-		//if (getModel() instanceof InputComponent) {
+		
 		if(componentName.equals("Input")){
 			System.out.println("in instanceof InputComponent");
 //			BigInteger outputPorts = component.getOutputPort()
@@ -142,31 +142,29 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 //				((Component) getModel())
 //						.setAllowMultipleLinks(isAllowedMultipleLinks);
 //			}
-			return new RectInZeroOutOne( componentName);
-		//} else if (getModel() instanceof OutputComponent) {
+			return new InputFigure( componentName);
+		
 		} else	if(componentName.equals("Output")){
 			System.out.println("in instanceof OutputComponent");
-//			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
-//			if (component.getInputPort().isAllowMultipleLinks() != null) {
-//				boolean isAllowedMultipleLinks = component.getInputPort()
-//						.isAllowMultipleLinks();
-//				((Component) getModel())
-//						.setAllowMultipleLinks(isAllowedMultipleLinks);
-//			}
-			return new RectInOneOutZero(componentName);
-		//} else if (getModel() instanceof FilterComponent) {
-		} else	if(componentName.equals("Filter")){
-			System.out.println("in instanceof FilterComponent");
-//			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
-//			if (component.getInputPort().isAllowMultipleLinks() != null) {
-//				boolean isAllowedMultipleLinks = component.getInputPort()
-//						.isAllowMultipleLinks();
-//				((Component) getModel())
-//						.setAllowMultipleLinks(isAllowedMultipleLinks);
-//			}
+			return new OutputFigure(componentName);
+		
+		} else	if(componentName.equals("Gather")){
+			System.out.println("in instanceof GatherComponent");
 			((Component) getModel())
 			.setAllowMultipleLinks(true);
-			return new RectInOneOutTwo(componentName);
+			return new GatherFigure(componentName);
+		
+		}else	if(componentName.equals("CopyToMany")){
+			System.out.println("in instanceof CopyToManyComponent");
+			((Component) getModel())
+			.setAllowMultipleLinks(true);
+			return new CopyToManyFigure(componentName);
+		
+		}else	if(componentName.equals("Filter")){
+			System.out.println("in instanceof FilterComponent");
+			((Component) getModel())
+			.setAllowMultipleLinks(true);
+			return new FilterFigure(componentName);
 		} 
 		
 		else {
@@ -185,7 +183,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	}
 
 	protected ConnectionAnchor getConnectionAnchor() {
-		ConnectionAnchor temp;
+		
 		if (anchor == null) {
 			if (getModel() instanceof InputComponent) {
 				anchor = new FixedConnectionAnchor(getFigure());
@@ -201,11 +199,11 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return anchor;
 	}
 
-	protected List getModelSourceConnections() {
+	protected List<ComponentConnection> getModelSourceConnections() {
 		return getCastedModel().getSourceConnections();
 	}
 
-	protected List getModelTargetConnections() {
+	protected List<ComponentConnection> getModelTargetConnections() {
 		return getCastedModel().getTargetConnections();
 	}
 
@@ -254,7 +252,9 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		if (Component.SIZE_PROP.equals(prop)
 				|| Component.LOCATION_PROP.equals(prop)) {
 			refreshVisuals();
-		} else if (Component.OUTPUTS.equals(prop)) {
+		} else 
+			
+		if (Component.OUTPUTS.equals(prop)) {
 			refreshSourceConnections();
 		} else if (Component.INPUTS.equals(prop)) {
 			refreshTargetConnections();

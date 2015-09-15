@@ -14,7 +14,7 @@ import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
-public class RectInZeroOutOne extends ComponentFigure
+public class InputFigure extends ComponentFigure
 implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1); 
@@ -24,7 +24,7 @@ implements HandleBounds{
 	FixedConnectionAnchor c;
 	
 	
-	public RectInZeroOutOne(String componentName) {
+	public InputFigure(String componentName) {
 		super(componentName);
 		System.out.println("InputFigure.componentName: " + componentName);
 		c = new FixedConnectionAnchor(this);

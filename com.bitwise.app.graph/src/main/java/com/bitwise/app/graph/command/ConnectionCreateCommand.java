@@ -80,6 +80,7 @@ public class ConnectionCreateCommand extends Command{
 		if(source!=null){
 			
 			connection.setSource(source);
+			System.out.println("Setting sourceTerminal: "+sourceTerminal);
 			connection.setSourceTerminal(sourceTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
@@ -87,6 +88,7 @@ public class ConnectionCreateCommand extends Command{
 		if(target!=null){
 			
 			connection.setTarget(target);
+			System.out.println("Setting targetTerminal: "+targetTerminal);
 			connection.setTargetTerminal(targetTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();

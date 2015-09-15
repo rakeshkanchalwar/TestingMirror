@@ -12,13 +12,13 @@ import org.eclipse.swt.graphics.Font;
 
 
 
-public class RectInOneOutZero extends ComponentFigure 
+public class OutputFigure extends ComponentFigure 
 implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1);
 	
 	
-	public RectInOneOutZero(String componentName) {
+	public OutputFigure(String componentName) {
 		super(componentName);
 		System.out.println("OutputFigure.componentName: " + componentName);
 		FixedConnectionAnchor c;

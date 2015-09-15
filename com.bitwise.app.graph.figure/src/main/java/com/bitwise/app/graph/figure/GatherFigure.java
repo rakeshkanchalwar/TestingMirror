@@ -1,32 +1,24 @@
 package com.bitwise.app.graph.figure;
 
 
-import java.math.BigInteger;
-
 import org.eclipse.draw2d.ColorConstants;
-
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
-public class RectInOneOutTwo extends ComponentFigure
+public class GatherFigure extends ComponentFigure
 implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1); 
-	protected static PointList connector = new PointList();
-	private Label labelName = new Label();
-	
-	FixedConnectionAnchor c_in1, c_out1, c_out2;
+	FixedConnectionAnchor c_in1, c_out1;
 	
 	
-	public RectInOneOutTwo(String componentName) {
+	public GatherFigure(String componentName) {
 		super(componentName);
-		System.out.println("FilterFigure.componentName: " + componentName);
+		System.out.println("GatherFigure.componentName: " + componentName);
 		
 		c_in1 = new FixedConnectionAnchor(this);
 		c_in1.setType("in");
@@ -41,25 +33,13 @@ implements HandleBounds{
 		
 		c_out1 = new FixedConnectionAnchor(this);
 		c_out1.setType("out");
-		c_out1.setTotalPortsOfThisType(2);
+		c_out1.setTotalPortsOfThisType(1);
 		c_out1.setSequence(1);
-		c_out1.setAllowMultipleLinks(true);
+		c_out1.setAllowMultipleLinks(false);
 		c_out1.setLinkMandatory(true);
 		
 		connectionAnchors.put("out1", c_out1);
 		outputConnectionAnchors.addElement(c_out1);
-		//-------------------------------------
-		
-		c_out2 = new FixedConnectionAnchor(this);
-		c_out2.setType("out");
-		c_out2.setTotalPortsOfThisType(2);
-		c_out2.setSequence(2);
-		c_out2.setAllowMultipleLinks(true);
-		c_out2.setLinkMandatory(false);
-		
-		connectionAnchors.put("out2", c_out2);
-		outputConnectionAnchors.addElement(c_out2);
-		//-------------------------------------
 	}
 
 	@Override
@@ -88,7 +68,7 @@ implements HandleBounds{
 	@Override
 	public void validate() {
 		super.validate();
-		System.out.println("FilterFigure:validate");
+		System.out.println("GatherFigure:validate");
 		if (isValid())
 			return;
 
@@ -107,3 +87,4 @@ implements HandleBounds{
 	
 	
 }
+
