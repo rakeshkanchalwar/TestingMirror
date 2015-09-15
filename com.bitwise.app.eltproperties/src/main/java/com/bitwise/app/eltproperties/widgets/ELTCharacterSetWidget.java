@@ -65,7 +65,7 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 		lblAdesss.setText("Character Set: ");
 		
 
-		combo = new Combo(composite_3, SWT.DROP_DOWN);
+		combo = new Combo(composite_3, SWT.READ_ONLY);
 		/*combo.setText("select");
 		combo.add("True");
 		combo.add("False");
@@ -110,6 +110,7 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 				if(combo.getText().equals("Parameter")) {
 				
 					text_1.setVisible(true);
+					//txtDecorator.show();
 					
 				}else {
 					

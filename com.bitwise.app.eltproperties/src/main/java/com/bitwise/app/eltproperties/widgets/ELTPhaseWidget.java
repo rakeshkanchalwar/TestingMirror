@@ -26,6 +26,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.Messages;
+import com.bitwise.app.eltproperties.widgets.utility.WidgetUtility;
 
 public class ELTPhaseWidget extends AbstractELTWidget{
 
@@ -35,6 +36,7 @@ public class ELTPhaseWidget extends AbstractELTWidget{
 	private Object properties;
 	private String propertyName;
 	private ControlDecoration txtDecorator;
+	WidgetUtility widget;
 	
 	@Override
 	public void attachToPropertySubGroup(Group  subGroup) {

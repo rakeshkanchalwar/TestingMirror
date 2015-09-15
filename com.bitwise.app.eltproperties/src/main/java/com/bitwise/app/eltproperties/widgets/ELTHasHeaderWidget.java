@@ -63,7 +63,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 			lblAdesss.setText("Has Header: ");
 			
 
-			combo = new Combo(composite_3, SWT.DROP_DOWN);
+			combo = new Combo(composite_3, SWT.READ_ONLY);
 			//combo.setText("");
 			/*combo.add("True");
 			combo.add("False");

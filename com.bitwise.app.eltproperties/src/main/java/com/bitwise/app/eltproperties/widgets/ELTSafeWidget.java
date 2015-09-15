@@ -61,7 +61,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			lblAdesss.setText("Safe: ");
 			
 
-			combo = new Combo(composite_3, SWT.DROP_DOWN);
+			combo = new Combo(composite_3, SWT.READ_ONLY);
 			
 			combo.setItems(new String[]{"True","False","Parameter"});
 			combo.select(1);
