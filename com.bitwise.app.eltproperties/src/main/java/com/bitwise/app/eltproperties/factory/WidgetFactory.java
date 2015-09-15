@@ -39,7 +39,13 @@ public class WidgetFactory {
 			return new ELTComponentNameWidget();
 		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
 			return new ELTSafeWidget();
-		}else{
+			
+		}
+		else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
+			return new ELTSchemaWidget(); 
+			
+		}
+		else{
 			return new MyCustomWidget();
 		}
 		
