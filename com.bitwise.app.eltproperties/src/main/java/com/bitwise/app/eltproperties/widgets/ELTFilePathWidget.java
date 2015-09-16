@@ -28,19 +28,27 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 	private String propertyName;
 	private Text filename;
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
 		final Shell shell = composite.getShell();
 		Label lblNewLabel = new Label(composite, SWT.BORDER | SWT.CENTER);
-		lblNewLabel.setLayoutData(new FormData());
+		FormData fd_lblNewLabel = new FormData();
+		fd_lblNewLabel.left = new FormAttachment(0, 10);
+		lblNewLabel.setLayoutData(fd_lblNewLabel);
 		lblNewLabel.setBounds(40, 83, 70, 21);
 		lblNewLabel.getBackground();
 		lblNewLabel.setText("File Path:");
 		filename = new Text(composite, SWT.BORDER);
+		fd_lblNewLabel.top = new FormAttachment(filename, 2, SWT.TOP);
+		fd_lblNewLabel.right = new FormAttachment(filename, -27);
 		FormData fd_filename = new FormData();
-		fd_filename.left = new FormAttachment(lblNewLabel, 22);
+		fd_filename.left = new FormAttachment(0, 87);
+		fd_filename.top = new FormAttachment(0, 26);
 		filename.setLayoutData(fd_filename);
 		filename.setBounds(137, 83, 200, 21);
 		filename.addModifyListener(new ModifyListener() {
@@ -57,9 +65,10 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		});
 
 		Button btnNewButton = new Button(composite, SWT.PUSH);
-		fd_filename.right = new FormAttachment(100, -241);
+		fd_filename.right = new FormAttachment(100, -125);
 		FormData fd_btnNewButton = new FormData();
-		fd_btnNewButton.top = new FormAttachment(lblNewLabel, 0, SWT.TOP);
+		fd_btnNewButton.top = new FormAttachment(0, 24);
+		fd_btnNewButton.left = new FormAttachment(filename, 17);
 		btnNewButton.setLayoutData(fd_btnNewButton);
 		btnNewButton.setBounds(350, 83, 20, 21);
 		btnNewButton.setText("...");
