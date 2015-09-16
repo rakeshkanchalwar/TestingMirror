@@ -1,6 +1,7 @@
 package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -11,6 +12,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
@@ -78,7 +81,6 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			formToolkit.paintBordersFor(combo);
 			
 			text = new Text(composite_3, SWT.BORDER);
-			text.setText("$");
 			text.setVisible(false);
 			FormData fd_text = new FormData();
 			fd_text.top = new FormAttachment(0,8);
@@ -109,13 +111,12 @@ public class ELTSafeWidget extends AbstractELTWidget{
 					}
 				}
 			});
-			
 			 
 			text.addModifyListener(new ModifyListener() {
 				
 				@Override
 				public void modifyText(ModifyEvent e) {
-					if( text.getText().isEmpty()||!check(text.getText())) {
+					if( text.getText().isEmpty()) {
 						
 						txtDecorator.show();
 						text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
@@ -130,13 +131,20 @@ public class ELTSafeWidget extends AbstractELTWidget{
 					
 				}
 			});
-			
-		}
-	public boolean check(String textBoxValue)
-	{
-		boolean isMatched = Pattern.matches("\\$(\\w+)", textBoxValue);
-		return isMatched;
-	
+			text.addVerifyListener(new VerifyListener() {
+				
+				@Override
+				public void verifyText(VerifyEvent e) {
+					String string=e.text;
+					Matcher matchs=Pattern.compile("[\\w]*").matcher(string);
+					if(!matchs.matches()){
+						txtDecorator.show();
+						e.doit=false;
+				}else
+						txtDecorator.hide();
+				
+				}
+			});	
 	}
 	
 
@@ -149,9 +157,10 @@ public class ELTSafeWidget extends AbstractELTWidget{
 				text.setVisible(true);	
 			text.setText((String) property.get("textBoxValue"));
 			combo.setText((String)properties);
-		}/*else{
-			//combo.setText(" ");
-		}*/
+		}else{
+			text.setText(" ");
+			text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+		}
 	}
 
 	@Override

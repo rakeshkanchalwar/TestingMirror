@@ -1,6 +1,7 @@
 package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -11,6 +12,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
@@ -64,10 +67,6 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 			
 
 			combo = new Combo(composite_3, SWT.READ_ONLY);
-			//combo.setText("");
-			/*combo.add("True");
-			combo.add("False");
-			combo.add("Parameter");*/
 			combo.setItems(new String[]{"True","False","Parameter"});
 			combo.select(1);
 			fd_lblAdesss.top = new FormAttachment(combo, 0, SWT.TOP);
@@ -83,7 +82,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 			formToolkit.paintBordersFor(combo);
 			
 			text_1 = new Text(composite_3, SWT.BORDER);
-			//text_1.setText("$");
+		
 			text_1.setVisible(false);
 			FormData fd_text = new FormData();
 			fd_text.top = new FormAttachment(0, 8);
@@ -97,8 +96,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 			Image img = fieldDecoration.getImage();
 			txtDecorator.setImage(img);
 			txtDecorator.setDescriptionText(Messages.CHARACTERSET);
-			//combo.setItems(Items);
-			//new AutoCompleteField(combo, new ComboContentAdapter(), Items);
+			
 			combo.addSelectionListener(new SelectionAdapter() {
 				@Override 
 			    public void widgetSelected(SelectionEvent e) {
@@ -116,7 +114,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 				
 				@Override
 				public void modifyText(ModifyEvent e) {
-					if( text_1.getText().isEmpty()||!check(text_1.getText())) {
+					if( text_1.getText().isEmpty()) {
 						
 						txtDecorator.show();
 						text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
@@ -124,50 +122,27 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 					}
 					else{
 						txtDecorator.hide();
-						text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
-						
-						
+						text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));	
 				}
 					
 				}
 			});
 			
-		}
-	public boolean check(String string)
-	{
-		boolean isMatched = Pattern.matches("\\$(\\w+)", string);
-		//System.out.println("*** "+isMatched);
-		return isMatched;
-	
-	}
-			
-			/*text_1.addModifyListener(new ModifyListener() {
+			text_1.addVerifyListener(new VerifyListener() {
 				
 				@Override
-				public void modifyText(ModifyEvent e) {
-					if(text_1.getText().isEmpty()) {
-						text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-					}
-					else{
-						text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
-					}
+				public void verifyText(VerifyEvent e) {
+					String string=e.text;
+					Matcher matchs=Pattern.compile("[\\w]*").matcher(string);
+					if(!matchs.matches()){
+						txtDecorator.show();
+						e.doit=false;
+				}else
+						txtDecorator.hide();
+				
 				}
-			});*/
-		
-		/*text_1.addVerifyListener(new VerifyListener() {
-		
-		@Override
-		public void verifyText(VerifyEvent e) {
-			String string=e.text;
-			Matcher matchs=Pattern.compile("\\$(\\w+)").matcher(string);
-			if(matchs.matches()){
-				txtDecorator.show();
-				e.doit=false;
-			}else
-				txtDecorator.hide();
+			});	
 		}
-	});*/
-	
 	
 	@Override
     public void setProperties(String propertyName, Object properties) {
@@ -179,7 +154,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
                 text_1.setText((String) property.get("header_text"));
                 combo.setText((String)properties);
           }else{
-                text_1.setText("$");
+                text_1.setText(" ");
                // combo.setText(" ");
           }
     }

@@ -1,6 +1,7 @@
 package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -11,6 +12,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
@@ -124,11 +127,10 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 			
 			@Override
 			public void modifyText(ModifyEvent e) {
-				if( text_1.getText().isEmpty()||!check(text_1.getText())) {
+				if( text_1.getText().isEmpty()) {
 					
 					txtDecorator.show();
-					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-					
+					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));	
 				}
 				else{
 					txtDecorator.hide();
@@ -139,42 +141,22 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 				
 			}
 		});
-		
-	}
-		public boolean check(String string){
-			boolean isMatched = Pattern.matches("\\$(\\w+)", string);
-			return isMatched;
-
-	}
-		/*text_1.addModifyListener(new ModifyListener() {
-			
-			@Override
-			public void modifyText(ModifyEvent e) {
-				if(text_1.getText().isEmpty()) {
-					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-				}
-				else{
-					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
-			}
-				
-			}
-		});*/
-		/*text_1.addVerifyListener(new VerifyListener() {
+		text_1.addVerifyListener(new VerifyListener() {
 			
 			@Override
 			public void verifyText(VerifyEvent e) {
 				String string=e.text;
-				Matcher matchs=Pattern.compile("\\$(\\w+)").matcher(string);
-				if(matchs.matches()){
+				Matcher matchs=Pattern.compile("[\\w]*").matcher(string);
+				if(!matchs.matches()){
 					txtDecorator.show();
 					e.doit=false;
 			}else
 					txtDecorator.hide();
+			
 			}
-		});*/
-		
+		});	
+	}
 	
-
 	@Override
     public void setProperties(String propertyName, Object properties) {
           this.properties =  properties; 
@@ -182,11 +164,12 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
           if(properties != null){
                 if(((String) properties).equalsIgnoreCase("Parameter"))
                       text_1.setVisible(true);  
-                text_1.setText((String) property.get("text_value"));
+                text_1.setText("$"+(String) property.get("text_value"));
                 combo.setText((String)properties);
           }else{
-                text_1.setText("$");
-               // combo.setText(" ");
+                text_1.setText(" ");
+               text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+              
           }
     }
 
