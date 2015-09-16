@@ -3,11 +3,12 @@
   <tns:component iconPath="/icons/output.png" name="Replicate" shape="ReplicateFigure">
 	<tns:category>STRAIGHTPULL</tns:category>
 	<tns:inputPort>
-		<tns:numberOfPorts>0</tns:numberOfPorts>
+		<tns:numberOfPorts>1</tns:numberOfPorts>
 	</tns:inputPort>
 	<tns:outputPort>
 		<tns:numberOfPorts>1</tns:numberOfPorts>
-		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+		<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
 	</tns:outputPort>
+	 <tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE" />
 	</tns:component>
 </tns:Config>

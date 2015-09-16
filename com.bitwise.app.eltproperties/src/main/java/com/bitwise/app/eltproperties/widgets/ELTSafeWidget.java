@@ -11,6 +11,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
@@ -92,7 +94,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			Image img = fieldDecoration.getImage();
 			txtDecorator.setImage(img);
 			txtDecorator.setDescriptionText(Messages.FIELDSAFE);
-				txtDecorator.hide();
+			txtDecorator.hide();
 			
 			combo.addSelectionListener(new SelectionAdapter() {
 				@Override 
@@ -101,6 +103,8 @@ public class ELTSafeWidget extends AbstractELTWidget{
 					if(combo.getText().equals("Parameter")) {
 					
 						text.setVisible(true);
+
+						
 						
 					}else {
 						
@@ -115,21 +119,29 @@ public class ELTSafeWidget extends AbstractELTWidget{
 				
 				@Override
 				public void modifyText(ModifyEvent e) {
+					
 					if( text.getText().isEmpty()||!check(text.getText())) {
 						
 						txtDecorator.show();
+						
 						text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
 						
 					}
 					else{
 						txtDecorator.hide();
+						
 						text.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
 						
 						
 				}
 					
 				}
+				
+					
+				
 			});
+			
+
 			
 		}
 	public boolean check(String textBoxValue)
@@ -149,9 +161,9 @@ public class ELTSafeWidget extends AbstractELTWidget{
 				text.setVisible(true);	
 			text.setText((String) property.get("textBoxValue"));
 			combo.setText((String)properties);
-		}/*else{
-			//combo.setText(" ");
-		}*/
+		}else{
+			text.setText("$");
+			}
 	}
 
 	@Override
