@@ -9,26 +9,10 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.ComponentConnection;
 
 public class ConnectionCreateCommand extends Command{
-	/** The connection instance. */
-	private ComponentConnection connection;
-	/** The desired line style for the connection (dashed or solid). */
-	private int lineStyle;
-
 	
+	private ComponentConnection connection;
 	private Component source, target;
-	protected String sourceTerminal, targetTerminal;
-
-	protected Component oldSource;
-	protected String oldSourceTerminal;
-	protected Component oldTarget;
-	protected String oldTargetTerminal;
-	/**
-	 * Instantiate a command that can create a connection between two shapes.
-	 * @param source the source endpoint (a non-null Shape instance)
-	 * @param lineStyle the desired line style. See Connection#setLineStyle(int) for details
-	 * @throws IllegalArgumentException if source is null
-	 * @see ComponentConnection#setLineStyle(int)
-	 */
+	private String sourceTerminal, targetTerminal;
 	
 	public ConnectionCreateCommand() {
 		super("connection");
@@ -40,7 +24,7 @@ public class ConnectionCreateCommand extends Command{
 		}
 		setLabel("connection creation");
 		this.source = source;
-		this.lineStyle = lineStyle;
+		
 	}
 
 	public boolean canExecute() {
@@ -50,7 +34,7 @@ public class ConnectionCreateCommand extends Command{
 			return false;
 		}
 		// return false, if the source -> target connection exists already
-		for (Iterator iter = source.getSourceConnections().iterator(); iter
+		for (Iterator<ComponentConnection> iter = source.getSourceConnections().iterator(); iter
 				.hasNext();) {
 			ComponentConnection conn = (ComponentConnection) iter.next();
 			
@@ -59,9 +43,8 @@ public class ConnectionCreateCommand extends Command{
 			}
 		}
 		
-		if(!source.allowMoreOutGoingLinks())
-			
 		
+		if(!source.allowMoreOutGoingLinks())	
 			return false;
 		if(target!=null)
 			if(!target.allowMoreInComingLinks())
@@ -70,11 +53,6 @@ public class ConnectionCreateCommand extends Command{
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#execute()
-	 */
 	public void execute() {
 		
 		if(source!=null){
@@ -113,13 +91,8 @@ public class ConnectionCreateCommand extends Command{
 	public void setTargetTerminal(String newTargetTerminal) {
 		targetTerminal = newTargetTerminal;
 	}
-
 	
 	public void setConnection(ComponentConnection w) {
 		connection = w;
-		oldSource = w.getSource();
-		oldTarget = w.getTarget();
-		oldSourceTerminal = w.getSourceTerminal();
-		oldTargetTerminal = w.getTargetTerminal();
 	}
 }

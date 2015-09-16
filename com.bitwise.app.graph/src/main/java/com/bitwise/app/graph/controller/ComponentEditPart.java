@@ -120,8 +120,8 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		IFigure f = createFigureForModel();
 		f.setOpaque(true); // non-transparent figure
 		f.setBackgroundColor(ColorConstants.white);
-		f.setForegroundColor(new Color(null,6, 105, 138));
-		f.setBorder(new LineBorder(2));
+//		f.setForegroundColor(new Color(null,6, 105, 138));
+//		f.setBorder(new LineBorder(2));
 		return f;
 	}
 

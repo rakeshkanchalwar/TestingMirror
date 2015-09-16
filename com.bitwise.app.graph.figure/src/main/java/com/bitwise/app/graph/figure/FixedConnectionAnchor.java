@@ -154,6 +154,10 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		
 		
 	}
-	
+	@Override
+	public void addAnchorListener(AnchorListener listener) {
+		// TODO Auto-generated method stub
+		super.addAnchorListener(listener);
+	}
 	
 }

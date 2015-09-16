@@ -16,19 +16,15 @@ public class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
 	
 	public static final String LOCATION_PROP = "Location";
-//	/** Property ID to use then the size of this shape is modified. */
 	public static final String SIZE_PROP = "Size";
 	
 	private Point location = new Point(0, 0);
-	
 	private Dimension size = new Dimension(80, 60);
-	
 	private Map<String, Object> properties = new LinkedHashMap<>();
-	
 	private Container parent;
 	
 	protected Hashtable<String, ComponentConnection> inputs = new Hashtable<String, ComponentConnection>(7);
-	protected Vector<ComponentConnection> outputs = new Vector<ComponentConnection>(4, 4);
+	protected Hashtable<String, ComponentConnection> outputs = new Hashtable<String, ComponentConnection>(7);
 	
 	public static final String INPUTS = "inputs", 
 			OUTPUTS = "outputs"; 
@@ -36,7 +32,7 @@ public class Component extends Model {
 	protected int numberOfOutGoingLinks=0;
 	protected int numberOfInComingLinks=0;
 	
-	//protected int numberOfOutGoingLinksLimit=1, numberOfInComingLinksLimit=1;
+	//-------------------------------------
 	protected boolean allowMultipleLinks=false;
 	
 	public boolean allowMoreOutGoingLinks(){
@@ -53,6 +49,11 @@ public class Component extends Model {
 		return false;
 	}
 	
+	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
+		this.allowMultipleLinks = allowMultipleLinks;
+	}
+	//-------------------------------------
+	
 	public void connectInput(ComponentConnection c) {
 		inputs.put(c.getTargetTerminal(), c);
 		numberOfInComingLinks++;
@@ -60,14 +61,17 @@ public class Component extends Model {
 	}
 
 	public void connectOutput(ComponentConnection c) {
-		outputs.addElement(c);
+		outputs.put(c.getSourceTerminal(), c);
 		numberOfOutGoingLinks++;
 		fireStructureChange(OUTPUTS, c);
 	}
 	
 	public List<ComponentConnection> getSourceConnections() {
-		
-		return (Vector<ComponentConnection>) outputs.clone();
+		Enumeration<ComponentConnection> elements = outputs.elements();
+		Vector<ComponentConnection> v = new Vector<ComponentConnection>(outputs.size());
+		while (elements.hasMoreElements())
+			v.addElement(elements.nextElement());
+		return v;
 	}
 
 	public List<ComponentConnection> getTargetConnections() {
@@ -83,10 +87,6 @@ public class Component extends Model {
 		this.properties = properties;
 	}
 	
-	
-	/**
-	 * Return the property value for the given propertyId, or null.
-	 */
 	public Object getPropertyValue(Object propertyId) {
 		if(properties.containsKey(propertyId)){
 			return properties.get(propertyId);
@@ -94,24 +94,12 @@ public class Component extends Model {
 		return null;
 	}
 	
-	/**
-	 * Set the property value for the given property id. 
-	 */
 	public void setPropertyValue(Object propertyId, Object value) {
 		if(properties.containsKey(propertyId)){
 			properties.put((String)propertyId, (String)value);
 		}
 	}
 	
-	
-	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
-		this.allowMultipleLinks = allowMultipleLinks;
-	}
-	/**
-	 * Set the Location of this shape.
-	 * @param newLocation a non-null Point instance
-	 * @throws IllegalArgumentException if the parameter is null
-	 */
 	public void setLocation(Point newLocation) {
 		if (newLocation == null) {
 			throw new IllegalArgumentException();
@@ -120,20 +108,11 @@ public class Component extends Model {
 		firePropertyChange(LOCATION_PROP, null, location);
 	}
 	
-	/**
-	 * Return the Location of this shape.
-	 * @return a non-null location instance
-	 */
+	
 	public Point getLocation() {
 		return location.getCopy();
 	}
-//	
-	/**
-	 * Set the Size of this shape. Will not modify the size if newSize is null.
-	 * 
-	 * @param newSize
-	 *            a non-null Dimension instance or null
-	 */
+
 	public void setSize(Dimension newSize) {
 		if (newSize != null) {
 			size.setSize(newSize);
@@ -141,11 +120,6 @@ public class Component extends Model {
 		}
 	}
 	
-	/**
-	 * Return the Size of this shape.
-	 * 
-	 * @return a non-null Dimension instance
-	 */
 	public Dimension getSize() {
 		return size.getCopy();
 	}
