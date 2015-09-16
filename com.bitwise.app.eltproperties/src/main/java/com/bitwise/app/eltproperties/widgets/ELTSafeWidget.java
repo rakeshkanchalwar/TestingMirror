@@ -81,6 +81,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			formToolkit.paintBordersFor(combo);
 			
 			text = new Text(composite_3, SWT.BORDER);
+		
 			text.setVisible(false);
 			FormData fd_text = new FormData();
 			fd_text.top = new FormAttachment(0,8);
@@ -94,7 +95,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			Image img = fieldDecoration.getImage();
 			txtDecorator.setImage(img);
 			txtDecorator.setDescriptionText(Messages.FIELDSAFE);
-				txtDecorator.hide();
+			txtDecorator.hide();
 			
 			combo.addSelectionListener(new SelectionAdapter() {
 				@Override 
@@ -103,6 +104,8 @@ public class ELTSafeWidget extends AbstractELTWidget{
 					if(combo.getText().equals("Parameter")) {
 					
 						text.setVisible(true);
+
+						
 						
 					}else {
 						
@@ -111,26 +114,30 @@ public class ELTSafeWidget extends AbstractELTWidget{
 					}
 				}
 			});
+			
 			 
 			text.addModifyListener(new ModifyListener() {
 				
 				@Override
 				public void modifyText(ModifyEvent e) {
+					
 					if( text.getText().isEmpty()) {
 						
 						txtDecorator.show();
+						
 						text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
 						
 					}
 					else{
 						txtDecorator.hide();
+						
 						text.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
 						
 						
 				}
 					
 				}
-			});
+			});	
 			text.addVerifyListener(new VerifyListener() {
 				
 				@Override
@@ -145,7 +152,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 				
 				}
 			});	
-	}
+		}
 	
 
 	@Override
@@ -159,8 +166,8 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			combo.setText((String)properties);
 		}else{
 			text.setText(" ");
-			text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-		}
+			 text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+			}
 	}
 
 	@Override

@@ -155,7 +155,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
                 combo.setText((String)properties);
           }else{
                 text_1.setText(" ");
-               // combo.setText(" ");
+                text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
           }
     }
 
