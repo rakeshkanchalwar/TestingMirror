@@ -21,9 +21,9 @@ import org.eclipse.draw2d.geometry.Point;
 
 public class ComponentFigure extends Figure {
 
-	protected Hashtable connectionAnchors = new Hashtable(7);
-	protected Vector inputConnectionAnchors = new Vector(2, 2);
-	protected Vector outputConnectionAnchors = new Vector(2, 2);
+	protected Hashtable<String, FixedConnectionAnchor> connectionAnchors = new Hashtable<String, FixedConnectionAnchor>(7);
+	protected Vector<FixedConnectionAnchor> inputConnectionAnchors = new Vector<FixedConnectionAnchor>(2, 2);
+	protected Vector<FixedConnectionAnchor> outputConnectionAnchors = new Vector<FixedConnectionAnchor>(2, 2);
 	protected String labelName;
      public ComponentFigure()
      {
@@ -48,7 +48,7 @@ public class ComponentFigure extends Figure {
 	}
 
 	public String getConnectionAnchorName(ConnectionAnchor c) {
-		Enumeration keys = connectionAnchors.keys();
+		Enumeration<?> keys = connectionAnchors.keys();
 		String key;
 		while (keys.hasMoreElements()) {
 			key = (String) keys.nextElement();
@@ -64,7 +64,7 @@ public class ComponentFigure extends Figure {
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
 
-		Enumeration e = getSourceConnectionAnchors().elements();
+		Enumeration<?> e = getSourceConnectionAnchors().elements();
 		while (e.hasMoreElements()) {
 			ConnectionAnchor c = (ConnectionAnchor) e.nextElement();
 			Point p2 = c.getLocation(null);
@@ -77,7 +77,7 @@ public class ComponentFigure extends Figure {
 		return closest;
 	}
 
-	public Vector getSourceConnectionAnchors() {
+	public Vector<?> getSourceConnectionAnchors() {
 		 
 		return outputConnectionAnchors;
 	}
@@ -87,7 +87,7 @@ public class ComponentFigure extends Figure {
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
 
-		Enumeration e = getTargetConnectionAnchors().elements();
+		Enumeration<?> e = getTargetConnectionAnchors().elements();
 		while (e.hasMoreElements()) {
 			ConnectionAnchor c = (ConnectionAnchor) e.nextElement();
 			Point p2 = c.getLocation(null);
@@ -101,7 +101,7 @@ public class ComponentFigure extends Figure {
 		return closest;
 	}
 
-	public Vector getTargetConnectionAnchors() {
+	public Vector<?> getTargetConnectionAnchors() {
 		
 		return inputConnectionAnchors;
 	}
