@@ -24,13 +24,15 @@ public class ComponentFigure extends Figure {
 	protected Hashtable connectionAnchors = new Hashtable(7);
 	protected Vector inputConnectionAnchors = new Vector(2, 2);
 	protected Vector outputConnectionAnchors = new Vector(2, 2);
-	//private Label labelName = new Label();
 	protected String labelName;
-
+     public ComponentFigure()
+     {
+    }
 	public String getLabelName() {
 		return labelName;
 	}
-
+     
+	
 	public void setLabelName(String labelName) {
 		this.labelName = labelName;
 	}

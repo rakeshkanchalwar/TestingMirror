@@ -1,8 +1,8 @@
 package com.bitwise.app.graph.figure;
 
-import java.math.BigInteger;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -11,26 +11,35 @@ import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
-
-
-public class OutputFigure extends ComponentFigure 
+public class ReplicateFigure extends ComponentFigure
 implements HandleBounds{
 	Point labelPoint;
-	Font labelFont = new Font(null, "", 10, 1);
-	
-	
-	public OutputFigure() {
-		
-		FixedConnectionAnchor c;
-		c = new FixedConnectionAnchor(this);
-		c.setType("in");
-		c.setTotalPortsOfThisType(1);
-		c.setSequence(1);
-		c.setAllowMultipleLinks(false);
-		c.setLinkMandatory(true);
-		
-		connectionAnchors.put(c.getType()+c.getSequence(), c);
-		inputConnectionAnchors.addElement(c);
+	Font labelFont = new Font(null, "", 10, 1); 
+	FixedConnectionAnchor c_in1, c_out1;
+
+
+	public ReplicateFigure() {
+		c_in1 = new FixedConnectionAnchor(this);
+		c_in1.setType("in");
+		c_in1.setTotalPortsOfThisType(1);
+		c_in1.setSequence(1);
+		c_in1.setAllowMultipleLinks(false);
+		c_in1.setLinkMandatory(true);
+
+		connectionAnchors.put("in1", c_in1);
+		inputConnectionAnchors.addElement(c_in1);
+		//-------------------------------------
+
+		c_out1 = new FixedConnectionAnchor(this);
+		c_out1.setType("out");
+		c_out1.setTotalPortsOfThisType(1);
+		c_out1.setSequence(1);
+		c_out1.setAllowMultipleLinks(true);
+		c_out1.setLinkMandatory(true);
+
+		connectionAnchors.put("out1", c_out1);
+		outputConnectionAnchors.addElement(c_out1);
+
 		setBorder(new ComponentBorder(ColorConstants.black));
 	}
 
@@ -40,11 +49,11 @@ implements HandleBounds{
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(new Color(null,220, 221, 227));
+		graphics.setBackgroundColor(new Color(null,188, 190, 196));
 		graphics.setForegroundColor(ColorConstants.black);
 		graphics.fillRectangle(4, 4, r.width-8, r.height-8);
 
-		labelPoint = new Point(r.width/2-28, r.height/2-10);
+		labelPoint = new Point(r.width/2-25, r.height/2-10);
 		graphics.setFont(labelFont);
 		graphics.drawText(getLabelName(), labelPoint);
 
@@ -62,9 +71,16 @@ implements HandleBounds{
 		graphics.setBackgroundColor(ColorConstants.black);
 		graphics.fillPolygon(connector);
 
+		graphics.translate(-leftPortPoint.x, -leftPortPoint.y);
 		
+		//for port at right side
+		Point rightPortPoint=getPortLocation(r, 1, "out", 1);
+		graphics.translate(rightPortPoint);
+		graphics.setBackgroundColor(ColorConstants.black);
+		graphics.fillPolygon(connector);
 
 	}
+
 	public Point getPortLocation(Rectangle r, int totalPortsOfThisType, String type, int sequence) {
 
 		System.out.println("getPortLocation method from figure called!!");
@@ -94,24 +110,27 @@ implements HandleBounds{
 		}
 		return p;
 	}
+
 	@Override
 	public void validate() {
 		super.validate();
-		System.out.println("OutputFigure:validate");
+		System.out.println("CopyToManyFigure:validate");
 		if (isValid())
 			return;
 
 	}
-	
+
 
 	protected boolean useLocalCoordinates() {
 		return true;
 	}
 
 	public Rectangle getHandleBounds() {
-		
+		//return getBounds().getCropped(new Insets(2, 0, 2, 0));
 		return getBounds().getCopy();
 	}
-	
-	
+
+
+
 }
+

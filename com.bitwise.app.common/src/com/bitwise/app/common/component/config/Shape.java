@@ -14,31 +14,40 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for data_type.
+ * <p>Java class for shape.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="data_type">
+ * &lt;simpleType name="shape">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="string"/>
- *     &lt;enumeration value="boolean"/>
+ *     &lt;enumeration value="InputFigure"/>
+ *     &lt;enumeration value="OutputFigure"/>
+ *     &lt;enumeration value="FilterFigure"/>
+ *     &lt;enumeration value="GatherFigure"/>
+ *     &lt;enumeration value="ReplicateFigure"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "data_type")
+@XmlType(name = "shape")
 @XmlEnum
-public enum DataType {
+public enum Shape {
 
-    @XmlEnumValue("string")
-    STRING("string"),
-    @XmlEnumValue("boolean")
-    BOOLEAN("boolean");
+    @XmlEnumValue("InputFigure")
+    INPUT_FIGURE("InputFigure"),
+    @XmlEnumValue("OutputFigure")
+    OUTPUT_FIGURE("OutputFigure"),
+    @XmlEnumValue("FilterFigure")
+    FILTER_FIGURE("FilterFigure"),
+    @XmlEnumValue("GatherFigure")
+    GATHER_FIGURE("GatherFigure"),
+    @XmlEnumValue("ReplicateFigure")
+    REPLICATE_FIGURE("ReplicateFigure");
     private final String value;
 
-    DataType(String v) {
+    Shape(String v) {
         value = v;
     }
 
@@ -46,8 +55,8 @@ public enum DataType {
         return value;
     }
 
-    public static DataType fromValue(String v) {
-        for (DataType c: DataType.values()) {
+    public static Shape fromValue(String v) {
+        for (Shape c: Shape.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

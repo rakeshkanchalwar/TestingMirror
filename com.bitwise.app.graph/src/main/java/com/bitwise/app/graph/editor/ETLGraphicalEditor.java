@@ -62,8 +62,8 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.actions.ActionFactory;
 import org.xml.sax.SAXException;
 
+import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
-import com.bitwise.app.common.component.policyconfig.CategoryType;
 import com.bitwise.app.common.util.ELTLoggerUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;

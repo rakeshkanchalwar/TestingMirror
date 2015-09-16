@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+  <tns:component iconPath="/icons/output.png" name="Replicate" shape="ReplicateFigure">
+	<tns:category>STRAIGHTPULL</tns:category>
+	<tns:inputPort>
+		<tns:numberOfPorts>0</tns:numberOfPorts>
+	</tns:inputPort>
+	<tns:outputPort>
+		<tns:numberOfPorts>1</tns:numberOfPorts>
+		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+	</tns:outputPort>
+	</tns:component>
+</tns:Config>

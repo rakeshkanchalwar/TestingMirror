@@ -17,10 +17,11 @@
 			<element name="inputPort" type="tns:IOPort" maxOccurs="1" minOccurs="0" />
 			<element name="outputPort" type="tns:IOPort" maxOccurs="1" minOccurs="0" />
 			<element name="property" type="tns:Property" maxOccurs="unbounded" minOccurs="0" />
-			 <element name="policy" type="tns:Policy" maxOccurs="unbounded" minOccurs="0" /> 
+			<element name="policy" type="tns:Policy" maxOccurs="unbounded" minOccurs="0" /> 
 		</sequence>
 		<attribute name="name" type="string" use="required"></attribute>
 		<attribute name="iconPath" type="string" use="required"></attribute>
+		<attribute name="shape" type="tns:shape" use="required"></attribute>
 	</complexType>
 
 
@@ -115,6 +116,17 @@
 		<restriction base="string">
 			<enumeration value="INPUT" />
 			<enumeration value="OUTPUT" />
+			<enumeration value="STRAIGHTPULL" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="shape">
+		<restriction base="string">
+			<enumeration value="InputFigure"/>
+			<enumeration value="OutputFigure"/>
+			<enumeration value="FilterFigure"/>
+			<enumeration value="GatherFigure"/>
+			<enumeration value="ReplicateFigure"/>
 		</restriction>
 	</simpleType>
 </schema>

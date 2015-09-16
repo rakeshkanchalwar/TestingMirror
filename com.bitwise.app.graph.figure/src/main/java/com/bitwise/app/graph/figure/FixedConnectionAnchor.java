@@ -20,28 +20,12 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
-	private boolean left, right;
-	private int numberOfOutGoingLinksLimit;
-	private int numberOfInComingLinksLimit;
-	
-
-	public boolean isLeft() {
-		return left;
-	}
+	private boolean allowMultipleLinks, linkMandatory;
+	private String type;
+	private int totalPortsOfThisType;
+	private int sequence;
 
 	
-
-	public void setLeft(boolean left) {
-		this.left = left;
-	}
-
-	public boolean isRight() {
-		return right;
-	}
-
-	public void setRight(boolean right) {
-		this.right = right;
-	}
 
 	public FixedConnectionAnchor(IFigure owner) {
 		super(owner);
@@ -57,18 +41,80 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	}
 	
 	public Point getLocation(Point reference) {
-		
-		//Point p = getOwner().getBounds().getCenter();
+		System.out.println("getLocation method from anchor called!!");
 		Point p = null ;
-		int ht=getOwner().getBounds().height/2;
-		if(this.left)
-			 p = getOwner().getBounds().getLeft();
-		else if(this.right)
-			 p = getOwner().getBounds().getRight();
+		int portOffsetFactor = this.totalPortsOfThisType+1;
+		int height = getOwner().getBounds().height;
+		int portOffset=height/portOffsetFactor;
+		
+		int xLocation, yLocation;
+		
+		System.out.println("portOffsetFactor: "+portOffsetFactor);
+		System.out.println("height: "+height);
+		System.out.println("portOffset: "+portOffset);
+		
+		if(this.type.equals("in")){
+			 xLocation=getOwner().getBounds().getTopLeft().x;
+			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
+			 System.out.println("Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+			 p=new Point(xLocation, yLocation);
+		}
+		else if(this.type.equals("out")){
+			 xLocation=getOwner().getBounds().getTopRight().x;
+			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
+			 System.out.println("Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+			 p=new Point(xLocation, yLocation);
+		}
 		return p;
 	}
 
 		
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
+
+	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
+		this.allowMultipleLinks = allowMultipleLinks;
+	}
+
+	public void setLinkMandatory(boolean linkMandatory) {
+		this.linkMandatory = linkMandatory;
+	}
+
+	public int getTotalPortsOfThisType() {
+		return totalPortsOfThisType;
+	}
+
+	public void setTotalPortsOfThisType(int totalPortsOfThisType) {
+		this.totalPortsOfThisType = totalPortsOfThisType;
+	}
+
+	
+	@Override
+	public String toString() {
+				
+		 String str="\n******************************************"+
+				"\nOwner: "+getOwner()+
+				"\nallowMultipleLinks: "+this.allowMultipleLinks+
+				"\nlinkMandatory: "+this.linkMandatory+
+				"\ntype: "+this.type+
+				"\nsequence: "+this.sequence+
+				"\ntotalPortsOfThisType: "+this.totalPortsOfThisType+
+				"\n******************************************\n";
+		 return str;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -78,13 +124,13 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		if (o instanceof FixedConnectionAnchor) {
 			FixedConnectionAnchor fa = (FixedConnectionAnchor) o;
 			
-//			if ( fa.getOwner() == this.getOwner() &&
-//				 fa.getNumberOfInComingLinksLimit() == this.getNumberOfInComingLinksLimit() &&
-//				 fa.getNumberOfOutGoingLinksLimit() == this.getNumberOfOutGoingLinksLimit() &&
-//				 fa.getReferencePoint() == this.getReferencePoint())
-//				return true;
-			
-			if ( fa.getOwner() == this.getOwner())
+			if ( fa.getOwner() == this.getOwner() &&
+					fa.getType().equals(this.getType()) &&
+					fa.getTotalPortsOfThisType()==this.getTotalPortsOfThisType() &&
+					fa.getSequence() == this.getSequence() &&
+					fa.allowMultipleLinks == this.allowMultipleLinks &&
+					fa.linkMandatory == this.linkMandatory
+				)
 				return true;
 			
 		}
@@ -98,7 +144,15 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public int hashCode() {
-		return  this.getOwner().hashCode();
+		int result = 17;
+		int var1 = (allowMultipleLinks?1:0);
+		int var2 = (linkMandatory?1:0);
+		result = 31 * result + var1;
+		result = 31 * result + var2;
+		
+		return result;
+		
+		
 	}
 	@Override
 	public void addAnchorListener(AnchorListener listener) {
@@ -106,19 +160,4 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		super.addAnchorListener(listener);
 	}
 	
-	public int getNumberOfOutGoingLinksLimit() {
-		return numberOfOutGoingLinksLimit;
-	}
-
-	public void setNumberOfOutGoingLinksLimit(int numberOfOutGoingLinksLimit) {
-		this.numberOfOutGoingLinksLimit = numberOfOutGoingLinksLimit;
-	}
-
-	public int getNumberOfInComingLinksLimit() {
-		return numberOfInComingLinksLimit;
-	}
-
-	public void setNumberOfInComingLinksLimit(int numberOfInComingLinksLimit) {
-		this.numberOfInComingLinksLimit = numberOfInComingLinksLimit;
-	}
 }

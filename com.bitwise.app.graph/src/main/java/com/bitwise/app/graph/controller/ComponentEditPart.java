@@ -39,6 +39,7 @@ import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.FixedConnectionAnchor;
 import com.bitwise.app.graph.figure.InputFigure;
 import com.bitwise.app.graph.figure.OutputFigure;
+import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.ComponentConnection;
 import com.bitwise.app.graph.model.InputComponent;
@@ -119,40 +120,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		IFigure f = createFigureForModel();
 		f.setOpaque(true); // non-transparent figure
 		f.setBackgroundColor(ColorConstants.white);
-		f.setForegroundColor(new Color(null,6, 105, 138));
-		f.setBorder(new LineBorder(2));
 		return f;
 	}
 
 	private IFigure createFigureForModel() {
 		String componentName = DynamicClassProcessor.INSTANCE
 				.getClazzName(getModel().getClass());
-		com.bitwise.app.common.component.config.Component component = XMLConfigUtil.INSTANCE
-				.getComponent(componentName);
-
-		if (getModel() instanceof InputComponent) {
-
-			BigInteger outputPorts = component.getOutputPort()
-					.getNumberOfPorts();
-			if (component.getOutputPort().isAllowMultipleLinks() != null) {
-				boolean isAllowedMultipleLinks = component.getOutputPort()
-						.isAllowMultipleLinks();
-				((Component) getModel())
-						.setAllowMultipleLinks(isAllowedMultipleLinks);
-			}
-			return new InputFigure(outputPorts, componentName);
-		} else if (getModel() instanceof OutputComponent) {
-			BigInteger inputPorts = component.getInputPort().getNumberOfPorts();
-			if (component.getInputPort().isAllowMultipleLinks() != null) {
-				boolean isAllowedMultipleLinks = component.getInputPort()
-						.isAllowMultipleLinks();
-				((Component) getModel())
-						.setAllowMultipleLinks(isAllowedMultipleLinks);
-			}
-			return new OutputFigure(inputPorts, componentName);
-		} else {
-			throw new IllegalArgumentException();
-		}
+		return new ModelFigureFactory().createFigureForComponent(componentName);
 	}
 
 	public Component getCastedModel() {
