@@ -31,8 +31,8 @@ public class Component extends Model {
 
 	private Container parent;
 
-	protected Hashtable inputs = new Hashtable(7);
-	protected Vector outputs = new Vector(4, 4);
+	protected Hashtable<String, ComponentConnection> inputs = new Hashtable<String, ComponentConnection>(7);
+	protected Vector<ComponentConnection> outputs = new Vector<ComponentConnection>(4, 4);
 
 	public static final String INPUTS = "inputs", OUTPUTS = "outputs";
 
@@ -40,7 +40,7 @@ public class Component extends Model {
 	protected int numberOfInComingLinks = 0;
 
 	// protected int numberOfOutGoingLinksLimit=1, numberOfInComingLinksLimit=1;
-	protected boolean allowMultipleLinks = false;
+	protected boolean allowMultipleLinks = true;
 
 	public boolean allowMoreOutGoingLinks() {
 
@@ -69,15 +69,15 @@ public class Component extends Model {
 		fireStructureChange(OUTPUTS, c);
 	}
 
-	public List getSourceConnections() {
+	public List<ComponentConnection> getSourceConnections() {
 
-		return (Vector) outputs.clone();
+		return (Vector<ComponentConnection>) outputs.clone();
 	}
 
-	public List getTargetConnections() {
+	public List<ComponentConnection> getTargetConnections() {
 
-		Enumeration elements = inputs.elements();
-		Vector v = new Vector(inputs.size());
+		Enumeration<ComponentConnection> elements = inputs.elements();
+		Vector<ComponentConnection> v = new Vector<ComponentConnection>(inputs.size());
 		while (elements.hasMoreElements())
 			v.addElement(elements.nextElement());
 		return v;
