@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Export-Package: com.bitwise.app.graph.models
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.draw2d;bundle-ver
+ sion="3.7.2"
+Bundle-Vendor: BITWISE
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 0.0.1.201509160935
+Bundle-Name: Model
+Bundle-Activator: com.bitwise.app.model.Activator
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.bitwise.app.model
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
