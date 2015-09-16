@@ -36,11 +36,11 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
 		final Shell shell = composite.getShell();
-		Label lblNewLabel = new Label(composite, SWT.BORDER | SWT.CENTER);
+		Label lblNewLabel = new Label(composite, SWT.READ_ONLY);
 		FormData fd_lblNewLabel = new FormData();
 		fd_lblNewLabel.left = new FormAttachment(0, 10);
 		lblNewLabel.setLayoutData(fd_lblNewLabel);
-		lblNewLabel.setBounds(40, 83, 70, 21);
+		lblNewLabel.setBounds(60, 83, 70, 21);
 		lblNewLabel.getBackground();
 		lblNewLabel.setText("File Path:");
 		filename = new Text(composite, SWT.BORDER);
