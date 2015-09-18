@@ -21,6 +21,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+
 
 public class ELTFilePathWidget extends AbstractWidget{
 	Group grpGroup_1;
@@ -31,7 +33,7 @@ public class ELTFilePathWidget extends AbstractWidget{
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	@Override
+	
 	public void attachToPropertySubGroup(Group subGroup) {
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
@@ -112,6 +114,12 @@ public class ELTFilePathWidget extends AbstractWidget{
 
 	@Override
 	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}

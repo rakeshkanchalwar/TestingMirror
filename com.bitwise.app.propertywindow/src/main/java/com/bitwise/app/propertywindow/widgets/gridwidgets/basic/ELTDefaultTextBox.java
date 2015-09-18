@@ -8,6 +8,13 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 18, 2015
+ * 
+ */
+
 public class ELTDefaultTextBox extends IELTWidget{
 	
 	private Text defaultELTTextBox;

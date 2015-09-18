@@ -16,7 +16,10 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 import com.bitwise.app.propertywindow.factory.WidgetFactory;
 import com.bitwise.app.propertywindow.property.Property;
+import com.bitwise.app.propertywindow.utils.WordUtils;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
 
 /**
  * 
@@ -50,16 +53,16 @@ public class PropertyDialogBuilder {
 			LinkedHashMap<String,ArrayList<Property>> subgroupTree = propertyTree.get(groupName);
 			for(String subgroupName: subgroupTree.keySet()){
 				Property property_1 = subgroupTree.get(subgroupName).get(0);
-				Group subGroup;
+				IELTContainerWidget subGroupContainer;
 				if(property_1 != null){
-					subGroup=addSubgroupToPropertyWindowTab(property_1.getPropertySubGroup(),scrolledCompositeHolder);
+					subGroupContainer=addSubgroupToPropertyWindowTab(property_1.getPropertySubGroup(),scrolledCompositeHolder);
 				}else{
-					subGroup=addSubgroupToPropertyWindowTab(subgroupName,scrolledCompositeHolder);
+					subGroupContainer=addSubgroupToPropertyWindowTab(subgroupName,scrolledCompositeHolder);
 				}
 				
 				for(Property property: subgroupTree.get(subgroupName)){
 					AbstractWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
-					eltWidget.attachToPropertySubGroup(subGroup);
+					eltWidget.attachToPropertySubGroup(subGroupContainer);
 					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
 					eltWidget.setNames(this.names);
 					eltWidgetList.add(eltWidget);
@@ -72,7 +75,7 @@ public class PropertyDialogBuilder {
 	public TabFolder addTabFolderToPropertyWindow(){
 		TabFolder tabFolder = new TabFolder(container, SWT.NONE);
 		final ColumnLayoutData cld_tabFolder = new ColumnLayoutData();
-		cld_tabFolder.heightHint = 377;
+		cld_tabFolder.heightHint = 303;
 		tabFolder.setLayoutData(cld_tabFolder);
 		
 		container.addControlListener(new ControlAdapter() {
@@ -88,9 +91,9 @@ public class PropertyDialogBuilder {
 	public ScrolledCompositeHolder addGroupToPropertyWindowTab(String groupName,TabFolder tabFolder){	
 		
 		TabItem tbtmPart = new TabItem(tabFolder, SWT.NONE);
-		tbtmPart.setText(groupName);
-				
-		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
+		tbtmPart.setText(WordUtils.capitalize(groupName.replace("_", " ").toLowerCase(), null));
+						
+		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.H_SCROLL | SWT.V_SCROLL);
 		scrolledComposite.setAlwaysShowScrollBars(true);
 		tbtmPart.setControl(scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);
@@ -106,18 +109,15 @@ public class PropertyDialogBuilder {
 		return scrolledCompositeHolder;
 	}
 	
-	public Group addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
-		Group grpGroup = new Group(scrolledCompositeHolder.getComposite(), SWT.NONE);
-		grpGroup.setText(subgroupName);
-		ColumnLayout cl_grpGroup = new ColumnLayout();
-		cl_grpGroup.topMargin = 20;
-		cl_grpGroup.maxNumColumns = 1;
-		grpGroup.setLayout(cl_grpGroup);
+	public IELTContainerWidget addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
+		
+		IELTContainerWidget eltDefaultSubgroup= new ELTDefaultSubgroup(scrolledCompositeHolder.getComposite()).subGroupName(WordUtils.capitalize(subgroupName.replace("_", " ").toLowerCase(), null));
+		eltDefaultSubgroup.createContainerWidget();
 		
 		scrolledCompositeHolder.getScrolledComposite().setContent(scrolledCompositeHolder.getComposite());
 		scrolledCompositeHolder.getScrolledComposite().setMinSize(scrolledCompositeHolder.getComposite().computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
-		return grpGroup;
+		return eltDefaultSubgroup;
 	}
 	
 	public ArrayList<AbstractWidget> getELTWidgetList(){

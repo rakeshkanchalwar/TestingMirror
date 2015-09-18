@@ -8,6 +8,13 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 18, 2015
+ * 
+ */
+
 public class ELTDefaultSubgroup extends IELTContainerWidget{
 
 	Composite subGroupComposite;
@@ -20,7 +27,7 @@ public class ELTDefaultSubgroup extends IELTContainerWidget{
 
 	@Override
 	public void createContainerWidget(){
-		Group subGroup = new Group(container, SWT.NONE);
+		Group subGroup = new Group(inputContainer, SWT.NONE);
 		subGroup.setText(subgroupName);
 		ColumnLayout subGroupLayout = new ColumnLayout();
 		subGroupLayout.bottomMargin = 0;
@@ -29,6 +36,8 @@ public class ELTDefaultSubgroup extends IELTContainerWidget{
 		
 		subGroupComposite = new Composite(subGroup, SWT.NONE);
 		subGroupComposite.setLayout(new GridLayout(3, false));
+		
+		super.outputContainer = subGroupComposite;
 	}
 	
 	public ELTDefaultSubgroup numberOfBasicWidgets(int subWidgetCount){

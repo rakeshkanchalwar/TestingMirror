@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
 
 /**
  * 
@@ -29,7 +32,7 @@ public abstract class AbstractWidget {
 		}
 	}
 
-	public abstract void attachToPropertySubGroup(Group subGroup);
+	public abstract void attachToPropertySubGroup(IELTContainerWidget subGroup);
 
 	public abstract void setProperties(String propertyName, Object properties);
 

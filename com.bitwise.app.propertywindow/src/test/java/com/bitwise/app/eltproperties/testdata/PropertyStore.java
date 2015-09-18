@@ -23,7 +23,7 @@ public class PropertyStore {
 	public void addInputComponentProperties(){
 		ArrayList<Property> inputComponentProperties = new ArrayList<>();
 		
-		//--------------------
+		/*//--------------------
 		
 		Property name= new Property("String", "name", "ELT_PHASE_WIDGET");
 		name.group("TextProperties");
@@ -62,6 +62,50 @@ public class PropertyStore {
 				
 				Property runtimeProps= new Property("boolean", "RuntimeProps", "ELT_RUNTIME_PROPERTIES_WIDGET");
 				runtimeProps.group("RuntimeProps");
+				//--------------------
+*/		
+		
+		
+		
+		//--------------------
+		
+				Property name= new Property("String", "name", "AAA");
+				name.group("TEXT_PROPERTIES");
+				
+				Property path= new Property("String", "path", "AAA");
+				path.group("TEXT_PROPERTIES");
+				
+				Property delimiter= new Property("String", "delimiter", "AAA");
+				delimiter.group("TEXT_PROPERTIES");
+				
+				//------
+				
+				Property charset= new Property("String", "charset", "AAA");
+				charset.group("TEXT_PROPERTIES");
+				charset.subGroup("OPTIONAL_PROPERTIES");
+						
+				Property phase= new Property("String", "phase", "AAA");
+				phase.group("TEXT_PROPERTIES");
+				phase.subGroup("OPTIONAL_PROPERTIES");
+				
+				//--------------------
+				
+				Property safe= new Property("boolean", "safe", "AAA");
+				safe.group("RADIO_PROPERTIES");
+				safe.subGroup("safe");
+				
+				Property has_header= new Property("boolean", "has_header", "AAA");
+				has_header.group("RADIO_PROPERTIES");
+				has_header.subGroup("header");
+				//--------------------
+				
+				//--------------------
+		
+				Property schema= new Property("boolean", "Schema", "AAA");
+				schema.group("Schema");
+				
+				Property runtimeProps= new Property("boolean", "RuntimeProps", "AAA");
+				runtimeProps.group("RUNTIME_PROP");
 				//--------------------
 		
 		inputComponentProperties.add(name);

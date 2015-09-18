@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.misc.Messages;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 /**
@@ -73,7 +74,7 @@ public class ELTSchemaWidget extends AbstractWidget {
 	 * @param Group 
 	 * @wbp.parser.entryPoint
 	 */
-	@Override
+	
 	public void attachToPropertySubGroup(Group subGroup) {
 	
 		shell = subGroup.getShell(); 
@@ -266,5 +267,11 @@ public class ELTSchemaWidget extends AbstractWidget {
 		{
 			errorLable.setVisible(true);
 		}
+	}
+
+	@Override
+	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
+		// TODO Auto-generated method stub
+		
 	}
 }

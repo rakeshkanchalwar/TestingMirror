@@ -41,7 +41,7 @@ public class PropertyDialog extends Dialog {
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = ComponentProperties;
 		this.names=names;
-		setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
+		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 		super.setBlockOnOpen(true);
 	}
 
@@ -53,10 +53,12 @@ public class PropertyDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		
 		container = (Composite) super.createDialogArea(parent);
-		container.getShell().setText("Component Properties");
 		ColumnLayout cl_container = new ColumnLayout();
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
+		
+		container.getShell().setMinimumSize(600, 500);
+		container.getShell().setText("Property Dialog");
 		
 		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
 		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,names);
@@ -71,8 +73,13 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
+		
+		createButton(parent, IDialogConstants.NO_ID,
+				"Apply", false);
+		
 		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
+		
 		
 		createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
