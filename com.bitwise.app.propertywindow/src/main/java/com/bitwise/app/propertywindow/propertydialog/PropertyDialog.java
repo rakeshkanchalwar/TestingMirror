@@ -14,8 +14,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
-import com.bitwise.app.propertywindow.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.property.Property;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 
 /**
  * 

@@ -3,8 +3,6 @@ package com.bitwise.app.propertywindow.property;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
-
 /**
  * 
  * @author Shrirang S. Kumbhar

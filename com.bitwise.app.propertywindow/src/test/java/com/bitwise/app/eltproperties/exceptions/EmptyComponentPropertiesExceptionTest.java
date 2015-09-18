@@ -1,6 +1,6 @@
 package com.bitwise.app.eltproperties.exceptions;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

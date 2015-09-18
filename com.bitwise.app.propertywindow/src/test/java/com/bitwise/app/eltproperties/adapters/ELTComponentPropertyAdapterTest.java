@@ -2,15 +2,14 @@ package com.bitwise.app.eltproperties.adapters;
 
 import static org.junit.Assert.assertEquals;
 
-
 import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.bitwise.app.eltproperties.testdata.PropertyStore;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
 import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
 import com.bitwise.app.propertywindow.property.Property;
-import com.bitwise.app.eltproperties.testdata.PropertyStore;
 
 /**
  * 

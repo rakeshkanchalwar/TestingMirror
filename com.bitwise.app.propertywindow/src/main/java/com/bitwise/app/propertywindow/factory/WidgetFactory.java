@@ -1,16 +1,16 @@
 package com.bitwise.app.propertywindow.factory;
 
-import com.bitwise.app.propertywindow.customwidgets.AbstractWidget;
-import com.bitwise.app.propertywindow.widgets.ELTCharacterSetWidget;
-import com.bitwise.app.propertywindow.widgets.ELTComponentNameWidget;
-import com.bitwise.app.propertywindow.widgets.ELTDelimeterWidget;
-import com.bitwise.app.propertywindow.widgets.ELTFilePathWidget;
-import com.bitwise.app.propertywindow.widgets.ELTHasHeaderWidget;
-import com.bitwise.app.propertywindow.widgets.ELTPhaseWidget;
-import com.bitwise.app.propertywindow.widgets.ELTSafeWidget;
-import com.bitwise.app.propertywindow.widgets.MyCustomWidget;
-import com.bitwise.app.propertywindow.widgets.runtimeproperties.ELTRuntimePropertiesWidget;
-import com.bitwise.app.propertywindow.widgets.schemagrid.ELTSchemaWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentNameWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTDelimeterWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTFilePathWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTHasHeaderWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperties.ELTRuntimePropertiesWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.schemagrid.ELTSchemaWidget;
 
 /**
  * 
