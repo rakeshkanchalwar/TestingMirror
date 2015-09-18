@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.bitwise.app.perspective.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.bitwise.app.perspective.Perspective"
+            icon="icons/etlperspective.ico"
+            id="com.bitwise.app.perspective.ETLPerspective"
+            name="ELT">
+      </perspective>
+   </extension>
+   <extension
+         id="productId"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.bitwise.app.perspective.application"
+            name="ETL UI Tool">
+         <property
+               name="appName"
+               value="ETL UI Tool">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:com.bitwise.app.menus.WindowMenu?after=com.bitwise.window.palette">
+         <menu
+               id="com.bitwise.app.menus.WindowMenu.Perspective"
+               label="Perspective">
+            <command
+                  commandId="org.eclipse.ui.perspectives.showPerspective"
+                  label="Open perspective"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.resetPerspective"
+                  label="Reset Perspective"
+                  style="radio">
+            </command>
+            <separator
+                  name="com.bitwise.app.perspective.separator"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.window.customizePerspective"
+                  label="Customize Perspective.."
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.savePerspective"
+                  label="Save Perspective As.."
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.closePerspective"
+                  label="Close Perspective"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.window.closeAllPerspectives"
+                  label="Close All Perspectives"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>
