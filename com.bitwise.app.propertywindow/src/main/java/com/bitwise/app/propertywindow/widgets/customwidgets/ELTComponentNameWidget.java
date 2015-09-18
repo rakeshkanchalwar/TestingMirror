@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+
 
 public class ELTComponentNameWidget extends AbstractWidget {
 
@@ -29,7 +31,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 	private String newName;
 
-	@Override
+	
 	public void attachToPropertySubGroup(Group subGroup) {
 		this.group = subGroup;
 		Composite composite = new Composite(group, SWT.NONE);
@@ -140,6 +142,12 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		System.out.println("isUniqueCompName: result: " + result);
 
 		return result;
+	}
+
+	@Override
+	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -29,6 +29,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.propertywindow.misc.Messages;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
 
 
 public class ELTCharacterSetWidget extends AbstractWidget{
@@ -43,7 +44,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	
 	private static LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	
-	@Override
+	
 	public void attachToPropertySubGroup(Group subGroup) {
 		this.grpGroup_1 = subGroup;
 		Composite composite_3 = new Composite(grpGroup_1, SWT.NONE);
@@ -186,6 +187,12 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 
 	@Override
 	public void setComponentName(String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}

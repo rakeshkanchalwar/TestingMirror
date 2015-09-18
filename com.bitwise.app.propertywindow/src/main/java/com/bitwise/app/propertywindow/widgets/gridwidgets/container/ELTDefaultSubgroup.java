@@ -20,7 +20,7 @@ public class ELTDefaultSubgroup extends IELTContainerWidget{
 
 	@Override
 	public void createContainerWidget(){
-		Group subGroup = new Group(container, SWT.NONE);
+		Group subGroup = new Group(inputContainer, SWT.NONE);
 		subGroup.setText(subgroupName);
 		ColumnLayout subGroupLayout = new ColumnLayout();
 		subGroupLayout.bottomMargin = 0;
@@ -29,6 +29,8 @@ public class ELTDefaultSubgroup extends IELTContainerWidget{
 		
 		subGroupComposite = new Composite(subGroup, SWT.NONE);
 		subGroupComposite.setLayout(new GridLayout(3, false));
+		
+		super.outputContainer = subGroupComposite;
 	}
 	
 	public ELTDefaultSubgroup numberOfBasicWidgets(int subWidgetCount){
