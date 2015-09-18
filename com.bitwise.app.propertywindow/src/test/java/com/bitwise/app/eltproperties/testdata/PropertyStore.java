@@ -1,0 +1,90 @@
+package com.bitwise.app.eltproperties.testdata;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import com.bitwise.app.propertywindow.property.Property;
+
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 04, 2015
+ * 
+ */
+
+public class PropertyStore {
+	LinkedHashMap<String,ArrayList<Property>> properties;
+	
+	public PropertyStore(){
+		properties=new LinkedHashMap<>();
+		addInputComponentProperties();
+	}
+	
+	public void addInputComponentProperties(){
+		ArrayList<Property> inputComponentProperties = new ArrayList<>();
+		
+		//--------------------
+		
+		Property name= new Property("String", "name", "ELT_PHASE_WIDGET");
+		name.group("TextProperties");
+		
+		Property path= new Property("String", "path", "ELT_FILE_PATH_WIDGET");
+		path.group("TextProperties");
+		
+		Property delimiter= new Property("String", "delimiter", "ELT_DELIMETER_WIDGET");
+		delimiter.group("TextProperties");
+		
+		//------
+		
+		Property charset= new Property("String", "charset", "ELT_CHARACTER_SET_WIDGET");
+		charset.group("TextProperties");
+		charset.subGroup("Opetional");
+				
+		Property phase= new Property("String", "phase", "ELT_PHASE_WIDGET");
+		phase.group("TextProperties");
+		phase.subGroup("Opetional");
+		
+		//--------------------
+		
+		Property safe= new Property("boolean", "safe", "ELT_SAFE_PROPERTY_WIDGET");
+		safe.group("RadioProperties");
+		safe.subGroup("safe");
+		
+		Property has_header= new Property("boolean", "has_header", "ELT_HAS_HEADER_WIDGET");
+		has_header.group("RadioProperties");
+		has_header.subGroup("header");
+		//--------------------
+		
+				//--------------------
+		
+				Property schema= new Property("boolean", "Schema", "ELT_SCHEMA_WIDGET");
+				schema.group("Schema");
+				
+				Property runtimeProps= new Property("boolean", "RuntimeProps", "ELT_RUNTIME_PROPERTIES_WIDGET");
+				runtimeProps.group("RuntimeProps");
+				//--------------------
+		
+		inputComponentProperties.add(name);
+		inputComponentProperties.add(path);
+		inputComponentProperties.add(delimiter);
+		inputComponentProperties.add(safe);
+		inputComponentProperties.add(has_header);
+		inputComponentProperties.add(charset);
+		inputComponentProperties.add(phase);
+		inputComponentProperties.add(schema);
+		inputComponentProperties.add(runtimeProps);
+		
+		properties.put("Input", inputComponentProperties);
+	}
+	
+	public ArrayList<Property> getProperties(String componentName){
+		return properties.get(componentName);
+	}
+
+	@Override
+	public String toString() {
+		return "PropertyStore [properties=" + properties + "]";
+	}
+	
+	
+}
