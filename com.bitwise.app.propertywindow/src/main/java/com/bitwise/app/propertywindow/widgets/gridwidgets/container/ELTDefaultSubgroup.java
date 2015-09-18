@@ -8,6 +8,13 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 18, 2015
+ * 
+ */
+
 public class ELTDefaultSubgroup extends IELTContainerWidget{
 
 	Composite subGroupComposite;

@@ -32,6 +32,12 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 18, 2015
+ * 
+ */
 
 public class PropertyDialog extends Dialog {
 	private Text text;

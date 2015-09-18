@@ -5,6 +5,13 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 18, 2015
+ * 
+ */
+
 public abstract class IELTContainerWidget {
 	
 	protected Composite inputContainer;
