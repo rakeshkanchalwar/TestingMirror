@@ -11,7 +11,8 @@
             category="com.bitwise.app.project.structure.category"
             class="com.bitwise.app.project.structure.wizard.CustomWizard"
             id="com.bitwise.app.project.structure.wizard"
-            name="ETL Project">
+            name="ETL Project"
+            project="true">
       </wizard>
    </extension>
    <extension
