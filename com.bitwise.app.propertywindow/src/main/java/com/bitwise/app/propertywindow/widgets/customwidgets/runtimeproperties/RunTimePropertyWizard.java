@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import com.bitwise.app.propertywindow.misc.Messages;
+import com.bitwise.app.propertywindow.messages.Messages;
 
 /**
  * 

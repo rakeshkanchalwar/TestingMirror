@@ -21,7 +21,7 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import com.bitwise.app.propertywindow.misc.Messages;
+import com.bitwise.app.propertywindow.messages.Messages;
 
 public class WidgetUtility {
 	
