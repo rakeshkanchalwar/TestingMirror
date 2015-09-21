@@ -113,7 +113,7 @@ public class PropertyTest {
 	}
 	
 	@Test
-	public void itShouldGiveSubgroupNameAsConcatinationOfGroupAndSubGroupName(){
+	public void itShouldGiveSubgroupIDAsConcatinationOfGroupAndSubGroupName(){
 		//Given
 		String expectedSubgroupName = "TextProperties.TestSubGroup";
 		
@@ -123,6 +123,22 @@ public class PropertyTest {
 		property.subGroup("TestSubGroup");
 		
 		//Then
+		//assertEquals(expectedSubgroupName,property.getPropertySubGroup());
+		assertEquals(expectedSubgroupName,property.getPropertySubGroupID());
+	}
+	
+	@Test
+	public void itShouldGiveSubgroupName(){
+		//Given
+		String expectedSubgroupName = "TestSubGroup";
+		
+		//When
+		Property property=new Property("String","delimiter","TEXT");
+		property.group("TextProperties");
+		property.subGroup("TestSubGroup");
+		
+		//Then
+		//assertEquals(expectedSubgroupName,property.getPropertySubGroup());
 		assertEquals(expectedSubgroupName,property.getPropertySubGroup());
 	}
 }
