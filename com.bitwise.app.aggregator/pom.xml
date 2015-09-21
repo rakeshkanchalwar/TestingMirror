@@ -24,6 +24,8 @@
         <module>../com.bitwise.app.graph</module>
 		<module>../com.bitwise.app.product</module>
 		<module>../com.bitwise.app.graph.figure</module>
-		<module>../com.bitwise.app.eltproperties</module>		
+		<module>../com.bitwise.app.eltproperties</module>	
+		<module>../com.bitwise.app.model</module>	
+		
 	</modules>
 </project>
