@@ -14,7 +14,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
  * 
  */
 
-public class ELTDefaultLable extends IELTWidget{
+public class ELTDefaultLable extends AbstractELTWidget{
 	
 	Label defaultELTLable;
 		

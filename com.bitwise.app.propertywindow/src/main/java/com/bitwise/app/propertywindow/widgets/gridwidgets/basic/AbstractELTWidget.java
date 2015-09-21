@@ -12,7 +12,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
  * 
  */
 
-public abstract class IELTWidget {
+public abstract class AbstractELTWidget {
 	protected Widget widget;
 
 	public abstract void attachWidget(Composite container);

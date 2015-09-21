@@ -6,7 +6,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 
 /**
  * 
@@ -15,7 +15,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
  * 
  */
 
-public class ELTDefaultSubgroup extends IELTContainerWidget{
+public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 
 	Composite subGroupComposite;
 	
@@ -51,7 +51,7 @@ public class ELTDefaultSubgroup extends IELTContainerWidget{
 	}
 
 	@Override
-	public void attachWidget(IELTWidget eltWidget) {
+	public void attachWidget(AbstractELTWidget eltWidget) {
 		eltWidget.attachWidget(subGroupComposite);	
 	}
 

@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 public class ELTRuntimePropertiesWidget extends AbstractWidget {
 	private TreeMap<String, String> InstializeMap;
@@ -97,7 +97,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 	}
 
 	@Override
-	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
+	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}

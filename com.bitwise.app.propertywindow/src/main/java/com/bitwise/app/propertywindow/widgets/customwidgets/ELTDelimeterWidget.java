@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 
 public class ELTDelimeterWidget extends AbstractWidget{
@@ -126,7 +126,7 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	}
 
 	@Override
-	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
+	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}	

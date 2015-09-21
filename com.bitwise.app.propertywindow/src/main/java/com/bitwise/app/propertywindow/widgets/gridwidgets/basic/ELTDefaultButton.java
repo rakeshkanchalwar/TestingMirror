@@ -14,7 +14,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
  * 
  */
 
-public class ELTDefaultButton extends IELTWidget{
+public class ELTDefaultButton extends AbstractELTWidget{
 	private Button defaultELTButton;
 	
 	private String buttonText="Button";

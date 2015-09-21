@@ -29,7 +29,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.propertywindow.misc.Messages;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 public class ELTSafeWidget extends AbstractWidget{
     private Combo combo;
@@ -185,7 +185,7 @@ public class ELTSafeWidget extends AbstractWidget{
 
 
 	@Override
-	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
+	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}

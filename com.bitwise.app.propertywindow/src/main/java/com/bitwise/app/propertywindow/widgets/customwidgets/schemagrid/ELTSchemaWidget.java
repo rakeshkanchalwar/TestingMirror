@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.misc.Messages;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 /**
@@ -270,7 +270,7 @@ public class ELTSchemaWidget extends AbstractWidget {
 	}
 
 	@Override
-	public void attachToPropertySubGroup(IELTContainerWidget subGroup) {
+	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -19,7 +19,7 @@ import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.utils.WordUtils;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 /**
  * 
@@ -53,7 +53,7 @@ public class PropertyDialogBuilder {
 			LinkedHashMap<String,ArrayList<Property>> subgroupTree = propertyTree.get(groupName);
 			for(String subgroupName: subgroupTree.keySet()){
 				Property property_1 = subgroupTree.get(subgroupName).get(0);
-				IELTContainerWidget subGroupContainer;
+				AbstractELTContainerWidget subGroupContainer;
 				if(property_1 != null){
 					subGroupContainer=addSubgroupToPropertyWindowTab(property_1.getPropertySubGroup(),scrolledCompositeHolder);
 				}else{
@@ -109,9 +109,9 @@ public class PropertyDialogBuilder {
 		return scrolledCompositeHolder;
 	}
 	
-	public IELTContainerWidget addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
+	public AbstractELTContainerWidget addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
 		
-		IELTContainerWidget eltDefaultSubgroup= new ELTDefaultSubgroup(scrolledCompositeHolder.getComposite()).subGroupName(WordUtils.capitalize(subgroupName.replace("_", " ").toLowerCase(), null));
+		AbstractELTContainerWidget eltDefaultSubgroup= new ELTDefaultSubgroup(scrolledCompositeHolder.getComposite()).subGroupName(WordUtils.capitalize(subgroupName.replace("_", " ").toLowerCase(), null));
 		eltDefaultSubgroup.createContainerWidget();
 		
 		scrolledCompositeHolder.getScrolledComposite().setContent(scrolledCompositeHolder.getComposite());
