@@ -5,8 +5,8 @@ Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
 Id: _p0cFAE1QEeWztZD8rslrjw
-Runtime-Version: 2.0.0.201508232315
-Save-Time: 8/28/15 5:33 PM
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 9/21/15 5:20 PM
 Testcase-Type: ecl
 
 ------=_.description-216f885c-d591-38ce-8ea2-e4f8cb4d6ffa
@@ -28,7 +28,7 @@ with [get-window "New ETL Project"] {
     with [get-editbox -after [get-label "Project name:"]] {
         set-text TestProject
         set-text TestProject1
-        set-text TestProject13
+        set-text TestProject16
     }
     get-button Finish | click
 }
@@ -38,7 +38,7 @@ with [get-window "New Java Class"] {
     get-editbox -after [get-label "Name:"] | set-focus
     get-button "Browse..." | click
     with [get-window "Source Folder Selection"] {
-        get-tree | select "TestProject13/src"
+        get-tree | select "TestProject16/src"
         get-button OK | click
     }
     get-editbox -after [get-label "Name:"] | set-text TestClass
@@ -46,19 +46,19 @@ with [get-window "New Java Class"] {
 }
 get-menu "File/New/XML File" | click
 with [get-window "New XML File"] {
-    get-tree | select "TestProject13/xml"
+    get-tree | select "TestProject16/xml"
     get-button "Next >" | click
     get-button Finish | click
 }
 get-editor "NewFile.xml" | close
 get-tab-folder | get-tab-item "TestClass.java" | click
 get-editor "TestClass.java" | click
-set-dialog-result File "platform:/resource/TestProject13/xml/NewFile.xml"
+set-dialog-result File "platform:/resource/TestProject16/xml/NewFile.xml"
 get-menu "File/Open File..." | click
 get-menu "File/Close" | click
 get-tab-folder | get-tab-item "TestClass.java" | click
 get-menu "File/Close All" | click
-get-view "Project Explorer" | get-tree | select TestProject13 | get-menu Delete | click
+get-view "Project Explorer" | get-tree | select TestProject16 | get-menu Delete | click
 with [get-window "Delete Resources"] {
     get-button "Delete project contents on disk (cannot be undone)" | check
     get-button OK | click
