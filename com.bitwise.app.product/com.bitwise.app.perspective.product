@@ -3,7 +3,6 @@
 
 <product name="ETL UI Tool" uid="com.bitwise.app.perspective.ID" id="com.bitwise.app.perspective.productId" application="com.bitwise.app.perspective.application" version="0.0.1" useFeatures="false" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -13,7 +12,6 @@
 
    <windowImages/>
 
-
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -21,10 +19,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
       <plugin id="ch.qos.logback.classic"/>
@@ -36,6 +32,7 @@
       <plugin id="com.bitwise.app.graph"/>
       <plugin id="com.bitwise.app.graph.figure"/>
       <plugin id="com.bitwise.app.menus"/>
+      <plugin id="com.bitwise.app.model"/>
       <plugin id="com.bitwise.app.perspective"/>
       <plugin id="com.bitwise.app.project.structure"/>
       <plugin id="com.ibm.icu"/>

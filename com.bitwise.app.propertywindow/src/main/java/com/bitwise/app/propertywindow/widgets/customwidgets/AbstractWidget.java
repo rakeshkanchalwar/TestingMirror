@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 /**
  * 
@@ -32,7 +32,7 @@ public abstract class AbstractWidget {
 		}
 	}
 
-	public abstract void attachToPropertySubGroup(IELTContainerWidget subGroup);
+	public abstract void attachToPropertySubGroup(AbstractELTContainerWidget subGroup);
 
 	public abstract void setProperties(String propertyName, Object properties);
 

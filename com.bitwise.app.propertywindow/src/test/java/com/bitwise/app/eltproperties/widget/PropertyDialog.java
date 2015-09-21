@@ -28,9 +28,9 @@ import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.IELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 /**
  * 
@@ -100,16 +100,16 @@ public class PropertyDialog extends Dialog {
 		
 		//------------------------------------------------------------------------
 		
-		IELTContainerWidget eltDefaultSubgroup= new ELTDefaultSubgroup(composite).subGroupName("Address");
+		AbstractELTContainerWidget eltDefaultSubgroup= new ELTDefaultSubgroup(composite).subGroupName("Address");
 		eltDefaultSubgroup.createContainerWidget();
 		
-		IELTWidget eltDefaultLable = new ELTDefaultLable("Addess :");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Addess :");
 		eltDefaultSubgroup.attachWidget(eltDefaultLable);
 		
-		IELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
 		eltDefaultSubgroup.attachWidget(eltDefaultTextBox);
 		
-		IELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
+		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltDefaultSubgroup.attachWidget(eltDefaultButton);
 		try {
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"));

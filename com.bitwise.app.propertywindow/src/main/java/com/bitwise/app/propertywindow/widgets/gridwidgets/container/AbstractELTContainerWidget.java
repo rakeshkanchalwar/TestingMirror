@@ -3,7 +3,7 @@ package com.bitwise.app.propertywindow.widgets.gridwidgets.container;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 
 /**
  * 
@@ -12,18 +12,20 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.IELTWidget;
  * 
  */
 
-public abstract class IELTContainerWidget {
+public abstract class AbstractELTContainerWidget {
 	
 	protected Composite inputContainer;
 	protected Composite outputContainer;
 	
-	public IELTContainerWidget(Composite container){
+	public AbstractELTContainerWidget(Composite container){
 		this.inputContainer = container;
 	};
 	
 	public abstract void createContainerWidget();
 	
-	public abstract void attachWidget(IELTWidget eltWidget);
+	public abstract AbstractELTContainerWidget numberOfBasicWidgets(int subWidgetCount);
+	
+	public abstract void attachWidget(AbstractELTWidget eltWidget);
 	
 	public Composite getContainerControl(){
 		return outputContainer;

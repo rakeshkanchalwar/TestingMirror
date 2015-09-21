@@ -15,7 +15,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
  * 
  */
 
-public class ELTDefaultTextBox extends IELTWidget{
+public class ELTDefaultTextBox extends AbstractELTWidget{
 	
 	private Text defaultELTTextBox;
 	private int textboxWidth=300;

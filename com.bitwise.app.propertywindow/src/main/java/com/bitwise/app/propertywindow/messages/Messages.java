@@ -1,4 +1,4 @@
-package com.bitwise.app.propertywindow.misc;
+package com.bitwise.app.propertywindow.messages;
 
 import org.eclipse.osgi.util.NLS;
 

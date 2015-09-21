@@ -14,7 +14,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
  * 
  */
 
-public class ELTDefaultLable extends IELTWidget{
+public class ELTDefaultLable extends AbstractELTWidget{
 	
 	Label defaultELTLable;
 		
@@ -30,7 +30,7 @@ public class ELTDefaultLable extends IELTWidget{
 	@Override
 	public void attachWidget(Composite container) {
 		defaultELTLable = new Label(container, SWT.NONE);
-		GridData gd_defaultELTLable = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		GridData gd_defaultELTLable = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_defaultELTLable.widthHint = lableWidth;
 		defaultELTLable.setLayoutData(gd_defaultELTLable);		
 		defaultELTLable.setText(lableText);
