@@ -3,13 +3,18 @@ package com.bitwise.app.graph.handler;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
 
+/**
+ *	Handler class to create the graphical editor.
+ */
 public class NewGraphHandler extends AbstractHandler {
 	private int graphCounter=1; 
 	@Override
@@ -18,12 +23,21 @@ public class NewGraphHandler extends AbstractHandler {
 		IWorkbenchPage page = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage();
 		try {
-			page.openEditor(new ETLGraphicalEditorInput("Graph "+graphCounter++), ETLGraphicalEditor.ID, false);
+			ETLGraphicalEditorInput input = new ETLGraphicalEditorInput("Graph_"+ graphCounter++);
+			page.openEditor(input, ETLGraphicalEditor.ID, false);
+			
+			//For selecting the created editor so it will trigger the event to activate and load the Palette
+			IWorkbench workbench = PlatformUI.getWorkbench();
+		    IWorkbenchWindow activeWindow = workbench.getActiveWorkbenchWindow();
+		    if (activeWindow != null) {
+		        final IWorkbenchPage activePage = activeWindow.getActivePage();
+		        if (activePage != null) {
+		            activePage.activate(activePage.findEditor(input));
+		        }
+		    }
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//TODO : add logger
 		}
 		return null;
 	}
-
 }
