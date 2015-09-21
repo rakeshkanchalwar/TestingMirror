@@ -38,7 +38,7 @@ public class PropertyDialog extends Dialog {
 	private ArrayList<String> names = new ArrayList<>();
 	private Button okButton;
 	private Button applyButton;
-	private int flag=0;
+	private int checkIfMessageBoxAlreadyThere=0;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -115,7 +115,7 @@ public class PropertyDialog extends Dialog {
 		// TODO Auto-generated method stub
 		whenOkButtonPressed();
 
-		 
+		whenApplyButtonPressed();
 
 
 	}
@@ -132,8 +132,6 @@ public class PropertyDialog extends Dialog {
 					}
 				}
 				componentProperties.putAll(appliedProperties);
-
-				
 				 	Shell shell=container.getShell();
 				    int style = SWT.APPLICATION_MODAL | SWT.OK;
 					MessageBox messageBox = new MessageBox(shell,style);
@@ -155,8 +153,7 @@ public class PropertyDialog extends Dialog {
 						componentProperties.put(propName, tempPropert.get(propName));
 					}
 				}
-				
-				flag=1;
+				checkIfMessageBoxAlreadyThere=1;
 				close();
 			}
 		});
@@ -169,21 +166,18 @@ public class PropertyDialog extends Dialog {
 				currentProperties.put(propName, tempPropert.get(propName));
 			}
 		}
-		System.out.println("currentProperties*****"+currentProperties);
-		System.out.println("appliedProperties****"+appliedProperties);
-		System.out.println("check&&&&&&&&"+currentProperties.equals(appliedProperties));
 		if(!currentProperties.equals(appliedProperties))
 		{
 			MessageBox messageBox = getMessageBox();
 			if(messageBox.open()==SWT.YES)
 			{
-				flag=1;
+				checkIfMessageBoxAlreadyThere=1;
 				close();
 			}
 		}
 		else
 		{
-			flag=1;
+			checkIfMessageBoxAlreadyThere=1;
 			close();
 		}
 	}
@@ -209,7 +203,7 @@ public class PropertyDialog extends Dialog {
 		if(!currentProperties.equals(appliedProperties))
 		{
 			MessageBox messageBox = getMessageBox();
-			if(flag!=1)
+			if(checkIfMessageBoxAlreadyThere!=1)
 			{
 			if(messageBox.open()==SWT.YES)
 

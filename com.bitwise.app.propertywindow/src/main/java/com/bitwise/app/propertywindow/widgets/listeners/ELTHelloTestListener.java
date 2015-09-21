@@ -1,8 +1,12 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
+import java.sql.Array;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Widget;
 
 /**
  * 
@@ -19,13 +23,19 @@ public class ELTHelloTestListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener() {
+	public Listener getListener(Widget... widgets) {
+		
+		int index = 0;
+		
+		final Widget[] widgetArray = widgets.clone();
+		
 		
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
 				// TODO Auto-generated method stub
 				if(event.type == SWT.Selection){
-					System.out.println("Say Hello");
+					System.out.println("Hello " + ((Text)widgetArray[0]).getText());
+					
 				}
 
 			}

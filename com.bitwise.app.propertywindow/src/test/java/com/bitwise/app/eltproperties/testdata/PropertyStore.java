@@ -69,13 +69,13 @@ public class PropertyStore {
 		
 		//--------------------
 		
-				Property name= new Property("String", "name", "AAA");
+				Property name= new Property("String", "name", "ELT_FILE_PATH_WIDGET");
 				name.group("TEXT_PROPERTIES");
 				
-				Property path= new Property("String", "path", "AAA");
+				Property path= new Property("String", "path", "ELT_PHASE_WIDGET");
 				path.group("TEXT_PROPERTIES");
 				
-				Property delimiter= new Property("String", "delimiter", "AAA");
+				Property delimiter= new Property("String", "delimiter", "ELT_CHARACTER_SET_WIDGET");
 				delimiter.group("TEXT_PROPERTIES");
 				
 				//------
@@ -90,11 +90,11 @@ public class PropertyStore {
 				
 				//--------------------
 				
-				Property safe= new Property("boolean", "safe", "AAA");
+				Property safe= new Property("boolean", "safe", "ELT_SAFE_PROPERTY_WIDGET");
 				safe.group("RADIO_PROPERTIES");
 				safe.subGroup("safe");
 				
-				Property has_header= new Property("boolean", "has_header", "AAA");
+				Property has_header= new Property("boolean", "has_header", "ELT_HAS_HEADER_WIDGET");
 				has_header.group("RADIO_PROPERTIES");
 				has_header.subGroup("header");
 				//--------------------
