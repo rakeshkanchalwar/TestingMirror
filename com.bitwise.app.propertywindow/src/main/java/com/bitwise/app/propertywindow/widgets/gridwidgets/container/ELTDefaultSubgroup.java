@@ -17,7 +17,8 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidge
 
 public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 
-	Composite subGroupComposite;
+	
+	Group subGroup;
 	
 	private String subgroupName="Default Sub Group";
 	
@@ -27,21 +28,24 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 
 	@Override
 	public void createContainerWidget(){
-		Group subGroup = new Group(inputContainer, SWT.NONE);
+		subGroup = new Group(inputContainer, SWT.NONE);
 		subGroup.setText(subgroupName);
 		ColumnLayout subGroupLayout = new ColumnLayout();
+		subGroupLayout.maxNumColumns = 1;
 		subGroupLayout.bottomMargin = 0;
 		subGroupLayout.topMargin = 20;
 		subGroup.setLayout(subGroupLayout);
 		
-		subGroupComposite = new Composite(subGroup, SWT.NONE);
-		subGroupComposite.setLayout(new GridLayout(3, false));
+/*		subGroupComposite = new Composite(subGroup, SWT.NONE);
+		subGroupComposite.setLayout(new GridLayout(3, false));*/
 		
-		super.outputContainer = subGroupComposite;
+		//super.outputContainer = subGroupComposite;
+		super.outputContainer = subGroup;
 	}
 	
+	@Override
 	public ELTDefaultSubgroup numberOfBasicWidgets(int subWidgetCount){
-		subGroupComposite.setLayout(new GridLayout(subWidgetCount, false));
+		//subGroupComposite.setLayout(new GridLayout(subWidgetCount, false));
 		return this;
 	}
 	
@@ -52,7 +56,7 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 
 	@Override
 	public void attachWidget(AbstractELTWidget eltWidget) {
-		eltWidget.attachWidget(subGroupComposite);	
+		eltWidget.attachWidget(subGroup);	
 	}
 
 	

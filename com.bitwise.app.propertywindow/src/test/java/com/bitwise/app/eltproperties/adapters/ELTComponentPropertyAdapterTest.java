@@ -42,7 +42,6 @@ public class ELTComponentPropertyAdapterTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//XMLConfigUtil.INSTANCE.
 		List<com.bitwise.app.common.component.config.Property> rawProperties = XMLConfigUtil.INSTANCE.getComponent("Input").getProperty();
 		//when
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rawProperties);

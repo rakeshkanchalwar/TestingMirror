@@ -24,6 +24,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
 
 /**
@@ -45,16 +46,20 @@ public class MyCustomWidget extends AbstractWidget{
 		
 		ListenerFactory listenerFactory = new ListenerFactory();
 		
+		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		eltSuDefaultSubgroupComposite.createContainerWidget();
+		
+		
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Addess :");
-		container.attachWidget(eltDefaultLable);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
-		container.attachWidget(eltDefaultTextBox);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
 		textBox = (Text) eltDefaultTextBox.getWidgetControl();
 		
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
-		container.attachWidget(eltDefaultButton);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		try {
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"));
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"));

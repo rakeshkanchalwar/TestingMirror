@@ -23,6 +23,8 @@ public abstract class AbstractELTContainerWidget {
 	
 	public abstract void createContainerWidget();
 	
+	public abstract AbstractELTContainerWidget numberOfBasicWidgets(int subWidgetCount);
+	
 	public abstract void attachWidget(AbstractELTWidget eltWidget);
 	
 	public Composite getContainerControl(){
