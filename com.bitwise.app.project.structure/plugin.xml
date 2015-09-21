@@ -87,7 +87,7 @@
                id="org.eclipse.ui.views.PropertySheet"
                relationship="stack"
                relative="org.eclipse.ui.console.ConsoleView"
-               visible="true">
+               visible="false">
          </view>
       </perspectiveExtension>
    </extension>
