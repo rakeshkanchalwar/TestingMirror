@@ -9,8 +9,6 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTHasHeaderWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperties.ELTRuntimePropertiesWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.schemagrid.ELTSchemaWidget;
 
 /**
  * 
@@ -22,9 +20,9 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.schemagrid.ELTSchema
 public class WidgetFactory {
 	public AbstractWidget getWidget(String widgetName){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
-			return new ELTSchemaWidget();
+			return new MyCustomWidget();
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
-			return new ELTRuntimePropertiesWidget();
+			return new MyCustomWidget();
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){
 			return new ELTFilePathWidget();
 		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){
@@ -42,7 +40,7 @@ public class WidgetFactory {
 			
 		}
 		else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
-			return new ELTSchemaWidget(); 
+			return new MyCustomWidget(); 
 			
 		}
 		else{
