@@ -55,7 +55,7 @@ public class ELTPhaseWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
-		textBox = (Text) eltDefaultTextBox.getWidgetControl();
+		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		try {

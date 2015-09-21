@@ -14,6 +14,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 
 public abstract class AbstractELTWidget {
 	protected Widget widget;
+	protected Object jfaceWidgets;
 
 	public abstract void attachWidget(Composite container);
 	
@@ -24,7 +25,11 @@ public abstract class AbstractELTWidget {
 			throw new Exception("IELTWidget.widget object has set in sub class ");
 	}
 	
-	public Widget getWidgetControl(){
+	public Widget getSWTWidgetControl(){
 		return widget;
+	}
+	
+	public Object getJfaceWidgetControl(){
+		return jfaceWidgets;
 	}
 }

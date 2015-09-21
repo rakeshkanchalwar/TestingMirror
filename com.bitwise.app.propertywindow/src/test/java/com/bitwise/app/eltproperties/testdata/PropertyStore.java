@@ -101,7 +101,7 @@ public class PropertyStore {
 				
 				//--------------------
 		
-				Property schema= new Property("boolean", "Schema", "AAA");
+				Property schema= new Property("boolean", "Schema", "ELT_SCHEMA_WIDGET");
 				schema.group("Schema");
 				
 				Property runtimeProps= new Property("boolean", "RuntimeProps", "AAA");

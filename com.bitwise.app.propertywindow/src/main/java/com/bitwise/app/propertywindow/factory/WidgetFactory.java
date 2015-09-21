@@ -1,7 +1,9 @@
 package com.bitwise.app.propertywindow.factory;
 
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSchemaWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTTableViewer;
 
 /**
  * 
@@ -13,7 +15,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
 public class WidgetFactory {
 	public AbstractWidget getWidget(String widgetName){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
-			return new MyCustomWidget();
+			return new ELTSchemaWidget();
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
 			return new MyCustomWidget();
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){

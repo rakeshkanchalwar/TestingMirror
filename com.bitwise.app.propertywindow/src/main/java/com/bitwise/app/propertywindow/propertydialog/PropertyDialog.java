@@ -110,6 +110,7 @@ public class PropertyDialog extends Dialog {
 		System.out.println("Prop saved");
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+			System.out.println(tempPropert.keySet().toString());
 			for(String propName : tempPropert.keySet()){
 				ComponentProperties.put(propName, tempPropert.get(propName));
 			}

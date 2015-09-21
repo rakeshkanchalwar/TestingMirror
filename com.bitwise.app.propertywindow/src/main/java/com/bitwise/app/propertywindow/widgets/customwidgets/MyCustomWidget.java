@@ -56,12 +56,12 @@ public class MyCustomWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
-		textBox = (Text) eltDefaultTextBox.getWidgetControl();
+		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),eltDefaultTextBox.getWidgetControl(),eltDefaultButton.getWidgetControl());
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),eltDefaultTextBox.getSWTWidgetControl(),eltDefaultButton.getSWTWidgetControl());
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

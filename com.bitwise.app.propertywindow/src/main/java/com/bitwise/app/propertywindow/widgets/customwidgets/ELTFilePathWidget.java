@@ -49,7 +49,7 @@ eltSuDefaultSubgroupComposite.createContainerWidget();
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
-		textBox = (Text) eltDefaultTextBox.getWidgetControl();
+		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
