@@ -61,7 +61,7 @@ public class MyCustomWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"));
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),eltDefaultTextBox.getWidgetControl(),eltDefaultButton.getWidgetControl());
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

@@ -18,7 +18,7 @@ public class IELTSelectionListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener() {
+	public Listener getListener(Widget... widgets) {
 		/*SelectionAdapter selection=new SelectionAdapter() {
 			@Override 
 		    public void widgetSelected(SelectionEvent e) {

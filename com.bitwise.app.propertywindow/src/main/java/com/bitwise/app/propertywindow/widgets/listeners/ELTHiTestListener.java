@@ -3,6 +3,7 @@ package com.bitwise.app.propertywindow.widgets.listeners;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Widget;
 
 /**
  * 
@@ -19,8 +20,13 @@ public class ELTHiTestListener implements IELTListener{
 		return SWT.MouseDoubleClick;
 	}
 
-	@Override
-	public Listener getListener() {
+
+	public Listener getListener(Widget... widget) {
+		
+		for(Widget x: widget){
+			
+		}
+		
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
 				// TODO Auto-generated method stub
@@ -35,4 +41,6 @@ public class ELTHiTestListener implements IELTListener{
 		return listener;
 	}
 
+
+	
 }
