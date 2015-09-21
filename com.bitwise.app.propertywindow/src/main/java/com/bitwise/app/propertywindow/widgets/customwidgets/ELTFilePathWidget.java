@@ -21,75 +21,45 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
 
 public class ELTFilePathWidget extends AbstractWidget{
-	Group grpGroup_1;
+
+	private Text textBox;
 	private Object properties;
 	private String propertyName;
-	private Text filename;
-	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
-	
-	public void attachToPropertySubGroup(Group subGroup) {
-		Composite composite = new Composite(subGroup, SWT.NONE);
-		composite.setLayout(new FormLayout());
-		final Shell shell = composite.getShell();
-		Label lblNewLabel = new Label(composite, SWT.READ_ONLY);
-		FormData fd_lblNewLabel = new FormData();
-		fd_lblNewLabel.left = new FormAttachment(0, 10);
-		lblNewLabel.setLayoutData(fd_lblNewLabel);
-		lblNewLabel.setBounds(60, 83, 70, 21);
-		lblNewLabel.getBackground();
-		lblNewLabel.setText("File Path:");
-		filename = new Text(composite, SWT.BORDER);
-		fd_lblNewLabel.top = new FormAttachment(filename, 2, SWT.TOP);
-		fd_lblNewLabel.right = new FormAttachment(filename, -27);
-		FormData fd_filename = new FormData();
-		fd_filename.left = new FormAttachment(0, 87);
-		fd_filename.top = new FormAttachment(0, 26);
-		filename.setLayoutData(fd_filename);
-		filename.setBounds(137, 83, 200, 21);
-		filename.addModifyListener(new ModifyListener() {
 
-			@Override
-			public void modifyText(ModifyEvent e) {
-				if (filename.getText().isEmpty()) {
-					filename.setBackground(new Color(Display.getDefault(), 255,
-							255, 204));
-				} else
-					filename.setBackground(new Color(Display.getDefault(), 255,
-							255, 255));
-			}
-		});
+	@Override
+	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
+ListenerFactory listenerFactory = new ListenerFactory();
+		
+ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
+eltSuDefaultSubgroupComposite.createContainerWidget();
 
-		Button btnNewButton = new Button(composite, SWT.PUSH);
-		fd_filename.right = new FormAttachment(100, -125);
-		FormData fd_btnNewButton = new FormData();
-		fd_btnNewButton.top = new FormAttachment(0, 24);
-		fd_btnNewButton.left = new FormAttachment(filename, 17);
-		btnNewButton.setLayoutData(fd_btnNewButton);
-		btnNewButton.setBounds(350, 83, 20, 21);
-		btnNewButton.setText("...");
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				FileDialog filedialog = new FileDialog(shell, SWT.NULL);
-				String path = filedialog.open();
-
-				if (path != null) {
-					File file = new File(path);
-					filename.setText(file.getAbsolutePath());
-					/*if (file.isFile())
-						displayFiles(new String[] { file.getAbsoluteFile()
-								.toString() });*/
-				}
-				// displayFiles(file.list());
-			}
-		});
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("File Path:");
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
+		
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
+		
+		textBox = (Text) eltDefaultTextBox.getWidgetControl();
+		
+		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...");
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
+		try {
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"));
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
@@ -98,28 +68,22 @@ public class ELTFilePathWidget extends AbstractWidget{
 		this.properties =  properties;
 		this.propertyName = propertyName;
 		if(properties != null)
-			filename.setText((String) properties);
+			textBox.setText((String) properties);
 		else
-			filename.setText("");
+			textBox.setText("");
 		
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-		property.put(propertyName, filename.getText());
+		property.put(propertyName, textBox.getText());
 		return property;
+		
 	}
 
 	@Override
 	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
 		// TODO Auto-generated method stub
 		
 	}
