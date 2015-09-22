@@ -6,7 +6,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
@@ -29,15 +28,16 @@ public class ELTPhaseWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase :");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
-		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
+		/*AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);*/
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar);
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"),propertyDialogButtonBar);
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar);
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
