@@ -4,15 +4,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 
-public abstract class Model implements Serializable {
+public class Model implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4073149938391231758L;
 	
-	/** Delegate used to implemenent property-change-support. */
-	private transient PropertyChangeSupport pcsDelegate = new PropertyChangeSupport(this);
+	private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	
 	
 	/**
@@ -22,14 +18,11 @@ public abstract class Model implements Serializable {
 	 * @throws IllegalArgumentException if the parameter is null
 	 */
 	public synchronized void addPropertyChangeListener(PropertyChangeListener listner) {
-		if (listner == null) {
-			throw new IllegalArgumentException();
-		}
-		pcsDelegate.addPropertyChangeListener(listner);
+		propertyChangeSupport.addPropertyChangeListener(listner);
 	}
 	
-	protected void fireStructureChange(String prop, Object child) {
-		pcsDelegate.firePropertyChange(prop, null, child);
+	protected void updateConnectionProperty(String prop, Object newValue) {
+		firePropertyChange(prop, null,newValue);
 	}
 	/**
 	 * Remove a PropertyChangeListener from this component.
@@ -37,7 +30,7 @@ public abstract class Model implements Serializable {
 	 */
 	public synchronized void removePropertyChangeListener(PropertyChangeListener listner) {
 		if (listner != null) {
-			pcsDelegate.removePropertyChangeListener(listner);
+			propertyChangeSupport.removePropertyChangeListener(listner);
 		}
 	}
 	
@@ -49,8 +42,8 @@ public abstract class Model implements Serializable {
 	 */
 	protected void firePropertyChange(String property, Object oldValue,
 			Object newValue) {
-		if (pcsDelegate.hasListeners(property)) {
-			pcsDelegate.firePropertyChange(property, oldValue, newValue);
+		if (propertyChangeSupport.hasListeners(property)) {
+			propertyChangeSupport.firePropertyChange(property, oldValue, newValue);
 		}
 	}
 }

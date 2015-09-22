@@ -93,6 +93,14 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		this.linkMandatory = linkMandatory;
 	}
 
+	public boolean isAllowMultipleLinks() {
+		return allowMultipleLinks;
+	}
+
+	public boolean isLinkMandatory() {
+		return linkMandatory;
+	}
+
 	public int getTotalPortsOfThisType() {
 		return totalPortsOfThisType;
 	}

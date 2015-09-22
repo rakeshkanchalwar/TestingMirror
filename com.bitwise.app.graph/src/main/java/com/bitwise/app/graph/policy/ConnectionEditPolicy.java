@@ -8,30 +8,31 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.bitwise.app.graph.command.ConnectionCreateCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
-import com.bitwise.app.graph.model.ComponentConnection;
+import com.bitwise.app.graph.figure.FixedConnectionAnchor;
+import com.bitwise.app.graph.model.Link;
 
 public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 
-
-	
-	
 	protected Command getConnectionCreateCommand(
 			CreateConnectionRequest request) {
 
 		ConnectionCreateCommand command = new ConnectionCreateCommand();
-		command.setConnection(new ComponentConnection());
+		command.setConnection(new Link());
 		command.setSource(getComponentEditPart().getCastedModel());
 		ConnectionAnchor ctor = getComponentEditPart().getSourceConnectionAnchor(
 				request);
 		if (ctor == null)
 			return null;
-		command.setSourceTerminal(getComponentEditPart()
-				.mapConnectionAnchorToTerminal(ctor));
+		FixedConnectionAnchor fca = (FixedConnectionAnchor)ctor;
+		if(fca.isAllowMultipleLinks()){
+			command.setSourceTerminal(getComponentEditPart()
+					.mapConnectionAnchorToTerminal(ctor));
+		}
 		request.setStartCommand(command);
 		return command;
 
 	}
-	
+
 	protected Command getConnectionCompleteCommand(
 			CreateConnectionRequest request) {
 
@@ -42,20 +43,23 @@ public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 				request);
 		if (ctor == null)
 			return null;
-		
-		command.setTargetTerminal(getComponentEditPart()
-				.mapConnectionAnchorToTerminal(ctor));
+
+		FixedConnectionAnchor fca = (FixedConnectionAnchor)ctor;
+		if(fca.isAllowMultipleLinks()){
+			command.setTargetTerminal(getComponentEditPart()
+					.mapConnectionAnchorToTerminal(ctor));
+		}
 		return command;
 	}
 
 	protected Command getReconnectSourceCommand(
 			ReconnectRequest arg0) {
-		
+
 		return null;
 	}
 	protected Command getReconnectTargetCommand(
 			ReconnectRequest arg0) {
-		
+
 		return null;
 	}
 

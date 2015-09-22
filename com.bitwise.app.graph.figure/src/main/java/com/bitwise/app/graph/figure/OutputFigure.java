@@ -26,7 +26,7 @@ implements HandleBounds{
 		c.setType("in");
 		c.setTotalPortsOfThisType(1);
 		c.setSequence(1);
-		c.setAllowMultipleLinks(false);
+		c.setAllowMultipleLinks(true);
 		c.setLinkMandatory(true);
 		
 		connectionAnchors.put(c.getType()+c.getSequence(), c);

@@ -16,7 +16,7 @@ import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
-import com.bitwise.app.graph.model.ComponentConnection;
+import com.bitwise.app.graph.model.Link;
 
 public class ComponentConnectionEditPart extends AbstractConnectionEditPart
 		implements PropertyChangeListener {
@@ -27,7 +27,7 @@ public class ComponentConnectionEditPart extends AbstractConnectionEditPart
 	public void activate() {
 		if (!isActive()) {
 			super.activate();
-			((ComponentConnection) getModel()).addPropertyChangeListener(this);
+			((Link) getModel()).addPropertyChangeListener(this);
 		}
 	}
 
@@ -38,7 +38,7 @@ public class ComponentConnectionEditPart extends AbstractConnectionEditPart
 	public void deactivate() {
 		if (isActive()) {
 			super.deactivate();
-			((ComponentConnection) getModel())
+			((Link) getModel())
 					.removePropertyChangeListener(this);
 		}
 	}
@@ -62,8 +62,8 @@ public class ComponentConnectionEditPart extends AbstractConnectionEditPart
 				new ConnectionEndpointEditPolicy());
 	}
 
-	private ComponentConnection getCastedModel() {
-		return (ComponentConnection) getModel();
+	private Link getCastedModel() {
+		return (Link) getModel();
 	}
 
 	/*

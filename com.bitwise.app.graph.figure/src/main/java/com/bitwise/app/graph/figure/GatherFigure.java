@@ -33,7 +33,7 @@ implements HandleBounds{
 		c_out1.setType("out");
 		c_out1.setTotalPortsOfThisType(1);
 		c_out1.setSequence(1);
-		c_out1.setAllowMultipleLinks(false);
+		c_out1.setAllowMultipleLinks(true);
 		c_out1.setLinkMandatory(true);
 		
 		connectionAnchors.put("out1", c_out1);
