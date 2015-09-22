@@ -2,17 +2,25 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Text;
+
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCombo;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
 
 public class ELTCharacterSetWidget extends AbstractWidget{
-
+	
+	Combo combo;
+	Text text;
 	String[] ITEMS={"True","False","Parameter"};
+	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+	private String propertyName;
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
@@ -21,27 +29,29 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set :").lableWidth(80);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set").lableWidth(80);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
-		/*AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
-		container.attachWidget(eltDefaultTextBox);*/
 		
-		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS);
+		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS).grabExcessHorizontalSpace(false);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultCombo);
 		
+		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
 		
-		//textBox = (Text) eltDefaultTextBox.getWidgetControl();
+		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
+		eltDefaultTextBox.visibility(false);
+		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
 		
-		/*AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
-		container.attachWidget(eltDefaultButton);
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"));
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"));
+			//eltDefaultCombo.attachListener(listenerFactory.getListener("IELTSelectionListener"),eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
-		}*/
+		}
 	}
 
 	@Override
@@ -52,8 +62,10 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		// TODO Auto-generated method stub
-		return null;
+		property.put(propertyName, combo.getText());
+		property.put("text_value", text.getText());
+		
+		return property;
 	}
 
 	@Override

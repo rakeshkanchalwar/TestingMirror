@@ -46,4 +46,9 @@ public class ELTDefaultTextBox extends AbstractELTWidget{
 		this.grabExcessSpace = grabExcessSpace;
 		return this;
 	}
+	
+	public ELTDefaultTextBox visibility(boolean visible){ 
+		defaultELTTextBox.setVisible(visible);
+		return this;
+	}
 }
