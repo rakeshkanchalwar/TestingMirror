@@ -62,7 +62,7 @@ public class ELTPhaseWidget extends AbstractELTWidget{
 		fd_lblAdesss.right = new FormAttachment(0, 83);
 		lblAdesss.setLayoutData(fd_lblAdesss);
 		formToolkit.adapt(lblAdesss, true, true);
-		lblAdesss.setText("Phase : ");
+		lblAdesss.setText("Phase  ");
 		
 		text_1 = new Text(composite_3, SWT.BORDER);
 		

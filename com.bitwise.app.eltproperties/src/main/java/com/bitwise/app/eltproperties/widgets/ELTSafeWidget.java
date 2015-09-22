@@ -95,7 +95,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			Image img = fieldDecoration.getImage();
 			txtDecorator.setImage(img);
 			txtDecorator.setDescriptionText(Messages.FIELDSAFE);
-			txtDecorator.hide();
+			txtDecorator.hideHover();
 			
 			combo.addSelectionListener(new SelectionAdapter() {
 				@Override 
@@ -104,13 +104,9 @@ public class ELTSafeWidget extends AbstractELTWidget{
 					if(combo.getText().equals("Parameter")) {
 					
 						text.setVisible(true);
-
-						
-						
 					}else {
 						
 						text.setVisible(false);
-						txtDecorator.hide();
 					}
 				}
 			});
@@ -122,15 +118,11 @@ public class ELTSafeWidget extends AbstractELTWidget{
 				public void modifyText(ModifyEvent e) {
 					
 					if( text.getText().isEmpty()) {
-						
-						txtDecorator.show();
-						
 						text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
 						
 					}
 					else{
-						txtDecorator.hide();
-						
+								
 						text.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
 						
 						

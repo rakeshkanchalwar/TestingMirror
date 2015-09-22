@@ -1,5 +1,6 @@
 package com.bitwise.app.eltproperties.factory;
 
+import com.bitwise.app.eltproperties.widget.filterproperties.ELTFilterPropertyWidget;
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 import com.bitwise.app.eltproperties.widgets.ELTCharacterSetWidget;
 import com.bitwise.app.eltproperties.widgets.ELTComponentNameWidget;
@@ -40,6 +41,8 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
 			return new ELTSafeWidget();
 			
+		}else if(widgetName.equals("ELT_FILTER_PROPERTY_WIDGET")){
+			return new ELTFilterPropertyWidget();
 		}
 		else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
 			return new ELTSchemaWidget(); 

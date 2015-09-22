@@ -63,7 +63,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 			fd_lblAdesss.right = new FormAttachment(0, 83);
 			lblAdesss.setLayoutData(fd_lblAdesss);
 			formToolkit.adapt(lblAdesss, true, true);
-			lblAdesss.setText("Has Header: ");
+			lblAdesss.setText("Has Header ");
 			
 
 			combo = new Combo(composite_3, SWT.READ_ONLY);
@@ -96,6 +96,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 			Image img = fieldDecoration.getImage();
 			txtDecorator.setImage(img);
 			txtDecorator.setDescriptionText(Messages.CHARACTERSET);
+			txtDecorator.hideHover();
 			
 			combo.addSelectionListener(new SelectionAdapter() {
 				@Override 

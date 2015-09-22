@@ -42,7 +42,7 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		lblNewLabel.setLayoutData(fd_lblNewLabel);
 		lblNewLabel.setBounds(60, 83, 70, 21);
 		lblNewLabel.getBackground();
-		lblNewLabel.setText("File Path:");
+		lblNewLabel.setText("File Path ");
 		filename = new Text(composite, SWT.BORDER);
 		fd_lblNewLabel.top = new FormAttachment(filename, 2, SWT.TOP);
 		fd_lblNewLabel.right = new FormAttachment(filename, -27);
@@ -71,7 +71,7 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		fd_btnNewButton.left = new FormAttachment(filename, 17);
 		btnNewButton.setLayoutData(fd_btnNewButton);
 		btnNewButton.setBounds(350, 83, 20, 21);
-		btnNewButton.setText("...");
+		btnNewButton.setText("Browser");
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

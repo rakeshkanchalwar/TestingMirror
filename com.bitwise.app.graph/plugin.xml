@@ -151,5 +151,29 @@
             sequence="M1+M3+J">
       </key>
    </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <hiddenToolBarItem
+               id="org.eclipse.ui.edit.text.gotoLastEditPosition">
+         </hiddenToolBarItem>
+         <hiddenToolBarItem
+               id="org.eclipse.ui.externaltools.ExternalToolMenuDelegateToolbar">
+         </hiddenToolBarItem>
+         <hiddenToolBarItem
+               id="org.eclipse.ui.edit.text.gotoNextAnnotation">
+         </hiddenToolBarItem>
+         <hiddenToolBarItem
+               id="org.eclipse.ui.edit.text.gotoNextAnnotation">
+         </hiddenToolBarItem>
+         <hiddenToolBarItem
+               id="org.eclipse.search.OpenSearchDialogPage">
+         </hiddenToolBarItem>
+         <actionSet
+               id="org.eclipse.ui.edit.text.actionSet.annotationNavigation">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
 
 </plugin>

@@ -103,7 +103,7 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 		Image img = fieldDecoration.getImage();
 		txtDecorator.setImage(img);
 		txtDecorator.setDescriptionText(Messages.CHARACTERSET);
-		
+		txtDecorator.hide();
 		//combo.setItems(Items);
 		//new AutoCompleteField(combo, new ComboContentAdapter(), Items);
 		combo.addSelectionListener(new SelectionAdapter() {
@@ -111,14 +111,10 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 		    public void widgetSelected(SelectionEvent e) {
 				
 				if(combo.getText().equals("Parameter")) {
-				
 					text_1.setVisible(true);
-					//txtDecorator.show();
 					
-				}else {
-					
+				}else {	
 					text_1.setVisible(false);
-					txtDecorator.hide();
 				}
 			}
 		});
@@ -128,14 +124,10 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 			@Override
 			public void modifyText(ModifyEvent e) {
 				if( text_1.getText().isEmpty()) {
-					
-					txtDecorator.show();
 					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));	
 				}
 				else{
-					txtDecorator.hide();
 					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
-					
 					
 			}
 				
