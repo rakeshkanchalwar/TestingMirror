@@ -26,7 +26,7 @@ ListenerFactory listenerFactory = new ListenerFactory();
 ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 eltSuDefaultSubgroupComposite.createContainerWidget();
 
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("File Path:");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("File Path");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);

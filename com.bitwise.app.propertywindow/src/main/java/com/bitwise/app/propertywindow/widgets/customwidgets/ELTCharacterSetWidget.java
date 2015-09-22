@@ -29,7 +29,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set :").lableWidth(80);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set").lableWidth(80);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		

@@ -28,7 +28,7 @@ public class ELTSafeWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Safe Property:").lableWidth(80);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Safe Property ").lableWidth(80);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS);
@@ -42,6 +42,9 @@ public class ELTSafeWidget extends AbstractWidget{
 		
 		try {
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"),propertyDialogButtonBar,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			

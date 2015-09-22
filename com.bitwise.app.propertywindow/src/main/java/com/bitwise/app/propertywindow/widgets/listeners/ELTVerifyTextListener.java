@@ -27,8 +27,9 @@ public class ELTVerifyTextListener implements IELTListener{
 				@Override
 				public void handleEvent(Event event) {
 					System.out.println(((Text)widgetList[0]).getText());
-					String text=((Text)widgetList[0]).getText();
-					Matcher matchs=Pattern.compile("[\\w]*").matcher(text);
+					//String text=((Text)widgetList[0]).getText();
+					String string=event.text;
+					Matcher matchs=Pattern.compile("[\\w]*").matcher(string);
 					if(!matchs.matches()){
 						event.doit=false;
 			
