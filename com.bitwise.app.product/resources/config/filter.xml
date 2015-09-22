@@ -4,10 +4,14 @@
 	<tns:category>STRAIGHTPULL</tns:category>
 	<tns:inputPort>
 		<tns:numberOfPorts>1</tns:numberOfPorts>
+		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 	</tns:inputPort>
 	<tns:outputPort>
 		<tns:numberOfPorts>2</tns:numberOfPorts>
-		<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 	</tns:outputPort>
+		<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
+    	<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE"/>
+  	 	 
 	</tns:component>
 </tns:Config>
