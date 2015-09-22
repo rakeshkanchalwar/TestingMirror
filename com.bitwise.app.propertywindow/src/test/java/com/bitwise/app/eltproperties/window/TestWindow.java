@@ -47,6 +47,7 @@ public class TestWindow extends ApplicationWindow {
 		
 		ComponentModel componentModel = new ComponentModel(); 
 		inputCompProps = componentModel.getProperties("Input");
+		inputCompProps.put("name","cname");
 	}
 
 	/**
@@ -67,6 +68,12 @@ public class TestWindow extends ApplicationWindow {
 				
 				//CopyOfPropertyWindowPOC2 copyOfPropertyWindowPOC2 = new CopyOfPropertyWindowPOC2(e.display.getActiveShell());
 				//copyOfPropertyWindowPOC2.open();
+				
+				ArrayList<String> names = new ArrayList<>();
+				
+				names.add("abc");
+				names.add("xyz");
+				
 				PropertyStore propertyStore = new PropertyStore();
 				
 				ArrayList<Property> inputComponentProperties = propertyStore.getProperties("Input");
@@ -75,7 +82,7 @@ public class TestWindow extends ApplicationWindow {
 				
 				
 				
-				PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell(),propertyTreeBuilder.getPropertyTree(),inputCompProps,null);
+				PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell(),propertyTreeBuilder.getPropertyTree(),inputCompProps,names);
 				
 				testDialog.open();
 				

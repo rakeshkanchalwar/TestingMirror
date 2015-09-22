@@ -69,7 +69,7 @@ public class PropertyStore {
 		
 		//--------------------
 		
-				Property name= new Property("String", "name", "ELT_FILE_PATH_WIDGET");
+				Property name= new Property("String", "name", "ELT_COMPONENT_NAME_WIDGET");
 				name.group("TEXT_PROPERTIES");
 				
 				Property path= new Property("String", "path", "ELT_PHASE_WIDGET");
