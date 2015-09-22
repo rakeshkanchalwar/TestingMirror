@@ -43,36 +43,13 @@ public class Component extends Model {
 	protected Hashtable<String, Link> inputs = new Hashtable<String, Link>(7);
 	protected List<Link> outputs = new ArrayList<Link>();
 
-
-	protected int numberOfOutGoingLinks = 0;
-	protected int numberOfInComingLinks = 0;
-
-	protected boolean allowMultipleLinks = true;
-
-	public boolean allowMoreOutGoingLinks() {
-
-		if (numberOfOutGoingLinks < 1 || allowMultipleLinks)
-			return true;
-		return false;
-
-	}
-
-	public boolean allowMoreInComingLinks() {
-
-		if (numberOfInComingLinks < 1 || allowMultipleLinks)
-			return true;
-		return false;
-	}
-
 	public void connectInput(Link c) {
 		inputs.put(c.getTargetTerminal(), c);
-		numberOfInComingLinks++;
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
 	public void connectOutput(Link c) {
 		outputs.add(c);
-		numberOfOutGoingLinks++;
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 
@@ -112,13 +89,6 @@ public class Component extends Model {
 		}
 	}
 
-	public boolean isAllowMultipleLinks() {
-		return allowMultipleLinks;
-	}
-
-	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
-		this.allowMultipleLinks = allowMultipleLinks;
-	}
 
 	/**
 	 * Set the Location of this shape.

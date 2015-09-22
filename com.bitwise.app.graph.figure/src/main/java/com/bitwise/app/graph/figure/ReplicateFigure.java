@@ -23,7 +23,7 @@ implements HandleBounds{
 		c_in1.setType("in");
 		c_in1.setTotalPortsOfThisType(1);
 		c_in1.setSequence(1);
-		c_in1.setAllowMultipleLinks(false);
+		c_in1.setAllowMultipleLinks(true);
 		c_in1.setLinkMandatory(true);
 
 		connectionAnchors.put("in1", c_in1);

@@ -50,7 +50,7 @@ public class ConnectionCreateCommand extends Command{
 			return false;
 		}
 		// return false, if the source -> target connection exists already
-		for (Iterator iter = source.getSourceConnections().iterator(); iter
+		for (Iterator<Link> iter = source.getSourceConnections().iterator(); iter
 				.hasNext();) {
 			Link conn = (Link) iter.next();
 			
@@ -58,12 +58,6 @@ public class ConnectionCreateCommand extends Command{
 				return false;
 			}
 		}
-		
-		if(!source.allowMoreOutGoingLinks())
-			return false;
-		if(target!=null)
-			if(!target.allowMoreInComingLinks())
-			return false;
 		
 		return true;
 	}
