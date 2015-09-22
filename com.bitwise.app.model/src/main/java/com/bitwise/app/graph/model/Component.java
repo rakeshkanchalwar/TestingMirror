@@ -14,32 +14,39 @@ import org.eclipse.draw2d.geometry.Point;
 public class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
 
-	public static final String LOCATION_PROP = "Location";
-	/** Property ID to use then the size of this shape is modified. */
-	public static final String SIZE_PROP = "Size";
-	/** Property ID to use when the list of outgoing connections is modified. */
-	// public static final String SOURCE_CONNECTIONS_PROP = "SourceConnection";
-	/** Property ID to use when the list of incoming connections is modified. */
-	// public static final String TARGET_CONNECTIONS_PROP = "TargetConnection";
-
-	/** Location of this shape. */
+	public static enum Props {
+		LOCATION_PROP("Location"),
+		SIZE_PROP("Size"),
+		INPUTS("inputs"),
+		OUTPUTS("outputs");
+		
+		private String value;
+		private Props(String value){
+			this.value = value;
+		}
+		
+		public String getValue(){
+			return this.value;
+		}
+		
+		public boolean eq(String property){
+			return this.value.equals(property);
+		}
+	}
+	
 	private Point location = new Point(0, 0);
-	/** Size of this shape. */
 	private Dimension size = new Dimension(80, 60);
-
 	private Map<String, Object> properties = new LinkedHashMap<>();
 
 	private Container parent;
 
-	protected Hashtable<String, ComponentConnection> inputs = new Hashtable<String, ComponentConnection>(7);
-	protected Vector<ComponentConnection> outputs = new Vector<ComponentConnection>(4, 4);
+	protected Hashtable<String, Link> inputs = new Hashtable<String, Link>(7);
+	protected List<Link> outputs = new ArrayList<Link>();
 
-	public static final String INPUTS = "inputs", OUTPUTS = "outputs";
 
 	protected int numberOfOutGoingLinks = 0;
 	protected int numberOfInComingLinks = 0;
 
-	// protected int numberOfOutGoingLinksLimit=1, numberOfInComingLinksLimit=1;
 	protected boolean allowMultipleLinks = true;
 
 	public boolean allowMoreOutGoingLinks() {
@@ -57,27 +64,26 @@ public class Component extends Model {
 		return false;
 	}
 
-	public void connectInput(ComponentConnection c) {
+	public void connectInput(Link c) {
 		inputs.put(c.getTargetTerminal(), c);
 		numberOfInComingLinks++;
-		fireStructureChange(INPUTS, c);
+		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
-	public void connectOutput(ComponentConnection c) {
-		outputs.addElement(c);
+	public void connectOutput(Link c) {
+		outputs.add(c);
 		numberOfOutGoingLinks++;
-		fireStructureChange(OUTPUTS, c);
+		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 
-	public List<ComponentConnection> getSourceConnections() {
-
-		return (Vector<ComponentConnection>) outputs.clone();
+	public List<Link> getSourceConnections() {
+		return outputs;
 	}
 
-	public List<ComponentConnection> getTargetConnections() {
+	public List<Link> getTargetConnections() {
 
-		Enumeration<ComponentConnection> elements = inputs.elements();
-		Vector<ComponentConnection> v = new Vector<ComponentConnection>(inputs.size());
+		Enumeration<Link> elements = inputs.elements();
+		Vector<Link> v = new Vector<Link>(inputs.size());
 		while (elements.hasMoreElements())
 			v.addElement(elements.nextElement());
 		return v;
@@ -127,7 +133,7 @@ public class Component extends Model {
 			throw new IllegalArgumentException();
 		}
 		location.setLocation(newLocation);
-		firePropertyChange(LOCATION_PROP, null, location);
+		firePropertyChange(Props.LOCATION_PROP.getValue(), null, location);
 	}
 
 	/**
@@ -148,7 +154,7 @@ public class Component extends Model {
 	public void setSize(Dimension newSize) {
 		if (newSize != null) {
 			size.setSize(newSize);
-			firePropertyChange(SIZE_PROP, null, size);
+			firePropertyChange(Props.SIZE_PROP.getValue(), null, size);
 		}
 	}
 

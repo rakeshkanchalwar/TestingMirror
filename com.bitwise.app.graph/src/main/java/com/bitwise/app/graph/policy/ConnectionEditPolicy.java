@@ -8,7 +8,7 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.bitwise.app.graph.command.ConnectionCreateCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
-import com.bitwise.app.graph.model.ComponentConnection;
+import com.bitwise.app.graph.model.Link;
 
 public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 
@@ -19,7 +19,7 @@ public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 			CreateConnectionRequest request) {
 
 		ConnectionCreateCommand command = new ConnectionCreateCommand();
-		command.setConnection(new ComponentConnection());
+		command.setConnection(new Link());
 		command.setSource(getComponentEditPart().getCastedModel());
 		ConnectionAnchor ctor = getComponentEditPart().getSourceConnectionAnchor(
 				request);

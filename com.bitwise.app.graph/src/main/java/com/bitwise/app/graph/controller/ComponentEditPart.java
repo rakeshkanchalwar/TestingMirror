@@ -41,7 +41,7 @@ import com.bitwise.app.graph.figure.InputFigure;
 import com.bitwise.app.graph.figure.OutputFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.model.ComponentConnection;
+import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.model.InputComponent;
 import com.bitwise.app.graph.model.OutputComponent;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -166,7 +166,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	public ConnectionAnchor getSourceConnectionAnchor(
 			ConnectionEditPart connection) {
 
-		ComponentConnection wire = (ComponentConnection) connection.getModel();
+		Link wire = (Link) connection.getModel();
 		return getComponentFigure().getConnectionAnchor(
 				wire.getSourceTerminal());
 	}
@@ -185,7 +185,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	public ConnectionAnchor getTargetConnectionAnchor(
 			ConnectionEditPart connection) {
 
-		ComponentConnection wire = (ComponentConnection) connection.getModel();
+		Link wire = (Link) connection.getModel();
 		return getComponentFigure().getConnectionAnchor(
 				wire.getTargetTerminal());
 	}
@@ -204,12 +204,12 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	public void propertyChange(PropertyChangeEvent evt) {
 
 		String prop = evt.getPropertyName();
-		if (Component.SIZE_PROP.equals(prop)
-				|| Component.LOCATION_PROP.equals(prop)) {
+		if (Component.Props.SIZE_PROP.eq(prop)
+				|| Component.Props.LOCATION_PROP.eq(prop)) {
 			refreshVisuals();
-		} else if (Component.OUTPUTS.equals(prop)) {
+		} else if (Component.Props.OUTPUTS.eq(prop)) {
 			refreshSourceConnections();
-		} else if (Component.INPUTS.equals(prop)) {
+		} else if (Component.Props.INPUTS.eq(prop)) {
 			refreshTargetConnections();
 		}
 	}

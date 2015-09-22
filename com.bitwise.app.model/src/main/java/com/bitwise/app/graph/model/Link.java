@@ -2,7 +2,7 @@ package com.bitwise.app.graph.model;
 
 import org.eclipse.draw2d.Graphics;
 
-public class ComponentConnection extends Model {
+public class Link extends Model {
 	private static final long serialVersionUID = -4969635974273718739L;
 
 	/** Line drawing style for this connection. */
@@ -38,11 +38,11 @@ public class ComponentConnection extends Model {
 	 * @throws IllegalArgumentException
 	 *             if any of the parameters are null or source == target
 	 */
-	public ComponentConnection(Component source, Component target) {
+	public Link(Component source, Component target) {
 		
 		
 	}
-	public ComponentConnection() {
+	public Link() {
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -6,11 +6,11 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.commands.Command;
 
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.model.ComponentConnection;
+import com.bitwise.app.graph.model.Link;
 
 public class ConnectionCreateCommand extends Command{
 	/** The connection instance. */
-	private ComponentConnection connection;
+	private Link connection;
 	/** The desired line style for the connection (dashed or solid). */
 	private int lineStyle;
 
@@ -27,7 +27,7 @@ public class ConnectionCreateCommand extends Command{
 	 * @param source the source endpoint (a non-null Shape instance)
 	 * @param lineStyle the desired line style. See Connection#setLineStyle(int) for details
 	 * @throws IllegalArgumentException if source is null
-	 * @see ComponentConnection#setLineStyle(int)
+	 * @see Link#setLineStyle(int)
 	 */
 	
 	public ConnectionCreateCommand() {
@@ -52,7 +52,7 @@ public class ConnectionCreateCommand extends Command{
 		// return false, if the source -> target connection exists already
 		for (Iterator iter = source.getSourceConnections().iterator(); iter
 				.hasNext();) {
-			ComponentConnection conn = (ComponentConnection) iter.next();
+			Link conn = (Link) iter.next();
 			
 			if (conn.getTarget().equals(target)) {
 				return false;
@@ -111,7 +111,7 @@ public class ConnectionCreateCommand extends Command{
 	}
 
 	
-	public void setConnection(ComponentConnection w) {
+	public void setConnection(Link w) {
 		connection = w;
 		oldSource = w.getSource();
 		oldTarget = w.getTarget();
