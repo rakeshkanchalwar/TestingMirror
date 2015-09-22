@@ -5,6 +5,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+
 /**
  * 
  * @author Shrirang S. Kumbhar
@@ -21,7 +23,7 @@ public class ELTHiTestListener implements IELTListener{
 	}
 
 
-	public Listener getListener(Widget... widget) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widget) {
 		
 		for(Widget x: widget){
 			

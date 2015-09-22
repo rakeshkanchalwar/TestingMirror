@@ -2,6 +2,7 @@ package com.bitwise.app.propertywindow.factory;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
+import com.bitwise.app.propertywindow.widgets.listeners.MyCustomWidgetTextChange;
 
 /**
  * 
@@ -20,6 +21,9 @@ public class ListenerFactory {
 		}else if(listener.equals("ELTHiTestListener")){
 			IELTListener ELTIeltListener = new ELTHiTestListener();
 			return ELTIeltListener;
+		}else if(listener.equals("MyCustomWidgetTextChange")){
+			IELTListener myCuIeltListener = new MyCustomWidgetTextChange();
+			return myCuIeltListener;
 		}
 		
 		return null;

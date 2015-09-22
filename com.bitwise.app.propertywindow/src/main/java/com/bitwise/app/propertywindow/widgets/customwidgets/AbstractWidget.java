@@ -3,10 +3,7 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
-
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 /**
@@ -17,20 +14,9 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTC
 
 public abstract class AbstractWidget {
 
-	private Button okButton;
+	protected PropertyDialogButtonBar propertyDialogButtonBar;
+
 	protected ArrayList<String> names = new ArrayList<>();
-
-	public void setOkButton(Button okButton) {
-
-		this.okButton = okButton;
-
-	}
-
-	protected void toggleOkButton(boolean status) {
-		if (this.okButton != null) {
-			okButton.setEnabled(status);
-		}
-	}
 
 	public abstract void attachToPropertySubGroup(AbstractELTContainerWidget subGroup);
 
@@ -48,4 +34,7 @@ public abstract class AbstractWidget {
 		this.names = names;
 	}
 
+	public void setpropertyDialogButtonBar(PropertyDialogButtonBar propertyDialogButtonBar){
+		this.propertyDialogButtonBar = propertyDialogButtonBar;
+	}
 }

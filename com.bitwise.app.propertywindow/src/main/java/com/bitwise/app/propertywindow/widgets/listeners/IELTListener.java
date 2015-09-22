@@ -3,6 +3,8 @@ package com.bitwise.app.propertywindow.widgets.listeners;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+
 /**
  * 
  * @author Shrirang S. Kumbhar
@@ -12,5 +14,5 @@ import org.eclipse.swt.widgets.Widget;
 
 public interface IELTListener {
 	public int getListenerType();
-	public Listener getListener(Widget... widgets);
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widgets);
 }

@@ -8,7 +8,6 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
@@ -18,8 +17,8 @@ import com.bitwise.app.propertywindow.factory.WidgetFactory;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.utils.WordUtils;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
 
 /**
  * 
@@ -35,12 +34,19 @@ public class PropertyDialogBuilder {
 	private LinkedHashMap<String, Object> componentProperties;
 	private ArrayList<AbstractWidget> eltWidgetList;
 	private ArrayList<String> names;
-	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, ArrayList<String> names){
+	private PropertyDialogButtonBar propertyDialogButtonBar;
+	
+	private PropertyDialogBuilder(){
+		
+	}
+	
+	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, ArrayList<String> names,PropertyDialogButtonBar propertyDialogButtonBar){
 		this.container = container;
 		this.propertyTree = propertyTree;
 		this.componentProperties = componentProperties;
 		eltWidgetList= new ArrayList<>();
 		this.names = names;
+		this.propertyDialogButtonBar = propertyDialogButtonBar;
 	}
 	
 	public void buildPropertyWindow(){
@@ -62,6 +68,7 @@ public class PropertyDialogBuilder {
 				
 				for(Property property: subgroupTree.get(subgroupName)){
 					AbstractWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
+					eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
 					eltWidget.attachToPropertySubGroup(subGroupContainer);
 					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
 					eltWidget.setNames(this.names);

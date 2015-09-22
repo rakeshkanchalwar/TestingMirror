@@ -1,12 +1,12 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
-import java.sql.Array;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
+
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class ELTHelloTestListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widgets) {
 		
 		int index = 0;
 		

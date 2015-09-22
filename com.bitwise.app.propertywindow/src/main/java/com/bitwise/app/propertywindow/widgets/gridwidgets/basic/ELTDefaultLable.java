@@ -5,8 +5,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
-
 /**
  * 
  * @author Shrirang S. Kumbhar

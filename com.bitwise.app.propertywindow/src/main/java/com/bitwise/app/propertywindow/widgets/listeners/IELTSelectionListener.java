@@ -1,14 +1,11 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
-import org.eclipse.core.databinding.SetBinding;
-import org.eclipse.osgi.framework.eventmgr.EventListeners;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
+
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public class IELTSelectionListener implements IELTListener{
 
@@ -18,7 +15,7 @@ public class IELTSelectionListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widgets) {
 		/*SelectionAdapter selection=new SelectionAdapter() {
 			@Override 
 		    public void widgetSelected(SelectionEvent e) {

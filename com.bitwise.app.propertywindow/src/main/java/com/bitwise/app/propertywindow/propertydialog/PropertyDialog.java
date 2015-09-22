@@ -28,8 +28,9 @@ public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
 	private LinkedHashMap<String, Object> ComponentProperties;
-	PropertyDialogBuilder propertyDialogBuilder;
+	private PropertyDialogBuilder propertyDialogBuilder;
 	private ArrayList<String> names = new ArrayList<>();
+	private PropertyDialogButtonBar propertyDialogButtonBar;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -60,8 +61,10 @@ public class PropertyDialog extends Dialog {
 		container.getShell().setMinimumSize(600, 500);
 		container.getShell().setText("Property Dialog");
 		
+		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
+		
 		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
-		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,names);
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,names,propertyDialogButtonBar);
 		propertyDialogBuilder.buildPropertyWindow();
 		
 		return container;
@@ -74,20 +77,26 @@ public class PropertyDialog extends Dialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		
-		createButton(parent, IDialogConstants.NO_ID,
+		Button applyButton = createButton(parent, IDialogConstants.NO_ID,
 				"Apply", false);
+		
+		
 		
 		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
 		
 		
-		createButton(parent, IDialogConstants.CANCEL_ID,
+		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
 		
-		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-			eltWidget.setOkButton(okButton);
-		}
+		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
 		
+		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+			//eltWidget.setOkButton(okButton);
+			//eltWidget.setApplyButton(applyButton);
+			eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
+		}
+		applyButton.setEnabled(false);
 		//initDataBindings();
 	}
 
