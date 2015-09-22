@@ -132,12 +132,6 @@ public class PropertyDialog extends Dialog {
 					}
 				}
 				componentProperties.putAll(appliedProperties);
-				 	Shell shell=container.getShell();
-				    int style = SWT.APPLICATION_MODAL | SWT.OK;
-					MessageBox messageBox = new MessageBox(shell,style);
-					messageBox.setText("Information"); //$NON-NLS-1$
-					messageBox.setMessage(Messages.PropertyAppliedNotification);
-					messageBox.open();
 			}
 			
 		});
@@ -169,7 +163,7 @@ public class PropertyDialog extends Dialog {
 		if(!currentProperties.equals(appliedProperties))
 		{
 			MessageBox messageBox = getMessageBox();
-			if(messageBox.open()==SWT.YES)
+			if(messageBox.open()==SWT.OK)
 			{
 				checkIfMessageBoxAlreadyThere=1;
 				close();
@@ -184,7 +178,7 @@ public class PropertyDialog extends Dialog {
 
 	private MessageBox getMessageBox() {
 		Shell shell=container.getShell();
-		int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
+		int style = SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL;
 		MessageBox messageBox = new MessageBox(shell,style);
 		messageBox.setText("Information"); //$NON-NLS-1$
 		messageBox.setMessage(Messages.MessageBeforeClosingWindow);
@@ -205,7 +199,7 @@ public class PropertyDialog extends Dialog {
 			MessageBox messageBox = getMessageBox();
 			if(checkIfMessageBoxAlreadyThere!=1)
 			{
-			if(messageBox.open()==SWT.YES)
+			if(messageBox.open()==SWT.OK)
 
 		     returnValue = super.close();
 			}
