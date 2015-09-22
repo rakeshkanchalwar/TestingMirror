@@ -61,6 +61,18 @@ public class Link extends Model {
 		getTarget().connectInput(this);
 	}
 	
+	public void detachSource() {
+		if (getSource() == null)
+			return;
+		getSource().disconnectOutput(this);
+	}
+	
+	public void detachTarget() {
+		if (getTarget() == null)
+			return;
+		getTarget().disconnectInput(this);
+	}
+	
 	public Component getSource() {
 		return source;
 	}

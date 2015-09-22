@@ -112,4 +112,29 @@ public class ConnectionCreateCommand extends Command{
 		oldSourceTerminal = w.getSourceTerminal();
 		oldTargetTerminal = w.getTargetTerminal();
 	}
+	
+	@Override
+	public void redo() {
+		execute();
+	}
+
+	@Override
+	public void undo() {
+		source = connection.getSource();
+		target = connection.getTarget();
+		sourceTerminal = connection.getSourceTerminal();
+		targetTerminal = connection.getTargetTerminal();
+
+		connection.detachSource();
+		connection.detachTarget();
+
+		connection.setSource(oldSource);
+		connection.setTarget(oldTarget);
+		connection.setSourceTerminal(oldSourceTerminal);
+		connection.setTargetTerminal(oldTargetTerminal);
+
+		connection.attachSource();
+		connection.attachTarget();
+
+	}
 }

@@ -52,6 +52,16 @@ public class Component extends Model {
 		outputs.add(c);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
+	
+	public void disconnectInput(Link c) {
+		inputs.remove(c.getTargetTerminal());
+		updateConnectionProperty(Props.INPUTS.getValue(), c);
+	}
+
+	public void disconnectOutput(Link c) {
+		outputs.remove(c);
+		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
+	}
 
 	public List<Link> getSourceConnections() {
 		return outputs;
