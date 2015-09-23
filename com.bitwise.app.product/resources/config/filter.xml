@@ -12,6 +12,6 @@
 	</tns:outputPort>
 		<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
     	<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE"/>
-  	 	 
+  	 	<tns:property dataType="string" name="oprationClass" renderer="ELTOprationalClassWidget" type="USER" group="GENERAL" subGroup="FILE_PATH"/>
 	</tns:component>
 </tns:Config>

@@ -71,6 +71,7 @@
 			<enumeration value="ELTHasHeaderWidget" />
 			<enumeration value="ELTSafePropertyWidget" />
 			<enumeration value="ELTFieldSequenceWidget" />
+			<enumeration value="ELTOprationalClassWidget" />
 		</restriction>
 	</simpleType>
 
