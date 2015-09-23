@@ -111,22 +111,6 @@ public class Container extends Model {
 		return newName;
 
 	}
-
-	public boolean isUniqueCompName(String componentName) {
-		componentName = componentName.trim();
-		boolean result = true;
-
-		for (String cname : componentNames) {
-			if (cname.equalsIgnoreCase(componentName)) {
-				result = false;
-				break;
-			}
-
-		}
-		System.out.println("isUniqueCompName: result: " + result);
-
-		return result;
-	}
 	
 	public ArrayList<String> getComponentNames() {
 		return componentNames;

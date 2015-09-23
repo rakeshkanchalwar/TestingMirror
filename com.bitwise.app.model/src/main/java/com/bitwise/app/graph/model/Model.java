@@ -4,13 +4,15 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 
-public class Model implements Serializable {
+abstract class Model implements Serializable {
 
 	private static final long serialVersionUID = -4073149938391231758L;
 	
-	private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-	
-	
+	private final PropertyChangeSupport propertyChangeSupport;
+		
+	Model(){
+		propertyChangeSupport = new PropertyChangeSupport(this);
+	}
 	/**
 	 * Attach a non-null PropertyChangeListener to this object.
 	 * 
@@ -21,9 +23,7 @@ public class Model implements Serializable {
 		propertyChangeSupport.addPropertyChangeListener(listner);
 	}
 	
-	protected void updateConnectionProperty(String prop, Object newValue) {
-		firePropertyChange(prop, null,newValue);
-	}
+	
 	/**
 	 * Remove a PropertyChangeListener from this component.
 	 * @param listner PropertyChangeListener instance

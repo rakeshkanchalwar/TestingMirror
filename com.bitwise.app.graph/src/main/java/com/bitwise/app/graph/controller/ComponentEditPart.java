@@ -139,7 +139,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	}
 
 	protected ConnectionAnchor getConnectionAnchor() {
-		ConnectionAnchor temp;
 		if (anchor == null) {
 			if (getModel() instanceof InputComponent) {
 				anchor = new FixedConnectionAnchor(getFigure());
@@ -155,11 +154,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return anchor;
 	}
 
-	protected List getModelSourceConnections() {
+	@Override
+	protected List<Link> getModelSourceConnections() {
 		return getCastedModel().getSourceConnections();
 	}
 
-	protected List getModelTargetConnections() {
+	@Override
+	protected List<Link> getModelTargetConnections() {
 		return getCastedModel().getTargetConnections();
 	}
 
@@ -258,7 +259,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
 				System.out.println(propertyTreeBuilder.toString());
 				PropertyDialog testwindow = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),
-						component.getProperties(), component.getComponentNames());
+						component.getProperties(), component.getParent().getComponentNames());
 				testwindow.open();
 				refreshVisuals();
 				getFigure().repaint();
