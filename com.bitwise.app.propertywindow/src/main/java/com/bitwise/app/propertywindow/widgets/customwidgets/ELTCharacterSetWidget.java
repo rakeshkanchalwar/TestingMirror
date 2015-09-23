@@ -2,6 +2,9 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 
@@ -33,15 +36,17 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		
-		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS).grabExcessHorizontalSpace(false);
+		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS).grabExcessHorizontalSpace(true);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultCombo);
 		
 		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
+		combo.select(1);
 		
 		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		eltDefaultTextBox.visibility(false);
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
+		
 		
 		try {
 			//eltDefaultCombo.attachListener(listenerFactory.getListener("IELTSelectionListener"),eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());

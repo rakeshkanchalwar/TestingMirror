@@ -3,6 +3,7 @@ package com.bitwise.app.propertywindow.factory;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentNameWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTDelimeterWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTFilePathWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTHasHeaderWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
@@ -28,7 +29,7 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){
 			return new ELTCharacterSetWidget();
 		}else if(widgetName.equals("ELT_DELIMETER_WIDGET")){
-			return new MyCustomWidget();
+			return new ELTDelimeterWidget();
 		}else if(widgetName.equals("ELT_PHASE_WIDGET")){
 			return new ELTPhaseWidget();
 		}else if(widgetName.equals("ELT_HAS_HEADER_WIDGET")){
