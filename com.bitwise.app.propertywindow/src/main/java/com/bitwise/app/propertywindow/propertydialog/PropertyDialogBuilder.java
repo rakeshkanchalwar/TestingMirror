@@ -69,9 +69,9 @@ public class PropertyDialogBuilder {
 				for(Property property: subgroupTree.get(subgroupName)){
 					AbstractWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
 					eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
-					eltWidget.attachToPropertySubGroup(subGroupContainer);
-					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
 					eltWidget.setNames(this.names);
+					eltWidget.attachToPropertySubGroup(subGroupContainer);
+					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));					
 					eltWidgetList.add(eltWidget);
 				}
 				
