@@ -20,7 +20,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
-	private boolean allowMultipleLinks, linkMandatory;
+	private boolean allowMultipleLinks, linkMandatory, isConnected;
 	private String type;
 	private int totalPortsOfThisType;
 	private int sequence;
@@ -97,6 +97,14 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		return allowMultipleLinks;
 	}
 
+	public boolean isConnected() {
+		return isConnected;
+	}
+
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
+	}
+
 	public boolean isLinkMandatory() {
 		return linkMandatory;
 	}
@@ -117,6 +125,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 				"\nOwner: "+getOwner()+
 				"\nallowMultipleLinks: "+this.allowMultipleLinks+
 				"\nlinkMandatory: "+this.linkMandatory+
+				"\nisConnected: "+this.isConnected+
 				"\ntype: "+this.type+
 				"\nsequence: "+this.sequence+
 				"\ntotalPortsOfThisType: "+this.totalPortsOfThisType+
@@ -137,6 +146,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 					fa.getTotalPortsOfThisType()==this.getTotalPortsOfThisType() &&
 					fa.getSequence() == this.getSequence() &&
 					fa.allowMultipleLinks == this.allowMultipleLinks &&
+					fa.isConnected == this.isConnected &&
 					fa.linkMandatory == this.linkMandatory
 				)
 				return true;
@@ -155,17 +165,14 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		int result = 17;
 		int var1 = (allowMultipleLinks?1:0);
 		int var2 = (linkMandatory?1:0);
+		int var3 = (isConnected?1:0);
 		result = 31 * result + var1;
 		result = 31 * result + var2;
+		result = 31 * result + var3;
 		
 		return result;
 		
 		
-	}
-	@Override
-	public void addAnchorListener(AnchorListener listener) {
-		// TODO Auto-generated method stub
-		super.addAnchorListener(listener);
 	}
 	
 }
