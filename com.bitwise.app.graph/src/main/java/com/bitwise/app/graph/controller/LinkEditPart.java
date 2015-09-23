@@ -18,7 +18,7 @@ import org.eclipse.gef.requests.GroupRequest;
 
 import com.bitwise.app.graph.model.Link;
 
-public class ComponentConnectionEditPart extends AbstractConnectionEditPart
+public class LinkEditPart extends AbstractConnectionEditPart
 		implements PropertyChangeListener {
 	/**
 	 * Upon activation, attach to the model element as a property change

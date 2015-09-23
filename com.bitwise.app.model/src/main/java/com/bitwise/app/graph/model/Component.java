@@ -1,12 +1,11 @@
 package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -34,15 +33,25 @@ public class Component extends Model {
 		}
 	}
 	
-	private Point location = new Point(0, 0);
-	private Dimension size = new Dimension(80, 60);
-	private Map<String, Object> properties = new LinkedHashMap<>();
-
+	private Point location;
+	private Dimension size;
+	private Map<String, Object> properties;
 	private Container parent;
+	private Hashtable<String, Link> inputs;
+	private List<Link> outputs;
 
-	protected Hashtable<String, Link> inputs = new Hashtable<String, Link>(7);
-	protected List<Link> outputs = new ArrayList<Link>();
-
+	public Component(){
+		location = new Point(0, 0);
+		size = new Dimension(80, 60);
+		properties = new LinkedHashMap<>();
+		inputs = new Hashtable<String, Link>();
+		outputs = new ArrayList<Link>();
+	}
+	
+	private void updateConnectionProperty(String prop, Object newValue) {
+		firePropertyChange(prop, null,newValue);
+	}
+	
 	public void connectInput(Link c) {
 		inputs.put(c.getTargetTerminal(), c);
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
@@ -62,18 +71,14 @@ public class Component extends Model {
 		outputs.remove(c);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
-
+	
+	/* add comments as function called by gef*/
 	public List<Link> getSourceConnections() {
 		return outputs;
 	}
 
 	public List<Link> getTargetConnections() {
-
-		Enumeration<Link> elements = inputs.elements();
-		Vector<Link> v = new Vector<Link>(inputs.size());
-		while (elements.hasMoreElements())
-			v.addElement(elements.nextElement());
-		return v;
+		return Arrays.asList((inputs.values().toArray(new Link[inputs.size()])));
 	}
 
 	public void setProperties(Map<String, Object> properties) {
@@ -87,16 +92,14 @@ public class Component extends Model {
 		if (properties.containsKey(propertyId)) {
 			return properties.get(propertyId);
 		}
-		return null;
+		throw new PropertyNotAvailableException();
 	}
 
 	/**
 	 * Set the property value for the given property id.
 	 */
 	public void setPropertyValue(Object propertyId, Object value) {
-		if (properties.containsKey(propertyId)) {
-			properties.put((String) propertyId, (String) value);
-		}
+		properties.put((String) propertyId, (String) value);
 	}
 
 
@@ -109,9 +112,6 @@ public class Component extends Model {
 	 *             if the parameter is null
 	 */
 	public void setLocation(Point newLocation) {
-		if (newLocation == null) {
-			throw new IllegalArgumentException();
-		}
 		location.setLocation(newLocation);
 		firePropertyChange(Props.LOCATION_PROP.getValue(), null, location);
 	}
@@ -156,21 +156,12 @@ public class Component extends Model {
 	}
 
 	public LinkedHashMap<String, Object> getProperties() {
-		// TODO Auto-generated method stub
 		return (LinkedHashMap<String, Object>) properties;
 	}
+	
+	private class PropertyNotAvailableException extends RuntimeException {
+		private static final long serialVersionUID = -7978238880803956846L;
 
-	public boolean isUniqueCompName(String componentName) {
-
-		return getParent().isUniqueCompName(componentName);
-	}
-
-	public ArrayList<String> getComponentNames() {
-		return getParent().getComponentNames();
-	}
-
-	public void setComponentNames(ArrayList<String> componentNames) {
-		getParent().setComponentNames(componentNames);
 	}
 
 }
