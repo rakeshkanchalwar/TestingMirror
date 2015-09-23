@@ -35,6 +35,7 @@ public class ComponentCreateCommand extends Command {
 		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
 		properties.put("name", components.getName());
 		component.setProperties(properties);
+		component.setBasename(components.getName());
 		this.component = component;
 		this.parent = parent;
 		this.bounds = bounds;

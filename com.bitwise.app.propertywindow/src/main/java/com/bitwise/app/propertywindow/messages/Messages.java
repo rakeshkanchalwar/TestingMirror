@@ -3,7 +3,7 @@ package com.bitwise.app.propertywindow.messages;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS { 
-	private static final String BUNDLE_NAME = "com.bitwise.app.propertywindow.misc.messages";
+	private static final String BUNDLE_NAME = "com.bitwise.app.propertywindow.messages";
 	public static String DATATYPELIST ;
 	public static String FIELDNAME;
 	public static String DATATYPE;
@@ -22,6 +22,7 @@ public class Messages extends NLS {
 	public static String EmptyFiledNotification;
 	public static String EmptyNameNotification;
 	public static String EmptyValueNotification;
+	public static String OperationClassBlank;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

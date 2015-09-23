@@ -29,8 +29,11 @@ public class Container extends Model {
 		if (component != null && components.add(component)) {
 			component.setParent(this);
 			String compType = (String) component.getPropertyValue(NAME_PROP);
-			String compName = getDefaultNameForComponent(compType.trim()).trim();
+			String compName = getDefaultNameForComponent(compType.trim(),component.getBasename(),component.isNewInstance()).trim();
 			component.setPropertyValue(NAME_PROP, compName);
+			if (component.isNewInstance()) {
+				component.setNewInstance(false);
+			}
 			firePropertyChange(CHILD_ADDED_PROP, null, component);
 			return true;
 		}
@@ -58,27 +61,46 @@ public class Container extends Model {
 		return false;
 	}
 
-	private String getDefaultNameForComponent(String component) {
+	private String getDefaultNameForComponent(String componentName, String baseName, boolean isNewInstance) {
 
-		if (component == null) {
+		if (componentName == null) {
+			// TODO shouldn't be the case but what should be done if name is null
 			return null;
 		}
-		component = component.trim();
+		
+		System.out.println("baseName: " + baseName + ", isNewInstance: " + isNewInstance);
+
+		if (!isNewInstance) {
+			// OK, so it's not a new instance of the component (probably undo ), check if the component name is still
+			// unique
+			if (isUniqueCompName(componentName)) {
+				componentNames.add(componentName);
+				return componentName;
+			} else {
+				// not a new instance nor the name is unique. get the default name using base name
+				componentName = baseName;
+			}
+
+		}
+
+		componentName = componentName.trim();
 		String newName = "";
-		Integer nextSuffix = componentNextNameSuffixes.get(component);
+		Integer nextSuffix = componentNextNameSuffixes.get(componentName);
 		System.out.println("componentNextNameSuffixes.size(): " + componentNextNameSuffixes.size());
 		int next = 1;
 
 		if (nextSuffix == null) {
 			System.out
-					.println("component not present in the map! will check if default component name is already taken by some other component. If not, then return default name.");
+					.println("component "
+							+ componentName
+							+ " not present in the map! will check if default component name is already taken by some other component. If not, then return default name.");
 
 		} else {
 			System.out.println("component exists in the map. value of nextSuffix: " + nextSuffix.intValue());
 			next = nextSuffix.intValue();
 		}
 
-		newName = component + "_" + (next < 10 ? "0" : "") + next;
+		newName = componentName + "_" + (next < 10 ? "0" : "") + next;
 
 		while (true) {
 			boolean continueFor = false;
@@ -92,7 +114,7 @@ public class Container extends Model {
 			}
 			if (continueFor) {
 				next++;
-				newName = component + "_" + (next < 10 ? "0" : "") + next;
+				newName = componentName + "_" + (next < 10 ? "0" : "") + next;
 				System.out.println("still didn't get the new name for the component, now checking for " + newName);
 			} else {
 				System.out.println("Got the new name for the component! " + newName);
@@ -103,8 +125,8 @@ public class Container extends Model {
 
 		// populate Hashtable
 		nextSuffix = new Integer(++next);
-		Integer i = componentNextNameSuffixes.put(component, nextSuffix);
-		System.out.println("previous value for component " + component + " in map: " + i);
+		Integer i = componentNextNameSuffixes.put(componentName, nextSuffix);
+		System.out.println("previous value for component " + componentName + " in map: " + i);
 		System.out.println("Adding New component name to the list: " + newName);
 		componentNames.add(newName);
 
@@ -118,6 +140,22 @@ public class Container extends Model {
 
 	public void setComponentNames(ArrayList<String> componentNames) {
 		this.componentNames = componentNames;
+	}
+	
+	private boolean isUniqueCompName(String componentName) {
+		componentName = componentName.trim();
+		boolean result = true;
+
+		for (String cname : componentNames) {
+			if (cname.equalsIgnoreCase(componentName)) {
+				result = false;
+				break;
+			}
+
+		}
+		System.out.println("Conainer.isUniqueCompName(): result: " + result);
+
+		return result;
 	}
 	
 	

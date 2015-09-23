@@ -16,8 +16,8 @@ import com.bitwise.app.project.structure.CustomMessages;
 
 public class CustomWizard extends Wizard implements INewWizard, IExecutableExtension  {
 	
-	private static final String ETL_PROJECT_WIZARD = "ETL Project Wizard"; //$NON-NLS-1$
-	private static final String WINDOW_TITLE = "New ETL Project"; //$NON-NLS-1$
+	private static final String ETL_PROJECT_WIZARD = "ELT Project Wizard"; //$NON-NLS-1$
+	private static final String WINDOW_TITLE = "New ELT Project"; //$NON-NLS-1$
 	private WizardNewProjectCreationPage _pageOne;
 	private IConfigurationElement _configurationElement;
 	public CustomWizard() {

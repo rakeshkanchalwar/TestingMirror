@@ -39,6 +39,8 @@ public class Component extends Model {
 	private Container parent;
 	private Hashtable<String, Link> inputs;
 	private List<Link> outputs;
+	private boolean newInstance;
+	private String basename;
 
 	public Component(){
 		location = new Point(0, 0);
@@ -46,6 +48,7 @@ public class Component extends Model {
 		properties = new LinkedHashMap<>();
 		inputs = new Hashtable<String, Link>();
 		outputs = new ArrayList<Link>();
+		newInstance = true;
 	}
 	
 	private void updateConnectionProperty(String prop, Object newValue) {
@@ -162,6 +165,22 @@ public class Component extends Model {
 	private class PropertyNotAvailableException extends RuntimeException {
 		private static final long serialVersionUID = -7978238880803956846L;
 
+	}
+
+	public boolean isNewInstance() {
+		return newInstance;
+	}
+
+	public void setNewInstance(boolean newInstance) {
+		this.newInstance = newInstance;
+	}
+
+	public String getBasename() {
+		return basename;
+	}
+
+	public void setBasename(String basename) {
+		this.basename = basename;
 	}
 
 }

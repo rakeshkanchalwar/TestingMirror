@@ -5,7 +5,7 @@
          point="org.eclipse.ui.newWizards">
       <category
             id="com.bitwise.app.project.structure.category"
-            name="ETL">
+            name="ELT">
       </category>
       <wizard
             category="com.bitwise.app.project.structure.category"

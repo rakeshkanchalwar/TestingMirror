@@ -1,19 +1,7 @@
-package com.bitwise.app.eltproperties.widgets.configure;
+package com.bitwise.app.eltproperties.widgets;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.ui.actions.OpenNewClassWizardAction;
-import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -33,16 +21,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
 
 import com.bitwise.app.eltproperties.Messages;
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
+import com.bitwise.app.eltproperties.widgets.utility.FilterOprationalClassUtility;
 import com.bitwise.app.eltproperties.widgets.utility.WidgetUtility;
 
-public class Filewidget extends AbstractELTWidget {
+public class ELTOprationClassWidget extends AbstractELTWidget {
 	private Text filename;
 	private Button btnCheckButton;
 	private String filePath;
@@ -50,7 +35,7 @@ public class Filewidget extends AbstractELTWidget {
 	private FormData fd_btnedit_1;
 	private Object properties;
 	private String propertyName;
-private boolean oprationClassIsParameter;
+	private boolean oprationClassIsParameter;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -96,15 +81,8 @@ private boolean oprationClassIsParameter;
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ResourceFileSelectionDialog dialog = new ResourceFileSelectionDialog("Title", "Message", new String[] { "java" });
-				 if (dialog.open() == IDialogConstants.OK_ID){
-					 IResource resource=(IResource)dialog.getFirstResult();
-					 	filePath=resource.getRawLocation().toOSString();
-					    String arg=resource.getFullPath().toOSString();
-					    filename.setText(arg);
-				 } 
-				 
-				
+				 filePath=FilterOprationalClassUtility.browseFile("java", filename);
+
 			} 
 		});
  
@@ -115,23 +93,8 @@ private boolean oprationClassIsParameter;
 		Listener listener = new Listener() {
 
 			public void handleEvent(Event event) {
-				String fileName;
- 				OpenNewClassWizardAction wizard = new OpenNewClassWizardAction();
-				wizard.setOpenEditorOnFinish(false);
-				NewClassWizardPage page = new NewClassWizardPage();
-				page.setSuperClass("java.lang.Object", true);
-				List<String> interfaceList= new ArrayList<String>();
-				interfaceList.add("com.bitwiseglobal.components.filter.FilterBase");
-				page.setSuperInterfaces(interfaceList, true);
-				wizard.setConfiguredWizardPage(page); 
-				wizard.run();
-				if(page.isPageComplete()){
-				filename.setText("/"+page.getPackageFragmentRootText()+"/"+page.getPackageText().replace(".", "/")+"/"+page.getTypeName()+".java");
-				Path path = new Path("/"+page.getPackageFragmentRootText()+"/"+page.getPackageText().replace(".", "/")+"/"+page.getTypeName()+".java");
-			    IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-			    filePath = file.getRawLocation().toOSString();
-				}
-			} 
+				filePath=FilterOprationalClassUtility.createNewClassWizard(filename);
+				} 
 		};
 		btnNew.addListener(SWT.Selection, listener);
 		btnNew.setText("Create New");
@@ -148,17 +111,8 @@ private boolean oprationClassIsParameter;
 		Listener edit1 = new Listener() {
 
 			public void handleEvent(Event event) {
-				 
-				System.out.println("filePath :"+filePath);
-					File fileToOpen = new File(filePath);
-				    IFileStore fileStore = EFS.getLocalFileSystem().getStore(fileToOpen.toURI());
-				    IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				    try {
-				        IDE.openEditorOnFileStore( page, fileStore );
-				    } catch ( PartInitException e ) {
-				        //Put your exception handler here if you wish to
-				    } 
-					
+				FilterOprationalClassUtility.openFileEditor(filePath);
+							
 			}
 		};
 		btnedit.addListener(SWT.Selection, edit1);
@@ -168,8 +122,9 @@ private boolean oprationClassIsParameter;
 		btnCheckButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(btnCheckButton.getEnabled())
-				oprationClassIsParameter=true;
+					if(btnCheckButton.getSelection())
+						oprationClassIsParameter=true;
+			
 			}
 		});
 		fd_btnedit.top = new FormAttachment(btnCheckButton, 27);
