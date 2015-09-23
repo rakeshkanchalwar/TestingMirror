@@ -71,6 +71,7 @@
 			<enumeration value="ELTHasHeaderWidget" />
 			<enumeration value="ELTSafePropertyWidget" />
 			<enumeration value="ELTFieldSequenceWidget" />
+			<enumeration value="ELTFilterPropertyWidget" />
 		</restriction>
 	</simpleType>
 
@@ -102,6 +103,7 @@
 			<enumeration value="FIELD_SEQUENCE" />
 			<enumeration value="FILE_PATH" />
 			<enumeration value="PHASE" />
+			<enumeration value="FILTER" />
 		</restriction>
 	</simpleType>
 	
