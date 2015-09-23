@@ -90,6 +90,16 @@
                         value="org.eclipse.ui.wizards.new.file">
                   </parameter>
                </command>
+               <command
+                     commandId="org.eclipse.ui.newWizard"
+                     label="ELT Project"
+                     mnemonic="&amp;E"
+                     style="push">
+                  <parameter
+                        name="newWizardId"
+                        value="com.bitwise.app.project.structure.wizard">
+                  </parameter>
+               </command>
                <separator
                      name="com.bitwise.app.menus.separator1"
                      visible="true">

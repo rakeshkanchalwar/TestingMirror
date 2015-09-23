@@ -10,8 +10,9 @@
       <wizard
             category="com.bitwise.app.project.structure.category"
             class="com.bitwise.app.project.structure.wizard.CustomWizard"
+            hasPages="true"
             id="com.bitwise.app.project.structure.wizard"
-            name="ETL Project"
+            name="ELT Project"
             project="true">
       </wizard>
    </extension>
@@ -99,6 +100,14 @@
                class="com.bitwise.app.project.structure.natures.ProjectNature">
          </run>
       </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="com.bitwise.app.project.structure.wizard">
+         <enablement></enablement>
+      </commonWizard>
    </extension>
   
 </plugin>
