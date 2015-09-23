@@ -22,9 +22,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.internal.adaptor.IPluginInfo;
-import org.eclipse.draw2d.Button;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -58,8 +55,6 @@ import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
-import org.eclipse.jface.dialogs.DialogTray;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.TransferDropTargetListener;
@@ -69,7 +64,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -80,18 +74,16 @@ import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 import org.xml.sax.SAXException;
 
-import com.thoughtworks.xstream.XStream;
-
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.ELTLoggerUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
-import com.bitwise.app.eltproperties.Messages;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.thoughtworks.xstream.XStream;
 
 /**
  * Responsible to render the pellet and container.
