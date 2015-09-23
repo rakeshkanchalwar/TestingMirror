@@ -39,6 +39,7 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 	private Object properties;
 	private String propertyName;
 	private ControlDecoration txtDecorator;
+	private String componentName;
 	
 	private static LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	
@@ -156,7 +157,7 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
           if(properties != null){
                 if(((String) properties).equalsIgnoreCase("Parameter"))
                       text_1.setVisible(true);  
-                text_1.setText("$"+(String) property.get("text_value"));
+                text_1.setText((String) property.get("text_value"));
                 combo.setText((String)properties);
           }else{
                 text_1.setText(" ");
@@ -171,13 +172,11 @@ public class ELTCharacterSetWidget extends AbstractELTWidget{
 	
 		property.put(propertyName, combo.getText());
 		property.put("text_value", text_1.getText());
-		
 		return property;
 	}
 
 	@Override
 	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-		
+		this.componentName=componentName;
 	}
 }

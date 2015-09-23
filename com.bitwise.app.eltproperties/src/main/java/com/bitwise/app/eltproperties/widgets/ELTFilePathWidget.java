@@ -71,7 +71,7 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		fd_btnNewButton.left = new FormAttachment(filename, 17);
 		btnNewButton.setLayoutData(fd_btnNewButton);
 		btnNewButton.setBounds(350, 83, 20, 21);
-		btnNewButton.setText("Browser");
+		btnNewButton.setText("...");
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
