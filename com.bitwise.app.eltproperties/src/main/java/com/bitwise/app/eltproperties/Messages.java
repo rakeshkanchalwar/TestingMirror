@@ -22,6 +22,7 @@ public class Messages extends NLS {
 	public static String EmptyFiledNotification;
 	public static String EmptyNameNotification;
 	public static String EmptyValueNotification;
+	public static String OperationClassBlank;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
