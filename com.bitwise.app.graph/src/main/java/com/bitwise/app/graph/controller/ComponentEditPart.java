@@ -3,14 +3,12 @@ package com.bitwise.app.graph.controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
@@ -22,7 +20,6 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.xml.sax.SAXException;
@@ -36,20 +33,14 @@ import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.property.PropertyTreeBuilder;
 import com.bitwise.app.eltproperties.propertydialog.PropertyDialog;
 import com.bitwise.app.graph.figure.ComponentFigure;
-import com.bitwise.app.graph.figure.FixedConnectionAnchor;
-import com.bitwise.app.graph.figure.InputFigure;
-import com.bitwise.app.graph.figure.OutputFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
-import com.bitwise.app.graph.model.InputComponent;
-import com.bitwise.app.graph.model.OutputComponent;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart, PropertyChangeListener {
 
-	private ConnectionAnchor anchor;
 
 	/**
 	 * Upon activation, attach to the model element as a property change
@@ -138,22 +129,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return getComponentFigure().getConnectionAnchorName(c);
 	}
 
-	protected ConnectionAnchor getConnectionAnchor() {
-		if (anchor == null) {
-			if (getModel() instanceof InputComponent) {
-				anchor = new FixedConnectionAnchor(getFigure());
-			} else if (getModel() instanceof OutputComponent)
-				anchor = new FixedConnectionAnchor(getFigure());
-
-			else
-				// if Components gets extended the conditions above must be
-				// updated
-				throw new IllegalArgumentException("unexpected model");
-
-		}
-		return anchor;
-	}
-
+	
 	@Override
 	protected List<Link> getModelSourceConnections() {
 		return getCastedModel().getSourceConnections();
@@ -173,10 +149,9 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	}
 
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getSourceConnectionAnchorAt(pt);
-
+		
 	}
 
 	protected ComponentFigure getComponentFigure() {
@@ -194,6 +169,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getTargetConnectionAnchorAt(pt);
+		
 	}
 
 	/*
