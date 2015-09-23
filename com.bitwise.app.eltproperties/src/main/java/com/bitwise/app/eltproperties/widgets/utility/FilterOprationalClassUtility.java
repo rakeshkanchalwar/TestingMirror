@@ -13,6 +13,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.ui.actions.OpenNewClassWizardAction;
 import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -42,7 +45,7 @@ private static String filePath="";
 }
 	
 	public static String browseFile(String filterExtension,Text fileName){
-		ResourceFileSelectionDialog dialog = new ResourceFileSelectionDialog("Title", "Message", new String[] { "java" });
+		ResourceFileSelectionDialog dialog = new ResourceFileSelectionDialog("Project", "Select Java Class (.java)", new String[] { "java" });
 	 if (dialog.open() == IDialogConstants.OK_ID){
 		 IResource resource=(IResource)dialog.getFirstResult();
 		 filePath=resource.getRawLocation().toOSString();
@@ -52,15 +55,33 @@ private static String filePath="";
 	 return filePath;
 	}
 	
-	public static void openFileEditor(String filePath){
+	public static boolean openFileEditor(String filePath){
+		   try {
 		File fileToOpen = new File(filePath);
+		if(fileToOpen.exists())
+		{
 	    IFileStore fileStore = EFS.getLocalFileSystem().getStore(fileToOpen.toURI());
 	    IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	    try {
 	        IDE.openEditorOnFileStore( page, fileStore );
-	    } catch ( PartInitException e ) {
-	        //Put your exception handler here if you wish to
-	    } 
+	    return true;
+		}
+		} catch ( Exception e ) {
+	    	return false;
+	    }
+		return false;
 
+	}
+	
+	public static void errorMessage(Shell shell){
+		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);        
+        messageBox.setText("Error"); 
+        messageBox.setMessage("File Not Found");
+        messageBox.open();
+	}
+	public static String getProjectPath(){
+		ResourceFileSelectionDialog dialog = new ResourceFileSelectionDialog("Project", "Select Java Class (.java)", new String[] { "java" });
+			 IResource resource=(IResource)dialog.getFirstResult();
+			 filePath=resource.getRawLocation().toOSString();
+			 return filePath;
 	}
 }
