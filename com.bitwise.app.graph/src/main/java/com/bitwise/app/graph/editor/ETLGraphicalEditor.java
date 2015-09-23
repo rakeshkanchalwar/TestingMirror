@@ -2,8 +2,13 @@ package com.bitwise.app.graph.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,8 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.internal.adaptor.IPluginInfo;
+import org.eclipse.draw2d.Button;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -48,6 +58,9 @@ import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.jface.dialogs.DialogTray;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -56,20 +69,28 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.dialogs.SaveAsDialog;
+import org.eclipse.ui.ide.FileStoreEditorInput;
+import org.eclipse.ui.part.FileEditorInput;
 import org.xml.sax.SAXException;
+
+import com.thoughtworks.xstream.XStream;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.ELTLoggerUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.eltproperties.Messages;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
-import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.model.Container;
+import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 /**
@@ -97,9 +118,21 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		public void mouseDoubleClick(MouseEvent mouseEvent) {
 			CreateRequest componentRequest = getComponentRequest(mouseEvent);
 			placeComponentOnCanvasByDoubleClickOnPalette(componentRequest);
-			
-			eltLogger.info("Component is positioned at respective x and y location"+defaultComponentLocation.getCopy().x +20+" and "+defaultComponentLocation.getCopy().y + 20);
-			eltLogger.info("Component is positioned at respective x and y location"+defaultComponentLocation.getCopy().x +20+" and "+defaultComponentLocation.getCopy().y + 20);
+
+			eltLogger
+					.info("Component is positioned at respective x and y location"
+							+ defaultComponentLocation.getCopy().x
+							+ 20
+							+ " and "
+							+ defaultComponentLocation.getCopy().y
+							+ 20);
+			eltLogger
+					.info("Component is positioned at respective x and y location"
+							+ defaultComponentLocation.getCopy().x
+							+ 20
+							+ " and "
+							+ defaultComponentLocation.getCopy().y
+							+ 20);
 
 		}
 
@@ -110,39 +143,39 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			CombinedTemplateCreationEntry addedPaletteTool = (CombinedTemplateCreationEntry) paletteInternalController
 					.getModel();
 
-
 			CreateRequest componentRequest = new CreateRequest();
 			componentRequest.setFactory(new SimpleFactory(
 					(Class) addedPaletteTool.getTemplate()));
-			
-			genericComponent = (com.bitwise.app.graph.model.Component) componentRequest.getNewObject();
-			
+
+			genericComponent = (com.bitwise.app.graph.model.Component) componentRequest
+					.getNewObject();
+
 			setComponentRequestParams(componentRequest);
-			
+
 			return componentRequest;
 		}
 
 		private void setComponentRequestParams(CreateRequest componentRequest) {
 			componentRequest.setSize(genericComponent.getSize());
-			
+
 			defaultComponentLocation.setLocation(
-					defaultComponentLocation.getCopy().x +20,
+					defaultComponentLocation.getCopy().x + 20,
 					defaultComponentLocation.getCopy().y + 20);
 
 			componentRequest.setLocation(defaultComponentLocation);
 		}
-		
+
 		private void placeComponentOnCanvasByDoubleClickOnPalette(
 				CreateRequest componentRequest) {
 			GraphicalViewer graphViewer = getGraphicalViewer();
-			
+
 			ComponentCreateCommand createComponent = new ComponentCreateCommand(
 					(com.bitwise.app.graph.model.Component) componentRequest
-							.getNewObject(), (Container) graphViewer
-							.getContents().getModel(),
-					new Rectangle(componentRequest.getLocation(), componentRequest
-							.getSize()));
-			
+							.getNewObject(),
+					(Container) graphViewer.getContents().getModel(),
+					new Rectangle(componentRequest.getLocation(),
+							componentRequest.getSize()));
+
 			graphViewer.getEditDomain().getCommandStack()
 					.execute(createComponent);
 		}
@@ -151,22 +184,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	ELTLoggerUtil eltLogger = new ELTLoggerUtil(getClass().getName());
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
-	private com.bitwise.app.graph.model.Component genericComponent; 
+	private com.bitwise.app.graph.model.Component genericComponent;
 	private Point defaultComponentLocation = new Point(0, 0);
 	private Dimension defaultCompSize = new Dimension(100, 100);
 
 	public ETLGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
-	}
-
-	@Override
-	protected void setInput(IEditorInput input) {
-		super.setInput(input);
-		if (getEditorInput() instanceof ETLGraphicalEditorInput) {
-			setPartName(getEditorInput().getName());
-		}
-		setPartName(input.getName());
-		container = new Container();
 	}
 
 	@Override
@@ -186,28 +209,6 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			e.printStackTrace();
 		}
 		return palette;
-	}
-
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		firePropertyChange(PROP_DIRTY);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(out);
-			oos.writeObject(container);
-			oos.close();
-			IFile file = ((IFileEditorInput) getEditorInput()).getFile();
-
-			file.setContents(new ByteArrayInputStream(out.toByteArray()), true,
-					false, // dont keep history
-					monitor);
-
-			getCommandStack().markSaveLocation();
-		} catch (CoreException | IOException e) {
-			// TODO add logger
-			throw new RuntimeException("Could not save the file", e);
-		}
 	}
 
 	/**
@@ -254,7 +255,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				// @see ShapesEditor#createTransferDropTargetListener()
 				viewer.addDragSourceListener(new TemplateTransferDragSourceListener(
 						viewer));
-				viewer.getControl().addMouseListener(new PaletteContainerListener(viewer));
+				viewer.getControl().addMouseListener(
+						new PaletteContainerListener(viewer));
 			}
 		};
 	}
@@ -263,24 +265,25 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
 	}
-	
-	public  PaletteDrawer createPaletteContainer(String CategoryName)
-    { 
-    String name=CategoryName.substring(0, 1).toUpperCase()+CategoryName.substring(1).toLowerCase();
-   	PaletteDrawer p=new PaletteDrawer(name);
-   	p.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
-    return p;
-    }
-    
-    public  void addContainerToPalette(PaletteRoot p1,PaletteDrawer p){
-    p1.add(p);
-    }
 
-	private void createShapesDrawer(PaletteRoot palette) throws RuntimeException, SAXException, IOException {
+	public PaletteDrawer createPaletteContainer(String CategoryName) {
+		String name = CategoryName.substring(0, 1).toUpperCase()
+				+ CategoryName.substring(1).toLowerCase();
+		PaletteDrawer p = new PaletteDrawer(name);
+		p.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
+		return p;
+	}
+
+	public void addContainerToPalette(PaletteRoot p1, PaletteDrawer p) {
+		p1.add(p);
+	}
+
+	private void createShapesDrawer(PaletteRoot palette)
+			throws RuntimeException, SAXException, IOException {
 		Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
 		for (CategoryType category : CategoryType.values()) {
-			PaletteDrawer p=createPaletteContainer(category.name());
-			addContainerToPalette(palette,p);
+			PaletteDrawer p = createPaletteContainer(category.name());
+			addContainerToPalette(palette, p);
 			categoryPaletteConatiner.put(category.name(), p);
 		}
 		List<Component> componentsConfig = XMLConfigUtil.INSTANCE
@@ -298,10 +301,11 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					ImageDescriptor
 							.createFromURL(prepareIconPathURL(componentConfig
 									.getIconPath())));
-			 categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
-			
+			categoryPaletteConatiner.get(componentConfig.getCategory().name())
+					.add(component);
+
 		}
-		
+
 	}
 
 	private void createToolsGroup(PaletteRoot palette) {
@@ -378,9 +382,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				AbstractGraphicalEditPart selectedEditPart = (AbstractGraphicalEditPart) sSelection
 						.getFirstElement();
 
-				defaultComponentLocation.setLocation(selectedEditPart.getFigure()
-						.getBounds().x, selectedEditPart.getFigure()
-						.getBounds().y);
+				defaultComponentLocation.setLocation(selectedEditPart
+						.getFigure().getBounds().x, selectedEditPart
+						.getFigure().getBounds().y);
 
 			}
 		};
@@ -424,5 +428,190 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		zoomContributions.add(ZoomManager.FIT_HEIGHT);
 		zoomContributions.add(ZoomManager.FIT_WIDTH);
 		manager.setZoomLevelContributions(zoomContributions);
+	}
+
+	@Override
+	protected void setInput(IEditorInput input) {
+		super.setInput(input);
+		String METHOD_NAME = "ETLGraphicalEditor.setInput(IEditorInput input)";
+		IFile Ifile = null;
+		File file = null;
+		FileInputStream fs = null;
+		eltLogger.info(METHOD_NAME);
+		if (getEditorInput() instanceof ETLGraphicalEditorInput) {
+			eltLogger.info(METHOD_NAME
+					+ "Loading data for ETLGraphicalEditorInput");
+			setPartName(getEditorInput().getName());
+			container = new Container();
+		}
+		try {
+			if (input instanceof IFileEditorInput) {
+				eltLogger.info(METHOD_NAME
+						+ "Loadeding data from FileStoreEditorInput");
+				Ifile = ((IFileEditorInput) input).getFile();
+				container = (Container) fromXMLToObject(Ifile.getContents());
+				setPartName(Ifile.getName());
+			}
+			if (input instanceof FileStoreEditorInput) {
+				eltLogger.info(METHOD_NAME
+						+ "Loading data from FileStoreEditorInput");
+				file = new File(((FileStoreEditorInput) input).getToolTipText());
+				fs = new FileInputStream(file);
+				container = (Container) fromXMLToObject(fs);
+				fs.close();
+				setPartName(file.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			eltLogger.error(e);
+		}
+	}
+
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		String METHOD_NAME = "ETLGraphicalEditor.doSave(IProgressMonitor monitor)";
+		IFile ifile = null;
+		File file = null;
+		FileOutputStream fsout = null;
+		eltLogger.info(METHOD_NAME);
+		firePropertyChange(PROP_DIRTY);
+
+		if (getEditorInput() instanceof ETLGraphicalEditorInput) {
+			doSaveAs();
+		}
+
+		if (getEditorInput() instanceof FileEditorInput) {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				eltLogger.info(METHOD_NAME
+						+ " Saving data from FileEditorInput");
+				createOutputStream(out);
+				ifile = ((IFileEditorInput) getEditorInput()).getFile();
+
+				ifile.setContents(new ByteArrayInputStream(out.toByteArray()),
+						true, false, monitor);
+				getCommandStack().markSaveLocation();
+			} catch (CoreException ce) {
+				ce.printStackTrace();
+				eltLogger.error(ce);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+				eltLogger.error(ioe);
+			}
+		}
+
+		if (getEditorInput() instanceof FileStoreEditorInput) {
+
+			file = new File(
+					((FileStoreEditorInput) getEditorInput()).getToolTipText());
+			{
+				try {
+					fsout = new FileOutputStream(file);
+					fsout.write(fromObjectToXML(getModel()).getBytes());
+					fsout.close();
+					getCommandStack().markSaveLocation();
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+					eltLogger.error(ioe);
+				}
+			}
+
+		}
+	}
+
+	private void createOutputStream(OutputStream out) throws IOException {
+		String METHOD_NAME = "ETLGraphicalEditor.createOutputStream(OutputStream out)";
+		eltLogger.info(METHOD_NAME);
+		out.write(fromObjectToXML(getModel()).getBytes());
+	}
+
+	Container getModel() {
+		return container;
+	}
+
+	public void doSaveAs() {
+		String METHOD_NAME = "ETLGraphicalEditor. doSaveAs()";
+		IFile file;
+		IPath filePath;
+		ByteArrayOutputStream out;
+		eltLogger.info(METHOD_NAME);
+	   
+		SaveAsDialog obj=new SaveAsDialog(new Shell());		
+		if (getEditorInput().getName().endsWith(".gph"))
+			obj.setOriginalName(getEditorInput().getName());
+		else
+			obj.setOriginalName(getEditorInput().getName()+".gph");
+		obj.open();
+		
+		if (obj.getReturnCode() == 0) {
+			filePath = obj.getResult().removeFileExtension().addFileExtension("gph");
+			file = ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
+			out = new ByteArrayOutputStream();
+			try {
+				createOutputStream(out);
+
+				if (file.exists())
+					file.setContents(
+							new ByteArrayInputStream(out.toByteArray()), true,
+							false, null);
+				else
+					file.create(new ByteArrayInputStream(out.toByteArray()),
+							true, null);
+
+				setInput(new FileEditorInput(file));
+				getCommandStack().markSaveLocation();
+			} catch (CoreException ce) {
+				ce.printStackTrace();
+				eltLogger.info(METHOD_NAME + " CoreException Ocurred "
+						+ ce.getMessage());
+				eltLogger.error(ce);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+				eltLogger.info(METHOD_NAME + " IOException Ocurred "
+						+ ioe.getMessage());
+				eltLogger.error(ioe);
+			}
+		}
+	}
+
+	@Override
+	public boolean isSaveAsAllowed() {
+		return true;
+	}
+
+	public Object fromXMLToObject(InputStream xml) {
+		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
+		Object obj = null;
+		eltLogger.info(METHOD_NAME);
+		XStream xs = new XStream();
+		try {
+
+			obj = xs.fromXML(xml);
+			eltLogger.info(METHOD_NAME
+					+ "Sucessfully converted JAVA Object from XML Data");
+		} catch (Exception e) {
+			eltLogger.info(METHOD_NAME + "Exception Occured " + e.getMessage());
+			eltLogger.error(e);
+			MessageDialog.openError(new Shell(), "Error","Invalid graph file.");
+						
+		}
+		return obj;
+	}
+
+	public String fromObjectToXML(Serializable object) {
+		String METHOD_NAME = "ETLGraphicalEditor.fromObjectToXML(Serializable object)";
+		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
+		eltLogger.info(METHOD_NAME);
+		XStream xs = new XStream();
+		try {
+			str = str+xs.toXML(object);
+			eltLogger.info(METHOD_NAME
+					+ "Sucessfully converted XML from JAVA Object");
+		} catch (Exception e) {
+			eltLogger.info(METHOD_NAME + "Exception Occured " + e.getMessage());
+			eltLogger.error(e);
+		}
+		return str;
 	}
 }

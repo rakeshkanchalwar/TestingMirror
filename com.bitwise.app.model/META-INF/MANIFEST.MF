@@ -11,4 +11,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.draw2d,
  org.eclipse.draw2d.geometry
-Export-Package: com.bitwise.app.graph.model
+Export-Package: com.bitwise.app.graph.model,
+ com.bitwise.app.graph.model.custom

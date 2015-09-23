@@ -15,7 +15,9 @@ Require-Bundle: org.eclipse.ui,
  com.bitwise.app.graph.figure;bundle-version="0.0.1",
  org.junit,
  com.bitwise.app.model;bundle-version="0.0.1",
- com.bitwise.app.eltproperties;bundle-version="0.0.1"
+ com.bitwise.app.eltproperties;bundle-version="0.0.1",
+ com.bitwise.app.xstream;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Import-Package: com.bitwise.app.graph.model
+Import-Package: com.bitwise.app.graph.model,
+ com.thoughtworks.xstream
