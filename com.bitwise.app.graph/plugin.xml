@@ -162,17 +162,14 @@
                id="org.eclipse.ui.externaltools.ExternalToolMenuDelegateToolbar">
          </hiddenToolBarItem>
          <hiddenToolBarItem
-               id="org.eclipse.ui.edit.text.gotoNextAnnotation">
-         </hiddenToolBarItem>
-         <hiddenToolBarItem
-               id="org.eclipse.ui.edit.text.gotoNextAnnotation">
+               id="org.eclipse.ui.navigate.next">
          </hiddenToolBarItem>
          <hiddenToolBarItem
                id="org.eclipse.search.OpenSearchDialogPage">
          </hiddenToolBarItem>
-         <actionSet
-               id="org.eclipse.ui.edit.text.actionSet.annotationNavigation">
-         </actionSet>
+         <hiddenToolBarItem
+               id="org.eclipse.ui.navigate.previous">
+         </hiddenToolBarItem>
       </perspectiveExtension>
    </extension>
 
