@@ -24,9 +24,9 @@ public class FilterCellModifier implements ICellModifier{
 			if(ELTFilterPropertyWizard.FilterInputFieldName.equals(property))
 
 			return filter.getPropertyname();
-			return filter;
-	
-				
+			else
+			return null;
+		
 	}
 
 	@Override

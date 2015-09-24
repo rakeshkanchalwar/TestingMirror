@@ -1,7 +1,9 @@
 package com.bitwise.app.eltproperties.widget.filterproperties;
 
 
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -25,17 +27,18 @@ import com.bitwise.app.eltproperties.widgets.runtimeproperties.RunTimePropertyWi
 public class ELTFilterPropertyWidget extends AbstractELTWidget{
 
 	private Shell shell;
-	private LinkedHashMap<String, Object> tempPropertyMap;
+	private LinkedHashSet<String> tempPropertyMap;
 	private String propertyName;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	private List<String> propertyLst;
-	private TreeMap<String, String> InstializeMap;
+	private HashSet<String> InstializeMap;
+	
 	private String componentName;
 	
 
 	public ELTFilterPropertyWidget(){
 		super();
-		tempPropertyMap = new LinkedHashMap<String, Object>();
+		tempPropertyMap = new LinkedHashSet<String>();
 	}
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -62,19 +65,22 @@ public class ELTFilterPropertyWidget extends AbstractELTWidget{
 		Button btnNewButton_1 = new Button(composite, SWT.NONE);
 		
 		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
-		
-			
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ELTFilterPropertyWizard filterWizardObj = new ELTFilterPropertyWizard();
+				filterWizardObj.setComponentName(componentName);
+				if(getProperties().get(propertyName)==null){
+					setProperties(propertyName, new HashSet<String>());
+				}
+				filterWizardObj.setRuntimePropertyMap((HashSet<String>) getProperties().get(propertyName));
 				/*runTimeWizardObj.setComponentName(componentName);
 				if (getProperties().get(propertyName) == null) {
 					setProperties((String)propertyName, new TreeMap<String, String>());
 						
 				}
 			runTimeWizardObj.setRuntimePropertyMap((TreeMap<String, String>) getProperties().get(propertyName));
-				}*/	setProperties((String)propertyName,filterWizardObj.launchRuntimeWindow(shell));
+				}*/	setProperties(propertyName,filterWizardObj.launchRuntimeWindow(shell));
 			
 			}
 			});
@@ -90,14 +96,15 @@ public class ELTFilterPropertyWidget extends AbstractELTWidget{
 	@Override
 	public void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
-		this.InstializeMap = (TreeMap<String, String>) properties;
+		this.InstializeMap = (HashSet<String>) properties;
 		
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		tempPropertyMap.put(this.propertyName, this.InstializeMap);
-		return (tempPropertyMap);
+		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+		property.put(propertyName,this.InstializeMap);
+		return property;
 	}
 
 	@Override
