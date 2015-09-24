@@ -20,7 +20,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
-	private boolean allowMultipleLinks, linkMandatory, isConnected;
+	private boolean allowMultipleLinks, linkMandatory;
 	private String type;
 	private int totalPortsOfThisType;
 	private int sequence;
@@ -53,13 +53,13 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		System.out.println("height: "+height);
 		System.out.println("portOffset: "+portOffset);
 		
-		if(this.type.equals("in")){
+		if(this.type.equalsIgnoreCase("in")){
 			 xLocation=getOwner().getBounds().getTopLeft().x;
 			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
 			 System.out.println("Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
 			 p=new Point(xLocation, yLocation);
 		}
-		else if(this.type.equals("out")){
+		else if(this.type.equalsIgnoreCase("out")){
 			 xLocation=getOwner().getBounds().getTopRight().x;
 			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
 			 System.out.println("Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
@@ -93,22 +93,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		this.linkMandatory = linkMandatory;
 	}
 
-	public boolean isAllowMultipleLinks() {
-		return allowMultipleLinks;
-	}
-
-	public boolean isConnected() {
-		return isConnected;
-	}
-
-	public void setConnected(boolean isConnected) {
-		this.isConnected = isConnected;
-	}
-
-	public boolean isLinkMandatory() {
-		return linkMandatory;
-	}
-
 	public int getTotalPortsOfThisType() {
 		return totalPortsOfThisType;
 	}
@@ -125,7 +109,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 				"\nOwner: "+getOwner()+
 				"\nallowMultipleLinks: "+this.allowMultipleLinks+
 				"\nlinkMandatory: "+this.linkMandatory+
-				"\nisConnected: "+this.isConnected+
 				"\ntype: "+this.type+
 				"\nsequence: "+this.sequence+
 				"\ntotalPortsOfThisType: "+this.totalPortsOfThisType+
@@ -146,7 +129,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 					fa.getTotalPortsOfThisType()==this.getTotalPortsOfThisType() &&
 					fa.getSequence() == this.getSequence() &&
 					fa.allowMultipleLinks == this.allowMultipleLinks &&
-					fa.isConnected == this.isConnected &&
 					fa.linkMandatory == this.linkMandatory
 				)
 				return true;
@@ -165,14 +147,17 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		int result = 17;
 		int var1 = (allowMultipleLinks?1:0);
 		int var2 = (linkMandatory?1:0);
-		int var3 = (isConnected?1:0);
 		result = 31 * result + var1;
 		result = 31 * result + var2;
-		result = 31 * result + var3;
 		
 		return result;
 		
 		
+	}
+	@Override
+	public void addAnchorListener(AnchorListener listener) {
+		// TODO Auto-generated method stub
+		super.addAnchorListener(listener);
 	}
 	
 }

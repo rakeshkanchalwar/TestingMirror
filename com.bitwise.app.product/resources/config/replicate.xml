@@ -2,13 +2,22 @@
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
   <tns:component iconPath="/icons/output.png" name="Replicate" shape="ReplicateFigure">
 	<tns:category>STRAIGHTPULL</tns:category>
-	<tns:inputPort>
-		<tns:numberOfPorts>1</tns:numberOfPorts>
-	</tns:inputPort>
-	<tns:outputPort>
-		<tns:numberOfPorts>1</tns:numberOfPorts>
-		<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
-	</tns:outputPort>
+	<tns:port>
+		<tns:portSpecification>
+		    <tns:typeOfPort>in</tns:typeOfPort>
+		    <tns:numberOfPorts>1</tns:numberOfPorts>
+			<tns:sequenceOfPort>1</tns:sequenceOfPort>
+			<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+			<tns:linkMandatory>true</tns:linkMandatory>
+		</tns:portSpecification>
+		<tns:portSpecification>
+		    <tns:typeOfPort>Out</tns:typeOfPort>
+		    <tns:numberOfPorts>1</tns:numberOfPorts>
+			<tns:sequenceOfPort>1</tns:sequenceOfPort>
+			<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+			<tns:linkMandatory>true</tns:linkMandatory>
+		</tns:portSpecification>
+	</tns:port>
 	<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
 	 <tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE" />
 	</tns:component>
