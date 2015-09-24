@@ -5,7 +5,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidge
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentNameWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTFilePathWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTHasHeaderWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTOprationClassWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTOperationClassWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
@@ -20,7 +20,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
 public class WidgetFactory {
 	public AbstractWidget getWidget(String widgetName){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
-			return new ELTOprationClassWidget();
+			return new ELTOperationClassWidget();
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
 			return new MyCustomWidget();
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){

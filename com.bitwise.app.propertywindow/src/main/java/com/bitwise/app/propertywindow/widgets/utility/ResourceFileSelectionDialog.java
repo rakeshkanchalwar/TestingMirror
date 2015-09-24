@@ -20,7 +20,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 /**
- * @author Alexey Prybytkouski
+ * @author rahulma
  */
 public class ResourceFileSelectionDialog extends ElementTreeSelectionDialog {
 

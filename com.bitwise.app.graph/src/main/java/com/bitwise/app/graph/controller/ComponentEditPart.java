@@ -9,6 +9,7 @@ import java.util.List;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
@@ -208,7 +209,10 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		Component comp = getCastedModel();
 		ComponentFigure c = getComponentFigure();
 		c.setLabelName((String) comp.getPropertyValue("name"));
+		int w = c.getLabelName().length()*10+50;
+		Dimension newSize = new Dimension(w,60);
 		System.out.println("refreshVisuals: New component/figure name :"+c.getLabelName());
+		//comp.setSize(newSize);
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
@@ -237,6 +241,10 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				PropertyDialog testwindow = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),
 						component.getProperties(), component.getParent().getComponentNames());
 				testwindow.open();
+				
+				int w = ((String) getCastedModel().getPropertyValue("name")).length()*7+40;
+				Dimension newSize = new Dimension(w,60);
+				getCastedModel().setSize(newSize);
 				refreshVisuals();
 				getFigure().repaint();
 

@@ -8,7 +8,6 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.bitwise.app.graph.command.ConnectionCreateCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
-import com.bitwise.app.graph.figure.FixedConnectionAnchor;
 import com.bitwise.app.graph.model.Link;
 
 public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
@@ -23,11 +22,10 @@ public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 				request);
 		if (ctor == null)
 			return null;
-		FixedConnectionAnchor fca = (FixedConnectionAnchor)ctor;
-		if(fca.isAllowMultipleLinks()){
-			command.setSourceTerminal(getComponentEditPart()
-					.mapConnectionAnchorToTerminal(ctor));
-		}
+
+		command.setSourceTerminal(getComponentEditPart()
+				.mapConnectionAnchorToTerminal(ctor));
+
 		request.setStartCommand(command);
 		return command;
 
@@ -44,11 +42,10 @@ public class ConnectionEditPolicy extends GraphicalNodeEditPolicy{
 		if (ctor == null)
 			return null;
 
-		FixedConnectionAnchor fca = (FixedConnectionAnchor)ctor;
-		if(fca.isAllowMultipleLinks()){
-			command.setTargetTerminal(getComponentEditPart()
-					.mapConnectionAnchorToTerminal(ctor));
-		}
+
+		command.setTargetTerminal(getComponentEditPart()
+				.mapConnectionAnchorToTerminal(ctor));
+
 		return command;
 	}
 
