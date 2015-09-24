@@ -37,7 +37,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 	Group grpGroup_1;
 	private Object properties;
 	private String propertyName;
-	private static LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {		
 			this.grpGroup_1 = subGroup;
@@ -152,10 +152,12 @@ public class ELTSafeWidget extends AbstractELTWidget{
 		this.properties =  properties; 
 		this.propertyName = propertyName;
 		if(properties != null){
-			if(((String) properties).equalsIgnoreCase("Parameter"))
+			if(!(((String) properties).equalsIgnoreCase("True")) || !(((String) properties).equalsIgnoreCase("False")))
+			{
 				text.setVisible(true);	
-			text.setText((String) property.get("textBoxValue"));
-			combo.setText((String)properties);
+				text.setText((String)properties);
+				combo.setText("Parameter");
+			}
 		}else{
 			text.setText(" ");
 			 text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
@@ -164,8 +166,10 @@ public class ELTSafeWidget extends AbstractELTWidget{
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		property.put(propertyName, combo.getText());
-		property.put("textBoxValue", text.getText());
+		if( combo.getText().equalsIgnoreCase("Parameter"))
+		property.put(propertyName, text.getText());
+		else
+			property.put(propertyName, combo.getText());
 		return property;
 	}
 	@Override
