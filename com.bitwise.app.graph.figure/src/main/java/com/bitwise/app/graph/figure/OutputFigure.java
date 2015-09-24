@@ -1,6 +1,5 @@
 package com.bitwise.app.graph.figure;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -75,7 +74,7 @@ implements HandleBounds{
     }
 	public Point getPortLocation1(Rectangle r, int totalPortsOfThisType, String type, int sequence) {
 
-		System.out.println("getPortLocation method from figure called!!");
+		
 		Point p = null ;
 		int portOffsetFactor = totalPortsOfThisType+1;
 		int height = r.height;
@@ -83,20 +82,18 @@ implements HandleBounds{
 
 		int xLocation, yLocation;
 
-		System.out.println("portOffsetFactor: "+portOffsetFactor);
-		System.out.println("height: "+height);
-		System.out.println("portOffset: "+portOffset);
+		
 
 		if(type.equalsIgnoreCase("in")){
 			xLocation=r.getTopLeft().x+4;
 			yLocation=r.getTopLeft().y+portOffset*sequence;
-			System.out.println("IN: Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+			
 			p=new Point(xLocation, yLocation);
 		}
 		else if(type.equalsIgnoreCase("out")){
 			xLocation=r.getTopRight().x-5;
 			yLocation=r.getTopRight().y+portOffset*sequence;
-			System.out.println("OUT: Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+			
 			p=new Point(xLocation, yLocation);
 			
 		}
@@ -105,7 +102,7 @@ implements HandleBounds{
 	@Override
 	public void validate() {
 		super.validate();
-		System.out.println("OutputFigure:validate");
+		
 		if (isValid())
 			return;
 

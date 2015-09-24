@@ -1,13 +1,10 @@
 package com.bitwise.app.graph.figure;
 
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
-
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -23,26 +20,26 @@ implements HandleBounds{
 	Font labelFont = new Font(null, "", 10, 1); 
 	List<PortSpecification> portspecification;
 	FixedConnectionAnchor c;
-  
+
 
 	public FilterFigure(List<PortSpecification> portSpecification)
 	{
 		this.portspecification=portSpecification;
 		setBorder(new ComponentBorder(new Color(null, 161, 19, 62)));
-		
+
 		for(PortSpecification iterator:portspecification)
-        { 	
-		//for port at right side
-        c = new FixedConnectionAnchor(this);
-    	c.setType(iterator.getTypeOfPort());
-    	c.setTotalPortsOfThisType(iterator.getNumberOfPorts());
-        c.setSequence(iterator.getSequenceOfPort());
-        connectionAnchors.put(c.getType()+c.getSequence(), c);
-        if(iterator.getTypeOfPort().equalsIgnoreCase("out"))
-        outputConnectionAnchors.addElement(c);
-        else
-        inputConnectionAnchors.addElement(c);	
-        }
+		{ 	
+			//for port at right side
+			c = new FixedConnectionAnchor(this);
+			c.setType(iterator.getTypeOfPort());
+			c.setTotalPortsOfThisType(iterator.getNumberOfPorts());
+			c.setSequence(iterator.getSequenceOfPort());
+			connectionAnchors.put(c.getType()+c.getSequence(), c);
+			if(iterator.getTypeOfPort().equalsIgnoreCase("out"))
+				outputConnectionAnchors.addElement(c);
+			else
+				inputConnectionAnchors.addElement(c);	
+		}
 	}
 
 	@Override
@@ -66,18 +63,18 @@ implements HandleBounds{
 		connector.addPoint(-4, 4);
 
 		graphics.translate(-r.getLocation().x, -r.getLocation().y);
-		 for(PortSpecification p:portspecification)
-	        {
-		Point portPoint=getPortLocation(r,p.getNumberOfPorts(),p.getTypeOfPort(),p.getSequenceOfPort());
-		graphics.translate(portPoint);
-		graphics.setBackgroundColor(new Color(null,191, 52, 114));
-		graphics.fillPolygon(connector);
-        graphics.translate(portPoint.getNegated());
-	        }
-    }
+		for(PortSpecification p:portspecification)
+		{
+			Point portPoint=getPortLocation(r,p.getNumberOfPorts(),p.getTypeOfPort(),p.getSequenceOfPort());
+			graphics.translate(portPoint);
+			graphics.setBackgroundColor(new Color(null,191, 52, 114));
+			graphics.fillPolygon(connector);
+			graphics.translate(portPoint.getNegated());
+		}
+	}
 	public Point getPortLocation(Rectangle r, int totalPortsOfThisType, String type, int sequence) {
 
-		System.out.println("getPortLocation method from figure called!!");
+
 		Point p = null ;
 		int portOffsetFactor = totalPortsOfThisType+1;
 		int height = r.height;
@@ -85,20 +82,17 @@ implements HandleBounds{
 
 		int xLocation, yLocation;
 
-		System.out.println("portOffsetFactor: "+portOffsetFactor);
-		System.out.println("height: "+height);
-		System.out.println("portOffset: "+portOffset);
 
 		if(type.equalsIgnoreCase("in")){
 			xLocation=r.getTopLeft().x+4;
 			yLocation=r.getTopLeft().y+portOffset*sequence;
-			System.out.println("IN: Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+
 			p=new Point(xLocation, yLocation);
 		}
 		else if(type.equalsIgnoreCase("out")){
 			xLocation=r.getTopRight().x-5;
 			yLocation=r.getTopRight().y+portOffset*sequence;
-			System.out.println("OUT: Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+
 			p=new Point(xLocation, yLocation);
 
 		}
@@ -107,7 +101,7 @@ implements HandleBounds{
 	@Override
 	public void validate() {
 		super.validate();
-		System.out.println("FilterFigure:validate");
+
 		if (isValid())
 			return;
 
