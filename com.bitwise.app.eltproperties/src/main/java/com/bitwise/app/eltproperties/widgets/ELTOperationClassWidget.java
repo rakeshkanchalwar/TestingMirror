@@ -2,9 +2,6 @@ package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -22,11 +19,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.eltproperties.Messages;
+import com.bitwise.app.eltproperties.widgets.properties.model.filter.OperationClassProperty;
 import com.bitwise.app.eltproperties.widgets.utility.FilterOperationClassUtility;
 import com.bitwise.app.eltproperties.widgets.utility.WidgetUtility;
 
@@ -37,15 +34,14 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 	private FormData fd_btnedit_1;
 	private Object properties;
 	private String propertyName;
-	private boolean oprationClassIsParameter;
-	private static LinkedHashMap<String, Object> property = new LinkedHashMap<>();
-
+	private LinkedHashMap<String, Object> property = new LinkedHashMap<>();
+	private OperationClassProperty operationClassProperty = new OperationClassProperty();
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
-		// TODO Auto-generated method stub
+
 		final Shell shell = subGroup.getShell();
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
@@ -113,7 +109,6 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 		};
 		btnedit.addListener(SWT.Selection, edit1);
 		btnedit.setText("Edit");
-
 		filename.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -127,7 +122,7 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 					filename.setBackground(new Color(Display.getDefault(), 255,
 							255, 255));
 					fieldNameDecorator.hide();
-					btnedit.setEnabled(true);
+					btnedit.setEnabled(true); 
 				}
 			}
 		});
@@ -137,7 +132,6 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (btnCheckButton.getSelection()) {
-					oprationClassIsParameter = true;
 					btnNewButton.setEnabled(false);
 					btnNew.setEnabled(false);
 				} else {
@@ -161,7 +155,7 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 		fd_lblOprationalClass.top = new FormAttachment(filename, 0, SWT.TOP);
 		fd_lblOprationalClass.left = new FormAttachment(0, 10);
 		lblOprationalClass.setLayoutData(fd_lblOprationalClass);
-		lblOprationalClass.setText("Oprational Class:");
+		lblOprationalClass.setText("Operation Class");
 
 	}
 
@@ -169,19 +163,21 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 	public void setProperties(String propertyName, Object properties) {
 		this.properties = properties;
 		this.propertyName = propertyName;
-		if (properties != null) {
-			filename.setText((String) properties);
-			btnCheckButton.setSelection((boolean) property
-					.get("prationClassIsParameter"));
-		} else
-			filename.setText("");
-
+		if (properties != null && properties instanceof OperationClassProperty) {
+			filename.setText(((OperationClassProperty)properties).getOperationClassPath());
+			btnCheckButton.setSelection(((OperationClassProperty)properties).isParameter());
+		}
+		else{
+			filename.setBackground(new Color(Display.getDefault(), 255,
+					255, 204));
+		}
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		property.put(propertyName, filename.getText());
-		property.put("prationClassIsParameter", oprationClassIsParameter);
+		operationClassProperty.setParameter(btnCheckButton.getSelection());
+		operationClassProperty.setOperationClassPath(filename.getText());
+		property.put(propertyName, operationClassProperty);
 		return property;
 	}
 
