@@ -10,22 +10,22 @@
 				<tns:typeOfPort>in</tns:typeOfPort>
 				<tns:numberOfPorts>1</tns:numberOfPorts>
 				<tns:sequenceOfPort>1</tns:sequenceOfPort>
-				<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
 				<tns:numberOfPorts>2</tns:numberOfPorts>
 				<tns:sequenceOfPort>1</tns:sequenceOfPort>
-				<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
 				<tns:numberOfPorts>2</tns:numberOfPorts>
 				<tns:sequenceOfPort>2</tns:sequenceOfPort>
-				<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
-				<tns:linkMandatory>true</tns:linkMandatory>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+				<tns:linkMandatory>false</tns:linkMandatory>
 			</tns:portSpecification>
 		</tns:port>
 		<tns:property dataType="string" name="name"

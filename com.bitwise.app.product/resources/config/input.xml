@@ -7,7 +7,7 @@
 		    <tns:typeOfPort>out</tns:typeOfPort>
 		    <tns:numberOfPorts>1</tns:numberOfPorts>
 			<tns:sequenceOfPort>1</tns:sequenceOfPort>
-			<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+			<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 			<tns:linkMandatory>true</tns:linkMandatory>
 		</tns:portSpecification>
 	   
