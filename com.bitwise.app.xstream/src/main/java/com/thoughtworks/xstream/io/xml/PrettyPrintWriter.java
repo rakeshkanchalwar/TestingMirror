@@ -11,7 +11,7 @@
  */
 package com.thoughtworks.xstream.io.xml;
 
-import com.bitwise.app.common.util.ELTLoggerUtil;
+import com.bitwise.app.common.util.LogFactory;
 import com.thoughtworks.xstream.core.util.FastStack;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.StreamException;

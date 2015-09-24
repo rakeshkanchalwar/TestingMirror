@@ -14,43 +14,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-public class ELTLoggerUtil {
+public class LogFactory {
 	final public  String CLASSIC_FILE = "logback.xml";
     final public String BASE_PATH=Platform.getInstallLocation().getURL().getPath();
     final public String LOG_DIR = "config/ELTLogging/";
     private static final String className = "ELTLoggerUtil";
-    private static final ELTLoggerUtil eltLogger = new ELTLoggerUtil(className);
+    private static final LogFactory eltLogger = new LogFactory(className);
     
-    Logger logger;
+    private Logger logger;
     
-    public ELTLoggerUtil(String className) {
+    public LogFactory(String className) {
     	logger = LoggerFactory.getLogger(className+".class");
+    	writeLogsOnFileAndConsole();
 	}
     
-    public void info(String infoMsg) {
-        logger.info(infoMsg);
-        writeLogsOnFileAndConsole();
-    }
-
-    public void debug(String debugMsg) {
-        logger.debug(debugMsg);
-        writeLogsOnFileAndConsole();
-    }
-
-    public void error(Exception e) {
-        logger.error(e.getMessage());
-        writeLogsOnFileAndConsole();
-    }
-
-    public void trace(String traceMsg) {
-        logger.trace(traceMsg);
-        writeLogsOnFileAndConsole();
-    }
-
-    public void warn(String warnMsg) {
-        logger.warn(warnMsg);
-        writeLogsOnFileAndConsole();
-
+    public Logger getLogger(){
+    	return logger;
     }
     
 	private void writeLogsOnFileAndConsole() {
@@ -67,10 +46,10 @@ public class ELTLoggerUtil {
                 lc.start();
             }
         } catch (JoranException je) {
-        	eltLogger.error(je);
+        	eltLogger.getLogger().error(je.getMessage());
             je.printStackTrace();
         } catch (MalformedURLException e) {
-        	eltLogger.error(e);
+        	eltLogger.getLogger().error(e.getMessage());
             e.printStackTrace();
         } catch(Exception e){
         	e.printStackTrace();
