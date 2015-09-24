@@ -52,6 +52,8 @@ public class ELTComponentNameWidget extends AbstractWidget {
 			listener.setNames(super.names);
 			eltDefaultTextBox.attachListener(listener,
 					propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
+					propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
 			System.out.println("ELTComponentNameWidget: added the listener");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
