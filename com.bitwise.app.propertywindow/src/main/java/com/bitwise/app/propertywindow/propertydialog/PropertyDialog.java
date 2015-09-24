@@ -7,13 +7,17 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
+import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 
@@ -89,6 +93,7 @@ public class PropertyDialog extends Dialog {
 		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
 		
+		
 		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
 		
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
@@ -127,6 +132,17 @@ public class PropertyDialog extends Dialog {
 		
 		//System.out.println(ComponentProperties);
 		super.okPressed();
+	}
+	
+	@Override
+	protected void cancelPressed(){
+		ConfirmCancelMessageBox confirmCancelMessageBox = new ConfirmCancelMessageBox(container);
+		MessageBox confirmCancleMessagebox = confirmCancelMessageBox.getMessageBox();
+		
+		if(confirmCancleMessagebox.open() == SWT.OK){
+			//System.out.println("Hiiii");
+			super.close();
+		}
 	}
 	
 	public ArrayList<String> getNames() {

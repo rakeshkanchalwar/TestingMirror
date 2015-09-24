@@ -5,12 +5,14 @@ import java.util.LinkedHashMap;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.utils.WordUtils;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
 
 /**
@@ -46,13 +48,13 @@ public class MyCustomWidget extends AbstractWidget{
 		
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
-		
+		WordUtils wordUtils= new WordUtils();
+		ListenerHelper listenerHelper = new ListenerHelper("WordUtils", wordUtils);
 		//enableOkButton(false);
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar,eltDefaultTextBox.getSWTWidgetControl(),eltDefaultButton.getSWTWidgetControl());
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"),propertyDialogButtonBar);
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
-			System.out.println("+++DONE");
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl(),eltDefaultButton.getSWTWidgetControl());
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"), propertyDialogButtonBar,  null);
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
