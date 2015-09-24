@@ -2,6 +2,9 @@ package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -30,20 +33,20 @@ import com.bitwise.app.eltproperties.widgets.utility.WidgetUtility;
 public class ELTOprationClassWidget extends AbstractELTWidget {
 	private Text filename;
 	private Button btnCheckButton;
-	private String filePath;
 	public ControlDecoration fieldNameDecorator;
 	private FormData fd_btnedit_1;
 	private Object properties;
 	private String propertyName;
 	private boolean oprationClassIsParameter;
-	private static LinkedHashMap<String, Object> property=new LinkedHashMap<>();  
+	private static LinkedHashMap<String, Object> property = new LinkedHashMap<>();
+
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
 		// TODO Auto-generated method stub
-		final Shell shell=subGroup.getShell();
+		final Shell shell = subGroup.getShell();
 		Composite composite = new Composite(subGroup, SWT.NONE);
 		composite.setLayout(new FormLayout());
 		filename = new Text(composite, SWT.BORDER);
@@ -66,11 +69,12 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				 filePath=FilterOprationalClassUtility.browseFile("java", filename);
+				FilterOprationalClassUtility.browseFile("java",
+						filename);
 
-			} 
+			}
 		});
- 
+
 		final Button btnNew = new Button(composite, SWT.NONE);
 		FormData fd_btnNew = new FormData();
 		fd_btnNew.left = new FormAttachment(0, 339);
@@ -78,8 +82,8 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		Listener listener = new Listener() {
 
 			public void handleEvent(Event event) {
-				filePath=FilterOprationalClassUtility.createNewClassWizard(filename);
-				} 
+				FilterOprationalClassUtility.createNewClassWizard(filename);
+			}
 		};
 		btnNew.addListener(SWT.Selection, listener);
 		btnNew.setText("Create New");
@@ -96,14 +100,14 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		Listener edit1 = new Listener() {
 
 			public void handleEvent(Event event) {
-				if(filename.getText().startsWith("$"))
-					filePath=Messages.path;
-				
-				System.out.println("******"+filePath);
-				boolean flag =FilterOprationalClassUtility.openFileEditor(filePath);
-				if(!flag)
-				{
-					FilterOprationalClassUtility.errorMessage(shell);
+				if (filename.getText().startsWith("$")) {
+					filename.setText(Messages.path);
+				} 
+				boolean flag = FilterOprationalClassUtility.openFileEditor(filename.getText());
+				if (!flag) {
+					FilterOprationalClassUtility.errorMessage(shell); 
+				} else {
+					shell.close(); 
 				}
 			}
 		};
@@ -111,11 +115,11 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		btnedit.setText("Edit");
 
 		filename.addModifyListener(new ModifyListener() {
-			 
+
 			@Override
 			public void modifyText(ModifyEvent e) {
 				if (filename.getText().isEmpty()) {
-					fieldNameDecorator.show();
+					fieldNameDecorator.show(); 
 					btnedit.setEnabled(false);
 					filename.setBackground(new Color(Display.getDefault(), 255,
 							255, 204));
@@ -123,25 +127,24 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 					filename.setBackground(new Color(Display.getDefault(), 255,
 							255, 255));
 					fieldNameDecorator.hide();
-					btnedit.setEnabled(true); 
+					btnedit.setEnabled(true);
 				}
 			}
 		});
-		
+
 		btnCheckButton = new Button(composite, SWT.CHECK);
 		btnCheckButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-					if(btnCheckButton.getSelection()){
-						oprationClassIsParameter=true;
-						btnNewButton.setEnabled(false);
-						btnNew.setEnabled(false);
-					}
-					else{ 
-						btnNewButton.setEnabled(true);
-						btnNew.setEnabled(true);						
-					}
-			
+				if (btnCheckButton.getSelection()) {
+					oprationClassIsParameter = true;
+					btnNewButton.setEnabled(false);
+					btnNew.setEnabled(false);
+				} else {
+					btnNewButton.setEnabled(true);
+					btnNew.setEnabled(true);
+				}
+ 
 			}
 		});
 		fd_btnedit.top = new FormAttachment(btnCheckButton, 27);
@@ -152,7 +155,7 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		fd_btnCheckButton.left = new FormAttachment(0, 339);
 		fd_btnCheckButton.top = new FormAttachment(0, 23);
 		btnCheckButton.setLayoutData(fd_btnCheckButton);
-		btnCheckButton.setText("Is_Parameter"); 
+		btnCheckButton.setText("Is_Parameter");
 		Label lblOprationalClass = new Label(composite, SWT.NONE);
 		FormData fd_lblOprationalClass = new FormData();
 		fd_lblOprationalClass.top = new FormAttachment(filename, 0, SWT.TOP);
@@ -164,13 +167,13 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 
 	@Override
 	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
+		this.properties = properties;
 		this.propertyName = propertyName;
-		if(properties != null){
+		if (properties != null) {
 			filename.setText((String) properties);
-			btnCheckButton.setSelection((boolean)property.get("prationClassIsParameter")); 
-		}
-		else
+			btnCheckButton.setSelection((boolean) property
+					.get("prationClassIsParameter"));
+		} else
 			filename.setText("");
 
 	}
