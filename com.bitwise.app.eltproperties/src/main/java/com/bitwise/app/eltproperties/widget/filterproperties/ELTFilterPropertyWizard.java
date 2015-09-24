@@ -1,12 +1,15 @@
 package com.bitwise.app.eltproperties.widget.filterproperties;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -30,9 +33,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import com.bitwise.app.eltproperties.Messages;
-import com.bitwise.app.eltproperties.widgets.runtimeproperties.PropertyContentProvider;
-import com.bitwise.app.eltproperties.widgets.runtimeproperties.PropertyLabelProvider;
-import com.bitwise.app.eltproperties.widgets.runtimeproperties.RunTimePropertyCellModifier;
 
 public class ELTFilterPropertyWizard {
 
@@ -42,7 +42,8 @@ public class ELTFilterPropertyWizard {
 	private List<FilterProperties> propertyLst;
 	public static final String FilterInputFieldName = "Component Name"; //$NON-NLS-1$
 	//public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
-	private TreeMap<String, String> filterPropertyMap;
+	//private TreeMap<String, String> filterPropertyMap;
+	private Set<String> filterMap;
 	private String componentName;
 	private Label lblHeader;
 	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
@@ -61,8 +62,7 @@ public class ELTFilterPropertyWizard {
 	public ELTFilterPropertyWizard() {
 
 		propertyLst = new ArrayList<FilterProperties>();
-		filterPropertyMap = new TreeMap<String, String>();
-
+		filterMap=new HashSet<String>();
 	}
 
 	// Add New Property After Validating old properties
@@ -84,8 +84,8 @@ public class ELTFilterPropertyWizard {
 		}
 	}
 
-	public void setRuntimePropertyMap(TreeMap<String, String> runtimePropertyMap) {
-		this.filterPropertyMap = runtimePropertyMap;
+	public void setRuntimePropertyMap(HashSet<String> runtimePropertyMap) {
+		this.filterMap = runtimePropertyMap;
 	}
 
 	public String getComponentName() {
@@ -99,24 +99,21 @@ public class ELTFilterPropertyWizard {
 	// Loads Already Saved Properties..
 	private void loadProperties(TableViewer tv) {
 
-		if (filterPropertyMap != null && !filterPropertyMap.isEmpty()) {
-			for (String key : filterPropertyMap.keySet()) {
+				if(filterMap!= null && !filterMap.isEmpty()){
+				for(String key:filterMap){
 				FilterProperties filter= new FilterProperties();
-				if (validateBeforeLoad(key, filterPropertyMap.get(key))) {
+				if(validateBeforeLoad(key)){
 					filter.setPropertyname(key);
 					propertyLst.add(filter);
 				}
-			}
-			tv.refresh();
-
-		} else
+				}
+				tv.refresh();
+				}else
 			System.out.println("LodProperties :: Empty Map"); //$NON-NLS-1$
-
 	}
 
-	private boolean validateBeforeLoad(String key, String keyValue) {
-
-		if (key.trim().isEmpty() || keyValue.trim().isEmpty()) {
+	private boolean validateBeforeLoad(String key) {
+		if (key.trim().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -145,20 +142,23 @@ public class ELTFilterPropertyWizard {
 		tableViewer.setInput(propertyLst);
 
 		TableColumn tc1 = new TableColumn(table, SWT.CENTER);
-		tc1.setText("Filed Name"); //$NON-NLS-1$
-
-		/*for (int i = 0, n = table.getColumnCount(); i < n; i++) {
-			table.getColumn(i).pack();
-		}*/
+		tc1.setText("Field Name"); 
 		tc1.setWidth(460);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 	}
+	
+	
+	public static void main(String[] args) {
+		ELTFilterPropertyWizard obj=new ELTFilterPropertyWizard();
+		obj.launchRuntimeWindow(new Shell());
+	}
+	
 	/**
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public TreeMap<String, String> launchRuntimeWindow(Shell parentShell) {
+	public Set<String> launchRuntimeWindow(Shell parentShell) {
 
 		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
@@ -196,16 +196,16 @@ public class ELTFilterPropertyWizard {
 		createButtons(composite);
 
 		lblPropertyError = new Label(composite, SWT.NONE);
-		lblPropertyError.setForeground(new Color(Display.getDefault(), 255, 0,
-				0));
+		lblPropertyError.setForeground(new Color(Display.getDefault(), 255, 0, 0));
 		lblPropertyError.setBounds(28, 57, 258, 15);
 		lblPropertyError.setVisible(false);
 
 		final CellEditor propertyNameeditor = new TextCellEditor(table);
 
 		CellEditor[] editors = new CellEditor[] { propertyNameeditor};
-		propertyNameeditor.addListener(createEditorListners());
+		//propertyNameeditor.addListener(createEditorListners());
 		propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
+		
 		
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new FilterCellModifier(tableViewer));
@@ -229,7 +229,7 @@ public class ELTFilterPropertyWizard {
 				shell.getDisplay().sleep();
 		}
 
-		return filterPropertyMap;
+		return filterMap;
 	}
 
 	// Creates The buttons For the widget
@@ -293,14 +293,13 @@ public class ELTFilterPropertyWizard {
 
 				if (validate()) {
 					if (isAnyUpdatePerformed) {
-						filterPropertyMap.clear();
+						filterMap.clear();
 						for (FilterProperties temp : propertyLst) {
-							filterPropertyMap.put(temp.getPropertyname(), "");
+							filterMap.add(temp.getPropertyname());
 						}
 						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
 						messageBox.setText("Information"); //$NON-NLS-1$
-						messageBox
-								.setMessage(Messages.PropertyAppliedNotification);
+						messageBox.setMessage(Messages.PropertyAppliedNotification);
 						messageBox.open();
 						isAnyUpdatePerformed = false;
 					}
@@ -308,17 +307,17 @@ public class ELTFilterPropertyWizard {
 			}
 		});
 		applyButton.setBounds(253, 10, 75, 25);
-		applyButton.setText("Apply"); //$NON-NLS-1$
+		applyButton.setText("Apply");
 
 		okButton = new Button(composite, SWT.NONE);
 		okButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (validate()) {
-					filterPropertyMap.clear();
+					filterMap.clear();
 					isOkPressed = true;
 					for (FilterProperties temp : propertyLst) {
-						filterPropertyMap.put(temp.getPropertyname(), "");
+						filterMap.add(temp.getPropertyname());
 					}
 
 					shell.close();
@@ -360,38 +359,13 @@ public class ELTFilterPropertyWizard {
 		return true;
 	}
 
-	private ICellEditorListener createEditorListners() {
-		ICellEditorListener propertyEditorListner = new ICellEditorListener() {
-
-			@Override
-			public void editorValueChanged(boolean oldValidState,boolean newValidState) {
-
-			}
-
-			@Override
-			public void cancelEditor() {
-				
-			}
-
-			@Override
-			public void applyEditorValue() {
-
-				
-
-			}
-		};
-		return propertyEditorListner;
-	}
-
 	// Creates CellNAme Validator for table's cells
-	private ICellEditorValidator createNameEditorValidator(
-			final String ErrorMessage) {
+	private ICellEditorValidator createNameEditorValidator(final String ErrorMessage) {
 		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
 			@Override
 			public String isValid(Object value) {
 				isAnyUpdatePerformed = true;
-				String currentSelectedFld = table.getItem(
-						table.getSelectionIndex()).getText();
+				String currentSelectedFld = table.getItem(table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
 				if (valueToValidate.isEmpty()) {
 					lblPropertyError.setText(ErrorMessage);
@@ -399,7 +373,11 @@ public class ELTFilterPropertyWizard {
 					disableButtons();
 					return "ERROR"; //$NON-NLS-1$
 				}
-//.equalsIgnoreCase(valueToValidate)   
+				Matcher matchs=Pattern.compile("[\\d]").matcher(valueToValidate);
+				if(!matchs.matches()){
+					System.out.println("nO NOT ALLOWED");
+				}
+
 				for (FilterProperties temp : propertyLst) {
 					if (!currentSelectedFld.equalsIgnoreCase(valueToValidate)
 							&& temp.getPropertyname().trim().equalsIgnoreCase(valueToValidate)) {
@@ -412,31 +390,6 @@ public class ELTFilterPropertyWizard {
 					lblPropertyError.setVisible(false);
 				}
 
-				return null;
-
-			}
-		};
-		return propertyValidator;
-	}
-
-	// Creates Value Validator for table's cells
-	private ICellEditorValidator createValueEditorValidator(final String ErrorMessage) {
-		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
-			@Override
-			public String isValid(Object value) {
-				isAnyUpdatePerformed = true;
-				String currentSelectedFld = table.getItem(
-						table.getSelectionIndex()).getText();
-				String valueToValidate = String.valueOf(value).trim();
-				if (valueToValidate.isEmpty()) {
-					lblPropertyError.setText(ErrorMessage);
-					lblPropertyError.setVisible(true);
-					disableButtons();
-					return "ERROR"; //$NON-NLS-1$
-				} else {
-					enableButtons();
-					lblPropertyError.setVisible(false);
-				}
 				return null;
 
 			}

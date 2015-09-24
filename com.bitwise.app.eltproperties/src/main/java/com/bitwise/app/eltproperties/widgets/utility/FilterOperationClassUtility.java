@@ -21,7 +21,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-public class FilterOprationalClassUtility {
+public class FilterOperationClassUtility {
 	private static String filePath = "";
 
 	public static void createNewClassWizard(Text fileName) {

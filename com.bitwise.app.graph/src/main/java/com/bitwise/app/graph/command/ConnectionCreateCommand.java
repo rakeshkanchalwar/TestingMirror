@@ -1,12 +1,21 @@
 package com.bitwise.app.graph.command;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.commands.Command;
 
+import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.graph.model.custom.Filter;
+import com.bitwise.app.graph.model.custom.Gather;
+import com.bitwise.app.graph.model.custom.Input;
+import com.bitwise.app.graph.model.custom.Output;
+import com.bitwise.app.graph.model.custom.Replicate;
+import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class ConnectionCreateCommand extends Command{
 	/** The connection instance. */
@@ -59,6 +68,51 @@ public class ConnectionCreateCommand extends Command{
 			}
 		}
 		
+		//Out port restrictions
+		
+		if(source instanceof Input){
+			
+			
+		}
+//		if(source instanceof InputComponent){
+//			if(source.getPortsForInput().get(sourceTerminal).isAllowMultipleLinks() ||
+//					!source.getPortsForInput().get(sourceTerminal).isConnected()){
+//			}else
+//				return false;
+//		}
+		
+		
+		if(source instanceof Gather){
+			
+			
+		}
+		if(source instanceof Replicate){
+			
+			
+		}
+		if(source instanceof Filter){
+			
+			
+		}
+		
+		//In port restrictions
+		if(target instanceof Output){
+
+
+		}
+		if(target instanceof Gather){
+
+
+		}
+		if(target instanceof Replicate){
+
+
+		}
+		if(target instanceof Filter){
+
+
+		}
+		
 		return true;
 	}
 
@@ -75,6 +129,20 @@ public class ConnectionCreateCommand extends Command{
 			connection.setSourceTerminal(sourceTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
+			
+			if(source instanceof Input){
+				//setConnected- true
+			}
+			if(source instanceof Gather){
+				//setConnected- true
+			}
+			if(source instanceof Replicate){
+				//setConnected- true
+			}
+			if(source instanceof Filter){
+				//setConnected- true
+			}
+				
 		}
 		if(target!=null){
 			
@@ -82,6 +150,19 @@ public class ConnectionCreateCommand extends Command{
 			connection.setTargetTerminal(targetTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();
+			
+			if(source instanceof Output){
+				//setConnected- true
+			}
+			if(source instanceof Gather){
+				//setConnected- true
+			}
+			if(source instanceof Replicate){
+				//setConnected- true
+			}
+			if(source instanceof Filter){
+				//setConnected- true
+			}
 		}
 	}
 

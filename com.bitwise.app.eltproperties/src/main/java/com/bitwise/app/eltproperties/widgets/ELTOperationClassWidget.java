@@ -27,10 +27,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.eltproperties.Messages;
-import com.bitwise.app.eltproperties.widgets.utility.FilterOprationalClassUtility;
+import com.bitwise.app.eltproperties.widgets.utility.FilterOperationClassUtility;
 import com.bitwise.app.eltproperties.widgets.utility.WidgetUtility;
 
-public class ELTOprationClassWidget extends AbstractELTWidget {
+public class ELTOperationClassWidget extends AbstractELTWidget {
 	private Text filename;
 	private Button btnCheckButton;
 	public ControlDecoration fieldNameDecorator;
@@ -69,7 +69,7 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				FilterOprationalClassUtility.browseFile("java",
+				FilterOperationClassUtility.browseFile("java",
 						filename);
 
 			}
@@ -82,7 +82,7 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 		Listener listener = new Listener() {
 
 			public void handleEvent(Event event) {
-				FilterOprationalClassUtility.createNewClassWizard(filename);
+				FilterOperationClassUtility.createNewClassWizard(filename);
 			}
 		};
 		btnNew.addListener(SWT.Selection, listener);
@@ -103,9 +103,9 @@ public class ELTOprationClassWidget extends AbstractELTWidget {
 				if (filename.getText().startsWith("$")) {
 					filename.setText(Messages.path);
 				} 
-				boolean flag = FilterOprationalClassUtility.openFileEditor(filename.getText());
+				boolean flag = FilterOperationClassUtility.openFileEditor(filename.getText());
 				if (!flag) {
-					FilterOprationalClassUtility.errorMessage(shell); 
+					FilterOperationClassUtility.errorMessage(shell); 
 				} else {
 					shell.close(); 
 				}

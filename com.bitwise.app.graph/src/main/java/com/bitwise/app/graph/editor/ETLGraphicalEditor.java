@@ -572,7 +572,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return true;
 	}
 
-	public Object fromXMLToObject(InputStream xml) {
+	private Object fromXMLToObject(InputStream xml) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
 		Object obj = null;
 		eltLogger.getLogger().info(METHOD_NAME);
@@ -591,7 +591,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return obj;
 	}
 
-	public String fromObjectToXML(Serializable object) {
+	private String fromObjectToXML(Serializable object) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromObjectToXML(Serializable object)";
 		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
 		eltLogger.getLogger().info(METHOD_NAME);

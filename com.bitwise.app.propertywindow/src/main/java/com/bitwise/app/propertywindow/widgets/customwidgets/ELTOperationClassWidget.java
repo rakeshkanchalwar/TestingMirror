@@ -20,10 +20,10 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
-import com.bitwise.app.propertywindow.widgets.utility.FilterOprationalClassUtility;
+import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-public class ELTOprationClassWidget extends AbstractWidget {
+public class ELTOperationClassWidget extends AbstractWidget {
 	
 	private ControlDecoration fieldNameDecorator;
 	private String filePath;
@@ -32,19 +32,29 @@ public class ELTOprationClassWidget extends AbstractWidget {
 	 */
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		// TODO Auto-generated method stub
+
 		ListenerFactory listenerFactory = new ListenerFactory();
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		eltSuDefaultSubgroupComposite.numberOfBasicWidgets(5);
+		
+		//Oprational class lable.
 		AbstractELTWidget oprationClassLable = new ELTDefaultLable("Oprational Class").lableWidth(95);
 		eltSuDefaultSubgroupComposite.attachWidget(oprationClassLable);
+		
+		//Browse file text box.
 		final ELTDefaultTextBox fileName = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
 		eltSuDefaultSubgroupComposite.attachWidget(fileName);
+		
+		//Applied decorator for text box blank field.
 		fieldNameDecorator = WidgetUtility.addDecorator((Text)fileName.getSWTWidgetControl(),
 				Messages.OperationClassBlank);
+		
+		//Create browse button.
 		AbstractELTWidget browseButton = new ELTDefaultButton("...");
 		eltSuDefaultSubgroupComposite.attachWidget(browseButton);
+		
+		//Create new button, that user to create operational class
 		AbstractELTWidget createButton = new ELTDefaultButton("Create New");
 		eltSuDefaultSubgroupComposite.attachWidget(createButton);
 		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("Is_Parameter");
@@ -52,14 +62,14 @@ public class ELTOprationClassWidget extends AbstractWidget {
 		((Button)browseButton.getSWTWidgetControl()).addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				 filePath=FilterOprationalClassUtility.browseFile("java", (Text)fileName.getSWTWidgetControl());
+				 FilterOperationClassUtility.browseFile("java", (Text)fileName.getSWTWidgetControl());
 
 			} 
 		});
 		Listener listener = new Listener() {
 
 			public void handleEvent(Event event) {
-				filePath=FilterOprationalClassUtility.createNewClassWizard((Text)fileName.getSWTWidgetControl());
+				FilterOperationClassUtility.createNewClassWizard((Text)fileName.getSWTWidgetControl());
 				} 
 		};
 		createButton.getSWTWidgetControl().addListener(SWT.Selection, listener);

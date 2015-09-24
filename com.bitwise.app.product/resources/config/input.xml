@@ -2,13 +2,16 @@
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
   <tns:component iconPath="/icons/input.png" name="Input" shape="InputFigure">
 	<tns:category>INPUT</tns:category>
-	<tns:inputPort>
-		<tns:numberOfPorts>0</tns:numberOfPorts>
-	</tns:inputPort>
-	<tns:outputPort>
-		<tns:numberOfPorts>1</tns:numberOfPorts>
-		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
-	</tns:outputPort>
+	<tns:port>
+		<tns:portSpecification>
+		    <tns:typeOfPort>out</tns:typeOfPort>
+		    <tns:numberOfPorts>1</tns:numberOfPorts>
+			<tns:sequenceOfPort>1</tns:sequenceOfPort>
+			<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+			<tns:linkMandatory>true</tns:linkMandatory>
+		</tns:portSpecification>
+	   
+	</tns:port>
 	<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
     <tns:property dataType="string" name="schema" renderer="ELTSchemaWidget" type="USER" group="SCHEMA" subGroup="SCHEMA"/>
     <tns:property dataType="string" name="path" renderer="ELTFilePathWidget" type="USER" group="GENERAL" subGroup="FILE_PATH"/>
