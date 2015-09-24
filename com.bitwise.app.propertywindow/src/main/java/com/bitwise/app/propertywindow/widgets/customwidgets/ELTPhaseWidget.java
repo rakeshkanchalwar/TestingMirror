@@ -35,8 +35,8 @@ public class ELTPhaseWidget extends AbstractWidget{
 		/*AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);*/
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar);
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar , null);
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, null, eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

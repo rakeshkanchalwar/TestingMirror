@@ -24,7 +24,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 	}
 
 	@Override
-	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, Widget... widgets) {
+	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
 		Widget[] widgetList = widgets;
 		final Text text = (Text) widgetList[0];
 

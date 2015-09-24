@@ -14,5 +14,5 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public interface IELTListener {
 	public int getListenerType();
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widgets);
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers,Widget... widgets);
 }

@@ -3,7 +3,7 @@ package com.bitwise.app.propertywindow.messages;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS { 
-	private static final String BUNDLE_NAME = "com.bitwise.app.propertywindow.messages";
+	private static final String BUNDLE_NAME = "com.bitwise.app.propertywindow.messages.messages";
 	public static String DATATYPELIST ;
 	public static String FIELDNAME;
 	public static String DATATYPE;
