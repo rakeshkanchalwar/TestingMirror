@@ -24,7 +24,7 @@ public class LogFactory {
     private Logger logger;
     
     public LogFactory(String className) {
-    	logger = LoggerFactory.getLogger(className+".class");
+    	logger = LoggerFactory.getLogger(className);
     	writeLogsOnFileAndConsole();
 	}
     
