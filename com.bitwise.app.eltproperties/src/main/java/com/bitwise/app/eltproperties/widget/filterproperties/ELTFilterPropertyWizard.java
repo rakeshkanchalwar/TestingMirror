@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
@@ -53,6 +54,7 @@ public class ELTFilterPropertyWizard {
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
+	public ControlDecoration scaleDecorator;
 	private Button addButton, deleteAll, applyButton, okButton, deleteButton,
 			cacelButton;
 	private boolean isAnyUpdatePerformed;
@@ -60,7 +62,6 @@ public class ELTFilterPropertyWizard {
 	// private boolean firstTimeEdit;
 
 	public ELTFilterPropertyWizard() {
-
 		propertyLst = new ArrayList<FilterProperties>();
 		filterMap=new HashSet<String>();
 	}
@@ -204,8 +205,8 @@ public class ELTFilterPropertyWizard {
 
 		CellEditor[] editors = new CellEditor[] { propertyNameeditor};
 		//propertyNameeditor.addListener(createEditorListners());
-		propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
-		
+		//propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
+			propertyNameeditor.setValidator(cellValidator);
 		
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new FilterCellModifier(tableViewer));
@@ -232,6 +233,22 @@ public class ELTFilterPropertyWizard {
 		return filterMap;
 	}
 
+	ICellEditorValidator cellValidator=new ICellEditorValidator() {
+		
+		@Override
+		public String isValid(Object value) {
+			String celltext=(String)value;
+			if(!celltext.matches("[\\w]*")){
+				//scaleDecorator.show();
+				disableButtons();
+			}else{
+				enableButtons();
+			}
+			
+			
+			return null;
+		}
+	};
 	// Creates The buttons For the widget
 	private void createButtons(Composite composite) {
 		new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 41,
@@ -367,16 +384,17 @@ public class ELTFilterPropertyWizard {
 				isAnyUpdatePerformed = true;
 				String currentSelectedFld = table.getItem(table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
-				if (valueToValidate.isEmpty()) {
+				/*if (valueToValidate.isEmpty()) {
 					lblPropertyError.setText(ErrorMessage);
 					lblPropertyError.setVisible(true);
 					disableButtons();
 					return "ERROR"; //$NON-NLS-1$
-				}
-				Matcher matchs=Pattern.compile("[\\d]").matcher(valueToValidate);
-				if(!matchs.matches()){
-					System.out.println("nO NOT ALLOWED");
-				}
+					
+				}else*/ if(valueToValidate.matches("[\\w]*")){
+						//scaleDecorator.show();
+						disableButtons();
+						System.out.println("check");
+					}
 
 				for (FilterProperties temp : propertyLst) {
 					if (!currentSelectedFld.equalsIgnoreCase(valueToValidate)

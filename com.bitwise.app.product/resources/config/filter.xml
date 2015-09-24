@@ -36,5 +36,7 @@
 		<tns:property dataType="string" name="oprationClass"
 			renderer="ELTOperationalClassWidget" type="USER" group="GENERAL"
 			subGroup="FILE_PATH" />
+			 <tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="FILTER"/>
+   
 	</tns:component>
 </tns:Config>
