@@ -73,7 +73,7 @@ public class ELTComponentNameWidget extends AbstractELTWidget {
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
 		Image img = fieldDecoration.getImage();
 		txtDecorator.setImage(img);
-		txtDecorator.setDescriptionText(Messages.FIELDNAMEERROR);
+		txtDecorator.setDescriptionText(Messages.FIELD_LABEL_ERROR);
 		txtDecorator.hideHover();
 
 		text.addVerifyListener(new VerifyListener() {
@@ -87,15 +87,13 @@ public class ELTComponentNameWidget extends AbstractELTWidget {
 				if (newName == null || newName.equals("")) {
 					// e.doit=false;
 					text.setBackground(new Color(group.getDisplay(),255,255,204));
-					text.setToolTipText("Enter valid name");
-					text.setMessage("Valid Name required");
+					text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 					txtDecorator.show();
 					toggleOkButton(false);
 
 				} else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
 					text.setBackground(new Color(group.getDisplay(),255,255,204));
-					text.setToolTipText("Enter unique name for component.");
-					text.setMessage("Unique Name required");
+					text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 					txtDecorator.show();
 					toggleOkButton(false);
 

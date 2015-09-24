@@ -243,7 +243,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				testwindow.open();
 				
 				int w = ((String) getCastedModel().getPropertyValue("name")).length()*7+40;
-				int defaultWidth = getCastedModel().getBasename().length()*7+40;
+				int defaultWidth = (getCastedModel().getBasename().length()+3)*7+40;
 				Dimension newSize = new Dimension(w < defaultWidth ? defaultWidth : w, 60);
 				getCastedModel().setSize(newSize);
 				refreshVisuals();

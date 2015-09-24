@@ -4,6 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS { 
 	private static final String BUNDLE_NAME = "com.bitwise.app.eltproperties.messages";
+	public static String FIELD_LABEL_ERROR ;
 	public static String DATATYPELIST ;
 	public static String FIELDNAME;
 	public static String DATATYPE;

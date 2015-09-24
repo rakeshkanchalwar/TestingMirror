@@ -48,12 +48,11 @@ implements HandleBounds{
 		graphics.translate(r.getLocation());
 		graphics.setBackgroundColor(new Color(null,220, 221, 227));
 		graphics.setForegroundColor(ColorConstants.black);
-		graphics.fillRectangle(4, 4, r.width-8, r.height-8);
-		System.out.println("r.WIDTH IS: "+r.width);
-		int x = (r.width - getLabelName().length()*7)/2;
+		graphics.fillRectangle(4, 4, r.width - 8, r.height - 8);
 
-		labelPoint = new Point(x, r.height/2-10);
-		
+		int x = (r.width - getLabelName().length() * 7) / 2;
+		labelPoint = new Point(x, r.height / 2 - 10);
+
 		graphics.setFont(labelFont);
 		graphics.drawText(getLabelName(), labelPoint);
 
