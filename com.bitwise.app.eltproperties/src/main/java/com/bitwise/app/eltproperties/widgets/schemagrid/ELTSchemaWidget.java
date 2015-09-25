@@ -156,7 +156,7 @@ public class ELTSchemaWidget extends AbstractELTWidget {
 				};
 				
 				/*
-				 * Field name validation, It should not get repeated.  
+				 * Field name validation, To check numeric data.
 				 */
 				ICellEditorValidator scaleFieldValidator = new ICellEditorValidator() {
    

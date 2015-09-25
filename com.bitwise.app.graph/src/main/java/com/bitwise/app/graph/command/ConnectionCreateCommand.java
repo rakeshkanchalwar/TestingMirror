@@ -69,48 +69,48 @@ public class ConnectionCreateCommand extends Command{
 		}
 		
 		//Out port restrictions
+
+
+		String componentName = DynamicClassProcessor.INSTANCE
+				.getClazzName(source.getClass());
 		
-		if(source instanceof Input){
-			
-			
+		List<PortSpecification> portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+
+		for (PortSpecification p:portspecification)
+		{
+			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
+			if(portName.equals(sourceTerminal)){
+				if(p.isAllowMultipleLinks() || 
+						//!(source.getOutputPortStatus(sourceTerminal)!=null && source.getOutputPortStatus(sourceTerminal).equals("connected"))){
+					!source.hasOutputPort(sourceTerminal)){
+					
+				}else
+					return false;
+			}
+
 		}
-//		if(source instanceof InputComponent){
-//			if(source.getPortsForInput().get(sourceTerminal).isAllowMultipleLinks() ||
-//					!source.getPortsForInput().get(sourceTerminal).isConnected()){
-//			}else
-//				return false;
-//		}
-		
-		
-		if(source instanceof Gather){
-			
-			
-		}
-		if(source instanceof Replicate){
-			
-			
-		}
-		if(source instanceof Filter){
-			
-			
-		}
-		
+
+
+
 		//In port restrictions
-		if(target instanceof Output){
-
+		if(target!=null){
+		componentName = DynamicClassProcessor.INSTANCE
+				.getClazzName(target.getClass());
+		
+		portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+		for (PortSpecification p:portspecification)
+		{
+			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
+			if(portName.equals(targetTerminal)){
+				if(p.isAllowMultipleLinks() || 
+						//!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
+						!target.hasInputPort(targetTerminal)){
+					
+				}else
+					return false;
+			}
 
 		}
-		if(target instanceof Gather){
-
-
-		}
-		if(target instanceof Replicate){
-
-
-		}
-		if(target instanceof Filter){
-
-
 		}
 		
 		return true;
@@ -130,18 +130,10 @@ public class ConnectionCreateCommand extends Command{
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
 			
-			if(source instanceof Input){
-				//setConnected- true
-			}
-			if(source instanceof Gather){
-				//setConnected- true
-			}
-			if(source instanceof Replicate){
-				//setConnected- true
-			}
-			if(source instanceof Filter){
-				//setConnected- true
-			}
+			//source.setOutputPortStatus(sourceTerminal, "connected");
+			source.addOutputPort(sourceTerminal);
+			
+			
 				
 		}
 		if(target!=null){
@@ -151,18 +143,9 @@ public class ConnectionCreateCommand extends Command{
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();
 			
-			if(source instanceof Output){
-				//setConnected- true
-			}
-			if(source instanceof Gather){
-				//setConnected- true
-			}
-			if(source instanceof Replicate){
-				//setConnected- true
-			}
-			if(source instanceof Filter){
-				//setConnected- true
-			}
+			//target.setInputPortStatus(targetTerminal, "connected");
+			target.addInputPort(targetTerminal);
+			
 		}
 	}
 

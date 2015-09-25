@@ -24,6 +24,10 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.bitwise.app.eltproperties.Messages;
 
 public class WidgetUtility {
+
+	public static void main(String[] args) {
+	System.out.println(WidgetUtility.isFileExtention("bdbd.java", "java"));	
+	}
 	
 	public static Label createLable(Label lable){
 		lable.setForeground(new Color(Display.getDefault(), 255, 0,0));
@@ -86,4 +90,18 @@ public class WidgetUtility {
 		txtDecorator.hide();
 		return txtDecorator; 
 	} 
+	
+
+
+public static boolean isFileExtention(String file,String extention) {
+     try {
+        return extention.equalsIgnoreCase(file.substring(file.lastIndexOf(".")));
+
+    } catch (Exception e) {
+        return false;
+    }
+
+}
+
+
 }

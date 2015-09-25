@@ -31,6 +31,7 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 	private Text filename;
 	private Button btnCheckButton;
 	public ControlDecoration fieldNameDecorator;
+	public ControlDecoration fieldNameMustJava;
 	private FormData fd_btnedit_1;
 	private Object properties;
 	private String propertyName;
@@ -54,6 +55,8 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 		// Adding the decorator to show error message when field name same.
 		fieldNameDecorator = WidgetUtility.addDecorator(filename,
 				Messages.OperationClassBlank);
+		fieldNameMustJava = WidgetUtility.addDecorator(filename,
+				Messages.INVALID_FILE);
 		final Button btnNewButton = new Button(composite, SWT.PUSH);
 		fd_filename.right = new FormAttachment(btnNewButton, -6);
 		FormData fd_btnNewButton = new FormData();
@@ -113,20 +116,25 @@ public class ELTOperationClassWidget extends AbstractELTWidget {
 
 			@Override
 			public void modifyText(ModifyEvent e) {
-				if (filename.getText().isEmpty()) {
+				if (filename.getText().trim().isEmpty()) {
 					fieldNameDecorator.show(); 
 					btnedit.setEnabled(false);
 					filename.setBackground(new Color(Display.getDefault(), 255,
 							255, 204));
 				} else {
-					filename.setBackground(new Color(Display.getDefault(), 255,
-							255, 255));
+					if(!WidgetUtility.isFileExtention((filename.getText()).trim(), ".java"))
+						fieldNameMustJava.show();
+						else 
+						{
+						filename.setBackground(new Color(Display.getDefault(), 255,
+								255, 255));
+						fieldNameMustJava.hide(); 
+						}
 					fieldNameDecorator.hide();
 					btnedit.setEnabled(true); 
 				}
 			}
 		});
-
 		btnCheckButton = new Button(composite, SWT.CHECK);
 		btnCheckButton.addSelectionListener(new SelectionAdapter() {
 			@Override

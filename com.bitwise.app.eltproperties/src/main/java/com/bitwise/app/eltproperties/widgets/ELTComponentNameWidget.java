@@ -2,10 +2,14 @@ package com.bitwise.app.eltproperties.widgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -17,6 +21,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.bitwise.app.eltproperties.Messages;
+
 public class ELTComponentNameWidget extends AbstractELTWidget {
 
 	private Text text;
@@ -27,6 +33,7 @@ public class ELTComponentNameWidget extends AbstractELTWidget {
 	private String propertyName;
 
 	private String newName;
+	private ControlDecoration txtDecorator;
 
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {
@@ -58,7 +65,16 @@ public class ELTComponentNameWidget extends AbstractELTWidget {
 		fd_text.top = new FormAttachment(0, 2);
 		fd_text.left = new FormAttachment(0, 88);
 		text.setLayoutData(fd_text);
+		text.setTextLimit(50);
+		text.setSize(350, 21);
 		formToolkit.adapt(text, true, true);
+		
+		txtDecorator = new ControlDecoration(text, SWT.TOP|SWT.LEFT);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+		Image img = fieldDecoration.getImage();
+		txtDecorator.setImage(img);
+		txtDecorator.setDescriptionText(Messages.FIELD_LABEL_ERROR);
+		txtDecorator.hideHover();
 
 		text.addVerifyListener(new VerifyListener() {
 			@Override
@@ -70,23 +86,22 @@ public class ELTComponentNameWidget extends AbstractELTWidget {
 				System.out.println("addVerifyListener(): current text: " + oldName + ", new text: " + newName);
 				if (newName == null || newName.equals("")) {
 					// e.doit=false;
-					Color listBackground = Display.getDefault().getSystemColor(SWT.COLOR_GRAY);
-					text.setBackground(listBackground);
-					text.setToolTipText("Enter valid name");
-					text.setMessage("Valid Name required");
+					text.setBackground(new Color(group.getDisplay(),255,255,204));
+					text.setToolTipText(Messages.FIELD_LABEL_ERROR);
+					txtDecorator.show();
 					toggleOkButton(false);
 
 				} else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
-					Color listBackground = Display.getDefault().getSystemColor(SWT.COLOR_GRAY);
-					text.setBackground(listBackground);
-					text.setToolTipText("Enter unique name for component.");
-					text.setMessage("Unique Name required");
+					text.setBackground(new Color(group.getDisplay(),255,255,204));
+					text.setToolTipText(Messages.FIELD_LABEL_ERROR);
+					txtDecorator.show();
 					toggleOkButton(false);
 
 				} else {
-					text.setBackground(null);
+					text.setBackground(new Color(group.getDisplay(), 255,255,255));
 					text.setToolTipText("");
 					text.setMessage("");
+					txtDecorator.hide();
 					toggleOkButton(true);
 				}
 			}

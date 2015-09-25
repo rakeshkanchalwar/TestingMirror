@@ -4,6 +4,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS { 
 	private static final String BUNDLE_NAME = "com.bitwise.app.eltproperties.messages";
+	public static String FIELD_LABEL_ERROR ;
 	public static String DATATYPELIST ;
 	public static String FIELDNAME;
 	public static String DATATYPE;
@@ -24,6 +25,7 @@ public class Messages extends NLS {
 	public static String EmptyValueNotification;
 	public static String OperationClassBlank;
 	public static String path;
+	public static String INVALID_FILE;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

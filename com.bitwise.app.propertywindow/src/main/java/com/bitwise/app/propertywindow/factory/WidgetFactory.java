@@ -9,6 +9,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTOperationClassWid
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
+import com.bitwise.app.propertywindow.widgets.runtimeproperty.ELTRuntimePropertiesWidget;
 
 /**
  * 
@@ -22,7 +23,7 @@ public class WidgetFactory {
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
 			return new ELTOperationClassWidget();
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
-			return new MyCustomWidget();
+			return new ELTRuntimePropertiesWidget();
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){
 			return new ELTFilePathWidget();
 		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){

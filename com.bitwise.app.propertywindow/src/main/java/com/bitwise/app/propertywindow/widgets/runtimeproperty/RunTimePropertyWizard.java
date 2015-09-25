@@ -1,16 +1,15 @@
-package com.bitwise.app.eltproperties.widget.filterproperties;
+package com.bitwise.app.propertywindow.widgets.runtimeproperty;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -20,6 +19,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -33,60 +33,73 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import com.bitwise.app.eltproperties.Messages;
+import com.bitwise.app.propertywindow.messages.Messages;
 
-public class ELTFilterPropertyWizard {
 
+
+/**
+ * 
+ * @author Nitin Gupta Sep 09, 2015
+ * 
+ */
+
+public class RunTimePropertyWizard {
 	private Table table;
 
 	private Shell shell;
-	private List<FilterProperties> propertyLst;
-	public static final String FilterInputFieldName = "Component Name"; //$NON-NLS-1$
-	//public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
-	//private TreeMap<String, String> filterPropertyMap;
-	private Set<String> filterMap;
+	private List<RuntimeProperties> propertyLst;
+	public static final String RUNTIMEPROPNAME = "Property Name"; //$NON-NLS-1$
+	public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
+	private TreeMap
+	<String, String> runtimePropertyMap;
 	private String componentName;
 	private Label lblHeader;
 	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
-	public static final String[] PROPS = { FilterInputFieldName };
+	public static final String[] PROPS = { RUNTIMEPROPNAME, RUNTIMEPROPVALUE };
 	private String PROPERTY_NAME_BLANK_ERROR = Messages.EmptyNameNotification;
-	//private String PROPERTY_VALUE_BLANK_ERROR = Messages.EmptyValueNotification;
+	private String PROPERTY_VALUE_BLANK_ERROR = Messages.EmptyValueNotification;
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
-	public ControlDecoration scaleDecorator;
 	private Button addButton, deleteAll, applyButton, okButton, deleteButton,
 			cacelButton;
 	private boolean isAnyUpdatePerformed;
 
 	// private boolean firstTimeEdit;
 
-	public ELTFilterPropertyWizard() {
-		propertyLst = new ArrayList<FilterProperties>();
-		filterMap=new HashSet<String>();
+	public RunTimePropertyWizard() {
+
+		propertyLst = new ArrayList<RuntimeProperties>();
+		runtimePropertyMap = new TreeMap<String, String>();
+
 	}
 
+	
+	
+	
 	// Add New Property After Validating old properties
 	private void addNewProperty(TableViewer tv) {
 
 		isAnyUpdatePerformed = true;
-		FilterProperties filter= new FilterProperties();
+		RuntimeProperties p = new RuntimeProperties();
 		if (propertyLst.size() != 0) {
 			if (!validate())
 				return;
-			filter.setPropertyname(""); //$NON-NLS-1$
-			propertyLst.add(filter);
+			p.setPropertyName(""); //$NON-NLS-1$
+			p.setPropertyValue(""); //$NON-NLS-1$
+			propertyLst.add(p);
 			tv.refresh();
 
 		} else {
-			filter.setPropertyname("");//$NON-NLS-1$
-			propertyLst.add(filter);
+			p.setPropertyName(""); //$NON-NLS-1$
+			p.setPropertyValue(""); //$NON-NLS-1$
+			propertyLst.add(p);
 			tv.refresh();
 		}
 	}
 
-	public void setRuntimePropertyMap(HashSet<String> runtimePropertyMap) {
-		this.filterMap = runtimePropertyMap;
+	public void setRuntimePropertyMap(TreeMap<String, String> runtimePropertyMap) {
+		this.runtimePropertyMap = runtimePropertyMap;
 	}
 
 	public String getComponentName() {
@@ -100,21 +113,25 @@ public class ELTFilterPropertyWizard {
 	// Loads Already Saved Properties..
 	private void loadProperties(TableViewer tv) {
 
-				if(filterMap!= null && !filterMap.isEmpty()){
-				for(String key:filterMap){
-				FilterProperties filter= new FilterProperties();
-				if(validateBeforeLoad(key)){
-					filter.setPropertyname(key);
-					propertyLst.add(filter);
+		if (runtimePropertyMap != null && !runtimePropertyMap.isEmpty()) {
+			for (String key : runtimePropertyMap.keySet()) {
+				RuntimeProperties p = new RuntimeProperties();
+				if (validateBeforeLoad(key, runtimePropertyMap.get(key))) {
+					p.setPropertyName(key);
+					p.setPropertyValue(runtimePropertyMap.get(key));
+					propertyLst.add(p);
 				}
-				}
-				tv.refresh();
-				}else
+			}
+			tv.refresh();
+
+		} else
 			System.out.println("LodProperties :: Empty Map"); //$NON-NLS-1$
+
 	}
 
-	private boolean validateBeforeLoad(String key) {
-		if (key.trim().isEmpty()) {
+	private boolean validateBeforeLoad(String key, String keyValue) {
+
+		if (key.trim().isEmpty() || keyValue.trim().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -131,48 +148,56 @@ public class ELTFilterPropertyWizard {
 			public void mouseDoubleClick(MouseEvent e) {
 				addNewProperty(tableViewer);
 			}
+		
 			@Override
 		public void mouseDown(MouseEvent e) {
 				enableButtons();
 				lblPropertyError.setVisible(false);
+			
 		}
 	});
 		table.setBounds(10, 50, 465, 365);
-		tableViewer.setContentProvider(new FilterContentProvider());
-		tableViewer.setLabelProvider(new FilterLabelProvider());
+		tableViewer.setContentProvider(new PropertyContentProvider());
+		tableViewer.setLabelProvider(new PropertyLabelProvider());
 		tableViewer.setInput(propertyLst);
 
 		TableColumn tc1 = new TableColumn(table, SWT.CENTER);
-		tc1.setText("Field Name"); 
-		tc1.setWidth(460);
+		tc1.setText("Property Name"); //$NON-NLS-1$
+		TableColumn tc2 = new TableColumn(table, SWT.LEFT_TO_RIGHT);
+		tc2.setText("Property Value"); //$NON-NLS-1$
+
+		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
+			table.getColumn(i).pack();
+		}
+		tc1.setWidth(230);
+		tc2.setWidth(230);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-	}
+		
 	
-	
-	public static void main(String[] args) {
-		ELTFilterPropertyWizard obj=new ELTFilterPropertyWizard();
-		obj.launchRuntimeWindow(new Shell());
+		
+			
 	}
+
 	
 	/**
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public Set<String> launchRuntimeWindow(Shell parentShell) {
+	public TreeMap<String, String> launchRuntimeWindow(Shell parentShell) {
 
 		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
 		isAnyUpdatePerformed = false;
 		shell.setSize(506, 540);
 		shell.setLayout(null);
-		shell.setText("Filter Property");
+		shell.setText("Runtime Property");
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
 		if (getComponentName() != null)
-			lblHeader.setText(getComponentName() + "Filter Operation Field"); //$NON-NLS-1$
+			lblHeader.setText(getComponentName() + "Runtime Property"); //$NON-NLS-1$
 		else
-			lblHeader.setText("Filter Component Property");
+			lblHeader.setText("Component Runtime Property");
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523,
 				2);
 		// Below Event will be fired when user closes the Runtime window
@@ -197,19 +222,25 @@ public class ELTFilterPropertyWizard {
 		createButtons(composite);
 
 		lblPropertyError = new Label(composite, SWT.NONE);
-		lblPropertyError.setForeground(new Color(Display.getDefault(), 255, 0, 0));
+		lblPropertyError.setForeground(new Color(Display.getDefault(), 255, 0,
+				0));
 		lblPropertyError.setBounds(28, 57, 258, 15);
 		lblPropertyError.setVisible(false);
 
 		final CellEditor propertyNameeditor = new TextCellEditor(table);
 
-		CellEditor[] editors = new CellEditor[] { propertyNameeditor};
-		//propertyNameeditor.addListener(createEditorListners());
-		//propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
-			propertyNameeditor.setValidator(cellValidator);
-		
+		CellEditor propertyValueeditor = new TextCellEditor(table);
+		CellEditor[] editors = new CellEditor[] { propertyNameeditor,
+				propertyValueeditor };
+
+		propertyNameeditor
+				.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
+		propertyValueeditor
+				.setValidator(createValueEditorValidator(PROPERTY_VALUE_BLANK_ERROR));
+
 		tableViewer.setColumnProperties(PROPS);
-		tableViewer.setCellModifier(new FilterCellModifier(tableViewer));
+		tableViewer
+				.setCellModifier(new RunTimePropertyCellModifier(tableViewer));
 		tableViewer.setCellEditors(editors);
 
 		loadProperties(tableViewer);
@@ -230,25 +261,9 @@ public class ELTFilterPropertyWizard {
 				shell.getDisplay().sleep();
 		}
 
-		return filterMap;
+		return runtimePropertyMap;
 	}
 
-	ICellEditorValidator cellValidator=new ICellEditorValidator() {
-		
-		@Override
-		public String isValid(Object value) {
-			String celltext=(String)value;
-			if(!celltext.matches("[\\w]*")){
-				//scaleDecorator.show();
-				disableButtons();
-			}else{
-				enableButtons();
-			}
-			
-			
-			return null;
-		}
-	};
 	// Creates The buttons For the widget
 	private void createButtons(Composite composite) {
 		new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 41,
@@ -310,13 +325,15 @@ public class ELTFilterPropertyWizard {
 
 				if (validate()) {
 					if (isAnyUpdatePerformed) {
-						filterMap.clear();
-						for (FilterProperties temp : propertyLst) {
-							filterMap.add(temp.getPropertyname());
+						runtimePropertyMap.clear();
+						for (RuntimeProperties temp : propertyLst) {
+							runtimePropertyMap.put(temp.getPropertyName(),
+									temp.getPropertyValue());
 						}
 						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
 						messageBox.setText("Information"); //$NON-NLS-1$
-						messageBox.setMessage(Messages.PropertyAppliedNotification);
+						messageBox
+								.setMessage(Messages.PropertyAppliedNotification);
 						messageBox.open();
 						isAnyUpdatePerformed = false;
 					}
@@ -324,19 +341,21 @@ public class ELTFilterPropertyWizard {
 			}
 		});
 		applyButton.setBounds(253, 10, 75, 25);
-		applyButton.setText("Apply");
+		applyButton.setText("Apply"); //$NON-NLS-1$
 
 		okButton = new Button(composite, SWT.NONE);
 		okButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (validate()) {
-					filterMap.clear();
+					runtimePropertyMap.clear();
 					isOkPressed = true;
-					for (FilterProperties temp : propertyLst) {
-						filterMap.add(temp.getPropertyname());
+					for (RuntimeProperties temp : propertyLst) {
+						runtimePropertyMap.put(temp.getPropertyName(),
+								temp.getPropertyValue());
 					}
 
+					
 					shell.close();
 				} else
 					return;
@@ -361,13 +380,14 @@ public class ELTFilterPropertyWizard {
 	protected boolean validate() {
 		
 		int propertyCounter = 0;
-		for (FilterProperties temp : propertyLst) {
-			if (!temp.getPropertyname().trim().isEmpty()) {
+		for (RuntimeProperties temp : propertyLst) {
+			if (!temp.getPropertyName().trim().isEmpty()
+					&& !temp.getPropertyValue().trim().isEmpty()) {
 				
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
-				lblPropertyError.setText(Messages.EmptyNameNotification);
+				lblPropertyError.setText(Messages.EmptyFiledNotification);
 				disableButtons();
 				return false;
 			}
@@ -376,29 +396,29 @@ public class ELTFilterPropertyWizard {
 		return true;
 	}
 
+
+
 	// Creates CellNAme Validator for table's cells
-	private ICellEditorValidator createNameEditorValidator(final String ErrorMessage) {
+	private ICellEditorValidator createNameEditorValidator(
+			final String ErrorMessage) {
 		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
 			@Override
 			public String isValid(Object value) {
 				isAnyUpdatePerformed = true;
-				String currentSelectedFld = table.getItem(table.getSelectionIndex()).getText();
+				String currentSelectedFld = table.getItem(
+						table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
-				/*if (valueToValidate.isEmpty()) {
+				if (valueToValidate.isEmpty()) {
 					lblPropertyError.setText(ErrorMessage);
 					lblPropertyError.setVisible(true);
 					disableButtons();
 					return "ERROR"; //$NON-NLS-1$
-					
-				}else*/ if(valueToValidate.matches("[\\w]*")){
-						//scaleDecorator.show();
-						disableButtons();
-						System.out.println("check");
-					}
+				}
 
-				for (FilterProperties temp : propertyLst) {
+				for (RuntimeProperties temp : propertyLst) {
 					if (!currentSelectedFld.equalsIgnoreCase(valueToValidate)
-							&& temp.getPropertyname().trim().equalsIgnoreCase(valueToValidate)) {
+							&& temp.getPropertyName().trim()
+									.equalsIgnoreCase(valueToValidate)) {
 						lblPropertyError.setText(PROPERTY_EXISTS_ERROR);
 						lblPropertyError.setVisible(true);
 						disableButtons();
@@ -408,6 +428,32 @@ public class ELTFilterPropertyWizard {
 					lblPropertyError.setVisible(false);
 				}
 
+				return null;
+
+			}
+		};
+		return propertyValidator;
+	}
+
+	// Creates Value Validator for table's cells
+	private ICellEditorValidator createValueEditorValidator(
+			final String ErrorMessage) {
+		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
+			@Override
+			public String isValid(Object value) {
+				isAnyUpdatePerformed = true;
+				String currentSelectedFld = table.getItem(
+						table.getSelectionIndex()).getText();
+				String valueToValidate = String.valueOf(value).trim();
+				if (valueToValidate.isEmpty()) {
+					lblPropertyError.setText(ErrorMessage);
+					lblPropertyError.setVisible(true);
+					disableButtons();
+					return "ERROR"; //$NON-NLS-1$
+				} else {
+					enableButtons();
+					lblPropertyError.setVisible(false);
+				}
 				return null;
 
 			}

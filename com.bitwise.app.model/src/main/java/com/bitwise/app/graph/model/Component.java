@@ -37,8 +37,10 @@ public class Component extends Model {
 	private Dimension size;
 	private Map<String, Object> properties;
 	private Container parent;
-	private Hashtable<String, Link> inputs;
-	private List<Link> outputs;
+	private Hashtable<String, Link> inputLinks;
+	private List<Link> outputLinks;
+	private List<String> inputPorts;
+	private List<String> outputPorts;
 	private boolean newInstance;
 	private String basename;
 
@@ -46,8 +48,10 @@ public class Component extends Model {
 		location = new Point(0, 0);
 		size = new Dimension(80, 60);
 		properties = new LinkedHashMap<>();
-		inputs = new Hashtable<String, Link>();
-		outputs = new ArrayList<Link>();
+		inputLinks = new Hashtable<String, Link>();
+		outputLinks = new ArrayList<Link>();
+		inputPorts = new ArrayList<String>();
+		outputPorts = new ArrayList<String>();
 		newInstance = true;
 	}
 	
@@ -56,33 +60,60 @@ public class Component extends Model {
 	}
 	
 	public void connectInput(Link c) {
-		inputs.put(c.getTargetTerminal(), c);
+		inputLinks.put(c.getTargetTerminal(), c);
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
 	public void connectOutput(Link c) {
-		outputs.add(c);
+		outputLinks.add(c);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 	
 	public void disconnectInput(Link c) {
-		inputs.remove(c.getTargetTerminal());
+		inputLinks.remove(c.getTargetTerminal());
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
 	public void disconnectOutput(Link c) {
-		outputs.remove(c);
+		outputLinks.remove(c);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 	
 	/* add comments as function called by gef*/
 	public List<Link> getSourceConnections() {
-		return outputs;
+		return outputLinks;
 	}
 
 	public List<Link> getTargetConnections() {
-		return Arrays.asList((inputs.values().toArray(new Link[inputs.size()])));
+		return Arrays.asList((inputLinks.values().toArray(new Link[inputLinks.size()])));
 	}
+
+	public boolean hasInputPort(String terminal) {
+		return inputPorts.contains(terminal);
+		
+	}
+//	public void setInputPortStatus(String terminal, String status) {
+//		inputPorts.put(terminal, status);
+//	}
+	public void addInputPort(String terminal){
+		inputPorts.add(terminal);
+	}
+
+//	public String getOutputPortStatus(String terminal) {
+//		return outputPorts.get(terminal);
+//		
+//	}
+//	public void setOutputPortStatus(String terminal, String status) {
+//		outputPorts.put(terminal, status);
+//	}
+	public boolean hasOutputPort(String terminal) {
+		return outputPorts.contains(terminal);
+		
+	}
+	public void addOutputPort(String terminal){
+		outputPorts.add(terminal);
+	}
+	
 
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
