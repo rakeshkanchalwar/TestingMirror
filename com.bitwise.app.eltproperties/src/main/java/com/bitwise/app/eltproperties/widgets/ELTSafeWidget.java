@@ -29,6 +29,8 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.Messages;
+import com.bitwise.app.eltproperties.widgets.properties.model.common.ComboBoxParameter;
+import com.bitwise.app.eltproperties.widgets.properties.model.filter.OperationClassProperty;
 
 public class ELTSafeWidget extends AbstractELTWidget{
     private Combo combo;
@@ -38,6 +40,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 	private Object properties;
 	private String propertyName;
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {		
 			this.grpGroup_1 = subGroup;
@@ -61,7 +64,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			fd_lblAdesss.right = new FormAttachment(0, 83);
 			lblAdesss.setLayoutData(fd_lblAdesss);
 			formToolkit.adapt(lblAdesss, true, true);
-			lblAdesss.setText("Safe: ");
+			lblAdesss.setText("Safe");
 			
 
 			combo = new Combo(composite_3, SWT.READ_ONLY);
@@ -86,7 +89,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			FormData fd_text = new FormData();
 			fd_text.top = new FormAttachment(0,8);
 			fd_text.right = new FormAttachment(combo, 160, SWT.RIGHT);
-			fd_text.left = new FormAttachment(combo, 45);
+			fd_text.left = new FormAttachment(combo, 36);
 			text.setLayoutData(fd_text);
 			formToolkit.adapt(text, true, true);
 			
@@ -94,7 +97,7 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
 			Image img = fieldDecoration.getImage();
 			txtDecorator.setImage(img);
-			txtDecorator.setDescriptionText(Messages.FIELDSAFE);
+			txtDecorator.setDescriptionText(Messages.CHARACTERSET);
 			txtDecorator.hideHover();
 			
 			combo.addSelectionListener(new SelectionAdapter() {
@@ -112,30 +115,30 @@ public class ELTSafeWidget extends AbstractELTWidget{
 			});
 			
 			 
-			text.addModifyListener(new ModifyListener() {
-				
-				@Override
-				public void modifyText(ModifyEvent e) {
-					
-					if( text.getText().isEmpty()) {
-						text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-						
-					}
-					else{
-								
-						text.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
-						
-						
-				}
-					
-				}
-			});	
+//			text.addModifyListener(new ModifyListener() {
+//				
+//				@Override
+//				public void modifyText(ModifyEvent e) {
+//					
+//					if( text.getText().isEmpty()) {
+//						text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+//						
+//					}
+//					else{
+//								
+//						text.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
+//						
+//						
+//				}
+//					
+//				}
+//			});	
 			text.addVerifyListener(new VerifyListener() {
 				
 				@Override
 				public void verifyText(VerifyEvent e) {
 					String string=e.text;
-					Matcher matchs=Pattern.compile("[\\w]*").matcher(string);
+					Matcher matchs=Pattern.compile("^[\\w]*").matcher(string);
 					if(!matchs.matches()){
 						txtDecorator.show();
 						e.doit=false;
@@ -151,25 +154,42 @@ public class ELTSafeWidget extends AbstractELTWidget{
 	public void setProperties(String propertyName, Object properties) {
 		this.properties =  properties; 
 		this.propertyName = propertyName;
-		if(properties != null){
-			if(!(((String) properties).equalsIgnoreCase("True")) || !(((String) properties).equalsIgnoreCase("False")))
+		if(properties != null && properties instanceof ComboBoxParameter){
+			
+			if(!combo.getText().equalsIgnoreCase("Parameter"))
 			{
-				text.setVisible(true);	
-				text.setText((String)properties);
-				combo.setText("Parameter");
+				text.setVisible(true);
+				combo.setText(((ComboBoxParameter)properties).getOption());
+				if(((ComboBoxParameter)properties).getOptionValue()!=null)
+				text.setText(((ComboBoxParameter)properties).getOptionValue());
+				
 			}
-		}else{
-			text.setText(" ");
-			 text.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-			}
+			else
+			{
+				text.setVisible(false);
+				combo.setText(((ComboBoxParameter)properties).getOption());
+				}
+			
+		}
+
+			
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
+		
 		if( combo.getText().equalsIgnoreCase("Parameter"))
-		property.put(propertyName, text.getText());
+		{
+			comboBoxParameter.setOption(combo.getText());
+			comboBoxParameter.setOptionValue(text.getText());
+		}
+		
 		else
-			property.put(propertyName, combo.getText());
+		{
+			comboBoxParameter.setOption(combo.getText());
+			comboBoxParameter.setOptionValue("");
+		}
+			property.put(propertyName,comboBoxParameter);
 		return property;
 	}
 	@Override

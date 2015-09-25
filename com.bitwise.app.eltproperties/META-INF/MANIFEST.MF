@@ -35,6 +35,7 @@ Export-Package: com.bitwise.app.eltproperties.adapters,
  com.bitwise.app.eltproperties.property,
  com.bitwise.app.eltproperties.propertydialog,
  com.bitwise.app.eltproperties.widgets,
+ com.bitwise.app.eltproperties.widgets.properties.model.common,
  com.bitwise.app.eltproperties.widgets.runtimeproperties,
  com.bitwise.app.eltproperties.widgets.schemagrid,
  com.bitwise.app.eltproperties.window
