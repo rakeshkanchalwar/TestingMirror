@@ -1,5 +1,7 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -11,6 +13,9 @@ import org.eclipse.swt.widgets.Widget;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public class ELTVerifyComponentNameListener implements IELTListener {
+	
+	private ArrayList<String> names;
+	private String oldName;
 
 	@Override
 	public int getListenerType() {
@@ -19,7 +24,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 	}
 
 	@Override
-	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, Widget... widgets) {
+	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
 		Widget[] widgetList = widgets;
 		final Text text = (Text) widgetList[0];
 
@@ -42,14 +47,14 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 						text.setMessage("Valid Name required");
 						propertyDialogButtonBar.enableOKButton(false);
 
-					} /*
-					 * else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) { Color listBackground
-					 * = Display.getDefault().getSystemColor(SWT.COLOR_GRAY); text.setBackground(listBackground);
-					 * text.setToolTipText("Enter unique name for component."); text.setMessage("Unique Name required");
-					 * toggleOkButton(false);
-					 * 
-					 * }
-					 */else {
+					} 
+					  else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) { Color listBackground
+					  = Display.getDefault().getSystemColor(SWT.COLOR_GRAY); text.setBackground(listBackground);
+					  text.setToolTipText("Enter unique name for component."); text.setMessage("Unique Name required");
+					  propertyDialogButtonBar.enableOKButton(false);
+					  
+					  }
+					 else {
 						text.setBackground(null);
 						text.setToolTipText("");
 						text.setMessage("");
@@ -59,6 +64,38 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 			}
 		};
 		return listener;
+	}
+
+	public ArrayList<String> getNames() {
+		return names;
+	}
+
+	public void setNames(ArrayList<String> names) {
+		this.names = names;
+	}
+	
+	private boolean isUniqueCompName(String componentName) {
+		componentName = componentName.trim();
+		boolean result = true;
+
+		for (String cname : names) {
+			if (cname.equalsIgnoreCase(componentName)) {
+				result = false;
+				break;
+			}
+
+		}
+		System.out.println("isUniqueCompName: result: " + result);
+
+		return result;
+	}
+
+	public String getOldName() {
+		return oldName;
+	}
+
+	public void setOldName(String oldName) {
+		this.oldName = oldName;
 	}
 
 }

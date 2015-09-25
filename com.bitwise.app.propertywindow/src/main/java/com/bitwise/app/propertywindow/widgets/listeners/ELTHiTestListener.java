@@ -23,7 +23,7 @@ public class ELTHiTestListener implements IELTListener{
 	}
 
 
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widget) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers,  Widget... widget) {
 		
 		for(Widget x: widget){
 			

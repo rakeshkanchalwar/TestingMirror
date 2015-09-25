@@ -92,22 +92,22 @@ public class ELTPhaseWidget extends AbstractELTWidget{
 		// hiding it initially
 		txtDecorator.hide();
 		//return txtDecorator;
-		text_1.addModifyListener(new ModifyListener() {
-			
-			@Override
-			public void modifyText(ModifyEvent e) {
-				if(text_1.getText().isEmpty()) {
-					
-					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-				}
-				else{
-					//txtDecorator.hide();
-					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
-			}
-				
-			}
-		});
-		
+//		text_1.addModifyListener(new ModifyListener() {
+//			
+//			@Override
+//			public void modifyText(ModifyEvent e) {
+//				if(text_1.getText().isEmpty()) {
+//					
+//					text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+//				}
+//				else{
+//					//txtDecorator.hide();
+//					text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));
+//			}
+//				
+//			}
+//		});
+//		
 		text_1.addVerifyListener(new VerifyListener() {
 			
 			@Override

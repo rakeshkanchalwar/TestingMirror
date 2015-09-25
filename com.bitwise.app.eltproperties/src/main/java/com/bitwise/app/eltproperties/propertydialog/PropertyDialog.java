@@ -7,17 +7,13 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
-import com.bitwise.app.eltproperties.Messages;
 import com.bitwise.app.eltproperties.property.Property;
 import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 
@@ -31,14 +27,9 @@ import com.bitwise.app.eltproperties.widgets.AbstractELTWidget;
 public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
-	private LinkedHashMap<String, Object> componentProperties;
-	private LinkedHashMap<String, Object> currentProperties;
-	private  LinkedHashMap<String, Object> appliedProperties;
+	private LinkedHashMap<String, Object> ComponentProperties;
 	PropertyDialogBuilder propertyDialogBuilder;
 	private ArrayList<String> names = new ArrayList<>();
-	private Button okButton;
-	private Button applyButton;
-	private int checkIfMessageBoxAlreadyThere=0;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -48,9 +39,7 @@ public class PropertyDialog extends Dialog {
 	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> ComponentProperties, ArrayList<String> names) {		
 		super(parentShell);
 		this.propertyTree = propertyTree;
-		this.componentProperties = ComponentProperties;
-		appliedProperties=new LinkedHashMap<>();
-		currentProperties=new LinkedHashMap<>();
+		this.ComponentProperties = ComponentProperties;
 		this.names=names;
 		setShellStyle(SWT.CLOSE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 		super.setBlockOnOpen(true);
@@ -69,8 +58,8 @@ public class PropertyDialog extends Dialog {
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
 		
-		
-		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,componentProperties,names);
+		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,names);
 		propertyDialogBuilder.buildPropertyWindow();
 		
 		return container;
@@ -82,13 +71,11 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
 		
 		createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
-		applyButton=createButton(parent,IDialogConstants.OK_ID,
-				"Apply", false);
 		
 		for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			eltWidget.setOkButton(okButton);
@@ -113,105 +100,17 @@ public class PropertyDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		// TODO Auto-generated method stub
-		whenOkButtonPressed();
-
-		whenApplyButtonPressed();
-
-
-	}
-
-	private void whenApplyButtonPressed() {
-		applyButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-					LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-					for(String propName : tempPropert.keySet()){
-						appliedProperties.put(propName, tempPropert.get(propName));
-						
-					}
-				}
-				componentProperties.putAll(appliedProperties);
-			}
-			
-		});
-	}
-
-	private void whenOkButtonPressed() {
-		okButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e){
-				for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-					LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-					for(String propName : tempPropert.keySet()){
-						componentProperties.put(propName, tempPropert.get(propName));
-					}
-				}
-				checkIfMessageBoxAlreadyThere=1;
-				close();
-			}
-		});
-	}
-	
-	protected void cancelPressed() {
+		System.out.println("Prop saved");
 		for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
 			for(String propName : tempPropert.keySet()){
-				currentProperties.put(propName, tempPropert.get(propName));
+				ComponentProperties.put(propName, tempPropert.get(propName));
 			}
 		}
-		if(!currentProperties.equals(appliedProperties))
-		{
-			MessageBox messageBox = getMessageBox();
-			if(messageBox.open()==SWT.OK)
-			{
-				checkIfMessageBoxAlreadyThere=1;
-				close();
-			}
-		}
-		else
-		{
-			checkIfMessageBoxAlreadyThere=1;
-			close();
-		}
-	}
-
-	private MessageBox getMessageBox() {
-		Shell shell=container.getShell();
-		int style = SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL;
-		MessageBox messageBox = new MessageBox(shell,style);
-		messageBox.setText("Information"); //$NON-NLS-1$
-		messageBox.setMessage(Messages.MessageBeforeClosingWindow);
-		return messageBox;
-	}
-	public boolean close() {
 		
-		boolean returnValue = false;
-		for(AbstractELTWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-			LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-			for(String propName : tempPropert.keySet()){
-				currentProperties.put(propName, tempPropert.get(propName));
-			}
-		}
-
-		if(!currentProperties.equals(appliedProperties))
-		{
-			MessageBox messageBox = getMessageBox();
-			if(checkIfMessageBoxAlreadyThere!=1)
-			{
-			if(messageBox.open()==SWT.OK)
-
-		     returnValue = super.close();
-			}
-			else
-				returnValue = super.close();
-		}
-		else
-			returnValue=super.close();
-
-		return returnValue;
+		//System.out.println(ComponentProperties);
+		super.okPressed();
 	}
-	
 	
 	public ArrayList<String> getNames() {
 		return names;

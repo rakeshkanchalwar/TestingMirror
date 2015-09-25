@@ -41,7 +41,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	}
 	
 	public Point getLocation(Point reference) {
-		System.out.println("getLocation method from anchor called!!");
+		
 		Point p = null ;
 		int portOffsetFactor = this.totalPortsOfThisType+1;
 		int height = getOwner().getBounds().height;
@@ -49,20 +49,17 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		
 		int xLocation, yLocation;
 		
-		System.out.println("portOffsetFactor: "+portOffsetFactor);
-		System.out.println("height: "+height);
-		System.out.println("portOffset: "+portOffset);
 		
-		if(this.type.equals("in")){
+		if(this.type.equalsIgnoreCase("in")){
 			 xLocation=getOwner().getBounds().getTopLeft().x;
 			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
-			 System.out.println("Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+			 
 			 p=new Point(xLocation, yLocation);
 		}
-		else if(this.type.equals("out")){
+		else if(this.type.equalsIgnoreCase("out")){
 			 xLocation=getOwner().getBounds().getTopRight().x;
 			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
-			 System.out.println("Returning point with xLocation, yLocation: "+xLocation+" "+yLocation);
+			 
 			 p=new Point(xLocation, yLocation);
 		}
 		return p;
@@ -91,14 +88,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	public void setLinkMandatory(boolean linkMandatory) {
 		this.linkMandatory = linkMandatory;
-	}
-
-	public boolean isAllowMultipleLinks() {
-		return allowMultipleLinks;
-	}
-
-	public boolean isLinkMandatory() {
-		return linkMandatory;
 	}
 
 	public int getTotalPortsOfThisType() {

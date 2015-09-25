@@ -1,6 +1,7 @@
 package com.bitwise.app.propertywindow.factory;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTRuntimeButtonClickListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
@@ -36,9 +37,12 @@ public class ListenerFactory {
 		}else if (listener.equals("ELTVerifyComponentNameListener")){
 			IELTListener eltListener = new ELTVerifyComponentNameListener();
 			return eltListener;
-			
+		}else if (listener.equals("ELTRuntimeButtonClickListener")){
+			IELTListener eltListener = new ELTRuntimeButtonClickListener();
+			return eltListener;
 		}
 		return null;
 		
 	}
 }
+

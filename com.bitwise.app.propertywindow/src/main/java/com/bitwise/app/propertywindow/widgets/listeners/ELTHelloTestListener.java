@@ -23,7 +23,7 @@ public class ELTHelloTestListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
 		
 		int index = 0;
 		

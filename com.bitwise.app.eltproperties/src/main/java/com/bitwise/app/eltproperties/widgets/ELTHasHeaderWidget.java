@@ -29,6 +29,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.eltproperties.Messages;
+import com.bitwise.app.eltproperties.widgets.properties.model.common.ComboBoxParameter;
 
 public class ELTHasHeaderWidget extends AbstractELTWidget{
 			Combo combo;
@@ -39,6 +40,7 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 	private String propertyName;
 	private static LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	private ControlDecoration txtDecorator;
+	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
 	
 	@Override
 	public void attachToPropertySubGroup(Group subGroup) {		
@@ -111,23 +113,23 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
 				}
 			});
 			
-			text_1.addModifyListener(new ModifyListener() {
-				
-				@Override
-				public void modifyText(ModifyEvent e) {
-					if( text_1.getText().isEmpty()) {
-						
-						txtDecorator.show();
-						text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-						
-					}
-					else{
-						txtDecorator.hide();
-						text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));	
-				}
-					
-				}
-			});
+//			text_1.addModifyListener(new ModifyListener() {
+//				
+//				@Override
+//				public void modifyText(ModifyEvent e) {
+//					if( text_1.getText().isEmpty()) {
+//						
+//						txtDecorator.show();
+//						text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
+//						
+//					}
+//					else{
+//						txtDecorator.hide();
+//						text_1.setBackground(new Color(grpGroup_1.getDisplay(), 255,255,255));	
+//				}
+//					
+//				}
+//			});
 			
 			text_1.addVerifyListener(new VerifyListener() {
 				
@@ -149,23 +151,42 @@ public class ELTHasHeaderWidget extends AbstractELTWidget{
     public void setProperties(String propertyName, Object properties) {
           this.properties =  properties; 
           this.propertyName = propertyName;
-          if(properties != null){
-                if(((String) properties).equals("Parameter"))
-                      text_1.setVisible(true);  
-                text_1.setText((String) property.get("header_text"));
-                combo.setText((String)properties);
-          }else{
-                text_1.setText(" ");
-                text_1.setBackground(new Color(grpGroup_1.getDisplay(),255,255,204));
-          }
+          if(properties != null && properties instanceof ComboBoxParameter){
+  			
+  			if(!combo.getText().equalsIgnoreCase("Parameter"))
+  			{
+  				text_1.setVisible(true);
+  				combo.setText(((ComboBoxParameter)properties).getOption());
+  				if(((ComboBoxParameter)properties).getOptionValue()!=null)
+  				text_1.setText(((ComboBoxParameter)properties).getOptionValue());
+  				
+  			}
+  			else
+  			{
+  				text_1.setVisible(false);
+  				combo.setText(((ComboBoxParameter)properties).getOption());
+  				}
+  			
+  		}
+
     }
 
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		property.put(propertyName, combo.getText());
-		property.put("header_text", text_1.getText());
+
+		if( combo.getText().equalsIgnoreCase("Parameter"))
+		{
+			comboBoxParameter.setOption(combo.getText());
+			comboBoxParameter.setOptionValue(text_1.getText());
+		}
 		
+		else
+		{
+			comboBoxParameter.setOption(combo.getText());
+			
+		}
+			property.put(propertyName,comboBoxParameter);
 		return property;
 	}
 

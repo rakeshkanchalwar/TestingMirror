@@ -14,8 +14,7 @@
 	<complexType name="Component">
 		<sequence>
 			<element name="category" type="tns:category_type" maxOccurs="1" minOccurs="0" />
-			<element name="inputPort" type="tns:IOPort" maxOccurs="1" minOccurs="0" />
-			<element name="outputPort" type="tns:IOPort" maxOccurs="1" minOccurs="0" />
+			<element name="port" type="tns:IOPort" maxOccurs="1" minOccurs="1" />
 			<element name="property" type="tns:Property" maxOccurs="unbounded" minOccurs="0" />
 			<element name="policy" type="tns:Policy" maxOccurs="unbounded" minOccurs="0" /> 
 		</sequence>
@@ -47,11 +46,20 @@
 
 	<complexType name="IOPort">
 		<sequence>
-			<element name="numberOfPorts" type="integer" maxOccurs="1" minOccurs="1" />
-			<element name="allowMultipleLinks" type="boolean" maxOccurs="1" minOccurs="0" />
+		<element name="portSpecification" type="tns:PortSpecification" maxOccurs="unbounded" minOccurs="1"/>
 		</sequence>
 	</complexType>
 
+ <complexType name="PortSpecification">
+		<sequence>
+		    <element name="typeOfPort" type="string" maxOccurs="1" minOccurs="1"/>
+			<element name="numberOfPorts" type="int" maxOccurs="1" minOccurs="1" />
+			<element name="sequenceOfPort" type="int" maxOccurs="1" minOccurs="1" />
+			<element name="allowMultipleLinks" type="boolean" maxOccurs="1" minOccurs="0" />
+			<element name="linkMandatory" type="boolean" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
 	 <complexType name="Policy">
 		<sequence>
 			<element name="name" type="string" maxOccurs="1" minOccurs="0" />
@@ -71,7 +79,8 @@
 			<enumeration value="ELTHasHeaderWidget" />
 			<enumeration value="ELTSafePropertyWidget" />
 			<enumeration value="ELTFieldSequenceWidget" />
-			<enumeration value="ELTOprationalClassWidget" />
+			<enumeration value="ELTFilterPropertyWidget" />
+			<enumeration value="ELTOperationalClassWidget" />
 		</restriction>
 	</simpleType>
 
@@ -103,6 +112,7 @@
 			<enumeration value="FIELD_SEQUENCE" />
 			<enumeration value="FILE_PATH" />
 			<enumeration value="PHASE" />
+			<enumeration value="FILTER" />
 		</restriction>
 	</simpleType>
 	

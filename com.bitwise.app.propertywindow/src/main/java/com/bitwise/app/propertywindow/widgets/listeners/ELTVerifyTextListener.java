@@ -20,7 +20,7 @@ public class ELTVerifyTextListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
 			final Widget[] widgetList = widgets;
 				Listener listener=new Listener() {
 				

@@ -2,13 +2,15 @@ package com.bitwise.app.graph.processor;
 
 import java.util.Hashtable;
 
-import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.GeneratorAdapter;
-import org.objectweb.asm.commons.Method;
 
 import com.bitwise.app.common.component.config.Component;
+import com.bitwise.app.graph.model.custom.Filter;
+import com.bitwise.app.graph.model.custom.Gather;
+import com.bitwise.app.graph.model.custom.Input;
+import com.bitwise.app.graph.model.custom.Output;
+import com.bitwise.app.graph.model.custom.Replicate;
 
 public class DynamicClassProcessor extends ClassLoader implements Opcodes{
 	public static DynamicClassProcessor INSTANCE = new DynamicClassProcessor(); 
@@ -45,26 +47,37 @@ public class DynamicClassProcessor extends ClassLoader implements Opcodes{
 			return getClazz(componentConfig.getName());
 		}
 		else{
-			ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-	        //create class structure ex. public Class NewClass extends InputComponent 
-			cw.visit(V1_7, ACC_PUBLIC, componentConfig.getName(), null, getParentClassName(componentConfig), null);
-	
-	        // creates a GeneratorAdapter for the (implicit) constructor
-	        Method defaultConstructor = Method.getMethod("void <init> ()");
-	        GeneratorAdapter mg = new GeneratorAdapter(ACC_PUBLIC, defaultConstructor, null, null, cw);
-	        mg.loadThis();
-	        mg.invokeConstructor(Type.getType(getParentClass(componentConfig)), defaultConstructor);
-	        mg.returnValue();
-	        mg.endMethod();
-	
-	        cw.visitEnd();
-	
-	        byte[]  code = cw.toByteArray();
-	        Class<?> clazz = INSTANCE.defineClass(componentConfig.getName(), code, 0, code.length);
-	        INSTANCE.put(componentConfig.getName(), clazz);
-	        return clazz;
+//			ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+//	        //create class structure ex. public Class NewClass extends InputComponent 
+//			cw.visit(V1_7, ACC_PUBLIC, componentConfig.getName(), null, getParentClassName(componentConfig), null);
+//	
+//	        // creates a GeneratorAdapter for the (implicit) constructor
+//	        Method defaultConstructor = Method.getMethod("void <init> ()");
+//	        GeneratorAdapter mg = new GeneratorAdapter(ACC_PUBLIC, defaultConstructor, null, null, cw);
+//	        mg.loadThis();
+//	        mg.invokeConstructor(Type.getType(getParentClass(componentConfig)), defaultConstructor);
+//	        mg.returnValue();
+//	        mg.endMethod();
+//	
+//	        cw.visitEnd();
+//	
+//	        byte[]  code = cw.toByteArray();
+//	        Class<?> clazz = INSTANCE.defineClass(componentConfig.getName(), code, 0, code.length);
+//	        INSTANCE.put(componentConfig.getName(), clazz);
+//	        return clazz;
+			
+			Class<?> clazz;
+			try {
+				clazz = this.getClass().getClassLoader().loadClass("com.bitwise.app.graph.model.custom." + componentConfig.getName());
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException();
+				//TODO : add logger
+			}
+			INSTANCE.put(componentConfig.getName(), clazz);
+			return clazz;
 		}
 	}
+
 
 	private String getParentClassName(Component componentConfig) {
 		return Type.getInternalName(getParentClass(componentConfig));

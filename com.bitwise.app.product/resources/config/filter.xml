@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-  <tns:component iconPath="/icons/input.png" name="Filter" shape="FilterFigure">
-	<tns:category>STRAIGHTPULL</tns:category>
-	<tns:inputPort>
-		<tns:numberOfPorts>1</tns:numberOfPorts>
-		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
-	</tns:inputPort>
-	<tns:outputPort>
-		<tns:numberOfPorts>2</tns:numberOfPorts>
-		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
-	</tns:outputPort>
-		<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
-    	<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE"/>
-  	 	<tns:property dataType="string" name="oprationClass" renderer="ELTOprationalClassWidget" type="USER" group="GENERAL" subGroup="FILE_PATH"/>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+	<tns:component iconPath="/icons/input.png" name="Filter"
+		shape="FilterFigure">
+		<tns:category>STRAIGHTPULL</tns:category>
+		<tns:port>
+			<tns:portSpecification>
+				<tns:typeOfPort>in</tns:typeOfPort>
+				<tns:numberOfPorts>1</tns:numberOfPorts>
+				<tns:sequenceOfPort>1</tns:sequenceOfPort>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+				<tns:linkMandatory>true</tns:linkMandatory>
+			</tns:portSpecification>
+			<tns:portSpecification>
+				<tns:typeOfPort>out</tns:typeOfPort>
+				<tns:numberOfPorts>2</tns:numberOfPorts>
+				<tns:sequenceOfPort>1</tns:sequenceOfPort>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+				<tns:linkMandatory>true</tns:linkMandatory>
+			</tns:portSpecification>
+			<tns:portSpecification>
+				<tns:typeOfPort>out</tns:typeOfPort>
+				<tns:numberOfPorts>2</tns:numberOfPorts>
+				<tns:sequenceOfPort>2</tns:sequenceOfPort>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+				<tns:linkMandatory>false</tns:linkMandatory>
+			</tns:portSpecification>
+		</tns:port>
+		<tns:property dataType="string" name="name"
+			renderer="ELTComponentNameWidget" type="USER" group="GENERAL"
+			subGroup="NAME" />
+		<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget"
+			type="USER" group="GENERAL" subGroup="PHASE" />
+		<tns:property dataType="string" name="oprationClass"
+			renderer="ELTOperationalClassWidget" type="USER" group="GENERAL"
+			subGroup="FILE_PATH" />
+			 <tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="FILTER"/>
+   
 	</tns:component>
 </tns:Config>

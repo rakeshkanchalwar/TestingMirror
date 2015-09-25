@@ -10,6 +10,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
 
 public class ELTComponentNameWidget extends AbstractWidget {
 
@@ -18,9 +19,17 @@ public class ELTComponentNameWidget extends AbstractWidget {
 	private String propertyName;
 
 	private String newName = "newName";
+	
+	private ELTVerifyComponentNameListener listener;
 
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
+		
+		if (super.names != null) {
+			for (String name : super.names) {
+				System.out.println(name);
+			}
+		}
 		ListenerFactory listenerFactory = new ListenerFactory();
 
 		System.out.println("IN ELTComponentNameWidget.attachToPropertySubGroup()");
@@ -39,8 +48,12 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
 
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyComponentNameListener"),
-					propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			listener = (ELTVerifyComponentNameListener)listenerFactory.getListener("ELTVerifyComponentNameListener");
+			listener.setNames(super.names);
+			eltDefaultTextBox.attachListener(listener,
+					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
+					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			System.out.println("ELTComponentNameWidget: added the listener");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -55,14 +68,16 @@ public class ELTComponentNameWidget extends AbstractWidget {
 				+ properties);
 		this.propertyName = propertyName;
 		this.oldName = (String) properties;
+		listener.setOldName(oldName);
 		text.setText(oldName);
 
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
+		newName = text.getText().trim();
 		LinkedHashMap<String, Object> property = new LinkedHashMap<>();
-		if (newName != null && newName != "") {
+		if (newName != null && newName != "" && isUniqueCompName(newName)) {
 			property.put(propertyName, newName);
 			super.names.remove(oldName);
 			super.names.add(newName);
@@ -78,6 +93,22 @@ public class ELTComponentNameWidget extends AbstractWidget {
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub
 
+	}
+
+	private boolean isUniqueCompName(String componentName) {
+		componentName = componentName.trim();
+		boolean result = true;
+
+		for (String cname : super.names) {
+			if (cname.equalsIgnoreCase(componentName)) {
+				result = false;
+				break;
+			}
+
+		}
+		System.out.println("isUniqueCompName: result: " + result);
+
+		return result;
 	}
 
 }

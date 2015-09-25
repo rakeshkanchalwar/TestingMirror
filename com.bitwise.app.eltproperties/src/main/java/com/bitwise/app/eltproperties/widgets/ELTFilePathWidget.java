@@ -51,18 +51,18 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		fd_filename.top = new FormAttachment(0, 26);
 		filename.setLayoutData(fd_filename);
 		filename.setBounds(137, 83, 200, 21);
-		filename.addModifyListener(new ModifyListener() {
-
-			@Override
-			public void modifyText(ModifyEvent e) {
-				if (filename.getText().isEmpty()) {
-					filename.setBackground(new Color(Display.getDefault(), 255,
-							255, 204));
-				} else
-					filename.setBackground(new Color(Display.getDefault(), 255,
-							255, 255));
-			}
-		});
+//		filename.addModifyListener(new ModifyListener() {
+//
+//			@Override
+//			public void modifyText(ModifyEvent e) {
+//				if (filename.getText().isEmpty()) {
+//					filename.setBackground(new Color(Display.getDefault(), 255,
+//							255, 204));
+//				} else
+//					filename.setBackground(new Color(Display.getDefault(), 255,
+//							255, 255));
+//			}
+//		});
 
 		Button btnNewButton = new Button(composite, SWT.PUSH);
 		fd_filename.right = new FormAttachment(100, -125);
@@ -71,7 +71,7 @@ public class ELTFilePathWidget extends AbstractELTWidget{
 		fd_btnNewButton.left = new FormAttachment(filename, 17);
 		btnNewButton.setLayoutData(fd_btnNewButton);
 		btnNewButton.setBounds(350, 83, 20, 21);
-		btnNewButton.setText("Browser");
+		btnNewButton.setText("...");
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

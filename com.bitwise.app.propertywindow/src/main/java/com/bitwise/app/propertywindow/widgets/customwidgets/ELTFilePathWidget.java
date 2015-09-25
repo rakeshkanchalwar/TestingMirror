@@ -37,9 +37,9 @@ eltSuDefaultSubgroupComposite.createContainerWidget();
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...").buttonWidth(20);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"), eltDefaultButton);
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

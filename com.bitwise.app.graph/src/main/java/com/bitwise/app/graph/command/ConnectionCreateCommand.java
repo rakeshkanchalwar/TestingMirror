@@ -1,12 +1,21 @@
 package com.bitwise.app.graph.command;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.commands.Command;
 
+import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.graph.model.custom.Filter;
+import com.bitwise.app.graph.model.custom.Gather;
+import com.bitwise.app.graph.model.custom.Input;
+import com.bitwise.app.graph.model.custom.Output;
+import com.bitwise.app.graph.model.custom.Replicate;
+import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class ConnectionCreateCommand extends Command{
 	/** The connection instance. */
@@ -59,6 +68,51 @@ public class ConnectionCreateCommand extends Command{
 			}
 		}
 		
+		//Out port restrictions
+
+
+		String componentName = DynamicClassProcessor.INSTANCE
+				.getClazzName(source.getClass());
+		
+		List<PortSpecification> portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+
+		for (PortSpecification p:portspecification)
+		{
+			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
+			if(portName.equals(sourceTerminal)){
+				if(p.isAllowMultipleLinks() || 
+						//!(source.getOutputPortStatus(sourceTerminal)!=null && source.getOutputPortStatus(sourceTerminal).equals("connected"))){
+					!source.hasOutputPort(sourceTerminal)){
+					
+				}else
+					return false;
+			}
+
+		}
+
+
+
+		//In port restrictions
+		if(target!=null){
+		componentName = DynamicClassProcessor.INSTANCE
+				.getClazzName(target.getClass());
+		
+		portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+		for (PortSpecification p:portspecification)
+		{
+			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
+			if(portName.equals(targetTerminal)){
+				if(p.isAllowMultipleLinks() || 
+						//!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
+						!target.hasInputPort(targetTerminal)){
+					
+				}else
+					return false;
+			}
+
+		}
+		}
+		
 		return true;
 	}
 
@@ -75,6 +129,12 @@ public class ConnectionCreateCommand extends Command{
 			connection.setSourceTerminal(sourceTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
+			
+			//source.setOutputPortStatus(sourceTerminal, "connected");
+			source.addOutputPort(sourceTerminal);
+			
+			
+				
 		}
 		if(target!=null){
 			
@@ -82,6 +142,10 @@ public class ConnectionCreateCommand extends Command{
 			connection.setTargetTerminal(targetTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();
+			
+			//target.setInputPortStatus(targetTerminal, "connected");
+			target.addInputPort(targetTerminal);
+			
 		}
 	}
 
