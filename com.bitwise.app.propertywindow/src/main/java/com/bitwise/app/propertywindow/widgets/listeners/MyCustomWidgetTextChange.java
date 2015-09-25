@@ -9,6 +9,13 @@ import org.eclipse.swt.widgets.Widget;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.utils.WordUtils;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 22, 2015
+ * 
+ */
+
 public class MyCustomWidgetTextChange implements IELTListener{
 
 	@Override
@@ -38,8 +45,8 @@ public class MyCustomWidgetTextChange implements IELTListener{
 					}else{
 						//customWidget.getApplyButton().setEnabled(true);
 						propertyDialogButtonBar.enableApplyButton(true);
-						WordUtils wordUtils = (WordUtils)helpers.getObject();
-						System.out.println(wordUtils.capitalize("hytyu ytuty tyu ytuty", null));
+						//WordUtils wordUtils = (WordUtils)helpers.getObject();
+						//System.out.println(wordUtils.capitalize("hytyu ytuty tyu ytuty", null));
 					}
 				}
 				

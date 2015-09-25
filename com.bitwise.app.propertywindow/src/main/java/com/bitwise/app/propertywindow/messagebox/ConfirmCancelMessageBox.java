@@ -7,6 +7,13 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 24, 2015
+ * 
+ */
+
 public class ConfirmCancelMessageBox {
 	private Composite container;
 	private MessageBox messageBox;

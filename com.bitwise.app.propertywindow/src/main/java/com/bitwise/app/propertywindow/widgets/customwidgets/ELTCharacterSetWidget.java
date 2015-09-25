@@ -8,6 +8,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 
+import com.bitwise.app.propertywindow.datastructures.ComboBoxParameter;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCombo;
@@ -25,6 +26,11 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	String[] ITEMS={"True","False","Parameter"};
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	private String propertyName;
+	private String properties;
+	
+	
+	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
+	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
@@ -64,13 +70,56 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	public void setProperties(String propertyName, Object properties) {
 		// TODO Auto-generated method stub
 		
+		this.propertyName = propertyName;
+		this.properties =  (String) properties; 
+		
+		if(this.properties != null){
+			if(this.properties.equalsIgnoreCase("true")){
+				combo.select(0);
+			}else if(this.properties.equalsIgnoreCase("false")){
+				combo.select(1);
+			}else{
+				combo.select(2);
+				text.setVisible(true);
+				text.setText(this.properties);
+			}
+		}
+		
+		/*if(properties != null && properties instanceof ComboBoxParameter){
+			
+			if(!combo.getText().equalsIgnoreCase("Parameter"))
+			{
+				text.setVisible(true);
+				combo.setText(((ComboBoxParameter)properties).getOption());
+				if(((ComboBoxParameter)properties).getOptionValue()!=null)
+					text.setText(((ComboBoxParameter)properties).getOptionValue());
+				
+			}
+			else
+			{
+				text.setVisible(false);
+				combo.setText(((ComboBoxParameter)properties).getOption());
+			}	
+		}*/
+		
+		this.properties = text.getText();
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		property.put(propertyName, combo.getText());
+	/*	property.put(propertyName, combo.getText());
 		property.put("text_value", text.getText());
-		
+
+		return property;*/
+
+		if( combo.getText().equalsIgnoreCase("Parameter"))
+		{
+			comboBoxParameter.setOption(text.getText());
+			comboBoxParameter.setOptionValue(text.getText());
+		}else{
+			comboBoxParameter.setOption(combo.getText());
+		}
+		property.put(propertyName,comboBoxParameter.getOption());
 		return property;
 	}
 

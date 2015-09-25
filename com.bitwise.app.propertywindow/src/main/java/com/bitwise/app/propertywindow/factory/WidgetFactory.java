@@ -22,7 +22,7 @@ import com.bitwise.app.propertywindow.widgets.runtimeproperty.ELTRuntimeProperti
 public class WidgetFactory {
 	public AbstractWidget getWidget(String widgetName){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
-			return new ELTOperationClassWidget();
+			return new MyCustomWidget();
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
 			return new ELTRuntimePropertiesWidget();
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){

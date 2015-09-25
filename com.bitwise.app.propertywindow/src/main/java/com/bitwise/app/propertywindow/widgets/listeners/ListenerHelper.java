@@ -1,5 +1,12 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 24, 2015
+ * 
+ */
+
 public class ListenerHelper {
 	String type;
 	Object object;

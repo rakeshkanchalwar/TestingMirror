@@ -97,12 +97,9 @@ public class PropertyDialog extends Dialog {
 		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
 		
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-			//eltWidget.setOkButton(okButton);
-			//eltWidget.setApplyButton(applyButton);
 			eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
 		}
 		applyButton.setEnabled(false);
-		//initDataBindings();
 	}
 
 	/**
