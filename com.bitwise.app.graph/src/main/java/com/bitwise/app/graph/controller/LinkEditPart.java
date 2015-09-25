@@ -1,22 +1,18 @@
 package com.bitwise.app.graph.controller;
 
 import java.beans.PropertyChangeEvent;
-
 import java.beans.PropertyChangeListener;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RoutingAnimator;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
-import org.eclipse.gef.requests.GroupRequest;
 
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.graph.policy.LinkEditPolicy;
 
 public class LinkEditPart extends AbstractConnectionEditPart
 		implements PropertyChangeListener {
@@ -60,6 +56,7 @@ public class LinkEditPart extends AbstractConnectionEditPart
 		// when selected by the user.
 		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE,
 				new ConnectionEndpointEditPolicy());
+		installEditPolicy(EditPolicy.CONNECTION_ROLE, new LinkEditPolicy());
 	}
 
 	private Link getCastedModel() {

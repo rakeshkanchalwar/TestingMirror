@@ -34,7 +34,7 @@ eltSuDefaultSubgroupComposite.createContainerWidget();
 		
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		
-		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...");
+		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...").buttonWidth(20);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		try {
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl());

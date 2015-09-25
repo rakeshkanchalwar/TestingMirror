@@ -2,20 +2,27 @@ package com.bitwise.app.propertywindow.widgets.listeners;
 
 import java.util.ArrayList;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 
+import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public class ELTVerifyComponentNameListener implements IELTListener {
 	
 	private ArrayList<String> names;
 	private String oldName;
+	
+	private ControlDecoration txtDecorator;
 
 	@Override
 	public int getListenerType() {
@@ -27,6 +34,13 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
 		Widget[] widgetList = widgets;
 		final Text text = (Text) widgetList[0];
+		
+		txtDecorator = new ControlDecoration(text, SWT.TOP|SWT.LEFT);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
+		Image img = fieldDecoration.getImage();
+		txtDecorator.setImage(img);
+		txtDecorator.setDescriptionText(Messages.FIELD_LABEL_ERROR);
+		txtDecorator.hideHover();
 
 		Listener listener = new Listener() {
 
@@ -41,24 +55,26 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 					System.out.println("addVerifyListener():  new text: " + newName);
 					if (newName == null || newName.equals("")) {
 						// e.doit=false;
-						Color listBackground = Display.getDefault().getSystemColor(SWT.COLOR_GRAY);
-						text.setBackground(listBackground);
-						text.setToolTipText("Enter valid name");
-						text.setMessage("Valid Name required");
+						text.setBackground(new Color(Display.getDefault(), 255, 255, 204));
+						text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 						propertyDialogButtonBar.enableOKButton(false);
+						propertyDialogButtonBar.enableApplyButton(false);
+						txtDecorator.show();
 
-					} 
-					  else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) { Color listBackground
-					  = Display.getDefault().getSystemColor(SWT.COLOR_GRAY); text.setBackground(listBackground);
-					  text.setToolTipText("Enter unique name for component."); text.setMessage("Unique Name required");
-					  propertyDialogButtonBar.enableOKButton(false);
-					  
-					  }
-					 else {
+					} else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
+						text.setBackground(new Color(Display.getDefault(),255,255,204));
+						text.setToolTipText(Messages.FIELD_LABEL_ERROR);
+						propertyDialogButtonBar.enableOKButton(false);
+						propertyDialogButtonBar.enableApplyButton(false);
+						txtDecorator.show();
+
+					} else {
 						text.setBackground(null);
 						text.setToolTipText("");
 						text.setMessage("");
 						propertyDialogButtonBar.enableOKButton(true);
+						propertyDialogButtonBar.enableApplyButton(true);
+						txtDecorator.hide();
 					}
 				}
 			}

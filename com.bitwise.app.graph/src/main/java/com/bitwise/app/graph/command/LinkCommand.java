@@ -17,7 +17,7 @@ import com.bitwise.app.graph.model.custom.Output;
 import com.bitwise.app.graph.model.custom.Replicate;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
-public class ConnectionCreateCommand extends Command{
+public class LinkCommand extends Command{
 	/** The connection instance. */
 	private Link connection;
 	/** The desired line style for the connection (dashed or solid). */
@@ -39,11 +39,11 @@ public class ConnectionCreateCommand extends Command{
 	 * @see Link#setLineStyle(int)
 	 */
 	
-	public ConnectionCreateCommand() {
+	public LinkCommand() {
 		super("connection");
 	}
 	
-	public ConnectionCreateCommand(Component source, int lineStyle) {
+	public LinkCommand(Component source, int lineStyle) {
 		if (source == null) {
 			throw new IllegalArgumentException();
 		}
@@ -53,28 +53,28 @@ public class ConnectionCreateCommand extends Command{
 	}
 
 	public boolean canExecute() {
-		
+		String componentName;
+		List<PortSpecification> portspecification;
 		// disallow source -> source connections
-		if (source.equals(target)) {
-			return false;
-		}
-		// return false, if the source -> target connection exists already
-		for (Iterator<Link> iter = source.getSourceConnections().iterator(); iter
-				.hasNext();) {
-			Link conn = (Link) iter.next();
-			
-			if (conn.getTarget().equals(target)) {
+		if(source!=null){
+			if (source.equals(target)) {
 				return false;
 			}
-		}
-		
+			// return false, if the source -> target connection exists already
+			for (Iterator<Link> iter = source.getSourceConnections().iterator(); iter
+					.hasNext();) {
+				Link conn = (Link) iter.next();
+
+				if (conn.getTarget().equals(target)) {
+					return false;
+				}
+			}
+		//}
 		//Out port restrictions
-
-
-		String componentName = DynamicClassProcessor.INSTANCE
+		componentName = DynamicClassProcessor.INSTANCE
 				.getClazzName(source.getClass());
-		
-		List<PortSpecification> portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+
+		portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
 
 		for (PortSpecification p:portspecification)
 		{
@@ -82,37 +82,35 @@ public class ConnectionCreateCommand extends Command{
 			if(portName.equals(sourceTerminal)){
 				if(p.isAllowMultipleLinks() || 
 						//!(source.getOutputPortStatus(sourceTerminal)!=null && source.getOutputPortStatus(sourceTerminal).equals("connected"))){
-					!source.hasOutputPort(sourceTerminal)){
-					
+						!source.hasOutputPort(sourceTerminal)){
+
 				}else
 					return false;
 			}
-
 		}
 
-
+		}
 
 		//In port restrictions
 		if(target!=null){
-		componentName = DynamicClassProcessor.INSTANCE
-				.getClazzName(target.getClass());
-		
-		portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
-		for (PortSpecification p:portspecification)
-		{
-			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
-			if(portName.equals(targetTerminal)){
-				if(p.isAllowMultipleLinks() || 
-						//!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
-						!target.hasInputPort(targetTerminal)){
-					
-				}else
-					return false;
-			}
+			componentName = DynamicClassProcessor.INSTANCE
+					.getClazzName(target.getClass());
 
+			portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+			for (PortSpecification p:portspecification)
+			{
+				String portName=p.getTypeOfPort()+p.getSequenceOfPort();
+				if(portName.equals(targetTerminal)){
+					if(p.isAllowMultipleLinks() || 
+							//!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
+							!target.hasInputPort(targetTerminal)){
+
+					}else
+						return false;
+				}
+			}
 		}
-		}
-		
+
 		return true;
 	}
 
@@ -130,11 +128,7 @@ public class ConnectionCreateCommand extends Command{
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
 			
-			//source.setOutputPortStatus(sourceTerminal, "connected");
 			source.addOutputPort(sourceTerminal);
-			
-			
-				
 		}
 		if(target!=null){
 			
@@ -143,9 +137,17 @@ public class ConnectionCreateCommand extends Command{
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();
 			
-			//target.setInputPortStatus(targetTerminal, "connected");
 			target.addInputPort(targetTerminal);
 			
+		}
+		
+		if (source == null && target == null) {
+			connection.detachSource();
+			connection.detachTarget();
+			connection.getSource().removeOutputPort(connection.getSourceTerminal());
+			connection.getTarget().removeInputPort(connection.getTargetTerminal());
+			connection.setTarget(null);
+			connection.setSource(null);
 		}
 	}
 
@@ -170,6 +172,7 @@ public class ConnectionCreateCommand extends Command{
 
 	
 	public void setConnection(Link w) {
+		
 		connection = w;
 		oldSource = w.getSource();
 		oldTarget = w.getTarget();

@@ -72,19 +72,19 @@ public class PropertyStore {
 				Property name= new Property("String", "name", "ELT_COMPONENT_NAME_WIDGET");
 				name.group("TEXT_PROPERTIES");
 				
-				Property path= new Property("String", "path", "ELT_PHASE_WIDGET");
+				Property path= new Property("String", "path", "ELT_FILE_PATH_WIDGET");
 				path.group("TEXT_PROPERTIES");
 				
-				Property delimiter= new Property("String", "delimiter", "ELT_CHARACTER_SET_WIDGET");
+				Property delimiter= new Property("String", "delimiter", "ELT_DELIMETER_WIDGET");
 				delimiter.group("TEXT_PROPERTIES");
 				
 				//------
 				
-				Property charset= new Property("String", "charset", "AAA");
+				Property charset= new Property("String", "charset", "ELT_CHARACTER_SET_WIDGET");
 				charset.group("TEXT_PROPERTIES");
 				charset.subGroup("OPTIONAL_PROPERTIES");
 						
-				Property phase= new Property("String", "phase", "AAA");
+				Property phase= new Property("String", "phase", "ELT_PHASE_WIDGET");
 				phase.group("TEXT_PROPERTIES");
 				phase.subGroup("OPTIONAL_PROPERTIES");
 				

@@ -19,7 +19,7 @@ public class ELTSelectionListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
+	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
 		final Widget[] widgetList = widgets;
 		/*for(Widget widget: widgets){
 			widgetList.add(widget);
@@ -33,6 +33,7 @@ public class ELTSelectionListener implements IELTListener{
 				}else{
 					((Text)widgetList[1]).setVisible(false);
 				}
+				propertyDialogButtonBar.enableApplyButton(true);
 			}
 		};
 		return listener;

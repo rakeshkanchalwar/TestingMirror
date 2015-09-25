@@ -6,6 +6,13 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 21, 2015
+ * 
+ */
+
 public class ELTDefaultSubgroupComposite extends AbstractELTContainerWidget{
 	
 	Composite subGroupComposite;

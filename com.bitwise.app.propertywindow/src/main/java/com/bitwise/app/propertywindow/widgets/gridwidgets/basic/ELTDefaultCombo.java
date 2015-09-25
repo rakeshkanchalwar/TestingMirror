@@ -13,7 +13,7 @@ public class ELTDefaultCombo extends AbstractELTWidget{
 	
 	@Override
 	public void attachWidget(Composite container) {
-		defaultELTcom = new Combo(container,SWT.BORDER);
+		defaultELTcom = new Combo(container,SWT.READ_ONLY);
 		defaultELTcom.setItems(defaultTextMessage);
 		//defaultELTcom.setItems(new String[] {"True","false"});
 		//defaultELTcom.setItem(0, "");

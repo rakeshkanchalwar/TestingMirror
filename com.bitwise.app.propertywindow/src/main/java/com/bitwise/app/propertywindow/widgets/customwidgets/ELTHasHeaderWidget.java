@@ -34,6 +34,7 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultCombo);
 		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
+		combo.select(1);
 		
 		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
@@ -43,6 +44,7 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 		try {
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"),propertyDialogButtonBar, null,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {

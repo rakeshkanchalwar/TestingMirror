@@ -4,6 +4,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * 
+ * @author Shrirang S. Kumbhar
+ * Sep 22, 2015
+ * 
+ */
+
 public class PropertyDialogButtonBar {
 	private Button okButton;
 	private Button applyButton;
