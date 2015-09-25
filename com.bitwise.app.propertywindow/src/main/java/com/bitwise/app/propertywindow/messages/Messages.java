@@ -11,7 +11,6 @@ public class Messages extends NLS {
 	public static String FIELDNAMEERROR;
 	public static String FIELDPHASE;
 	public static String CHARACTERSET;
-	public static String FIELDSAFE;
 	public static String SCALE;
 	public static String SCALEERROR;
 	public static String RuntimePropertAlreadyExists;
