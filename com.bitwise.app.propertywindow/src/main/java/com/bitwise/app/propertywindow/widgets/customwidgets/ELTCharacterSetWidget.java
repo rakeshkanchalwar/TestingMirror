@@ -50,7 +50,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		
 		
 		try {
-			//eltDefaultCombo.attachListener(listenerFactory.getListener("IELTSelectionListener"),eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, null,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());

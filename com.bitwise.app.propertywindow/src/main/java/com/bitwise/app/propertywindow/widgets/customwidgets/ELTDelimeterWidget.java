@@ -34,9 +34,9 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		/*AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);*/
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar);
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar, eltDefaultTextBox.getSWTWidgetControl());
-			
+			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar);
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTHelloTestListener"), propertyDialogButtonBar, helpers, widgets)
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
