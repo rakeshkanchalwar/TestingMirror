@@ -2,14 +2,13 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.datastructures.ComboBoxParameter;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCombo;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -17,6 +16,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
 public class ELTCharacterSetWidget extends AbstractWidget{
@@ -27,6 +27,8 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	private String propertyName;
 	private String properties;
+	
+	private ControlDecoration txtDecorator; //=WidgetUtility.addDecorator((Text)widgetList[0], Messages.CHARACTERSET);
 	
 	
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
@@ -54,12 +56,15 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		eltDefaultTextBox.visibility(false);
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
 		
+		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		
+		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
 			
-			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, null,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			
 			e1.printStackTrace();
@@ -68,7 +73,6 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 
 	@Override
 	public void setProperties(String propertyName, Object properties) {
-		// TODO Auto-generated method stub
 		
 		this.propertyName = propertyName;
 		this.properties =  (String) properties; 
@@ -107,10 +111,6 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-	/*	property.put(propertyName, combo.getText());
-		property.put("text_value", text.getText());
-
-		return property;*/
 
 		if( combo.getText().equalsIgnoreCase("Parameter"))
 		{

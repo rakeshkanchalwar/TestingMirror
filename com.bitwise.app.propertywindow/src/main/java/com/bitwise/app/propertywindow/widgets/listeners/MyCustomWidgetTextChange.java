@@ -1,6 +1,8 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -40,11 +42,13 @@ public class MyCustomWidgetTextChange implements IELTListener{
 					System.out.println(((Text)wigetList[0]).getText());
 					if(((Text)wigetList[0]).getText().equals("")){
 						//customWidget.getApplyButton().setEnabled(false);
-						System.out.println("Deasebaling apply");
+						System.out.println("Disabling apply");
 						propertyDialogButtonBar.enableApplyButton(false);
+						((Text)wigetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 204));
 					}else{
 						//customWidget.getApplyButton().setEnabled(true);
 						propertyDialogButtonBar.enableApplyButton(true);
+						((Text)wigetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
 						//WordUtils wordUtils = (WordUtils)helpers.getObject();
 						//System.out.println(wordUtils.capitalize("hytyu ytuty tyu ytuty", null));
 					}

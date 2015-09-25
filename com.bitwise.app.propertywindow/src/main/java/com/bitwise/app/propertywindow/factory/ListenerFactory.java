@@ -1,4 +1,6 @@
 package com.bitwise.app.propertywindow.factory;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTRuntimeButtonClickListener;
@@ -40,6 +42,13 @@ public class ListenerFactory {
 		}else if (listener.equals("ELTRuntimeButtonClickListener")){
 			IELTListener eltListener = new ELTRuntimeButtonClickListener();
 			return eltListener;
+		}else if (listener.equals("ELTFileDialogSelectionListener")){
+			IELTListener filedialoglistener = new ELTFileDialogSelectionListener();
+			return filedialoglistener;
+		}
+		else if (listener.equals("ELTFocusOutListener")){
+			IELTListener filedialoglistener = new ELTFocusOutListener();
+			return filedialoglistener;
 		}
 		return null;
 		

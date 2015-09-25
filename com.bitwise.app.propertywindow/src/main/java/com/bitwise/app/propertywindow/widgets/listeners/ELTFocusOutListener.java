@@ -2,7 +2,8 @@ package com.bitwise.app.propertywindow.widgets.listeners;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -12,43 +13,48 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-public class ELTSelectionListener implements IELTListener {
+public class ELTFocusOutListener implements IELTListener {
 
 	ControlDecoration txtDecorator;
 
 	@Override
 	public int getListenerType() {
-
-		return SWT.Selection;
+		return SWT.FocusOut;
 	}
 
 	@Override
-	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper,
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper,
 			Widget... widgets) {
 		final Widget[] widgetList = widgets;
-
-		/*
-		 * for(Widget widget: widgets){ widgetList.add(widget); }
-		 */
 		if (helper != null) {
 			txtDecorator = (ControlDecoration) helper.getObject();
 		}
 
 		Listener listener = new Listener() {
+
 			@Override
 			public void handleEvent(Event event) {
-				if (((Combo) widgetList[0]).getText().equals("Parameter")) {
-					((Text) widgetList[1]).setVisible(true);
-					((Text) widgetList[1]).setFocus();
+				String charSet = ((Text) widgetList[0]).getText().trim();
+				System.out.println("charSet: " + charSet);
+				if (event.type == SWT.FocusOut) {
 
-					txtDecorator.hide();
+					if (charSet == null || charSet == "") {
+						txtDecorator.show();
+						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 204));
+					} else {
+						txtDecorator.hide();
+						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
+					}
+
 				} else {
-					((Text) widgetList[1]).setVisible(false);
 					txtDecorator.hide();
+					((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
+
 				}
-				propertyDialogButtonBar.enableApplyButton(true);
+
 			}
 		};
+
 		return listener;
 	}
 

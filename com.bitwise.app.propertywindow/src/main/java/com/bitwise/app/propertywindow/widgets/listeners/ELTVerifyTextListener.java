@@ -16,6 +16,8 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTVerifyTextListener implements IELTListener{
 
+	private ControlDecoration txtDecorator;
+
 	@Override
 	public int getListenerType() {
 		// TODO Auto-generated method stub
@@ -23,9 +25,11 @@ public class ELTVerifyTextListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper,  Widget... widgets) {
 			final Widget[] widgetList = widgets;
-			final ControlDecoration txtDecorator=WidgetUtility.addDecorator((Text)widgetList[0], Messages.CHARACTERSET);
+			if (helper != null) {
+				txtDecorator = (ControlDecoration) helper.getObject();
+			}
 				Listener listener=new Listener() {
 				
 				@Override

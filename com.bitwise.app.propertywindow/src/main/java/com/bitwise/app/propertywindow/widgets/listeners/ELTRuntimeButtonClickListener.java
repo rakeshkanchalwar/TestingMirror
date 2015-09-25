@@ -21,7 +21,6 @@ public class ELTRuntimeButtonClickListener implements IELTListener {
 			final ListenerHelper helpers, Widget... widgets) {
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
-				// TODO Auto-generated method stub
 				if (event.type == SWT.Selection) {
 					((ELTRuntimePropertiesWidget)helpers.object).newWindowLauncher();
 				}
