@@ -51,6 +51,10 @@ public class LinkCommand extends Command{
 		List<PortSpecification> portspecification;
 
 		if(source!=null){
+			//disallow the link to itself
+			if (source.equals(target)) {
+				return false;
+			}
 
 			//Out port restrictions
 			componentName = DynamicClassProcessor.INSTANCE
@@ -72,8 +76,7 @@ public class LinkCommand extends Command{
 				}
 			}
 
-		}
-		
+		}	
 
 		//In port restrictions
 		if(target!=null){
@@ -95,7 +98,6 @@ public class LinkCommand extends Command{
 				}
 			}
 		}
-
 
 
 		return true;
