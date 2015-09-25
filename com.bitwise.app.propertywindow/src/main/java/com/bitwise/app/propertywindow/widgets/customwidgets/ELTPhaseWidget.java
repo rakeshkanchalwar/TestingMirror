@@ -15,56 +15,58 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-public class ELTPhaseWidget extends AbstractWidget{
+public class ELTPhaseWidget extends AbstractWidget {
 
 	private Text textBox;
-	private Object properties;
+	private String properties;
 	private String propertyName;
 	private ControlDecoration txtDecorator;
 
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		ListenerFactory listenerFactory = new ListenerFactory();
-		
 
-		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
+				container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
-		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase ");
+
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
-		
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
+
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
-		
+
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
-		/*AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);*/
+
 		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.CHARACTERSET);
-		
+
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"),
+					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyNumbericListener"),
+					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 
 	@Override
 	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
+		this.properties = (String) properties;
 		this.propertyName = propertyName;
-		if(properties != null)
+		if (properties != null)
 			textBox.setText((String) properties);
 		else
 			textBox.setText("");
-		
+
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+		LinkedHashMap<String, Object> property = new LinkedHashMap<>();
 		property.put(propertyName, textBox.getText());
 		return property;
 	}
@@ -72,7 +74,7 @@ public class ELTPhaseWidget extends AbstractWidget{
 	@Override
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

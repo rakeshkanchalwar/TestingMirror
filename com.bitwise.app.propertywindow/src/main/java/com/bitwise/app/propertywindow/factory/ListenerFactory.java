@@ -15,6 +15,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTOpenFileEditorListene
 import com.bitwise.app.propertywindow.widgets.listeners.ELTRuntimeButtonClickListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyNumbericListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 import com.bitwise.app.propertywindow.widgets.listeners.MyCustomWidgetTextChange;
@@ -84,6 +85,9 @@ public class ListenerFactory {
 		}
 		else if (listener.equals("ELTEnableButtonListener")){
 			IELTListener eltListener = new ELTEnableButtonListener();
+			return eltListener;
+		}else if (listener.equals("ELTVerifyNumbericListener")){
+			IELTListener eltListener = new ELTVerifyNumbericListener();
 			return eltListener;
 		}
 		
