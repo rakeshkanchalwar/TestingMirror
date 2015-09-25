@@ -28,6 +28,7 @@ public class ELTFocusOutListener implements IELTListener {
 		final Widget[] widgetList = widgets;
 		if (helper != null) {
 			txtDecorator = (ControlDecoration) helper.getObject();
+			
 		}
 
 		Listener listener = new Listener() {
@@ -39,8 +40,10 @@ public class ELTFocusOutListener implements IELTListener {
 				if (event.type == SWT.FocusOut) {
 
 					if (charSet == null || charSet == "") {
+						txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
 						txtDecorator.show();
 						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 204));
+						((Text) widgetList[0]).setToolTipText(Messages.EMPTYFIELDMESSAGE);
 					} else {
 						txtDecorator.hide();
 						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));

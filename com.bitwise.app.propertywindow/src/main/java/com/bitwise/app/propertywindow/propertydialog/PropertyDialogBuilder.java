@@ -8,6 +8,8 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
@@ -100,20 +102,42 @@ public class PropertyDialogBuilder {
 		TabItem tbtmPart = new TabItem(tabFolder, SWT.NONE);
 		tbtmPart.setText(WordUtils.capitalize(groupName.replace("_", " ").toLowerCase(), null));
 						
-		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.H_SCROLL | SWT.V_SCROLL);
+		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
 		scrolledComposite.setAlwaysShowScrollBars(true);
 		tbtmPart.setControl(scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 		
+		attachMouseScrollButtonListener(scrolledComposite);
+		
 		Composite composite = new Composite(scrolledComposite, SWT.NONE);
 		ColumnLayout cl_composite = new ColumnLayout();
 		cl_composite.maxNumColumns = 1;
 		composite.setLayout(cl_composite);
+		cl_composite.bottomMargin = 40;
+		
 		
 		ScrolledCompositeHolder scrolledCompositeHolder = new ScrolledCompositeHolder(scrolledComposite,composite);
 		
 		return scrolledCompositeHolder;
+	}
+	
+	private void attachMouseScrollButtonListener(final ScrolledComposite scrolledComposite){
+		scrolledComposite.addListener(SWT.MouseWheel, new Listener() {
+            public void handleEvent(Event event) {
+                int wheelCount = event.count;
+                wheelCount = (int) Math.ceil(wheelCount / 3.0f);
+                while (wheelCount < 0) {
+                    scrolledComposite.getVerticalBar().setIncrement(4);
+                    wheelCount++;
+                }
+
+                while (wheelCount > 0) {
+                    scrolledComposite.getVerticalBar().setIncrement(-4);
+                    wheelCount--;
+                }
+            }
+        });
 	}
 	
 	public AbstractELTContainerWidget addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){

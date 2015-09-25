@@ -81,6 +81,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 			property.put(propertyName, newName);
 			super.names.remove(oldName);
 			super.names.add(newName);
+			oldName = newName;
 		} else {
 			// old name already should be there in the names arraylist
 			property.put(propertyName, oldName);

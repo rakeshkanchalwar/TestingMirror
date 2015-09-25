@@ -1,6 +1,5 @@
 package com.bitwise.app.graph.command;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
@@ -10,11 +9,6 @@ import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
-import com.bitwise.app.graph.model.custom.Filter;
-import com.bitwise.app.graph.model.custom.Gather;
-import com.bitwise.app.graph.model.custom.Input;
-import com.bitwise.app.graph.model.custom.Output;
-import com.bitwise.app.graph.model.custom.Replicate;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class LinkCommand extends Command{
@@ -23,7 +17,7 @@ public class LinkCommand extends Command{
 	/** The desired line style for the connection (dashed or solid). */
 	private int lineStyle;
 
-	
+
 	private Component source, target;
 	protected String sourceTerminal, targetTerminal;
 
@@ -38,11 +32,11 @@ public class LinkCommand extends Command{
 	 * @throws IllegalArgumentException if source is null
 	 * @see Link#setLineStyle(int)
 	 */
-	
+
 	public LinkCommand() {
 		super("connection");
 	}
-	
+
 	public LinkCommand(Component source, int lineStyle) {
 		if (source == null) {
 			throw new IllegalArgumentException();
@@ -55,41 +49,34 @@ public class LinkCommand extends Command{
 	public boolean canExecute() {
 		String componentName;
 		List<PortSpecification> portspecification;
-		// disallow source -> source connections
+
 		if(source!=null){
+			//disallow the link to itself
 			if (source.equals(target)) {
 				return false;
 			}
-			// return false, if the source -> target connection exists already
-			for (Iterator<Link> iter = source.getSourceConnections().iterator(); iter
-					.hasNext();) {
-				Link conn = (Link) iter.next();
 
-				if (conn.getTarget().equals(target)) {
-					return false;
+			//Out port restrictions
+			componentName = DynamicClassProcessor.INSTANCE
+					.getClazzName(source.getClass());
+
+			portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+
+			for (PortSpecification p:portspecification)
+			{
+				String portName=p.getTypeOfPort()+p.getSequenceOfPort();
+				if(portName.equals(sourceTerminal)){
+					if(p.isAllowMultipleLinks() || 
+							!source.hasOutputPort(sourceTerminal)){
+						System.out.println(source.getClass()+" source does not have "+sourceTerminal);
+					}else{
+						System.out.println(source.getClass()+" has "+sourceTerminal+"so returning false");
+						return false;
+					}
 				}
 			}
-		//}
-		//Out port restrictions
-		componentName = DynamicClassProcessor.INSTANCE
-				.getClazzName(source.getClass());
 
-		portspecification=XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
-
-		for (PortSpecification p:portspecification)
-		{
-			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
-			if(portName.equals(sourceTerminal)){
-				if(p.isAllowMultipleLinks() || 
-						//!(source.getOutputPortStatus(sourceTerminal)!=null && source.getOutputPortStatus(sourceTerminal).equals("connected"))){
-						!source.hasOutputPort(sourceTerminal)){
-
-				}else
-					return false;
-			}
-		}
-
-		}
+		}	
 
 		//In port restrictions
 		if(target!=null){
@@ -101,15 +88,17 @@ public class LinkCommand extends Command{
 			{
 				String portName=p.getTypeOfPort()+p.getSequenceOfPort();
 				if(portName.equals(targetTerminal)){
-					if(p.isAllowMultipleLinks() || 
-							//!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
+					if(p.isAllowMultipleLinks() ||
 							!target.hasInputPort(targetTerminal)){
-
-					}else
+						System.out.println(target.getClass()+" target does not have "+targetTerminal);
+					}else{
+						System.out.println(target.getClass()+" target has "+targetTerminal);
 						return false;
+					}
 				}
 			}
 		}
+
 
 		return true;
 	}
@@ -120,27 +109,28 @@ public class LinkCommand extends Command{
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		
+
 		if(source!=null){
-			
+
 			connection.setSource(source);
 			connection.setSourceTerminal(sourceTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
-			
+
 			source.addOutputPort(sourceTerminal);
+			
 		}
 		if(target!=null){
-			
+
 			connection.setTarget(target);
 			connection.setTargetTerminal(targetTerminal);
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();
-			
+
 			target.addInputPort(targetTerminal);
 			
 		}
-		
+
 		if (source == null && target == null) {
 			connection.detachSource();
 			connection.detachTarget();
@@ -161,25 +151,25 @@ public class LinkCommand extends Command{
 	public void setSource(Component newSource) {
 		source = newSource;
 	}
-	
+
 	public void setSourceTerminal(String newSourceTerminal) {
 		sourceTerminal = newSourceTerminal;
 	}
-	
+
 	public void setTargetTerminal(String newTargetTerminal) {
 		targetTerminal = newTargetTerminal;
 	}
 
-	
+
 	public void setConnection(Link w) {
-		
+
 		connection = w;
 		oldSource = w.getSource();
 		oldTarget = w.getTarget();
 		oldSourceTerminal = w.getSourceTerminal();
 		oldTargetTerminal = w.getTargetTerminal();
 	}
-	
+
 	@Override
 	public void redo() {
 		execute();

@@ -35,6 +35,8 @@ public class PropertyDialog extends Dialog {
 	private PropertyDialogBuilder propertyDialogBuilder;
 	private ArrayList<String> names = new ArrayList<>();
 	private PropertyDialogButtonBar propertyDialogButtonBar;
+	
+	private Button applyButton;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -81,9 +83,8 @@ public class PropertyDialog extends Dialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		
-		Button applyButton = createButton(parent, IDialogConstants.NO_ID,
+		applyButton = createButton(parent, IDialogConstants.NO_ID,
 				"Apply", false);
-		
 		
 		
 		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
@@ -100,6 +101,25 @@ public class PropertyDialog extends Dialog {
 			eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
 		}
 		applyButton.setEnabled(false);
+		
+		
+		applyButton.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+					LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+					System.out.println(tempPropert.keySet().toString());
+					for(String propName : tempPropert.keySet()){
+						ComponentProperties.put(propName, tempPropert.get(propName));
+					}
+				}
+				applyButton.setEnabled(false);
+				super.widgetSelected(e);
+			}
+			
+		});
 	}
 
 	/**
@@ -133,13 +153,18 @@ public class PropertyDialog extends Dialog {
 	
 	@Override
 	protected void cancelPressed(){
-		ConfirmCancelMessageBox confirmCancelMessageBox = new ConfirmCancelMessageBox(container);
-		MessageBox confirmCancleMessagebox = confirmCancelMessageBox.getMessageBox();
-		
-		if(confirmCancleMessagebox.open() == SWT.OK){
-			//System.out.println("Hiiii");
+		if(applyButton.isEnabled()){
+			ConfirmCancelMessageBox confirmCancelMessageBox = new ConfirmCancelMessageBox(container);
+			MessageBox confirmCancleMessagebox = confirmCancelMessageBox.getMessageBox();
+			
+			if(confirmCancleMessagebox.open() == SWT.OK){
+				//System.out.println("Hiiii");
+				super.close();
+			}
+		}else{
 			super.close();
 		}
+		
 	}
 	
 	public ArrayList<String> getNames() {

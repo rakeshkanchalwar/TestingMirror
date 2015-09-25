@@ -29,6 +29,7 @@ public class ELTVerifyTextListener implements IELTListener{
 			final Widget[] widgetList = widgets;
 			if (helper != null) {
 				txtDecorator = (ControlDecoration) helper.getObject();
+				
 			}
 				Listener listener=new Listener() {
 				
@@ -37,6 +38,7 @@ public class ELTVerifyTextListener implements IELTListener{
 					String string=event.text;
 					Matcher matchs=Pattern.compile("[\\w]*").matcher(string);
 					if(!matchs.matches()){
+						txtDecorator.setDescriptionText(Messages.CHARACTERSET);
 						txtDecorator.show();
 						event.doit=false;
 				}else

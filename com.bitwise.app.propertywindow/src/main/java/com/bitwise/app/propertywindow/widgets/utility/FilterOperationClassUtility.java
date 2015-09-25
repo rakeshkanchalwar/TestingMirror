@@ -42,7 +42,7 @@ public class FilterOperationClassUtility {
 
 	public static void browseFile(String filterExtension, Text fileName) {
 		ResourceFileSelectionDialog dialog = new ResourceFileSelectionDialog(
-				"Project", "Select Java Class (.java)", new String[] { "java" });
+				"Project", "Select Java Class (.java)", new String[] { filterExtension });
 		if (dialog.open() == IDialogConstants.OK_ID) {
 			IResource resource = (IResource) dialog.getFirstResult();
 			filePath = resource.getRawLocation().toOSString();
@@ -78,10 +78,11 @@ public class FilterOperationClassUtility {
 
 	}
 
-	public static void errorMessage(Shell shell) {
+	public static void errorMessage(String message) {
+		Shell shell = new Shell();
 		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 		messageBox.setText("Error");
-		messageBox.setMessage("File Not Found");
+		messageBox.setMessage(message);
 		messageBox.open();
 	}
 

@@ -16,6 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.junit,
  com.bitwise.app.model;bundle-version="0.0.1",
  com.bitwise.app.eltproperties;bundle-version="0.0.1",
+ com.bitwise.app.propertywindow;bundle-version="0.0.1",
  com.bitwise.app.xstream;bundle-version="0.0.1",
  org.slf4j.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

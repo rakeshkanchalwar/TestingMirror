@@ -28,6 +28,7 @@ public class ELTSafeWidget extends AbstractWidget{
 	private String properties;
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
 	private ControlDecoration txtDecorator;
+	private ControlDecoration txtDecoratorForEmpty;
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
@@ -50,8 +51,10 @@ public class ELTSafeWidget extends AbstractWidget{
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
 		
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
+		//txtDecoratorForEmpty=WidgetUtility.addDecorator(text, Messages.EMPTYFIELDMESSAGE);
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
+		//ListenerHelper emptyhelper = new ListenerHelper("decorator", txtDecoratorForEmpty);
 		
 		try {
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"),propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());

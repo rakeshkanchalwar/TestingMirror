@@ -16,7 +16,7 @@ public class ELTDefaultLable extends AbstractELTWidget{
 	
 	Label defaultELTLable;
 		
-	private int lableWidth=50;
+	private int lableWidth=60;
 	private String lableText="Lable : ";
 	
 	private ELTDefaultLable(){}
