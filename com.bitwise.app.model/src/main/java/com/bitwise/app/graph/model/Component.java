@@ -88,32 +88,28 @@ public class Component extends Model {
 		return Arrays.asList((inputLinks.values().toArray(new Link[inputLinks.size()])));
 	}
 
+	
+	public void addInputPort(String terminal){
+		inputPorts.add(terminal);
+	}
+	public void removeInputPort(String terminal){
+		inputPorts.remove(terminal);
+	}
 	public boolean hasInputPort(String terminal) {
 		return inputPorts.contains(terminal);
 		
 	}
-//	public void setInputPortStatus(String terminal, String status) {
-//		inputPorts.put(terminal, status);
-//	}
-	public void addInputPort(String terminal){
-		inputPorts.add(terminal);
-	}
 
-//	public String getOutputPortStatus(String terminal) {
-//		return outputPorts.get(terminal);
-//		
-//	}
-//	public void setOutputPortStatus(String terminal, String status) {
-//		outputPorts.put(terminal, status);
-//	}
-	public boolean hasOutputPort(String terminal) {
-		return outputPorts.contains(terminal);
-		
-	}
+	
 	public void addOutputPort(String terminal){
 		outputPorts.add(terminal);
 	}
-	
+	public void removeOutputPort(String terminal){
+		outputPorts.remove(terminal);
+	}
+	public boolean hasOutputPort(String terminal) {
+		return outputPorts.contains(terminal);
+	}
 
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
