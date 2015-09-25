@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _JGCvQFbfEeWCruwL5WXU-g
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/21/15 4:39 PM
+Save-Time: 9/25/15 12:32 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -42,7 +42,7 @@ get-view Palette | get-palette | drag-set-data
 get-editor "Graph_4" | get-diagram | get-edit-part -className ContainerEditPart | drop 124 72 -detail copy
 get-view Palette | get-palette | drag-end -detail move
 get-editor "Graph_4" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart | get-handle ResizeHandle -index 6 | mouse-hover 4 4 -height 7 -width 7
+    -className ComponentEditPart 
 with [get-view Palette | get-palette] {
     with [get-palette-entry Input] {
         mouse-move 48 12 button1 -height 106 -width 227
