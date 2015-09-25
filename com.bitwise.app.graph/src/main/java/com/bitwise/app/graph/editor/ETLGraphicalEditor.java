@@ -582,6 +582,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			obj = xs.fromXML(xml);
 			eltLogger.getLogger().info(METHOD_NAME
 					+ "Sucessfully converted JAVA Object from XML Data");
+			xml.close();
 		} catch (Exception e) {
 			eltLogger.getLogger().info(METHOD_NAME + "Exception Occured " + e.getMessage());
 			eltLogger.getLogger().error(e.getMessage());

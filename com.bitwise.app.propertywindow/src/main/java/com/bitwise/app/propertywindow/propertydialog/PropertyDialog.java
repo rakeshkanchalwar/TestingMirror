@@ -9,6 +9,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -17,6 +18,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
+import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
@@ -49,7 +51,7 @@ public class PropertyDialog extends Dialog {
 		this.ComponentProperties = ComponentProperties;
 		this.names=names;
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
-		super.setBlockOnOpen(true);
+		super.setBlockOnOpen(true);		
 	}
 
 	/**
@@ -64,9 +66,11 @@ public class PropertyDialog extends Dialog {
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
 		
-		container.getShell().setMinimumSize(600, 500);
+		//container.getShell().setMinimumSize(600, 500);
+		container.getShell().setMinimumSize(400, 500);
+		//container.getShell().setSize(400, 400);
 		container.getShell().setText("Property Dialog");
-		
+		//container.setBounds(0, 0, 800, 900);
 		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
 		
 		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
@@ -83,10 +87,6 @@ public class PropertyDialog extends Dialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		
-		applyButton = createButton(parent, IDialogConstants.NO_ID,
-				"Apply", false);
-		
-		
 		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
 		
@@ -94,6 +94,9 @@ public class PropertyDialog extends Dialog {
 		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
 		
+		
+		applyButton = createButton(parent, IDialogConstants.NO_ID,
+				"Apply", false);
 		
 		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
 		
@@ -127,7 +130,7 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(512, 505);
+		return new Point(400, 500);
 	}
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
@@ -174,5 +177,21 @@ public class PropertyDialog extends Dialog {
 	public void setNames(ArrayList<String> names) {
 		this.names = names;
 	}
+
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);		
+		String imagePath = null;
+		//TODO Please un comment below code before build.
+		/*try{
+			imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/property_window_icon.png" ;  
+			Image shellImage = new Image(newShell.getDisplay(), imagePath);
+			newShell.setImage(shellImage);
+		}catch(Exception e){
+			e.printStackTrace();
+		}*/
+	}
+	
+	
 
 }
