@@ -39,8 +39,8 @@ public class Component extends Model {
 	private Container parent;
 	private Hashtable<String, Link> inputLinks;
 	private List<Link> outputLinks;
-	private Hashtable<String, String> inputPorts;
-	private Hashtable<String, String> outputPorts;
+	private List<String> inputPorts;
+	private List<String> outputPorts;
 	private boolean newInstance;
 	private String basename;
 
@@ -50,8 +50,8 @@ public class Component extends Model {
 		properties = new LinkedHashMap<>();
 		inputLinks = new Hashtable<String, Link>();
 		outputLinks = new ArrayList<Link>();
-		inputPorts = new Hashtable<String, String>();
-		outputPorts = new Hashtable<String, String>();
+		inputPorts = new ArrayList<String>();
+		outputPorts = new ArrayList<String>();
 		newInstance = true;
 	}
 	
@@ -88,20 +88,30 @@ public class Component extends Model {
 		return Arrays.asList((inputLinks.values().toArray(new Link[inputLinks.size()])));
 	}
 
-	public String getInputPortStatus(String terminal) {
-		return inputPorts.get(terminal);
+	public boolean hasInputPort(String terminal) {
+		return inputPorts.contains(terminal);
 		
 	}
-	public void setInputPortStatus(String terminal, String status) {
-		inputPorts.put(terminal, status);
+//	public void setInputPortStatus(String terminal, String status) {
+//		inputPorts.put(terminal, status);
+//	}
+	public void addInputPort(String terminal){
+		inputPorts.add(terminal);
 	}
 
-	public String getOutputPortStatus(String terminal) {
-		return outputPorts.get(terminal);
+//	public String getOutputPortStatus(String terminal) {
+//		return outputPorts.get(terminal);
+//		
+//	}
+//	public void setOutputPortStatus(String terminal, String status) {
+//		outputPorts.put(terminal, status);
+//	}
+	public boolean hasOutputPort(String terminal) {
+		return outputPorts.contains(terminal);
 		
 	}
-	public void setOutputPortStatus(String terminal, String status) {
-		outputPorts.put(terminal, status);
+	public void addOutputPort(String terminal){
+		outputPorts.add(terminal);
 	}
 	
 

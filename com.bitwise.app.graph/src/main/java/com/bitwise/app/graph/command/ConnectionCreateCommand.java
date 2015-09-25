@@ -81,7 +81,8 @@ public class ConnectionCreateCommand extends Command{
 			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
 			if(portName.equals(sourceTerminal)){
 				if(p.isAllowMultipleLinks() || 
-						!(source.getOutputPortStatus(sourceTerminal)!=null && source.getOutputPortStatus(sourceTerminal).equals("connected"))){
+						//!(source.getOutputPortStatus(sourceTerminal)!=null && source.getOutputPortStatus(sourceTerminal).equals("connected"))){
+					!source.hasOutputPort(sourceTerminal)){
 					
 				}else
 					return false;
@@ -102,7 +103,8 @@ public class ConnectionCreateCommand extends Command{
 			String portName=p.getTypeOfPort()+p.getSequenceOfPort();
 			if(portName.equals(targetTerminal)){
 				if(p.isAllowMultipleLinks() || 
-						!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
+						//!(target.getInputPortStatus(targetTerminal)!=null && target.getInputPortStatus(targetTerminal).equals("connected")) ){
+						!target.hasInputPort(targetTerminal)){
 					
 				}else
 					return false;
@@ -128,7 +130,8 @@ public class ConnectionCreateCommand extends Command{
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachSource();
 			
-			source.setOutputPortStatus(sourceTerminal, "connected");
+			//source.setOutputPortStatus(sourceTerminal, "connected");
+			source.addOutputPort(sourceTerminal);
 			
 			
 				
@@ -140,7 +143,8 @@ public class ConnectionCreateCommand extends Command{
 			connection.setLineStyle(Graphics.LINE_SOLID);
 			connection.attachTarget();
 			
-			target.setInputPortStatus(targetTerminal, "connected");
+			//target.setInputPortStatus(targetTerminal, "connected");
+			target.addInputPort(targetTerminal);
 			
 		}
 	}
