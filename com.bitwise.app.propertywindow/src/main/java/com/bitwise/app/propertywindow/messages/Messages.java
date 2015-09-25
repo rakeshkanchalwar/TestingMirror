@@ -23,6 +23,10 @@ public class Messages extends NLS {
 	public static String EmptyValueNotification;
 	public static String OperationClassBlank;
 	public static String FIELD_LABEL_ERROR;
+	public static String path;
+	public static String INVALID_FILE;
+
+	
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

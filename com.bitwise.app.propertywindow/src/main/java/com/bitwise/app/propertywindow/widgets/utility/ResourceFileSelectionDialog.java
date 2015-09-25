@@ -1,4 +1,5 @@
 package com.bitwise.app.propertywindow.widgets.utility;
+
 import java.util.ArrayList;
 import java.util.List;
 
