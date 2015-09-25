@@ -1,7 +1,18 @@
 package com.bitwise.app.project.structure.wizard;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +25,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -60,10 +72,16 @@ public class ProjectStructureCreator {
             javaProject.setOutputLocation(binFolder.getFullPath(), null);
             
             List<IClasspathEntry> entries = addJavaLibrariesInClassPath();
-            
+            List<String> jarList = copyExternalLibToProjectLib(Platform.getInstallLocation().getURL().getPath()+"lib", project.getLocation() + "/lib");
             //add libs to project class path
-            javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
             
+              for (String string : jarList) {
+            	org.eclipse.core.runtime.Path path = new org.eclipse.core.runtime.Path(string);
+            	entries.add(JavaCore.newLibraryEntry(path, null, null));
+			} 
+            
+            javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
+            	
             //set source folder entry in classpath
             javaProject.setRawClasspath(setSourceFolderInClassPath(project, javaProject), null);
 		} catch (CoreException e) {
@@ -181,6 +199,44 @@ public class ProjectStructureCreator {
             }
  		}
 		return newProject;
+	}
+
+	/*
+	 * Copy External jar to project lib directory
+	 * @param source path
+	 * @param target path
+	 * @return list of added files path
+	 */
+	private List<String> copyExternalLibToProjectLib(String source,String target){
+		List<String> path = new ArrayList<String>();
+		source = source.startsWith("/") ? source.substring(1) : source;
+		 final Path sourceDir = Paths.get(source);
+		final Path targetDir = Paths.get(target);
+		try{
+				Files.walkFileTree(sourceDir, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+			     new SimpleFileVisitor<Path>() {
+			      
+			        @Override
+			        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+			            Files.copy(file, targetDir.resolve(sourceDir.relativize(file)));
+			            return FileVisitResult.CONTINUE;
+			        }
+		    });
+				File directory = new File(target);
+
+			    // get all the files from a directory
+			    File[] fList = directory.listFiles();
+			    for (File file : fList) { 
+			        if (file.isFile()) {
+			        	path.add(file.getAbsolutePath());
+			        }
+			    }
+			return path;
+		} catch (Exception e) {
+			e.printStackTrace(); 	
+		}
+		
+		return Collections.EMPTY_LIST;
 	}
 	
 	public class InvalidProjectNameException extends RuntimeException{}

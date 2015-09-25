@@ -15,6 +15,7 @@ public class ELTDefaultCheckBox extends AbstractELTWidget {
 	public void attachWidget(Composite container) {
 		defaultELTCheckBox = new Button(container, SWT.CHECK);
 		defaultELTCheckBox.setText(checkBoxLable);
+		widget=defaultELTCheckBox; 
 	}
 
 	public ELTDefaultCheckBox(String checkBoxLable) {

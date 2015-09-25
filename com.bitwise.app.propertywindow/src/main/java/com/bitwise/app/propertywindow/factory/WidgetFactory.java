@@ -42,7 +42,10 @@ public class WidgetFactory {
 			return new ELTSafeWidget();
 		}else if(widgetName.equals("ELT_FILTER_PROPERTY_WIDGET")){
 			return new ELTFilterWidget();
-		}else{
+		}
+		else if(widgetName.equals("ELT_OPERATIONAL_CLASS_WIDGET")){
+			return new ELTOperationClassWidget();
+		}else{ 
 			return new MyCustomWidget();
 		}
 	}

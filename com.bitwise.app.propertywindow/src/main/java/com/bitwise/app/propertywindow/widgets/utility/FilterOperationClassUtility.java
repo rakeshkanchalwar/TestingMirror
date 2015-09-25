@@ -30,8 +30,8 @@ public class FilterOperationClassUtility {
 		NewClassWizardPage page = new NewClassWizardPage();
 		page.setSuperClass("java.lang.Object", true);
 		List<String> interfaceList = new ArrayList<String>();
-		interfaceList.add("com.bitwiseglobal.components.filter.FilterBase");
-		page.setSuperInterfaces(interfaceList, true);
+		interfaceList.add("com.bitwiseglobal.bhse.userfunctions.base.FilterBase");
+		page.setSuperInterfaces(interfaceList, true);  
 		wizard.setConfiguredWizardPage(page);
 		wizard.run();
 		if (page.isPageComplete())
