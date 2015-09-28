@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.xerces;bundle-version="2.9.0",
  org.jdom;bundle-version="1.1.1",
  com.bitwise.app.common;bundle-version="0.0.1",
- com.bitwise.app.eltproperties;bundle-version="0.0.1"
+ com.bitwise.app.propertywindow;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.bitwise.app.common.util,
