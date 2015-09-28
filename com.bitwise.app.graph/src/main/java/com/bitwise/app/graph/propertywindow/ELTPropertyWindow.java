@@ -43,6 +43,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		Object rowProperties = XMLConfigUtil.INSTANCE.getComponent(componentName).getProperty();
 
 		Component component = (Component) componenetModel;
+		System.out.println("Shri"+component.getBasename() + ":" + component.getCategory());
 		// Property Window will blink if we try to click outside without closing.
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
 		try {
@@ -58,8 +59,10 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 			testwindow.open();
 
 			int w = ((String) getCastedModel().getPropertyValue("name")).length()*7+40;
-			int defaultWidth = (getCastedModel().getBasename().length()+3)*7+40;
-			Dimension newSize = new Dimension(w < defaultWidth ? defaultWidth : w, 60);
+			int defaultWidth = (getCastedModel().getBasename().length()+3)*7+30;
+			int defaultHeight = (defaultWidth * 6)/8;
+			System.out.println("defaultHeight:"+defaultHeight);
+			Dimension newSize = new Dimension(w < defaultWidth ? defaultWidth : w, defaultHeight);
 			getCastedModel().setSize(newSize);
 		} catch (EmptyComponentPropertiesException e) {
 			e.printStackTrace();

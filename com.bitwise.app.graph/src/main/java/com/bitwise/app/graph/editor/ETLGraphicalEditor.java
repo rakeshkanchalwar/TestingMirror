@@ -530,14 +530,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		eltLogger.getLogger().info(METHOD_NAME);
 	   
 		SaveAsDialog obj=new SaveAsDialog(new Shell());		
-		if (getEditorInput().getName().endsWith(".gph"))
+		if (getEditorInput().getName().endsWith(".job"))
 			obj.setOriginalName(getEditorInput().getName());
 		else
-			obj.setOriginalName(getEditorInput().getName()+".gph");
+			obj.setOriginalName(getEditorInput().getName()+".job");
 		obj.open();
 		
 		if (obj.getReturnCode() == 0) {
-			filePath = obj.getResult().removeFileExtension().addFileExtension("gph");
+			filePath = obj.getResult().removeFileExtension().addFileExtension("job");
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
 			out = new ByteArrayOutputStream();
 			try {

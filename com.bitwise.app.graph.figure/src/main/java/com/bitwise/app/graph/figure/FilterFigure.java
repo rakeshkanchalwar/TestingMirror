@@ -18,7 +18,7 @@ public class FilterFigure extends ComponentFigure
 implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1); 
-public FilterFigure(List<PortSpecification> portSpecification)
+	public FilterFigure(List<PortSpecification> portSpecification)
 	{
 		super(portSpecification);
 	}
@@ -31,7 +31,11 @@ public FilterFigure(List<PortSpecification> portSpecification)
 		graphics.translate(r.getLocation());
 		graphics.setBackgroundColor(new Color(null,235, 176, 182));
 		graphics.setForegroundColor(ColorConstants.black);
-		graphics.fillRectangle(4, 4, r.width-8, r.height-8);
+		//graphics.fillRectangle(4, 4, r.width-8, r.height-8);
+
+		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
+		graphics.fillRoundRectangle(q, 5, 5);
+
 
 		int x = (r.width - getLabelName().length() * 7) / 2;
 		labelPoint = new Point(x, r.height / 2 - 10);
@@ -54,7 +58,7 @@ public FilterFigure(List<PortSpecification> portSpecification)
 			graphics.translate(portPoint.getNegated());
 		}
 	}
-	
+
 	@Override
 	public void validate() {
 		super.validate();

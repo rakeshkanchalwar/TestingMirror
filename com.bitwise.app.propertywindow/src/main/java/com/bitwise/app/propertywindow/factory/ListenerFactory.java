@@ -1,14 +1,12 @@
 package com.bitwise.app.propertywindow.factory;
 
-import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
-import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
- 
 import com.bitwise.app.propertywindow.widgets.listeners.ELTBrowseFileListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTCheckFileExtensionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTCreateNewClassListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEmptyTextModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEnableButtonListener;
- 
+import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTOpenFileEditorListener;
@@ -19,6 +17,11 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyNumbericListene
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 import com.bitwise.app.propertywindow.widgets.listeners.MyCustomWidgetTextChange;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridAddSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteAllSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridMouseDoubleClickListener;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridMouseDownListener;
 
 /**
  * 
@@ -88,6 +91,26 @@ public class ListenerFactory {
 			return eltListener;
 		}else if (listener.equals("ELTVerifyNumbericListener")){
 			IELTListener eltListener = new ELTVerifyNumbericListener();
+			return eltListener;
+		}
+		else if (listener.equals("ELTGridMouseDoubleClickListener")){ 
+			IELTListener eltListener = new ELTGridMouseDoubleClickListener();
+			return eltListener;
+		}
+		else if (listener.equals("ELTGridMouseDownListener")){ 
+			IELTListener eltListener = new ELTGridMouseDownListener();
+			return eltListener;
+		}
+		else if (listener.equals("ELTGridAddSelectionListener")){ 
+			IELTListener eltListener = new ELTGridAddSelectionListener();
+			return eltListener;
+		}
+		else if (listener.equals("ELTGridDeleteSelectionListener")){ 
+			IELTListener eltListener = new ELTGridDeleteSelectionListener();
+			return eltListener;
+		}
+		else if (listener.equals("ELTGridDeleteAllSelectionListener")){ 
+			IELTListener eltListener = new ELTGridDeleteAllSelectionListener();
 			return eltListener;
 		}
 		

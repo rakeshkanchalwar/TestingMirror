@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
@@ -30,15 +32,6 @@ public class WidgetUtility {
 	System.out.println(WidgetUtility.isFileExtention("bdbd.java", "java"));	
 	}
 	
-	public static Label createLable(Label lable){
-		lable.setForeground(new Color(Display.getDefault(), 255, 0,0));
-		FormData fd_errorLable = new FormData();
-		fd_errorLable.right = new FormAttachment(100, -36);
-		lable.setLayoutData(fd_errorLable);
-		lable.setText(Messages.FIELDNAMEERROR);
-		lable.setVisible(false);
-		return lable;
-	}
 	 
 	public static TableViewer createTableViewer( TableViewer tableViewer,IStructuredContentProvider iStructuredContentProvider,ITableLabelProvider iTableLabelProvider){
 		tableViewer.setContentProvider(iStructuredContentProvider);
@@ -60,13 +53,6 @@ public class WidgetUtility {
 		return null;
 	}
 	
-	public static FormData createFormData(){
-		FormData fd = new FormData();
-		fd.bottom = new FormAttachment(0, 290);
-		fd.right = new FormAttachment(0, 290);
-		fd.left = new FormAttachment(0, 4);
-		return fd;
-	}
 	
 	public static CellEditor[] createCellEditor(List<CellEditor> cellEditorList){
 		CellEditor[] editors = new CellEditor[cellEditorList.size()];
@@ -102,6 +88,13 @@ public static boolean isFileExtention(String file,String extention) {
         return false;
     }
 
+}
+public static void errorMessage(String message) {
+	Shell shell = new Shell();
+	MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+	messageBox.setText("Error");
+	messageBox.setMessage(message);
+	messageBox.open();
 }
 
 

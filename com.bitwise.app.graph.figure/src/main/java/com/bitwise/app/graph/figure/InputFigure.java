@@ -19,7 +19,7 @@ implements HandleBounds{
 	Point labelPoint;
 	Font labelFont = new Font(null, "", 10, 1); 
 	protected static PointList connector = new PointList();
-	
+
 	public InputFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
 	}
@@ -32,7 +32,9 @@ implements HandleBounds{
 		graphics.translate(r.getLocation());
 		graphics.setBackgroundColor(new Color(null,220, 221, 227));
 		graphics.setForegroundColor(ColorConstants.black);
-		graphics.fillRectangle(4, 4, r.width - 8, r.height - 8);
+
+		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
+		graphics.fillRoundRectangle(q, 5, 5);
 
 		int x = (r.width - getLabelName().length() * 7) / 2;
 		labelPoint = new Point(x, r.height / 2 - 10);

@@ -32,7 +32,7 @@ public class ComponentFigure extends Figure {
 	private String labelName;
 	private FixedConnectionAnchor c; 
 
-	
+
 	public String getLabelName() {
 		return labelName;
 	}
@@ -41,12 +41,12 @@ public class ComponentFigure extends Figure {
 		this.labelName = labelName;
 	}
 	public ComponentFigure(List<PortSpecification> portSpecification) {
-		
+
 		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		outputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		this.portspecification=portSpecification;
-		
+
 		for(PortSpecification p:portspecification)
 		{ 	
 			c = new FixedConnectionAnchor(this);
@@ -86,7 +86,7 @@ public class ComponentFigure extends Figure {
 		double min = Double.MAX_VALUE;
 
 		for (int i = 0; i < outputConnectionAnchors.size(); i++) {
-			
+
 			ConnectionAnchor c = (ConnectionAnchor) outputConnectionAnchors.get(i);
 			Point p2 = c.getLocation(null);
 			double d = p.getDistance(p2);
@@ -95,11 +95,11 @@ public class ComponentFigure extends Figure {
 				closest = c;
 			}
 		}
-		
+
 		return closest;
 	}
 
-	
+
 	public Point getPortLocation(Rectangle r, int totalPortsOfThisType, String type, int sequence) {
 		Point p = null ;
 		int portOffsetFactor = totalPortsOfThisType+1;
@@ -125,9 +125,9 @@ public class ComponentFigure extends Figure {
 
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
-		
+
 		for (int i = 0; i < inputConnectionAnchors.size(); i++) {
-			
+
 			ConnectionAnchor c = (ConnectionAnchor) inputConnectionAnchors.get(i);
 			Point p2 = c.getLocation(null);
 			double d = p.getDistance(p2);
@@ -136,7 +136,7 @@ public class ComponentFigure extends Figure {
 				closest = c;
 			}
 		}
-		
+
 		return closest;
 	}
 

@@ -43,6 +43,7 @@ public class Component extends Model {
 	private List<String> outputPorts;
 	private boolean newInstance;
 	private String basename;
+	private String category;
 
 	public Component(){
 		location = new Point(0, 0);
@@ -208,6 +209,14 @@ public class Component extends Model {
 
 	public void setBasename(String basename) {
 		this.basename = basename;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }

@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
 	<tns:component iconPath="/icons/input.png" name="Filter"
 		shape="FilterFigure">
-		<tns:category>STRAIGHTPULL</tns:category>
+		<tns:category>TRANSFORM</tns:category>
 		<tns:port>
 			<tns:portSpecification>
 				<tns:typeOfPort>in</tns:typeOfPort>

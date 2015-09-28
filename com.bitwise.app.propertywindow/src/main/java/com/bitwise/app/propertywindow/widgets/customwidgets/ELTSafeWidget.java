@@ -37,7 +37,7 @@ public class ELTSafeWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Safe Property ").lableWidth(80);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Safe Property ");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS);

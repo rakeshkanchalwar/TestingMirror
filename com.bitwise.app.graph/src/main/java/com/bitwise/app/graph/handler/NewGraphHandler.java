@@ -23,7 +23,7 @@ public class NewGraphHandler extends AbstractHandler {
 		IWorkbenchPage page = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage();
 		try {
-			ETLGraphicalEditorInput input = new ETLGraphicalEditorInput("Graph_"+ graphCounter++);
+			ETLGraphicalEditorInput input = new ETLGraphicalEditorInput("Job_"+ graphCounter++);
 			page.openEditor(input, ETLGraphicalEditor.ID, false);
 			
 			//For selecting the created editor so it will trigger the event to activate and load the Palette

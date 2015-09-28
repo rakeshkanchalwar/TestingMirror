@@ -1,6 +1,8 @@
 package com.bitwise.app.propertywindow.widgets.gridwidgets.container;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 
@@ -28,5 +30,11 @@ public abstract class AbstractELTContainerWidget {
 	
 	public Composite getContainerControl(){
 		return outputContainer;
+	}
+	
+	public void attchProertySeperator(){
+		Label label;
+		if(outputContainer!=null)
+			label = new Label(outputContainer, SWT.SEPARATOR | SWT.HORIZONTAL);
 	}
 }

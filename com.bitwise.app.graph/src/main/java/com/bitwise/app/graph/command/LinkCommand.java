@@ -68,9 +68,9 @@ public class LinkCommand extends Command{
 				if(portName.equals(sourceTerminal)){
 					if(p.isAllowMultipleLinks() || 
 							!source.hasOutputPort(sourceTerminal)){
-						System.out.println(source.getClass()+" source does not have "+sourceTerminal);
+						
 					}else{
-						System.out.println(source.getClass()+" has "+sourceTerminal+"so returning false");
+						
 						return false;
 					}
 				}
