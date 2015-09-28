@@ -33,17 +33,31 @@ public class ComponentBorder extends AbstractBorder {
 		//r.getShrinked(4, 4);
 
 		//top
-		g.drawLine(r.x+4, r.y+4, r.right() - 5, r.y+4);
+		g.drawLine(r.x+4+4, r.y+4, r.right() - 5-4, r.y+4);
 		
 		//Bottom
-		g.drawLine(r.x+4, r.bottom()-5, r.right() - 5, r.bottom()-5);
+		g.drawLine(r.x+4+4, r.bottom()-5, r.right() - 5-4, r.bottom()-5);
 		
 		//Left
-		g.drawLine(r.x+4, r.y + 4, r.x+4, r.bottom() - 5);
+		g.drawLine(r.x+4, r.y + 4+4, r.x+4, r.bottom() - 5-4);
 		
 		//right
-		g.drawLine(r.right() - 5, r.bottom() - 5, r.right() - 5, r.y + 4);
-
+		g.drawLine(r.right() - 5, r.bottom() - 5-4, r.right() - 5, r.y + 4+4);
+		
+		//----------Arcs at corners---------------------------
+		
+		//top right
+		g.drawArc(r.right() - 5-4-4, r.y + 4, 8, 8, 0, 90);
+		
+		//bottom left
+		g.drawArc(r.x+4, r.bottom()-5-4-4, 8, 8, 180, 90);
+		
+		//bottom right
+		g.drawArc(r.right() - 5-4-4, r.bottom()-5-4-4, 8, 8, 0, -90);
+		
+		//top left
+		g.drawArc(r.x+4, r.y + 4, 8, 8, 180, -90);
+		
 		
 		r.getExpanded(new Insets(0, 0, 0, 0));
 		r.expand(1, 1);
