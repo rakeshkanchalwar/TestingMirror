@@ -20,5 +20,6 @@
 	</tns:port>
 	<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="VIEW"/>
 	 <tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PROPERTIES" />
+	 <tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER" group="GENERAL" subGroup="PROPERTIES"/>
 	</tns:component>
 </tns:Config>

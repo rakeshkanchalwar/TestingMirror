@@ -35,7 +35,7 @@ public class ELTFilterWidget extends AbstractWidget {
 				container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\n Fields \n table");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\n Fields");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Edit");

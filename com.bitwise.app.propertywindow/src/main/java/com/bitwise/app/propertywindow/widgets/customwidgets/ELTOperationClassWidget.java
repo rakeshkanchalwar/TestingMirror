@@ -52,7 +52,7 @@ public class ELTOperationClassWidget extends AbstractWidget {
 		eltSuDefaultSubgroupComposite.attachWidget(browseButton);*/
 		
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("File Path");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\nClass");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
