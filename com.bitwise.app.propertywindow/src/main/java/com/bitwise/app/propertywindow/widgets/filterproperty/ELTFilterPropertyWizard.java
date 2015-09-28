@@ -40,8 +40,6 @@ public class ELTFilterPropertyWizard {
 	private Shell shell;
 	private List<ELTFilterProperties> propertyLst;
 	public static final String FilterInputFieldName = "Component Name"; //$NON-NLS-1$
-	//public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
-	// private TreeMap<String, String> filterPropertyMap;
 	private Set<String> filterMap;
 	private String componentName;
 	private Label lblHeader;
@@ -57,7 +55,6 @@ public class ELTFilterPropertyWizard {
 	private Button addButton, deleteAll, applyButton, okButton, deleteButton, cacelButton;
 	private boolean isAnyUpdatePerformed;
 
-	// private boolean firstTimeEdit;
 
 	public ELTFilterPropertyWizard() {
 		propertyLst = new ArrayList<ELTFilterProperties>();
@@ -200,9 +197,7 @@ public class ELTFilterPropertyWizard {
 		final CellEditor propertyNameeditor = new TextCellEditor(table);
 
 		CellEditor[] editors = new CellEditor[] { propertyNameeditor };
-		// propertyNameeditor.addListener(createEditorListners());
-		// propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
-		propertyNameeditor.setValidator(cellValidator);
+		propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
 
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new ELTCellModifier(tableViewer));
@@ -229,22 +224,6 @@ public class ELTFilterPropertyWizard {
 
 		return filterMap;
 	}
-
-	ICellEditorValidator cellValidator = new ICellEditorValidator() {
-
-		@Override
-		public String isValid(Object value) {
-			String celltext = (String) value;
-			if (!celltext.matches("[\\w]*")) {
-				decorator.show();
-				disableButtons();
-			} else {
-				decorator.hide();
-				enableButtons();
-			}
-			return null;
-		}
-	};
 
 	// Creates The buttons For the widget
 	private void createButtons(Composite composite) {
@@ -356,9 +335,10 @@ public class ELTFilterPropertyWizard {
 	protected boolean validate() {
 
 		int propertyCounter = 0;
+		//String valueToValidate = String.valueOf(value).trim();
 		for (ELTFilterProperties temp : propertyLst) {
 			if (!temp.getPropertyname().trim().isEmpty()) {
-
+				//if(temp.getPropertyname().trim().equalsIgnoreCase(anotherString))
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
@@ -367,32 +347,53 @@ public class ELTFilterPropertyWizard {
 				return false;
 			}
 			propertyCounter++;
+					
+			
 		}
 		return true;
 	}
 
 	// Creates CellNAme Validator for table's cells
-	/*
-	 * private ICellEditorValidator createNameEditorValidator(final String ErrorMessage) { ICellEditorValidator
-	 * propertyValidator = new ICellEditorValidator() {
-	 * 
-	 * @Override public String isValid(Object value) { isAnyUpdatePerformed = true; String currentSelectedFld =
-	 * table.getItem(table.getSelectionIndex()).getText(); String valueToValidate = String.valueOf(value).trim(); if
-	 * (valueToValidate.isEmpty()) { lblPropertyError.setText(ErrorMessage); lblPropertyError.setVisible(true);
-	 * disableButtons(); return "ERROR"; //$NON-NLS-1$
-	 * 
-	 * }else if(valueToValidate.matches("[\\w]*")){ //scaleDecorator.show(); disableButtons();
-	 * System.out.println("check"); }
-	 * 
-	 * for (FilterProperties temp : propertyLst) { if (!currentSelectedFld.equalsIgnoreCase(valueToValidate) &&
-	 * temp.getPropertyname().trim().equalsIgnoreCase(valueToValidate)) {
-	 * lblPropertyError.setText(PROPERTY_EXISTS_ERROR); lblPropertyError.setVisible(true); disableButtons(); return
-	 * "ERROR"; //$NON-NLS-1$ } else enableButtons(); lblPropertyError.setVisible(false); }
-	 * 
-	 * return null;
-	 * 
-	 * } }; return propertyValidator; }
-	 */
+	private ICellEditorValidator createNameEditorValidator(final String ErrorMessage) {
+		ICellEditorValidator propertyValidator = new ICellEditorValidator() {
+			@Override
+			public String isValid(Object value) {
+				isAnyUpdatePerformed = true;
+				String currentSelectedFld = table.getItem(table.getSelectionIndex()).getText();
+				String valueToValidate = String.valueOf(value).trim();
+				if (valueToValidate.isEmpty()) {
+					lblPropertyError.setText(ErrorMessage);
+					lblPropertyError.setVisible(true);
+					disableButtons();
+					return "ERROR"; //$NON-NLS-1$
+				}else if(!valueToValidate.matches("[\\w+]*"))
+				{
+					decorator.show();
+					disableButtons();
+					 return "Invalid";
+				} else {
+					decorator.hide();
+					enableButtons();
+				}
+
+				for (ELTFilterProperties temp : propertyLst) {
+					if (!currentSelectedFld.equalsIgnoreCase(valueToValidate)
+							&& temp.getPropertyname().trim().equalsIgnoreCase(valueToValidate)) {
+						lblPropertyError.setText(PROPERTY_EXISTS_ERROR);
+						lblPropertyError.setVisible(true);
+						disableButtons();
+						return "ERROR"; //$NON-NLS-1$
+					} else
+						enableButtons();
+					lblPropertyError.setVisible(false);
+				}
+
+				return null;
+
+			}
+		};
+		return propertyValidator;
+	}
 
 	void disableButtons() {
 		okButton.setEnabled(false);
