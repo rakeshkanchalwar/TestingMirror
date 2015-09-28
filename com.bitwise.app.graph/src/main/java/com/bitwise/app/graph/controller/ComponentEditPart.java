@@ -201,7 +201,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		Component comp = getCastedModel();
 		ComponentFigure c = getComponentFigure();
 		c.setLabelName((String) comp.getPropertyValue("name"));
-		int w = c.getLabelName().length()*10+50;
+		int w = c.getLabelName().length()*10+30;
 		Dimension newSize = new Dimension(w,60);
 		System.out.println("refreshVisuals: New component/figure name :"+c.getLabelName());
 		//comp.setSize(newSize);
@@ -218,6 +218,8 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			ELTPropertyWindow eltPropertyWindow = new ELTPropertyWindow(getModel());
 			//ProdELTPropertyWindow eltPropertyWindow = new ProdELTPropertyWindow(getModel());
 			eltPropertyWindow.open();
+			
+			System.out.println("Updated dimentions: "+getCastedModel().getSize().height+":" +getCastedModel().getSize().width);
 			
 			refreshVisuals();
 			getFigure().repaint();

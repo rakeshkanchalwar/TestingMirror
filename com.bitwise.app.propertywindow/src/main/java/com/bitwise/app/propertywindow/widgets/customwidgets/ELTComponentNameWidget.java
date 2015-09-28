@@ -46,6 +46,8 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		eltDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
+		
+		text.setTextLimit(50);
 
 		try {
 			listener = (ELTVerifyComponentNameListener)listenerFactory.getListener("ELTVerifyComponentNameListener");

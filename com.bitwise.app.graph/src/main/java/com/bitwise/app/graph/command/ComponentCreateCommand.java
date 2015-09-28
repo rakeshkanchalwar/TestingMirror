@@ -37,8 +37,9 @@ public class ComponentCreateCommand extends Command {
 		component.setProperties(properties);
 		component.setBasename(components.getName());
 		component.setCategory(components.getCategory().value());
-		int defaultWidth = (component.getBasename().length()+3)*7+40;
-		Dimension newSize = new Dimension(defaultWidth, 60);
+		int defaultWidth = (component.getBasename().length()+3)*7+30;
+		int defaultHeight = defaultWidth * 6/8;
+		Dimension newSize = new Dimension(defaultWidth, defaultHeight);
 		component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;
