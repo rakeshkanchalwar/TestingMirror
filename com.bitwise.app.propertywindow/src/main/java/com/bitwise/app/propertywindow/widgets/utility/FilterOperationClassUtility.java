@@ -29,6 +29,7 @@ public class FilterOperationClassUtility {
 		wizard.setOpenEditorOnFinish(false);
 		NewClassWizardPage page = new NewClassWizardPage();
 		page.setSuperClass("java.lang.Object", true);
+		page.setMethodStubSelection(false, false, true, true);
 		List<String> interfaceList = new ArrayList<String>();
 		interfaceList.add("com.bitwiseglobal.bhse.userfunctions.base.FilterBase");
 		page.setSuperInterfaces(interfaceList, true);  
