@@ -6,233 +6,192 @@ Element-Version: 3.0
 External-Reference: 
 Id: _rtczoFeZEeW08Mo9tQCunw
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/28/15 11:53 AM
+Save-Time: 9/28/15 4:49 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
 Content-Type: text/ecl
 Entry-Name: .content
 
-get-menu "File/New/Job" | click
-with [get-editor "Graph_12" | get-diagram] {
-    mouse-move 126 111 button1 -height 536 -width 1013
-    mouse-press 126 111 button1 -height 536 -width 1013
-    mouse-release 126 111 button1 524288 -height 536 -width 1013
-}
+get-button "New Job (M1+M3+J)" | click
 with [get-view Palette | get-palette] {
+    get-palette-entry "Solid connection" | mouse-move 14 22 -height 27 -width 27
     with [get-palette-entry Input] {
-        mouse-move 83 14 button1 -height 22 -width 244
-        mouse-press 83 14 button1 -height 22 -width 244
-        mouse-release 83 14 button1 524288 -height 22 -width 244
+        mouse-move 45 14 button1 -height 22 -width 244
+        mouse-press 45 14 button1 -height 22 -width 244
+        mouse-release 45 14 button1 524288 -height 22 -width 244
     }
     with [get-palette-entry Input -index 1] {
-        mouse-move 35 17 button1 -height 35 -width 244
-        mouse-press 35 17 button1 -height 35 -width 244
-        get-figure "0/0" | drag-start 19 14
+        mouse-move 28 19 button1 -height 35 -width 227
+        mouse-press 28 19 button1 -height 35 -width 227
+        mouse-release 28 19 button1 524288 -height 35 -width 227
+        mouse-hover 28 19 -height 35 -width 227
     }
 }
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 52 135 -detail move
-    drag-over 125 157 -detail copy
-    drag-exit
-    drag-accept 125 156 -detail copy
-}
-get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 125 156 -detail copy
-get-view Palette | get-palette | drag-end -detail move
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart] {
-    mouse-hover 17 17 -height 60 -width 80
-    mouse-move 36 22 button1 -height 60 -width 80
-    mouse-press 36 22 button1 -height 60 -width 80
-    mouse-release 36 22 button1 524288 -height 60 -width 80
-    mouse-press 36 22 button1 -height 60 -width 80
-    mouse-double-click 36 22 button1 -height 60 -width 80
-}
-with [get-window "Property Dialog"] {
-    get-group NAME | get-editbox -after [get-label "Name :"] | set-text Input
-    get-button OK | click
-}
-with [get-view Palette | get-palette | get-palette-entry Input -index 1] {
-    mouse-move 26 21 button1 -height 35 -width 244
-    mouse-press 26 21 button1 -height 35 -width 244
-    get-figure "0/0" | drag-start 10 18
-}
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 148 76 -detail move
-    drag-over 209 71 -detail copy
-    drag-exit
-    drag-accept 209 71 -detail copy
-}
-get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 209 71 -detail copy
-get-view Palette | get-palette | drag-end -detail move
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart -index 1] {
-    mouse-move 23 17 button1 -height 60 -width 80
-    mouse-press 23 17 button1 -height 60 -width 80
-    mouse-release 23 17 button1 524288 -height 60 -width 80
-    mouse-press 23 17 button1 -height 60 -width 80
-    mouse-double-click 23 17 button1 -height 60 -width 80
-}
-with [get-window "Property Dialog"] {
-    get-group NAME | get-editbox -after [get-label "Name :"] | set-text input11
-    get-button OK | click
-}
-with [get-editor "Graph_12" | get-diagram] {
-    mouse-hover 343 268 -height 536 -width 1013
-    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 1] {
-        mouse-move 40 43 button1 -height 60 -width 80
-        mouse-press 40 43 button1 -height 60 -width 80
-        mouse-release 40 43 button1 524288 -height 60 -width 80
-        mouse-press 40 43 button1 -height 60 -width 80
-        mouse-double-click 40 43 button1 -height 60 -width 80
+with [get-editor "Graph_14"] {
+    with [get-diagram] {
+        mouse-move 132 78 button1 -height 304 -width 741
+        mouse-press 132 78 button1 -height 304 -width 741
+        mouse-release 132 78 button1 524288 -height 304 -width 741
+    }
+    with [get-diagram | get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+        get-handle ResizeHandle -index 1 | mouse-hover 4 4 -height 7 -width 7
+        mouse-hover 44 22 -height 64 -width 86
+        mouse-move 44 22 button1 -height 64 -width 86
+        mouse-press 44 22 button1 -height 64 -width 86
+        mouse-release 44 22 button1 524288 -height 64 -width 86
+        mouse-press 44 22 button1 -height 64 -width 86
+        mouse-double-click 44 22 button1 -height 64 -width 86
     }
 }
-with [get-window "Property Dialog"] {
-    get-group NAME | get-editbox -after [get-label "Name :"] | set-text "input_02"
+with [get-window "Input_01 - Properties"] {
+    get-group View | get-editbox -after [get-label Name] | set-text "Input_newName"
+    get-button Apply | click
     get-button OK | click
 }
-with [get-view Palette | get-palette | get-palette-entry Input -index 1] {
-    mouse-move 37 13 button1 -height 35 -width 244
-    mouse-press 37 13 button1 -height 35 -width 244
-    get-figure "0/0" | drag-start 21 10
-}
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 29 174 -detail move
-    drag-over 247 264 -detail copy
-    drag-exit
-    drag-accept 247 264 -detail copy
-}
-get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 247 264 -detail copy
-get-view Palette | get-palette | drag-end -detail move
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart -index 2] {
-    mouse-hover 45 35 -height 60 -width 80
-    mouse-move 45 35 button1 -height 60 -width 80
-    mouse-press 45 35 button1 -height 60 -width 80
-    mouse-release 45 35 button1 524288 -height 60 -width 80
-    mouse-press 45 35 button1 -height 60 -width 80
-    mouse-double-click 45 35 button1 -height 60 -width 80
-}
-with [get-window "Property Dialog"] {
-    get-group NAME | get-editbox -after [get-label "Name :"] | set-text "Input_04"
-    get-button OK | click
-}
-with [get-view Palette | get-palette | get-palette-entry Input -index 1] {
-    mouse-move 35 23 button1 -height 35 -width 244
-    mouse-press 35 23 button1 -height 35 -width 244
-    get-figure "0/0" | drag-start 19 20
-}
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 79 294 -detail move
-    drag-over 120 341 -detail copy
-    drag-exit
-    drag-accept 120 341 -detail copy
-}
-get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 120 341 -detail copy
-get-view Palette | get-palette | drag-end -detail move
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart -index 3] {
-    mouse-move 34 28 button1 -height 60 -width 80
-    mouse-press 34 28 button1 -height 60 -width 80
-    mouse-release 34 28 button1 524288 -height 60 -width 80
-    mouse-press 34 28 button1 -height 60 -width 80
-    mouse-double-click 34 28 button1 -height 60 -width 80
-}
-with [get-window "Property Dialog"] {
-    get-group NAME | get-editbox -after [get-label "Name :"] | set-text anyName
-    get-button OK | click
+with [get-editor "Graph_14" | get-diagram] {
+    mouse-hover 195 175 -height 304 -width 741
+    get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart | mouse-hover 76 31 
+        -height 64 -width 131
 }
 with [get-view Palette | get-palette] {
     with [get-palette-entry Output] {
-        mouse-move 104 9 button1 -height 22 -width 244
-        mouse-press 104 9 button1 -height 22 -width 244
-        mouse-release 104 9 button1 524288 -height 22 -width 244
+        mouse-move 66 2 button1 -height 22 -width 227
+        mouse-press 66 2 button1 -height 22 -width 227
+        mouse-release 66 2 button1 524288 -height 22 -width 227
     }
     with [get-palette-entry Output -index 1] {
-        mouse-move 42 20 button1 -height 35 -width 244
-        mouse-press 42 20 button1 -height 35 -width 244
-        get-figure "0/0" | drag-start 26 17
+        mouse-move 41 20 button1 -height 35 -width 227
+        mouse-press 41 20 button1 -height 35 -width 227
+        get-figure "0/0" | drag-start 25 17
     }
 }
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 223 200 -detail move
-    drag-over 433 208 -detail copy
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 81 117 -detail move
+    drag-over 461 102 -detail copy
     drag-exit
-    drag-accept 433 208 -detail copy
+    drag-accept 461 102 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 433 208 -detail copy
-with [get-view Palette | get-palette] {
-    drag-end -detail move
-    with [get-palette-entry Output -index 1] {
-        mouse-move 33 16 button1 -height 35 -width 244
-        mouse-press 33 16 button1 -height 35 -width 244
-        get-figure "0/0" | drag-start 17 13
-    }
-}
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 212 132 -detail move
-    drag-over 428 132 -detail copy
-    drag-exit
-    drag-accept 428 132 -detail copy
-}
-get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 428 132 -detail copy
-with [get-view Palette | get-palette] {
-    drag-end -detail move
-    with [get-palette-entry Output -index 1] {
-        mouse-move 41 12 button1 -height 35 -width 244
-        mouse-press 41 12 button1 -height 35 -width 244
-        get-figure "0/0" | drag-start 25 9
-    }
-}
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 212 263 -detail move
-    drag-over 212 263 -detail move
-    drag-over 458 329 -detail copy
-    drag-exit
-    drag-accept 458 329 -detail copy
-}
-get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 458 329 -detail copy
+get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | drop 461 102 -detail copy
 get-view Palette | get-palette | drag-end -detail move
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart -index 6] {
-    mouse-move 26 36 button1 -height 60 -width 80
-    mouse-press 26 36 button1 -height 60 -width 80
-    mouse-release 26 36 button1 524288 -height 60 -width 80
-    mouse-press 26 36 button1 -height 60 -width 80
-    mouse-double-click 26 36 button1 -height 60 -width 80
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 1] {
+    mouse-move 37 40 button1 -height 69 -width 93
+    mouse-press 37 40 button1 -height 69 -width 93
+    mouse-release 37 40 button1 524288 -height 69 -width 93
+    mouse-press 37 40 button1 -height 69 -width 93
+    mouse-double-click 37 40 button1 -height 69 -width 93
 }
-with [get-window "Property Dialog"] {
-    get-group NAME | get-editbox -after [get-label "Name :"] | set-text "input_05"
+with [get-window "Output_01 - Properties"] {
+    get-group View | get-editbox -after [get-label Name] | set-text Output
     get-button OK | click
 }
 with [get-view Palette | get-palette] {
-    get-palette-entry Output -index 1 | mouse-move 98 15 -height 35 -width 244
-    with [get-palette-entry Input -index 1] {
-        mouse-move 54 16 button1 -height 35 -width 244
-        mouse-press 54 16 button1 -height 35 -width 244
-        get-figure 0 | drag-start 54 16
+    with [get-palette-entry Transform] {
+        mouse-hover 59 21 -height 22 -width 227
+        mouse-move 60 13 button1 -height 22 -width 227
+        mouse-press 60 13 button1 -height 22 -width 227
+        mouse-release 60 13 button1 524288 -height 22 -width 227
+    }
+    with [get-palette-entry Filter] {
+        mouse-move 55 21 button1 -height 35 -width 227
+        mouse-press 55 21 button1 -height 35 -width 227
+        get-figure 0 | drag-start 55 21
     }
 }
-with [get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart] {
-    drag-enter 155 101 -detail move
-    drag-over 609 165 -detail copy
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 14 149 -detail move
+    drag-over 77 158 -detail copy
     drag-exit
-    drag-accept 609 165 -detail copy
+    drag-accept 77 158 -detail copy
 }
 get-view Palette | get-palette | drag-set-data
-get-editor "Graph_12" | get-diagram | get-edit-part -className ContainerEditPart | drop 609 165 -detail copy
+get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | drop 77 158 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 2] {
+    mouse-move 14 26 button1 -height 69 -width 93
+    mouse-press 14 26 button1 -height 69 -width 93
+    mouse-release 14 26 button1 524288 -height 69 -width 93
+    mouse-press 14 26 button1 -height 69 -width 93
+    mouse-double-click 14 26 button1 -height 69 -width 93
+}
+with [get-window "Filter_01 - Properties"] {
+    get-group View | get-editbox -after [get-label Name] | set-text f
+    get-button OK | click
+}
+with [get-view Palette | get-palette] {
+    with [get-palette-entry Straightpull] {
+        mouse-move 77 12 button1 -height 22 -width 244
+        mouse-press 77 12 button1 -height 22 -width 244
+        mouse-release 77 12 button1 524288 -height 22 -width 244
+    }
+    with [get-palette-entry Replicate] {
+        mouse-move 62 6 -height 35 -width 244
+        mouse-move 57 8 button1 -height 35 -width 244
+        mouse-press 57 8 button1 -height 35 -width 244
+        get-figure 0 | drag-start 57 8
+    }
+}
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 215 217 -detail move
+    drag-over 265 199 -detail copy
+    drag-exit
+    drag-accept 265 199 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | drop 265 199 -detail copy
 with [get-view Palette | get-palette] {
     drag-end -detail move
-    get-palette-entry Output -index 1 | mouse-move 191 13 -height 35 -width 244
+    get-palette-entry Replicate | mouse-move 31 4 -height 35 -width 244
+    with [get-palette-entry Gather] {
+        mouse-move 38 15 button1 -height 35 -width 244
+        mouse-press 38 15 button1 -height 35 -width 244
+        get-figure "0/0" | drag-start 22 12
+    }
 }
-
-get-editor "Graph_12" | close
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 212 218 -detail move
+    drag-over 491 226 -detail copy
+    drag-exit
+    drag-accept 491 226 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | drop 491 226 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 3] {
+    mouse-move 56 38 button1 -height 85 -width 114
+    mouse-press 56 38 button1 -height 85 -width 114
+    mouse-release 56 38 button1 524288 -height 85 -width 114
+    mouse-press 56 38 button1 -height 85 -width 114
+    mouse-double-click 56 38 button1 -height 85 -width 114
+}
+with [get-window "Replicate_01 - Properties"] {
+    with [get-group View | get-editbox -after [get-label Name]] {
+        set-text Replicate
+        set-text Outpu1
+    }
+    get-button OK | click
+}
+with [get-editor "Graph_14" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 4] {
+    mouse-move 19 33 button1 -height 69 -width 93
+    mouse-press 19 33 button1 -height 69 -width 93
+    mouse-release 19 33 button1 524288 -height 69 -width 93
+    mouse-press 19 33 button1 -height 69 -width 93
+    mouse-double-click 19 33 button1 -height 69 -width 93
+}
+with [get-window "Gather_01 - Properties"] {
+    with [get-group View | get-editbox -after [get-label Name]] {
+        set-text ""
+        set-text uniq
+    }
+    get-button Apply | click
+    get-button OK | click
+}
+get-view Palette | get-palette | get-palette-entry Replicate | mouse-move 199 22 -height 35 -width 244
+get-editor "Graph_14" | close
 get-window "Save Resource" | get-button No | click
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
