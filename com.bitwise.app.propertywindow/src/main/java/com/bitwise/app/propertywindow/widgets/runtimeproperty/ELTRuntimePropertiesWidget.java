@@ -92,10 +92,15 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		ELTDefaultSubgroupComposite runtimeComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
 		runtimeComposite.createContainerWidget();
+		runtimeComposite.numberOfBasicWidgets(2);
 		shell = runtimeComposite.getContainerControl().getShell();
 
+		
+		ELTDefaultLable defaultLable1 = new ELTDefaultLable("Runtime\nProperties"); 
+		runtimeComposite.attachWidget(defaultLable1);
+		
 		ELTDefaultButton eltDefaultButton = new ELTDefaultButton(
-				"Runtime Property").grabExcessHorizontalSpace(true);
+				"Edit").buttonWidth(90).grabExcessHorizontalSpace(false);
 		//eltDefaultButton.buttonWidth(120);
 		runtimeComposite.attachWidget(eltDefaultButton);
 
