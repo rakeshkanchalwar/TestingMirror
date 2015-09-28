@@ -117,6 +117,7 @@
 		<restriction base="string">
 			<enumeration value="INPUT" />
 			<enumeration value="OUTPUT" />
+			<enumeration value="TRANSFORM" />
 			<enumeration value="STRAIGHTPULL" />
 		</restriction>
 	</simpleType>
