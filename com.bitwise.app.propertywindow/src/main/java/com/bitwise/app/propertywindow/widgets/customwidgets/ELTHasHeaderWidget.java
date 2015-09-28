@@ -45,7 +45,7 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
 		combo.select(1);
 		
-		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
+		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).grabExcessHorizontalSpace(true);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		eltDefaultTextBox.visibility(false);
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();

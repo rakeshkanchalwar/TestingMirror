@@ -96,7 +96,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 
 		ELTDefaultButton eltDefaultButton = new ELTDefaultButton(
 				"Runtime Property");
-		eltDefaultButton.buttonWidth(120);
+		//eltDefaultButton.buttonWidth(120);
 		runtimeComposite.attachWidget(eltDefaultButton);
 
 		try {

@@ -94,7 +94,6 @@
 	<simpleType name="group">
 		<restriction base="string">
 			<enumeration value="GENERAL" />
-			<enumeration value="RUNTIME_PROPERTIES" />
 			<enumeration value="SCHEMA" />
 			<enumeration value="FIELD_SEQUENCE" />
 		</restriction>
@@ -102,17 +101,8 @@
 	
 	<simpleType name="sub_group">
 		<restriction base="string">
-			<enumeration value="NAME" />
-			<enumeration value="SCHEMA" />
-			<enumeration value="DELIMITER" />
-			<enumeration value="SAFE" />
-			<enumeration value="HEADER" />
-			<enumeration value="CHARSET" />
-			<enumeration value="RUNTIME_PROPERTIES" />
-			<enumeration value="FIELD_SEQUENCE" />
-			<enumeration value="FILE_PATH" />
-			<enumeration value="PHASE" />
-			<enumeration value="FILTER" />
+			<enumeration value="VIEW" />
+			<enumeration value="PROPERTIES" />
 		</restriction>
 	</simpleType>
 	

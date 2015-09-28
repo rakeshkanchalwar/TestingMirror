@@ -33,6 +33,7 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 		subGroupLayout.maxNumColumns = 1;
 		subGroupLayout.bottomMargin = 0;
 		subGroupLayout.topMargin = 20;
+		subGroupLayout.rightMargin = 0;
 		subGroup.setLayout(subGroupLayout);
 		
 /*		subGroupComposite = new Composite(subGroup, SWT.NONE);

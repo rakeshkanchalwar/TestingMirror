@@ -41,7 +41,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set").lableWidth(80);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set").lableWidth(75);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		
@@ -51,7 +51,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
 		combo.select(1);
 		
-		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
+		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).grabExcessHorizontalSpace(true);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		eltDefaultTextBox.visibility(false);
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();

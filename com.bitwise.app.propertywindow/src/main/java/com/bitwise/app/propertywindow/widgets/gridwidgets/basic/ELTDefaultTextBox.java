@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Text;
 public class ELTDefaultTextBox extends AbstractELTWidget{
 	
 	private Text defaultELTTextBox;
-	private int textboxWidth=300;
+	private int textboxWidth=100;
 	private String defaultTextMessage = "";
 	private boolean grabExcessSpace = true;
 		

@@ -26,14 +26,23 @@ public class ELTPhaseWidget extends AbstractWidget {
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		ListenerFactory listenerFactory = new ListenerFactory();
 
-		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
+		/*ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
-		eltSuDefaultSubgroupComposite.createContainerWidget();
+		eltSuDefaultSubgroupComposite.createContainerWidget();*/
 
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase");
+		/*AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);*/
+		
+		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		eltSuDefaultSubgroupComposite.createContainerWidget();
+		
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase ").lableWidth(60);
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
+		
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();

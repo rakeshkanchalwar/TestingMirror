@@ -37,7 +37,7 @@ public class PropertyDialog extends Dialog {
 	private PropertyDialogBuilder propertyDialogBuilder;
 	private ArrayList<String> names = new ArrayList<>();
 	private PropertyDialogButtonBar propertyDialogButtonBar;
-	
+	String componentName;
 	private Button applyButton;
 	/**
 	 * Create the dialog.
@@ -50,6 +50,7 @@ public class PropertyDialog extends Dialog {
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = ComponentProperties;
 		this.names=names;
+		componentName = (String) ComponentProperties.get("name");
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 		super.setBlockOnOpen(true);		
 	}
@@ -69,7 +70,7 @@ public class PropertyDialog extends Dialog {
 		//container.getShell().setMinimumSize(600, 500);
 		container.getShell().setMinimumSize(400, 500);
 		//container.getShell().setSize(400, 400);
-		container.getShell().setText("Property Dialog");
+		container.getShell().setText(componentName + " - Properties");
 		//container.setBounds(0, 0, 800, 900);
 		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
 		
@@ -183,13 +184,13 @@ public class PropertyDialog extends Dialog {
 		super.configureShell(newShell);		
 		String imagePath = null;
 		//TODO Please un comment below code before build.
-		/*try{
+		try{
 			imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/property_window_icon.png" ;  
 			Image shellImage = new Image(newShell.getDisplay(), imagePath);
 			newShell.setImage(shellImage);
 		}catch(Exception e){
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	

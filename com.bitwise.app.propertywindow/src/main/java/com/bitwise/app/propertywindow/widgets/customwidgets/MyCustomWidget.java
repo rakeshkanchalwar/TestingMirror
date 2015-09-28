@@ -41,7 +41,7 @@ public class MyCustomWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Addess :");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(200);
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello").grabExcessHorizontalSpace(true).textBoxWidth(100);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
