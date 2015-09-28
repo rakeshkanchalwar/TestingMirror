@@ -81,7 +81,7 @@ public class PropertyDialogBuilder {
 					eltWidgetList.add(eltWidget);
 					index--;
 					if(index != 0){
-						subGroupContainer.attchProertySeperator();
+						//subGroupContainer.attchProertySeperator();
 					}
 				}
 				

@@ -5,7 +5,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
+//import org.eclipse.wb.swt.*;
+
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
+import com.bitwise.app.propertywindow.widgets.utility.SWTResourceManager;
 
 /**
  * 
@@ -29,18 +32,16 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 	public void createContainerWidget(){
 		subGroup = new Group(inputContainer, SWT.NONE);
 		subGroup.setText(subgroupName);
+		subGroup.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		ColumnLayout subGroupLayout = new ColumnLayout();
 		subGroupLayout.maxNumColumns = 1;
 		subGroupLayout.bottomMargin = 0;
 		subGroupLayout.topMargin = 20;
 		subGroupLayout.rightMargin = 0;
 		subGroup.setLayout(subGroupLayout);
-		
-/*		subGroupComposite = new Composite(subGroup, SWT.NONE);
-		subGroupComposite.setLayout(new GridLayout(3, false));*/
-		
-		//super.outputContainer = subGroupComposite;
+
 		super.outputContainer = subGroup;
+		//SWTResourceManager.dispose();
 	}
 	
 	@Override

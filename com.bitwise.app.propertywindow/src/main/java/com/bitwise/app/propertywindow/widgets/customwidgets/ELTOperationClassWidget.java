@@ -14,6 +14,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTSaparater;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
@@ -34,23 +35,21 @@ public class ELTOperationClassWidget extends AbstractWidget {
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 
 		ListenerFactory listenerFactory = new ListenerFactory();
+		
+		/*ELTDefaultSubgroupComposite separatorELTSuDefaultSubgroupComposite1 = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		separatorELTSuDefaultSubgroupComposite1.createContainerWidget();
+		
+		ELTSaparater eltSaparater1 = new ELTSaparater().grabExcessHorizontalSpace(true).visibility(true);
+		separatorELTSuDefaultSubgroupComposite1.attachWidget(eltSaparater1);
+		
+		ELTSaparater eltSaparater2 = new ELTSaparater().grabExcessHorizontalSpace(true).visibility(true);
+		separatorELTSuDefaultSubgroupComposite1.attachWidget(eltSaparater2);
+		
+		ELTSaparater eltSaparater3 = new ELTSaparater().grabExcessHorizontalSpace(true).visibility(true);
+		separatorELTSuDefaultSubgroupComposite1.attachWidget(eltSaparater3);*/
+		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
-		//eltSuDefaultSubgroupComposite.numberOfBasicWidgets(3);
-
-		/*// Operational class label.
-		AbstractELTWidget oprationClassLable = new ELTDefaultLable("Operation\nClass");
-		eltSuDefaultSubgroupComposite.attachWidget(oprationClassLable);
-
-		// Browse file text box.
-		final ELTDefaultTextBox fileNameText = new ELTDefaultTextBox().textBoxWidth(200).grabExcessHorizontalSpace(true);
-		eltSuDefaultSubgroupComposite.attachWidget(fileNameText);
-		fileName=(Text) fileNameText.getSWTWidgetControl();
-
-		// Create browse button.
-		ELTDefaultButton browseButton = new ELTDefaultButton("...").buttonWidth(50);
-		eltSuDefaultSubgroupComposite.attachWidget(browseButton);*/
-		
 		
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\nClass");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
