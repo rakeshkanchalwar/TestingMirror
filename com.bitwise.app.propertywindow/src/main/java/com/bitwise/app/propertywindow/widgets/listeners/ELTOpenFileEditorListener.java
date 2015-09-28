@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Widget;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
+import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTOpenFileEditorListener implements IELTListener{
 
@@ -32,7 +33,7 @@ public class ELTOpenFileEditorListener implements IELTListener{
 				} 
 				boolean flag = FilterOperationClassUtility.openFileEditor(((Text)widgetList[0]).getText());
 				if (!flag) {
-					FilterOperationClassUtility.errorMessage("File Not Found"); 
+					WidgetUtility.errorMessage("File Not Found"); 
 				} else {
 					//shell.close(); 
 				}

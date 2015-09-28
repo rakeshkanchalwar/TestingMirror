@@ -79,12 +79,5 @@ public class FilterOperationClassUtility {
 
 	}
 
-	public static void errorMessage(String message) {
-		Shell shell = new Shell();
-		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-		messageBox.setText("Error");
-		messageBox.setMessage(message);
-		messageBox.open();
-	}
 
 }
