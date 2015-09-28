@@ -68,6 +68,7 @@ public class PropertyDialogBuilder {
 					subGroupContainer=addSubgroupToPropertyWindowTab(subgroupName,scrolledCompositeHolder);
 				}
 				
+				int index = subgroupTree.get(subgroupName).size();
 				for(Property property: subgroupTree.get(subgroupName)){
 					AbstractWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
 					eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
@@ -75,6 +76,10 @@ public class PropertyDialogBuilder {
 					eltWidget.attachToPropertySubGroup(subGroupContainer);
 					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));					
 					eltWidgetList.add(eltWidget);
+					index--;
+					if(index != 0){
+						subGroupContainer.attchProertySeperator();
+					}
 				}
 				
 			}

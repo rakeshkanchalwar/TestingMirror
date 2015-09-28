@@ -17,6 +17,7 @@ public class ELTDefaultButton extends AbstractELTWidget{
 	
 	private String buttonText="Button";
 	private int buttonWidth=80;
+	private boolean grabExcessSpace=false;
 	
 	private ELTDefaultButton(){}
 	
@@ -27,7 +28,7 @@ public class ELTDefaultButton extends AbstractELTWidget{
 	@Override
 	public void attachWidget(Composite container) {
 		defaultELTButton = new Button(container, SWT.CENTER);
-		GridData gd_defaultELTButton = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		GridData gd_defaultELTButton = new GridData(SWT.FILL, SWT.CENTER, grabExcessSpace, false, 1, 1);
 		gd_defaultELTButton.widthHint = buttonWidth;
 		defaultELTButton.setLayoutData(gd_defaultELTButton);
 		defaultELTButton.setText(buttonText);
@@ -37,6 +38,11 @@ public class ELTDefaultButton extends AbstractELTWidget{
 		
 	public ELTDefaultButton buttonWidth(int buttonWidth){
 		this.buttonWidth = buttonWidth;
+		return this;
+	}
+	
+	public ELTDefaultButton grabExcessHorizontalSpace(boolean grabExcessSpace){
+		this.grabExcessSpace = grabExcessSpace;
 		return this;
 	}
 	

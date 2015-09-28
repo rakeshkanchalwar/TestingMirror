@@ -41,7 +41,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set").lableWidth(75);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		
@@ -59,6 +59,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
+		
 		try {
 			
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());

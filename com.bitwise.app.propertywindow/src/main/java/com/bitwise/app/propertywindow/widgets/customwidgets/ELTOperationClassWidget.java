@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
+
 import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
@@ -35,31 +36,52 @@ public class ELTOperationClassWidget extends AbstractWidget {
 		ListenerFactory listenerFactory = new ListenerFactory();
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
-		eltSuDefaultSubgroupComposite.numberOfBasicWidgets(5);
+		//eltSuDefaultSubgroupComposite.numberOfBasicWidgets(3);
 
-		// Operational class label.
-		AbstractELTWidget oprationClassLable = new ELTDefaultLable("Oprational Class").lableWidth(95);
+		/*// Operational class label.
+		AbstractELTWidget oprationClassLable = new ELTDefaultLable("Operation\nClass");
 		eltSuDefaultSubgroupComposite.attachWidget(oprationClassLable);
 
 		// Browse file text box.
-		final ELTDefaultTextBox fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150).grabExcessHorizontalSpace(false);
+		final ELTDefaultTextBox fileNameText = new ELTDefaultTextBox().textBoxWidth(200).grabExcessHorizontalSpace(true);
 		eltSuDefaultSubgroupComposite.attachWidget(fileNameText);
 		fileName=(Text) fileNameText.getSWTWidgetControl();
 
 		// Create browse button.
-		AbstractELTWidget browseButton = new ELTDefaultButton("...");
+		ELTDefaultButton browseButton = new ELTDefaultButton("...").buttonWidth(50);
+		eltSuDefaultSubgroupComposite.attachWidget(browseButton);*/
+		
+		
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("File Path");
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
+		
+		AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
+		eltSuDefaultSubgroupComposite.attachWidget(fileNameText);
+		
+		fileName = (Text) fileNameText.getSWTWidgetControl();
+		
+		AbstractELTWidget browseButton = new ELTDefaultButton("...").buttonWidth(20);
 		eltSuDefaultSubgroupComposite.attachWidget(browseButton);
-
+		
+		
+		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite2 = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		eltSuDefaultSubgroupComposite2.createContainerWidget();
+		
+		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("IsParam");
+		eltSuDefaultSubgroupComposite2.attachWidget(isParameterCheckbox);
+		
+				
 		// Create new button, that use to create operational class
-		AbstractELTWidget createButton = new ELTDefaultButton("Create New");
-		eltSuDefaultSubgroupComposite.attachWidget(createButton);
+		AbstractELTWidget createButton = new ELTDefaultButton("Create New").grabExcessHorizontalSpace(true);
+		eltSuDefaultSubgroupComposite2.attachWidget(createButton);
 
 		// Edit new button, that use to edit operational class
-		AbstractELTWidget editButton = new ELTDefaultButton("Edit");
-		eltSuDefaultSubgroupComposite.attachWidget(editButton); 
-		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("Is_Parameter");
-		eltSuDefaultSubgroupComposite.attachWidget(isParameterCheckbox); 
+		AbstractELTWidget editButton = new ELTDefaultButton("Edit").grabExcessHorizontalSpace(true);
+		eltSuDefaultSubgroupComposite2.attachWidget(editButton); 
+		
 		btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
+	
+		//container.attchProertySeperator();
 		try { 
 			editButton.attachListener(listenerFactory.getListener("ELTOpenFileEditorListener"),propertyDialogButtonBar, null,fileName);
 			browseButton.attachListener(listenerFactory.getListener("ELTBrowseFileListener"),propertyDialogButtonBar, null,fileName);

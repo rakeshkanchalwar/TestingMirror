@@ -95,7 +95,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		shell = runtimeComposite.getContainerControl().getShell();
 
 		ELTDefaultButton eltDefaultButton = new ELTDefaultButton(
-				"Runtime Property");
+				"Runtime Property").grabExcessHorizontalSpace(true);
 		//eltDefaultButton.buttonWidth(120);
 		runtimeComposite.attachWidget(eltDefaultButton);
 

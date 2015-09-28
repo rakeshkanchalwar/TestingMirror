@@ -37,7 +37,7 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Has Header").lableWidth(80);
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Has Header");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS);

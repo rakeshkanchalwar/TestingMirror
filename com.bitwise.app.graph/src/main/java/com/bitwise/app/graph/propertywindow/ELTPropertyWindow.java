@@ -43,6 +43,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		Object rowProperties = XMLConfigUtil.INSTANCE.getComponent(componentName).getProperty();
 
 		Component component = (Component) componenetModel;
+		System.out.println("Shri"+component.getBasename() + ":" + component.getCategory());
 		// Property Window will blink if we try to click outside without closing.
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
 		try {
