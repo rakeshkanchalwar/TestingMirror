@@ -137,7 +137,7 @@
       <editor
             class="com.bitwise.app.graph.editor.ETLGraphicalEditor"
             default="false"
-            extensions="gph"
+            extensions="job"
             id="com.bitwise.app.graph.etlgraphicaleditor"
             name="My Graphical Editor">
       </editor>
