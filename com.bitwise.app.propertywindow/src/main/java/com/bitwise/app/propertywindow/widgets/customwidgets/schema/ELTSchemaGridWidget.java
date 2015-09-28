@@ -83,9 +83,12 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		//Create Table column 
 		WidgetUtility.createTableColumns(table, PROPS);
 
+		
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
 			table.getColumn(i).pack(); 
-		} 
+			
+		}
+		
 		CellEditor[] editors = SchemaUtility.createCellEditorList(table,4);
 
 		// Set the editors, cell modifier, and column properties
@@ -100,17 +103,19 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		editors[0].setValidator(new ELTCellEditorFieldValidator(table, schemaGrids, fieldNameDecorator));
 		editors[3].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator)); 
 
+		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite2 = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		eltSuDefaultSubgroupComposite2.createContainerWidget();
 		// Create browse button.
-		AbstractELTWidget addButton = new ELTDefaultButton("Add");
-		eltSuDefaultSubgroupComposite.attachWidget(addButton);
+		AbstractELTWidget addButton = new ELTDefaultButton("Add").buttonWidth(60);
+		eltSuDefaultSubgroupComposite2.attachWidget(addButton);
 
 				// Create new button, that use to create operational class
-		AbstractELTWidget deleteButton = new ELTDefaultButton("Delete");
-		eltSuDefaultSubgroupComposite.attachWidget(deleteButton);
+		AbstractELTWidget deleteButton = new ELTDefaultButton("Delete").buttonWidth(60);
+		eltSuDefaultSubgroupComposite2.attachWidget(deleteButton);
 
 				// Edit new button, that use to edit operational class
-		AbstractELTWidget deleteAllButton = new ELTDefaultButton("Delete All");
-		eltSuDefaultSubgroupComposite.attachWidget(deleteAllButton); 
+		AbstractELTWidget deleteAllButton = new ELTDefaultButton("Delete All").buttonWidth(60);
+		eltSuDefaultSubgroupComposite2.attachWidget(deleteAllButton); 
 
 		ListenerHelper helper = new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
 		try {
