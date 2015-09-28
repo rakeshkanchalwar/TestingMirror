@@ -5,10 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.widgets.filterproperty.ELTFilterPropertyWizard;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -18,7 +21,6 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 
 public class ELTFilterWidget extends AbstractWidget {
 
-	private Text textBox;
 	private Shell shell;
 	private LinkedHashSet<String> tempPropertyMap;
 	private String propertyName;
@@ -40,6 +42,21 @@ public class ELTFilterWidget extends AbstractWidget {
 
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Edit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
+		Button button=(Button)eltDefaultButton.getSWTWidgetControl();
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				ELTFilterPropertyWizard filterWizardObj=new ELTFilterPropertyWizard();
+				filterWizardObj.setComponentName(componentName);
+				if(getProperties().get(propertyName)==null){
+					setProperties(propertyName, new HashSet<String>());
+				}
+				//filterWizardObj.setRuntimePropertyMap((HashSet<String>) getProperties().get(propertyName));
+					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(shell));
+			
+			}
+		});
+		
 
 	}
 
