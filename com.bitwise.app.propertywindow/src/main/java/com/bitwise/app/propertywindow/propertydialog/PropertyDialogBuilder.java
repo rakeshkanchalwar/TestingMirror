@@ -7,8 +7,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -83,6 +86,15 @@ public class PropertyDialogBuilder {
 				}
 				
 			}
+			AbstractELTContainerWidget subGroupContainerx=addSubgroupToPropertyWindowTab("",scrolledCompositeHolder);
+			ColumnLayout subGroupLayout = new ColumnLayout();
+			subGroupLayout.maxNumColumns = 1;
+			subGroupLayout.bottomMargin = 0;
+			subGroupLayout.topMargin = 0;
+			subGroupLayout.rightMargin = 0;
+			((Group)subGroupContainerx.getContainerControl()).setLayout(subGroupLayout);
+			((Group)subGroupContainerx.getContainerControl()).setVisible(false);
+			
 		}
 	}
 
@@ -112,14 +124,13 @@ public class PropertyDialogBuilder {
 		tbtmPart.setControl(scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
-		
 		attachMouseScrollButtonListener(scrolledComposite);
-		
+				
 		Composite composite = new Composite(scrolledComposite, SWT.NONE);
 		ColumnLayout cl_composite = new ColumnLayout();
 		cl_composite.maxNumColumns = 1;
 		composite.setLayout(cl_composite);
-		cl_composite.bottomMargin = 40;
+		cl_composite.bottomMargin = -10;
 		
 		
 		ScrolledCompositeHolder scrolledCompositeHolder = new ScrolledCompositeHolder(scrolledComposite,composite);
