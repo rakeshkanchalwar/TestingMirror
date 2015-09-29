@@ -130,7 +130,8 @@ public class LinkCommand extends Command{
 			target.addInputPort(targetTerminal);
 			
 		}
-
+		
+		//Delete the link
 		if (source == null && target == null) {
 			connection.detachSource();
 			connection.detachTarget();
