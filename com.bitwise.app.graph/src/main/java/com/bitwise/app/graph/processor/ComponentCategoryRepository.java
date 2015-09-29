@@ -1,9 +1,9 @@
 package com.bitwise.app.graph.processor;
 
 import com.bitwise.app.common.component.config.CategoryType;
-import com.bitwise.app.graph.model.InputComponent;
-import com.bitwise.app.graph.model.OutputComponent;
-import com.bitwise.app.graph.model.StraightPull;
+import com.bitwise.app.graph.model.categories.InputCategory;
+import com.bitwise.app.graph.model.categories.OutputCategory;
+import com.bitwise.app.graph.model.categories.StraightPullCategory;
 
 public class ComponentCategoryRepository {
 	public static ComponentCategoryRepository INSTANCE = new ComponentCategoryRepository();
@@ -14,13 +14,13 @@ public class ComponentCategoryRepository {
 		switch(categoryType){
 			
 			case INPUT:
-					return InputComponent.class;
+					return InputCategory.class;
 					
 			case OUTPUT:
-					return OutputComponent.class;
+					return OutputCategory.class;
 			
 			case STRAIGHTPULL:
-				return StraightPull.class;			
+				return StraightPullCategory.class;			
 					
 			default :
 				//TODO : Add Logger
