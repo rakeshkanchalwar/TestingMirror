@@ -25,7 +25,7 @@ public abstract class AbstractWidget {
 
 	public abstract LinkedHashMap<String, Object> getProperties();
 
-	public abstract void setComponentName(String componentName);
+	//public abstract void setComponentName(String componentName);
 
 	public ArrayList<String> getNames() {
 		return names;

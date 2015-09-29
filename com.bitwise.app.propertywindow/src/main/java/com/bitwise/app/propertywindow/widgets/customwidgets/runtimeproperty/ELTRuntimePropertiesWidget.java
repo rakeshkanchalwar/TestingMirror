@@ -1,4 +1,4 @@
-package com.bitwise.app.propertywindow.widgets.runtimeproperty;
+package com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -131,12 +131,12 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		return (tempPropertyMap);
 	}
 
-	@Override
+	/*@Override
 	public void setComponentName(String componentName) {
 
 		this.componentName = componentName;
 
-	}
+	}*/
 
 	public void newWindowLauncher() {
 		RunTimePropertyWizard runTimeWizardObj = new RunTimePropertyWizard();

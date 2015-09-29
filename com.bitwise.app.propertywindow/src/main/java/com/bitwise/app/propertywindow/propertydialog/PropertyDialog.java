@@ -20,6 +20,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
+import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 
@@ -34,6 +35,7 @@ public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
 	private LinkedHashMap<String, Object> ComponentProperties;
+	private LinkedHashMap<String, Object> ComponentMiscellaneousProperties;
 	private PropertyDialogBuilder propertyDialogBuilder;
 	private ArrayList<String> names = new ArrayList<>();
 	private PropertyDialogButtonBar propertyDialogButtonBar;
@@ -45,11 +47,12 @@ public class PropertyDialog extends Dialog {
 	 * @param propertyTree 
 	 * @param ComponentProperties 
 	 */
-	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> ComponentProperties, ArrayList<String> names) {		
+	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree,ELTComponenetProperties eltComponenetProperties) {		
 		super(parentShell);
 		this.propertyTree = propertyTree;
-		this.ComponentProperties = ComponentProperties;
-		this.names=names;
+		this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
+		this.ComponentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
+		this.names=((ArrayList<String>) this.ComponentMiscellaneousProperties.get("componentNames"));
 		componentName = (String) ComponentProperties.get("name");
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 		super.setBlockOnOpen(true);		

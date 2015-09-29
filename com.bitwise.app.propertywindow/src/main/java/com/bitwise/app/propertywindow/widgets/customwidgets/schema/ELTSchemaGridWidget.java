@@ -148,10 +148,10 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		tableViewer.refresh();
 		} 
 	}
-	@Override
+	/*@Override
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub
 
-	}
+	}*/
 
 }

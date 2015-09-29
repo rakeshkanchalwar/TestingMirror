@@ -92,11 +92,11 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		return property;
 	}
 
-	@Override
+	/*@Override
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub
 
-	}
+	}*/
 
 	private boolean isUniqueCompName(String componentName) {
 		componentName = componentName.trim();

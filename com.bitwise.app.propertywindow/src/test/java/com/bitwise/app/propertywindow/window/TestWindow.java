@@ -82,9 +82,9 @@ public class TestWindow extends ApplicationWindow {
 				
 				
 				
-				PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell(),propertyTreeBuilder.getPropertyTree(),inputCompProps,names);
+				/*PropertyDialog testDialog = new PropertyDialog(e.display.getActiveShell(),propertyTreeBuilder.getPropertyTree(),inputCompProps,names);
 				
-				testDialog.open();
+				testDialog.open();*/
 				
 				System.out.println("In Test Window: " + inputCompProps);
 				

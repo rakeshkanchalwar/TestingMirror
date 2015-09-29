@@ -11,8 +11,8 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTOperationClassWid
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
-import com.bitwise.app.propertywindow.widgets.runtimeproperty.ELTRuntimePropertiesWidget;
 
 /**
  * 

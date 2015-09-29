@@ -74,9 +74,9 @@ public class ELTFilterWidget extends AbstractWidget {
 		return property;
 	}
 
-	@Override
+	/*@Override
 	public void setComponentName(String componentName) {
 			this.componentName=componentName;
 	}
-
+*/
 }
