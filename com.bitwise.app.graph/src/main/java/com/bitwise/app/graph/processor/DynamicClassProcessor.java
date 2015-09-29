@@ -9,7 +9,7 @@ import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.graph.model.custom.Filter;
 import com.bitwise.app.graph.model.custom.Gather;
 import com.bitwise.app.graph.model.custom.InputFileDelimited;
-import com.bitwise.app.graph.model.custom.Output;
+import com.bitwise.app.graph.model.custom.OutputFileDelimited;
 import com.bitwise.app.graph.model.custom.Replicate;
 
 public class DynamicClassProcessor extends ClassLoader implements Opcodes{
