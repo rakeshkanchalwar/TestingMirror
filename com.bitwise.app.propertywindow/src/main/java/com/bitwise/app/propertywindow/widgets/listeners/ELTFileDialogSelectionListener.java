@@ -23,7 +23,7 @@ public class ELTFileDialogSelectionListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,
+	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar,
 			ListenerHelper helpers, final Widget... widgets) {
 		final Button aaa = ((Button)widgets[0]);
 		aaa.getShell();
@@ -38,8 +38,10 @@ public class ELTFileDialogSelectionListener implements IELTListener{
 				if(path!=null){
 					File file= new File(path);
 					((Text)widgets[1]).setText(file.getAbsolutePath());
-				}
-				}
+					propertyDialogButtonBar.enableApplyButton(true);
+				} else
+					propertyDialogButtonBar.enableApplyButton(false);
+			}
 			}
 		};
 		return listener;

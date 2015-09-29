@@ -48,9 +48,9 @@ public class ELTFilePathWidget extends AbstractWidget{
 		
 		try {
 			//eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl());
-			//eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTFileDialogSelectionListener"), propertyDialogButtonBar, null, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -63,6 +63,7 @@ public class ELTFilePathWidget extends AbstractWidget{
 		this.propertyName = propertyName;
 		if(properties != null)
 			textBox.setText((String) properties);
+		
 		else
 			textBox.setText("");
 		
