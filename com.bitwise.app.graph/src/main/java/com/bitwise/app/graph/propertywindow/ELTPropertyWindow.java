@@ -64,12 +64,12 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	}
 	
 	private Property getComponentBaseTypeProperty(){
-		Property property = new Property("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("VIEW");
+		Property property = new Property("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
 		return property;
 	}
 	
 	private Property getComponentTypeProperty(){
-		Property property = new Property("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("VIEW");
+		Property property = new Property("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
 		return property;
 	}
 	

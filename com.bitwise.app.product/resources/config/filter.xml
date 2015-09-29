@@ -30,13 +30,13 @@
 		</tns:port>
 		<tns:property dataType="string" name="name"
 			renderer="ELTComponentNameWidget" type="USER" group="GENERAL"
-			subGroup="VIEW" />
+			subGroup="DISPLAY" />
 		<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget"
-			type="USER" group="GENERAL" subGroup="PROPERTIES" />
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" />
 		<tns:property dataType="string" name="oprationClass"
 			renderer="ELTOperationalClassWidget" type="USER" group="GENERAL"
-			subGroup="PROPERTIES" />
-			 <tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="PROPERTIES"/>
+			subGroup="CONFIGURATION" />
+			 <tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
    
 	</tns:component>
 </tns:Config>

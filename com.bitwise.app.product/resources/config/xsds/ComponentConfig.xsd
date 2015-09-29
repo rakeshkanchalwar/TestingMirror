@@ -101,8 +101,8 @@
 	
 	<simpleType name="sub_group">
 		<restriction base="string">
-			<enumeration value="VIEW" />
-			<enumeration value="PROPERTIES" />
+			<enumeration value="DISPLAY" />
+			<enumeration value="CONFIGURATION" />
 		</restriction>
 	</simpleType>
 	
