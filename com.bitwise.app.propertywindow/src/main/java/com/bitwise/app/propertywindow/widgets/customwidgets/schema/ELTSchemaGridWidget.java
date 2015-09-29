@@ -29,12 +29,13 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 public class ELTSchemaGridWidget extends AbstractWidget {
 
 	private Table table;
-	private List schemaGrids = new ArrayList();
+	private static List schemaGrids = new ArrayList();
 	public ControlDecoration fieldNameDecorator;
 	public ControlDecoration scaleDecorator;
 	private Object properties;
 	private String propertyName;
 	public TableViewer tableViewer;
+	private ListenerHelper helper; 
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 
 
@@ -45,6 +46,8 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 	public static final String SCALE = Messages.SCALE;
 	public static final String[] PROPS = { FIELDNAME, DATATYPE, DATEFORMAT,
 			SCALE };
+	// Operational class label.
+			final AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(95);
 	public static String[] dataTypeList;
 
 	// get the datatype list from property file.
@@ -68,9 +71,7 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 
-		// Operational class label.
-		final AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(95);
-	
+		
 		AbstractELTWidget eltTableViewer = new ELTTableViewer(new SchemaGridContentProvider(), new SchemaGridLabelProvider());
 		eltSuDefaultSubgroupComposite.attachWidget(eltTableViewer);
 		//eltTableViewer.getSWTWidgetControl().
@@ -82,10 +83,9 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		table = (Table)eltTable.getSWTWidgetControl();
 		//Create Table column 
 		WidgetUtility.createTableColumns(table, PROPS);
-
-		
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
 			table.getColumn(i).pack(); 
+			table.getColumn(i).setWidth(80);
 			
 		}
 		
@@ -94,14 +94,13 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		// Set the editors, cell modifier, and column properties
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new SchemaGridCellModifier(tableViewer));
-		tableViewer.setCellEditors(editors);
-		
+		tableViewer.setCellEditors(editors); 
 		//Adding the decorator to show error message when field name same.
 		fieldNameDecorator =	WidgetUtility.addDecorator(editors[0].getControl(),Messages.FIELDNAMEERROR)	;
 		scaleDecorator =	WidgetUtility.addDecorator(editors[3].getControl(),Messages.SCALEERROR)	;
 		
-		editors[0].setValidator(new ELTCellEditorFieldValidator(table, schemaGrids, fieldNameDecorator));
-		editors[3].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator)); 
+		editors[0].setValidator(new ELTCellEditorFieldValidator(table, schemaGrids, fieldNameDecorator,propertyDialogButtonBar));
+		editors[3].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator,propertyDialogButtonBar)); 
 
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite2 = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite2.createContainerWidget();
@@ -117,7 +116,7 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		AbstractELTWidget deleteAllButton = new ELTDefaultButton("Delete All").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(deleteAllButton); 
 
-		ListenerHelper helper = new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
+		helper= new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
 		try {
 			eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDoubleClickListener"),propertyDialogButtonBar, helper,table);
 			eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDownListener"),propertyDialogButtonBar, helper,editors[0].getControl());
@@ -145,9 +144,10 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		{
 		schemaGrids =(List<SchemaGrid>) this.properties;
 		tableViewer.setInput(schemaGrids);
+		helper=new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
 		tableViewer.refresh();
 		} 
-	}
+	} 
 	@Override
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub

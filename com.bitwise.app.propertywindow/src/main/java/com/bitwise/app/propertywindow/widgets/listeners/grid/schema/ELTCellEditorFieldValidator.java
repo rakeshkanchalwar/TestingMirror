@@ -1,12 +1,14 @@
 package com.bitwise.app.propertywindow.widgets.listeners.grid.schema;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaGrid;
 
 public class ELTCellEditorFieldValidator implements ICellEditorValidator {
@@ -14,13 +16,14 @@ public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 	private Table table;
 	private List schemaGrids;
 	private ControlDecoration fieldNameDecorator;
-	
+	private PropertyDialogButtonBar propertyDialogButtonBar;
 	public ELTCellEditorFieldValidator(Table table, List schemaGrids,
-			ControlDecoration fieldNameDecorator) {
+			ControlDecoration fieldNameDecorator,PropertyDialogButtonBar propertyDialogButtonBar) {
 		super();
 		this.table = table;
 		this.schemaGrids = schemaGrids;
 		this.fieldNameDecorator = fieldNameDecorator;
+		this.propertyDialogButtonBar=propertyDialogButtonBar;
 	}
 
 	@Override
@@ -30,9 +33,13 @@ public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 				if ((((SchemaGrid)schemaGrids.get(i)).getFieldName().equalsIgnoreCase(
 					(String) value) && !selectedGrid.equalsIgnoreCase((String) value) )|| ((String) value).isEmpty() ) {
 				fieldNameDecorator.show();
+				propertyDialogButtonBar.enableOKButton(false);
+				propertyDialogButtonBar.enableApplyButton(false);
 				return "Error";
 			} else{
 				fieldNameDecorator.hide();
+				propertyDialogButtonBar.enableOKButton(true);
+				propertyDialogButtonBar.enableApplyButton(true);
 			}
 		}
 		return null;

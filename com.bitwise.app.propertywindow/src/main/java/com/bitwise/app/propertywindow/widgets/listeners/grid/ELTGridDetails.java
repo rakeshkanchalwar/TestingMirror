@@ -16,8 +16,6 @@ public class ELTGridDetails {
 	private Label label;
 	private GridWidgetCommonBuilder gridWidgetCommonBuilder;
 	
-	
-	
 	public ELTGridDetails(List grids, TableViewer tableViewer,
 			Label label,GridWidgetCommonBuilder gridWidgetCommonBuilder) {
 		super();
@@ -26,6 +24,7 @@ public class ELTGridDetails {
 		this.label = label;
 		this.gridWidgetCommonBuilder=gridWidgetCommonBuilder;
 	}
+	
 	public List getGrids() {
 		return grids;
 	}

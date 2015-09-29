@@ -16,7 +16,7 @@ public class ELTGridMouseDownListener extends ELTMouseDownListener{
 	@Override
 	public void mouseDownAction(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets){
 		fieldNameDecorator =	WidgetUtility.addDecorator((Control)widgets[0],Messages.FIELDNAMEERROR)	;
-		fieldNameDecorator.show();
+		fieldNameDecorator.hide();
 	}
 
 }

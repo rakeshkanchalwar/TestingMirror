@@ -1,18 +1,18 @@
 package com.bitwise.app.propertywindow.widgets.listeners.grid;
 
-import java.util.List;
-
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.ICellEditorValidator;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
+
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public class ELTCellEditorIsNumericValidator implements ICellEditorValidator {
 
 		private ControlDecoration scaleDecorator;
-	public ELTCellEditorIsNumericValidator(ControlDecoration scaleDecorator) {
+		private PropertyDialogButtonBar propertyDialogButtonBar;
+	public ELTCellEditorIsNumericValidator(ControlDecoration scaleDecorator,PropertyDialogButtonBar propertyDialogButtonBar) {
 		super();
 			this.scaleDecorator = scaleDecorator;
+			this.propertyDialogButtonBar=propertyDialogButtonBar;
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class ELTCellEditorIsNumericValidator implements ICellEditorValidator {
 		if(!selectedGrid.matches("\\d+")){     
 			scaleDecorator.show();   
 		return "Error";   
-	}else{       
+	}else{  
 		scaleDecorator.hide(); 
 		    
 	}
