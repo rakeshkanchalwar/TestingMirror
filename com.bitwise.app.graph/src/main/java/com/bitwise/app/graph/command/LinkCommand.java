@@ -90,9 +90,9 @@ public class LinkCommand extends Command{
 				if(portName.equals(targetTerminal)){
 					if(p.isAllowMultipleLinks() ||
 							!target.hasInputPort(targetTerminal)){
-						System.out.println(target.getClass()+" target does not have "+targetTerminal);
+						
 					}else{
-						System.out.println(target.getClass()+" target has "+targetTerminal);
+						
 						return false;
 					}
 				}
