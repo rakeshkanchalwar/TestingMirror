@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Export-Package: com.thoughtworks.xstream
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,com.bitwise.ap
+ p.model;bundle-version="0.0.1",org.apache.xerces;bundle-version="2.9.
+ 0",org.jdom;bundle-version="1.1.1",com.bitwise.app.common;bundle-vers
+ ion="0.0.1",com.bitwise.app.eltproperties;bundle-version="0.0.1"
+Bundle-Vendor: BITWISE
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 0.0.1.201509240602
+Bundle-Name: com.bitwise.app.xstream
+Bundle-Activator: com.bitwise.app.xstream.Activator
+Bundle-ManifestVersion: 2
+Import-Package: com.bitwise.app.common.util,net.sf.cglib.proxy,org.apa
+ che.xerces.impl;version="2.9.0",org.jdom;version="1.1.1"
+Bundle-SymbolicName: com.bitwise.app.xstream
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+  <tns:component iconPath="/icons/input.png" name="Filter" shape="FilterFigure">
+	<tns:category>STRAIGHTPULL</tns:category>
+	<tns:inputPort>
+		<tns:numberOfPorts>1</tns:numberOfPorts>
+		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+	</tns:inputPort>
+	<tns:outputPort>
+		<tns:numberOfPorts>2</tns:numberOfPorts>
+		<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+	</tns:outputPort>
+		<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
+    	<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE"/>
+  	 	 <tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="FILTER"/>
+  	 	<tns:property dataType="string" name="oprationClass" renderer="ELTOprationalClassWidget" type="USER" group="GENERAL" subGroup="FILE_PATH"/>
+	</tns:component>
+</tns:Config>

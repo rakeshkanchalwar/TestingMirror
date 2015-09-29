@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+  <tns:component iconPath="/icons/input.png" name="Gather" shape="GatherFigure">
+	<tns:category>STRAIGHTPULL</tns:category>
+	<tns:inputPort>
+		<tns:numberOfPorts>1</tns:numberOfPorts>
+		<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
+	</tns:inputPort>
+	<tns:outputPort>
+		<tns:numberOfPorts>1</tns:numberOfPorts>
+	</tns:outputPort>
+	<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="NAME"/>
+	<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="PHASE" />
+  </tns:component>
+</tns:Config>
