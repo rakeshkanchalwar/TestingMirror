@@ -34,8 +34,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import com.bitwise.app.propertywindow.messages.Messages;
-
-
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 /**
  * 
@@ -50,8 +49,7 @@ public class RunTimePropertyWizard {
 	private List<RuntimeProperties> propertyLst;
 	public static final String RUNTIMEPROPNAME = "Property Name"; //$NON-NLS-1$
 	public static final String RUNTIMEPROPVALUE = "Property Value"; //$NON-NLS-1$
-	private TreeMap
-	<String, String> runtimePropertyMap;
+	private TreeMap<String, String> runtimePropertyMap;
 	private String componentName;
 	private Label lblHeader;
 	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
@@ -65,6 +63,8 @@ public class RunTimePropertyWizard {
 			cacelButton;
 	private boolean isAnyUpdatePerformed;
 
+	private PropertyDialogButtonBar propertyDialogButtonBar;
+
 	// private boolean firstTimeEdit;
 
 	public RunTimePropertyWizard() {
@@ -74,9 +74,6 @@ public class RunTimePropertyWizard {
 
 	}
 
-	
-	
-	
 	// Add New Property After Validating old properties
 	private void addNewProperty(TableViewer tv) {
 
@@ -148,14 +145,14 @@ public class RunTimePropertyWizard {
 			public void mouseDoubleClick(MouseEvent e) {
 				addNewProperty(tableViewer);
 			}
-		
+
 			@Override
-		public void mouseDown(MouseEvent e) {
+			public void mouseDown(MouseEvent e) {
 				enableButtons();
 				lblPropertyError.setVisible(false);
-			
-		}
-	});
+
+			}
+		});
 		table.setBounds(10, 50, 465, 365);
 		tableViewer.setContentProvider(new PropertyContentProvider());
 		tableViewer.setLabelProvider(new PropertyLabelProvider());
@@ -173,22 +170,21 @@ public class RunTimePropertyWizard {
 		tc2.setWidth(230);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		
-	
-		
-			
+
 	}
 
-	
 	/**
+	 * @param propertyDialogButtonBar
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public TreeMap<String, String> launchRuntimeWindow(Shell parentShell) {
+	public TreeMap<String, String> launchRuntimeWindow(Shell parentShell,
+			final PropertyDialogButtonBar propertyDialogButtonBar) {
 
 		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
 		isAnyUpdatePerformed = false;
+		this.propertyDialogButtonBar=propertyDialogButtonBar;
 		shell.setSize(506, 540);
 		shell.setLayout(null);
 		shell.setText("Runtime Property");
@@ -203,15 +199,18 @@ public class RunTimePropertyWizard {
 		// Below Event will be fired when user closes the Runtime window
 		shell.addListener(SWT.Close, new Listener() {
 			public void handleEvent(Event event) {
+				if (isOkPressed && isAnyUpdatePerformed) {
+					propertyDialogButtonBar.enableApplyButton(true);
+				}
+				if ((isAnyUpdatePerformed && !isOkPressed) &&(table.getItemCount()!=0 || isAnyUpdatePerformed)) {
 
-				if (table.getItemCount() != 0 && !isOkPressed
-						&& isAnyUpdatePerformed) {
 					int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
 					MessageBox messageBox = new MessageBox(shell, style);
 					messageBox.setText("Information"); //$NON-NLS-1$
 					messageBox.setMessage(Messages.MessageBeforeClosingWindow);
 					event.doit = messageBox.open() == SWT.YES;
 				}
+
 			}
 		});
 
@@ -309,7 +308,7 @@ public class RunTimePropertyWizard {
 						table.removeAll();
 						propertyLst.removeAll(propertyLst);
 						lblPropertyError.setVisible(false);
-						disableButtons();
+						isAnyUpdatePerformed=true;
 					}
 				}
 			}
@@ -336,6 +335,7 @@ public class RunTimePropertyWizard {
 								.setMessage(Messages.PropertyAppliedNotification);
 						messageBox.open();
 						isAnyUpdatePerformed = false;
+						propertyDialogButtonBar.enableApplyButton(true);
 					}
 				}
 			}
@@ -355,7 +355,6 @@ public class RunTimePropertyWizard {
 								temp.getPropertyValue());
 					}
 
-					
 					shell.close();
 				} else
 					return;
@@ -367,7 +366,7 @@ public class RunTimePropertyWizard {
 		cacelButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+
 				shell.close();
 			}
 		});
@@ -378,12 +377,12 @@ public class RunTimePropertyWizard {
 	}
 
 	protected boolean validate() {
-		
+
 		int propertyCounter = 0;
 		for (RuntimeProperties temp : propertyLst) {
 			if (!temp.getPropertyName().trim().isEmpty()
 					&& !temp.getPropertyValue().trim().isEmpty()) {
-				
+
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
@@ -395,8 +394,6 @@ public class RunTimePropertyWizard {
 		}
 		return true;
 	}
-
-
 
 	// Creates CellNAme Validator for table's cells
 	private ICellEditorValidator createNameEditorValidator(
