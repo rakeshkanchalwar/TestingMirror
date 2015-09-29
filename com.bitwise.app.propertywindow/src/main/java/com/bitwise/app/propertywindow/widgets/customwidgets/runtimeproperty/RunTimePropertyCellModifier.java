@@ -1,4 +1,4 @@
-package com.bitwise.app.propertywindow.widgets.runtimeproperty;
+package com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty;
 
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.Viewer;

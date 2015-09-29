@@ -51,4 +51,9 @@ public class ELTDefaultTextBox extends AbstractELTWidget{
 		defaultELTTextBox.setVisible(visible);
 		return this;
 	}
+	
+	public ELTDefaultTextBox setEnabled(boolean enabled){ 
+		defaultELTTextBox.setEnabled(enabled);
+		return this;
+	}
 }

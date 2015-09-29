@@ -117,10 +117,10 @@ public class ELTOperationClassWidget extends AbstractWidget {
 		return property;
 	}
 
-	@Override
+	/*@Override
 	public void setComponentName(String componentName) {
 		// TODO Auto-generated method stub
 
-	}
+	}*/
 
 }

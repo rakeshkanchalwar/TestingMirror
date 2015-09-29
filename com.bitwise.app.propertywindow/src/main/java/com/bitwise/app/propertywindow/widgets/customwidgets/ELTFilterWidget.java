@@ -51,7 +51,7 @@ public class ELTFilterWidget extends AbstractWidget {
 				if(getProperties().get(propertyName)==null){
 					setProperties(propertyName, new HashSet<String>());
 				}
-				//filterWizardObj.setRuntimePropertyMap((HashSet<String>) getProperties().get(propertyName));
+					filterWizardObj.setRuntimePropertyMap((HashSet<String>) getProperties().get(propertyName));
 					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(shell));
 			
 			}
@@ -74,9 +74,9 @@ public class ELTFilterWidget extends AbstractWidget {
 		return property;
 	}
 
-	@Override
+	/*@Override
 	public void setComponentName(String componentName) {
 			this.componentName=componentName;
 	}
-
+*/
 }
