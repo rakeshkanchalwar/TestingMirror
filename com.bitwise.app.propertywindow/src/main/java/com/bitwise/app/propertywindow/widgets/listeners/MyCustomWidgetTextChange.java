@@ -40,18 +40,18 @@ public class MyCustomWidgetTextChange implements IELTListener{
 				// TODO Auto-generated method stub
 				if(event.type == SWT.CHANGED){
 					System.out.println(((Text)wigetList[0]).getText());
-					if(((Text)wigetList[0]).getText().equals("")){
-						//customWidget.getApplyButton().setEnabled(false);
+				//	if(!((Text)wigetList[0]).getText().equals("")){
+						/*//customWidget.getApplyButton().setEnabled(false);
 						System.out.println("Disabling apply");
 						propertyDialogButtonBar.enableApplyButton(false);
 						((Text)wigetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 204));
-					}else{
+					}else{*/
 						//customWidget.getApplyButton().setEnabled(true);
 						propertyDialogButtonBar.enableApplyButton(true);
 						((Text)wigetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
 						//WordUtils wordUtils = (WordUtils)helpers.getObject();
 						//System.out.println(wordUtils.capitalize("hytyu ytuty tyu ytuty", null));
-					}
+					
 				}
 				
 			}

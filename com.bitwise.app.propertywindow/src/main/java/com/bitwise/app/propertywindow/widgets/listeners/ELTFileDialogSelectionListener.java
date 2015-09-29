@@ -39,8 +39,7 @@ public class ELTFileDialogSelectionListener implements IELTListener{
 					File file= new File(path);
 					((Text)widgets[1]).setText(file.getAbsolutePath());
 					propertyDialogButtonBar.enableApplyButton(true);
-				} else
-					propertyDialogButtonBar.enableApplyButton(false);
+				} 
 			}
 			}
 		};
