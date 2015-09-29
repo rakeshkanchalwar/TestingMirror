@@ -35,9 +35,9 @@ public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
 	private LinkedHashMap<String, Object> ComponentProperties;
-	private LinkedHashMap<String, Object> ComponentMiscellaneousProperties;
+	private LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private PropertyDialogBuilder propertyDialogBuilder;
-	private ArrayList<String> names = new ArrayList<>();
+	//private ArrayList<String> names = new ArrayList<>();
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	String componentName;
 	private Button applyButton;
@@ -51,8 +51,8 @@ public class PropertyDialog extends Dialog {
 		super(parentShell);
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
-		this.ComponentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
-		this.names=((ArrayList<String>) this.ComponentMiscellaneousProperties.get("componentNames"));
+		this.componentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
+		//this.names=((ArrayList<String>) this.componentMiscellaneousProperties.get("componentNames"));
 		componentName = (String) ComponentProperties.get("name");
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 		super.setBlockOnOpen(true);		
@@ -78,7 +78,7 @@ public class PropertyDialog extends Dialog {
 		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
 		
 		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
-		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,names,propertyDialogButtonBar);
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,componentMiscellaneousProperties,propertyDialogButtonBar);
 		propertyDialogBuilder.buildPropertyWindow();
 		
 		return container;
@@ -174,13 +174,6 @@ public class PropertyDialog extends Dialog {
 		
 	}
 	
-	public ArrayList<String> getNames() {
-		return names;
-	}
-
-	public void setNames(ArrayList<String> names) {
-		this.names = names;
-	}
 
 	@Override
 	protected void configureShell(Shell newShell) {

@@ -1,5 +1,6 @@
 package com.bitwise.app.propertywindow.widgets.customwidgets;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import org.eclipse.swt.widgets.Text;
@@ -25,11 +26,11 @@ public class ELTComponentNameWidget extends AbstractWidget {
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
-		if (super.names != null) {
+		/*if (super.names != null) {
 			for (String name : super.names) {
 				System.out.println(name);
 			}
-		}
+		}*/
 		ListenerFactory listenerFactory = new ListenerFactory();
 
 		System.out.println("IN ELTComponentNameWidget.attachToPropertySubGroup()");
@@ -51,7 +52,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 		try {
 			listener = (ELTVerifyComponentNameListener)listenerFactory.getListener("ELTVerifyComponentNameListener");
-			listener.setNames(super.names);
+			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames"));
 			eltDefaultTextBox.attachListener(listener,
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 		/*	eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
@@ -81,8 +82,10 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		LinkedHashMap<String, Object> property = new LinkedHashMap<>();
 		if (newName != null && newName != "" && isUniqueCompName(newName)) {
 			property.put(propertyName, newName);
-			super.names.remove(oldName);
-			super.names.add(newName);
+			//super.names.remove(oldName);
+			((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames")).remove(oldName);			
+			//super.names.add(newName);
+			((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames")).add(newName);
 			oldName = newName;
 		} else {
 			// old name already should be there in the names arraylist
@@ -102,7 +105,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		componentName = componentName.trim();
 		boolean result = true;
 
-		for (String cname : super.names) {
+		for (String cname : ((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames"))) {
 			if (cname.equalsIgnoreCase(componentName)) {
 				result = false;
 				break;

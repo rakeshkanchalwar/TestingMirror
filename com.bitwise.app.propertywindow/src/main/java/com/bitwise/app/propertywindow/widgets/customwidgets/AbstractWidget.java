@@ -17,7 +17,12 @@ public abstract class AbstractWidget {
 
 	protected PropertyDialogButtonBar propertyDialogButtonBar;
 
-	protected ArrayList<String> names = new ArrayList<>();
+	protected LinkedHashMap<String, Object> componentMiscellaneousProperties;
+
+	public void setComponentMiscellaneousProperties(
+			LinkedHashMap<String, Object> componentMiscellaneousProperties) {
+		this.componentMiscellaneousProperties = componentMiscellaneousProperties;
+	}
 
 	public abstract void attachToPropertySubGroup(AbstractELTContainerWidget subGroup);
 
@@ -25,15 +30,13 @@ public abstract class AbstractWidget {
 
 	public abstract LinkedHashMap<String, Object> getProperties();
 
-	//public abstract void setComponentName(String componentName);
-
-	public ArrayList<String> getNames() {
+	/*public ArrayList<String> getNames() {
 		return names;
 	}
 
 	public void setNames(ArrayList<String> names) {
 		this.names = names;
-	}
+	}*/
 
 	public void setpropertyDialogButtonBar(PropertyDialogButtonBar propertyDialogButtonBar){
 		this.propertyDialogButtonBar = propertyDialogButtonBar;

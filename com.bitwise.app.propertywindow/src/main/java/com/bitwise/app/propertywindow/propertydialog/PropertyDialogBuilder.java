@@ -38,19 +38,21 @@ public class PropertyDialogBuilder {
 	private Composite container;
 	private LinkedHashMap<String, Object> componentProperties;
 	private ArrayList<AbstractWidget> eltWidgetList;
-	private ArrayList<String> names;
+	//private ArrayList<String> names;
+	 LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	
 	private PropertyDialogBuilder(){
 		
 	}
 	
-	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, ArrayList<String> names,PropertyDialogButtonBar propertyDialogButtonBar){
+	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, LinkedHashMap<String, Object> componentMiscellaneousProperties,PropertyDialogButtonBar propertyDialogButtonBar){
 		this.container = container;
 		this.propertyTree = propertyTree;
 		this.componentProperties = componentProperties;
 		eltWidgetList= new ArrayList<>();
-		this.names = names;
+		//this.names = names;
+		this.componentMiscellaneousProperties = componentMiscellaneousProperties;
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
 	}
 	
@@ -75,7 +77,8 @@ public class PropertyDialogBuilder {
 				for(Property property: subgroupTree.get(subgroupName)){
 					AbstractWidget eltWidget=widgetFactory.getWidget(property.getPropertyRenderer());
 					eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
-					eltWidget.setNames(this.names);
+					//eltWidget.setNames(this.names);
+					eltWidget.setComponentMiscellaneousProperties(componentMiscellaneousProperties);
 					eltWidget.attachToPropertySubGroup(subGroupContainer);
 					eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));					
 					eltWidgetList.add(eltWidget);
