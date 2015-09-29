@@ -1,6 +1,5 @@
 package com.bitwise.app.propertywindow.widgets.listeners.grid;
 
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -15,9 +14,14 @@ public class ELTGridDeleteAllSelectionListener extends ELTSelectionTaskListener{
 			PropertyDialogButtonBar propertyDialogButtonBar,
 			ListenerHelper helpers, Widget... widgets) {
 
-		ELTGridDetails eltGridDetails = (ELTGridDetails)helpers.getObject();
-		eltGridDetails.getGrids().removeAll(eltGridDetails.getGrids());
-		eltGridDetails.getTableViewer().refresh();
+		boolean userAns = WidgetUtility.eltConfirmMessage("Do you really want to delete all properties?");
+		if (userAns) {
+			ELTGridDetails eltGridDetails = (ELTGridDetails)helpers.getObject();
+			eltGridDetails.getGrids().removeAll(eltGridDetails.getGrids());
+			eltGridDetails.getTableViewer().refresh();
+		}
+		
+	
 	}
 
 	
