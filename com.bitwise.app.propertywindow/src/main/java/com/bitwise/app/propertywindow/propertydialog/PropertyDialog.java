@@ -116,10 +116,12 @@ public class PropertyDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
 				for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-					LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-					System.out.println(tempPropert.keySet().toString());
-					for(String propName : tempPropert.keySet()){
-						ComponentProperties.put(propName, tempPropert.get(propName));
+					if(eltWidget.getProperties() != null){
+						LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+						System.out.println(tempPropert.keySet().toString());
+						for(String propName : tempPropert.keySet()){
+							ComponentProperties.put(propName, tempPropert.get(propName));
+						}
 					}
 				}
 				applyButton.setEnabled(false);
