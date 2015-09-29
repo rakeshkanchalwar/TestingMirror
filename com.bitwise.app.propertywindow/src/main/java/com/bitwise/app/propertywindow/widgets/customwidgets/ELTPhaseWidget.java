@@ -25,16 +25,6 @@ public class ELTPhaseWidget extends AbstractWidget {
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		ListenerFactory listenerFactory = new ListenerFactory();
-
-		/*ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
-				container.getContainerControl());
-		eltSuDefaultSubgroupComposite.createContainerWidget();*/
-
-		/*AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
-
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);*/
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
