@@ -6,11 +6,11 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import com.bitwise.app.common.component.config.Component;
-import com.bitwise.app.graph.model.custom.Filter;
-import com.bitwise.app.graph.model.custom.Gather;
-import com.bitwise.app.graph.model.custom.InputFileDelimited;
-import com.bitwise.app.graph.model.custom.OutputFileDelimited;
-import com.bitwise.app.graph.model.custom.Replicate;
+import com.bitwise.app.graph.model.components.Filter;
+import com.bitwise.app.graph.model.components.Gather;
+import com.bitwise.app.graph.model.components.InputFileDelimited;
+import com.bitwise.app.graph.model.components.OutputFileDelimited;
+import com.bitwise.app.graph.model.components.Replicate;
 
 public class DynamicClassProcessor extends ClassLoader implements Opcodes{
 	public static DynamicClassProcessor INSTANCE = new DynamicClassProcessor(); 
@@ -68,7 +68,7 @@ public class DynamicClassProcessor extends ClassLoader implements Opcodes{
 			
 			Class<?> clazz;
 			try {
-				clazz = this.getClass().getClassLoader().loadClass("com.bitwise.app.graph.model.custom." + componentConfig.getName());
+				clazz = this.getClass().getClassLoader().loadClass("com.bitwise.app.graph.model.components." + componentConfig.getName());
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException();
 				//TODO : add logger
