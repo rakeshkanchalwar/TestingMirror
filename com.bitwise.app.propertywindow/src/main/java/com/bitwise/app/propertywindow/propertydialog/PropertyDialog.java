@@ -147,11 +147,14 @@ public class PropertyDialog extends Dialog {
 		// TODO Auto-generated method stub
 		System.out.println("Prop saved");
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-			LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-			System.out.println(tempPropert.keySet().toString());
-			for(String propName : tempPropert.keySet()){
-				ComponentProperties.put(propName, tempPropert.get(propName));
+			if(eltWidget.getProperties() != null){
+				LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+				System.out.println(tempPropert.keySet().toString());
+				for(String propName : tempPropert.keySet()){
+					ComponentProperties.put(propName, tempPropert.get(propName));
+				}	
 			}
+			
 		}
 		
 		//System.out.println(ComponentProperties);

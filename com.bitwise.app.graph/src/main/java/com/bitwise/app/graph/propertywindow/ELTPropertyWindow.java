@@ -63,6 +63,16 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		return ComponentMiscellaneousProperties;
 	}
 	
+	private Property getComponentBaseTypeProperty(){
+		Property property = new Property("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("VIEW");
+		return property;
+	}
+	
+	private Property getComponentTypeProperty(){
+		Property property = new Property("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("VIEW");
+		return property;
+	}
+	
 	//@Override
 	public void open() {
 		Object rowProperties = getComponentPropertiesFromComponentXML();		
@@ -70,6 +80,8 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 			Shell shell = getParentShellForPropertyWindow();
 				
 			ArrayList<Property> componentProperties = transformComponentPropertiesToPropertyWindowUnderstantableFormat(rowProperties);
+			componentProperties.add(getComponentBaseTypeProperty());
+			componentProperties.add(getComponentTypeProperty());
 			
 			IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
 

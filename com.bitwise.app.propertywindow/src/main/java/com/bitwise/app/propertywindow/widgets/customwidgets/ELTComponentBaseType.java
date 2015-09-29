@@ -2,6 +2,8 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.swt.widgets.Text;
+
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -12,14 +14,13 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 public class ELTComponentBaseType extends AbstractWidget{
 
 	private ELTDefaultTextBox eltDefaultTextBox;
-	private String componentBaseType;
+	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
-
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(subGroup.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Delimeter ");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Base Type");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
@@ -29,7 +30,8 @@ public class ELTComponentBaseType extends AbstractWidget{
 
 	@Override
 	public void setProperties(String propertyName, Object properties) {
-		componentBaseType = (String) properties;
+		String componentBaseType = (String) componentMiscellaneousProperties.get("componentBaseType");
+		((Text)eltDefaultTextBox.getSWTWidgetControl()).setText(componentBaseType);
 	}
 
 	@Override
