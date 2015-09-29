@@ -2,9 +2,9 @@ package com.bitwise.app.graph.model.components;
 
 import com.bitwise.app.graph.model.categories.OutputCategory;
 
-public class OutputFileDelimited extends OutputCategory{
+public class OFDelimited extends OutputCategory{
 
-	public OutputFileDelimited() {
+	public OFDelimited() {
 	super();
 	}
 	

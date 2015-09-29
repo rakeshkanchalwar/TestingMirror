@@ -77,7 +77,7 @@ public class ComponentFigure extends Figure {
 		
 		int height=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
 		
-		Rectangle newR = new Rectangle(r.x, r.y, r.width, (height+1)*30);
+		Rectangle newR = new Rectangle(r.x, r.y, r.width, (height+1)*25);
 		
 		setBounds(newR);
 	}
