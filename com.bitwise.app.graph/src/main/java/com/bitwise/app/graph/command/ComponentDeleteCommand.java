@@ -40,6 +40,7 @@ public class ComponentDeleteCommand extends Command {
 	@Override
 	public void undo() {
 		parent.addChild(child);
+		restoreConnections();
 	}
 	
 	private void deleteConnections(Component component) {
@@ -66,6 +67,25 @@ public class ComponentDeleteCommand extends Command {
 			if(link.getTarget()!=null)
 				link.getTarget().removeInputPort(link.getTargetTerminal());
 		}
+	}
+	
+	private void restoreConnections() {
+		for (int i = 0; i < sourceConnections.size(); i++) {
+			Link link = (Link) sourceConnections.get(i);
+			link.attachSource();
+			link.getSource().addOutputPort(link.getSourceTerminal());
+			link.attachTarget();
+			link.getTarget().addInputPort(link.getTargetTerminal());
+		}
+		sourceConnections.clear();
+		for (int i = 0; i < targetConnections.size(); i++) {
+			Link link = (Link) targetConnections.get(i);
+			link.attachSource();
+			link.getSource().addOutputPort(link.getSourceTerminal());
+			link.attachTarget();
+			link.getTarget().addInputPort(link.getTargetTerminal());
+		}
+		targetConnections.clear();
 	}
 
 }

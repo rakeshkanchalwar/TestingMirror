@@ -148,6 +148,6 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		tableViewer.refresh();
 		} 
 	} 
-	
+
 
 }
