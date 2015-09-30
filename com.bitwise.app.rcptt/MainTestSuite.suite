@@ -5,18 +5,21 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/30/15 9:39 AM
+Save-Time: 9/30/15 2:08 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
 Entry-Name: testcase-items
 
-_rtczoFeZEeW08Mo9tQCunw	// kind: 'test' name: 'Tt_ComponentLabelTestCase' path: 'com.bitwise.app.componentlabel/Tt_ComponentLabelTestCase.test'
-_Noi4kGOtEeWOxYxxMSgO0A	// kind: 'test' name: 'TestGraph' path: 'com.bitwise.app.eltgraph/TestGraph.test'
 _bzO_kGZ0EeWlY8j3virDhA	// kind: 'test' name: 'TestFilterPropertyWithPort' path: 'com.bitwise.app.filterproperty/TestFilterPropertyWithPort.test'
 _p1MS8E1QEeWztZD8rslrjw	// kind: 'test' name: 'MultipleTabsTestCase' path: 'com.bitwise.app.menubar/MultipleTabsTestCase.test'
 _p17SwE1QEeWztZD8rslrjw	// kind: 'test' name: 'TestViewsInWindowMenuTestCase' path: 'com.bitwise.app.menubar/TestViewsInWindowMenuTestCase.test'
 _p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'Z_FileMenuTestCase' path: 'com.bitwise.app.menubar/Z_FileMenuTestCase.test'
 _40a6cE2UEeW_rJv6exweGg	// kind: 'test' name: 'ToolBarCases' path: 'com.bitwise.app.toolbar/ToolBarCases.test'
+_TCNH0EvmEeW6GZlCjF17TQ	// kind: 'test' name: '1_WorkbenchPerspectiveLayoutTest' path: 'com.bitwise.app.perspective/1_WorkbenchPerspectiveLayoutTest.test'
+_UtHuYE2PEeWVXcFohWFibQ	// kind: 'test' name: '2_ProjectExplorer' path: 'com.bitwise.app.perspective/2_ProjectExplorer.test'
+_DI38wEyYEeWx06sNG_5SNw	// kind: 'test' name: 'PerspectiveToolbarMenubarTest' path: 'com.bitwise.app.perspective/PerspectiveToolbarMenubarTest.test'
+_TBJ-8EvmEeW6GZlCjF17TQ	// kind: 'test' name: '3_KeyBindingTest' path: 'com.bitwise.app.perspective/3_KeyBindingTest.test'
+_TBwb4EvmEeW6GZlCjF17TQ	// kind: 'test' name: 'Panels/Views Hide restore close launch' path: 'com.bitwise.app.perspective/Panels_Views Hide restore close launch.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--

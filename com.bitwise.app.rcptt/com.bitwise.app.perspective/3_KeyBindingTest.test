@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _TBJ-8EvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/21/15 4:30 PM
+Save-Time: 9/30/15 12:48 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -46,7 +46,18 @@ get-view "Project Explorer" | get-tree | key-type "M1+M3+p"
 
 //Test for launching and closing job by using key binding
 get-control Any -index 1 | key-type "M1+M3+j"
-get-editor "Graph_1" | close
+get-editor  | close
+
+//get-menu "File/Exit" | click
+
+//get-window "Save Resource" | get-button No | click
+
+get-button "New Job (M1+M3+J)" | click
+get-editor  | close
+get-view Palette | click
+get-button "New Job (M1+M3+J)" | click
+get-editor  | close
+get-view Palette | click
 
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
