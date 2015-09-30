@@ -14,6 +14,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTFieldSequenceWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
 
 /**
@@ -48,9 +49,9 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_OPERATIONAL_CLASS_WIDGET")){
 			return new ELTOperationClassWidget();
 		}else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
-			return new ELTSchemaGridWidget(); 
+			return new ELTFieldSequenceWidget(); 
 		}else if(widgetName.equals("ELT_COMPONENT_BASETYPE_WIDGET")){
-			return new ELTComponentBaseType(); 
+			return new ELTComponentBaseType();  
 		}else if(widgetName.equals("ELT_COMPONENT_TYPE_WIDGET")){
 			return new ELTComponentType(); 
 		}
