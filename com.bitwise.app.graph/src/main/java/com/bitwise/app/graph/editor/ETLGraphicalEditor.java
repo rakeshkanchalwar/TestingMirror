@@ -111,19 +111,15 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			CreateRequest componentRequest = getComponentRequest(mouseEvent);
 			placeComponentOnCanvasByDoubleClickOnPalette(componentRequest);
 
-			eltLogger.getLogger()
-					.info("Component is positioned at respective x and y location"
-							+ defaultComponentLocation.getCopy().x
-							+ 20
-							+ " and "
-							+ defaultComponentLocation.getCopy().y
+			eltLogger.getLogger().info(
+					"Component is positioned at respective x and y location"
+							+ defaultComponentLocation.getCopy().x + 20
+							+ " and " + defaultComponentLocation.getCopy().y
 							+ 20);
-			eltLogger.getLogger()
-					.info("Component is positioned at respective x and y location"
-							+ defaultComponentLocation.getCopy().x
-							+ 20
-							+ " and "
-							+ defaultComponentLocation.getCopy().y
+			eltLogger.getLogger().info(
+					"Component is positioned at respective x and y location"
+							+ defaultComponentLocation.getCopy().x + 20
+							+ " and " + defaultComponentLocation.getCopy().y
 							+ 20);
 
 		}
@@ -430,23 +426,24 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		File file = null;
 		FileInputStream fs = null;
 		eltLogger.getLogger().info(METHOD_NAME);
-		if (getEditorInput() instanceof ETLGraphicalEditorInput) {
-			eltLogger.getLogger().info(METHOD_NAME
-					+ "Loading data for ETLGraphicalEditorInput");
+		if (input instanceof ETLGraphicalEditorInput) {
+			eltLogger.getLogger().info(
+					METHOD_NAME + "Loading data for ETLGraphicalEditorInput");
 			setPartName(getEditorInput().getName());
 			container = new Container();
 		}
 		try {
 			if (input instanceof IFileEditorInput) {
-				eltLogger.getLogger().info(METHOD_NAME
-						+ "Loadeding data from FileStoreEditorInput");
+				eltLogger.getLogger().info(
+						METHOD_NAME
+								+ "Loadeding data from FileStoreEditorInput");
 				Ifile = ((IFileEditorInput) input).getFile();
 				container = (Container) fromXMLToObject(Ifile.getContents());
 				setPartName(Ifile.getName());
 			}
 			if (input instanceof FileStoreEditorInput) {
-				eltLogger.getLogger().info(METHOD_NAME
-						+ "Loading data from FileStoreEditorInput");
+				eltLogger.getLogger().info(
+						METHOD_NAME + "Loading data from FileStoreEditorInput");
 				file = new File(((FileStoreEditorInput) input).getToolTipText());
 				fs = new FileInputStream(file);
 				container = (Container) fromXMLToObject(fs);
@@ -476,8 +473,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		if (getEditorInput() instanceof FileEditorInput) {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
-				eltLogger.getLogger().info(METHOD_NAME
-						+ " Saving data from FileEditorInput");
+				eltLogger.getLogger().info(
+						METHOD_NAME + " Saving data from FileEditorInput");
 				createOutputStream(out);
 				ifile = ((IFileEditorInput) getEditorInput()).getFile();
 
@@ -528,16 +525,17 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		IPath filePath;
 		ByteArrayOutputStream out;
 		eltLogger.getLogger().info(METHOD_NAME);
-	   
-		SaveAsDialog obj=new SaveAsDialog(new Shell());		
+
+		SaveAsDialog obj = new SaveAsDialog(new Shell());
 		if (getEditorInput().getName().endsWith(".job"))
 			obj.setOriginalName(getEditorInput().getName());
 		else
-			obj.setOriginalName(getEditorInput().getName()+".job");
+			obj.setOriginalName(getEditorInput().getName() + ".job");
 		obj.open();
-		
+
 		if (obj.getReturnCode() == 0) {
-			filePath = obj.getResult().removeFileExtension().addFileExtension("job");
+			filePath = obj.getResult().removeFileExtension()
+					.addFileExtension("job");
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
 			out = new ByteArrayOutputStream();
 			try {
@@ -552,16 +550,19 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 							true, null);
 
 				setInput(new FileEditorInput(file));
+				initializeGraphicalViewer();
 				getCommandStack().markSaveLocation();
 			} catch (CoreException ce) {
 				ce.printStackTrace();
-				eltLogger.getLogger().info(METHOD_NAME + " CoreException Ocurred "
-						+ ce.getMessage());
+				eltLogger.getLogger().info(
+						METHOD_NAME + " CoreException Ocurred "
+								+ ce.getMessage());
 				eltLogger.getLogger().error(ce.getMessage());
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
-				eltLogger.getLogger().info(METHOD_NAME + " IOException Ocurred "
-						+ ioe.getMessage());
+				eltLogger.getLogger().info(
+						METHOD_NAME + " IOException Ocurred "
+								+ ioe.getMessage());
 				eltLogger.getLogger().error(ioe.getMessage());
 			}
 		}
@@ -580,14 +581,18 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		try {
 
 			obj = xs.fromXML(xml);
-			eltLogger.getLogger().info(METHOD_NAME
-					+ "Sucessfully converted JAVA Object from XML Data");
+			eltLogger
+					.getLogger()
+					.info(METHOD_NAME
+							+ "Sucessfully converted JAVA Object from XML Data");
 			xml.close();
 		} catch (Exception e) {
-			eltLogger.getLogger().info(METHOD_NAME + "Exception Occured " + e.getMessage());
+			eltLogger.getLogger().info(
+					METHOD_NAME + "Exception Occured " + e.getMessage());
 			eltLogger.getLogger().error(e.getMessage());
-			MessageDialog.openError(new Shell(), "Error","Invalid graph file.");
-						
+			MessageDialog
+					.openError(new Shell(), "Error", "Invalid graph file.");
+
 		}
 		return obj;
 	}
@@ -598,11 +603,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		eltLogger.getLogger().info(METHOD_NAME);
 		XStream xs = new XStream();
 		try {
-			str = str+xs.toXML(object);
-			eltLogger.getLogger().info(METHOD_NAME
-					+ "Sucessfully converted XML from JAVA Object");
+			str = str + xs.toXML(object);
+			eltLogger.getLogger().info(
+					METHOD_NAME + "Sucessfully converted XML from JAVA Object");
 		} catch (Exception e) {
-			eltLogger.getLogger().info(METHOD_NAME + "Exception Occured " + e.getMessage());
+			eltLogger.getLogger().info(
+					METHOD_NAME + "Exception Occured " + e.getMessage());
 			eltLogger.getLogger().error(e.getMessage());
 		}
 		return str;
