@@ -16,6 +16,11 @@
             <id>indigo</id>
             <url>${mars-repo.url}</url>
             <layout>p2</layout>
+         </repository>
+ 			<repository>
+ 			<id>third-party-eclipse-plugins</id>
+ 			  <layout>p2</layout>
+            <url>http://download.eclipse.org/e4/updates/0.11/</url>
         </repository>
 
     </repositories>
