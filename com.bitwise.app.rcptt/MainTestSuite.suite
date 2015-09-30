@@ -5,7 +5,7 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/30/15 2:08 PM
+Save-Time: 9/30/15 5:02 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -21,5 +21,6 @@ _UtHuYE2PEeWVXcFohWFibQ	// kind: 'test' name: '2_ProjectExplorer' path: 'com.bit
 _DI38wEyYEeWx06sNG_5SNw	// kind: 'test' name: 'PerspectiveToolbarMenubarTest' path: 'com.bitwise.app.perspective/PerspectiveToolbarMenubarTest.test'
 _TBJ-8EvmEeW6GZlCjF17TQ	// kind: 'test' name: '3_KeyBindingTest' path: 'com.bitwise.app.perspective/3_KeyBindingTest.test'
 _TBwb4EvmEeW6GZlCjF17TQ	// kind: 'test' name: 'Panels/Views Hide restore close launch' path: 'com.bitwise.app.perspective/Panels_Views Hide restore close launch.test'
+_rtczoFeZEeW08Mo9tQCunw	// kind: 'test' name: 'Tt_ComponentLabelTestCase' path: 'com.bitwise.app.componentlabel/Tt_ComponentLabelTestCase.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--
