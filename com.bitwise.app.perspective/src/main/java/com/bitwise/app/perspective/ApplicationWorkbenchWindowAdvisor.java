@@ -1,5 +1,7 @@
 package com.bitwise.app.perspective;
 
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -22,7 +24,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         ELTPerspectiveConfig eltPerspectiveConfig = new ELTPerspectiveConfig(configurer);
         
         eltPerspectiveConfig.setDefaultELTPrespectiveConfigurations();
+        PlatformUI.getWorkbench().getThemeManager().setCurrentTheme("de.spiritlink.custom.ui.theme");
+      
     }
+    @Override
+    public void createWindowContents(Shell shell) {
+    	
+    	super.createWindowContents(shell);
+  
+    }
+    
     
     
 }
