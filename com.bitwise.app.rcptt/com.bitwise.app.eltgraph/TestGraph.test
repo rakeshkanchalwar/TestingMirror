@@ -1,0 +1,488 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Element-Name: TestGraph
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _Noi4kGOtEeWOxYxxMSgO0A
+Runtime-Version: 2.0.0.201506120617
+Save-Time: 9/29/15 7:51 PM
+Testcase-Type: ecl
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+get-button "New Job (M1+M3+J)" | click
+with [get-view Palette | get-palette] {
+    with [get-palette-entry Input] {
+        mouse-move 120 13 button1 -height 22 -width 244
+        mouse-press 120 13 button1 -height 22 -width 244
+        mouse-release 120 13 button1 524288 -height 22 -width 244
+    }
+    with [get-palette-entry InputFileDelimited] {
+        mouse-move 45 32 button1 -height 61 -width 227
+        mouse-press 45 32 button1 -height 61 -width 227
+        get-figure "0/0" | drag-start 29 29
+    }
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 11 78 -detail move
+    drag-over 77 58 -detail copy
+    drag-exit
+    drag-accept 77 58 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 77 58 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+with [get-editor "Job_1" | get-diagram] {
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+        mouse-move 53 28 button1 -height 60 -width 177
+        mouse-press 53 28 button1 -height 60 -width 177
+        mouse-move 53 26 -mask 524288 -height 60 -width 177
+    }
+    mouse-drag 93 53 button1 524288 -height 304 -width 741
+    mouse-release 93 53 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette | get-palette-entry InputFileDelimited] {
+    mouse-move 58 16 button1 -height 61 -width 227
+    mouse-press 58 16 button1 -height 61 -width 227
+    get-figure "0/0" | drag-start 42 13
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 2 128 -detail move
+    drag-over 67 133 -detail copy
+    drag-exit
+    drag-accept 67 133 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 67 133 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+with [get-editor "Job_1" | get-diagram] {
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 1] {
+        get-handle ResizeHandle -index 1 | mouse-hover 4 4 -height 7 -width 7
+        mouse-move 55 34 button1 -height 60 -width 177
+        mouse-press 55 34 button1 -height 60 -width 177
+        mouse-move 53 34 -mask 524288 -height 60 -width 177
+    }
+    mouse-drag 80 167 button1 524288 -height 304 -width 741
+    mouse-release 80 167 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette] {
+    with [get-palette-entry Input] {
+        mouse-move 97 7 button1 -height 87 -width 227
+        mouse-press 97 7 button1 -height 87 -width 227
+        mouse-release 97 7 button1 524288 -height 87 -width 227
+        mouse-hover 97 7 -height 22 -width 244
+    }
+    with [get-palette-entry Output] {
+        mouse-move 93 12 button1 -height 22 -width 244
+        mouse-press 93 12 button1 -height 22 -width 244
+        mouse-release 93 12 button1 524288 -height 22 -width 244
+    }
+    with [get-palette-entry OutputFileDelimited] {
+        mouse-move 58 18 button1 -height 46 -width 227
+        mouse-press 58 18 button1 -height 46 -width 227
+        get-figure "0/0" | drag-start 42 15
+    }
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 1 92 -detail move
+    drag-over 431 65 -detail copy
+    drag-exit
+    drag-accept 431 65 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 431 65 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 2 | get-handle ResizeHandle -index 1 | mouse-hover 4 4 -height 7 -width 7
+with [get-view Palette | get-palette | get-palette-entry OutputFileDelimited] {
+    mouse-move 63 21 button1 -height 46 -width 227
+    mouse-press 63 21 button1 -height 46 -width 227
+    get-figure "0/0" | drag-start 47 18
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 64 103 -detail move
+    drag-over 324 112 -detail copy
+    drag-exit
+    drag-accept 324 112 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 324 112 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 3 | get-handle ResizeHandle -index 1 | mouse-hover 4 4 -height 7 -width 7
+with [get-view Palette | get-palette | get-palette-entry Output] {
+    mouse-move 54 8 button1 -height 72 -width 227
+    mouse-press 54 8 button1 -height 72 -width 227
+    mouse-release 54 8 button1 524288 -height 72 -width 227
+    mouse-hover 54 8 -height 22 -width 244
+}
+with [get-editor "Job_1" | get-diagram] {
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 2] {
+        mouse-hover 80 29 -height 60 -width 184
+        mouse-move 81 21 button1 -height 60 -width 184
+        mouse-press 81 21 button1 -height 60 -width 184
+        mouse-move 82 21 -mask 524288 -height 60 -width 184
+    }
+    mouse-drag 626 37 button1 524288 -height 304 -width 741
+    mouse-release 626 37 button1 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 3] {
+        mouse-move 116 27 button1 -height 60 -width 184
+        mouse-press 116 27 button1 -height 60 -width 184
+        mouse-move 117 27 -mask 524288 -height 60 -width 184
+    }
+    mouse-drag 648 134 button1 524288 -height 304 -width 741
+    mouse-release 648 134 button1 524288 -height 304 -width 741
+    get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 3 
+        | mouse-hover 116 27 -height 60 -width 184
+}
+with [get-view Palette | get-palette] {
+    with [get-palette-entry Transform] {
+        mouse-hover 102 14 -height 22 -width 244
+        mouse-move 102 14 button1 -height 22 -width 244
+        mouse-press 102 14 button1 -height 22 -width 244
+        mouse-release 102 14 button1 524288 -height 22 -width 244
+    }
+    with [get-palette-entry Filter] {
+        mouse-move 50 19 button1 -height 45 -width 227
+        mouse-press 50 19 button1 -height 45 -width 227
+        get-figure "0/0" | drag-start 34 16
+    }
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 8 115 -detail move
+    drag-over 390 114 -detail copy
+    drag-exit
+    drag-accept 390 114 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 390 114 -detail copy
+with [get-view Palette | get-palette] {
+    drag-end -detail move
+    with [get-palette-entry Transform] {
+        mouse-move 60 9 button1 -height 71 -width 227
+        mouse-press 60 9 button1 -height 71 -width 227
+        mouse-release 60 9 button1 524288 -height 71 -width 227
+        mouse-hover 60 9 -height 22 -width 244
+    }
+    with [get-palette-entry Straightpull] {
+        mouse-move 75 7 button1 -height 22 -width 244
+        mouse-press 75 7 button1 -height 22 -width 244
+        mouse-release 75 7 button1 524288 -height 22 -width 244
+    }
+    with [get-palette-entry Gather] {
+        mouse-move 49 18 -height 40 -width 227
+        mouse-hover 49 18 -height 40 -width 227
+        mouse-move 49 18 button1 -height 40 -width 227
+        mouse-press 49 18 button1 -height 40 -width 227
+        get-figure "0/0" | drag-start 33 15
+    }
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 31 101 -detail move
+    drag-over 261 105 -detail copy
+    drag-exit
+    drag-accept 261 105 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 261 105 -detail copy
+with [get-view Palette | get-palette] {
+    drag-end -detail move
+    get-palette-entry Gather | mouse-move 114 39 -height 40 -width 227
+    with [get-palette-entry Replicate] {
+        mouse-move 73 4 button1 -height 43 -width 227
+        mouse-press 73 4 button1 -height 43 -width 227
+        get-figure "0/0" | drag-start 57 1
+    }
+}
+with [get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart] {
+    drag-enter 12 114 -detail move
+    drag-over 316 62 -detail copy
+    drag-exit
+    drag-accept 316 62 -detail copy
+}
+get-view Palette | get-palette | drag-set-data
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | drop 316 62 -detail copy
+get-view Palette | get-palette | drag-end -detail move
+get-editor "Job_1" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 6 | get-handle ResizeHandle -index 1 | mouse-hover 4 4 -height 7 -width 7
+with [get-view Palette | get-palette | get-palette-entry Straightpull] {
+    mouse-move 116 12 button1 -height 75 -width 227
+    mouse-press 116 12 button1 -height 75 -width 227
+    mouse-release 116 12 button1 524288 -height 75 -width 227
+}
+with [get-editor "Job_1" | get-diagram] {
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 6] {
+        mouse-move 41 28 button1 -height 60 -width 114
+        mouse-press 41 28 button1 -height 60 -width 114
+        mouse-move 41 27 -mask 524288 -height 60 -width 114
+    }
+    mouse-drag 389 56 button1 524288 -height 304 -width 741
+    mouse-release 389 56 button1 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 5] {
+        mouse-move 46 26 button1 -height 60 -width 93
+        mouse-press 46 26 button1 -height 60 -width 93
+        mouse-move 45 26 -mask 524288 -height 60 -width 93
+    }
+    mouse-drag 285 120 button1 524288 -height 304 -width 741
+    mouse-release 285 120 button1 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 4] {
+        mouse-move 28 39 button1 -height 90 -width 93
+        mouse-press 28 39 button1 -height 90 -width 93
+        mouse-move 28 40 -mask 524288 -height 90 -width 93
+    }
+    mouse-drag 378 184 button1 524288 -height 304 -width 741
+    mouse-release 378 184 button1 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 6] {
+        mouse-move 39 24 button1 -height 60 -width 114
+        mouse-press 39 24 button1 -height 60 -width 114
+        mouse-move 40 24 -mask 524288 -height 60 -width 114
+    }
+    mouse-drag 438 55 button1 524288 -height 304 -width 741
+    mouse-release 438 55 button1 524288 -height 304 -width 741
+}
+with [get-view Palette | get-palette | get-palette-entry "Solid connection"] {
+    mouse-move 4 9 button1 -height 27 -width 27
+    mouse-press 4 9 button1 -height 27 -width 27
+    mouse-release 4 9 button1 524288 -height 27 -width 27
+    mouse-move 26 13 -height 27 -width 27
+}
+with [get-editor "Job_1" | get-diagram] {
+    with [get-edit-part -className ContainerEditPart] {
+        with [get-edit-part -className ComponentEditPart] {
+            mouse-move 175 27 button1 -height 60 -width 177
+            mouse-press 175 27 button1 -height 60 -width 177
+            mouse-move 175 28 -mask 524288 -height 60 -width 177
+        }
+        with [get-edit-part -className ComponentEditPart -index 5] {
+            mouse-drag 6 30 button1 524288 -height 60 -width 93
+            mouse-release 6 30 button1 524288 -height 60 -width 93
+            mouse-move 4 31 button1 -height 60 -width 93
+            mouse-press 4 31 button1 -height 60 -width 93
+            mouse-release 4 31 button1 524288 -height 60 -width 93
+        }
+        with [get-edit-part -className ComponentEditPart -index 1] {
+            mouse-move 175 30 button1 -height 60 -width 177
+            mouse-press 175 30 button1 -height 60 -width 177
+            mouse-move 175 29 -mask 524288 -height 60 -width 177
+        }
+        with [get-edit-part -className ComponentEditPart -index 5] {
+            mouse-drag 3 29 button1 524288 -height 60 -width 93
+            mouse-release 3 29 button1 524288 -height 60 -width 93
+            mouse-press 3 29 button1 -height 60 -width 93
+            mouse-release 3 29 button1 524288 -height 60 -width 93
+            mouse-hover 90 29 -height 60 -width 93
+            mouse-move 90 29 button1 -height 60 -width 93
+            mouse-press 90 29 button1 -height 60 -width 93
+            mouse-move 90 30 -mask 524288 -height 60 -width 93
+        }
+        with [get-edit-part -className ComponentEditPart -index 4] {
+            mouse-drag 0 53 button1 524288 -height 90 -width 93
+            mouse-release 0 53 button1 524288 -height 90 -width 93
+            mouse-move 4 41 button1 -height 90 -width 93
+            mouse-press 4 41 button1 -height 90 -width 93
+            mouse-release 4 41 button1 524288 -height 90 -width 93
+            mouse-move 90 28 button1 -height 90 -width 93
+            mouse-press 90 28 button1 -height 90 -width 93
+            mouse-move 90 26 -mask 524288 -height 90 -width 93
+        }
+    }
+    mouse-drag 386 62 button1 524288 -height 304 -width 741
+    mouse-release 386 62 button1 524288 -height 304 -width 741
+    mouse-move 390 61 button1 -height 304 -width 741
+    mouse-press 390 61 button1 -height 304 -width 741
+    mouse-release 390 61 button1 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart] {
+        with [get-edit-part -className ComponentEditPart -index 4] {
+            mouse-move 89 28 button1 -height 90 -width 93
+            mouse-press 89 28 button1 -height 90 -width 93
+            mouse-move 89 27 -mask 524288 -height 90 -width 93
+        }
+        with [get-edit-part -className ComponentEditPart -index 6] {
+            mouse-drag 1 33 button1 524288 -height 60 -width 114
+            mouse-release 1 33 button1 524288 -height 60 -width 114
+            mouse-move 1 29 button1 -height 60 -width 114
+            mouse-press 1 29 button1 -height 60 -width 114
+            get-target-connection 0 | mouse-release 12 2 button1 524288 -height 118 -width 65
+            with [get-handle MoveHandle] {
+                mouse-move 114 34 button1 -height 62 -width 116
+                mouse-press 114 34 button1 -height 62 -width 116
+                mouse-move 115 33 -mask 524288 -height 62 -width 116
+            }
+        }
+        mouse-drag 548 45 button1 524288 -height 304 -width 741
+        mouse-release 548 45 button1 524288 -height 304 -width 741
+        with [get-edit-part -className ComponentEditPart -index 2] {
+            mouse-press 3 29 button1 -height 60 -width 184
+            mouse-release 3 29 button1 524288 -height 60 -width 184
+        }
+        with [get-edit-part -className ComponentEditPart -index 4] {
+            mouse-move 90 59 button1 -height 90 -width 93
+            mouse-press 90 59 button1 -height 90 -width 93
+            mouse-move 91 59 -mask 524288 -height 90 -width 93
+        }
+    }
+    mouse-drag 447 210 -mask 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart] {
+        with [get-edit-part -className ComponentEditPart -index 3] {
+            mouse-drag 1 29 button1 524288 -height 60 -width 184
+            mouse-release 1 29 button1 524288 -height 60 -width 184
+            mouse-press 1 29 button1 -height 60 -width 184
+            get-target-connection 0 | mouse-release 90 2 button1 524288 -height 72 -width 90
+        }
+        with [get-edit-part -className ComponentEditPart -index 4] {
+            mouse-move 89 31 button1 -height 90 -width 93
+            mouse-press 89 31 button1 -height 90 -width 93
+            mouse-move 90 31 -mask 524288 -height 90 -width 93
+        }
+    }
+    mouse-drag 446 182 -mask 524288 -height 304 -width 741
+    with [get-edit-part -className ContainerEditPart] {
+        with [get-edit-part -className ComponentEditPart -index 2 | get-target-connection 0] {
+            mouse-drag 31 4 button1 524288 -height 19 -width 33
+            mouse-release 31 4 button1 524288 -height 19 -width 33
+            mouse-press 31 4 button1 -height 19 -width 33
+            mouse-release 31 4 button1 524288 -height 19 -width 33
+        }
+        with [get-edit-part -className ComponentEditPart -index 4] {
+            mouse-move 88 34 button1 -height 90 -width 93
+            mouse-press 88 34 button1 -height 90 -width 93
+            mouse-move 89 34 -mask 524288 -height 90 -width 93
+        }
+        with [get-edit-part -className ComponentEditPart -index 3 | get-target-connection 0] {
+            mouse-drag 90 3 button1 524288 -height 72 -width 90
+            mouse-release 90 3 button1 524288 -height 72 -width 90
+            mouse-press 90 3 button1 -height 72 -width 90
+            mouse-release 90 3 button1 524288 -height 72 -width 90
+            mouse-move "-1" 71 button1 -height 72 -width 90
+            mouse-press "-1" 71 button1 -height 72 -width 90
+            mouse-move "-1" 70 -mask 524288 -height 72 -width 90
+        }
+        with [get-edit-part -className ComponentEditPart -index 2 | get-target-connection 0] {
+            mouse-drag 33 1 button1 524288 -height 19 -width 33
+            mouse-release 33 1 button1 524288 -height 19 -width 33
+            mouse-press 33 1 button1 -height 19 -width 33
+            mouse-release 33 1 button1 524288 -height 19 -width 33
+        }
+        get-edit-part -className ComponentEditPart -index 4 | mouse-hover 65 5 -height 90 -width 93
+    }
+}
+with [get-view Palette | get-palette] {
+    get-palette-entry Output | mouse-hover 205 5 -height 22 -width 244
+    get-palette-entry Marquee | mouse-move 1 14 -height 19 -width 19
+    with [get-palette-entry Select] {
+        mouse-move 6 9 button1 -height 19 -width 19
+        mouse-press 6 9 button1 -height 19 -width 19
+        mouse-release 6 9 button1 524288 -height 19 -width 19
+    }
+}
+with [get-editor "Job_1"] {
+    with [get-diagram] {
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+            mouse-move 70 32 button1 -height 60 -width 177
+            mouse-press 70 32 button1 -height 60 -width 177
+            mouse-release 70 32 button1 524288 -height 60 -width 177
+            mouse-press 70 32 button3 -height 60 -width 177
+            mouse-release 70 32 button3 2097152 -height 60 -width 177
+        }
+        get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 1] {
+            mouse-hover 95 29 -height 60 -width 177
+            mouse-move 95 29 button1 -height 60 -width 177
+            mouse-press 95 29 button1 -height 60 -width 177
+            mouse-release 95 29 button1 524288 -height 60 -width 177
+            mouse-press 95 29 button3 -height 60 -width 177
+            mouse-release 95 29 button3 2097152 -height 60 -width 177
+        }
+        get-menu Delete | click
+        mouse-hover 191 226 -height 304 -width 741
+        mouse-move 150 169 button3 -height 304 -width 741
+        mouse-press 150 169 button3 -height 304 -width 741
+        mouse-release 150 169 button3 2097152 -height 304 -width 741
+        get-menu "Undo Delete" | click
+    }
+    with [get-diagram] {
+        mouse-hover 212 183 -height 304 -width 741
+        mouse-move 183 211 button3 -height 304 -width 741
+        mouse-press 183 211 button3 -height 304 -width 741
+        mouse-release 183 211 button3 2097152 -height 304 -width 741
+        get-menu "Undo Delete" | click
+    }
+    }
+with [get-editor "Job_1"] {
+    with [get-diagram] {
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+            mouse-move 75 27 button3 -height 60 -width 177
+            mouse-press 75 27 button3 -height 60 -width 177
+            mouse-release 75 27 button3 2097152 -height 60 -width 177
+        }
+        get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+            mouse-move 81 24 button3 -height 60 -width 184
+            mouse-press 81 24 button3 -height 60 -width 184
+            mouse-release 81 24 button3 2097152 -height 60 -width 184
+        }
+        get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 3] {
+            mouse-move 43 38 button3 -height 60 -width 184
+            mouse-press 43 38 button3 -height 60 -width 184
+            mouse-release 43 38 button3 2097152 -height 60 -width 184
+        }
+        get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 1] {
+            mouse-hover 34 27 -height 60 -width 93
+            mouse-move 34 27 button3 -height 60 -width 93
+            mouse-press 34 27 button3 -height 60 -width 93
+            mouse-release 34 27 button3 2097152 -height 60 -width 93
+        }
+        get-menu Delete | click
+       // get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 2] {
+            mouse-move 107 32 button3 -height 60 -width 177
+            mouse-press 107 32 button3 -height 60 -width 177
+            mouse-release 107 32 button3 2097152 -height 60 -width 177
+        }
+        get-menu Delete | click
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 1] {
+            mouse-move 46 26 button3 -height 60 -width 114
+            mouse-press 46 26 button3 -height 60 -width 114
+            mouse-release 46 26 button3 2097152 -height 60 -width 114
+        }
+        get-menu Delete | click
+        mouse-hover 495 118 -height 304 -width 741
+        with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart] {
+            mouse-move 27 31 button3 -height 90 -width 93
+            mouse-press 27 31 button3 -height 90 -width 93
+            mouse-release 27 31 button3 2097152 -height 90 -width 93
+        }
+        get-menu Delete | click
+        mouse-move 263 94 button3 -height 304 -width 741
+        mouse-press 263 94 button3 -height 304 -width 741
+        mouse-release 263 94 button3 2097152 -height 304 -width 741
+        get-menu "Undo Delete" | click
+    }
+    with [get-diagram] {
+        mouse-move 241 50 button3 -height 304 -width 741
+        mouse-press 241 50 button3 -height 304 -width 741
+        mouse-release 241 50 button3 2097152 -height 304 -width 741
+        get-menu "Undo Delete" | click
+    }
+    with [get-diagram] {
+        mouse-hover 269 63 -height 304 -width 741
+        mouse-move 251 63 button3 -height 304 -width 741
+        mouse-press 251 63 button3 -height 304 -width 741
+        mouse-release 251 63 button3 2097152 -height 304 -width 741
+        get-menu "Redo Delete" | click
+        mouse-move 223 59 button3 -height 304 -width 741
+        mouse-press 223 59 button3 -height 304 -width 741
+        mouse-release 223 59 button3 2097152 -height 304 -width 741
+        get-menu "Redo Delete" | click
+    }
+    close
+}
+get-window "Save Resource" | get-button No | click
+get-view Palette | click
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
