@@ -129,6 +129,7 @@
 			<enumeration value="FilterFigure"/>
 			<enumeration value="GatherFigure"/>
 			<enumeration value="ReplicateFigure"/>
+			<enumeration value="OutputFixedWidthFigure"/>
 		</restriction>
 	</simpleType>
 </schema>
