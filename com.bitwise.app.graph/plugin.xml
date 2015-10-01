@@ -111,10 +111,6 @@
             <separator
                   name="com.bitwise.app.graph.separator1">
             </separator>
-            <command
-                  commandId="org.eclipse.debug.ui.commands.OpenRunConfigurations"
-                  style="push">
-            </command>
          </toolbar>
       </menuContribution>
       <menuContribution
