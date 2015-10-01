@@ -2,6 +2,11 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
@@ -19,6 +24,7 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	private Object properties;
 	private String propertyName;
 	private Object txtDecorator;
+	private ControlDecoration decorator;
 
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
@@ -35,18 +41,33 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
-		/*AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);*/
+		decorator=WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
+		
+		textBox.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(textBox.getText().isEmpty()){
+					decorator.show();
+					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 204));
+				}
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				decorator.hide();
+				textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));	
+			}
+		});
+		
 		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.CHARACTERSET);
-		//txtDecoratorForEmpty=WidgetUtility.addDecorator(text, Messages.EMPTYFIELDMESSAGE);
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
-			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
