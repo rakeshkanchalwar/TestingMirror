@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import javax.xml.validation.Schema;
+
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
@@ -44,7 +46,6 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 	private CellEditor[] editors;
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 
-
 	// Table column names/properties
 	public static final String FIELDNAME = Messages.FIELDNAME;
 	public static final String DATEFORMAT = Messages.DATEFORMAT;
@@ -54,20 +55,9 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 			SCALE };
 	// Operational class label.
 	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(250);
+
 	
-	public static String[] dataTypeList;
-
-	// get the datatype list from property file.
-	public static String[] getDataType() {
-		if (dataTypeList != null)
-			return dataTypeList;
-		else {
-			String schemaList = Messages.DATATYPELIST;
-			dataTypeList = schemaList.split(",");
-			return dataTypeList;
-		}
-	}
-
+	
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -115,11 +105,9 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		addButton = new ELTDefaultButton("Add").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(addButton);
 
-				// Create new button, that use to create operational class
 		deleteButton= new ELTDefaultButton("Delete").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(deleteButton); 
 
-				// Edit new button, that use to edit operational class
 		deleteAllButton= new ELTDefaultButton("Delete All").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(deleteAllButton); 
 
@@ -163,15 +151,13 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 				schemaGrids.add(schemaGrid.copy());
 			}
 			property.put(propertyName, schemaGrids); 
-
+ 
 		tableViewer.setInput(schemaGrids);
 		helper=new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
 		try {
 		eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDoubleClickListener"),propertyDialogButtonBar, helper,table);
 		eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDownListener"),propertyDialogButtonBar, helper,editors[0].getControl());
 		addButton.attachListener(listenerFactory.getListener("ELTGridAddSelectionListener"),propertyDialogButtonBar, helper,table);
-		deleteButton.attachListener(listenerFactory.getListener("ELTGridDeleteSelectionListener"),propertyDialogButtonBar, helper,table);
-		deleteAllButton.attachListener(listenerFactory.getListener("ELTGridDeleteAllSelectionListener"),propertyDialogButtonBar, helper,table); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

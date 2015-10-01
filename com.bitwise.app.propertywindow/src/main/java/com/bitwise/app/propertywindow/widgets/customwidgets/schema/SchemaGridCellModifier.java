@@ -74,9 +74,10 @@ class SchemaGridCellModifier implements ICellModifier {
       p.setDateFormat( value.toString()); 
     else if (ELTSchemaGridWidget.SCALE.equals(property))
         p.setScale( value.toString()); 
-    else if (ELTSchemaGridWidget.DATATYPE.equals(property))
+    else if (ELTSchemaGridWidget.DATATYPE.equals(property)){
       p.setDataType((Integer)value);
-   
+      p.setDataTypeValue(SchemaUtility.getDataTypeValue()[(Integer)value]);
+    }
     viewer.refresh();
   }
   

@@ -15,6 +15,16 @@ public class SchemaGrid{
 	private Integer dataType;
 
 	private String scale;
+	
+	private String dataTypeValue;
+
+	public String getDataTypeValue() {
+		return dataTypeValue;
+	}
+
+	public void setDataTypeValue(String dataTypeValue) {
+		this.dataTypeValue = dataTypeValue;
+	}
 
 	public String getScale() {
 		return scale;
@@ -36,10 +46,12 @@ public class SchemaGrid{
 		return result;
 	}
 
+
 	@Override
 	public String toString() {
 		return "SchemaGrid [fieldName=" + fieldName + ", dateFormat="
-				+ dateFormat + ", dataType=" + dataType + "]";
+				+ dateFormat + ", dataType=" + dataType + ", scale=" + scale
+				+ ", dataTypeValue=" + dataTypeValue + "]";
 	}
 
 	@Override
@@ -86,6 +98,7 @@ public class SchemaGrid{
 		tempschemaGrid.setDateFormat(dateFormat);
 		tempschemaGrid.setFieldName(fieldName);
 		tempschemaGrid.setScale(scale);
+		tempschemaGrid.setDataTypeValue(dataTypeValue);
 		return tempschemaGrid;
 	}
 
