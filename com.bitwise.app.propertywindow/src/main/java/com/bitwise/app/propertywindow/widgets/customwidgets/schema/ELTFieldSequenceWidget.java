@@ -29,7 +29,7 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 public class ELTFieldSequenceWidget extends AbstractWidget {
 
 	private Table table;
-	private static List fieldSeduence = new ArrayList();
+	private List fieldSeduence = new ArrayList();
 	public ControlDecoration fieldNameDecorator;
 	public ControlDecoration scaleDecorator;
 	private Object properties;

@@ -30,6 +30,14 @@
                name="appName"
                value="ETL UI Tool">
          </property>
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/com.bitwise.app.perspective/css/style.css">
+         </property>
+          <property
+      name="applicationXMI"
+      value="org.eclipse.platform/LegacyIDE.e4xmi">
+   </property>
       </product>
    </extension>
    <extension
@@ -77,5 +85,48 @@
          </menu>
       </menuContribution>
    </extension>
+     <extension
+   		id="com.example.rcp.css.id"
+   		name="com.example.rcp.css.name"	
+         point="org.eclipse.e4.ui.css.swt.theme">
+      <theme
+            basestylesheeturi="css/style.css"
+            id="com.bitwise.app.project.structure.rcp.theme.id"
+            label="com.bitwise.app.project.structure.rcp.theme.label">
+      </theme>
+   </extension>
+      <extension
+         point="org.eclipse.ui.themes">
+          <theme
+            id="de.spiritlink.custom.ui.theme"
+            name="Custom Theme">
+         <colorOverride
+               id="org.eclipse.ui.workbench.ACTIVE_TAB_BG_END"
+               value="77,113,145">
+         </colorOverride>
+         <colorOverride
+               id="org.eclipse.ui.workbench.ACTIVE_TAB_BG_START"
+               value="77,113,145">
+         </colorOverride>
+         <colorOverride
+               id="org.eclipse.ui.workbench.INACTIVE_TAB_BG_END"
+               value="77,113,145">
+         </colorOverride>
+         <colorOverride
+               id="org.eclipse.ui.workbench.INACTIVE_TAB_BG_START"
+               value="77,113,145">
+         </colorOverride>
+         <colorOverride
+               id="org.eclipse.ui.workbench.ACTIVE_TAB_TEXT_COLOR"
+               value="255,255,255">
+         </colorOverride>
+         <colorOverride
+               id="org.eclipse.ui.workbench.INACTIVE_TAB_TEXT_COLOR"
+               value="255,255,255">
+         </colorOverride>
+      </theme>
+   </extension>
+   
+  
 
 </plugin>
