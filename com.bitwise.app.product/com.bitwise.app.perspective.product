@@ -3,7 +3,6 @@
 
 <product name="ETL UI Tool" uid="com.bitwise.app.perspective.ID" id="com.bitwise.app.perspective.productId" application="com.bitwise.app.perspective.application" version="0.0.1" useFeatures="false" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -22,7 +21,6 @@
             winMediumHigh="resources/icons/app_icon.bmp"/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
@@ -47,7 +45,6 @@
       <plugin id="com.ning.async-http-client"/>
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
-      <plugin id="javax.servlet.jsp"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.ant"/>
       <plugin id="org.apache.batik.css"/>
@@ -158,7 +155,6 @@
       <plugin id="org.eclipse.jdt.apt.ui"/>
       <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
-      <plugin id="org.eclipse.jdt.core"/>
       <plugin id="org.eclipse.jdt.core.manipulation"/>
       <plugin id="org.eclipse.jdt.debug"/>
       <plugin id="org.eclipse.jdt.debug.ui"/>
