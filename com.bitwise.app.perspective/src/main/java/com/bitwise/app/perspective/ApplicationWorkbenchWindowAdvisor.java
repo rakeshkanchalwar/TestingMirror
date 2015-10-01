@@ -25,7 +25,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         
         eltPerspectiveConfig.setDefaultELTPrespectiveConfigurations();
         PlatformUI.getWorkbench().getThemeManager().setCurrentTheme("de.spiritlink.custom.ui.theme");
-      
     }
     @Override
     public void createWindowContents(Shell shell) {
@@ -33,6 +32,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     	super.createWindowContents(shell);
   
     }
+
+	@Override
+	public void postWindowOpen() {
+		super.postWindowOpen();
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().setMaximized(true);
+	}
     
     
     
