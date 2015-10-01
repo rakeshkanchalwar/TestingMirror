@@ -3,6 +3,7 @@ package com.bitwise.app.graph.command;
 import java.util.Map;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
@@ -38,12 +39,14 @@ public class ComponentCreateCommand extends Command {
 		component.setBasename(components.getName());
 		component.setCategory(components.getCategory().value());
 		int defaultWidth = (component.getBasename().length()+3)*7+30;
-		int defaultHeight = defaultWidth * 6/8;
-		Dimension newSize = new Dimension(defaultWidth, defaultHeight);
+		//int defaultHeight = defaultWidth * 6/8;
+		Dimension newSize = new Dimension(defaultWidth, component.getSize().height);
 		component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;
-		this.bounds = bounds;
+		//this.bounds = bounds;
+		Point p = new Point(bounds.x, bounds.y);
+		this.bounds = new Rectangle(p, newSize);
 		setLabel("component creation");
 	}
 	

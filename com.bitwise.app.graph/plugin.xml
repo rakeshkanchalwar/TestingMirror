@@ -40,19 +40,20 @@
                id="com.bitwise.app.graph.toolbar1">
             <command
                   commandId="com.bitwise.app.graph.newGraphcommand"
-                  icon="resources/File.png"
+                  icon="resources/icons/new_file_o.png"
                   id="com.bitwise.app.graph.newJob"
                   label="New Job"
                   style="pulldown">
             </command>
             <command
                   commandId="org.eclipse.ui.edit.text.openLocalFile"
-                  icon="resources/OpenFile1.jpg"
+                  icon="resources/icons/folder_o.png"
                   label="Open File"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.file.save"
+                  icon="resources/icons/save_o.png"
                   id="com.bitwise.app.save"
                   label="Save"
                   style="push">
@@ -67,18 +68,21 @@
             </separator>
             <command
                   commandId="org.eclipse.ui.edit.undo"
+                  icon="resources/icons/undo_o.png"
                   id="com.bitwise.app.undo"
                   label="Undo"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.edit.redo"
+                  icon="resources/icons/redo_o.png"
                   id="com.bitwise.app.redo"
                   label="Redo"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.edit.delete"
+                  icon="resources/icons/delete_o.png"
                   label="Delete"
                   style="push">
             </command>
@@ -88,19 +92,25 @@
             </separator>
             <command
                   commandId="org.eclipse.ui.edit.cut"
+                  icon="resources/icons/cut_o.png"
                   label="cut"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.edit.copy"
+                  icon="resources/icons/copy_o.png"
                   label="copy"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.edit.paste"
+                  icon="resources/icons/paste_o.png"
                   label="paste"
                   style="push">
             </command>
+            <separator
+                  name="com.bitwise.app.graph.separator1">
+            </separator>
          </toolbar>
       </menuContribution>
       <menuContribution

@@ -6,6 +6,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTCreateNewClassListene
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEmptyTextModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEnableButtonListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
@@ -111,6 +112,9 @@ public class ListenerFactory {
 		}
 		else if (listener.equals("ELTGridDeleteAllSelectionListener")){ 
 			IELTListener eltListener = new ELTGridDeleteAllSelectionListener();
+			return eltListener;
+		}else if (listener.equals("ELTFocusListener")){ 
+			IELTListener eltListener = new ELTFocusListener();
 			return eltListener;
 		}
 		

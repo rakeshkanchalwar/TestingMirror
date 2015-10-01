@@ -2,6 +2,12 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
@@ -22,6 +28,7 @@ public class ELTFilePathWidget extends AbstractWidget{
 	private Object properties;
 	private String propertyName;
 	private Object txtDecorator;
+	private ControlDecoration decorator;
 	
 
 	@Override
@@ -38,6 +45,23 @@ public class ELTFilePathWidget extends AbstractWidget{
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
+		decorator=WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
+		
+			textBox.addFocusListener(new FocusListener() {
+				
+				@Override
+				public void focusLost(FocusEvent e) {
+						if(textBox.getText().isEmpty()){
+					decorator.show();
+					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 204));
+					}
+				}
+				@Override
+				public void focusGained(FocusEvent e) {
+					decorator.hide();
+					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));
+				}
+			});
 		
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...").buttonWidth(20);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
@@ -47,7 +71,6 @@ public class ELTFilePathWidget extends AbstractWidget{
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		
 		try {
-			//eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTFileDialogSelectionListener"), propertyDialogButtonBar, null, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());

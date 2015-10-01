@@ -28,7 +28,6 @@ public class ELTFocusOutListener implements IELTListener {
 		final Widget[] widgetList = widgets;
 		if (helper != null) {
 			txtDecorator = (ControlDecoration) helper.getObject();
-			
 		}
 
 		Listener listener = new Listener() {
@@ -36,7 +35,6 @@ public class ELTFocusOutListener implements IELTListener {
 			@Override
 			public void handleEvent(Event event) {
 				String charSet = ((Text) widgetList[0]).getText().trim();
-				System.out.println("charSet: " + charSet);
 				if (event.type == SWT.FocusOut) {
 
 					if (charSet == null || charSet == "") {

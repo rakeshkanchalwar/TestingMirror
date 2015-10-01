@@ -115,6 +115,16 @@
                   label="Open File...">
             </command>
             <command
+                  commandId="org.eclipse.ui.file.import"
+                  label="Import"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.export"
+                  label="Export"
+                  style="push">
+            </command>
+            <command
                   commandId="org.eclipse.ui.file.close"
                   id="bitwise.close.id"
                   label="Close"
