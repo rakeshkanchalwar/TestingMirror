@@ -75,11 +75,11 @@ public class ComponentFigure extends Figure {
 		
 		Rectangle r = getBounds().getCopy();
 		
-		int height=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
-		
-		Rectangle newR = new Rectangle(r.x, r.y, r.width, (height+1)*25);
-		
-		setBounds(newR);
+//		int height=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
+//		
+//		Rectangle newR = new Rectangle(r.x, r.y, r.width, (height+1)*25);
+//		
+//		setBounds(newR);
 	}
 
 	protected void drawLable(Rectangle r, Graphics graphics){

@@ -29,13 +29,19 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 public class ELTSchemaGridWidget extends AbstractWidget {
 
 	private Table table;
-	private static List schemaGrids = new ArrayList();
+	private List schemaGrids = new ArrayList();
 	public ControlDecoration fieldNameDecorator;
 	public ControlDecoration scaleDecorator;
 	private Object properties;
 	private String propertyName;
 	public TableViewer tableViewer;
 	private ListenerHelper helper; 
+	private ELTTable eltTable;
+	private AbstractELTWidget addButton;
+	private AbstractELTWidget deleteButton;
+	private AbstractELTWidget deleteAllButton;
+	private ListenerFactory listenerFactory;
+	private CellEditor[] editors;
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 
 
@@ -47,7 +53,8 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 	public static final String[] PROPS = { FIELDNAME, DATATYPE, DATEFORMAT,
 			SCALE };
 	// Operational class label.
-			final AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(95);
+	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(250);
+	
 	public static String[] dataTypeList;
 
 	// get the datatype list from property file.
@@ -67,18 +74,18 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 
-		ListenerFactory listenerFactory = new ListenerFactory();
+		listenerFactory = new ListenerFactory();
+	
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
-
 		
 		AbstractELTWidget eltTableViewer = new ELTTableViewer(new SchemaGridContentProvider(), new SchemaGridLabelProvider());
 		eltSuDefaultSubgroupComposite.attachWidget(eltTableViewer);
-		//eltTableViewer.getSWTWidgetControl().
+		
 		tableViewer = (TableViewer) eltTableViewer.getJfaceWidgetControl();
 		tableViewer.setInput(schemaGrids);
 		// Set up the table
-		ELTTable eltTable = new ELTTable(tableViewer);
+		eltTable = new ELTTable(tableViewer);
 		eltSuDefaultSubgroupComposite.attachWidget(eltTable); 
 		table = (Table)eltTable.getSWTWidgetControl();
 		//Create Table column 
@@ -89,7 +96,7 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 			
 		}
 		
-		CellEditor[] editors = SchemaUtility.createCellEditorList(table,4);
+		editors = SchemaUtility.createCellEditorList(table,4);
 
 		// Set the editors, cell modifier, and column properties
 		tableViewer.setColumnProperties(PROPS);
@@ -105,15 +112,15 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite2 = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite2.createContainerWidget();
 		// Create browse button.
-		AbstractELTWidget addButton = new ELTDefaultButton("Add").buttonWidth(60);
+		addButton = new ELTDefaultButton("Add").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(addButton);
 
 				// Create new button, that use to create operational class
-		AbstractELTWidget deleteButton = new ELTDefaultButton("Delete").buttonWidth(60);
-		eltSuDefaultSubgroupComposite2.attachWidget(deleteButton);
+		deleteButton= new ELTDefaultButton("Delete").buttonWidth(60);
+		eltSuDefaultSubgroupComposite2.attachWidget(deleteButton); 
 
 				// Edit new button, that use to edit operational class
-		AbstractELTWidget deleteAllButton = new ELTDefaultButton("Delete All").buttonWidth(60);
+		deleteAllButton= new ELTDefaultButton("Delete All").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(deleteAllButton); 
 
 		helper= new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
@@ -132,7 +139,14 @@ public class ELTSchemaGridWidget extends AbstractWidget {
  
 	@Override
 	public LinkedHashMap<String,Object> getProperties() {
-		property.put(propertyName, schemaGrids); 
+		List<SchemaGrid> tempGrid = new ArrayList<>();
+		
+		
+		for(SchemaGrid schemaGrid : (List<SchemaGrid>)schemaGrids){
+			tempGrid.add(schemaGrid.copy());
+		}
+		
+		property.put(propertyName, tempGrid); 
 		return property; 
 	}  
  
@@ -142,12 +156,26 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 		this.propertyName = propertyName;
 		if(this.properties!=null)   
 		{
-		schemaGrids =(List<SchemaGrid>) this.properties;
+			List<SchemaGrid> tempGrid = new ArrayList<>();
+			tempGrid =(List<SchemaGrid>) this.properties;
+		
+			for(SchemaGrid schemaGrid : tempGrid){
+				schemaGrids.add(schemaGrid.copy());
+			}
+			property.put(propertyName, schemaGrids); 
+
 		tableViewer.setInput(schemaGrids);
 		helper=new ListenerHelper("schemaGrid", new ELTGridDetails(schemaGrids,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
+		try {
+		eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDoubleClickListener"),propertyDialogButtonBar, helper,table);
+		eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDownListener"),propertyDialogButtonBar, helper,editors[0].getControl());
+		addButton.attachListener(listenerFactory.getListener("ELTGridAddSelectionListener"),propertyDialogButtonBar, helper,table);
+		deleteButton.attachListener(listenerFactory.getListener("ELTGridDeleteSelectionListener"),propertyDialogButtonBar, helper,table);
+		deleteAllButton.attachListener(listenerFactory.getListener("ELTGridDeleteAllSelectionListener"),propertyDialogButtonBar, helper,table); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		tableViewer.refresh();
-		} 
-	} 
-
-
+		}  
+	}
 }
