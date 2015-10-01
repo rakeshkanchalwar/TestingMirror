@@ -226,7 +226,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.configureGraphicalViewer();
 		final GraphicalViewer viewer = getGraphicalViewer();
 		configureViewer(viewer);
-		prepareZoomContributions(viewer);
+		//prepareZoomContributions(viewer);
 		handleKeyStrokes(viewer);
 	}
 
@@ -382,13 +382,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		KeyHandler keyHandler = new KeyHandler();
 		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
 				getActionRegistry().getAction(ActionFactory.DELETE.getId()));
-		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
-				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
-		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
-				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
+//		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
+//				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
+//		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
+//				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
 
-		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
-				MouseWheelZoomHandler.SINGLETON);
+//		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
+//				MouseWheelZoomHandler.SINGLETON);
 		viewer.setKeyHandler(keyHandler);
 	}
 
