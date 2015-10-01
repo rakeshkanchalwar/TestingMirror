@@ -79,4 +79,14 @@ public class SchemaGrid{
 		this.dataType = dataType;
 	}
 
+	public SchemaGrid copy() {
+		// TODO Auto-generated method stub
+		SchemaGrid tempschemaGrid= new SchemaGrid();
+		tempschemaGrid.setDataType(this.dataType);
+		tempschemaGrid.setDateFormat(dateFormat);
+		tempschemaGrid.setFieldName(fieldName);
+		tempschemaGrid.setScale(scale);
+		return tempschemaGrid;
+	}
+
 }
