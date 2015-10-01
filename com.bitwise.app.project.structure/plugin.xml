@@ -71,14 +71,16 @@
                closeable="true"
                id="com.bitwise.app.project.structure.navigator"
                minimized="false"
-               ratio="0.25"
+               ratio="0.50"
                relationship="bottom"
-               relative="org.eclipse.gef.ui.palette_view">
+               relative="org.eclipse.gef.ui.palette_view"
+               visible="true">
          </view>
          <view
                closeable="true"
                id="org.eclipse.ui.console.ConsoleView"
                moveable="true"
+               ratio="0.70"
                relationship="bottom"
                relative="org.eclipse.ui.editorss"
                visible="true">
