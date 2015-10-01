@@ -49,7 +49,7 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_OPERATIONAL_CLASS_WIDGET")){
 			return new ELTOperationClassWidget();
 		}else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
-			return new ELTFieldSequenceWidget(); 
+			return new ELTSchemaGridWidget();   
 		}else if(widgetName.equals("ELT_COMPONENT_BASETYPE_WIDGET")){
 			return new ELTComponentBaseType();  
 		}else if(widgetName.equals("ELT_COMPONENT_TYPE_WIDGET")){

@@ -31,12 +31,12 @@ public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 		String selectedGrid = table.getItem(table.getSelectionIndex()).getText();
 		for (int i = 0; i < schemaGrids.size(); i++) {
 				if ((((SchemaGrid)schemaGrids.get(i)).getFieldName().equalsIgnoreCase(
-					(String) value) && !selectedGrid.equalsIgnoreCase((String) value) )|| ((String) value).isEmpty() ) {
+					(String) value) && !selectedGrid.equalsIgnoreCase((String) value) ) ) {
 				fieldNameDecorator.show();
 				propertyDialogButtonBar.enableOKButton(false);
 				propertyDialogButtonBar.enableApplyButton(false);
 				return "Error";
-			} else{
+			} else{ 
 				fieldNameDecorator.hide();
 				propertyDialogButtonBar.enableOKButton(true);
 				propertyDialogButtonBar.enableApplyButton(true);

@@ -11,6 +11,7 @@
             category="com.bitwise.app.project.structure.category"
             class="com.bitwise.app.project.structure.wizard.CustomWizard"
             hasPages="true"
+            icon="icon/newprj_wiz.gif"
             id="com.bitwise.app.project.structure.wizard"
             name="ELT Project"
             project="true">
@@ -20,6 +21,7 @@
          point="org.eclipse.ui.views">
       <view
             class="org.eclipse.ui.navigator.CommonNavigator"
+            icon="icon/filenav_nav.gif"
             id="com.bitwise.app.project.structure.navigator"
             name="Project Explorer">
       </view>
@@ -110,6 +112,14 @@
             wizardId="com.bitwise.app.project.structure.wizard">
          <enablement></enablement>
       </commonWizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icon/prj_obj.gif"
+            id="com.bitwise.app.project.structure.natureImage"
+            natureId="com.bitwise.app.project.structure.projectNature">
+      </image>
    </extension>
   
 </plugin>
