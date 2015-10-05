@@ -3,6 +3,7 @@
 
 <product name="ETL UI Tool" uid="com.bitwise.app.perspective.ID" id="com.bitwise.app.perspective.productId" application="com.bitwise.app.perspective.application" version="0.0.1" useFeatures="false" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -10,20 +11,21 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages i32="/com.bitwise.app.perspective/icons/app_icon_taskbar.png"/>
+   <windowImages/>
 
    <splash
       location="com.bitwise.app.perspective" />
-   <launcher name="ELTTool">
+   <launcher>
       <solaris/>
       <win useIco="false">
-         <bmp
-            winMediumHigh="resources/icons/app_icon.bmp"/>
+         <bmp/>
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="ch.qos.logback.classic"/>
@@ -50,7 +52,7 @@
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.batik.util.gui"/>
-      <plugin id="org.apache.commons.beanutils" fragment=""/>
+      <plugin id="org.apache.commons.beanutils"/>
       <plugin id="org.apache.commons.el"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.jasper"/>
