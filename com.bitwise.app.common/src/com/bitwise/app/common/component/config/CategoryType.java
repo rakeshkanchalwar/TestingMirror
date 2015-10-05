@@ -10,8 +10,7 @@ package com.bitwise.app.common.component.config;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
-
-
+ 
 /**
  * <p>Java class for category_type.
  * 
