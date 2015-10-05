@@ -31,7 +31,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	Object componenetModel;
 	ELTComponenetProperties eltComponenetProperties;
 	Component component;
-	
+	private boolean propertyChanged = false;
 	private ELTPropertyWindow(){
 		
 	}
@@ -91,11 +91,17 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 
 			component.setSize(getNewComponentSize());
 			
+			propertyChanged = propertyDialog.isPropertyChanged();
+			
 		} catch (EmptyComponentPropertiesException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public boolean isPropertyChanged(){
+			return propertyChanged;
+	}
+	
 	private Shell getParentShellForPropertyWindow() {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display.getActiveShell(), SWT.WRAP | SWT.APPLICATION_MODAL);

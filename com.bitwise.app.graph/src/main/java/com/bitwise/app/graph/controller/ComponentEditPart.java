@@ -19,10 +19,12 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
+import org.eclipse.ui.PlatformUI;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Policy;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
@@ -223,6 +225,11 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			refreshVisuals();
 			getFigure().repaint();
+			
+			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+			if(eltPropertyWindow.isPropertyChanged()){
+				eltGraphicalEditor.setDirty(true);
+			}
 			
 			super.performRequest(req);
 		}

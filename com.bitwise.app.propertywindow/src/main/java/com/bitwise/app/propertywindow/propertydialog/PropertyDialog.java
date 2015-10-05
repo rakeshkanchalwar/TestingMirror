@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.propertywindow.constants.ELTProperties;
 import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.Property;
@@ -37,10 +38,10 @@ public class PropertyDialog extends Dialog {
 	private LinkedHashMap<String, Object> ComponentProperties;
 	private LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private PropertyDialogBuilder propertyDialogBuilder;
-	//private ArrayList<String> names = new ArrayList<>();
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	String componentName;
 	private Button applyButton;
+	private boolean propertyChanged=false;		
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -52,10 +53,9 @@ public class PropertyDialog extends Dialog {
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
 		this.componentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
-		//this.names=((ArrayList<String>) this.componentMiscellaneousProperties.get("componentNames"));
-		componentName = (String) ComponentProperties.get("name");
+		this.componentName = (String) ComponentProperties.get(ELTProperties.NAME_PROPERTY.getPropertyName());
+		
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
-		super.setBlockOnOpen(true);		
 	}
 
 	/**
@@ -70,14 +70,10 @@ public class PropertyDialog extends Dialog {
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
 		
-		//container.getShell().setMinimumSize(600, 500);
 		container.getShell().setMinimumSize(400, 500);
-		//container.getShell().setSize(400, 400);
 		container.getShell().setText(componentName + " - Properties");
-		//container.setBounds(0, 0, 800, 900);
 		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
 		
-		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
 		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,componentMiscellaneousProperties,propertyDialogButtonBar);
 		propertyDialogBuilder.buildPropertyWindow();
 		
@@ -124,6 +120,7 @@ public class PropertyDialog extends Dialog {
 						}
 					}
 				}
+				propertyChanged=true;
 				applyButton.setEnabled(false);
 				super.widgetSelected(e);
 			}
@@ -158,7 +155,9 @@ public class PropertyDialog extends Dialog {
 			}
 			
 		}
-		
+		if(applyButton.isEnabled())
+			propertyChanged=true;
+			
 		//System.out.println(ComponentProperties);
 		super.okPressed();
 	}
@@ -194,6 +193,14 @@ public class PropertyDialog extends Dialog {
 		}
 	}
 	
-	
+
+	public boolean isPropertyChanged(){
+		return propertyChanged;
+		/*if(applyButton.isEnabled())
+			return true;
+		else
+			return false;*/
+		
+	}
 
 }

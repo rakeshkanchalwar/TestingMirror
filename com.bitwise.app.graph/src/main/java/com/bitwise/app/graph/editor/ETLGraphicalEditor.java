@@ -91,6 +91,8 @@ import com.thoughtworks.xstream.XStream;
  */
 public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
+	private boolean dirty=false;
+	
 	private final class PaletteContainerListener implements MouseListener {
 		private final PaletteViewer viewer;
 
@@ -249,7 +251,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		};
 	}
 
-	public void commandStackChanged(EventObject event) {
+	public void commandStackChanged(EventObject event) {		
+		setDirty(true);
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 		super.commandStackChanged(event);
 	}
@@ -488,6 +491,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				ioe.printStackTrace();
 				eltLogger.getLogger().error(ioe.getMessage());
 			}
+			setDirty(false);
 		}
 
 		if (getEditorInput() instanceof FileStoreEditorInput) {
@@ -505,8 +509,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					eltLogger.getLogger().error(ioe.getMessage());
 				}
 			}
-
+			setDirty(false);
 		}
+		
 	}
 
 	private void createOutputStream(OutputStream out) throws IOException {
@@ -565,7 +570,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 								+ ioe.getMessage());
 				eltLogger.getLogger().error(ioe.getMessage());
 			}
+			setDirty(false);
 		}
+		
 	}
 
 	@Override
@@ -612,5 +619,16 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			eltLogger.getLogger().error(e.getMessage());
 		}
 		return str;
+	}
+	
+	@Override
+	public boolean isDirty() {
+		// TODO Auto-generated method stub
+		return dirty;
+	}
+	
+	public void setDirty(boolean dirty){
+		this.dirty = dirty;
+		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 }
