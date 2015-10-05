@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+  <tns:component iconPath="/icons/input.png" name="InputFixedWidth" shape="InputFWFigure">
+	<tns:category>INPUT</tns:category>
+	<tns:port>
+		<tns:portSpecification>
+		    <tns:typeOfPort>out</tns:typeOfPort>
+		    <tns:numberOfPorts>1</tns:numberOfPorts>
+			<tns:sequenceOfPort>1</tns:sequenceOfPort>
+			<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+			<tns:linkMandatory>true</tns:linkMandatory>
+		</tns:portSpecification>
+	   
+	</tns:port>
+	<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="DISPLAY"/>
+    <tns:property dataType="string" name="schema" renderer="ELTSchemaWidget" type="USER" group="SCHEMA" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="path" renderer="ELTFilePathWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="boolean" name="safe" renderer="ELTSafePropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="boolean" name="has_header" renderer="ELTHasHeaderWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="charset" renderer="ELTCharacterSetWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+  </tns:component>
+</tns:Config>
