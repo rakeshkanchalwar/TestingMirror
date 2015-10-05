@@ -15,7 +15,7 @@ public enum ELTProperties {
 		this.propertyName = propertyName;
 	}
 	
-	public String getPropertyName(){
+	public String propertyName(){
 		return propertyName;
 	}
 }

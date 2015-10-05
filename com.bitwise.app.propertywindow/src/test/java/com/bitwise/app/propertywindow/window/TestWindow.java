@@ -19,6 +19,10 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.propertywindow.testdata.ComponentModel;
 import com.bitwise.app.propertywindow.testdata.PropertyStore;
+import com.bitwise.app.propertywindow.testdata.RawProperties;
+import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
+import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
+import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.IPropertyTreeBuilder;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.property.PropertyTreeBuilder;
@@ -50,35 +54,108 @@ public class TestWindow extends ApplicationWindow {
 		inputCompProps.put("name","cname");
 	}
 
+	private Property getComponentBaseTypeProperty(){
+		Property property = new Property("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
+		return property;
+	}
+	
+	private Property getComponentTypeProperty(){
+		Property property = new Property("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
+		return property;
+	}
+	
+	private ArrayList<Property> transformComponentPropertiesToPropertyWindowUnderstantableFormat(
+			Object rowProperties) throws EmptyComponentPropertiesException {
+		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
+		eltComponentPropertyAdapter.transform();
+		ArrayList<Property> componentProperties = eltComponentPropertyAdapter.getProperties();
+		return componentProperties;
+	}
+	
+	public LinkedHashMap<String, Object> getProperties() {
+		LinkedHashMap<String, Object> properties= new LinkedHashMap<>();
+		properties.put("name", "TestName");
+		return properties;
+	}
+	
+	private ELTComponenetProperties getELTComponenetProperties(){
+		LinkedHashMap<String, Object> componentConfigurationProperties = getProperties();
+		LinkedHashMap<String, Object> ComponentMiscellaneousProperties = getComponentMiscellaneousProperties();
+		
+		ELTComponenetProperties eltComponenetProperties = new ELTComponenetProperties(componentConfigurationProperties, ComponentMiscellaneousProperties);
+		return eltComponenetProperties;
+	}
+
+	private LinkedHashMap<String, Object> getComponentMiscellaneousProperties() {
+		LinkedHashMap<String, Object> ComponentMiscellaneousProperties = new LinkedHashMap<>();
+		
+		ArrayList<String> names = new ArrayList<>();
+		
+		names.add("TestName");
+		names.add("abc");
+		names.add("xyz");
+		
+		ComponentMiscellaneousProperties.put("componentNames", names);
+		ComponentMiscellaneousProperties.put("componentBaseType", "InputFileDelimited");
+		ComponentMiscellaneousProperties.put("componentType", "Input");
+		return ComponentMiscellaneousProperties;
+	}
+	
 	/**
 	 * Create contents of the application window.
 	 * @param parent
 	 */
 	@Override
 	protected Control createContents(Composite parent) {
+		
+		
 		Composite container = new Composite(parent, SWT.NONE);
 		
 		Button btnNewButton = new Button(container, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Hello");
+				ELTComponenetProperties eltComponenetProperties=getELTComponenetProperties();
 				//PropertyWindow propertyWindow = new PropertyWindow(e.display.getActiveShell());
 				//propertyWindow.open();
 				
 				//CopyOfPropertyWindowPOC2 copyOfPropertyWindowPOC2 = new CopyOfPropertyWindowPOC2(e.display.getActiveShell());
 				//copyOfPropertyWindowPOC2.open();
 				
-				ArrayList<String> names = new ArrayList<>();
 				
-				names.add("abc");
-				names.add("xyz");
 				
-				PropertyStore propertyStore = new PropertyStore();
+				RawProperties rawProperties = new RawProperties();
+								
+				Object rowProperties = rawProperties.getRawProperties();		
 				
-				ArrayList<Property> inputComponentProperties = propertyStore.getProperties("Input");
+					
+					Shell shell = e.display.getActiveShell();
+						
+					ArrayList<Property> componentProperties = null;
+					try {
+						componentProperties = transformComponentPropertiesToPropertyWindowUnderstantableFormat(rowProperties);
+					} catch (EmptyComponentPropertiesException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					componentProperties.add(getComponentBaseTypeProperty());
+					componentProperties.add(getComponentTypeProperty());
+					
+					IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
+
+					PropertyDialog propertyDialog = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),
+							eltComponenetProperties);
+					propertyDialog.open();
+
+
+					
 				
-				IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(inputComponentProperties);
+				
+				//PropertyStore propertyStore = new PropertyStore();
+				
+				//ArrayList<Property> inputComponentProperties = propertyStore.getProperties("Input");
+				
+				//IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(inputComponentProperties);
 				
 				
 				

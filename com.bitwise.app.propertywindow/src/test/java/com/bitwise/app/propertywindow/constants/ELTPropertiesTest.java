@@ -15,6 +15,6 @@ public class ELTPropertiesTest {
 	
 	@Test
 	public void itShouldProvideNameProperty(){
-		assertEquals("name",ELTProperties.NAME_PROPERTY.getPropertyName());		
+		assertEquals("name",ELTProperties.NAME_PROPERTY.propertyName());		
 	}
 }
