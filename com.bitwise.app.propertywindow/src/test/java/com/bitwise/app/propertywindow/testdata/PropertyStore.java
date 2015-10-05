@@ -75,7 +75,7 @@ public class PropertyStore {
 				Property path= new Property("String", "path", "ELT_FILE_PATH_WIDGET");
 				path.group("TEXT_PROPERTIES");
 				
-				Property delimiter= new Property("String", "delimiter", "ELT_DELIMETER_WIDGET");
+				Property delimiter= new Property("String", "strict", "ELT_STRICT_CLASS_WIDGET");
 				delimiter.group("TEXT_PROPERTIES");
 				
 				//------

@@ -23,6 +23,7 @@ public class ComponentModel {
 		inputComponenetProperties.put("Schema", null);
 		inputComponenetProperties.put("RuntimeProps", null);
 		inputComponenetProperties.put("name", null);
+		inputComponenetProperties.put("strict", null);
 		
 		return inputComponenetProperties;
 	}

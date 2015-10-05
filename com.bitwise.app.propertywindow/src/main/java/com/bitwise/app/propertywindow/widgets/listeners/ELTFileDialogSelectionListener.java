@@ -34,7 +34,6 @@ public class ELTFileDialogSelectionListener implements IELTListener{
 				if(event.type==SWT.Selection){
 				FileDialog filedialog=new FileDialog(aaa.getShell(),SWT.None);
 				String path=filedialog.open();
-				System.out.println("TEst");
 				if(path!=null){
 					File file= new File(path);
 					((Text)widgets[1]).setText(file.getAbsolutePath());

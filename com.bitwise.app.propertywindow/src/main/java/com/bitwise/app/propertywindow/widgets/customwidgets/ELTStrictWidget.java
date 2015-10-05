@@ -18,30 +18,25 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-
-public class ELTCharacterSetWidget extends AbstractWidget{
+public class ELTStrictWidget extends AbstractWidget{
 	
 	Combo combo;
 	Text text;
-	String[] ITEMS={"ASCII","Unicode","UTF-8","ISO-8859","Parameter"};
+	String[] ITEMS={"True","False","Parameter"};
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	private String propertyName;
 	private String properties;
-	
-	private ControlDecoration txtDecorator; //=WidgetUtility.addDecorator((Text)widgetList[0], Messages.CHARACTERSET);
-	
-	
+	private ControlDecoration txtDecorator;
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
-	
+
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		
-		ListenerFactory listenerFactory = new ListenerFactory();
+ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Character Set");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Strict");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		
@@ -49,46 +44,41 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultCombo);
 		
 		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
-		combo.select(2);
+		combo.select(1);
 		
 		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).grabExcessHorizontalSpace(true);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		eltDefaultTextBox.visibility(false);
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
-		
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		
-		try {
+			try {
 			
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChnageListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			
 			e1.printStackTrace();
 		}
+		
 	}
 
 	@Override
 	public void setProperties(String propertyName, Object properties) {
-		
 		this.propertyName = propertyName;
 		this.properties =  (String) properties; 
 		
 		if(this.properties != null){
-			if(this.properties.equalsIgnoreCase("ASCII")){
+			if(this.properties.equalsIgnoreCase("true")){
 				combo.select(0);
-			}else if(this.properties.equalsIgnoreCase("Unicode")){
+			}else if(this.properties.equalsIgnoreCase("false")){
 				combo.select(1);
-			}else if(this.properties.equalsIgnoreCase("UTF-8")){
-				combo.select(2);
-			}else if(this.properties.equalsIgnoreCase("ISO-8859")){
-				combo.select(3);
 			}else{
-				combo.select(4);
+				combo.select(2);
 				text.setVisible(true);
 				text.setText(this.properties);
 			}
@@ -98,7 +88,6 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-
 		if( combo.getText().equalsIgnoreCase("Parameter"))
 		{
 			comboBoxParameter.setOption(text.getText());
@@ -110,11 +99,4 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		return property;
 	}
 
-	/*@Override
-	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
-	
 }

@@ -6,7 +6,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTCreateNewClassListene
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEmptyTextModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEnableButtonListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
-import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
@@ -17,7 +17,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameLi
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyNumbericListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
-import com.bitwise.app.propertywindow.widgets.listeners.MyCustomWidgetTextChange;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTEventChangeListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridAddSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteAllSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteSelectionListener;
@@ -41,8 +41,8 @@ public class ListenerFactory {
 		}else if(listener.equals("ELTHiTestListener")){
 			IELTListener ELTIeltListener = new ELTHiTestListener();
 			return ELTIeltListener;
-		}else if(listener.equals("MyCustomWidgetTextChange")){
-			IELTListener myCuIeltListener = new MyCustomWidgetTextChange();
+		}else if(listener.equals("ELTEventChangeListener")){
+			IELTListener myCuIeltListener = new ELTEventChangeListener();
 			return myCuIeltListener;
 		}else if(listener.equals("ELTSelectionListener")){
 			IELTListener selectionlistener = new ELTSelectionListener();
@@ -113,8 +113,8 @@ public class ListenerFactory {
 		else if (listener.equals("ELTGridDeleteAllSelectionListener")){ 
 			IELTListener eltListener = new ELTGridDeleteAllSelectionListener();
 			return eltListener;
-		}else if (listener.equals("ELTFocusListener")){ 
-			IELTListener eltListener = new ELTFocusListener();
+		}else if (listener.equals("ELTModifyListener")){ 
+			IELTListener eltListener = new ELTModifyListener();
 			return eltListener;
 		}
 		

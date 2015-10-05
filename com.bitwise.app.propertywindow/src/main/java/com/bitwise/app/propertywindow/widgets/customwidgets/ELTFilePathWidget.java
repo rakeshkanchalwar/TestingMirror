@@ -71,7 +71,7 @@ public class ELTFilePathWidget extends AbstractWidget{
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTFileDialogSelectionListener"), propertyDialogButtonBar, null, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			} catch (Exception e1) {

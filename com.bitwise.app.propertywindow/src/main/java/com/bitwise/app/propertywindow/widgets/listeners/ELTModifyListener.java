@@ -12,49 +12,48 @@ import org.eclipse.swt.widgets.Widget;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
-public class ELTFocusOutListener implements IELTListener {
+public class ELTModifyListener implements IELTListener{
 
 	ControlDecoration txtDecorator;
-
+	
 	@Override
 	public int getListenerType() {
-		return SWT.FocusOut;
+		return SWT.Modify;
 	}
 
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper,
-			Widget... widgets) {
+	public Listener getListener(
+			PropertyDialogButtonBar propertyDialogButtonBar,
+			ListenerHelper helpers, Widget... widgets) {
 		final Widget[] widgetList = widgets;
-		if (helper != null) {
-			txtDecorator = (ControlDecoration) helper.getObject();
+		if (helpers != null) {
+			txtDecorator = (ControlDecoration) helpers.getObject();
 		}
-
-		Listener listener = new Listener() {
-
+		Listener listener=new Listener() {
+			
 			@Override
 			public void handleEvent(Event event) {
-				String charSet = ((Text) widgetList[0]).getText().trim();
-				if (event.type == SWT.FocusOut) {
-
-					if (charSet == null || charSet == "") {
+				String string=((Text)widgetList[0]).getText().trim();
+				if(event.type==SWT.Modify){
+					if(string.isEmpty()){
 						txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
 						txtDecorator.show();
 						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 204));
-						((Text) widgetList[0]).setToolTipText(Messages.EMPTYFIELDMESSAGE);
-					} else {
+					}else{
+						//txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
 						txtDecorator.hide();
-						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
-					}
-
-				} else {
-					txtDecorator.hide();
 					((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
-
+					}
+					
+				}else{
+					//txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
+					txtDecorator.hide();
+				((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
+				
 				}
-
-			}
+			}		
 		};
-
+		
 		return listener;
 	}
 

@@ -60,12 +60,12 @@ public class ELTDelimeterWidget extends AbstractWidget{
 			}
 		});
 		
-		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.CHARACTERSET);
+		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
-			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTModifyListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();

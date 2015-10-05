@@ -37,7 +37,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
 
-		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.CHARACTERSET);
+		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
 
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
@@ -45,7 +45,8 @@ public class ELTPhaseWidget extends AbstractWidget {
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyNumbericListener"),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTModifyListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();

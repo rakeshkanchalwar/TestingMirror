@@ -17,7 +17,7 @@ import com.bitwise.app.propertywindow.utils.WordUtils;
  * 
  */
 
-public class MyCustomWidgetTextChange implements IELTListener {
+public class ELTEventChangeListener implements IELTListener {
 
 	@Override
 	public int getListenerType() {
