@@ -14,7 +14,7 @@
 
    <splash
       location="com.bitwise.app.perspective" />
-   <launcher name="ELT TOOL">
+   <launcher name="ELTTool">
       <solaris/>
       <win useIco="false">
          <bmp
@@ -209,7 +209,7 @@
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.eclipse.ui.workbench.texteditor"/>
       <plugin id="org.eclipse.update.configurator"/>
-      <plugin id="org.eclipse.wb.runtime.lib" fragment=""/>
+      <plugin id="org.eclipse.wb.runtime.lib"/>
       <plugin id="org.eclipse.wst.common.core"/>
       <plugin id="org.eclipse.wst.common.emf"/>
       <plugin id="org.eclipse.wst.common.emfworkbench.integration"/>

@@ -15,10 +15,10 @@ SashForm {
   font: Verdana 8px;
 }
 
-Shell {
+/*Shell {
   swt-background-mode: default;
     background-color: rgb(35,35,35);
-}
+}*/
 
 
 Menu[BAR] {
