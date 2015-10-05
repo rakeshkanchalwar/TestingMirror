@@ -16,33 +16,45 @@ public class ELTComponentPropertyAdapter implements IPropertyAdapter{
 	private ArrayList<Property> properties;
 	private Object rawProperties;
 	
+	private ELTComponentPropertyAdapter(){
+		
+	}
+	
 	public ELTComponentPropertyAdapter(Object rawProperties){
 		this.rawProperties = rawProperties;
 		properties = new ArrayList<>();
 	}
 	
-	
 	@Override
 	public void transform() throws EmptyComponentPropertiesException {
-		
+		ArrayList<com.bitwise.app.common.component.config.Property> castedRawproperties = getCastedRawProperties();
+		for(com.bitwise.app.common.component.config.Property property : castedRawproperties){
+			Property tempProperty = transformProperty(property);
+			this.properties.add(tempProperty);
+		} 
+	}
+
+
+	private ArrayList<com.bitwise.app.common.component.config.Property> getCastedRawProperties()
+			throws EmptyComponentPropertiesException {
 		if(rawProperties == null)
 			throw new EmptyComponentPropertiesException();
 		
-		//TODO - Write actual transformation logic 
-		//properties = rawProperties;
-		ArrayList<com.bitwise.app.common.component.config.Property> properties =  (ArrayList<com.bitwise.app.common.component.config.Property>) rawProperties;
-		for(com.bitwise.app.common.component.config.Property property : properties){
-			Property tempProperty = new Property(property.getDataType().toString(), property.getName().toString(), property.getRenderer().toString());
-			tempProperty.group(property.getGroup().toString());
-			tempProperty.subGroup(property.getSubGroup().toString());
-			this.properties.add(tempProperty);
-			System.out.println(tempProperty.toString());
-		} 
+		ArrayList<com.bitwise.app.common.component.config.Property> castedRawproperties =  (ArrayList<com.bitwise.app.common.component.config.Property>) rawProperties;
+		return castedRawproperties;
+	}
+	
+	private Property transformProperty(
+			com.bitwise.app.common.component.config.Property property) {
+		Property tempProperty = new Property(property.getDataType().toString(), property.getName().toString(), property.getRenderer().toString());
+		tempProperty.group(property.getGroup().toString());
+		tempProperty.subGroup(property.getSubGroup().toString());
+		
+		return tempProperty;
 	}
 
 	@Override
 	public ArrayList<Property> getProperties() throws EmptyComponentPropertiesException {
-		
 		if(properties == null )
 			throw new EmptyComponentPropertiesException();
 		

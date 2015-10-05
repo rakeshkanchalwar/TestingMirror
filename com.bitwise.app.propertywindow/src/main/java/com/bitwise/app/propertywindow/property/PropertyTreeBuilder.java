@@ -35,10 +35,8 @@ public class PropertyTreeBuilder implements IPropertyTreeBuilder{
 		return groupNameList;
 	}
 	
-	private ArrayList<Property> getPropertiesByGroupName(String groupName,ArrayList<Property> properties){
-		
-		ArrayList<Property> propertiesByGroup = new ArrayList<>();
-		
+	private ArrayList<Property> getPropertiesByGroupName(String groupName,ArrayList<Property> properties){		
+		ArrayList<Property> propertiesByGroup = new ArrayList<>();		
 		for(Property property: properties){
 			if(groupName.equalsIgnoreCase(property.getPropertyGroup())){
 				propertiesByGroup.add(property);
@@ -112,17 +110,6 @@ public class PropertyTreeBuilder implements IPropertyTreeBuilder{
 			return false;
 		return true;
 	}
-	
-	/*private ArrayList<Property> getPropertiesBySubGroupID(String subGroupID){
-		ArrayList<Property> propertiesBySubGroup = new ArrayList<>();
-		for(Property property: properties){
-			if(subGroupID.equalsIgnoreCase(property.getPropertySubGroupID())){
-				propertiesBySubGroup.add(property);
-			}
-		}
-		
-		return propertiesBySubGroup;
-	}*/
 	
 }
  

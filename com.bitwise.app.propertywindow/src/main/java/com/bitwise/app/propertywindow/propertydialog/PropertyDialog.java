@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.propertywindow.constants.ELTProperties;
 import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.Property;
@@ -37,10 +38,11 @@ public class PropertyDialog extends Dialog {
 	private LinkedHashMap<String, Object> ComponentProperties;
 	private LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private PropertyDialogBuilder propertyDialogBuilder;
-	//private ArrayList<String> names = new ArrayList<>();
 	private PropertyDialogButtonBar propertyDialogButtonBar;
-	String componentName;
+	private String componentName;
 	private Button applyButton;
+	private boolean propertyChanged=false;		
+	
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -52,10 +54,9 @@ public class PropertyDialog extends Dialog {
 		this.propertyTree = propertyTree;
 		this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
 		this.componentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
-		//this.names=((ArrayList<String>) this.componentMiscellaneousProperties.get("componentNames"));
-		componentName = (String) ComponentProperties.get("name");
+		this.componentName = (String) ComponentProperties.get(ELTProperties.NAME_PROPERTY.propertyName());
+
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
-		super.setBlockOnOpen(true);		
 	}
 
 	/**
@@ -64,24 +65,35 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		
+		createPropertyDialogContainer(parent);
+		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
+
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,
+				componentMiscellaneousProperties,propertyDialogButtonBar);
+		propertyDialogBuilder.buildPropertyWindow();
+
+		return container;
+	}
+
+	private void createPropertyDialogContainer(Composite parent) {
 		container = (Composite) super.createDialogArea(parent);
+		setPropertyDialogContainerLayout();
+		setPropertyDialogSize();
+		setPropertyDialogTitle();
+	}
+
+	private void setPropertyDialogContainerLayout() {
 		ColumnLayout cl_container = new ColumnLayout();
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
-		
-		//container.getShell().setMinimumSize(600, 500);
-		container.getShell().setMinimumSize(400, 500);
-		//container.getShell().setSize(400, 400);
+	}
+
+	private void setPropertyDialogTitle() {
 		container.getShell().setText(componentName + " - Properties");
-		//container.setBounds(0, 0, 800, 900);
-		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
-		
-		//PropertyDialogBuilder propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTreeBuilder.getPropertyTree());
-		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,componentMiscellaneousProperties,propertyDialogButtonBar);
-		propertyDialogBuilder.buildPropertyWindow();
-		
-		return container;
+	}
+
+	private void setPropertyDialogSize() {
+		container.getShell().setMinimumSize(400, 500);
 	}
 
 	/**
@@ -90,45 +102,61 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		
-		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
-				true);
-		
-		
-		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
-				IDialogConstants.CANCEL_LABEL, false);
-		
-		
-		applyButton = createButton(parent, IDialogConstants.NO_ID,
-				"Apply", false);
-		
+		Button okButton = createOKButton(parent);
+		Button cancelButton = createCancelButton(parent);
+		createApplyButton(parent);		
+		attachPropertyDialogButtonBarToEatchWidgetOnPropertyWindow(okButton,
+				cancelButton);
+	}
+
+	private void attachPropertyDialogButtonBarToEatchWidgetOnPropertyWindow(
+			Button okButton, Button cancelButton) {
 		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
-		
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
 		}
-		applyButton.setEnabled(false);
-		
-		
-		applyButton.addSelectionListener(new SelectionAdapter() {
+	}
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-					if(eltWidget.getProperties() != null){
-						LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-						System.out.println(tempPropert.keySet().toString());
-						for(String propName : tempPropert.keySet()){
-							ComponentProperties.put(propName, tempPropert.get(propName));
-						}
+	private void createApplyButton(Composite parent) {
+		applyButton = createButton(parent, IDialogConstants.NO_ID,
+				"Apply", false);
+		disableApplyButton();
+	}
+	
+
+	@Override
+	protected void buttonPressed(int buttonId) {
+		// If Apply Button pressed 3 is index of apply button;
+		if(buttonId == 3){
+			for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+				if(eltWidget.getProperties() != null){
+					LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+					System.out.println(tempPropert.keySet().toString());
+					for(String propName : tempPropert.keySet()){
+						ComponentProperties.put(propName, tempPropert.get(propName));
 					}
 				}
-				applyButton.setEnabled(false);
-				super.widgetSelected(e);
 			}
-			
-		});
+			propertyChanged=true;
+			disableApplyButton();
+		}
+		super.buttonPressed(buttonId);
+	}
+	
+	private void disableApplyButton() {
+		applyButton.setEnabled(false);
+	}
+
+	private Button createCancelButton(Composite parent) {
+		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
+				IDialogConstants.CANCEL_LABEL, false);
+		return cancelButton;
+	}
+
+	private Button createOKButton(Composite parent) {
+		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+				true);
+		return okButton;
 	}
 
 	/**
@@ -146,7 +174,6 @@ public class PropertyDialog extends Dialog {
 
 	@Override
 	protected void okPressed() {
-		// TODO Auto-generated method stub
 		System.out.println("Prop saved");
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			if(eltWidget.getProperties() != null){
@@ -156,35 +183,34 @@ public class PropertyDialog extends Dialog {
 					ComponentProperties.put(propName, tempPropert.get(propName));
 				}	
 			}
-			
+
 		}
-		
-		//System.out.println(ComponentProperties);
+		if(applyButton.isEnabled())
+			propertyChanged=true;
+
 		super.okPressed();
 	}
-	
+
 	@Override
 	protected void cancelPressed(){
 		if(applyButton.isEnabled()){
 			ConfirmCancelMessageBox confirmCancelMessageBox = new ConfirmCancelMessageBox(container);
 			MessageBox confirmCancleMessagebox = confirmCancelMessageBox.getMessageBox();
-			
+
 			if(confirmCancleMessagebox.open() == SWT.OK){
-				//System.out.println("Hiiii");
 				super.close();
 			}
 		}else{
 			super.close();
 		}
-		
 	}
-	
+
 
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);		
 		String imagePath = null;
-		//TODO Please un comment below code before build.
+		//TODO Please uncomment below code before build.
 		try{
 			imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/property_window_icon.png" ;  
 			Image shellImage = new Image(newShell.getDisplay(), imagePath);
@@ -193,7 +219,10 @@ public class PropertyDialog extends Dialog {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
+	public boolean isPropertyChanged(){
+		return propertyChanged;
+	}
 
 }

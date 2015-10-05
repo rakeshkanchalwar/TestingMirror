@@ -18,6 +18,10 @@ public class ConfirmCancelMessageBox {
 	private Composite container;
 	private MessageBox messageBox;
 	
+	private ConfirmCancelMessageBox(){
+		
+	}
+	
 	public ConfirmCancelMessageBox(Composite container){
 		this.container =container;
 		createMessageBox();
