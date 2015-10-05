@@ -18,7 +18,7 @@ public class ELTFixedWidget extends ELTSchemaGridWidget{
 		super();
 	}
 
-	@Override
+	/*@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container){
 		WidgetUtility.createTableColumns(table, PROPS);
 		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
@@ -27,6 +27,6 @@ public class ELTFixedWidget extends ELTSchemaGridWidget{
 	}
 		CellEditor[] editors = SchemaUtility.createCellEditorList(table, 5);
 		tableViewer.setColumnProperties(PROPS);
-		
-}
+		*/
+//}
 }
