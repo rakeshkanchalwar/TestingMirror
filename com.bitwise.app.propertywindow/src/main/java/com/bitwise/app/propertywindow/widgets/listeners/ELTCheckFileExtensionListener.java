@@ -27,19 +27,24 @@ public class ELTCheckFileExtensionListener implements IELTListener{
 	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
 		final Widget[] widgetList = widgets;
 				
-		Listener listener=new Listener() {
+		Listener listener=new Listener() { 
 			@Override
 			public void handleEvent(Event event) {
+				if(!((Button)widgetList[1]).getSelection()){
 				ControlDecoration	fieldNameMustJava = WidgetUtility.addDecorator((Text)widgetList[0],Messages.INVALID_FILE);
-				if(!WidgetUtility.isFileExtention((((Text)widgetList[0]).getText()).trim(), ".java"))
+				if(!WidgetUtility.isFileExtention((((Text)widgetList[0]).getText()).trim(), ".java") && !(((Text)widgetList[0]).getText().trim().isEmpty())){
 					fieldNameMustJava.show();
-					else 
-					{
+				((Text)widgetList[0]).setBackground(new Color(Display.getDefault(), 255,
+						255, 204));
+				}
+					else  
+					{   
 						((Text)widgetList[0]).setBackground(new Color(Display.getDefault(), 255,
 							255, 255));
 					fieldNameMustJava.hide(); 
 					}
 				}
+			} 
 		};
 		return listener;
 	}

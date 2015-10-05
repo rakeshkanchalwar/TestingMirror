@@ -1,6 +1,5 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
-
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -16,34 +15,63 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-public class ELTEmptyTextModifyListener implements IELTListener{
+public class ELTEmptyTextModifyListener implements IELTListener {
 
 	@Override
 	public int getListenerType() {
-		
+
 		return SWT.Modify;
 	}
+
 	@Override
-	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
+	public Listener getListener(
+			PropertyDialogButtonBar propertyDialogButtonBar,
+			ListenerHelper helpers, Widget... widgets) {
 		final Widget[] widgetList = widgets;
-				
-		Listener listener=new Listener() {
+		final ControlDecoration fieldNameDecorator = WidgetUtility
+				.addDecorator((Text) widgetList[0],
+						Messages.OperationClassBlank);
+		final ControlDecoration fieldNameMustJava = WidgetUtility.addDecorator(
+				(Text) widgetList[0], Messages.INVALID_FILE);
+		Listener listener = new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				ControlDecoration	fieldNameDecorator = WidgetUtility.addDecorator((Text)widgetList[0],Messages.OperationClassBlank);
-				if (((Text)widgetList[0]).getText().trim().isEmpty()) {
-					fieldNameDecorator.show(); 
-					((Button)widgetList[1]).setEnabled(false);
-					((Text)widgetList[0]).setBackground(new Color(Display.getDefault(), 255,
-							255, 204));
-				} else {
-					fieldNameDecorator.hide(); 
-					((Button)widgetList[1]).setEnabled(true); 
+				if (!((Button) widgetList[2]).getSelection()) {
+					if (((Text) widgetList[0]).getText().trim().isEmpty()) {
+						fieldNameDecorator.show();
+						fieldNameMustJava.hide();
+						((Button) widgetList[1]).setEnabled(false);
+						((Text) widgetList[0]).setBackground(new Color(Display
+								.getDefault(), 255, 255, 204));
+					} else {
+						fieldNameDecorator.hide();
+						fieldNameMustJava.hide();
+						((Button) widgetList[1]).setEnabled(true);
+					} 
+					if (!WidgetUtility.isFileExtention(
+							(((Text) widgetList[0]).getText()).trim(), ".java")
+							&& !(((Text) widgetList[0]).getText().trim()
+									.isEmpty())) {
+						fieldNameMustJava.show();
+						fieldNameDecorator.hide();
+						((Text) widgetList[0]).setBackground(new Color(Display
+								.getDefault(), 255, 255, 204));
+					} else {
+						((Text) widgetList[0]).setBackground(new Color(Display
+								.getDefault(), 255, 255, 255));
+						fieldNameMustJava.hide();
+					}
 				}
+				else
+				{
+					fieldNameDecorator.hide();
+					fieldNameMustJava.hide();
 				}
+
+			}
+
 		};
 		return listener;
 	}
 
-	
 }
