@@ -131,6 +131,7 @@
 			<enumeration value="GatherFigure"/>
 			<enumeration value="ReplicateFigure"/>
 			<enumeration value="OutputFixedWidthFigure"/>
+			<enumeration value="InputFixedWidthFigure"/>
 		</restriction>
 	</simpleType>
 </schema>
