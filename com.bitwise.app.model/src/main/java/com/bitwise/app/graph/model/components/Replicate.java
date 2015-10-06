@@ -5,7 +5,11 @@ import com.bitwise.app.graph.model.categories.StraightPullCategory;
 public class Replicate extends StraightPullCategory {
 
 	public Replicate() {
-	super();
+		super();
 	}
 
+	public String getConverter() {
+		return "com.bitwise.app.engine.converter.impl.ReplicateConverter";
+
+	}
 }

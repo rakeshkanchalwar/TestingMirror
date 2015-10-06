@@ -27,6 +27,7 @@
 		<module>../com.bitwise.app.eltproperties</module>
 		<module>../com.bitwise.app.propertywindow</module>	
 		<module>../com.bitwise.app.model</module>	
-		<module>../com.bitwise.app.xstream</module>	
+		<module>../com.bitwise.app.xstream</module>
+		<module>../com.bitwise.app.engine</module>
 	</modules>
 </project>

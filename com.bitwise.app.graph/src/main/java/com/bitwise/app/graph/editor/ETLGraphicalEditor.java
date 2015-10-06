@@ -2,9 +2,6 @@ package com.bitwise.app.graph.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,10 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -31,8 +31,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
-import org.eclipse.gef.MouseWheelHandler;
-import org.eclipse.gef.MouseWheelZoomHandler;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
@@ -49,7 +48,6 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
@@ -67,18 +65,21 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.dialogs.SaveAsDialog;
-import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.engine.util.ConverterUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
+import com.bitwise.app.graph.editorfactory.GenrateContainerData;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
@@ -93,7 +94,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	private boolean dirty=false;
 	
-	private final class PaletteContainerListener implements MouseListener {
+	/*private final class PaletteContainerListener implements MouseListener {
 		private final PaletteViewer viewer;
 
 		private PaletteContainerListener(PaletteViewer viewer) {
@@ -169,7 +170,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			graphViewer.getEditDomain().getCommandStack()
 					.execute(createComponent);
 		}
-	}
+	}*/
 
 	LogFactory eltLogger = new LogFactory(getClass().getName());
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
@@ -246,7 +247,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				viewer.addDragSourceListener(new TemplateTransferDragSourceListener(
 						viewer));
 				viewer.getControl().addMouseListener(
-						new PaletteContainerListener(viewer));
+						new PaletteContainerListener(viewer, getGraphicalViewer()));
 			}
 		};
 	}
@@ -421,117 +422,94 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		manager.setZoomLevelContributions(zoomContributions);
 	}
 
-	@Override
-	protected void setInput(IEditorInput input) {
-		super.setInput(input);
-		String METHOD_NAME = "ETLGraphicalEditor.setInput(IEditorInput input)";
-		IFile Ifile = null;
-		File file = null;
-		FileInputStream fs = null;
-		eltLogger.getLogger().info(METHOD_NAME);
-		if (input instanceof ETLGraphicalEditorInput) {
-			eltLogger.getLogger().info(
-					METHOD_NAME + "Loading data for ETLGraphicalEditorInput");
-			setPartName(getEditorInput().getName());
-			container = new Container();
-		}
-		try {
-			if (input instanceof IFileEditorInput) {
-				eltLogger.getLogger().info(
-						METHOD_NAME
-								+ "Loadeding data from FileStoreEditorInput");
-				Ifile = ((IFileEditorInput) input).getFile();
-				container = (Container) fromXMLToObject(Ifile.getContents());
-				setPartName(Ifile.getName());
-			}
-			if (input instanceof FileStoreEditorInput) {
-				eltLogger.getLogger().info(
-						METHOD_NAME + "Loading data from FileStoreEditorInput");
-				file = new File(((FileStoreEditorInput) input).getToolTipText());
-				fs = new FileInputStream(file);
-				container = (Container) fromXMLToObject(fs);
-				fs.close();
-				setPartName(file.getName());
-			}
+	
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			eltLogger.getLogger().error(e.getMessage());
+	
+
+	
+	
+	@Override
+	public boolean isDirty() {
+		// TODO Auto-generated method stub
+		return dirty;
+	}
+	
+	public void setDirty(boolean dirty){
+		this.dirty = dirty;
+		firePropertyChange(IEditorPart.PROP_DIRTY);
+	}
+	@Override
+	public void setInput(IEditorInput input) {
+		super.setInput(input);
+		String METHOD_NAME = "setInput - ";
+		eltLogger.getLogger().info(METHOD_NAME);
+		try {
+			GenrateContainerData genrateContainerData = new GenrateContainerData();
+			genrateContainerData.setEditorInput(input, this);
+			container = genrateContainerData.getContainerData();
+		} catch (CoreException | IOException ce) {
+			eltLogger.getLogger().error(METHOD_NAME + ce.getMessage());
 		}
 	}
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		String METHOD_NAME = "ETLGraphicalEditor.doSave(IProgressMonitor monitor)";
-		IFile ifile = null;
-		File file = null;
-		FileOutputStream fsout = null;
+		String METHOD_NAME = "doSave -";
 		eltLogger.getLogger().info(METHOD_NAME);
 		firePropertyChange(PROP_DIRTY);
-
-		if (getEditorInput() instanceof ETLGraphicalEditorInput) {
-			doSaveAs();
-		}
-
-		if (getEditorInput() instanceof FileEditorInput) {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			try {
-				eltLogger.getLogger().info(
-						METHOD_NAME + " Saving data from FileEditorInput");
-				createOutputStream(out);
-				ifile = ((IFileEditorInput) getEditorInput()).getFile();
-
-				ifile.setContents(new ByteArrayInputStream(out.toByteArray()),
-						true, false, monitor);
-				getCommandStack().markSaveLocation();
-			} catch (CoreException ce) {
-				ce.printStackTrace();
-				eltLogger.getLogger().error(ce.getMessage());
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-				eltLogger.getLogger().error(ioe.getMessage());
-			}
+		try {
+			GenrateContainerData genrateContainerData = new GenrateContainerData();
+			genrateContainerData.setEditorInput(getEditorInput(), this);
+			genrateContainerData.storeContainerData();
 			setDirty(false);
+		} catch (CoreException | IOException ce) {
+			eltLogger.getLogger().error(METHOD_NAME + ce.getMessage());
 		}
-
-		if (getEditorInput() instanceof FileStoreEditorInput) {
-
-			file = new File(
-					((FileStoreEditorInput) getEditorInput()).getToolTipText());
-			{
-				try {
-					fsout = new FileOutputStream(file);
-					fsout.write(fromObjectToXML(getModel()).getBytes());
-					fsout.close();
-					getCommandStack().markSaveLocation();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-					eltLogger.getLogger().error(ioe.getMessage());
-				}
-			}
-			setDirty(false);
-		}
-		
 	}
 
-	private void createOutputStream(OutputStream out) throws IOException {
-		String METHOD_NAME = "ETLGraphicalEditor.createOutputStream(OutputStream out)";
+	public void createOutputStream(OutputStream out) throws IOException {
+		String METHOD_NAME = "createOutputStream - ";
 		eltLogger.getLogger().info(METHOD_NAME);
 		out.write(fromObjectToXML(getModel()).getBytes());
 	}
 
-	Container getModel() {
+	public Container getModel() {
 		return container;
 	}
 
 	public void doSaveAs() {
 		String METHOD_NAME = "ETLGraphicalEditor. doSaveAs()";
-		IFile file;
-		IPath filePath;
-		ByteArrayOutputStream out;
 		eltLogger.getLogger().info(METHOD_NAME);
+		IFile file=opeSaveAsDialog();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				createOutputStream(out);
+				if (file.exists())
+					file.setContents(new ByteArrayInputStream(out.toByteArray()), true,	false, null);
+				else
+					file.create(new ByteArrayInputStream(out.toByteArray()),true, null);
+				setInput(new FileEditorInput(file));
+				initializeGraphicalViewer();
+				genrateTargetXml(file);
+				getCommandStack().markSaveLocation();
+			} catch (CoreException ce) {
+				eltLogger.getLogger().error(ce.getMessage());
+			} catch (IOException ioe) {
+				eltLogger.getLogger().error(ioe.getMessage());
+			}
+				setDirty(false);
+			}
+	
 
+	@Override
+	public boolean isSaveAsAllowed() {
+		return true;
+	}
+
+	private IFile opeSaveAsDialog() {
+		eltLogger.getLogger().info("opeSaveAsDialog - Opening SaveAs dialog box.");
 		SaveAsDialog obj = new SaveAsDialog(new Shell());
+		IFile file=null;
 		if (getEditorInput().getName().endsWith(".job"))
 			obj.setOriginalName(getEditorInput().getName());
 		else
@@ -539,48 +517,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		obj.open();
 
 		if (obj.getReturnCode() == 0) {
-			filePath = obj.getResult().removeFileExtension()
-					.addFileExtension("job");
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
-			out = new ByteArrayOutputStream();
-			try {
-				createOutputStream(out);
-
-				if (file.exists())
-					file.setContents(
-							new ByteArrayInputStream(out.toByteArray()), true,
-							false, null);
-				else
-					file.create(new ByteArrayInputStream(out.toByteArray()),
-							true, null);
-
-				setInput(new FileEditorInput(file));
-				initializeGraphicalViewer();
-				getCommandStack().markSaveLocation();
-			} catch (CoreException ce) {
-				ce.printStackTrace();
-				eltLogger.getLogger().info(
-						METHOD_NAME + " CoreException Ocurred "
-								+ ce.getMessage());
-				eltLogger.getLogger().error(ce.getMessage());
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-				eltLogger.getLogger().info(
-						METHOD_NAME + " IOException Ocurred "
-								+ ioe.getMessage());
-				eltLogger.getLogger().error(ioe.getMessage());
-			}
-			setDirty(false);
+			IPath filePath = obj.getResult().removeFileExtension().addFileExtension("job");
+			 file= ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
 		}
-		
+		return file;
 	}
 
-	@Override
-	public boolean isSaveAsAllowed() {
-		return true;
-	}
-
-	private Object fromXMLToObject(InputStream xml) {
+	
+	public Object fromXMLToObject(InputStream xml) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
 		Object obj = null;
 		eltLogger.getLogger().info(METHOD_NAME);
@@ -604,7 +548,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return obj;
 	}
 
-	private String fromObjectToXML(Serializable object) {
+	public String fromObjectToXML(Serializable object) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromObjectToXML(Serializable object)";
 		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
 		eltLogger.getLogger().info(METHOD_NAME);
@@ -620,15 +564,45 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		}
 		return str;
 	}
+
+	public void genrateTargetXml(IFile ifile) {
+		String METHOD_NAME="genrateTargetXml - ";
+		eltLogger.getLogger().info(METHOD_NAME+"genrating target XML");
+		IFile outPutFile = ResourcesPlugin.getWorkspace().getRoot().getFile(ifile.getFullPath().removeFileExtension().addFileExtension("xml"));
+		try {
+			ConverterUtil.INSTANCE.convertToXML(container, false, outPutFile);
+		} catch (Exception exception) {
+//			eltLogger.getLogger().info("Failed to create the engine xml", exception);
+//			Status status = new Status(IStatus.ERROR, "com.bitwise.app.graph",
+//					"Failed to create Engine XML " + exception.getMessage());
+//			StatusManager.getManager().handle(status, StatusManager.SHOW);
+		}
+
+	}
+
+	@Override
+	public void setPartName(String partName) {
+		super.setPartName(partName);
+	}
+
+	public CommandStack getCommandStack() {
+		return super.getCommandStack();
+	}
+	
 	
 	@Override
-	public boolean isDirty() {
-		// TODO Auto-generated method stub
-		return dirty;
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
+		super.init(site, input);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(this), IResourceChangeEvent.POST_CHANGE);
 	}
 	
-	public void setDirty(boolean dirty){
-		this.dirty = dirty;
-		firePropertyChange(IEditorPart.PROP_DIRTY);
-	}
+	public void dispose() {
+        super.dispose();
+       ResourcesPlugin.getWorkspace().removeResourceChangeListener(new ResourceChangeListener(this));
+    }
+	
+	
+		
+
 }

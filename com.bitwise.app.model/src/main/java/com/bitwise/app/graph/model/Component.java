@@ -218,5 +218,13 @@ public class Component extends Model {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
+	
+	//For Target XMl
+	public String getConverter()
+	{
+		return "";
+		
+	}
 
 }

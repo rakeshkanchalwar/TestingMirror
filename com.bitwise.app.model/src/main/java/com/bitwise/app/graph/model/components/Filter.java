@@ -7,5 +7,10 @@ public class Filter extends StraightPullCategory {
 	public Filter() {
 		super();
 	}
-
+	
+	public String getConverter()
+	{
+		return "com.bitwise.app.engine.converter.impl.FilterConverter";
+		
+	}
 }
