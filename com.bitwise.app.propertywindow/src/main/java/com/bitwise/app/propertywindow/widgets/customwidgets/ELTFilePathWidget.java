@@ -3,10 +3,14 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 import java.util.LinkedHashMap;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.TouchEvent;
+import org.eclipse.swt.events.TouchListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
@@ -29,6 +33,7 @@ public class ELTFilePathWidget extends AbstractWidget{
 	private String propertyName;
 	private Object txtDecorator;
 	private ControlDecoration decorator;
+	private Button button;
 	
 
 	@Override
@@ -47,24 +52,45 @@ public class ELTFilePathWidget extends AbstractWidget{
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		decorator=WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
 		
-			textBox.addFocusListener(new FocusListener() {
-				
-				@Override
-				public void focusLost(FocusEvent e) {
-						if(textBox.getText().isEmpty()){
+		textBox.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(textBox.getText().isEmpty()){
 					decorator.show();
 					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 204));
 					}
-				}
-				@Override
-				public void focusGained(FocusEvent e) {
-					decorator.hide();
-					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));
-				}
-			});
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				decorator.hide();
+				textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));
+			
+			}
+		});
 		
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("...").buttonWidth(20);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
+		button=(Button)eltDefaultButton.getSWTWidgetControl();
+		
+		button.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				decorator.hide();
+				textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));
+			
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+			
 		
 		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.CHARACTERSET);
 		
