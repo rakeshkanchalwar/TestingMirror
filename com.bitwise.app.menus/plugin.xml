@@ -186,6 +186,11 @@
                   commandId="com.bitwise.window.palette"
                   label="Palette">
             </command>
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  label="Preferences"
+                  style="push">
+            </command>
          </menu>
          <menu
                id="com.bitwise.app.menus.HelpMenu"

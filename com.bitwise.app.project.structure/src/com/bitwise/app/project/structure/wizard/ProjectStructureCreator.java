@@ -35,6 +35,7 @@ import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.LibraryLocation;
 
+
 import com.bitwise.app.project.structure.CustomMessages;
 import com.bitwise.app.project.structure.natures.ProjectNature;
 
@@ -154,10 +155,11 @@ public class ProjectStructureCreator {
 		if(!project.hasNature(ProjectNature.NATURE_ID)){
 			IProjectDescription description = project.getDescription();
 			String[] prevNatures = description.getNatureIds();
-			String[] newNatures = new String[prevNatures.length + 2];
+			String[] newNatures = new String[prevNatures.length + 3];
 			System.arraycopy(prevNatures, 0, newNatures, 0, prevNatures.length);
 			newNatures[prevNatures.length] = ProjectNature.NATURE_ID;
 			newNatures[prevNatures.length + 1] = JavaCore.NATURE_ID;
+			newNatures[prevNatures.length + 2] = CustomMessages.GradleNature_ID; 
 			
 			// validate the natures
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();

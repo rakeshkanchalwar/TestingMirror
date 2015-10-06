@@ -22,6 +22,12 @@
  			  <layout>p2</layout>
             <url>http://download.eclipse.org/e4/updates/0.11/</url>
         </repository>
+        <repository>
+ 			<id>gradle-plugins</id>
+ 			  <layout>p2</layout>
+            <url>http://dist.springsource.com/milestone/TOOLS/gradle</url>
+        </repository>
+        
 
     </repositories>
 
