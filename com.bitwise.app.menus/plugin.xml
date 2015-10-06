@@ -115,6 +115,18 @@
                   label="Open File...">
             </command>
             <command
+                  commandId="org.eclipse.ui.file.save"
+                  id="com.bitwise.app.menus.FileMenu.SaveFile"
+                  label="Save"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.saveAs"
+                  id="com.bitwise.app.menus.FileMenu.SaveAs"
+                  label="Save As..."
+                  style="push">
+            </command>
+            <command
                   commandId="org.eclipse.ui.file.import"
                   label="Import"
                   style="push">
