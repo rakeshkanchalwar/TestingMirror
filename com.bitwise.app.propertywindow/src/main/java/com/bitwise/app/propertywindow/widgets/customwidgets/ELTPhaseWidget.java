@@ -46,7 +46,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyNumbericListener"),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTModifyListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTModifyListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -60,7 +60,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 		if (properties != null)
 			textBox.setText((String) properties);
 		else
-			textBox.setText("");
+			textBox.setText("0");
 
 	}
 
