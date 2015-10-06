@@ -3,12 +3,10 @@ package com.bitwise.app.propertywindow.propertydialog;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
@@ -128,19 +126,26 @@ public class PropertyDialog extends Dialog {
 	protected void buttonPressed(int buttonId) {
 		// If Apply Button pressed 3 is index of apply button;
 		if(buttonId == 3){
-			for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-				if(eltWidget.getProperties() != null){
-					LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-					System.out.println(tempPropert.keySet().toString());
-					for(String propName : tempPropert.keySet()){
-						ComponentProperties.put(propName, tempPropert.get(propName));
-					}
-				}
-			}
-			propertyChanged=true;
-			disableApplyButton();
+			applyButtonAction();
 		}
 		super.buttonPressed(buttonId);
+	}
+
+	private void applyButtonAction() {
+		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+			if(eltWidget.getProperties() != null){
+				savePropertiesInComponentModel(eltWidget);
+			}
+		}
+		propertyChanged=true;
+		disableApplyButton();
+	}
+
+	private void savePropertiesInComponentModel(AbstractWidget eltWidget) {
+		LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
+		for(String propName : tempPropert.keySet()){
+			ComponentProperties.put(propName, tempPropert.get(propName));
+		}
 	}
 	
 	private void disableApplyButton() {
@@ -166,22 +171,13 @@ public class PropertyDialog extends Dialog {
 	protected Point getInitialSize() {
 		return new Point(400, 500);
 	}
-	protected DataBindingContext initDataBindings() {
-		DataBindingContext bindingContext = new DataBindingContext();
-		//
-		return bindingContext;
-	}
-
+	
 	@Override
 	protected void okPressed() {
 		System.out.println("Prop saved");
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			if(eltWidget.getProperties() != null){
-				LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
-				System.out.println(tempPropert.keySet().toString());
-				for(String propName : tempPropert.keySet()){
-					ComponentProperties.put(propName, tempPropert.get(propName));
-				}	
+				savePropertiesInComponentModel(eltWidget);	
 			}
 
 		}
@@ -204,7 +200,6 @@ public class PropertyDialog extends Dialog {
 			super.close();
 		}
 	}
-
 
 	@Override
 	protected void configureShell(Shell newShell) {

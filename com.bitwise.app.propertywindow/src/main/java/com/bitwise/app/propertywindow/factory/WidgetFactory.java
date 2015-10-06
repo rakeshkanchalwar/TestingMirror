@@ -26,7 +26,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGrid
  */
 
 public class WidgetFactory {
-	public AbstractWidget getWidget(String widgetName){
+	public static AbstractWidget getWidget(String widgetName){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
 			return new ELTSchemaGridWidget();
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){

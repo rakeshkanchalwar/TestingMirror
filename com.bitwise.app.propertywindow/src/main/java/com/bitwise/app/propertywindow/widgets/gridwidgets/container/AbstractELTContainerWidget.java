@@ -14,7 +14,6 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidge
  */
 
 public abstract class AbstractELTContainerWidget {
-	
 	protected Composite inputContainer;
 	protected Composite outputContainer;
 	
@@ -30,11 +29,5 @@ public abstract class AbstractELTContainerWidget {
 	
 	public Composite getContainerControl(){
 		return outputContainer;
-	}
-	
-	public void attchProertySeperator(){
-		Label label;
-		if(outputContainer!=null)
-			label = new Label(outputContainer, SWT.SEPARATOR | SWT.HORIZONTAL);
 	}
 }

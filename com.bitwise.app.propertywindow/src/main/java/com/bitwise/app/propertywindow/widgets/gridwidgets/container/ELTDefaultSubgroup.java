@@ -18,10 +18,7 @@ import com.bitwise.app.propertywindow.widgets.utility.SWTResourceManager;
  */
 
 public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
-
-	
-	Group subGroup;
-	
+	private Group subGroup;
 	private String subgroupName="Default Sub Group";
 	
 	public ELTDefaultSubgroup(Composite container) {
@@ -30,23 +27,28 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 
 	@Override
 	public void createContainerWidget(){
-		subGroup = new Group(inputContainer, SWT.NONE);
-		subGroup.setText(subgroupName);
-		subGroup.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
+		createGroupWidget();
+		subGroup.setLayout(getGroupWidgetLayout());
+		super.outputContainer = subGroup;
+	}
+
+	private ColumnLayout getGroupWidgetLayout() {
 		ColumnLayout subGroupLayout = new ColumnLayout();
 		subGroupLayout.maxNumColumns = 1;
 		subGroupLayout.bottomMargin = 0;
 		subGroupLayout.topMargin = 20;
 		subGroupLayout.rightMargin = 0;
-		subGroup.setLayout(subGroupLayout);
+		return subGroupLayout;
+	}
 
-		super.outputContainer = subGroup;
-		//SWTResourceManager.dispose();
+	private void createGroupWidget() {
+		subGroup = new Group(inputContainer, SWT.NONE);
+		subGroup.setText(subgroupName);
+		subGroup.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 	}
 	
 	@Override
 	public ELTDefaultSubgroup numberOfBasicWidgets(int subWidgetCount){
-		//subGroupComposite.setLayout(new GridLayout(subWidgetCount, false));
 		return this;
 	}
 	

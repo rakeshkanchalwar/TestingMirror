@@ -16,6 +16,10 @@ public class PropertyDialogButtonBar {
 	private Button applyButton;
 	private Button cancelButton;
 	
+	private PropertyDialogButtonBar(){
+		
+	}
+	
 	public PropertyDialogButtonBar(Composite composite){
 		okButton = new Button(composite, SWT.PUSH);
 		applyButton = new Button(composite, SWT.PUSH);

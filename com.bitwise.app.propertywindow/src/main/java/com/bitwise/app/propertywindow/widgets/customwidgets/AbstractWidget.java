@@ -1,6 +1,5 @@
 package com.bitwise.app.propertywindow.widgets.customwidgets;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -29,14 +28,6 @@ public abstract class AbstractWidget {
 	public abstract void setProperties(String propertyName, Object properties);
 
 	public abstract LinkedHashMap<String, Object> getProperties();
-
-	/*public ArrayList<String> getNames() {
-		return names;
-	}
-
-	public void setNames(ArrayList<String> names) {
-		this.names = names;
-	}*/
 
 	public void setpropertyDialogButtonBar(PropertyDialogButtonBar propertyDialogButtonBar){
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
