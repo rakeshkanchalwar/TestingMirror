@@ -19,13 +19,13 @@ import com.bitwiseglobal.graph.commontypes.TypeBaseRecord;
 import com.bitwiseglobal.graph.commontypes.TypeDependsOn;
 
 public abstract class Converter{
-
+	
 	protected static final String DEPENDS_ON = "dependsOn";
 	protected static final String PHASE = "phase";
 	protected static final String NAME = "name";
-	protected static final String HAS_HEADER = "hasHeader";
+	protected static final String HAS_HEADER = "has_header";
 	protected static final String PATH = "path";
-	protected static final String IS_SAFE = "isSafe";
+	protected static final String IS_SAFE = "safe";
 	protected static final Object CHAR_SET = "charset";
 	protected static final Object SCHEMA = "schema";
 	protected static final Object DELIMITER = "delimiter";
@@ -49,7 +49,7 @@ public abstract class Converter{
 	}
 
 	protected BooleanValueType getBoolean(String propertyName){
-		eltLogger.getLogger().info("getBoolean - Getting boolean Value for "+propertyName);	
+		eltLogger.getLogger().info("getBoolean - Getting boolean Value for "+propertyName+"="+properties.get(propertyName));	
 		BooleanValueType booleanValue = new BooleanValueType();
 		booleanValue.setValue(Boolean.valueOf((String) properties.get(propertyName)));
 		return booleanValue;
