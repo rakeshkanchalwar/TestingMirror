@@ -6,7 +6,9 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.bitwise.app.model.Activator
 Bundle-Vendor: BITWISE
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.bitwise.app.common,
+ org.slf4j.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.draw2d,

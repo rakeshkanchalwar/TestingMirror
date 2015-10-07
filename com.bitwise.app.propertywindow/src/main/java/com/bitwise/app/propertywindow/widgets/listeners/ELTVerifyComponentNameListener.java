@@ -14,11 +14,13 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public class ELTVerifyComponentNameListener implements IELTListener {
 	
+	private LogFactory eltLogger = new LogFactory(getClass().getName());
 	private ArrayList<String> names;
 	private String oldName;
 	
@@ -26,12 +28,12 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 
 	@Override
 	public int getListenerType() {
-		// TODO Auto-generated method stub
 		return SWT.Verify;
 	}
 
 	@Override
 	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
+		final String METHOD_NAME = "ELTVerifyComponentNameListener.getListener(): ";
 		Widget[] widgetList = widgets;
 		final Text text = (Text) widgetList[0];
 		
@@ -51,8 +53,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 					String currentText = ((Text) e.widget).getText();
 					String newName = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end)).trim();
 
-					// System.out.println("addVerifyListener(): current text: " + oldName + ", new text: " + newName);
-					System.out.println("addVerifyListener():  new text: " + newName);
+					eltLogger.getLogger().debug(METHOD_NAME + "addVerifyListener():  new text: " + newName);
 					if (newName == null || newName.equals("")) {
 						// e.doit=false;
 						text.setBackground(new Color(Display.getDefault(), 255, 255, 204));
@@ -91,6 +92,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 	}
 	
 	private boolean isUniqueCompName(String componentName) {
+		String METHOD_NAME = "ELTVerifyComponentNameListener.isUniqueCompName";
 		componentName = componentName.trim();
 		boolean result = true;
 
@@ -101,7 +103,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 			}
 
 		}
-		System.out.println("isUniqueCompName: result: " + result);
+		eltLogger.getLogger().debug(METHOD_NAME + "isUniqueCompName: result: " + result);
 
 		return result;
 	}

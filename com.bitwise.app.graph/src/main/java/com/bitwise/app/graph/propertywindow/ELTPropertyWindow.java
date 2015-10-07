@@ -112,7 +112,6 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		int w = ((String) component.getPropertyValue("name")).length()*7+40;
 		int defaultWidth = (component.getBasename().length()+3)*7+30;
 		int defaultHeight = (defaultWidth * 6)/8;
-		System.out.println("defaultHeight:"+defaultHeight);
 		Dimension newSize = new Dimension(w < defaultWidth ? defaultWidth : w, defaultHeight);
 		return newSize;
 	}
