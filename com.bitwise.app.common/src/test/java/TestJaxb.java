@@ -88,7 +88,7 @@ public class TestJaxb {
 		Assert.assertEquals(count, filteredFiles.length);
 	}
 	@Test
-	public void itShouldValidateXmlWithXsd() throws SAXException, IOException
+	public void itShouldValidateXmlWithXsd() throws Exception
 	{
 		String xsdPath="../com.bitwise.app.product/resources/config/xsds/ComponentConfig.xsd";
 		String xmlPath="../com.bitwise.app.product/resources/config/input.xml";
