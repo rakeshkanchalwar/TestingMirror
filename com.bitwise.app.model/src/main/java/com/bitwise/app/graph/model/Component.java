@@ -37,8 +37,12 @@ public class Component extends Model {
 	private Dimension size;
 	private Map<String, Object> properties;
 	private Container parent;
-	private Hashtable<String, Link> inputLinks;
-	private List<Link> outputLinks;
+	
+	
+	private Hashtable<String, ArrayList<Link>> inputLinksHash;
+	private Hashtable<String, ArrayList<Link>> outputLinksHash;
+    private ArrayList<Link> inputLinks = new ArrayList<Link>();
+    private ArrayList<Link> outputLinks = new ArrayList<Link>();
 	private List<String> inputPorts;
 	private List<String> outputPorts;
 	private boolean newInstance;
@@ -49,7 +53,9 @@ public class Component extends Model {
 		location = new Point(0, 0);
 		size = new Dimension(80, 60);
 		properties = new LinkedHashMap<>();
-		inputLinks = new Hashtable<String, Link>();
+		inputLinksHash = new Hashtable<String, ArrayList<Link>>();
+		inputLinks = new ArrayList<Link>();
+		outputLinksHash = new Hashtable<String, ArrayList<Link>>();
 		outputLinks = new ArrayList<Link>();
 		inputPorts = new ArrayList<String>();
 		outputPorts = new ArrayList<String>();
@@ -61,12 +67,14 @@ public class Component extends Model {
 	}
 	
 	public void connectInput(Link c) {
-		inputLinks.put(c.getTargetTerminal(), c);
+		inputLinks.add(c);
+		inputLinksHash.put(c.getTargetTerminal(), inputLinks);
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
 	public void connectOutput(Link c) {
 		outputLinks.add(c);
+		outputLinksHash.put(c.getSourceTerminal(), outputLinks);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 	
@@ -86,7 +94,7 @@ public class Component extends Model {
 	}
 
 	public List<Link> getTargetConnections() {
-		return Arrays.asList((inputLinks.values().toArray(new Link[inputLinks.size()])));
+		return inputLinks;
 	}
 
 	
@@ -217,6 +225,14 @@ public class Component extends Model {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	
+	//For Target XMl
+	public String getConverter()
+	{
+		return "";
+		
 	}
 
 }

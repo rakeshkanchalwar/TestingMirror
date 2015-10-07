@@ -8,4 +8,9 @@ public class IFDelimited extends InputCategory {
 	super();
 	}
 	
+	public String getConverter()
+	{
+		return "com.bitwise.app.engine.converter.impl.InputFileDelimitedConverter";
+		
+	}
 }
