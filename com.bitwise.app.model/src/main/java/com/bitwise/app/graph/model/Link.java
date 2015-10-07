@@ -25,23 +25,11 @@ public class Link extends Model {
 	/** Connection's target endpoint. */
 	private Component target;
 	
-	protected String sourceTerminal, targetTerminal;
+	private String sourceTerminal, targetTerminal;
 	
 	
-	/**
-	 * Create a (solid) connection between two distinct components.
-	 * 
-	 * @param source
-	 *            a source endpoint for this connection (non null)
-	 * @param target
-	 *            a target endpoint for this connection (non null)
-	 * @throws IllegalArgumentException
-	 *             if any of the parameters are null or source == target
-	 */
-	public Link(Component source, Component target) {
-		
-		
-	}
+	
+	
 	public Link() {
 		// TODO Auto-generated constructor stub
 	}
