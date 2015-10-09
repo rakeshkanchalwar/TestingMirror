@@ -312,7 +312,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		KeyHandler keyHandler = new KeyHandler();
 		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
 				getActionRegistry().getAction(ActionFactory.DELETE.getId()));
-//		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
+		keyHandler.put(KeyStroke.getPressed((char) ('z' - 'a' + 1),'z',SWT.CTRL), getActionRegistry().getAction(ActionFactory.UNDO.getId()));
+		keyHandler.put(KeyStroke.getPressed((char) ('y' - 'a' + 1), 'y', SWT.CTRL), getActionRegistry().getAction(ActionFactory.REDO.getId()));
+		keyHandler.put(KeyStroke.getPressed((char) ('a' - 'a' + 1), 'a', SWT.CTRL), getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
+		//		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
 //				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
 //		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
 //				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
