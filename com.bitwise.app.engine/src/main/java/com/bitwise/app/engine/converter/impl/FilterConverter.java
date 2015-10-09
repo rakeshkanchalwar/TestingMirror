@@ -1,7 +1,6 @@
 package com.bitwise.app.engine.converter.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
-import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeInputField;
 import com.bitwiseglobal.graph.commontypes.TypeOperationInputFields;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
@@ -22,7 +20,7 @@ import com.bitwiseglobal.graph.transformtypes.Filter;
 
 public class FilterConverter extends TransformConverter {
 
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(FilterConverter.class);
 	
 	public FilterConverter(Component component) {
 		super();	

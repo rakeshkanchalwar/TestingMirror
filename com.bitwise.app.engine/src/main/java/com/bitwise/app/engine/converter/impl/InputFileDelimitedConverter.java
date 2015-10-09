@@ -17,7 +17,7 @@ import com.bitwiseglobal.graph.itfd.TypeInputDelimitedOutSocket;
 
 public class InputFileDelimitedConverter extends InputConverter {
 
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(InputFileDelimitedConverter.class);
 	
 	public InputFileDelimitedConverter(Component component) {
 		super();

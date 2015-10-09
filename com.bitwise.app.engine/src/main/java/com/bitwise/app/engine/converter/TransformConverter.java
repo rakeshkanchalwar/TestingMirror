@@ -8,13 +8,12 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.engine.helper.ConverterHelper;
-import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeTransformComponent;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOutSocket;
 
 public abstract class TransformConverter extends Converter {
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(TransformConverter.class);
 		
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
