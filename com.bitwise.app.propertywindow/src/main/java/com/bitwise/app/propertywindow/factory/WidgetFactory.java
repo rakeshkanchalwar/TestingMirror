@@ -40,8 +40,8 @@ public class WidgetFactory {
 		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){
 			return new ELTCharacterSetWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_DELIMETER_WIDGET")){
-			//return new ELTDelimeterWidget();
-			return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+			return new ELTDelimeterWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+			//return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_PHASE_WIDGET")){
 			return new ELTPhaseWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_HAS_HEADER_WIDGET")){

@@ -31,7 +31,7 @@
 		<tns:property dataType="string" name="name"
 			renderer="ELTComponentNameWidget" type="USER" group="GENERAL"
 			subGroup="DISPLAY" />
-		<tns:property dataType="string" name="phase" renderer="ELTPhaseWidget"
+		<tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget"
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" />
 		<tns:property dataType="string" name="oprationClass"
 			renderer="ELTOperationalClassWidget" type="USER" group="GENERAL"

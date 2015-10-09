@@ -73,9 +73,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 	private void populateWidget(){		
 		if (properties != null)
 			textBox.setText((String) properties);
-		else
-			textBox.setText("0");
-
+		
 	}
 
 	@Override

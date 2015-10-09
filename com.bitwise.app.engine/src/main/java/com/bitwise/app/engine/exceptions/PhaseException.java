@@ -1,6 +1,6 @@
 package com.bitwise.app.engine.exceptions;
 
-public class PhaseException extends RuntimeException {
+public class PhaseException extends EngineException {
 private static String messagesuffix=" - Phase is empty or invalid";
 	
 	public PhaseException(String message) {

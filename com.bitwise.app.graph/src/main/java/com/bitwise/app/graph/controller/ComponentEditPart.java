@@ -23,6 +23,7 @@ import org.eclipse.ui.PlatformUI;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.Policy;
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentFigure;
@@ -33,8 +34,15 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 //import com.bitwise.app.graph.propertywindow.ProdELTPropertyWindow;
 
+
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart, PropertyChangeListener {
+
+	
+
+	
+	private LogFactory eltLogger = new LogFactory(getClass().getName());
+
 
 
 	/**
@@ -70,21 +78,14 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 					applyGeneralPolicy(component);
 				}
 			}
-		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (Exception e) {
+			eltLogger.getLogger().error(e.getMessage());
+		} 
 	}
 
 	public void applyGeneralPolicy(
 			com.bitwise.app.common.component.config.Component component)
-			throws RuntimeException, SAXException, IOException {
+			throws Exception {
 
 		for (Policy generalPolicy : XMLConfigUtil.INSTANCE
 				.getPoliciesForComponent(component)) {
@@ -92,10 +93,10 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				AbstractEditPolicy editPolicy = (AbstractEditPolicy) Class
 						.forName(generalPolicy.getValue()).newInstance();
 				installEditPolicy(generalPolicy.getName(), editPolicy);
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException exception) {
+			} catch (Exception exception) {
 				// TODO : add logger
-				throw new RuntimeException();
+				eltLogger.getLogger().error(exception.getMessage());
+				throw exception;
 			}
 		}
 	}
@@ -199,13 +200,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		 * component.getSize()); ((ContainerEditPart)
 		 * getParent()).setLayoutConstraint(this, getFigure(), bounds);
 		 */
+		
+		String METHOD_NAME = "ComponentEditPart.refreshVisuals(): ";
 
 		Component comp = getCastedModel();
 		ComponentFigure c = getComponentFigure();
 		c.setLabelName((String) comp.getPropertyValue("name"));
-		int w = c.getLabelName().length()*10+30;
-		Dimension newSize = new Dimension(w,60);
-		System.out.println("refreshVisuals: New component/figure name :"+c.getLabelName());
+		eltLogger.getLogger().debug(METHOD_NAME+"New component/figure name :"+c.getLabelName());
 		//comp.setSize(newSize);
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
@@ -215,13 +216,16 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	public void performRequest(Request req) {
+		String METHOD_NAME = "ComponentEditPart.performRequest(): ";
 		// Opens Property Window only on Double click.
 		if (req.getType().equals(RequestConstants.REQ_OPEN)) {
 			ELTPropertyWindow eltPropertyWindow = new ELTPropertyWindow(getModel());
 			//ProdELTPropertyWindow eltPropertyWindow = new ProdELTPropertyWindow(getModel());
 			eltPropertyWindow.open();
 			
-			System.out.println("Updated dimentions: "+getCastedModel().getSize().height+":" +getCastedModel().getSize().width);
+			eltLogger.getLogger().debug(
+					METHOD_NAME + "Updated dimentions: " + getCastedModel().getSize().height + ":"
+							+ getCastedModel().getSize().width);
 			
 			refreshVisuals();
 			getFigure().repaint();

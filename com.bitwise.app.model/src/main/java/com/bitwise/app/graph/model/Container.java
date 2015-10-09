@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.slf4j.Logger;
+
+import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.graph.helper.LoggerUtil;
+
 public class Container extends Model {
 	/**
 	 * 
@@ -20,6 +25,9 @@ public class Container extends Model {
 	private List<Component> components = new ArrayList<>();
 	private Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
 	private ArrayList<String> componentNames = new ArrayList<>();
+	
+
+	
 	
 	/**
 	 * Add a shape to this diagram.
@@ -62,13 +70,14 @@ public class Container extends Model {
 	}
 
 	private String getDefaultNameForComponent(String componentName, String baseName, boolean isNewInstance) {
+		String METHOD_NAME = "Container.getDefaultNameForComponent(): ";
 
 		if (componentName == null) {
 			// TODO shouldn't be the case but what should be done if name is null
 			return null;
 		}
 		
-		System.out.println("baseName: " + baseName + ", isNewInstance: " + isNewInstance);
+		LoggerUtil.getLoger(this).info(METHOD_NAME + "baseName: " + baseName + ", isNewInstance: " + isNewInstance);
 
 		if (!isNewInstance) {
 			// OK, so it's not a new instance of the component (probably undo ), check if the component name is still
@@ -86,17 +95,20 @@ public class Container extends Model {
 		componentName = componentName.trim();
 		String newName = "";
 		Integer nextSuffix = componentNextNameSuffixes.get(componentName);
-		System.out.println("componentNextNameSuffixes.size(): " + componentNextNameSuffixes.size());
+		LoggerUtil.getLoger(this).debug(
+				METHOD_NAME + "componentNextNameSuffixes.size(): " + componentNextNameSuffixes.size());
 		int next = 1;
 
 		if (nextSuffix == null) {
-			System.out
-					.println("component "
+			LoggerUtil.getLoger(this)
+					.debug(METHOD_NAME
+							+ "component "
 							+ componentName
 							+ " not present in the map! will check if default component name is already taken by some other component. If not, then return default name.");
 
 		} else {
-			System.out.println("component exists in the map. value of nextSuffix: " + nextSuffix.intValue());
+			LoggerUtil.getLoger(this).debug(
+					METHOD_NAME + "component exists in the map. value of nextSuffix: " + nextSuffix.intValue());
 			next = nextSuffix.intValue();
 		}
 
@@ -106,7 +118,7 @@ public class Container extends Model {
 			boolean continueFor = false;
 			for (String cname : componentNames) {
 				if (cname.equalsIgnoreCase(newName)) {
-					System.out.println("Found duplicate name: " + cname);
+					LoggerUtil.getLoger(this).debug(METHOD_NAME + "Found duplicate name: " + cname);
 					continueFor = true;
 					break;
 				}
@@ -115,9 +127,10 @@ public class Container extends Model {
 			if (continueFor) {
 				next++;
 				newName = componentName + "_" + (next < 10 ? "0" : "") + next;
-				System.out.println("still didn't get the new name for the component, now checking for " + newName);
+				LoggerUtil.getLoger(this).debug(
+						METHOD_NAME + "still didn't get the new name for the component, now checking for " + newName);
 			} else {
-				System.out.println("Got the new name for the component! " + newName);
+				LoggerUtil.getLoger(this).debug(METHOD_NAME + "Got the new name for the component! " + newName);
 				break;
 			}
 
@@ -126,8 +139,8 @@ public class Container extends Model {
 		// populate Hashtable
 		nextSuffix = new Integer(++next);
 		Integer i = componentNextNameSuffixes.put(componentName, nextSuffix);
-		System.out.println("previous value for component " + componentName + " in map: " + i);
-		System.out.println("Adding New component name to the list: " + newName);
+		LoggerUtil.getLoger(this).debug(METHOD_NAME + "previous value for component " + componentName + " in map: " + i);
+		LoggerUtil.getLoger(this).debug(METHOD_NAME + "Adding New component name to the list: " + newName);
 		componentNames.add(newName);
 
 		return newName;
@@ -143,6 +156,7 @@ public class Container extends Model {
 	}
 	
 	private boolean isUniqueCompName(String componentName) {
+		String METHOD_NAME = "Container.isUniqueCompName(): ";
 		componentName = componentName.trim();
 		boolean result = true;
 
@@ -153,10 +167,12 @@ public class Container extends Model {
 			}
 
 		}
-		System.out.println("Conainer.isUniqueCompName(): result: " + result);
+		LoggerUtil.getLoger(this).debug(METHOD_NAME + "Conainer.isUniqueCompName(): result: " + result);
 
 		return result;
 	}
 	
+	
+
 	
 }

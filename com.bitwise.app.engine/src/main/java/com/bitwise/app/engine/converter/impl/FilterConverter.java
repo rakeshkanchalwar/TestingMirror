@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.slf4j.Logger;
+
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.TransformConverter;
 import com.bitwise.app.engine.exceptions.PhaseException;
@@ -20,7 +22,7 @@ import com.bitwiseglobal.graph.transformtypes.Filter;
 
 public class FilterConverter extends TransformConverter {
 
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	
 	public FilterConverter(Component component) {
 		super();	
@@ -31,29 +33,16 @@ public class FilterConverter extends TransformConverter {
 
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		eltLogger.getLogger().info("prepareForXML - Genrating XML data");	
+		logger.debug("prepareForXML - Genrating XML data");	
 		super.prepareForXML();
 		Filter filter = (Filter) baseComponent;
 
 	}
 
-	@Override
-	protected List<TypeBaseInSocket> getInSocket() {
-		eltLogger.getLogger().info("getInSocket - Genrating TypeBaseInSocket data "+component);
-		List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
-		for (Link link : component.getTargetConnections()) {
-			TypeBaseInSocket inSocket = new TypeBaseInSocket();
-			inSocket.setId((String) link.getSource().getProperties().get(NAME));
-			inSocket.setType("");
-			inSocket.getOtherAttributes();
-			inSocketsList.add(inSocket);
-		}
-		return inSocketsList;
-	}
 
 	@Override
 	protected List<TypeTransformOutSocket> getOutSocket() {
-		eltLogger.getLogger().info("getOutSocket - Genrating TypeTransformOutSocket data "+component);
+		logger.debug("getOutSocket - Genrating TypeTransformOutSocket data "+component);
 		List<TypeTransformOutSocket> outSocketList = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
 			TypeTransformOutSocket outSocket = new TypeTransformOutSocket();
@@ -69,7 +58,7 @@ public class FilterConverter extends TransformConverter {
 
 	@Override
 	protected List<TypeTransformOperation> getOperations() {
-		eltLogger.getLogger().info("getOperations - Genrating TypeTransformOperation data "+component);
+		logger.debug("getOperations - Genrating TypeTransformOperation data "+component);
 		List<TypeTransformOperation> operationList = new ArrayList<>();
 		TypeTransformOperation operation = new TypeTransformOperation();
 		TypeOperationInputFields operationInputFields=new TypeOperationInputFields();
@@ -80,13 +69,15 @@ public class FilterConverter extends TransformConverter {
 	}
 
 	private List<TypeInputField> getOperationFiled() {
-		eltLogger.getLogger().info("getOperationFiled - Genrating TypeInputField data "+component);
+		logger.debug("getOperationFiled - Genrating TypeInputField data "+component);
 		List<TypeInputField> operationFiledList=new ArrayList<>();
 		HashSet<String> componentOperationFileds = (HashSet<String>) component.getProperties().get("filter");
+		if(componentOperationFileds!=null){
 		for(String object:componentOperationFileds){
 			TypeInputField operationFiled=new TypeInputField();
 			operationFiled.setName(object);
 			operationFiledList.add(operationFiled);
+		}
 		}
 		return operationFiledList;
 	}

@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.fieldassist.FieldDecoration;
-import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -19,7 +15,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -121,8 +116,7 @@ public class RunTimePropertyWizard {
 			}
 			tv.refresh();
 
-		} else
-			System.out.println("LodProperties :: Empty Map"); //$NON-NLS-1$
+		}  //$NON-NLS-1$
 
 	}
 
