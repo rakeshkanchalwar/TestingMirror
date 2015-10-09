@@ -4,8 +4,8 @@ Element-Name: MainTestSuite
 Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
-Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/7/15 3:51 PM
+Runtime-Version: 2.0.0.201508232315
+Save-Time: 10/9/15 1:17 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -23,6 +23,9 @@ _TBJ-8EvmEeW6GZlCjF17TQ	// kind: 'test' name: '3_KeyBindingTest' path: 'com.bitw
 _TBwb4EvmEeW6GZlCjF17TQ	// kind: 'test' name: 'Panels/Views Hide restore close launch' path: 'com.bitwise.app.perspective/Panels_Views Hide restore close launch.test'
 _rtczoFeZEeW08Mo9tQCunw	// kind: 'test' name: 'Tt_ComponentLabelTestCase' path: 'com.bitwise.app.componentlabel/Tt_ComponentLabelTestCase.test'
 _ilxg8GwzEeWN3Jyy0d9lOw	// kind: 'test' name: 'ZWindowCloseTestCase' path: 'com.bitwise.app.menubar/ZWindowCloseTestCase.test'
-_Mr_wAGzdEeWdSJQceekD9Q	// kind: 'test' name: 'TXML_GenrationTest' path: 'com.bitwise.app.engine/TXML_GenrationTest.test'
+_Mr_wAGzdEeWdSJQceekD9Q	// kind: 'test' name: 'XML_GenrationTest' path: 'com.bitwise.app.engine/XML_GenrationTest.test'
+_nFjYQG2OEeWxZIBc65q_2g	// kind: 'test' name: 'ImportFromGitTestCase' path: 'com.bitwise.app.menubar/ImportFromGitTestCase.test'
+_Cf2gUG2GEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectCreate' path: 'com.bitwise.app.menubar/ImportProjectCreate.test'
+_DT3FQG2IEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectGetFromLocal' path: 'com.bitwise.app.menubar/ImportProjectGetFromLocal.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--
