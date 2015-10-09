@@ -123,4 +123,24 @@ public class Link extends Model {
 		this.lineStyle = lineStyle;
 		firePropertyChange(LINESTYLE_PROP, null, new Integer(this.lineStyle));
 	}
+	
+	public void reconnect(){
+		if(!isConnected){
+			source.connectOutput(this);
+			source.addOutputPort(sourceTerminal);
+			
+			isConnected=true;
+		}
+	}
+	
+	//Reconnect to different Source or Target
+	public void reconnect(Component newSource,String sourceTerminal){
+		if(newSource==null && sourceTerminal==null){
+			throw new IllegalArgumentException();
+		}
+		detachSource();
+		this.source=newSource;
+		this.sourceTerminal=sourceTerminal;
+		reconnect();
+	}
 }

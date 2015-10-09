@@ -7,7 +7,9 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.bitwise.app.graph.command.LinkCommand;
+import com.bitwise.app.graph.command.LinkReconnectCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
+import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 
 public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
@@ -50,13 +52,24 @@ public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 	}
 
 	protected Command getReconnectSourceCommand(
-			ReconnectRequest arg0) {
-
-		return null;
+			ReconnectRequest request) {
+		
+		Link link=(Link)request.getConnectionEditPart().getModel();
+		Component figure=getComponentEditPart().getCastedModel();
+		ConnectionAnchor anchor=getComponentEditPart().getSourceConnectionAnchor(request);
+		if(anchor==null){
+			return null;
+		}
+		LinkReconnectCommand cmd=new LinkReconnectCommand(link);
+		cmd.setNewSource(figure);
+		cmd.setSourceTerminal(getComponentEditPart().mapConnectionAnchorToTerminal(anchor));
+		
+	
+		return cmd;
 	}
 	protected Command getReconnectTargetCommand(
-			ReconnectRequest arg0) {
-
+			ReconnectRequest request) {
+		
 		return null;
 	}
 
