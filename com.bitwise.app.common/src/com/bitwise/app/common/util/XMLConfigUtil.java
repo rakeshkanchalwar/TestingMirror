@@ -40,7 +40,7 @@ import com.bitwise.app.common.component.policyconfig.PolicyConfig;
  * </ul>
  */
 public class XMLConfigUtil {
-	private static Logger logger = Logger.getLogger(XMLConfigUtil.class.getName());
+	private LogFactory logFactory=new LogFactory(XMLConfigUtil.class.getName());
 	public static XMLConfigUtil INSTANCE = new XMLConfigUtil();
 	private XMLConfigUtil() {}
 	
@@ -77,10 +77,11 @@ public class XMLConfigUtil {
 				}
 				validateAndFillComponentConfigList(componentList);
 				return componentList;
-			}catch(JAXBException jaxbException){
-				//TODO : show popup window to user
-				logger.log(Level.SEVERE, "Failed to load the config files"); //$NON-NLS-1$
-				throw new RuntimeException("Faild in reading XML Config files", jaxbException); //$NON-NLS-1$
+			}catch(Exception exception){
+				Status status = new Status(IStatus.ERROR, "com.bitwise.app.common", "XML read failed", exception);
+				StatusManager.getManager().handle(status, StatusManager.BLOCK);
+			    logFactory.getLogger().error(exception.getMessage());
+				throw new RuntimeException("Faild in reading XML Config files", exception); //$NON-NLS-1$
 			}
 		}
 	}
@@ -174,9 +175,11 @@ public class XMLConfigUtil {
 					}
 				}
 				return policyConfig;
-			}catch(JAXBException jaxbException){
-				logger.log(Level.SEVERE, "Failed to load the config files"); //$NON-NLS-1$
-				throw new RuntimeException("Faild in reading XML Config files", jaxbException); //$NON-NLS-1$
+			}catch(Exception exception){
+				Status status = new Status(IStatus.ERROR, "com.bitwise.app.common", "XML read failed", exception);
+				StatusManager.getManager().handle(status, StatusManager.BLOCK);
+				logFactory.getLogger().error(exception.getMessage());
+				throw new RuntimeException("Faild in reading XML Config files", exception); //$NON-NLS-1$
 			}
 		}
 	}
@@ -216,14 +219,22 @@ public class XMLConfigUtil {
 	 * @param xsdPath
 	 * @param xmlPath
 	 * @return
+	 * @throws Exception 
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	public  boolean validateXMLSchema(String xsdPath, String xmlPath) throws SAXException, IOException{
+	public  boolean validateXMLSchema(String xsdPath, String xmlPath) throws Exception{
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = factory.newSchema(new File(xsdPath));
-        Validator validator = schema.newValidator();
-        validator.validate(new StreamSource(new File(xmlPath)));
+        Schema schema;
+		try {
+			schema = factory.newSchema(new File(xsdPath));
+			Validator validator = schema.newValidator();
+		    validator.validate(new StreamSource(new File(xmlPath)));
+		} catch (SAXException | IOException exception) {
+			logFactory.getLogger().error(exception.getMessage());
+			throw exception;
+		     
+		}
         return true;
 	}
 }

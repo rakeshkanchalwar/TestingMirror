@@ -34,10 +34,15 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 //import com.bitwise.app.graph.propertywindow.ProdELTPropertyWindow;
 
+
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart, PropertyChangeListener {
+
+	
+
 	
 	private LogFactory eltLogger = new LogFactory(getClass().getName());
+
 
 
 	/**
@@ -73,21 +78,14 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 					applyGeneralPolicy(component);
 				}
 			}
-		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (Exception e) {
+			eltLogger.getLogger().error(e.getMessage());
+		} 
 	}
 
 	public void applyGeneralPolicy(
 			com.bitwise.app.common.component.config.Component component)
-			throws RuntimeException, SAXException, IOException {
+			throws Exception {
 
 		for (Policy generalPolicy : XMLConfigUtil.INSTANCE
 				.getPoliciesForComponent(component)) {
@@ -95,10 +93,10 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				AbstractEditPolicy editPolicy = (AbstractEditPolicy) Class
 						.forName(generalPolicy.getValue()).newInstance();
 				installEditPolicy(generalPolicy.getName(), editPolicy);
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException exception) {
+			} catch (Exception exception) {
 				// TODO : add logger
-				throw new RuntimeException();
+				eltLogger.getLogger().error(exception.getMessage());
+				throw exception;
 			}
 		}
 	}
