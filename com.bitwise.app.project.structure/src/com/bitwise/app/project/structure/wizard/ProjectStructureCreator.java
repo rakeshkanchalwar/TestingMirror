@@ -1,23 +1,14 @@
 package com.bitwise.app.project.structure.wizard;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URI;
-import java.nio.file.FileVisitOption;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -25,6 +16,8 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -34,8 +27,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.LibraryLocation;
+import org.slf4j.Logger;
 
-
+import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.project.structure.Activator;
 import com.bitwise.app.project.structure.CustomMessages;
 import com.bitwise.app.project.structure.natures.ProjectNature;
 
@@ -44,11 +39,12 @@ import com.bitwise.app.project.structure.natures.ProjectNature;
  *
  */
 public class ProjectStructureCreator {
-	private static Logger logger = Logger.getLogger(ProjectStructureCreator.class.getName());
+	private static Logger logger = LogFactory.INSTANCE.getLogger(ProjectStructureCreator.class);
+	
 	public static final ProjectStructureCreator INSTANCE = new ProjectStructureCreator();
 	public static final String [] paths = {CustomMessages.ProjectSupport_SRC, CustomMessages.ProjectSupport_SCRIPTS, 
 		CustomMessages.ProjectSupport_XML, CustomMessages.ProjectSupport_LIB};
-	
+
 	private ProjectStructureCreator(){}
 	
 	/**
@@ -62,9 +58,10 @@ public class ProjectStructureCreator {
 	public IProject createProject(String projectName, URI location){
 		if(projectName == null || projectName.trim().length() <= 0)
 			throw new InvalidProjectNameException();
-		
-		IProject project = createBaseProject(projectName, location);
+			IProject project = null;
 		try {
+			project = createBaseProject(projectName, location);
+			
 			addNature(project);
             addToProjectStructure(project, paths);
             IJavaProject javaProject = JavaCore.create(project);
@@ -73,23 +70,42 @@ public class ProjectStructureCreator {
             javaProject.setOutputLocation(binFolder.getFullPath(), null);
             
             List<IClasspathEntry> entries = addJavaLibrariesInClassPath();
-            List<String> jarList = copyExternalLibToProjectLib(Platform.getInstallLocation().getURL().getPath()+"lib", project.getLocation() + "/lib");
-            //add libs to project class path
             
-              for (String string : jarList) {
-            	org.eclipse.core.runtime.Path path = new org.eclipse.core.runtime.Path(string);
-            	entries.add(JavaCore.newLibraryEntry(path, null, null));
-			} 
+            IFolder libFolder = project.getFolder(CustomMessages.ProjectSupport_LIB);
+           
+            //add libs to project class path
+			String installLocation = Platform.getInstallLocation().getURL().getPath();
+			
+			copyExternalLibAndAddToClassPath(installLocation + CustomMessages.ProjectSupport_LIB, libFolder, entries);
+            
+			copyBuildFile(installLocation + CustomMessages.ProjectSupport_CONFIG_FOLDER + "/" + CustomMessages.ProjectSupport_BUILD_FOLDER, 
+					project);
             
             javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
             	
             //set source folder entry in classpath
             javaProject.setRawClasspath(setSourceFolderInClassPath(project, javaProject), null);
 		} catch (CoreException e) {
-			logger.log(Level.ALL, "Failed to create Project with parameters as projectName : " + projectName + ", location : " +location);
+			logger.debug("Failed to create Project with parameters as projectName : {} location : {}", new Object[]{projectName, location});
 			project = null;
 		}
 		return project;
+	}
+
+	private void copyBuildFile(String source, IProject project) throws CoreException {
+		File sourceFileLocation = new File(source);
+		File[] listFiles = sourceFileLocation.listFiles();
+		if(listFiles != null){
+			for(File sourceFile : listFiles){
+				IFile destinationFile = project.getFile(sourceFile.getName());
+				try {
+					destinationFile.create(new FileInputStream(sourceFile), true, null);
+				} catch (FileNotFoundException | CoreException exception) {
+					logger.debug("Copy build file operation failed");
+					throw new CoreException(new MultiStatus(Activator.PLUGIN_ID, 100, "Copy build file operation failed", exception));
+				}
+			}
+		}
 	}
 
 	/**
@@ -170,6 +186,7 @@ public class ProjectStructureCreator {
 				description.setNatureIds(newNatures);
 				project.setDescription(description, null);
 			}
+			logger.debug("Project nature added"); //TODO : remove
 		}
 	}
 
@@ -178,8 +195,9 @@ public class ProjectStructureCreator {
 	 * @param projectName
 	 * @param location
 	 * @return
+	 * @throws CoreException 
 	 */
-	private IProject createBaseProject(String projectName, URI location) {
+	private IProject createBaseProject(String projectName, URI location) throws CoreException {
 		IProject newProject = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		
 		if(!newProject.exists()){
@@ -196,8 +214,10 @@ public class ProjectStructureCreator {
                 if (!newProject.isOpen()) {
                     newProject.open(null);
                 }
-            } catch (CoreException e) {
-                e.printStackTrace();
+                logger.debug("Project base structure created"); //TODO : remove
+            } catch (CoreException exception) {
+            	logger.debug("Project base structure creation failed");
+				throw exception;
             }
  		}
 		return newProject;
@@ -209,37 +229,27 @@ public class ProjectStructureCreator {
 	 * @param target path
 	 * @return list of added files path
 	 */
-	private List<String> copyExternalLibToProjectLib(String source,String target){
-		List<String> path = new ArrayList<String>();
-		source = source.startsWith("/") ? source.substring(1) : source;
-		 final Path sourceDir = Paths.get(source);
-		final Path targetDir = Paths.get(target);
-		try{
-				Files.walkFileTree(sourceDir, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
-			     new SimpleFileVisitor<Path>() {
-			      
-			        @Override
-			        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-			            Files.copy(file, targetDir.resolve(sourceDir.relativize(file)));
-			            return FileVisitResult.CONTINUE;
-			        }
-		    });
-				File directory = new File(target);
-
-			    // get all the files from a directory
-			    File[] fList = directory.listFiles();
-			    for (File file : fList) { 
-			        if (file.isFile()) {
-			        	path.add(file.getAbsolutePath());
-			        }
-			    }
-			return path;
-		} catch (Exception e) {
-			e.printStackTrace(); 	
+	private void copyExternalLibAndAddToClassPath(String source,IFolder destinationFolder, List<IClasspathEntry> entries) throws CoreException{
+		File sourceFileLocation = new File(source);
+		File[] listFiles = sourceFileLocation.listFiles();
+		if(listFiles != null){
+			for(File sourceFile : listFiles){
+				IFile destinationFile = destinationFolder.getFile(sourceFile.getName());
+				try {
+					destinationFile.create(new FileInputStream(sourceFile), true, null);
+	            	entries.add(JavaCore.newLibraryEntry(new Path(destinationFile.getLocation().toOSString()), null, null));
+				} catch (FileNotFoundException | CoreException exception) {
+					logger.debug("Copy external library files operation failed");
+					throw new CoreException(new MultiStatus(Activator.PLUGIN_ID, 101, "Copy external library files operation failed", exception));
+				}
+			}
 		}
-		
-		return Collections.EMPTY_LIST;
 	}
 	
-	public class InvalidProjectNameException extends RuntimeException{}
+	public class InvalidProjectNameException extends RuntimeException{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6194407190206545086L;}
 }

@@ -1,58 +1,68 @@
 package com.bitwise.app.common.util;
 
-import ch.qos.logback.classic.LoggerContext; 
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
-import ch.qos.logback.core.util.Loader;
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 import org.eclipse.core.runtime.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.util.Loader;
 
 public class LogFactory {
-	final public  String CLASSIC_FILE = "logback.xml";
-    final public String BASE_PATH=Platform.getInstallLocation().getURL().getPath();
-    final public String LOG_DIR = "config/ELTLogging/";
-    private static final String className = "ELTLoggerUtil";
-    private static final LogFactory eltLogger = new LogFactory(className);
+	final public String CLASSIC_FILE = "logback.xml";
+    final public String LOG_DIR = "config/logger/";
+    
+    private static final Logger loggers = LoggerFactory.getLogger(LogFactory.class);
+    public static final LogFactory INSTANCE = new LogFactory();
     
     private Logger logger;
     
+    private LogFactory(){
+    	writeLogsOnFileAndConsole();
+    }
+    
+    public Logger getLogger(Class<?> clazz){
+    	return LoggerFactory.getLogger(clazz.getName());
+    }
+    
+    /**
+     * Use Logger logger = LogFactory.INSTANCE.getLogger(Class<?> clazz)
+     */
+    @Deprecated
     public LogFactory(String className) {
     	logger = LoggerFactory.getLogger(className);
     	writeLogsOnFileAndConsole();
 	}
     
+    /**
+     * Use Logger logger = LogFactory.INSTANCE.getLogger(Class<?> clazz)
+     */
+    @Deprecated
     public Logger getLogger(){
     	return logger;
     }
     
 	private void writeLogsOnFileAndConsole() {
+		loggers.debug("****Configuring Logger****");
         try {
-            ClassLoader loader = new URLClassLoader(new URL[]{new File(BASE_PATH+LOG_DIR).toURI().toURL()});
-            System.out.println(new URL[]{new File(BASE_PATH+LOG_DIR).toURI().toURL()});
-            LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-             URL url = Loader.getResource(CLASSIC_FILE, loader);
-            if (url != null) {
-                JoranConfigurator configurator = new JoranConfigurator();
-                configurator.setContext(lc);
-                lc.reset();
-                configurator.doConfigure(url);
-                lc.start();
+	            ClassLoader loader = new URLClassLoader(new URL[]
+	            		{new File(Platform.getInstallLocation().getURL().getPath() + LOG_DIR).toURI().toURL()});
+	            LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+	            URL url = Loader.getResource(CLASSIC_FILE, loader);
+	            if (url != null) {
+	                JoranConfigurator configurator = new JoranConfigurator();
+	                configurator.setContext(lc);
+	                lc.reset();
+	                configurator.doConfigure(url);
+	                lc.start();
             }
-        } catch (JoranException je) {
-        	eltLogger.getLogger().error(je.getMessage());
-            je.printStackTrace();
-        } catch (MalformedURLException e) {
-        	eltLogger.getLogger().error(e.getMessage());
-            e.printStackTrace();
+            loggers.debug("****Logger Configured Successfully****");
         } catch(Exception e){
-        	e.printStackTrace();
+        	loggers.error("Failed to configure the logger {}", e.getMessage());
         }
     }
 

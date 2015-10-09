@@ -11,6 +11,8 @@ public class CustomMessages extends NLS {
 	public static String ProjectSupport_SCRIPTS;
 	public static String ProjectSupport_SRC;
 	public static String ProjectSupport_XML;
+	public static String ProjectSupport_BUILD_FOLDER;
+	public static String ProjectSupport_CONFIG_FOLDER;
 	public static String GradleNature_ID;
 	static {
 		// initialize resource bundle
