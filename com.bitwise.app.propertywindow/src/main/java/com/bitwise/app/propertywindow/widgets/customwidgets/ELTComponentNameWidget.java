@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
@@ -14,6 +17,17 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
 
 public class ELTComponentNameWidget extends AbstractWidget {
+
+	public ELTComponentNameWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+		this.oldName = (String) componentConfigrationProperty.getPropertyValue();
+	}
 
 	private Text text;
 	private String oldName = "oldName";
@@ -52,7 +66,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 		try {
 			listener = (ELTVerifyComponentNameListener)listenerFactory.getListener("ELTVerifyComponentNameListener");
-			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames"));
+			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames"));
 			eltDefaultTextBox.attachListener(listener,
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 		/*	eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
@@ -62,15 +76,15 @@ public class ELTComponentNameWidget extends AbstractWidget {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		populateWidget();
 
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		System.out.println("ELTComponentNameWidget.setProperties():-propertyName: " + propertyName + ", properties: "
-				+ properties);
-		this.propertyName = propertyName;
-		this.oldName = (String) properties;
+
+	private void populateWidget() {
+		/*System.out.println("ELTComponentNameWidget.setProperties():-propertyName: " + propertyName + ", properties: "
+				+ properties);*/		
 		listener.setOldName(oldName);
 		text.setText(oldName);
 
@@ -83,9 +97,9 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		if (newName != null && newName != "" && isUniqueCompName(newName)) {
 			property.put(propertyName, newName);
 			//super.names.remove(oldName);
-			((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames")).remove(oldName);			
+			((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames")).remove(oldName);			
 			//super.names.add(newName);
-			((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames")).add(newName);
+			((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames")).add(newName);
 			oldName = newName;
 		} else {
 			// old name already should be there in the names arraylist
@@ -105,7 +119,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		componentName = componentName.trim();
 		boolean result = true;
 
-		for (String cname : ((ArrayList<String>) super.componentMiscellaneousProperties.get("componentNames"))) {
+		for (String cname : ((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames"))) {
 			if (cname.equalsIgnoreCase(componentName)) {
 				result = false;
 				break;

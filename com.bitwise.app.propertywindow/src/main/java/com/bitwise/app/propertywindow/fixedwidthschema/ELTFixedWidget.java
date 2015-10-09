@@ -4,19 +4,31 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaUtility;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTFixedWidget extends ELTSchemaGridWidget{
-	public static final String Length=Messages.FIELDPHASE;
+
+	public ELTFixedWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+		// TODO Auto-generated constructor stub
+	}
+	/*public static final String Length=Messages.FIELDPHASE;
 	public TableViewer tableViewer;
 	public static final String[] PROPS = { FIELDNAME, DATATYPE, DATEFORMAT, SCALE, Length };
 	
 	public ELTFixedWidget(){
 		super();
-	}
+	}*/
 
 	/*@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container){

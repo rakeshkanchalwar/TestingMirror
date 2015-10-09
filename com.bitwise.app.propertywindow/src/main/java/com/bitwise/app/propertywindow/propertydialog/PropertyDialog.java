@@ -33,13 +33,14 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
-	private LinkedHashMap<String, Object> ComponentProperties;
-	private LinkedHashMap<String, Object> componentMiscellaneousProperties;
+	//private LinkedHashMap<String, Object> ComponentProperties;
+	//private LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private PropertyDialogBuilder propertyDialogBuilder;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	private String componentName;
 	private Button applyButton;
-	private boolean propertyChanged=false;		
+	private boolean propertyChanged=false;	
+	private ELTComponenetProperties eltComponenetProperties;
 	
 	/**
 	 * Create the dialog.
@@ -50,9 +51,11 @@ public class PropertyDialog extends Dialog {
 	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree,ELTComponenetProperties eltComponenetProperties) {		
 		super(parentShell);
 		this.propertyTree = propertyTree;
-		this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
-		this.componentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
-		this.componentName = (String) ComponentProperties.get(ELTProperties.NAME_PROPERTY.propertyName());
+		//this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
+		//this.componentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
+		//this.componentName = (String) componentProperties.get(ELTProperties.NAME_PROPERTY.propertyName());
+		this.eltComponenetProperties = eltComponenetProperties;
+		componentName = (String) this.eltComponenetProperties.getComponentConfigurationProperty(ELTProperties.NAME_PROPERTY.propertyName());
 
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
 	}
@@ -66,8 +69,7 @@ public class PropertyDialog extends Dialog {
 		createPropertyDialogContainer(parent);
 		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
 
-		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,ComponentProperties,
-				componentMiscellaneousProperties,propertyDialogButtonBar);
+		propertyDialogBuilder = new PropertyDialogBuilder(container,propertyTree,eltComponenetProperties,propertyDialogButtonBar);
 		propertyDialogBuilder.buildPropertyWindow();
 
 		return container;
@@ -110,9 +112,9 @@ public class PropertyDialog extends Dialog {
 	private void attachPropertyDialogButtonBarToEatchWidgetOnPropertyWindow(
 			Button okButton, Button cancelButton) {
 		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
-		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
+		/*for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
-		}
+		}*/
 	}
 
 	private void createApplyButton(Composite parent) {
@@ -144,7 +146,7 @@ public class PropertyDialog extends Dialog {
 	private void savePropertiesInComponentModel(AbstractWidget eltWidget) {
 		LinkedHashMap<String, Object> tempPropert = eltWidget.getProperties();
 		for(String propName : tempPropert.keySet()){
-			ComponentProperties.put(propName, tempPropert.get(propName));
+			eltComponenetProperties.getComponentConfigurationProperties().put(propName, tempPropert.get(propName));
 		}
 	}
 	
@@ -206,13 +208,13 @@ public class PropertyDialog extends Dialog {
 		super.configureShell(newShell);		
 		String imagePath = null;
 		//TODO Please uncomment below code before build.
-		try{
+		/*try{
 			imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/property_window_icon.png" ;  
 			Image shellImage = new Image(newShell.getDisplay(), imagePath);
 			newShell.setImage(shellImage);
 		}catch(Exception e){
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 

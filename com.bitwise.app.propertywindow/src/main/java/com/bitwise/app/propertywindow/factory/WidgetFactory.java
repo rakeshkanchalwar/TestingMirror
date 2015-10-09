@@ -1,5 +1,9 @@
 package com.bitwise.app.propertywindow.factory;
 
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentBaseType;
@@ -26,40 +30,41 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGrid
  */
 
 public class WidgetFactory {
-	public static AbstractWidget getWidget(String widgetName){
+	public static AbstractWidget getWidget(String widgetName, ComponentConfigrationProperty componentConfigrationProperty, ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
-			return new ELTSchemaGridWidget();
+			return new ELTSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
-			return new ELTRuntimePropertiesWidget();
+			return new ELTRuntimePropertiesWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){
-			return new ELTFilePathWidget();
+			return new ELTFilePathWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){
-			return new ELTCharacterSetWidget();
+			return new ELTCharacterSetWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_DELIMETER_WIDGET")){
-			return new ELTDelimeterWidget();
+			//return new ELTDelimeterWidget();
+			return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_PHASE_WIDGET")){
-			return new ELTPhaseWidget();
+			return new ELTPhaseWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_HAS_HEADER_WIDGET")){
-			return new ELTHasHeaderWidget();
+			return new ELTHasHeaderWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_COMPONENT_NAME_WIDGET")){
-			return new ELTComponentNameWidget();
+			return new ELTComponentNameWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
-			return new ELTSafeWidget();
+			return new ELTSafeWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_FILTER_PROPERTY_WIDGET")){
-			return new ELTFilterWidget();
+			return new ELTFilterWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_OPERATIONAL_CLASS_WIDGET")){
-			return new ELTOperationClassWidget();
+			return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
-			return new ELTSchemaGridWidget();   
+			return new ELTSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);   
 		}else if(widgetName.equals("ELT_COMPONENT_BASETYPE_WIDGET")){
-			return new ELTComponentBaseType();  
+			return new ELTComponentBaseType(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);  
 		}else if(widgetName.equals("ELT_COMPONENT_TYPE_WIDGET")){
-			return new ELTComponentType(); 
+			return new ELTComponentType(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar); 
 		}else if(widgetName.equals("ELT_STRICT_CLASS_WIDGET")){
-			return new ELTStrictWidget();
+			return new ELTStrictWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}
 		else{ 
-			return new MyCustomWidget();
+			return new MyCustomWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}
 	}
 }

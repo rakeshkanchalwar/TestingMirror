@@ -12,6 +12,9 @@ import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
@@ -27,6 +30,16 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEdito
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTFieldSequenceWidget extends AbstractWidget {
+
+	public ELTFieldSequenceWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		setProperties(componentConfigrationProperty.getPropertyName(), componentConfigrationProperty.getPropertyValue());
+	}
 
 	private Table table;
 	private List fieldSeduence = new ArrayList();
@@ -136,7 +149,7 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 		return property; 
 	}  
  
-	@Override
+	
 	public void setProperties(String propertyName, Object properties) {
 		this.properties =  properties;
 		this.propertyName = propertyName;

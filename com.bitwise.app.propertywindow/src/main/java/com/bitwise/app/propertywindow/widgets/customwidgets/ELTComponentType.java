@@ -4,15 +4,26 @@ import java.util.LinkedHashMap;
 
 import org.eclipse.swt.widgets.Text;
 
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
-public class ELTComponentType extends AbstractWidget{
+public class ELTComponentType extends AbstractWidget{	
 
 	private ELTDefaultTextBox eltDefaultTextBox;
+	
+	public ELTComponentType(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+	}
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget subGroup) {
@@ -25,11 +36,13 @@ public class ELTComponentType extends AbstractWidget{
 		eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 		eltDefaultTextBox.setEnabled(false);
+		
+		populateWidget();
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		String componentBaseType = (String) componentMiscellaneousProperties.get("componentType");
+	
+	private void populateWidget(){
+		String componentBaseType = (String) componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentType");
 		((Text)eltDefaultTextBox.getSWTWidgetControl()).setText(componentBaseType);
 	}
 

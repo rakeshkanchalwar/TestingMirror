@@ -2,6 +2,9 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -9,6 +12,10 @@ import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.dialogs.ELTOperationClassDialog;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckBox;
@@ -17,17 +24,31 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTSaparater;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
 public class ELTOperationClassWidget extends AbstractWidget {
 
-	Text fileName;
+	
+
+	private Text fileName;
 	private Object properties;
 	private String propertyName;
 	private LinkedHashMap<String, Object> property = new LinkedHashMap<>();
 	private Button btnCheckButton; 
-	private OperationClassProperty operationClassProperty = new OperationClassProperty();
+	private OperationClassProperty operationClassProperty;
+	private ELTOperationClassDialog eltOperationClassDialog;
 
+	public ELTOperationClassWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
 
+		this.properties = componentConfigrationProperty.getPropertyValue();
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+	}
+	
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -35,18 +56,44 @@ public class ELTOperationClassWidget extends AbstractWidget {
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 
 		ListenerFactory listenerFactory = new ListenerFactory();
+
+		final ELTDefaultSubgroupComposite runtimeComposite = new ELTDefaultSubgroupComposite(
+				container.getContainerControl());
+		runtimeComposite.createContainerWidget();
+		runtimeComposite.numberOfBasicWidgets(2);
 		
-		/*ELTDefaultSubgroupComposite separatorELTSuDefaultSubgroupComposite1 = new ELTDefaultSubgroupComposite(container.getContainerControl());
-		separatorELTSuDefaultSubgroupComposite1.createContainerWidget();
+		ELTDefaultLable defaultLable1 = new ELTDefaultLable("Operation\nClass"); 
+		runtimeComposite.attachWidget(defaultLable1);
 		
-		ELTSaparater eltSaparater1 = new ELTSaparater().grabExcessHorizontalSpace(true).visibility(true);
-		separatorELTSuDefaultSubgroupComposite1.attachWidget(eltSaparater1);
+		ELTDefaultButton eltDefaultButton = new ELTDefaultButton(
+				"Edit").grabExcessHorizontalSpace(false);
+		runtimeComposite.attachWidget(eltDefaultButton);
+
+		((Button)eltDefaultButton.getSWTWidgetControl()).addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				eltOperationClassDialog = new ELTOperationClassDialog(runtimeComposite.getContainerControl().getShell(), propertyDialogButtonBar,operationClassProperty);
+				eltOperationClassDialog.open();
+				super.widgetSelected(e);
+			}
+			
+		});
 		
-		ELTSaparater eltSaparater2 = new ELTSaparater().grabExcessHorizontalSpace(true).visibility(true);
-		separatorELTSuDefaultSubgroupComposite1.attachWidget(eltSaparater2);
+		/*try {
+			eltDefaultButton.attachListener(listenerFactory
+					.getListener("ELTRuntimeButtonClickListener"),
+					propertyDialogButtonBar, new ListenerHelper(this.getClass()
+							.getName(), (Object) this), eltDefaultButton
+							.getSWTWidgetControl());
+
+		} catch (Exception e1) {
+
+			e1.printStackTrace();
+		}*/
 		
-		ELTSaparater eltSaparater3 = new ELTSaparater().grabExcessHorizontalSpace(true).visibility(true);
-		separatorELTSuDefaultSubgroupComposite1.attachWidget(eltSaparater3);*/
+		/*ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -91,17 +138,16 @@ public class ELTOperationClassWidget extends AbstractWidget {
 			} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} 
+		} */
+		//populateWidget();
 	} 
 	 
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.properties = properties;
-		this.propertyName = propertyName;
+	
+	private void populateWidget(){		
+		
 		if (properties != null && properties instanceof OperationClassProperty) {
-			fileName.setText(((OperationClassProperty)properties).getOperationClassPath());
-			btnCheckButton.setSelection(((OperationClassProperty)properties).isParameter());
+			operationClassProperty = new OperationClassProperty(((OperationClassProperty)properties).getOperationClassPath(),((OperationClassProperty)properties).isParameter());
 		}
 		else{
 			fileName.setBackground(new Color(Display.getDefault(), 255,
@@ -110,17 +156,10 @@ public class ELTOperationClassWidget extends AbstractWidget {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getProperties() {
-		operationClassProperty.setParameter(btnCheckButton.getSelection());
-		operationClassProperty.setOperationClassPath(fileName.getText());
-		property.put(propertyName, operationClassProperty);
-		return property;
+	public LinkedHashMap<String, Object> getProperties() {		
+		//operationClassProperty = eltOperationClassDialog.getOperationClassProperty();
+		//property.put(propertyName, operationClassProperty);
+		return null;
 	}
-
-	/*@Override
-	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-
-	}*/
 
 }

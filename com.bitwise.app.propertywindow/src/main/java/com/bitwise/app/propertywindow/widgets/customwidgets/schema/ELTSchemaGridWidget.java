@@ -9,11 +9,16 @@ import javax.xml.validation.Schema;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
@@ -29,6 +34,18 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEdito
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTSchemaGridWidget extends AbstractWidget {
+
+	public ELTSchemaGridWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+		this.properties =  componentConfigrationProperty.getPropertyValue(); 
+		
+	}
 
 	private Table table;
 	private List schemaGrids = new ArrayList();
@@ -86,6 +103,21 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 			
 		}
 		
+		table.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(schemaGrids.toString());
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		editors = SchemaUtility.createCellEditorList(table,4);
 
 		// Set the editors, cell modifier, and column properties
@@ -129,19 +161,21 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 	public LinkedHashMap<String,Object> getProperties() {
 		List<SchemaGrid> tempGrid = new ArrayList<>();
 		
-		
 		for(SchemaGrid schemaGrid : (List<SchemaGrid>)schemaGrids){
 			tempGrid.add(schemaGrid.copy());
+		}
+		
+		if(!schemaGrids.equals(this.properties)){
+			propertyDialogButtonBar.enableApplyButton(true);
 		}
 		
 		property.put(propertyName, tempGrid); 
 		return property; 
 	}  
  
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
-		this.propertyName = propertyName;
+	
+	public void populateWidget() {
+		
 		if(this.properties!=null)   
 		{
 			List<SchemaGrid> tempGrid = new ArrayList<>();
@@ -150,6 +184,7 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 			for(SchemaGrid schemaGrid : tempGrid){
 				schemaGrids.add(schemaGrid.copy());
 			}
+			
 			property.put(propertyName, schemaGrids); 
  
 		tableViewer.setInput(schemaGrids);

@@ -17,6 +17,9 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 import com.bitwise.app.propertywindow.factory.WidgetFactory;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.utils.WordUtils;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
@@ -34,16 +37,17 @@ public class PropertyDialogBuilder {
 	//<GroupName,<SubgroupName,[PropertyList...]>>
 	private LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree;
 	private Composite container;
-	private LinkedHashMap<String, Object> componentProperties;
+	//private LinkedHashMap<String, Object> componentProperties;
 	private ArrayList<AbstractWidget> eltWidgetList;
-	private LinkedHashMap<String, Object> componentMiscellaneousProperties;
+	//private LinkedHashMap<String, Object> componentMiscellaneousProperties;
+	private ELTComponenetProperties eltComponenetProperties;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 
-	private PropertyDialogBuilder(){
+	/*private PropertyDialogBuilder(){
 
-	}
+	}*/
 
-	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, LinkedHashMap<String, Object> componentMiscellaneousProperties,PropertyDialogButtonBar propertyDialogButtonBar){
+	/*public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, LinkedHashMap<String, Object> componentMiscellaneousProperties,PropertyDialogButtonBar propertyDialogButtonBar){
 		this.container = container;
 		this.propertyTree = propertyTree;
 		this.componentProperties = componentProperties;
@@ -51,8 +55,17 @@ public class PropertyDialogBuilder {
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
 
 		eltWidgetList= new ArrayList<>();
-	}
+	}*/
 
+	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, ELTComponenetProperties eltComponenetProperties,PropertyDialogButtonBar propertyDialogButtonBar){
+		this.container = container;
+		this.propertyTree = propertyTree;
+		this.eltComponenetProperties = eltComponenetProperties;
+		this.propertyDialogButtonBar = propertyDialogButtonBar;
+
+		eltWidgetList= new ArrayList<>();
+	}
+	
 	public void buildPropertyWindow(){
 		TabFolder tabFolder = addTabFolderToPropertyWindow();
 		addTabsInTabFolder(tabFolder);
@@ -121,11 +134,16 @@ public class PropertyDialogBuilder {
 
 	private AbstractWidget addCustomWidgetInGroupWidget(
 			AbstractELTContainerWidget subGroupContainer, Property property) {
-		AbstractWidget eltWidget=WidgetFactory.getWidget(property.getPropertyRenderer());
-		eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
-		eltWidget.setComponentMiscellaneousProperties(componentMiscellaneousProperties);
+		
+		ComponentConfigrationProperty componentConfigrationProperty = new ComponentConfigrationProperty(property.getPropertyName(), eltComponenetProperties.getComponentConfigurationProperty(property.getPropertyName()));
+		ComponentMiscellaneousProperties componentMiscellaneousProperties = new ComponentMiscellaneousProperties(eltComponenetProperties.getComponentMiscellaneousProperties());
+
+		AbstractWidget eltWidget=WidgetFactory.getWidget(property.getPropertyRenderer(),componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+		//eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
+		//eltWidget.setComponentMiscellaneousProperties(componentMiscellaneousProperties);
+		LinkedHashMap<String, Object> aaa = eltComponenetProperties.getComponentMiscellaneousProperties();
 		eltWidget.attachToPropertySubGroup(subGroupContainer);
-		eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
+		//eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
 		return eltWidget;
 	}
 
