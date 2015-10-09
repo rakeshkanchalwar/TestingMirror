@@ -3,22 +3,25 @@ package com.bitwise.app.graph.command;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class LinkReconnectCommand extends Command {
-
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectCommand.class);
+	
 	private Link link;
 
 	private Component newSource, newTarget;
-	protected String sourceTerminal, targetTerminal;
-	protected String oldSourceTerminal;
-	protected Component oldSource;
-	protected Component oldTarget;
+	private String newSourceTerminal, newTargetTerminal;
+	private String oldSourceTerminal;
+	private Component oldSource;
+	private Component oldTarget;
 
 	private String componentName;
 
@@ -46,9 +49,9 @@ public class LinkReconnectCommand extends Command {
 
 		for (PortSpecification p : portspecification) {
 			String portName = p.getTypeOfPort() + p.getSequenceOfPort();
-			if (portName.equals(sourceTerminal)) {
+			if (portName.equals(newSourceTerminal)) {
 				if (p.isAllowMultipleLinks()
-						|| !newSource.hasOutputPort(sourceTerminal)) {
+						|| !newSource.hasOutputPort(newSourceTerminal)) {
 
 				} else{
 					return false;
@@ -60,19 +63,11 @@ public class LinkReconnectCommand extends Command {
 
 	public void execute() {
 		if (newSource != null) {
-			link.reconnect(newSource,sourceTerminal);
-			/*link.setSource(newSource);
-			link.setSourceTerminal(sourceTerminal);
+			//link.reconnect(newSource,sourceTerminal);
+			link.setSource(newSource);
+			link.setSourceTerminal(newSourceTerminal);
+			newSource.addOutputPort(newSourceTerminal);
 			link.attachSource();
-			newSource.addOutputPort(sourceTerminal);*/
-
-			// delete link
-			if (oldSource == null && oldTarget == null) {
-				link.detachSource();
-				link.detachTarget();
-				link.getSource().removeOutputPort(link.getSourceTerminal());
-				link.setSource(null);
-			}
 		}
 
 	}
@@ -82,9 +77,9 @@ public class LinkReconnectCommand extends Command {
 			throw new IllegalArgumentException();
 		}
 		newSource = linkSource;
+		newSourceTerminal=null;
 		oldSource.disconnectOutput(link);
 		oldSource.removeOutputPort(link.getSourceTerminal());
-		
 	}
 
 	public void setNewTarget(Component linkTarget) {
@@ -96,9 +91,13 @@ public class LinkReconnectCommand extends Command {
 		
 	}
 
-	public void setSourceTerminal(String newSourceTerminal) {
-		oldSourceTerminal=sourceTerminal;
-		sourceTerminal = newSourceTerminal;
+	public void setNewSourceTerminal(String newSourceTerminal) {
+		this.newSourceTerminal = newSourceTerminal;
+	}
+	
+	public void setOldSource(Link w) {
+		oldSource = w.getSource();
+		oldSourceTerminal = w.getSourceTerminal();
 	}
 	
 	@Override
@@ -106,18 +105,21 @@ public class LinkReconnectCommand extends Command {
 		execute();
 	}
 	
+	
 	@Override
 	public void undo(){
-		
-		link.reconnect(oldSource, oldSourceTerminal);
-		/*newSource=link.getSource();
-		sourceTerminal=link.getSourceTerminal();
-		
+		//link.reconnect(oldSource, oldSourceTerminal);
+		newSource=link.getSource();
+		logger.debug("New source is :{}", newSource.getProperties().get("name"));
+		newSourceTerminal=link.getSourceTerminal();
+		newSource.disconnectOutput(link);
+		newSource.removeOutputPort(link.getSourceTerminal());
 		link.detachSource();
 		
 		link.setSource(oldSource);
+		logger.debug("Old source is :{}", oldSource.getProperties().get("name"));
 		link.setSourceTerminal(oldSourceTerminal);
-		link.attachSource();*/
+		link.attachSource();
 		
 	}
 }

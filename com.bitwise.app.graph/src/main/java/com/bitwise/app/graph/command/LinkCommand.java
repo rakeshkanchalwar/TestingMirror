@@ -4,14 +4,19 @@ import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.gef.commands.Command;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class LinkCommand extends Command{
+	
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectCommand.class);
+	
 	/** The connection instance. */
 	private Link connection;
 	/** The desired line style for the connection (dashed or solid). */
@@ -179,6 +184,7 @@ public class LinkCommand extends Command{
 	@Override
 	public void undo() {
 		source = connection.getSource();
+		logger.debug("New Name :{}",source.getProperties().get("name"));
 		target = connection.getTarget();
 		sourceTerminal = connection.getSourceTerminal();
 		targetTerminal = connection.getTargetTerminal();
@@ -187,6 +193,7 @@ public class LinkCommand extends Command{
 		connection.detachTarget();
 
 		connection.setSource(oldSource);
+		logger.debug("Link comd Old Name :{}",oldSource.getProperties().get("name"));
 		connection.setTarget(oldTarget);
 		connection.setSourceTerminal(oldSourceTerminal);
 		connection.setTargetTerminal(oldTargetTerminal);

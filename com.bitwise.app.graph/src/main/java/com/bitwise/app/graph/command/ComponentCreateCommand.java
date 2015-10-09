@@ -48,6 +48,7 @@ public class ComponentCreateCommand extends Command {
 		Point p = new Point(bounds.x, bounds.y);
 		this.bounds = new Rectangle(p, newSize);
 		setLabel("component creation");
+		setLabel("component reconnection");
 	}
 	
 	public void execute() {

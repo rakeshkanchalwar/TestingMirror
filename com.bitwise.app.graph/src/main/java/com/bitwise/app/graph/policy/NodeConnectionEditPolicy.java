@@ -8,6 +8,7 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.bitwise.app.graph.command.LinkCommand;
 import com.bitwise.app.graph.command.LinkReconnectCommand;
+import com.bitwise.app.graph.command.LinkReconnectTargetCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
@@ -55,22 +56,34 @@ public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 			ReconnectRequest request) {
 		
 		Link link=(Link)request.getConnectionEditPart().getModel();
-		Component figure=getComponentEditPart().getCastedModel();
+		Component comp=getComponentEditPart().getCastedModel();
+		
+		LinkReconnectCommand cmd=new LinkReconnectCommand(link);
+		cmd.setOldSource(link);
+		cmd.setNewSource(comp);
 		ConnectionAnchor anchor=getComponentEditPart().getSourceConnectionAnchor(request);
 		if(anchor==null){
 			return null;
 		}
-		LinkReconnectCommand cmd=new LinkReconnectCommand(link);
-		cmd.setNewSource(figure);
-		cmd.setSourceTerminal(getComponentEditPart().mapConnectionAnchorToTerminal(anchor));
+		cmd.setNewSourceTerminal(getComponentEditPart().mapConnectionAnchorToTerminal(anchor));
 		
 	
 		return cmd;
 	}
 	protected Command getReconnectTargetCommand(
 			ReconnectRequest request) {
+		Link link=(Link)request.getConnectionEditPart().getModel();
+		Component component=getComponentEditPart().getCastedModel();
+		ConnectionAnchor anchor=getComponentEditPart().getTargetConnectionAnchor(request);
+		if(anchor==null){
+			return null;
+		}
+		LinkReconnectTargetCommand command=new LinkReconnectTargetCommand(link);
+		command.setOldTarget(link);
+		command.setNewTarget(component);
+		command.setNewTargetTerminal(getComponentEditPart().mapConnectionAnchorToTerminal(anchor));
 		
-		return null;
+		return command;
 	}
 
 
