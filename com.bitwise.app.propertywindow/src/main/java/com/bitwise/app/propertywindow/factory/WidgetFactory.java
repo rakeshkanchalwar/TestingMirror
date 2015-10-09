@@ -1,8 +1,8 @@
 package com.bitwise.app.propertywindow.factory;
 
+import com.bitwise.app.propertywindow.fixedwidthschema.ELTFixedWidget;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
-import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
@@ -19,8 +19,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTStrictWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTFieldSequenceWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTGenericSchemaGridWidget;
 
 /**
  * 
@@ -31,8 +30,10 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGrid
 
 public class WidgetFactory {
 	public static AbstractWidget getWidget(String widgetName, ComponentConfigrationProperty componentConfigrationProperty, ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar){
-		if(widgetName.equals("ELT_SCHEMA_WIDGET")){
-			return new ELTSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+		if(widgetName.equals("ELT_SCHEMA_WIDGET") || widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
+			return new ELTGenericSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+		}else if(widgetName.equals("ELT_FIXED_WIDGET")){
+			return new ELTFixedWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
 			return new ELTRuntimePropertiesWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){
@@ -54,8 +55,6 @@ public class WidgetFactory {
 			return new ELTFilterWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_OPERATIONAL_CLASS_WIDGET")){
 			return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
-			return new ELTSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);   
 		}else if(widgetName.equals("ELT_COMPONENT_BASETYPE_WIDGET")){
 			return new ELTComponentBaseType(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);  
 		}else if(widgetName.equals("ELT_COMPONENT_TYPE_WIDGET")){

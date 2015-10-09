@@ -82,6 +82,7 @@
 			<enumeration value="ELTFilterPropertyWidget" />
 			<enumeration value="ELTOperationalClassWidget" />
 			<enumeration value="ELTStrictClassWidget" />
+			<enumeration value="ELTFixedWidget"/>
 		</restriction>
 	</simpleType>
 

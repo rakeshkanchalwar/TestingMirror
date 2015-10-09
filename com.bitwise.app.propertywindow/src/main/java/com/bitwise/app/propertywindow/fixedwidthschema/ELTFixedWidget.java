@@ -1,44 +1,46 @@
 package com.bitwise.app.propertywindow.fixedwidthschema;
 
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.TableViewer;
-
-import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaUtility;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
-import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTCellEditorIsNumericValidator;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEditorFieldValidator;
 
 public class ELTFixedWidget extends ELTSchemaGridWidget{
 
-	public ELTFixedWidget(
-			ComponentConfigrationProperty componentConfigrationProperty,
-			ComponentMiscellaneousProperties componentMiscellaneousProperties,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(componentConfigrationProperty, componentMiscellaneousProperties,
-				propertyDialogButtonBar);
-		// TODO Auto-generated constructor stub
+	public ELTFixedWidget(ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 	}
-	/*public static final String Length=Messages.FIELDPHASE;
-	public TableViewer tableViewer;
-	public static final String[] PROPS = { FIELDNAME, DATATYPE, DATEFORMAT, SCALE, Length };
-	
-	public ELTFixedWidget(){
-		super();
-	}*/
 
-	/*@Override
-	public void attachToPropertySubGroup(AbstractELTContainerWidget container){
-		WidgetUtility.createTableColumns(table, PROPS);
-		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
-			table.getColumn(i).pack(); 
-			table.getColumn(i).setWidth(80);
+	@Override
+	protected String[] getPropertiesToShow() {
+		return new String[]{ FIELDNAME, DATATYPE, DATEFORMAT, SCALE, LENGTH };
 	}
-		CellEditor[] editors = SchemaUtility.createCellEditorList(table, 5);
-		tableViewer.setColumnProperties(PROPS);
-		*/
-//}
+	
+	@Override
+	protected FixedWidthGridWidgetBuilder getGridWidgetBuilder() {
+		return FixedWidthGridWidgetBuilder.INSTANCE;
+	}
+	
+	protected FixedWidthGridContentProvider getContentProvider() {
+		return new FixedWidthGridContentProvider();
+	}
+	
+	protected FixedWidthGridLabelProvider getLableProvider() {
+		return new FixedWidthGridLabelProvider();
+	}
+	
+	protected FixedWidthGridCellModifier getCellModifier() {
+		return new FixedWidthGridCellModifier(tableViewer);
+	}
+
+	@Override
+	protected void addValidators() {
+		editors[0].setValidator(new ELTCellEditorFieldValidator(table, schemaGridRowList, fieldNameDecorator,propertyDialogButtonBar));
+		editors[3].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator,propertyDialogButtonBar)); 
+		editors[4].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator,propertyDialogButtonBar)); 
+	}
+	
 }
