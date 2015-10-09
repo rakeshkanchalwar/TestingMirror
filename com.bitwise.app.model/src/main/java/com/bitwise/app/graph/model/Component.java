@@ -79,12 +79,14 @@ public class Component extends Model {
 	}
 	
 	public void disconnectInput(Link c) {
-		inputLinks.remove(c.getTargetTerminal());
+		inputLinks.remove(c);
+		inputLinksHash.remove(c.getTargetTerminal());
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
 	public void disconnectOutput(Link c) {
 		outputLinks.remove(c);
+		outputLinksHash.remove(c.getSourceTerminal());
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 	

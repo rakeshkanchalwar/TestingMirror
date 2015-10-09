@@ -8,4 +8,8 @@ public class InputFixedWidth extends InputCategory{
 		super();
 	}
 
+	public String getConverter() {
+		return "com.bitwise.app.engine.converter.impl.InputFixedWidthConverter";
+
+	}
 }

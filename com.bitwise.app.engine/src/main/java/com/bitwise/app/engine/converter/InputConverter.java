@@ -2,6 +2,8 @@ package com.bitwise.app.engine.converter;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
@@ -9,11 +11,11 @@ import com.bitwiseglobal.graph.commontypes.TypeInputComponent;
 import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
 
 public abstract class InputConverter extends Converter {
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = LogFactory.INSTANCE.getLogger(InputConverter.class);
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException{
-	eltLogger.getLogger().info("prepareForXML - Genrating XML");	
+	logger.debug("prepareForXML - Genrating XML");	
 		super.prepareForXML();
 		((TypeInputComponent)baseComponent).getOutSocket().addAll(getInOutSocket());
 		((TypeInputComponent)baseComponent).getDependsOn().add(getDependsOn());

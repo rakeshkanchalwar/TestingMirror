@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ide.FileStoreEditorInput;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
@@ -15,10 +16,10 @@ import com.bitwise.app.graph.model.Container;
 public class GenrateContainerData {
 
 	private IGenrateContainerData editorInput;
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	
 	public void setEditorInput(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
-		eltLogger.getLogger().info("setEditorInput - ");
+		logger.debug("setEditorInput - ");
 		if((ETLGraphicalEditorInput.class).isAssignableFrom(editorInput.getClass()))
 		{this.editorInput = new GraphicalEditorContiner(editorInput,eltGraphicalEditorInstance);}
 		else{

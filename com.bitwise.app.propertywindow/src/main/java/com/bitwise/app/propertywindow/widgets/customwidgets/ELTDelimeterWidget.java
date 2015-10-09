@@ -79,8 +79,7 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		if(properties != null)
 			textBox.setText((String) properties);
 		
-		else
-			textBox.setText("|");
+		
 		
 	}
 
