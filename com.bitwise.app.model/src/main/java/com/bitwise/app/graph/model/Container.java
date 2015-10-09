@@ -77,7 +77,7 @@ public class Container extends Model {
 			return null;
 		}
 		
-		LoggerUtil.getLoger(this).info(METHOD_NAME + "baseName: " + baseName + ", isNewInstance: " + isNewInstance);
+		LoggerUtil.getLoger(this.getClass().getClass()).info(METHOD_NAME + "baseName: " + baseName + ", isNewInstance: " + isNewInstance);
 
 		if (!isNewInstance) {
 			// OK, so it's not a new instance of the component (probably undo ), check if the component name is still
@@ -95,19 +95,19 @@ public class Container extends Model {
 		componentName = componentName.trim();
 		String newName = "";
 		Integer nextSuffix = componentNextNameSuffixes.get(componentName);
-		LoggerUtil.getLoger(this).debug(
+		LoggerUtil.getLoger(this.getClass()).debug(
 				METHOD_NAME + "componentNextNameSuffixes.size(): " + componentNextNameSuffixes.size());
 		int next = 1;
 
 		if (nextSuffix == null) {
-			LoggerUtil.getLoger(this)
+			LoggerUtil.getLoger(this.getClass())
 					.debug(METHOD_NAME
 							+ "component "
 							+ componentName
 							+ " not present in the map! will check if default component name is already taken by some other component. If not, then return default name.");
 
 		} else {
-			LoggerUtil.getLoger(this).debug(
+			LoggerUtil.getLoger(this.getClass()).debug(
 					METHOD_NAME + "component exists in the map. value of nextSuffix: " + nextSuffix.intValue());
 			next = nextSuffix.intValue();
 		}
@@ -118,7 +118,7 @@ public class Container extends Model {
 			boolean continueFor = false;
 			for (String cname : componentNames) {
 				if (cname.equalsIgnoreCase(newName)) {
-					LoggerUtil.getLoger(this).debug(METHOD_NAME + "Found duplicate name: " + cname);
+					LoggerUtil.getLoger(this.getClass()).debug(METHOD_NAME + "Found duplicate name: " + cname);
 					continueFor = true;
 					break;
 				}
@@ -127,10 +127,10 @@ public class Container extends Model {
 			if (continueFor) {
 				next++;
 				newName = componentName + "_" + (next < 10 ? "0" : "") + next;
-				LoggerUtil.getLoger(this).debug(
+				LoggerUtil.getLoger(this.getClass()).debug(
 						METHOD_NAME + "still didn't get the new name for the component, now checking for " + newName);
 			} else {
-				LoggerUtil.getLoger(this).debug(METHOD_NAME + "Got the new name for the component! " + newName);
+				LoggerUtil.getLoger(this.getClass()).debug(METHOD_NAME + "Got the new name for the component! " + newName);
 				break;
 			}
 
@@ -139,8 +139,8 @@ public class Container extends Model {
 		// populate Hashtable
 		nextSuffix = new Integer(++next);
 		Integer i = componentNextNameSuffixes.put(componentName, nextSuffix);
-		LoggerUtil.getLoger(this).debug(METHOD_NAME + "previous value for component " + componentName + " in map: " + i);
-		LoggerUtil.getLoger(this).debug(METHOD_NAME + "Adding New component name to the list: " + newName);
+		LoggerUtil.getLoger(this.getClass()).debug(METHOD_NAME + "previous value for component " + componentName + " in map: " + i);
+		LoggerUtil.getLoger(this.getClass()).debug(METHOD_NAME + "Adding New component name to the list: " + newName);
 		componentNames.add(newName);
 
 		return newName;
@@ -167,7 +167,7 @@ public class Container extends Model {
 			}
 
 		}
-		LoggerUtil.getLoger(this).debug(METHOD_NAME + "Conainer.isUniqueCompName(): result: " + result);
+		LoggerUtil.getLoger(this.getClass()).debug(METHOD_NAME + "Conainer.isUniqueCompName(): result: " + result);
 
 		return result;
 	}

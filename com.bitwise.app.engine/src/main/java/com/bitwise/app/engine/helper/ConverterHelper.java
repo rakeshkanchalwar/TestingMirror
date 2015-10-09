@@ -13,7 +13,7 @@ import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 
 public class ConverterHelper extends Converter{
 
-	static Logger logger = new LogFactory("ConverterHelper").getLogger();
+	static Logger logger = LogFactory.INSTANCE.getLogger(ConverterHelper.class);
 	
 	
 	public static List<TypeBaseInSocket> getInSocket(Component component) {

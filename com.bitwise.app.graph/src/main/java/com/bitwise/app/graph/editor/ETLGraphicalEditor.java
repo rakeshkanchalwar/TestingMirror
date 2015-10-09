@@ -100,7 +100,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	private boolean dirty=false;
 	
 	
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(ETLGraphicalEditor.class);
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
 	private Point defaultComponentLocation = new Point(0, 0);

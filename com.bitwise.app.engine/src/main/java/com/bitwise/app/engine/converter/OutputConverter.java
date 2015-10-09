@@ -11,7 +11,7 @@ import com.bitwiseglobal.graph.commontypes.TypeOutputComponent;
 import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
 
 public abstract class OutputConverter extends Converter {
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(OutputConverter.class);
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException{

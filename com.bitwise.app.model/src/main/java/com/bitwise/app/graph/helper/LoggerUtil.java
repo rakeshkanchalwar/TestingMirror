@@ -6,20 +6,21 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 
+/**
+ * @author niting
+ *
+ */
 public class LoggerUtil {
+	private static HashMap<Class<?>, Logger> loggerMap = new HashMap<>();
 
-	private static HashMap<String, Logger> loggerMap = new HashMap<String, Logger>();
-
-	public static Logger getLoger(Object obj) {
-		String className = obj.getClass().getName();
-		Logger tempLogger = loggerMap.get(className);
+	public static Logger getLoger(Class<?> clazz) {
+		Logger tempLogger = loggerMap.get(clazz);
 		if (tempLogger != null) {
 			return tempLogger;
 		} else {
-			tempLogger = new LogFactory(className).getLogger();
-			loggerMap.put(className, tempLogger);
+			tempLogger = LogFactory.INSTANCE.getLogger(clazz);
+			loggerMap.put(clazz, tempLogger);
 			return tempLogger;
 		}
-
 	}
 }
