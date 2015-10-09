@@ -155,6 +155,8 @@ public class ELTSchemaGridWidget extends AbstractWidget {
 			e.printStackTrace();
 		}
 		
+		populateWidget();
+		
 	}
  
 	@Override

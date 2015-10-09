@@ -45,7 +45,10 @@ public class ELTOperationClassWidget extends AbstractWidget {
 		super(componentConfigrationProperty, componentMiscellaneousProperties,
 				propertyDialogButtonBar);
 
-		this.properties = componentConfigrationProperty.getPropertyValue();
+		this.operationClassProperty = (OperationClassProperty) componentConfigrationProperty.getPropertyValue();
+		if(operationClassProperty == null){
+			operationClassProperty = new OperationClassProperty("", false);
+		}
 		this.propertyName = componentConfigrationProperty.getPropertyName();
 	}
 	
@@ -69,13 +72,20 @@ public class ELTOperationClassWidget extends AbstractWidget {
 				"Edit").grabExcessHorizontalSpace(false);
 		runtimeComposite.attachWidget(eltDefaultButton);
 
+		//populateWidget();
+		
 		((Button)eltDefaultButton.getSWTWidgetControl()).addSelectionListener(new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				eltOperationClassDialog = new ELTOperationClassDialog(runtimeComposite.getContainerControl().getShell(), propertyDialogButtonBar,operationClassProperty);
+				eltOperationClassDialog = new ELTOperationClassDialog(runtimeComposite.getContainerControl().getShell(), propertyDialogButtonBar,operationClassProperty.getCopy());
 				eltOperationClassDialog.open();
+				if(!eltOperationClassDialog.getOperationClassProperty().equals(operationClassProperty)){
+					operationClassProperty = eltOperationClassDialog.getOperationClassProperty();
+					propertyDialogButtonBar.enableApplyButton(true);
+				}
+				//operationClassProperty=eltOperationClassDialog.getPropertyValue();
 				super.widgetSelected(e);
 			}
 			
@@ -144,8 +154,7 @@ public class ELTOperationClassWidget extends AbstractWidget {
 	 
 
 	
-	private void populateWidget(){		
-		
+	/*private void populateWidget(){
 		if (properties != null && properties instanceof OperationClassProperty) {
 			operationClassProperty = new OperationClassProperty(((OperationClassProperty)properties).getOperationClassPath(),((OperationClassProperty)properties).isParameter());
 		}
@@ -153,13 +162,14 @@ public class ELTOperationClassWidget extends AbstractWidget {
 			fileName.setBackground(new Color(Display.getDefault(), 255,
 					255, 204));
 		}
-	}
+	}*/
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {		
 		//operationClassProperty = eltOperationClassDialog.getOperationClassProperty();
-		//property.put(propertyName, operationClassProperty);
-		return null;
+		property.put(propertyName, operationClassProperty);
+		
+		return property;
 	}
 
 }

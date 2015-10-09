@@ -5,17 +5,23 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
@@ -33,6 +39,7 @@ public class ELTOperationClassDialog extends Dialog {
 	private Button applyButton;
 	private Composite container;
 	private OperationClassProperty operationClassProperty;
+	private PropertyDialogButtonBar eltOperationClassDialogButtonBar;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -59,6 +66,9 @@ public class ELTOperationClassDialog extends Dialog {
 		container.getShell().setText("Operation Class");
 		
 		setPropertyDialogSize();
+		
+		eltOperationClassDialogButtonBar = new PropertyDialogButtonBar(container);
+		
 		
 		Composite composite = new Composite(container, SWT.BORDER);
 		ColumnLayout cl_composite = new ColumnLayout();
@@ -124,35 +134,67 @@ public class ELTOperationClassDialog extends Dialog {
 		eltSuDefaultSubgroupComposite2.attachWidget(editButton); 
 		
 		btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
-	
+		/*fileName.addModifyListener(new ModifyListener() {
+			
+			@Override
+			public void modifyText(ModifyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});*/
 		//container.attchProertySeperator();
-		try { 
+		try { 						
+			/*fileNameText.attachListener(listenerFactory.getListener("ELTEventChangeListener"),propertyDialogButtonBar, null,fileName);
 			editButton.attachListener(listenerFactory.getListener("ELTOpenFileEditorListener"),propertyDialogButtonBar, null,fileName);
 			browseButton.attachListener(listenerFactory.getListener("ELTBrowseFileListener"),propertyDialogButtonBar, null,fileName);
 			createButton.attachListener(listenerFactory.getListener("ELTCreateNewClassListener"),propertyDialogButtonBar, null,fileName);
 			fileNameText.attachListener(listenerFactory.getListener("ELTEmptyTextModifyListener"),propertyDialogButtonBar, null,fileName,editButton.getSWTWidgetControl(),isParameterCheckbox.getSWTWidgetControl());
 	//		fileNameText.attachListener(listenerFactory.getListener("ELTCheckFileExtensionListener"),propertyDialogButtonBar, null,fileName,isParameterCheckbox.getSWTWidgetControl());
-			isParameterCheckbox.attachListener(listenerFactory.getListener("ELTEnableButtonListener"),propertyDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());
+			isParameterCheckbox.attachListener(listenerFactory.getListener("ELTEnableButtonListener"),propertyDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());*/
+			
+			fileNameText.attachListener(listenerFactory.getListener("ELTEventChangeListener"),eltOperationClassDialogButtonBar, null,fileName);
+			editButton.attachListener(listenerFactory.getListener("ELTOpenFileEditorListener"),eltOperationClassDialogButtonBar, null,fileName);
+			browseButton.attachListener(listenerFactory.getListener("ELTBrowseFileListener"),eltOperationClassDialogButtonBar, null,fileName);
+			createButton.attachListener(listenerFactory.getListener("ELTCreateNewClassListener"),eltOperationClassDialogButtonBar, null,fileName);
+			fileNameText.attachListener(listenerFactory.getListener("ELTEmptyTextModifyListener"),eltOperationClassDialogButtonBar, null,fileName,editButton.getSWTWidgetControl(),isParameterCheckbox.getSWTWidgetControl());
+	//		fileNameText.attachListener(listenerFactory.getListener("ELTCheckFileExtensionListener"),propertyDialogButtonBar, null,fileName,isParameterCheckbox.getSWTWidgetControl());
+			isParameterCheckbox.attachListener(listenerFactory.getListener("ELTEnableButtonListener"),eltOperationClassDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());
 			} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
 		
+		poulateWidget();
 		return container;
 	}
 
+    public void poulateWidget() {
+        if (!operationClassProperty.getOperationClassPath().equalsIgnoreCase("")) {
+              fileName.setText(operationClassProperty.getOperationClassPath());
+              btnCheckButton.setSelection(operationClassProperty.isParameter());
+        }/*
+        else{
+              fileName.setBackground(new Color(Display.getDefault(), 255,
+                          255, 204));
+        }*/
+  }
+
+	
 	/**
 	 * Create contents of the button bar.
 	 * @param parent
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+		Button okButton=createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
-		createButton(parent, IDialogConstants.CANCEL_ID,
+		Button cancelButton=createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
 		
 		createApplyButton(parent);	
+		
+		
+		eltOperationClassDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
 	}
 	
 	private void createApplyButton(Composite parent) {
@@ -177,8 +219,60 @@ public class ELTOperationClassDialog extends Dialog {
 		container.getShell().setMinimumSize(450, 185);
 	}
 
+	@Override
+	protected void cancelPressed() {
+		// TODO Auto-generated method stub
+		
+		if(applyButton.isEnabled()){
+			ConfirmCancelMessageBox confirmCancelMessageBox = new ConfirmCancelMessageBox(container);
+			MessageBox confirmCancleMessagebox = confirmCancelMessageBox.getMessageBox();
+
+			if(confirmCancleMessagebox.open() == SWT.OK){
+				super.close();
+			}
+		}else{
+			super.close();
+		}
+		
+		//super.cancelPressed();
+	}
+
+	@Override
+	protected void okPressed() {
+		// TODO Auto-generated method stub
+		/*operationClassProperty.setParameter(btnCheckButton.getSelection());
+        operationClassProperty.setOperationClassPath(fileName.getText());*/
+        operationClassProperty = new OperationClassProperty(fileName.getText(), btnCheckButton.getSelection());
+		super.okPressed();
+	}
+
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if(buttonId == 3){
+			operationClassProperty = new OperationClassProperty(fileName.getText(), btnCheckButton.getSelection());
+			applyButton.setEnabled(false);
+		}else{
+			super.buttonPressed(buttonId);
+		}
+	}
+
+	
+	
+	
 	public OperationClassProperty getOperationClassProperty() {
 		OperationClassProperty operationClassProperty = new OperationClassProperty(this.operationClassProperty.getOperationClassPath(),this.operationClassProperty.isParameter());
 		return operationClassProperty;
 	}
+
+	/*public PropertyDialogButtonBar getEltOperationClassDialogButtonBar() {
+		return eltOperationClassDialogButtonBar;
+	}
+	
+	public OperationClassProperty getPropertyValue(){
+		return operationClassProperty;
+	}
+	
+	public void setPropertyValue(String proertyValue){
+		fileName.setText(proertyValue);
+	}*/
 }
