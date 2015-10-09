@@ -21,11 +21,10 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 
 public class ELTFilterWidget extends AbstractWidget {
 
-	private Shell shell;
 	private LinkedHashSet<String> tempPropertyMap;
 	private String propertyName;
 	private List<String> propertyLst;
-	private HashSet<String> InstializeMap;
+	private HashSet<String> set;
 	
 	private String componentName;
 
@@ -47,12 +46,12 @@ public class ELTFilterWidget extends AbstractWidget {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ELTFilterPropertyWizard filterWizardObj=new ELTFilterPropertyWizard();
-				filterWizardObj.setComponentName(componentName);
+				
 				if(getProperties().get(propertyName)==null){
 					setProperties(propertyName, new HashSet<String>());
 				}
 					filterWizardObj.setRuntimePropertyMap((HashSet<String>) getProperties().get(propertyName));
-					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(shell));
+					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(null));
 			
 			}
 		});
@@ -63,14 +62,14 @@ public class ELTFilterWidget extends AbstractWidget {
 	@Override
 	public void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
-		this.InstializeMap = (HashSet<String>) properties;
+		this.set = (HashSet<String>) properties;
 
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-		property.put(propertyName,this.InstializeMap);
+		property.put(propertyName,this.set);
 		return property;
 	}
 

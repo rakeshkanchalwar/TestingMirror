@@ -46,7 +46,6 @@ public class ELTFilterPropertyWizard {
 	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
 	public static final String[] PROPS = { FilterInputFieldName };
 	private String PROPERTY_NAME_BLANK_ERROR = Messages.EmptyNameNotification;
-	// private String PROPERTY_VALUE_BLANK_ERROR = Messages.EmptyValueNotification;
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
@@ -166,7 +165,7 @@ public class ELTFilterPropertyWizard {
 		lblHeader.setBounds(10, 14, 450, 15);
 		if (getComponentName() != null)
 			lblHeader.setText(getComponentName() + "Filter Operation Field"); //$NON-NLS-1$
-		else
+			else
 			lblHeader.setText("Filter Component Property");
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523, 2);
 		// Below Event will be fired when user closes the Runtime window
@@ -194,16 +193,16 @@ public class ELTFilterPropertyWizard {
 		lblPropertyError.setBounds(28, 57, 258, 15);
 		lblPropertyError.setVisible(false);
 
-		final CellEditor propertyNameeditor = new TextCellEditor(table);
+		final CellEditor propertyNameEditor = new TextCellEditor(table);
 
-		CellEditor[] editors = new CellEditor[] { propertyNameeditor };
-		propertyNameeditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
+		CellEditor[] editors = new CellEditor[] { propertyNameEditor };
+		propertyNameEditor.setValidator(createNameEditorValidator(PROPERTY_NAME_BLANK_ERROR));
 
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new ELTCellModifier(tableViewer));
 		tableViewer.setCellEditors(editors);
 
-		decorator = WidgetUtility.addDecorator(propertyNameeditor.getControl(), Messages.CHARACTERSET);
+		decorator = WidgetUtility.addDecorator(propertyNameEditor.getControl(), Messages.CHARACTERSET);
 		loadProperties(tableViewer);
 
 		Monitor primary = shell.getDisplay().getPrimaryMonitor();
@@ -312,8 +311,9 @@ public class ELTFilterPropertyWizard {
 					}
 
 					shell.close();
-				} else
+				} else{
 					return;
+					}
 			}
 		});
 		okButton.setBounds(321, 52, 75, 25);
@@ -335,7 +335,7 @@ public class ELTFilterPropertyWizard {
 	protected boolean validate() {
 
 		int propertyCounter = 0;
-		//String valueToValidate = String.valueOf(value).trim();
+
 		for (ELTFilterProperties temp : propertyLst) {
 			if (!temp.getPropertyname().trim().isEmpty()) {
 				//if(temp.getPropertyname().trim().equalsIgnoreCase(anotherString))
