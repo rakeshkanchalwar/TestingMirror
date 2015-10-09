@@ -1,6 +1,7 @@
 package com.bitwise.app.graph.editorfactory;
 
 import org.eclipse.ui.IEditorInput;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
@@ -11,7 +12,7 @@ public class GraphicalEditorContiner implements IGenrateContainerData {
 
 	private ETLGraphicalEditorInput graphicaleditorInput;
 	private ETLGraphicalEditor eltGraphicalEditorInstance;
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	
 	public GraphicalEditorContiner(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		this.graphicaleditorInput = (ETLGraphicalEditorInput) editorInput;
@@ -20,14 +21,14 @@ public class GraphicalEditorContiner implements IGenrateContainerData {
 
 	@Override
 	public Container getEditorInput() {
-		eltLogger.getLogger().info("getEditorInput - Setting GraphicalEditor Input");
+		logger.debug("getEditorInput - Setting GraphicalEditor Input");
 		this.eltGraphicalEditorInstance.setPartName(this.graphicaleditorInput.getName());
 		return new Container();
 	}
 
 	@Override
 	public void storeEditorInput() {
-		eltLogger.getLogger().info("storeEditorInput - Calling doSaveAs method");
+		logger.debug("storeEditorInput - Calling doSaveAs method");
 		eltGraphicalEditorInstance.doSaveAs();
 		
 	}

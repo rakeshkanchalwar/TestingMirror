@@ -18,8 +18,8 @@
     <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict" renderer="ELTStrictClassWidget" type="USER"/>
     <tns:property dataType="boolean" name="safe" renderer="ELTSafePropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
     <tns:property dataType="boolean" name="has_header" renderer="ELTHasHeaderWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
-    <tns:property dataType="string" name="charset" renderer="ELTCharacterSetWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="charset" value="UTF-8" renderer="ELTCharacterSetWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
     <tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
-    <tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
   </tns:component>
 </tns:Config>

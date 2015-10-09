@@ -19,7 +19,7 @@
 		</tns:portSpecification>
 	</tns:port>
 	<tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="DISPLAY"/>
-	 <tns:property dataType="string" name="phase" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION" />
+	 <tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION" />
 	 <tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
 	</tns:component>
 </tns:Config>

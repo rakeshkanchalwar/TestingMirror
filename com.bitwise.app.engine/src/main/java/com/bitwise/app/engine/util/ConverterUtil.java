@@ -2,6 +2,7 @@ package com.bitwise.app.engine.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.converter.Converter;
 import com.bitwise.app.engine.converter.ConverterFactory;
+import com.bitwise.app.engine.exceptions.EngineException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwiseglobal.graph.commontypes.TypeBaseComponent;
@@ -27,10 +29,10 @@ public class ConverterUtil {
 	
 	private ConverterUtil(){}
 	
-	public void convertToXML(Container container, boolean validate, IFile outPutFile) throws Exception{
+	public void convertToXML(Container container, boolean validate, IFile outPutFile) throws EngineException,Exception{
 	String METHOD_NAME="convertToXML - ";
-		logger.info(METHOD_NAME+" creating converter based on component");
-		try{
+		logger.debug(METHOD_NAME+" creating converter based on component");
+		
 			Graph graph = new ObjectFactory().createGraph();
 			List<Component> children = container.getChildren();
 			if(children != null && !children.isEmpty()){
@@ -42,17 +44,14 @@ public class ConverterUtil {
 				}
 			}
 			marshall(graph, validate,outPutFile);
-		}
-		catch(Exception exception){
-			logger.error(METHOD_NAME+"Failed to create the engine xml", exception);
-			throw exception;
-		}
+		//throw new IOException();
+		
 	}
 	
 	
 	private void marshall(Graph graph, boolean validate,IFile outPutFile) {
 		String METHOD_NAME="convertToXML - ";
-		logger.info(METHOD_NAME+" marshling genrated object into target XML");
+		logger.debug(METHOD_NAME+" marshling genrated object into target XML");
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(graph.getClass());
 			Marshaller marshaller = jaxbContext.createMarshaller();

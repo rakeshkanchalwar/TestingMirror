@@ -3,6 +3,8 @@ package com.bitwise.app.engine.converter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.InputConverter;
 import com.bitwise.app.engine.exceptions.PhaseException;
@@ -15,7 +17,7 @@ import com.bitwiseglobal.graph.itfd.TypeInputDelimitedOutSocket;
 
 public class InputFileDelimitedConverter extends InputConverter {
 
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	
 	public InputFileDelimitedConverter(Component component) {
 		super();
@@ -26,7 +28,7 @@ public class InputFileDelimitedConverter extends InputConverter {
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException{
-		eltLogger.getLogger().info("prepareForXML - Genrating XML data for "+component);
+		logger.debug("prepareForXML - Genrating XML data for "+component);
 		super.prepareForXML();
 		FileDelimited fileDelimited = (FileDelimited) baseComponent;
 		FileDelimited.Path path = new FileDelimited.Path();
@@ -44,7 +46,7 @@ public class InputFileDelimitedConverter extends InputConverter {
 
 	@Override
 	protected List<TypeInputOutSocket> getInOutSocket() throws SchemaException {
-		eltLogger.getLogger().info("getInOutSocket - Genrating TypeInputOutSocket data for "+component);
+		logger.debug("getInOutSocket - Genrating TypeInputOutSocket data for "+component);
 		List<TypeInputOutSocket> outSockets = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
 			TypeInputDelimitedOutSocket outSocket = new TypeInputDelimitedOutSocket();

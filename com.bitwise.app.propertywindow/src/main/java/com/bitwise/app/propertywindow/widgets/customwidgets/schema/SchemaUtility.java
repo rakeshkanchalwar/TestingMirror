@@ -50,6 +50,7 @@ public class SchemaUtility implements GridWidgetCommonBuilder {
 		schemaGrid.setDateFormat("");
 		schemaGrid.setScale("");
 		schemaGrid.setDataType(Integer.valueOf("0"));
+		schemaGrid.setDataTypeValue("java.lang.String");
 		
 		if(!grids.contains(schemaGrid))
 		{

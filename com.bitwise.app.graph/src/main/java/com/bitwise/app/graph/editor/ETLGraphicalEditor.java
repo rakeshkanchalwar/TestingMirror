@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.DefaultCaret;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -62,6 +64,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -71,12 +74,14 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.statushandlers.StatusManager;
+import org.slf4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.engine.exceptions.EngineException;
 import com.bitwise.app.engine.util.ConverterUtil;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.editorfactory.GenrateContainerData;
@@ -95,13 +100,11 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	private boolean dirty=false;
 	
 	
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
-	private com.bitwise.app.graph.model.Component genericComponent;
 	private Point defaultComponentLocation = new Point(0, 0);
-	private Dimension defaultCompSize = new Dimension(100, 100);
-
+	
 	public ETLGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 	}
@@ -361,38 +364,41 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		this.dirty = dirty;
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
+	
+	
 	@Override
 	public void setInput(IEditorInput input) {
 		super.setInput(input);
 		String METHOD_NAME = "setInput - ";
-		eltLogger.getLogger().info(METHOD_NAME);
+		logger.debug(METHOD_NAME);
 		try {
 			GenrateContainerData genrateContainerData = new GenrateContainerData();
 			genrateContainerData.setEditorInput(input, this);
 			container = genrateContainerData.getContainerData();
 		} catch (CoreException | IOException ce) {
-			eltLogger.getLogger().error(METHOD_NAME + ce.getMessage());
+			logger.error(METHOD_NAME , ce);
 		}
 	}
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		String METHOD_NAME = "doSave -";
-		eltLogger.getLogger().info(METHOD_NAME);
+		logger.debug(METHOD_NAME);
 		firePropertyChange(PROP_DIRTY);
 		try {
 			GenrateContainerData genrateContainerData = new GenrateContainerData();
 			genrateContainerData.setEditorInput(getEditorInput(), this);
 			genrateContainerData.storeContainerData();
-			setDirty(false);
+			
 		} catch (CoreException | IOException ce) {
-			eltLogger.getLogger().error(METHOD_NAME + ce.getMessage());
+			logger.error(METHOD_NAME , ce);
+			MessageDialog.openError(new Shell(), "Error", "Exception occured while saving the graph -\n"+ce.getMessage());
 		}
 	}
 
 	public void createOutputStream(OutputStream out) throws IOException {
 		String METHOD_NAME = "createOutputStream - ";
-		eltLogger.getLogger().info(METHOD_NAME);
+		logger.debug(METHOD_NAME);
 		out.write(fromObjectToXML(getModel()).getBytes());
 	}
 
@@ -402,8 +408,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	public void doSaveAs() {
 		String METHOD_NAME = "ETLGraphicalEditor. doSaveAs()";
-		eltLogger.getLogger().info(METHOD_NAME);
+		logger.debug(METHOD_NAME);
 		IFile file=opeSaveAsDialog();
+		if(file!=null){
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
 				createOutputStream(out);
@@ -415,14 +422,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				initializeGraphicalViewer();
 				genrateTargetXml(file);
 				getCommandStack().markSaveLocation();
-			} catch (CoreException ce) {
-				eltLogger.getLogger().error(ce.getMessage());
-			} catch (IOException ioe) {
-				eltLogger.getLogger().error(ioe.getMessage());
+			} catch (CoreException  | IOException ce) {
+				logger.error(METHOD_NAME,ce);
+				MessageDialog.openError(new Shell(), "Error", "Exception occured while saving the graph -\n"+ce.getMessage());
 			}
-				setDirty(false);
+			setDirty(false);
 			}
-	
+	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
@@ -430,7 +436,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	private IFile opeSaveAsDialog() {
-		eltLogger.getLogger().info("opeSaveAsDialog - Opening SaveAs dialog box.");
+		logger.debug("opeSaveAsDialog - Opening SaveAs dialog box.");
 		SaveAsDialog obj = new SaveAsDialog(new Shell());
 		IFile file=null;
 		if (getEditorInput().getName().endsWith(".job"))
@@ -450,20 +456,16 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	public Object fromXMLToObject(InputStream xml) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
 		Object obj = null;
-		eltLogger.getLogger().info(METHOD_NAME);
+		logger.debug(METHOD_NAME);
 		XStream xs = new XStream();
 		try {
 
 			obj = xs.fromXML(xml);
-			eltLogger
-					.getLogger()
-					.info(METHOD_NAME
+			logger.debug(METHOD_NAME
 							+ "Sucessfully converted JAVA Object from XML Data");
 			xml.close();
 		} catch (Exception e) {
-			eltLogger.getLogger().info(
-					METHOD_NAME + "Exception Occured " + e.getMessage());
-			eltLogger.getLogger().error(e.getMessage());
+			logger.error(METHOD_NAME,e);
 			MessageDialog
 					.openError(new Shell(), "Error", "Invalid graph file.");
 
@@ -474,28 +476,30 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	public String fromObjectToXML(Serializable object) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromObjectToXML(Serializable object)";
 		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
-		eltLogger.getLogger().info(METHOD_NAME);
+		logger.debug(METHOD_NAME);
 		XStream xs = new XStream();
 		try {
 			str = str + xs.toXML(object);
-			eltLogger.getLogger().info(
+			logger.debug(
 					METHOD_NAME + "Sucessfully converted XML from JAVA Object");
 		} catch (Exception e) {
-			eltLogger.getLogger().info(
-					METHOD_NAME + "Exception Occured " + e.getMessage());
-			eltLogger.getLogger().error(e.getMessage());
+			logger.error(METHOD_NAME,e);
 		}
 		return str;
 	}
 
 	public void genrateTargetXml(IFile ifile) {
 		String METHOD_NAME="genrateTargetXml - ";
-		eltLogger.getLogger().info(METHOD_NAME+"genrating target XML");
+		logger.debug(METHOD_NAME+"genrating target XML");
 		IFile outPutFile = ResourcesPlugin.getWorkspace().getRoot().getFile(ifile.getFullPath().removeFileExtension().addFileExtension("xml"));
 		try {
 			ConverterUtil.INSTANCE.convertToXML(container, false, outPutFile);
-		} catch (Exception exception) {
-			eltLogger.getLogger().info("Failed to create the engine xml", exception);
+		} catch (EngineException eexception) {
+			logger.warn("Failed to create the engine xml", eexception);
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Failed to create the engine xml", eexception.getMessage());
+//			
+		}catch (Exception exception) {
+			logger.error("Failed to create the engine xml", exception);
 			Status status = new Status(IStatus.ERROR, "com.bitwise.app.graph",
 					"Failed to create Engine XML " + exception.getMessage());
 			StatusManager.getManager().handle(status, StatusManager.SHOW);

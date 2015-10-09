@@ -12,5 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  com.bitwise.app.propertywindow;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Export-Package: com.bitwise.app.engine.util
+Export-Package: com.bitwise.app.engine.exceptions,
+ com.bitwise.app.engine.util
 Import-Package: org.eclipse.core.resources

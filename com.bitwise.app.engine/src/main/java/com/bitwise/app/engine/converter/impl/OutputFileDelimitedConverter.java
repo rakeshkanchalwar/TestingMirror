@@ -3,6 +3,8 @@ package com.bitwise.app.engine.converter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.OutputConverter;
 import com.bitwise.app.engine.exceptions.PhaseException;
@@ -15,7 +17,7 @@ import com.bitwiseglobal.graph.outputtypes.FileDelimited;
 
 public class OutputFileDelimitedConverter extends OutputConverter {
 	
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	
 	public OutputFileDelimitedConverter(Component component) {
 		super();
@@ -26,7 +28,7 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException{
-		eltLogger.getLogger().info("prepareForXML - Genrating XML data");
+		logger.debug("prepareForXML - Genrating XML data");
 		super.prepareForXML();
 		
 		FileDelimited fileDelimited = (FileDelimited) baseComponent;
@@ -47,17 +49,18 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 	}
 
 	@Override
-	protected List<TypeOutputInSocket> getInOutSocket() throws SchemaException {
-		eltLogger.getLogger().info("getInOutSocket - Genrating TypeOutputInSocket data");
-		List<TypeOutputInSocket> inSockets = new ArrayList<>();
+	protected List<TypeOutputInSocket> getOutInSocket() throws SchemaException {
+		logger.debug("getInOutSocket - Genrating TypeOutputInSocket data");
+		List<TypeOutputInSocket> outputinSockets = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
-			TypeOutputDelimitedInSocket outSocket = new TypeOutputDelimitedInSocket();
-			outSocket.setId((String) link.getSource().getProperties().get(NAME));
-			outSocket.setType("");
-			outSocket.setSchema(getSchema());
-			outSocket.getOtherAttributes();
-			inSockets.add(outSocket);
+			TypeOutputDelimitedInSocket outInSocket = new TypeOutputDelimitedInSocket();
+			outInSocket.setId("");
+			outInSocket.setType("");
+			outInSocket.setSchema(getSchema());
+			outInSocket.getOtherAttributes();
+			outInSocket.setFromComponentId((String) link.getSource().getProperties().get(NAME));
+			outputinSockets.add(outInSocket);
 		}
-		return inSockets;
+		return outputinSockets;
 	}
 }
