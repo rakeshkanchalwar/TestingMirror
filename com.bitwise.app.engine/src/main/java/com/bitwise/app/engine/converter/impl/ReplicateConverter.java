@@ -17,7 +17,7 @@ import com.bitwiseglobal.graph.straightpulltypes.Replicate;
 
 public class ReplicateConverter extends StraightPullConverter {
 
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(ReplicateConverter.class);
 
 	public ReplicateConverter(Component component) {
 		super();

@@ -12,7 +12,7 @@ import com.bitwise.app.graph.model.Component;
 public class ConverterFactory {
 
 	public static final ConverterFactory INSTANCE = new ConverterFactory();
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(ConverterFactory.class);
 	private ConverterFactory() {
 	}
 

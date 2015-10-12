@@ -20,6 +20,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
@@ -29,15 +33,76 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
 public class ELTRuntimePropertiesWidget extends AbstractWidget {
+	
 	private TreeMap<String, String> InstializeMap;
 	private String propertyName;
 	private Shell shell;
 	private String componentName;
 
-	public ELTRuntimePropertiesWidget() {
+	/*public ELTRuntimePropertiesWidget() {
 		super();
 		tempPropertyMap = new LinkedHashMap<String, Object>();
+	}*/
+	
+	public ELTRuntimePropertiesWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+		this.InstializeMap = (TreeMap<String, String>) componentConfigrationProperty.getPropertyValue();
+		
+		tempPropertyMap = new LinkedHashMap<String, Object>();
 	}
+	
+	
+	/*public ELTRuntimePropertiesWidget(
+			ComponentConfigrationProperty componentModelProperty,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentModelProperty, propertyDialogButtonBar);
+
+		this.propertyName = componentModelProperty.getPropertyName();
+		this.InstializeMap = (TreeMap<String, String>) componentModelProperty.getPropertyValue();
+		
+		tempPropertyMap = new LinkedHashMap<String, Object>();
+		
+	}*/
+	
+	/*public ELTRuntimePropertiesWidget(
+			ELTComponenetProperties eltComponenetProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(eltComponenetProperties, propertyDialogButtonBar);
+
+		this.propertyName = componentProperties.get(key);
+		this.InstializeMap = (TreeMap<String, String>) properties;
+		
+		tempPropertyMap = new LinkedHashMap<String, Object>();
+		
+	}*/
+
+	/*public ELTRuntimePropertiesWidget(
+			PropertyDialogButtonBar propertyDialogButtonBar,
+			LinkedHashMap<String, Object> componentMiscellaneousProperties,
+			LinkedHashMap<String, Object> componentProperties) {
+		super(propertyDialogButtonBar, componentMiscellaneousProperties,
+				componentProperties);
+		
+		
+		this.propertyName = componentProperties.get(key);
+		this.InstializeMap = (TreeMap<String, String>) properties;
+		
+		tempPropertyMap = new LinkedHashMap<String, Object>();
+	}*/
+		
+
+	/*public ELTRuntimePropertiesWidget(
+			ELTComponenetProperties eltComponenetProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		// TODO Auto-generated constructor stub
+	}*/
+
 
 	private LinkedHashMap<String, Object> tempPropertyMap;
 
@@ -60,7 +125,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		runtimeComposite.attachWidget(defaultLable1);
 		
 		ELTDefaultButton eltDefaultButton = new ELTDefaultButton(
-				"Edit").buttonWidth(90).grabExcessHorizontalSpace(false);
+				"Edit");
 		//eltDefaultButton.buttonWidth(120);
 		runtimeComposite.attachWidget(eltDefaultButton);
 
@@ -78,7 +143,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 
 	}
 
-	@Override
+	
 	public void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
 		this.InstializeMap = (TreeMap<String, String>) properties;

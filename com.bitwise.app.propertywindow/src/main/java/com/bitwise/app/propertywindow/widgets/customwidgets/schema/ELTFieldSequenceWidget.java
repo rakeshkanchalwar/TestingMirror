@@ -12,6 +12,9 @@ import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
@@ -25,8 +28,18 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTCellEditorIsNume
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDetails;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEditorFieldValidator;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
-
+//TODO : REMOVE THIS CLASS
 public class ELTFieldSequenceWidget extends AbstractWidget {
+
+	public ELTFieldSequenceWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		setProperties(componentConfigrationProperty.getPropertyName(), componentConfigrationProperty.getPropertyValue());
+	}
 
 	private Table table;
 	private List fieldSeduence = new ArrayList();
@@ -67,7 +80,7 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 
-		ListenerFactory listenerFactory = new ListenerFactory();
+		/*ListenerFactory listenerFactory = new ListenerFactory();
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 
@@ -89,7 +102,7 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 			
 		}
 		
-		CellEditor[] editors = SchemaUtility.createCellEditorList(table,4);
+		CellEditor[] editors = GeneralGridWidgetBuilder.createCellEditorList(table,4);
 
 		// Set the editors, cell modifier, and column properties
 		tableViewer.setColumnProperties(PROPS);
@@ -116,7 +129,7 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 		AbstractELTWidget deleteAllButton = new ELTDefaultButton("Delete All").buttonWidth(60);
 		eltSuDefaultSubgroupComposite2.attachWidget(deleteAllButton); 
 
-		helper= new ListenerHelper("schemaGrid", new ELTGridDetails(fieldSeduence,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
+		helper= new ListenerHelper("schemaGrid", new ELTGridDetails(fieldSeduence,tableViewer,(Label)fieldError.getSWTWidgetControl(),new GeneralGridWidgetBuilder()));
 		try {
 			eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDoubleClickListener"),propertyDialogButtonBar, helper,table);
 			eltTable.attachListener(listenerFactory.getListener("ELTGridMouseDownListener"),propertyDialogButtonBar, helper,editors[0].getControl());
@@ -126,7 +139,7 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
  
@@ -136,17 +149,17 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 		return property; 
 	}  
  
-	@Override
+	
 	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
+		/*this.properties =  properties;
 		this.propertyName = propertyName;
 		if(this.properties!=null)   
 		{
 			fieldSeduence =(List<SchemaGrid>) this.properties;
 		tableViewer.setInput(fieldSeduence);
-		helper=new ListenerHelper("schemaGrid", new ELTGridDetails(fieldSeduence,tableViewer,(Label)fieldError.getSWTWidgetControl(),new SchemaUtility()));
+		helper=new ListenerHelper("schemaGrid", new ELTGridDetails(fieldSeduence,tableViewer,(Label)fieldError.getSWTWidgetControl(),new GeneralGridWidgetBuilder()));
 		tableViewer.refresh();
-		} 
+		} */
 	} 
 
 

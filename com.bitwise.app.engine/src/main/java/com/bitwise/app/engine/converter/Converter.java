@@ -36,7 +36,7 @@ public abstract class Converter {
 	protected LinkedHashMap<String, Object> properties = new LinkedHashMap<>();
 	protected Component component = null;
 	protected TypeBaseComponent baseComponent = null;
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(Converter.class);
 
 	public void prepareForXML() throws PhaseException, SchemaException {
 		logger.debug("prepareForXML - Genrating XML for " + component);

@@ -16,6 +16,9 @@ import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -27,7 +30,7 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
 public class ELTFilePathWidget extends AbstractWidget{
-
+	
 	private Text textBox;
 	private Object properties;
 	private String propertyName;
@@ -36,6 +39,17 @@ public class ELTFilePathWidget extends AbstractWidget{
 	private Button button;
 	
 
+	public ELTFilePathWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		this.properties =  componentConfigrationProperty.getPropertyValue();
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+	}
+	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		ListenerFactory listenerFactory = new ListenerFactory();
@@ -104,15 +118,12 @@ public class ELTFilePathWidget extends AbstractWidget{
 			e1.printStackTrace();
 		}
 		
+		populateWidget();
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
-		this.propertyName = propertyName;
+	private void populateWidget(){		
 		if(properties != null)
-			textBox.setText((String) properties);
-		
+			textBox.setText((String) properties);		
 		else
 			textBox.setText("");
 		

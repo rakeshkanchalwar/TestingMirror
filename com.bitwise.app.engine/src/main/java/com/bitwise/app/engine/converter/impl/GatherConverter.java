@@ -17,7 +17,7 @@ import com.bitwiseglobal.graph.straightpulltypes.Gather;
 
 public class GatherConverter extends StraightPullConverter {
 
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(GatherConverter.class);
 	
 	public GatherConverter(Component component) {
 		super();

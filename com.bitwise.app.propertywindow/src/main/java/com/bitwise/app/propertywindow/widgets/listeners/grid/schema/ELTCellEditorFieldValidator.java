@@ -1,15 +1,13 @@
 package com.bitwise.app.propertywindow.widgets.listeners.grid.schema;
 
 import java.util.List;
-import java.util.Properties;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.ICellEditorValidator;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
-import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaGrid;
+import com.bitwise.app.propertywindow.widgets.customwidgets.schema.GridRow;
 
 public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 
@@ -30,8 +28,10 @@ public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 	public String isValid(Object value) {
 		String selectedGrid = table.getItem(table.getSelectionIndex()).getText();
 		for (int i = 0; i < schemaGrids.size(); i++) {
-				if ((((SchemaGrid)schemaGrids.get(i)).getFieldName().equalsIgnoreCase(
-					(String) value) && !selectedGrid.equalsIgnoreCase((String) value) ) ) {
+				GridRow schemaGrid = (GridRow)schemaGrids.get(i);
+				String stringValue = (String) value;
+				if ((schemaGrid.getFieldName().equalsIgnoreCase(stringValue) &&
+						!selectedGrid.equalsIgnoreCase(stringValue))) {
 				fieldNameDecorator.show();
 				propertyDialogButtonBar.enableOKButton(false);
 				propertyDialogButtonBar.enableApplyButton(false);

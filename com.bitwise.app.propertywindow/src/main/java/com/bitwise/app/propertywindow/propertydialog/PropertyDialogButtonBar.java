@@ -29,6 +29,7 @@ public class PropertyDialogButtonBar {
 	public void setPropertyDialogButtonBar(Button okButton,Button applyButton,Button cancelButton){
 		disposePropertyDialogButtonBar();
 		this.okButton=okButton;
+		if(applyButton != null)
 		this.applyButton=applyButton;
 		this.cancelButton=cancelButton;
 	}
@@ -49,5 +50,9 @@ public class PropertyDialogButtonBar {
 	
 	public void enableCancelButton(boolean status){
 		cancelButton.setEnabled(status);
+	}
+	
+	public boolean isApplyEnabled(){
+		return applyButton.isEnabled();
 	}
 }

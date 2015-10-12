@@ -9,6 +9,9 @@ import org.eclipse.swt.widgets.Text;
 import com.bitwise.app.propertywindow.datastructures.ComboBoxParameter;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCombo;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -20,7 +23,6 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
 public class ELTCharacterSetWidget extends AbstractWidget{
-	
 	Combo combo;
 	Text text;
 	String[] ITEMS={"UTF-8","US-ASCII","ISO-8859-1","IUTF-16BE","UTF-16LE","UTF-16","Parameter"};
@@ -29,9 +31,18 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	private String properties;
 	
 	private ControlDecoration txtDecorator; //=WidgetUtility.addDecorator((Text)widgetList[0], Messages.CHARACTERSET);
-	
-	
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
+	
+	public ELTCharacterSetWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+		this.properties =  (String) componentConfigrationProperty.getPropertyValue(); 
+	}
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
@@ -70,13 +81,12 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 			
 			e1.printStackTrace();
 		}
+		
+		populateWidget();
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		
-		this.propertyName = propertyName;
-		this.properties =  (String) properties; 
+	//@Override
+	private void populateWidget() {
 		
 		if(this.properties != null){
 			if(this.properties.equalsIgnoreCase("UTF-8")){

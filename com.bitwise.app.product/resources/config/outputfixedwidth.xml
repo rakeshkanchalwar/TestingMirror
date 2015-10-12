@@ -13,12 +13,13 @@
 		
 	</tns:port>
     <tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="DISPLAY"/>
-    <tns:property dataType="string" group="FIELD_SEQUENCE" subGroup="CONFIGURATION" name="schema" renderer="ELTFieldSequenceWidget" type="USER" />
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="path" renderer="ELTFilePathWidget" type="USER"/>
-  	<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict" renderer="ELTStrictClassWidget" type="USER"/>
-    <tns:property dataType="boolean" group="GENERAL" subGroup="CONFIGURATION" name="has_header" renderer="ELTHasHeaderWidget" type="USER"/>
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="charset" value="UTF-8" renderer="ELTCharacterSetWidget" type="USER"/>
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER"/>
-    <tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION" />
+    <tns:property dataType="string" name="schema" renderer="ELTFixedWidget" type="USER" group="SCHEMA" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="path" renderer="ELTFilePathWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict" renderer="ELTStrictClassWidget" type="USER"/>
+    <tns:property dataType="boolean" name="safe" renderer="ELTSafePropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="boolean" name="has_header" renderer="ELTHasHeaderWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="charset" value="UTF-8" renderer="ELTCharacterSetWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
   </tns:component>
 </tns:Config>

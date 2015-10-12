@@ -8,8 +8,6 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTEnableButtonListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
-import com.bitwise.app.propertywindow.widgets.listeners.ELTHelloTestListener;
-import com.bitwise.app.propertywindow.widgets.listeners.ELTHiTestListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTOpenFileEditorListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTRuntimeButtonClickListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionListener;
@@ -35,13 +33,7 @@ public class ListenerFactory {
 	
 	public IELTListener getListener(String listener){
 		
-		if(listener.equals("ELTHelloTestListener")){
-			IELTListener ELTIeltListener = new ELTHelloTestListener();
-			return ELTIeltListener;
-		}else if(listener.equals("ELTHiTestListener")){
-			IELTListener ELTIeltListener = new ELTHiTestListener();
-			return ELTIeltListener;
-		}else if(listener.equals("ELTEventChangeListener")){
+		if(listener.equals("ELTEventChangeListener")){
 			IELTListener myCuIeltListener = new ELTEventChangeListener();
 			return myCuIeltListener;
 		}else if(listener.equals("ELTSelectionListener")){

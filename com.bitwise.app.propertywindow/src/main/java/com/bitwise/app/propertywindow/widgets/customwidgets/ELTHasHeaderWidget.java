@@ -8,6 +8,9 @@ import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCombo;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -29,6 +32,18 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 	private ControlDecoration txtDecorator;
 	
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
+	
+	public ELTHasHeaderWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+		this.properties =  (String) componentConfigrationProperty.getPropertyValue(); 
+	}
+
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
@@ -64,14 +79,10 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 			
 			e1.printStackTrace();
 		}
-		
+		 populateWidget();
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.propertyName = propertyName;
-		this.properties =  (String) properties; 
-		
+	private void populateWidget(){				
 		if(this.properties != null){
 			if(this.properties.equalsIgnoreCase("true")){
 				combo.select(0);

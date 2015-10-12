@@ -17,7 +17,7 @@ import com.bitwiseglobal.graph.outputtypes.FileDelimited;
 
 public class OutputFileDelimitedConverter extends OutputConverter {
 	
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	Logger logger = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class);
 	
 	public OutputFileDelimitedConverter(Component component) {
 		super();

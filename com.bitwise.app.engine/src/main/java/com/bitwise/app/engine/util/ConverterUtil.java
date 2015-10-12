@@ -2,8 +2,6 @@ package com.bitwise.app.engine.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -13,7 +11,6 @@ import org.eclipse.core.resources.IFile;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.converter.Converter;
 import com.bitwise.app.engine.converter.ConverterFactory;
 import com.bitwise.app.engine.exceptions.EngineException;
@@ -24,7 +21,7 @@ import com.bitwiseglobal.graph.main.Graph;
 import com.bitwiseglobal.graph.main.ObjectFactory;
 
 public class ConverterUtil {
-	private static final Logger logger = new LogFactory(ConverterUtil.class.getName()).getLogger();
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ConverterUtil.class);
 	public static final ConverterUtil INSTANCE = new ConverterUtil();
 	
 	private ConverterUtil(){}
@@ -56,7 +53,7 @@ public class ConverterUtil {
 			JAXBContext jaxbContext = JAXBContext.newInstance(graph.getClass());
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			marshaller.setProperty(marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(graph, out);
 			if (outPutFile.exists())
 				outPutFile.setContents(new ByteArrayInputStream(out.toByteArray()), true,false, null);
