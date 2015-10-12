@@ -6,19 +6,19 @@ Element-Version: 3.0
 External-Reference: 
 Id: _40a6cE2UEeW_rJv6exweGg
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/30/15 2:55 PM
+Save-Time: 10/12/15 3:41 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
 Content-Type: text/ecl
 Entry-Name: .content
 
-get-button "New Job (M1+M3+J)" | click -arrow
-get-menu "New Job" | click
-get-button "New Job (M1+M3+J)" | click -arrow
-get-menu "New Job" | click
+get-button "Job (M1+M3+J)" | click -arrow
+get-menu "Job" | click
+get-button "Job (M1+M3+J)" | click -arrow
+get-menu "Job" | click
 
-with [get-button "New Job (M1+M3+J)"] {
+with [get-button "Job (M1+M3+J)"] {
     click
     click
 }

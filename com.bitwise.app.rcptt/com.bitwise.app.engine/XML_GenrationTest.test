@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _Mr_wAGzdEeWdSJQceekD9Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/7/15 5:14 PM
+Save-Time: 10/12/15 3:36 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -23,7 +23,7 @@ with [get-window "New ELT Project"] {
     }
     get-button Finish | click
 }
-get-button "New Job (M1+M3+J)" | click
+get-button "Job (M1+M3+J)" | click
 with [get-view Palette | get-palette] {
     with [get-palette-entry Input] {
         mouse-move 52 9 button1 -height 22 -width 244
