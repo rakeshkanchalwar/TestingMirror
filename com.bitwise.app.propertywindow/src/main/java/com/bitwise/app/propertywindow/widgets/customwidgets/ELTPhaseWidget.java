@@ -7,6 +7,9 @@ import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
@@ -16,6 +19,17 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTPhaseWidget extends AbstractWidget {
+
+	public ELTPhaseWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+		
+		this.properties = (String)componentConfigrationProperty.getPropertyValue();
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+	}
 
 	private Text textBox;
 	private String properties;
@@ -51,12 +65,12 @@ public class ELTPhaseWidget extends AbstractWidget {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		
+		populateWidget();
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.properties = (String) properties;
-		this.propertyName = propertyName;
+	
+	private void populateWidget(){		
 		if (properties != null)
 			textBox.setText((String) properties);
 		
@@ -68,11 +82,4 @@ public class ELTPhaseWidget extends AbstractWidget {
 		property.put(propertyName, textBox.getText());
 		return property;
 	}
-
-	/*@Override
-	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-
-	}*/
-
 }

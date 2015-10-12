@@ -63,11 +63,13 @@ public class LinkReconnectCommand extends Command {
 
 	public void execute() {
 		if (newSource != null) {
-			//link.reconnect(newSource,sourceTerminal);
 			link.setSource(newSource);
 			link.setSourceTerminal(newSourceTerminal);
 			newSource.addOutputPort(newSourceTerminal);
+			newSource.connectOutput(link);
 			link.attachSource();
+			oldSource.removeOutputPort(link.getSourceTerminal());
+			oldSource.disconnectOutput(link);
 		}
 
 	}
@@ -82,14 +84,14 @@ public class LinkReconnectCommand extends Command {
 		oldSource.removeOutputPort(link.getSourceTerminal());
 	}
 
-	public void setNewTarget(Component linkTarget) {
+	/*public void setNewTarget(Component linkTarget) {
 		if (linkTarget == null) {
 			throw new IllegalArgumentException();
 		}
 		newTarget = linkTarget;
 		oldTarget.disconnectInput(link);
 		
-	}
+	}*/
 
 	public void setNewSourceTerminal(String newSourceTerminal) {
 		this.newSourceTerminal = newSourceTerminal;
@@ -108,7 +110,7 @@ public class LinkReconnectCommand extends Command {
 	
 	@Override
 	public void undo(){
-		//link.reconnect(oldSource, oldSourceTerminal);
+	
 		newSource=link.getSource();
 		logger.debug("New source is :{}", newSource.getProperties().get("name"));
 		newSourceTerminal=link.getSourceTerminal();

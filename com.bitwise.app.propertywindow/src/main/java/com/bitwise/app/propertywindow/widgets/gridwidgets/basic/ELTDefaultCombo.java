@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Composite;
 
 public class ELTDefaultCombo extends AbstractELTWidget{
 	private Combo defaultELTcom;
-	private int textboxWidth=60;
+	private int textboxWidth=65;
 	private String[] defaultTextMessage;
 	private boolean grabExcessSpace = true;
 	

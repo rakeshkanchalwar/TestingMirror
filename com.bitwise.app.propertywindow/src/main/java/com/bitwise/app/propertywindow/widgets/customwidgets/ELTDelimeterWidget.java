@@ -11,6 +11,9 @@ import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
@@ -20,12 +23,24 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTDelimeterWidget extends AbstractWidget{
+	
 	private Text textBox;
 	private Object properties;
 	private String propertyName;
 	private Object txtDecorator;
 	private ControlDecoration decorator;
 
+	public ELTDelimeterWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+		
+		this.propertyName = componentConfigrationProperty.getPropertyName();
+		this.properties =  componentConfigrationProperty.getPropertyValue();
+	}
+	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		ListenerFactory listenerFactory = new ListenerFactory();
@@ -70,17 +85,13 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		
+		populateWidget();
 	}
 
-	@Override
-	public void setProperties(String propertyName, Object properties) {
-		this.properties =  properties;
-		this.propertyName = propertyName;
+	private void populateWidget(){
 		if(properties != null)
 			textBox.setText((String) properties);
-		
-		
-		
 	}
 
 	@Override
@@ -89,12 +100,5 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		property.put(propertyName, textBox.getText());
 		return property;
 	}
-
-	/*@Override
-	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-		
-	}*/
-
 
 }

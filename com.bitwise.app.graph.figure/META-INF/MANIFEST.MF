@@ -8,7 +8,8 @@ Bundle-Vendor: BITWISE
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gef;bundle-version="3.7.2",
- com.bitwise.app.common;bundle-version="0.0.1"
+ com.bitwise.app.common;bundle-version="0.0.1",
+ org.slf4j.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: com.bitwise.app.graph.figure,

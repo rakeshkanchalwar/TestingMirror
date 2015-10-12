@@ -11,6 +11,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
+import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.filterproperty.ELTFilterPropertyWizard;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
@@ -21,6 +24,11 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 
 public class ELTFilterWidget extends AbstractWidget {
 
+
+	
+
+	private Shell shell;
+
 	private LinkedHashSet<String> tempPropertyMap;
 	private String propertyName;
 	private List<String> propertyLst;
@@ -28,6 +36,16 @@ public class ELTFilterWidget extends AbstractWidget {
 	
 	private String componentName;
 
+	public ELTFilterWidget(
+			ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,
+			PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties,
+				propertyDialogButtonBar);
+
+		setProperties(componentConfigrationProperty.getPropertyName(), componentConfigrationProperty.getPropertyValue());
+	}
+	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		ListenerFactory listenerFactory = new ListenerFactory();
@@ -55,13 +73,13 @@ public class ELTFilterWidget extends AbstractWidget {
 			
 			}
 		});
-		
-
 	}
-
-	@Override
-	public void setProperties(String propertyName, Object properties) {
+	private void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
+
+		this.set = (HashSet<String>) properties;
+
+
 		this.set = (HashSet<String>) properties;
 
 	}

@@ -42,7 +42,7 @@ class SchemaGridLabelProvider implements ITableLabelProvider , ITableColorProvid
     case 0:
       return schemaGrid.getFieldName(); 
     case 1:
-    	 return SchemaUtility.getDataTypeKey()[schemaGrid.getDataType().intValue()];   
+    	 return GeneralGridWidgetBuilder.getDataTypeKey()[schemaGrid.getDataType().intValue()];   
     case 2:
     	 return schemaGrid.getDateFormat();
     case 3:

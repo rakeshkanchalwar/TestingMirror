@@ -26,6 +26,7 @@ public class Messages extends NLS {
 	public static String path;
 	public static String INVALID_FILE;
 	public static String EMPTYFIELDMESSAGE;
+	public static String LENGTH;
 
 	
 	static {
