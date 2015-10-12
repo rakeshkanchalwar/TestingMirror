@@ -123,7 +123,7 @@
             locationURI="menu:com.bitwise.app.graph.newJob">
          <command
                commandId="com.bitwise.app.graph.newGraphcommand"
-               label="New Job"
+               label="Job"
                style="push">
          </command>
          <command
