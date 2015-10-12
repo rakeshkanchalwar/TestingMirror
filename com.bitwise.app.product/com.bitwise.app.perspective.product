@@ -14,7 +14,7 @@
 
    <splash
       location="com.bitwise.app.perspective" />
-   <launcher name="elt tool">
+   <launcher>
       <solaris/>
       <win useIco="false">
          <bmp/>
