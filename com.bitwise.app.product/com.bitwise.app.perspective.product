@@ -30,7 +30,6 @@
       <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="com.bitwise.app.asm"/>
       <plugin id="com.bitwise.app.common"/>
-      <plugin id="com.bitwise.app.eltproperties"/>
       <plugin id="com.bitwise.app.engine"/>
       <plugin id="com.bitwise.app.graph"/>
       <plugin id="com.bitwise.app.graph.figure"/>
