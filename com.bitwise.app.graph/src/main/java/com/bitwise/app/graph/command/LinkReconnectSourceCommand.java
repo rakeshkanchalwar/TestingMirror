@@ -12,8 +12,8 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
-public class LinkReconnectCommand extends Command {
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectCommand.class);
+public class LinkReconnectSourceCommand extends Command {
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectSourceCommand.class);
 	
 	private Link link;
 
@@ -25,7 +25,7 @@ public class LinkReconnectCommand extends Command {
 
 	private String componentName;
 
-	public LinkReconnectCommand(Link link) {
+	public LinkReconnectSourceCommand(Link link) {
 		if (link == null) {
 			throw new IllegalArgumentException();
 		}

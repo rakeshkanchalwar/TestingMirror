@@ -15,7 +15,7 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class LinkCommand extends Command{
 	
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectCommand.class);
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectSourceCommand.class);
 	
 	/** The connection instance. */
 	private Link connection;

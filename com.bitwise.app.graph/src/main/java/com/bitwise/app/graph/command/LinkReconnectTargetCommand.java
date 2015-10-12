@@ -59,8 +59,13 @@ public class LinkReconnectTargetCommand extends Command{
 		if(newTarget != null){
 			link.setTarget(newTarget);
 			link.setTargetTerminal(newTargetTerminal);
-			link.attachTarget();
 			newTarget.addInputPort(newTargetTerminal);
+			newTarget.connectInput(link);
+			link.attachTarget();
+			
+			oldTarget.removeInputPort(link.getTargetTerminal());
+			oldTarget.disconnectInput(link);
+			
 		}
 	}
 	
@@ -69,6 +74,7 @@ public class LinkReconnectTargetCommand extends Command{
 			throw new IllegalArgumentException();
 		}
 		newTarget = linkTarget;
+		newTargetTerminal=null;
 		oldTarget.disconnectInput(link);
 		oldTarget.removeInputPort(link.getTargetTerminal());
 	}
@@ -92,9 +98,9 @@ public class LinkReconnectTargetCommand extends Command{
 		
 		newTarget=link.getTarget();
 		newTargetTerminal=link.getTargetTerminal();
-		link.detachTarget();
 		newTarget.disconnectInput(link);
 		newTarget.removeInputPort(link.getTargetTerminal());
+		link.detachTarget();
 		
 		link.setTarget(oldTarget);
 		link.setTargetTerminal(oldTargetTerminal);
