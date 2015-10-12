@@ -13,6 +13,7 @@ import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.bitwise.app.graph.factory.*;
 
 import javax.swing.text.DefaultCaret;
 
@@ -64,6 +65,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -98,6 +100,7 @@ import com.thoughtworks.xstream.XStream;
 public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	private boolean dirty=false;
+	private Color palatteBackgroundColor= new Color(null,82,84,81);
 	
 	
 	Logger logger = LogFactory.INSTANCE.getLogger(ETLGraphicalEditor.class);
@@ -161,8 +164,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	protected PaletteViewerProvider createPaletteViewerProvider() {
 		return new PaletteViewerProvider(getEditDomain()) {
+			
 			protected void configurePaletteViewer(final PaletteViewer viewer) {
 				super.configurePaletteViewer(viewer);
+				viewer.setEditPartFactory(new CustomPaletteEditPartFactory(palatteBackgroundColor,palatteBackgroundColor));
 				// create a drag source listener for this palette viewer
 				// together with an appropriate transfer drop target listener,
 				// this will enable

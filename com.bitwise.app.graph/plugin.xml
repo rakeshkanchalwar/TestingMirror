@@ -189,9 +189,6 @@
                id="org.eclipse.debug.internal.ui.actions.DebugDropDownAction">
          </hiddenToolBarItem>
          <hiddenToolBarItem
-               id="org.eclipse.debug.internal.ui.actions.RunDropDownAction">
-         </hiddenToolBarItem>
-         <hiddenToolBarItem
                id="org.eclipse.jdt.ui.navigate.open.type">
          </hiddenToolBarItem>
          <hiddenToolBarItem
