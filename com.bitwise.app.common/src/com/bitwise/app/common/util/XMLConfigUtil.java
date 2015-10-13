@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.statushandlers.StatusManager;
+import org.slf4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.Messages;
@@ -40,7 +41,7 @@ import com.bitwise.app.common.component.policyconfig.PolicyConfig;
  * </ul>
  */
 public class XMLConfigUtil {
-	private LogFactory logFactory=new LogFactory(XMLConfigUtil.class.getName());
+	private Logger logger=LogFactory.INSTANCE.getLogger(XMLConfigUtil.class);
 	public static XMLConfigUtil INSTANCE = new XMLConfigUtil();
 	private XMLConfigUtil() {}
 	
@@ -80,7 +81,7 @@ public class XMLConfigUtil {
 			}catch(Exception exception){
 				Status status = new Status(IStatus.ERROR, "com.bitwise.app.common", "XML read failed", exception);
 				StatusManager.getManager().handle(status, StatusManager.BLOCK);
-			    logFactory.getLogger().error(exception.getMessage());
+				logger.error(exception.getMessage());
 				throw new RuntimeException("Faild in reading XML Config files", exception); //$NON-NLS-1$
 			}
 		}
@@ -178,7 +179,7 @@ public class XMLConfigUtil {
 			}catch(Exception exception){
 				Status status = new Status(IStatus.ERROR, "com.bitwise.app.common", "XML read failed", exception);
 				StatusManager.getManager().handle(status, StatusManager.BLOCK);
-				logFactory.getLogger().error(exception.getMessage());
+				logger.error(exception.getMessage());
 				throw new RuntimeException("Faild in reading XML Config files", exception); //$NON-NLS-1$
 			}
 		}
@@ -231,7 +232,7 @@ public class XMLConfigUtil {
 			Validator validator = schema.newValidator();
 		    validator.validate(new StreamSource(new File(xmlPath)));
 		} catch (SAXException | IOException exception) {
-			logFactory.getLogger().error(exception.getMessage());
+			logger.error(exception.getMessage());
 			throw exception;
 		     
 		}

@@ -20,7 +20,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="org.eclipse.ui.navigator.CommonNavigator"
+            class="com.bitwise.app.project.structure.wizard.ProjectExplorerView"
             icon="icon/filenav_nav.gif"
             id="com.bitwise.app.project.structure.navigator"
             name="Project Explorer">
