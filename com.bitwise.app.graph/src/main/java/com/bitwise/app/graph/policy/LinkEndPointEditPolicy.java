@@ -8,6 +8,7 @@ import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 
 	protected void addSelectionHandles() {
+		super.addSelectionHandles();
 		getLinkFigure().setForegroundColor(ColorConstants.blue);
 	}
 
@@ -16,6 +17,7 @@ public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 	}
 
 	protected void removeSelectionHandles() {
+		super.removeSelectionHandles();
 		getLinkFigure().setForegroundColor(ColorConstants.black);
 	}
 }

@@ -40,6 +40,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		super.ancestorMoved(figure);
 	}
 	
+	@Override
 	public Point getLocation(Point reference) {
 		
 		Point p = null ;
@@ -47,22 +48,18 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		int height = getOwner().getBounds().height;
 		int portOffset=height/portOffsetFactor;
 		
-		int xLocation, yLocation;
+		int xLocation =0, yLocation = 0;
 		
 		
 		if(this.type.equalsIgnoreCase("in")){
 			 xLocation=getOwner().getBounds().getTopLeft().x;
 			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
-			 
-			 p=new Point(xLocation, yLocation);
 		}
 		else if(this.type.equalsIgnoreCase("out")){
 			 xLocation=getOwner().getBounds().getTopRight().x;
 			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
-			 
-			 p=new Point(xLocation, yLocation);
 		}
-		return p;
+		return new Point(xLocation, yLocation);
 	}
 
 		
@@ -153,7 +150,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	}
 	@Override
 	public void addAnchorListener(AnchorListener listener) {
-		// TODO Auto-generated method stub
 		super.addAnchorListener(listener);
 	}
 	

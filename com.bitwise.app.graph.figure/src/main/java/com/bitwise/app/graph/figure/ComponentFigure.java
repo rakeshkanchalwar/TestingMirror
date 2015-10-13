@@ -11,6 +11,7 @@
 package com.bitwise.app.graph.figure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -59,6 +60,7 @@ public class ComponentFigure extends Figure {
 				outputConnectionAnchors.add(c);
 			else
 				inputConnectionAnchors.add(c);	
+			
 		}
 		
 	}
@@ -148,16 +150,11 @@ public class ComponentFigure extends Figure {
 		return null;
 	}
 
-	public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
-
+	private ConnectionAnchor closestAnchor(Point p, List<FixedConnectionAnchor> connectionAnchors) {
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
-
-		for (int i = 0; i < outputConnectionAnchors.size(); i++) {
-
-			ConnectionAnchor c = (ConnectionAnchor) outputConnectionAnchors.get(i);
-			Point p2 = c.getLocation(null);
-			double d = p.getDistance(p2);
+		for(ConnectionAnchor c : connectionAnchors){
+			double d = p.getDistance(c.getLocation(null));
 			if (d < min) {
 				min = d;
 				closest = c;
@@ -165,24 +162,13 @@ public class ComponentFigure extends Figure {
 		}
 		return closest;
 	}
-
+	
+	public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
+		return closestAnchor(p, outputConnectionAnchors);
+	}
 
 	public ConnectionAnchor getTargetConnectionAnchorAt(Point p) {
-
-		ConnectionAnchor closest = null;
-		double min = Double.MAX_VALUE;
-
-		for (int i = 0; i < inputConnectionAnchors.size(); i++) {
-
-			ConnectionAnchor c = (ConnectionAnchor) inputConnectionAnchors.get(i);
-			Point p2 = c.getLocation(null);
-			double d = p.getDistance(p2);
-			if (d < min) {
-				min = d;
-				closest = c;
-			}
-		}
-		return closest;
+		return closestAnchor(p, inputConnectionAnchors);
 	}
 	public String getLabelName() {
 		return labelName;
