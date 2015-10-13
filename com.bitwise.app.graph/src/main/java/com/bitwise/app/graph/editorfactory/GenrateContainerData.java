@@ -14,9 +14,8 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
 import com.bitwise.app.graph.model.Container;
 
 public class GenrateContainerData {
-
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(GenrateContainerData.class);
 	private IGenrateContainerData editorInput;
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
 	
 	public void setEditorInput(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		logger.debug("setEditorInput - ");

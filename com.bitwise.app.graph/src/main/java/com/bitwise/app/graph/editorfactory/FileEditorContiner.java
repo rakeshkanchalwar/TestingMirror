@@ -15,9 +15,9 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.model.Container;
 
 public class FileEditorContiner implements IGenrateContainerData {
-	private IFileEditorInput ifileEditorInput;
-	private ETLGraphicalEditor eltGraphicalEditorInstance;
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(FileEditorContiner.class);
+	private final IFileEditorInput ifileEditorInput;
+	private final ETLGraphicalEditor eltGraphicalEditorInstance;
 	
 	public FileEditorContiner(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		this.ifileEditorInput=(IFileEditorInput)editorInput;
@@ -27,7 +27,7 @@ public class FileEditorContiner implements IGenrateContainerData {
 	@Override
 	public Container getEditorInput() throws CoreException {
 		logger.debug("getEditorInput - Setting IFileEditor input");
-		IFile Ifile = ((IFileEditorInput) ifileEditorInput).getFile();
+		IFile Ifile = ifileEditorInput.getFile();
 		this.eltGraphicalEditorInstance.setPartName(Ifile.getName());
 		return (Container) eltGraphicalEditorInstance.fromXMLToObject(Ifile.getContents());
 	}

@@ -8,14 +8,10 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.bitwise.app.graph.factory.*;
-
-import javax.swing.text.DefaultCaret;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -25,12 +21,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
@@ -38,8 +31,6 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
@@ -48,11 +39,8 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteToolbar;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
-import org.eclipse.gef.ui.actions.ZoomInAction;
-import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
@@ -63,8 +51,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -85,9 +71,9 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.exceptions.EngineException;
 import com.bitwise.app.engine.util.ConverterUtil;
-import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.editorfactory.GenrateContainerData;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
+import com.bitwise.app.graph.factory.CustomPaletteEditPartFactory;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -100,13 +86,13 @@ import com.thoughtworks.xstream.XStream;
 public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	private boolean dirty=false;
-	private Color palatteBackgroundColor= new Color(null,82,84,81);
+	private final Color palatteBackgroundColor= new Color(null,82,84,81);
 	
 	
 	Logger logger = LogFactory.INSTANCE.getLogger(ETLGraphicalEditor.class);
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
-	private Point defaultComponentLocation = new Point(0, 0);
+	private final Point defaultComponentLocation = new Point(0, 0);
 	
 	public ETLGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
@@ -338,30 +324,6 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		getSite().registerContextMenu(cmProvider, viewer);
 	}
 
-	private void prepareZoomContributions(GraphicalViewer viewer) {
-		ScalableFreeformRootEditPart rootEditPart = new ScalableFreeformRootEditPart();
-		viewer.setRootEditPart(rootEditPart);
-		ZoomManager manager = rootEditPart.getZoomManager();
-		getActionRegistry().registerAction(new ZoomInAction(manager));
-		getActionRegistry().registerAction(new ZoomOutAction(manager));
-
-		double[] zoomLevels = new double[] { 0.25, 0.5, 0.75, 1.0, 1.5, 2.0,
-				2.5, 3.0, 4.0, 5.0, 10.0, 20.0 };
-		manager.setZoomLevels(zoomLevels);
-
-		ArrayList<String> zoomContributions = new ArrayList<>();
-		zoomContributions.add(ZoomManager.FIT_ALL);
-		zoomContributions.add(ZoomManager.FIT_HEIGHT);
-		zoomContributions.add(ZoomManager.FIT_WIDTH);
-		manager.setZoomLevelContributions(zoomContributions);
-	}
-
-	
-
-	
-
-	
-	
 	@Override
 	public boolean isDirty() {
 		// TODO Auto-generated method stub

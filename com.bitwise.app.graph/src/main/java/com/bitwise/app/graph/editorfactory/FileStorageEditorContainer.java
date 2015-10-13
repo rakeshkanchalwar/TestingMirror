@@ -2,7 +2,6 @@ package com.bitwise.app.graph.editorfactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -16,9 +15,9 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.model.Container;
 
 public class FileStorageEditorContainer implements IGenrateContainerData {
-	private FileStoreEditorInput fileStrorageEditorInput;
-	private ETLGraphicalEditor eltGraphicalEditorInstance;
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(FileStorageEditorContainer.class);
+	private final FileStoreEditorInput fileStrorageEditorInput;
+	private final ETLGraphicalEditor eltGraphicalEditorInstance;
 	
 	public FileStorageEditorContainer(IEditorInput editorInput,
 			ETLGraphicalEditor eltGraphicalEditorInstance) {
@@ -30,7 +29,7 @@ public class FileStorageEditorContainer implements IGenrateContainerData {
 	public Container getEditorInput() throws IOException {
 		logger.debug("storeEditorInput - Setting FileStrorageEditor Input into Ifile");
 		Container con = null;
-		File file = new File(((FileStoreEditorInput) fileStrorageEditorInput).getToolTipText());
+		File file = new File(fileStrorageEditorInput.getToolTipText());
 		FileInputStream fs = new FileInputStream(file);
 		con = (Container) this.eltGraphicalEditorInstance.fromXMLToObject(fs);
 		this.eltGraphicalEditorInstance.setPartName(file.getName());

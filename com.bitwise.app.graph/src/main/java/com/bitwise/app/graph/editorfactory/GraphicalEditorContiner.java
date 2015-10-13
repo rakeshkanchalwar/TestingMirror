@@ -9,10 +9,9 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
 import com.bitwise.app.graph.model.Container;
 
 public class GraphicalEditorContiner implements IGenrateContainerData {
-
-	private ETLGraphicalEditorInput graphicaleditorInput;
-	private ETLGraphicalEditor eltGraphicalEditorInstance;
-	Logger logger = new LogFactory(getClass().getName()).getLogger();
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(GraphicalEditorContiner.class);
+	private final ETLGraphicalEditorInput graphicaleditorInput;
+	private final ETLGraphicalEditor eltGraphicalEditorInstance;
 	
 	public GraphicalEditorContiner(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		this.graphicaleditorInput = (ETLGraphicalEditorInput) editorInput;

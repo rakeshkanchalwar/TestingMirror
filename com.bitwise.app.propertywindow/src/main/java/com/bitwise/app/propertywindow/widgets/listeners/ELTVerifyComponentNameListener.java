@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
@@ -20,7 +21,7 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
 public class ELTVerifyComponentNameListener implements IELTListener {
 	
-	private LogFactory eltLogger = new LogFactory(getClass().getName());
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTVerifyComponentNameListener.class);
 	private ArrayList<String> names;
 	private String oldName;
 	
@@ -53,7 +54,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 					String currentText = ((Text) e.widget).getText();
 					String newName = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end)).trim();
 
-					eltLogger.getLogger().debug(METHOD_NAME + "addVerifyListener():  new text: " + newName);
+					logger.debug(METHOD_NAME + "addVerifyListener():  new text: " + newName);
 					if (newName == null || newName.equals("")) {
 						// e.doit=false;
 						text.setBackground(new Color(Display.getDefault(), 255, 255, 204));
@@ -103,7 +104,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 			}
 
 		}
-		eltLogger.getLogger().debug(METHOD_NAME + "isUniqueCompName: result: " + result);
+		logger.debug(METHOD_NAME + "isUniqueCompName: result: " + result);
 
 		return result;
 	}

@@ -27,8 +27,7 @@ public class ConverterUtil {
 	private ConverterUtil(){}
 	
 	public void convertToXML(Container container, boolean validate, IFile outPutFile) throws EngineException,Exception{
-	String METHOD_NAME="convertToXML - ";
-		logger.debug(METHOD_NAME+" creating converter based on component");
+		logger.debug("Creating converter based on component");
 		
 			Graph graph = new ObjectFactory().createGraph();
 			List<Component> children = container.getChildren();
@@ -47,8 +46,7 @@ public class ConverterUtil {
 	
 	
 	private void marshall(Graph graph, boolean validate,IFile outPutFile) {
-		String METHOD_NAME="convertToXML - ";
-		logger.debug(METHOD_NAME+" marshling genrated object into target XML");
+		logger.debug("Marshling genrated object into target XML");
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(graph.getClass());
 			Marshaller marshaller = jaxbContext.createMarshaller();
@@ -62,7 +60,7 @@ public class ConverterUtil {
 			out.close();
 			
 		} catch (Exception exception) {
-			logger.error(METHOD_NAME+"Failed in marshall", exception);
+			logger.error("Failed in marshall", exception);
 		}
 	}
 

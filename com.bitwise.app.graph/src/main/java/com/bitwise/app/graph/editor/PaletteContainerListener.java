@@ -10,6 +10,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.graph.command.ComponentCreateCommand;
@@ -18,7 +19,7 @@ import com.bitwise.app.graph.model.Container;
 
 public class PaletteContainerListener implements MouseListener {
 
-	LogFactory eltLogger = new LogFactory(getClass().getName());
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(PaletteContainerListener.class);
 	private final PaletteViewer viewer;
 	private Point defaultComponentLocation = new Point(0, 0);
 	private Component genericComponent;
@@ -42,11 +43,11 @@ public class PaletteContainerListener implements MouseListener {
 		CreateRequest componentRequest = getComponentRequest(mouseEvent);
 		placeComponentOnCanvasByDoubleClickOnPalette(componentRequest);
 
-		eltLogger.getLogger().info(
+		logger.info(
 				"Component is positioned at respective x and y location"
 						+ defaultComponentLocation.getCopy().x + 20 + " and "
 						+ defaultComponentLocation.getCopy().y + 20);
-		eltLogger.getLogger().info(
+		logger.info(
 				"Component is positioned at respective x and y location"
 						+ defaultComponentLocation.getCopy().x + 20 + " and "
 						+ defaultComponentLocation.getCopy().y + 20);
