@@ -6,8 +6,6 @@ import org.eclipse.draw2d.AnchorListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
 
 public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
@@ -20,6 +18,9 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	public FixedConnectionAnchor(IFigure owner, String type, int totalPortsOfThisType, int sequence) {
 		super(owner);
+		this.type=type;
+		this.totalPortsOfThisType=totalPortsOfThisType;
+		this.sequence=sequence;
 	}
 
 	/**
