@@ -13,7 +13,6 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.testdata.PropertyStore;
 import com.bitwise.app.propertywindow.testdata.RawProperties;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
-import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
 import com.bitwise.app.propertywindow.property.Property;
 
 /**
@@ -26,7 +25,7 @@ import com.bitwise.app.propertywindow.property.Property;
 public class ELTComponentPropertyAdapterTest {
 	
 	@Test
-	public void itShouldTransformRowPropertiesToELTPropertyWindowFormat() throws EmptyComponentPropertiesException{
+	public void itShouldTransformRowPropertiesToELTPropertyWindowFormat(){
 		//Given
 		RawProperties rawProps = new RawProperties();
 		List<com.bitwise.app.common.component.config.Property> rawProperties = rawProps.getRawProperties();
@@ -41,13 +40,18 @@ public class ELTComponentPropertyAdapterTest {
 		assertEquals(expectedProperties,transformedProperties.toString());
 	}
 	
-	@Test(expected = EmptyComponentPropertiesException.class)
-	public void itShouldThrowEmptyComponentPropertiesExceptionIfRawPropertiesAreEmptyWhileTransformation() throws EmptyComponentPropertiesException{
+	@Test(expected = ELTComponentPropertyAdapter.EmptyComponentPropertiesException.class)
+	public void itShouldThrowEmptyComponentPropertiesExceptionIfRawPropertiesAreEmptyWhileTransformation() {
 		//Given
 		
 		//when
-		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(null);
-		eltComponentPropertyAdapter.transform();
+		//try{
+			ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(null);
+			eltComponentPropertyAdapter.transform();	
+		/*}catch(Exception e){
+			e.printStackTrace();
+		}*/
+		
 		
 		//Then - expect EmptyComponentPropertiesException
 	}

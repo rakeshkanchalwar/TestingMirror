@@ -1,8 +1,6 @@
 package com.bitwise.app.propertywindow.adapters;
 
 import java.util.ArrayList;
-
-import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
 import com.bitwise.app.propertywindow.property.Property;
 
 /**
@@ -13,6 +11,6 @@ import com.bitwise.app.propertywindow.property.Property;
  */
 
 public interface IPropertyAdapter {
-	public void transform() throws EmptyComponentPropertiesException;
-	public ArrayList<Property> getProperties() throws EmptyComponentPropertiesException;
+	public void transform();
+	public ArrayList<Property> getProperties();
 }

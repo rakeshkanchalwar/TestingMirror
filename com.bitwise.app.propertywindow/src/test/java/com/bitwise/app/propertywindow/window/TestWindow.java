@@ -22,7 +22,6 @@ import com.bitwise.app.propertywindow.testdata.ComponentModel;
 import com.bitwise.app.propertywindow.testdata.PropertyStore;
 import com.bitwise.app.propertywindow.testdata.RawProperties;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
-import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.IPropertyTreeBuilder;
 import com.bitwise.app.propertywindow.property.Property;
@@ -66,7 +65,7 @@ public class TestWindow extends ApplicationWindow {
 	}
 	
 	private ArrayList<Property> transformComponentPropertiesToPropertyWindowUnderstantableFormat(
-			List<com.bitwise.app.common.component.config.Property> rowProperties) throws EmptyComponentPropertiesException {
+			List<com.bitwise.app.common.component.config.Property> rowProperties) {
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
 		eltComponentPropertyAdapter.transform();
 		ArrayList<Property> componentProperties = eltComponentPropertyAdapter.getProperties();
@@ -133,12 +132,12 @@ public class TestWindow extends ApplicationWindow {
 					Shell shell = e.display.getActiveShell();
 						
 					ArrayList<Property> componentProperties = null;
-					try {
+					//try {
 						componentProperties = transformComponentPropertiesToPropertyWindowUnderstantableFormat(rowProperties);
-					} catch (EmptyComponentPropertiesException e1) {
+					/*} catch (EmptyComponentPropertiesException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
+					}*/
 					componentProperties.add(getComponentBaseTypeProperty());
 					componentProperties.add(getComponentTypeProperty());
 					
