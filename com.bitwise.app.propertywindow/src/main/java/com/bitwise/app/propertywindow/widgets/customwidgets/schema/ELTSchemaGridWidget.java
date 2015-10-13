@@ -28,6 +28,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTC
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDetails;
+import com.bitwise.app.propertywindow.widgets.listeners.grid.GridChangeListener;
 import com.bitwise.app.propertywindow.widgets.utility.GridWidgetCommonBuilder;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
@@ -85,6 +86,7 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		return property; 
 	}  
 
+	
 	// Operational class label.
 	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(250);
 
@@ -135,11 +137,12 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 			throw new RuntimeException("Failed to attach listeners to table");
 		}
 
-		addButtonsAndRegisterListners(container, listenerFactory);
+		addButtonsAndRegisterListners(container, listenerFactory,editors);
+		
 		populateWidget();
 	}
 
-	private void addButtonsAndRegisterListners(AbstractELTContainerWidget container, ListenerFactory listenerFactory) {
+	private void addButtonsAndRegisterListners(AbstractELTContainerWidget container, ListenerFactory listenerFactory, CellEditor[] cellEditors) {
 		
 		ELTDefaultSubgroupComposite buttonSubGroup = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		buttonSubGroup.createContainerWidget();
@@ -159,6 +162,10 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 			//TODO add logger
 			throw new RuntimeException("Failed to attach listener to buttons", e);
 		}
+		
+		GridChangeListener gridChangeListener = new GridChangeListener(cellEditors, propertyDialogButtonBar);
+		gridChangeListener.attachCellChangeListener();
+		
 	}
 	
 	private void populateWidget() {

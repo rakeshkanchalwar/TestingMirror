@@ -10,11 +10,12 @@ import org.eclipse.swt.graphics.Color;
 
 public class ComponentBorder extends AbstractBorder {
 
-	protected static Insets insets = new Insets(8, 6, 8, 6);
+	private Insets insets;
 	private Color borderColor;
 
 	ComponentBorder(Color borderColor){
 		this.borderColor = borderColor;
+		insets=new Insets();
 	}
 	
 	public Insets getInsets(IFigure figure) {

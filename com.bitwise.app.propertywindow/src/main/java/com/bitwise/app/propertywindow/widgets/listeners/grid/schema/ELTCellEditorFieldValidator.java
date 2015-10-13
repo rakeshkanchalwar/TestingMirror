@@ -33,13 +33,13 @@ public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 				if ((schemaGrid.getFieldName().equalsIgnoreCase(stringValue) &&
 						!selectedGrid.equalsIgnoreCase(stringValue))) {
 				fieldNameDecorator.show();
-				propertyDialogButtonBar.enableOKButton(false);
-				propertyDialogButtonBar.enableApplyButton(false);
+				/*propertyDialogButtonBar.enableOKButton(false);
+				propertyDialogButtonBar.enableApplyButton(false);*/
 				return "Error";
 			} else{ 
 				fieldNameDecorator.hide();
-				propertyDialogButtonBar.enableOKButton(true);
-				propertyDialogButtonBar.enableApplyButton(true);
+				/*propertyDialogButtonBar.enableOKButton(true);
+				propertyDialogButtonBar.enableApplyButton(true);*/
 			}
 		}
 		return null;

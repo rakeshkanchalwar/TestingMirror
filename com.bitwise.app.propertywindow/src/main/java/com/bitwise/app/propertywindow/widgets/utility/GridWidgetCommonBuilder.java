@@ -26,7 +26,7 @@ public abstract class GridWidgetCommonBuilder {
 	}
 	
 	protected void addComboBox(Table table, CellEditor[] cellEditor, String[] data, int position){
-		cellEditor[position] = new ComboBoxCellEditor(table, data, SWT.READ_ONLY);
+		cellEditor[position] = new ComboBoxCellEditor(table, data,SWT.READ_ONLY);		
 	}
 	
 	public static String[] dataTypeList;

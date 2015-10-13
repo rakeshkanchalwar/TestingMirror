@@ -9,10 +9,10 @@ import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RoutingAnimator;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.policy.LinkEditPolicy;
+import com.bitwise.app.graph.policy.LinkEndPointEditPolicy;
 
 public class LinkEditPart extends AbstractConnectionEditPart
 		implements PropertyChangeListener {
@@ -55,7 +55,7 @@ public class LinkEditPart extends AbstractConnectionEditPart
 		// Selection handle edit policy. Makes the connection show a feedback,
 		// when selected by the user.
 		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE,
-				new ConnectionEndpointEditPolicy());
+				new LinkEndPointEditPolicy());
 		installEditPolicy(EditPolicy.CONNECTION_ROLE, new LinkEditPolicy());
 	}
 

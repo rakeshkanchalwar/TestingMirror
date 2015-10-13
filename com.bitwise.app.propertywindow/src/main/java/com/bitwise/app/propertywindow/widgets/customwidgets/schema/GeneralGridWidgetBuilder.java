@@ -18,7 +18,7 @@ public class GeneralGridWidgetBuilder extends GridWidgetCommonBuilder {
 	public CellEditor[] createCellEditorList(Table table,int size){
 		CellEditor[] cellEditor = createCellEditor(size);
 		addTextEditor(table,cellEditor, 0);
-		addComboBox(table, cellEditor, getDataTypeValue(), 1);
+		addComboBox(table, cellEditor, getDataTypeKey(), 1);
 		addTextEditor(table,cellEditor, 2);
 		addTextEditor(table,cellEditor, 3);
 		return cellEditor;
