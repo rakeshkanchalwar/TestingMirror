@@ -27,7 +27,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	
 
-	public FixedConnectionAnchor(IFigure owner) {
+	public FixedConnectionAnchor(IFigure owner, String type, int totalPortsOfThisType, int sequence) {
 		super(owner);
 	}
 
@@ -67,16 +67,8 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public int getSequence() {
 		return sequence;
-	}
-
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
 	}
 
 	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
@@ -89,10 +81,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	public int getTotalPortsOfThisType() {
 		return totalPortsOfThisType;
-	}
-
-	public void setTotalPortsOfThisType(int totalPortsOfThisType) {
-		this.totalPortsOfThisType = totalPortsOfThisType;
 	}
 
 	

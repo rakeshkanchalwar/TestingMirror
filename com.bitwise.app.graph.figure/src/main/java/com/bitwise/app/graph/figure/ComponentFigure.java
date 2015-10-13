@@ -51,10 +51,7 @@ public class ComponentFigure extends Figure {
 
 		for(PortSpecification p:portspecification)
 		{ 	
-			c = new FixedConnectionAnchor(this);
-			c.setType(p.getTypeOfPort());
-			c.setTotalPortsOfThisType(p.getNumberOfPorts());
-			c.setSequence(p.getSequenceOfPort());
+			c = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
 			connectionAnchors.put(c.getType()+c.getSequence(), c);
 			if(p.getTypeOfPort().equalsIgnoreCase("out"))
 				outputConnectionAnchors.add(c);
