@@ -29,18 +29,22 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.slf4j.Logger;
 
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTFilterPropertyWizard {
 
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTFilterPropertyWizard.class);
+	
 	private Table table;
 
 	private Shell shell;
 	private List<ELTFilterProperties> propertyLst;
 	public static final String FilterInputFieldName = "Component Name"; //$NON-NLS-1$
-	private Set<String> filterMap;
+	private Set<String> filterSet;
 	private String componentName;
 	private Label lblHeader;
 	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
@@ -53,11 +57,12 @@ public class ELTFilterPropertyWizard {
 	public ControlDecoration scaleDecorator;
 	private Button addButton, deleteAll, applyButton, okButton, deleteButton, cacelButton;
 	private boolean isAnyUpdatePerformed;
+	private Shell parentShell;
 
 
 	public ELTFilterPropertyWizard() {
 		propertyLst = new ArrayList<ELTFilterProperties>();
-		filterMap = new HashSet<String>();
+		filterSet = new HashSet<String>();
 	}
 
 	// Add New Property After Validating old properties
@@ -79,8 +84,8 @@ public class ELTFilterPropertyWizard {
 		}
 	}
 
-	public void setRuntimePropertyMap(HashSet<String> runtimePropertyMap) {
-		this.filterMap = runtimePropertyMap;
+	public void setRuntimePropertySet(HashSet<String> runtimePropertySet) {
+		this.filterSet = runtimePropertySet;
 	}
 
 	public String getComponentName() {
@@ -94,8 +99,8 @@ public class ELTFilterPropertyWizard {
 	// Loads Already Saved Properties..
 	private void loadProperties(TableViewer tv) {
 
-		if (filterMap != null && !filterMap.isEmpty()) {
-			for (String key : filterMap) {
+		if (filterSet != null && !filterSet.isEmpty()) {
+			for (String key : filterSet) {
 				ELTFilterProperties filter = new ELTFilterProperties();
 				if (validateBeforeLoad(key)) {
 					filter.setPropertyname(key);
@@ -103,8 +108,10 @@ public class ELTFilterPropertyWizard {
 				}
 			}
 			tv.refresh();
-		} else
-			System.out.println("LodProperties :: Empty Map"); //$NON-NLS-1$
+		} else{
+			
+		logger.debug("LodProperties :: Empty Map");
+		}
 	}
 
 	private boolean validateBeforeLoad(String key) {
@@ -144,16 +151,11 @@ public class ELTFilterPropertyWizard {
 		table.setLinesVisible(true);
 	}
 
-	public static void main(String[] args) {
-		ELTFilterPropertyWizard obj = new ELTFilterPropertyWizard();
-		obj.launchRuntimeWindow(new Shell());
-	}
-
 	/**
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public Set<String> launchRuntimeWindow(Shell parentShell) {
+	public Set<String> launchRuntimeWindow() {
 
 		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
@@ -221,7 +223,7 @@ public class ELTFilterPropertyWizard {
 				shell.getDisplay().sleep();
 		}
 
-		return filterMap;
+		return filterSet;
 	}
 
 	// Creates The buttons For the widget
@@ -283,9 +285,9 @@ public class ELTFilterPropertyWizard {
 
 				if (validate()) {
 					if (isAnyUpdatePerformed) {
-						filterMap.clear();
+						filterSet.clear();
 						for (ELTFilterProperties temp : propertyLst) {
-							filterMap.add(temp.getPropertyname());
+							filterSet.add(temp.getPropertyname());
 						}
 						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
 						messageBox.setText("Information"); //$NON-NLS-1$
@@ -304,10 +306,10 @@ public class ELTFilterPropertyWizard {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (validate()) {
-					filterMap.clear();
+					filterSet.clear();
 					isOkPressed = true;
 					for (ELTFilterProperties temp : propertyLst) {
-						filterMap.add(temp.getPropertyname());
+						filterSet.add(temp.getPropertyname());
 					}
 
 					shell.close();
