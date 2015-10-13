@@ -11,13 +11,14 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 
+/**
+ * This is a helper class for converter implementation. Contains the helper methods for conversion. 
+ */
 public class ConverterHelper extends Converter{
-
-	static Logger logger = LogFactory.INSTANCE.getLogger(ConverterHelper.class);
-	
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ConverterHelper.class);
 	
 	public static List<TypeBaseInSocket> getInSocket(Component component) {
-		logger.debug("getInSocket - Genrating TypeBaseInSocket data "+component);
+		logger.debug("Genrating TypeBaseInSocket data for :{}", component.getProperties().get(NAME));
 		List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
@@ -28,7 +29,4 @@ public class ConverterHelper extends Converter{
 		}
 		return inSocketsList;
 	}
-
-	
-	
 }

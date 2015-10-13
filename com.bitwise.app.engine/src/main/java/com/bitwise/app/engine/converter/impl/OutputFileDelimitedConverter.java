@@ -28,7 +28,7 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException{
-		logger.debug("prepareForXML - Genrating XML data");
+		logger.debug("Genrating XML data for {}", properties.get(NAME));
 		super.prepareForXML();
 		
 		FileDelimited fileDelimited = (FileDelimited) baseComponent;
@@ -50,7 +50,7 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 
 	@Override
 	protected List<TypeOutputInSocket> getOutInSocket() throws SchemaException {
-		logger.debug("getInOutSocket - Genrating TypeOutputInSocket data");
+		logger.debug("Genrating TypeOutputInSocket data");
 		List<TypeOutputInSocket> outputinSockets = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
 			TypeOutputDelimitedInSocket outInSocket = new TypeOutputDelimitedInSocket();

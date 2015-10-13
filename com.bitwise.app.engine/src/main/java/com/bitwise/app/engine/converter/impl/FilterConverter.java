@@ -18,6 +18,9 @@ import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOutSocket;
 import com.bitwiseglobal.graph.transformtypes.Filter;
 
+/**
+ * Converter implementation for Filter component
+ */
 public class FilterConverter extends TransformConverter {
 
 	Logger logger = LogFactory.INSTANCE.getLogger(FilterConverter.class);
@@ -31,21 +34,18 @@ public class FilterConverter extends TransformConverter {
 
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("prepareForXML - Genrating XML data");	
+		logger.debug("Genrating XML for :{}", properties.get(NAME));
 		super.prepareForXML();
-		Filter filter = (Filter) baseComponent;
-
 	}
 
 
 	@Override
 	protected List<TypeTransformOutSocket> getOutSocket() {
-		logger.debug("getOutSocket - Genrating TypeTransformOutSocket data "+component);
+		logger.debug("Genrating TypeTransformOutSocket data :{}", properties.get(NAME));
 		List<TypeTransformOutSocket> outSocketList = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
 			TypeTransformOutSocket outSocket = new TypeTransformOutSocket();
-			outSocket
-					.setId((String) link.getTarget().getProperties().get(NAME));
+			outSocket.setId((String) link.getTarget().getProperties().get(NAME));
 			outSocket.setType("");
 			outSocket.getOtherAttributes();
 			outSocketList.add(outSocket);
@@ -56,28 +56,27 @@ public class FilterConverter extends TransformConverter {
 
 	@Override
 	protected List<TypeTransformOperation> getOperations() {
-		logger.debug("getOperations - Genrating TypeTransformOperation data "+component);
+		logger.debug("Genrating TypeTransformOperation data :{}", properties.get(NAME));
 		List<TypeTransformOperation> operationList = new ArrayList<>();
 		TypeTransformOperation operation = new TypeTransformOperation();
 		TypeOperationInputFields operationInputFields=new TypeOperationInputFields();
-		operationInputFields.getField().addAll(getOperationFiled());
+		operationInputFields.getField().addAll(getOperationField());
 		operation.setInputFields(operationInputFields);
 		operationList.add(operation);
 		return operationList;
 	}
 
-	private List<TypeInputField> getOperationFiled() {
-		logger.debug("getOperationFiled - Genrating TypeInputField data "+component);
+	private List<TypeInputField> getOperationField() {
+		logger.debug("Genrating TypeInputField data :{}", properties.get(NAME));
 		List<TypeInputField> operationFiledList=new ArrayList<>();
 		HashSet<String> componentOperationFileds = (HashSet<String>) component.getProperties().get("filter");
 		if(componentOperationFileds!=null){
-		for(String object:componentOperationFileds){
-			TypeInputField operationFiled=new TypeInputField();
-			operationFiled.setName(object);
-			operationFiledList.add(operationFiled);
-		}
+			for(String object:componentOperationFileds){
+				TypeInputField operationFiled=new TypeInputField();
+				operationFiled.setName(object);
+				operationFiledList.add(operationFiled);
+			}
 		}
 		return operationFiledList;
 	}
-
 }

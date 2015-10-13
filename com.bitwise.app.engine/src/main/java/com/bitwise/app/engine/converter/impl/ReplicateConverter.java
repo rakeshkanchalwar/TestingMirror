@@ -15,6 +15,9 @@ import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
 import com.bitwiseglobal.graph.straightpulltypes.Replicate;
 
+/**
+ * Converter implementation for Replicate component
+ */
 public class ReplicateConverter extends StraightPullConverter {
 
 	Logger logger = LogFactory.INSTANCE.getLogger(ReplicateConverter.class);
@@ -28,21 +31,19 @@ public class ReplicateConverter extends StraightPullConverter {
 
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("prepareForXML - Genrating XML data for "+component);
+		logger.debug("Genrating XML for :{}", properties.get(NAME));
 		super.prepareForXML();
-		Replicate gather = (Replicate) baseComponent;
 
 	}
 
 	@Override
 	protected List<TypeStraightPullOutSocket> getOutSocket() {
-		logger.debug("getOutSocket - Genrating TypeStraightPullOutSocket data for "+component);
+		logger.debug("getOutSocket - Genrating TypeStraightPullOutSocket data for :{}", properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
-			outSocketAsInsocket.setInSocketId(link.getSource().getProperties()
-					.get(NAME).toString());
+			outSocketAsInsocket.setInSocketId(link.getSource().getProperties().get(NAME).toString());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
 			outSocket.setId((String) link.getTarget().getProperties().get(NAME));
