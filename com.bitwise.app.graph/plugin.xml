@@ -174,9 +174,6 @@
                id="org.eclipse.ui.edit.text.gotoLastEditPosition">
          </hiddenToolBarItem>
          <hiddenToolBarItem
-               id="org.eclipse.ui.externaltools.ExternalToolMenuDelegateToolbar">
-         </hiddenToolBarItem>
-         <hiddenToolBarItem
                id="org.eclipse.ui.navigate.next">
          </hiddenToolBarItem>
          <hiddenToolBarItem
