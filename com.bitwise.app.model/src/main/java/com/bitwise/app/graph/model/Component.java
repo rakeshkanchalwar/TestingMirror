@@ -1,7 +1,6 @@
 package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -153,8 +152,23 @@ public class Component extends Model {
 	 *             if the parameter is null
 	 */
 	public void setLocation(Point newLocation) {
+		resetLocation(newLocation);		
 		location.setLocation(newLocation);
 		firePropertyChange(Props.LOCATION_PROP.getValue(), null, location);
+	}
+
+	/**
+	 *  reset if x or y of components are negative
+	 * @param newLocation
+	 */
+	private void resetLocation(Point newLocation) {
+		if(newLocation.x < 0 ){
+			newLocation.x = 0;			
+		}
+		
+		if(newLocation.y < 0){
+			newLocation.y = 0;
+		}
 	}
 
 	/**
