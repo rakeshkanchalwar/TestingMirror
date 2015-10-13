@@ -22,8 +22,7 @@ public class PropertyTest {
 		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=GENERAL, propertyDataType=String, propertyType=USER, propertyListeners=[]]";
 		
 		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
+		Property property=new Property.Builder("String","delimiter","TEXT").group("TextProperties").build();
 		
 		//Then
 		assertEquals(expectedProperty,property.toString());	
@@ -35,9 +34,7 @@ public class PropertyTest {
 		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=TextSubgroup, propertyDataType=String, propertyType=USER, propertyListeners=[]]";
 		
 		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
-		property.subGroup("TextSubgroup");
+		Property property=new Property.Builder("String","delimiter","TEXT").group("TextProperties").subGroup("TextSubgroup").build();
 		
 		//Then
 		assertEquals(expectedProperty,property.toString());	
@@ -49,28 +46,14 @@ public class PropertyTest {
 		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=TextSubgroup, propertyDataType=String, propertyType=System, propertyListeners=[]]";
 		
 		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
-		property.subGroup("TextSubgroup");
-		property.type("System");
+		Property property=new Property.Builder("String","delimiter","TEXT")
+		.group("TextProperties")
+		.subGroup("TextSubgroup")
+		.type("System").build();
 		//Then
 		assertEquals(expectedProperty,property.toString());
 	}
-	
-	@Test
-	public void itShouldAllowToAddOptionalPropertyListener(){
-		//Given
-		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=GENERAL, propertyDataType=String, propertyType=USER, propertyListeners=[validator, keyPressedAction]]";
 		
-		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
-		property.listener("validator");
-		property.listener("keyPressedAction");
-		
-		//Then
-		assertEquals(expectedProperty,property.toString());
-	}
 	
 	@Test
 	public void itShouldGiveAlmostUniqHashCode(){
@@ -78,12 +61,10 @@ public class PropertyTest {
 		int expectedHashCode = 790634273; 
 				
 		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
-		property.subGroup("TextSubgroup");
-		property.type("System");
-		property.listener("validator");
-		property.listener("keyPressedAction");
+		Property property=new Property.Builder("String","delimiter","TEXT")
+		.group("TextProperties")
+		.subGroup("TextSubgroup")
+		.type("System").build();
 		
 		//Then
 		assertEquals(expectedHashCode,property.hashCode());
@@ -92,22 +73,17 @@ public class PropertyTest {
 	@Test
 	public void itShouldHaveEqualMethod(){
 		//Given
-		Property expectedProperty=new Property("String","delimiter","TEXT");
-		expectedProperty.group("TextProperties");
-		expectedProperty.subGroup("TextSubgroup");
-		expectedProperty.type("System");
-		expectedProperty.listener("validator");
-		expectedProperty.listener("keyPressedAction");
+		Property expectedProperty=new Property.Builder("String","delimiter","TEXT")
+		.group("TextProperties")
+		.subGroup("TextSubgroup")
+		.type("System").build();
 		
 		
 		//When
-		Property actualProperty=new Property("String","delimiter","TEXT");
-		actualProperty.group("TextProperties");
-		actualProperty.subGroup("TextSubgroup");
-		actualProperty.type("System");
-		actualProperty.listener("validator");
-		actualProperty.listener("keyPressedAction");
-		
+		Property actualProperty=new Property.Builder("String","delimiter","TEXT")
+		.group("TextProperties")
+		.subGroup("TextSubgroup")
+		.type("System").build();
 		
 		assertTrue(actualProperty.equals(expectedProperty));
 	}
@@ -118,9 +94,9 @@ public class PropertyTest {
 		String expectedSubgroupName = "TextProperties.TestSubGroup";
 		
 		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
-		property.subGroup("TestSubGroup");
+		Property property=new Property.Builder("String","delimiter","TEXT")
+		.group("TextProperties")
+		.subGroup("TestSubGroup").build();
 		
 		//Then
 		//assertEquals(expectedSubgroupName,property.getPropertySubGroup());
@@ -133,9 +109,9 @@ public class PropertyTest {
 		String expectedSubgroupName = "TestSubGroup";
 		
 		//When
-		Property property=new Property("String","delimiter","TEXT");
-		property.group("TextProperties");
-		property.subGroup("TestSubGroup");
+		Property property=new Property.Builder("String","delimiter","TEXT")
+		.group("TextProperties")
+		.subGroup("TestSubGroup").build();
 		
 		//Then
 		//assertEquals(expectedSubgroupName,property.getPropertySubGroup());

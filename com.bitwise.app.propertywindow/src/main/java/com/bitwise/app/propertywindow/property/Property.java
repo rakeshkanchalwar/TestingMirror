@@ -1,6 +1,5 @@
 package com.bitwise.app.propertywindow.property;
 
-import java.util.ArrayList;
 
 /**
  * 
@@ -8,79 +7,93 @@ import java.util.ArrayList;
  * Sep 03, 2015
  * 
  */
-
+// TODO pure Builder pattern effective java
 public class Property {
-	private String propertyName;
-	private String propertyRenderer;
-	private String propertyGroup;
-	private String propertySubGroup;
-	private String propertyDataType;
-	private String propertyType;
-	ArrayList<String> propertyListeners;
+	private String name;
+	private String renderer;
+	private String dataType;
+	
+	private String group;
+	private String subGroup;	
+	private String type;
+	
+	public static class Builder{
+		// Required parameters
+		private String name;
+		private String renderer;
+		private String dataType;
 		
-	private Property(){}
-	
-	public Property(String propertyDataType,String propertyName,String propertyRenderer){
-		this.propertyDataType = propertyDataType;
-		this.propertyName = propertyName;
-		this.propertyRenderer = propertyRenderer;
-		this.propertyType = "USER";
-		this.propertyGroup = "GENERAL";
-		this.propertySubGroup = "GENERAL";
-		propertyListeners = new ArrayList<>();
+		// Optional parameters - initialized to default values
+		private String group;
+		private String subGroup;	
+		private String type;
+		
+		public Builder(String dataType,String name,String renderer){
+			this.dataType = dataType;
+			this.name = name;
+			this.renderer = renderer;
+			this.type = "USER";
+			this.group = "GENERAL";
+			this.subGroup = "GENERAL";
+		}
+		
+		public Builder group(String propertyGroup){
+			this.group = propertyGroup;
+			return this;
+		}
+		
+		public Builder subGroup(String propertySubGroup){
+			this.subGroup = propertySubGroup;
+			return this;
+		}
+		
+		public Builder type(String propertyType){
+			this.type = propertyType;
+			return this;
+		}
+		
+		public Property build(){
+			return new Property(this);			
+		}
 	}
 	
-	public Property group(String propertyGroup){
-		this.propertyGroup = propertyGroup;
-		return this;
+	private Property(Builder builder){
+		this.dataType = builder.dataType;
+		this.name = builder.name;
+		this.renderer = builder.renderer;
+		this.type = builder.type;
+		this.group = builder.group;
+		this.subGroup = builder.subGroup;
 	}
-	
-	public Property subGroup(String propertySubGroup){
-		this.propertySubGroup = propertySubGroup;
-		return this;
-	}
-	
-	public Property type(String propertyType){
-		this.propertyType = propertyType;
-		return this;
-	}
-	
-	public Property listener(String propertyListener){
-		this.propertyListeners.add(propertyListener);
-		return this;
-	}
-
+		
 	public String getPropertyName() {
-		return propertyName;
+		return name;
 	}
 
 	public String getPropertyRenderer() {
-		return propertyRenderer;
+		return renderer;
 	}
 
 	public String getPropertyGroup() {
-		return propertyGroup;
+		return group;
 	}
 
 	public String getPropertySubGroupID() {
-		return propertyGroup + "." +propertySubGroup;
+		return group + "." +subGroup;
 	}
 
 	public String getPropertySubGroup() {
-		return propertySubGroup;
+		return subGroup;
 	}
 	
 	public String getPropertyDataType() {
-		return propertyDataType;
+		return dataType;
 	}
 
 	public String getPropertyType() {
-		return propertyType;
+		return type;
 	}
-
-	public ArrayList<String> getPropertyListeners() {
-		return propertyListeners;
-	}
+	
 
 	@Override
 	public int hashCode() {
@@ -88,23 +101,19 @@ public class Property {
 		int result = 1;
 		result = prime
 				* result
-				+ ((propertyDataType == null) ? 0 : propertyDataType.hashCode());
+				+ ((dataType == null) ? 0 : dataType.hashCode());
 		result = prime * result
-				+ ((propertyGroup == null) ? 0 : propertyGroup.hashCode());
+				+ ((group == null) ? 0 : group.hashCode());
+		result = prime * result
+				+ ((name == null) ? 0 : name.hashCode());
 		result = prime
 				* result
-				+ ((propertyListeners == null) ? 0 : propertyListeners
-						.hashCode());
-		result = prime * result
-				+ ((propertyName == null) ? 0 : propertyName.hashCode());
+				+ ((renderer == null) ? 0 : renderer.hashCode());
 		result = prime
 				* result
-				+ ((propertyRenderer == null) ? 0 : propertyRenderer.hashCode());
-		result = prime
-				* result
-				+ ((propertySubGroup == null) ? 0 : propertySubGroup.hashCode());
+				+ ((subGroup == null) ? 0 : subGroup.hashCode());
 		result = prime * result
-				+ ((propertyType == null) ? 0 : propertyType.hashCode());
+				+ ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -117,52 +126,45 @@ public class Property {
 		if (getClass() != obj.getClass())
 			return false;
 		Property other = (Property) obj;
-		if (propertyDataType == null) {
-			if (other.propertyDataType != null)
+		if (dataType == null) {
+			if (other.dataType != null)
 				return false;
-		} else if (!propertyDataType.equals(other.propertyDataType))
+		} else if (!dataType.equals(other.dataType))
 			return false;
-		if (propertyGroup == null) {
-			if (other.propertyGroup != null)
+		if (group == null) {
+			if (other.group != null)
 				return false;
-		} else if (!propertyGroup.equals(other.propertyGroup))
+		} else if (!group.equals(other.group))
 			return false;
-		if (propertyListeners == null) {
-			if (other.propertyListeners != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!propertyListeners.equals(other.propertyListeners))
+		} else if (!name.equals(other.name))
 			return false;
-		if (propertyName == null) {
-			if (other.propertyName != null)
+		if (renderer == null) {
+			if (other.renderer != null)
 				return false;
-		} else if (!propertyName.equals(other.propertyName))
+		} else if (!renderer.equals(other.renderer))
 			return false;
-		if (propertyRenderer == null) {
-			if (other.propertyRenderer != null)
+		if (subGroup == null) {
+			if (other.subGroup != null)
 				return false;
-		} else if (!propertyRenderer.equals(other.propertyRenderer))
+		} else if (!subGroup.equals(other.subGroup))
 			return false;
-		if (propertySubGroup == null) {
-			if (other.propertySubGroup != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!propertySubGroup.equals(other.propertySubGroup))
-			return false;
-		if (propertyType == null) {
-			if (other.propertyType != null)
-				return false;
-		} else if (!propertyType.equals(other.propertyType))
+		} else if (!type.equals(other.type))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Property [propertyName=" + propertyName + ", propertyRenderer="
-				+ propertyRenderer + ", propertyGroup=" + propertyGroup
-				+ ", propertySubGroup=" + propertySubGroup
-				+ ", propertyDataType=" + propertyDataType + ", propertyType="
-				+ propertyType + ", propertyListeners=" + propertyListeners
-				+ "]";
+		return "Property [propertyName=" + name + ", propertyRenderer="
+				+ renderer + ", propertyGroup=" + group
+				+ ", propertySubGroup=" + subGroup
+				+ ", propertyDataType=" + dataType + ", propertyType="
+				+ type + "]";
 	}
-	
 }

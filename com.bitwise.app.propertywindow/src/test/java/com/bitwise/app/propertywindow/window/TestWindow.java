@@ -2,6 +2,7 @@ package com.bitwise.app.propertywindow.window;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
@@ -55,17 +56,17 @@ public class TestWindow extends ApplicationWindow {
 	}
 
 	private Property getComponentBaseTypeProperty(){
-		Property property = new Property("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
+		Property property = new Property.Builder("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY").build();
 		return property;
 	}
 	
 	private Property getComponentTypeProperty(){
-		Property property = new Property("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
+		Property property = new Property.Builder("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY").build();
 		return property;
 	}
 	
 	private ArrayList<Property> transformComponentPropertiesToPropertyWindowUnderstantableFormat(
-			Object rowProperties) throws EmptyComponentPropertiesException {
+			List<com.bitwise.app.common.component.config.Property> rowProperties) throws EmptyComponentPropertiesException {
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
 		eltComponentPropertyAdapter.transform();
 		ArrayList<Property> componentProperties = eltComponentPropertyAdapter.getProperties();
@@ -126,7 +127,7 @@ public class TestWindow extends ApplicationWindow {
 				
 				RawProperties rawProperties = new RawProperties();
 								
-				Object rowProperties = rawProperties.getRawProperties();		
+				List<com.bitwise.app.common.component.config.Property> rowProperties = rawProperties.getRawProperties();		
 				
 					
 					Shell shell = e.display.getActiveShell();

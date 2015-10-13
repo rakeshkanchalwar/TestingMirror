@@ -44,10 +44,9 @@ public class ELTComponentPropertyAdapterTest {
 	@Test(expected = EmptyComponentPropertiesException.class)
 	public void itShouldThrowEmptyComponentPropertiesExceptionIfRawPropertiesAreEmptyWhileTransformation() throws EmptyComponentPropertiesException{
 		//Given
-		ArrayList<Property> rawProperties = null;
 		
 		//when
-		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rawProperties);
+		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(null);
 		eltComponentPropertyAdapter.transform();
 		
 		//Then - expect EmptyComponentPropertiesException
