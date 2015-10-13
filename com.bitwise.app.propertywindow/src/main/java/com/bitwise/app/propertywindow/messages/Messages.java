@@ -2,9 +2,10 @@ package com.bitwise.app.propertywindow.messages;
 
 import org.eclipse.osgi.util.NLS;
 
-public class Messages extends NLS { 
+public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "com.bitwise.app.propertywindow.messages.messages";
-	public static String DATATYPELIST ;
+	public static String LENGTHERROR;
+	public static String DATATYPELIST;
 	public static String FIELDNAME;
 	public static String DATATYPE;
 	public static String DATEFORMAT;
@@ -28,7 +29,6 @@ public class Messages extends NLS {
 	public static String EMPTYFIELDMESSAGE;
 	public static String LENGTH;
 
-	
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
@@ -37,4 +37,3 @@ public class Messages extends NLS {
 	private Messages() {
 	}
 }
- 

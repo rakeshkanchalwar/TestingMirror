@@ -8,8 +8,7 @@ import java.util.List;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
@@ -18,22 +17,18 @@ import com.bitwise.app.propertywindow.widgets.filterproperty.ELTFilterPropertyWi
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
 public class ELTFilterWidget extends AbstractWidget {
 
 
-	
 
-	private Shell shell;
 
 	private LinkedHashSet<String> tempPropertyMap;
 	private String propertyName;
 	private List<String> propertyLst;
 	private HashSet<String> set;
-	
 	private String componentName;
 
 	public ELTFilterWidget(
@@ -68,18 +63,14 @@ public class ELTFilterWidget extends AbstractWidget {
 				if(getProperties().get(propertyName)==null){
 					setProperties(propertyName, new HashSet<String>());
 				}
-					filterWizardObj.setRuntimePropertyMap((HashSet<String>) getProperties().get(propertyName));
-					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(null));
+					filterWizardObj.setRuntimePropertySet((HashSet<String>) getProperties().get(propertyName));
+					setProperties(propertyName,filterWizardObj.launchRuntimeWindow());
 			
 			}
 		});
 	}
 	private void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
-
-		this.set = (HashSet<String>) properties;
-
-
 		this.set = (HashSet<String>) properties;
 
 	}

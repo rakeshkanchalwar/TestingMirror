@@ -79,7 +79,7 @@ public class ELTOperationClassWidget extends AbstractWidget {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				eltOperationClassDialog = new ELTOperationClassDialog(runtimeComposite.getContainerControl().getShell(), propertyDialogButtonBar,operationClassProperty.getCopy());
+				eltOperationClassDialog = new ELTOperationClassDialog(runtimeComposite.getContainerControl().getShell(), propertyDialogButtonBar,operationClassProperty.clone());
 				eltOperationClassDialog.open();
 				if(!eltOperationClassDialog.getOperationClassProperty().equals(operationClassProperty)){
 					operationClassProperty = eltOperationClassDialog.getOperationClassProperty();

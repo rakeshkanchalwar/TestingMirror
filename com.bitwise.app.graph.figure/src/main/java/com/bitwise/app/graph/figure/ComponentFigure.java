@@ -1,16 +1,8 @@
-/*******************************************************************************
- * Copyright (c) 2000, 2010 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/
+
 package com.bitwise.app.graph.figure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -50,15 +42,13 @@ public class ComponentFigure extends Figure {
 
 		for(PortSpecification p:portspecification)
 		{ 	
-			c = new FixedConnectionAnchor(this);
-			c.setType(p.getTypeOfPort());
-			c.setTotalPortsOfThisType(p.getNumberOfPorts());
-			c.setSequence(p.getSequenceOfPort());
+			c = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
 			connectionAnchors.put(c.getType()+c.getSequence(), c);
 			if(p.getTypeOfPort().equalsIgnoreCase("out"))
 				outputConnectionAnchors.add(c);
 			else
 				inputConnectionAnchors.add(c);	
+			
 		}
 		
 	}
@@ -148,16 +138,11 @@ public class ComponentFigure extends Figure {
 		return null;
 	}
 
-	public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
-
+	private ConnectionAnchor closestAnchor(Point p, List<FixedConnectionAnchor> connectionAnchors) {
 		ConnectionAnchor closest = null;
 		double min = Double.MAX_VALUE;
-
-		for (int i = 0; i < outputConnectionAnchors.size(); i++) {
-
-			ConnectionAnchor c = (ConnectionAnchor) outputConnectionAnchors.get(i);
-			Point p2 = c.getLocation(null);
-			double d = p.getDistance(p2);
+		for(ConnectionAnchor c : connectionAnchors){
+			double d = p.getDistance(c.getLocation(null));
 			if (d < min) {
 				min = d;
 				closest = c;
@@ -165,24 +150,13 @@ public class ComponentFigure extends Figure {
 		}
 		return closest;
 	}
-
+	
+	public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
+		return closestAnchor(p, outputConnectionAnchors);
+	}
 
 	public ConnectionAnchor getTargetConnectionAnchorAt(Point p) {
-
-		ConnectionAnchor closest = null;
-		double min = Double.MAX_VALUE;
-
-		for (int i = 0; i < inputConnectionAnchors.size(); i++) {
-
-			ConnectionAnchor c = (ConnectionAnchor) inputConnectionAnchors.get(i);
-			Point p2 = c.getLocation(null);
-			double d = p.getDistance(p2);
-			if (d < min) {
-				min = d;
-				closest = c;
-			}
-		}
-		return closest;
+		return closestAnchor(p, inputConnectionAnchors);
 	}
 	public String getLabelName() {
 		return labelName;

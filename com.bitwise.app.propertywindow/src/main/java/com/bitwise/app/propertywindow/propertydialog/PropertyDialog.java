@@ -33,8 +33,6 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 public class PropertyDialog extends Dialog {
 	private Composite container;
 	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
-	//private LinkedHashMap<String, Object> ComponentProperties;
-	//private LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private PropertyDialogBuilder propertyDialogBuilder;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	private String componentName;
@@ -51,9 +49,6 @@ public class PropertyDialog extends Dialog {
 	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree,ELTComponenetProperties eltComponenetProperties) {		
 		super(parentShell);
 		this.propertyTree = propertyTree;
-		//this.ComponentProperties = eltComponenetProperties.getComponentConfigurationProperties();
-		//this.componentMiscellaneousProperties = eltComponenetProperties.getComponentMiscellaneousProperties();
-		//this.componentName = (String) componentProperties.get(ELTProperties.NAME_PROPERTY.propertyName());
 		this.eltComponenetProperties = eltComponenetProperties;
 		componentName = (String) this.eltComponenetProperties.getComponentConfigurationProperty(ELTProperties.NAME_PROPERTY.propertyName());
 
@@ -112,9 +107,6 @@ public class PropertyDialog extends Dialog {
 	private void attachPropertyDialogButtonBarToEatchWidgetOnPropertyWindow(
 			Button okButton, Button cancelButton) {
 		propertyDialogButtonBar.setPropertyDialogButtonBar(okButton, applyButton, cancelButton);
-		/*for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
-			eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
-		}*/
 	}
 
 	private void createApplyButton(Composite parent) {
@@ -126,7 +118,7 @@ public class PropertyDialog extends Dialog {
 
 	@Override
 	protected void buttonPressed(int buttonId) {
-		// If Apply Button pressed 3 is index of apply button;
+		// If Apply Button pressed(3 is index of apply button);
 		if(buttonId == 3){
 			applyButtonAction();
 		}
@@ -208,13 +200,13 @@ public class PropertyDialog extends Dialog {
 		super.configureShell(newShell);		
 		String imagePath = null;
 		//TODO Please uncomment below code before build.
-		/*try{
+		try{
 			imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/property_window_icon.png" ;  
 			Image shellImage = new Image(newShell.getDisplay(), imagePath);
 			newShell.setImage(shellImage);
 		}catch(Exception e){
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 

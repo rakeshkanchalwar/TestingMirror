@@ -13,11 +13,7 @@ import org.eclipse.swt.widgets.Composite;
 public class ScrolledCompositeHolder {
 	private Composite composite;
 	private ScrolledComposite scrolledComposite;
-	
-	private ScrolledCompositeHolder(){
 		
-	}
-	
 	public ScrolledCompositeHolder(ScrolledComposite scrolledComposite , Composite composite) {
 		super();
 		this.composite = composite;

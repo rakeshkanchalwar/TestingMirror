@@ -9,7 +9,7 @@ public class OutputFixedWidth extends OutputCategory {
 	}
 
 	public String getConverter() {
-		return "com.bitwise.app.engine.converter.impl.OutputFixedWidthConverter";
+		return "com.bitwise.app.engine.converter.impl.OutputFileFixedWidthConverter";
 
 	}
 }

@@ -12,41 +12,39 @@ import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
-import com.bitwiseglobal.graph.inputtypes.FileDelimited;
+import com.bitwiseglobal.graph.inputtypes.FileFixedWidth;
 import com.bitwiseglobal.graph.itfd.TypeInputDelimitedOutSocket;
 
-public class InputFileDelimitedConverter extends InputConverter {
+public class InputFileFixedWidthConverter extends InputConverter {
 
-	Logger logger = LogFactory.INSTANCE.getLogger(InputFileDelimitedConverter.class);
-	
-	public InputFileDelimitedConverter(Component component) {
+	Logger logger = LogFactory.INSTANCE.getLogger(InputFileFixedWidthConverter.class);
+
+	public InputFileFixedWidthConverter(Component component) {
 		super();
-		this.baseComponent = new FileDelimited();
+		this.baseComponent = new FileFixedWidth();
 		this.component = component;
 		this.properties = component.getProperties();
 	}
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException{
-		logger.debug("Genrating XML for {}", properties.get(NAME));	
+		logger.debug("prepareForXML - Genrating XML data for "+component);
 		super.prepareForXML();
-		FileDelimited fileDelimited = (FileDelimited) baseComponent;
-		FileDelimited.Path path = new FileDelimited.Path();
+		FileFixedWidth fileFixedWidth = (FileFixedWidth) baseComponent;
+		FileFixedWidth.Path path = new FileFixedWidth.Path();
 		path.setUri((String) properties.get(PATH));
-		FileDelimited.Charset charset = new FileDelimited.Charset();
+		FileFixedWidth.Charset charset = new FileFixedWidth.Charset();
 		charset.setValue(getCharset());
-		FileDelimited.Delimiter delimiter = new FileDelimited.Delimiter();
-		delimiter.setValue((String) properties.get(DELIMITER));
-		fileDelimited.setPath(path);
-		fileDelimited.setDelimiter(delimiter);
-		fileDelimited.setHasHeader(getBoolean(HAS_HEADER));
-		fileDelimited.setSafe(getBoolean(IS_SAFE));
-		fileDelimited.setCharset(charset);
+		
+		fileFixedWidth.setPath(path);
+		fileFixedWidth.setStrict(getBoolean(HAS_HEADER));
+		fileFixedWidth.setSafe(getBoolean(IS_SAFE));
+		fileFixedWidth.setCharset(charset);
+		
 	}
-
 	@Override
 	protected List<TypeInputOutSocket> getInOutSocket() throws SchemaException {
-		logger.debug("Genrating TypeInputOutSocket data for {}", properties.get(NAME));
+		logger.debug("getInOutSocket - Genrating TypeInputOutSocket data for "+component);
 		List<TypeInputOutSocket> outSockets = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
 			TypeInputDelimitedOutSocket outSocket = new TypeInputDelimitedOutSocket();
@@ -58,4 +56,5 @@ public class InputFileDelimitedConverter extends InputConverter {
 		}
 		return outSockets;
 	}
+
 }

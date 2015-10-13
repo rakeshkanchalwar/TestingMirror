@@ -22,7 +22,7 @@ public class FixedWidthGridWidgetBuilder extends GridWidgetCommonBuilder {
 		
 		CellEditor[] cellEditor = createCellEditor(size);
 		addTextEditor(table,cellEditor, 0);
-		addComboBox(table, cellEditor, getDataTypeValue(), 1);
+		addComboBox(table, cellEditor, getDataTypeKey(), 1);
 		addTextEditor(table,cellEditor, 2);
 		addTextEditor(table,cellEditor, 3);
 		addTextEditor(table,cellEditor, 4);

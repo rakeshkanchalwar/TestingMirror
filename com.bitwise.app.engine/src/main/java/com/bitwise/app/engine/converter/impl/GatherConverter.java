@@ -15,6 +15,10 @@ import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
 import com.bitwiseglobal.graph.straightpulltypes.Gather;
 
+
+/**
+ * Converter implementation for Gather component
+ */
 public class GatherConverter extends StraightPullConverter {
 
 	Logger logger = LogFactory.INSTANCE.getLogger(GatherConverter.class);
@@ -28,15 +32,13 @@ public class GatherConverter extends StraightPullConverter {
 
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("prepareForXML - Genrating XML");
+		logger.debug("Genrating XML for : {}", properties.get(NAME));
 		super.prepareForXML();
-		Gather gather = (Gather) baseComponent;
-
 	}
 
 	@Override
 	protected List<TypeStraightPullOutSocket> getOutSocket() {
-		logger.debug("getOutSocket - Genrating TypeStraightPullOutSocket data for "+component);
+		logger.debug("Genrating TypeStraightPullOutSocket data for : {}", properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
@@ -49,7 +51,6 @@ public class GatherConverter extends StraightPullConverter {
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
 		}
-
 		return outSockectList;
 	}
 

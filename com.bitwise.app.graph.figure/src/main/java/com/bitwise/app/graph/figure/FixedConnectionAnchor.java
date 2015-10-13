@@ -1,13 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2000, 2010 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/
+
 package com.bitwise.app.graph.figure;
 
 import org.eclipse.draw2d.AbstractConnectionAnchor;
@@ -15,8 +6,6 @@ import org.eclipse.draw2d.AnchorListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
 
 public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
@@ -27,8 +16,11 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	
 
-	public FixedConnectionAnchor(IFigure owner) {
+	public FixedConnectionAnchor(IFigure owner, String type, int totalPortsOfThisType, int sequence) {
 		super(owner);
+		this.type=type;
+		this.totalPortsOfThisType=totalPortsOfThisType;
+		this.sequence=sequence;
 	}
 
 	/**
@@ -40,6 +32,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		super.ancestorMoved(figure);
 	}
 	
+	@Override
 	public Point getLocation(Point reference) {
 		
 		Point p = null ;
@@ -47,22 +40,18 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		int height = getOwner().getBounds().height;
 		int portOffset=height/portOffsetFactor;
 		
-		int xLocation, yLocation;
+		int xLocation =0, yLocation = 0;
 		
 		
 		if(this.type.equalsIgnoreCase("in")){
 			 xLocation=getOwner().getBounds().getTopLeft().x;
 			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
-			 
-			 p=new Point(xLocation, yLocation);
 		}
 		else if(this.type.equalsIgnoreCase("out")){
 			 xLocation=getOwner().getBounds().getTopRight().x;
 			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
-			 
-			 p=new Point(xLocation, yLocation);
 		}
-		return p;
+		return new Point(xLocation, yLocation);
 	}
 
 		
@@ -70,16 +59,8 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public int getSequence() {
 		return sequence;
-	}
-
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
 	}
 
 	public void setAllowMultipleLinks(boolean allowMultipleLinks) {
@@ -92,10 +73,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	public int getTotalPortsOfThisType() {
 		return totalPortsOfThisType;
-	}
-
-	public void setTotalPortsOfThisType(int totalPortsOfThisType) {
-		this.totalPortsOfThisType = totalPortsOfThisType;
 	}
 
 	
@@ -153,7 +130,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	}
 	@Override
 	public void addAnchorListener(AnchorListener listener) {
-		// TODO Auto-generated method stub
 		super.addAnchorListener(listener);
 	}
 	

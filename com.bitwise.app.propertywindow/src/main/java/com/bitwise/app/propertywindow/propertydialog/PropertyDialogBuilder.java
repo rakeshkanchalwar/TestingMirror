@@ -37,27 +37,12 @@ public class PropertyDialogBuilder {
 	//<GroupName,<SubgroupName,[PropertyList...]>>
 	private LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree;
 	private Composite container;
-	//private LinkedHashMap<String, Object> componentProperties;
 	private ArrayList<AbstractWidget> eltWidgetList;
-	//private LinkedHashMap<String, Object> componentMiscellaneousProperties;
 	private ELTComponenetProperties eltComponenetProperties;
-	private PropertyDialogButtonBar propertyDialogButtonBar;
+	private PropertyDialogButtonBar propertyDialogButtonBar;	
 
-	/*private PropertyDialogBuilder(){
-
-	}*/
-
-	/*public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, LinkedHashMap<String, Object> componentProperties, LinkedHashMap<String, Object> componentMiscellaneousProperties,PropertyDialogButtonBar propertyDialogButtonBar){
-		this.container = container;
-		this.propertyTree = propertyTree;
-		this.componentProperties = componentProperties;
-		this.componentMiscellaneousProperties = componentMiscellaneousProperties;
-		this.propertyDialogButtonBar = propertyDialogButtonBar;
-
-		eltWidgetList= new ArrayList<>();
-	}*/
-
-	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, ELTComponenetProperties eltComponenetProperties,PropertyDialogButtonBar propertyDialogButtonBar){
+	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, 
+			ELTComponenetProperties eltComponenetProperties,PropertyDialogButtonBar propertyDialogButtonBar){
 		this.container = container;
 		this.propertyTree = propertyTree;
 		this.eltComponenetProperties = eltComponenetProperties;
@@ -77,7 +62,6 @@ public class PropertyDialogBuilder {
 			LinkedHashMap<String,ArrayList<Property>> subgroupTree = propertyTree.get(groupName);
 			addGroupsInTab(scrolledCompositeHolder, subgroupTree);
 			addEmptyGroupWidget(scrolledCompositeHolder);
-
 		}
 	}
 
@@ -135,15 +119,14 @@ public class PropertyDialogBuilder {
 	private AbstractWidget addCustomWidgetInGroupWidget(
 			AbstractELTContainerWidget subGroupContainer, Property property) {
 		
-		ComponentConfigrationProperty componentConfigrationProperty = new ComponentConfigrationProperty(property.getPropertyName(), eltComponenetProperties.getComponentConfigurationProperty(property.getPropertyName()));
-		ComponentMiscellaneousProperties componentMiscellaneousProperties = new ComponentMiscellaneousProperties(eltComponenetProperties.getComponentMiscellaneousProperties());
+		ComponentConfigrationProperty componentConfigrationProperty = new ComponentConfigrationProperty(property.getPropertyName(), 
+				eltComponenetProperties.getComponentConfigurationProperty(property.getPropertyName()));
+		ComponentMiscellaneousProperties componentMiscellaneousProperties = new ComponentMiscellaneousProperties(
+				eltComponenetProperties.getComponentMiscellaneousProperties());
 
-		AbstractWidget eltWidget=WidgetFactory.getWidget(property.getPropertyRenderer(),componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		//eltWidget.setpropertyDialogButtonBar(propertyDialogButtonBar);
-		//eltWidget.setComponentMiscellaneousProperties(componentMiscellaneousProperties);
-		LinkedHashMap<String, Object> aaa = eltComponenetProperties.getComponentMiscellaneousProperties();
+		AbstractWidget eltWidget=WidgetFactory.getWidget(property.getPropertyRenderer(),componentConfigrationProperty,
+				componentMiscellaneousProperties,propertyDialogButtonBar);
 		eltWidget.attachToPropertySubGroup(subGroupContainer);
-		//eltWidget.setProperties(property.getPropertyName(),componentProperties.get(property.getPropertyName()));
 		return eltWidget;
 	}
 

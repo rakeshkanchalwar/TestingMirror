@@ -24,7 +24,7 @@ public abstract class AbstractWidget {
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
 			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super();
+		
 		this.componentConfigrationProperty = componentConfigrationProperty;
 		this.componentMiscellaneousProperties = componentMiscellaneousProperties;
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
@@ -32,12 +32,5 @@ public abstract class AbstractWidget {
 
 	public abstract void attachToPropertySubGroup(AbstractELTContainerWidget subGroup);
 
-	//public abstract void setProperties(String propertyName, Object properties);
-	
-
 	public abstract LinkedHashMap<String, Object> getProperties();
-
-	/*public void setpropertyDialogButtonBar(PropertyDialogButtonBar propertyDialogButtonBar){
-		this.propertyDialogButtonBar = propertyDialogButtonBar;
-	}*/
 }

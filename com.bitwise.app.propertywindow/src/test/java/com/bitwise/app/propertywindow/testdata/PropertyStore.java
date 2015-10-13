@@ -23,89 +23,46 @@ public class PropertyStore {
 	public void addInputComponentProperties(){
 		ArrayList<Property> inputComponentProperties = new ArrayList<>();
 		
-		/*//--------------------
-		
-		Property name= new Property("String", "name", "ELT_PHASE_WIDGET");
-		name.group("TextProperties");
-		
-		Property path= new Property("String", "path", "ELT_FILE_PATH_WIDGET");
-		path.group("TextProperties");
-		
-		Property delimiter= new Property("String", "delimiter", "ELT_DELIMETER_WIDGET");
-		delimiter.group("TextProperties");
-		
-		//------
-		
-		Property charset= new Property("String", "charset", "ELT_CHARACTER_SET_WIDGET");
-		charset.group("TextProperties");
-		charset.subGroup("Opetional");
-				
-		Property phase= new Property("String", "phase", "ELT_PHASE_WIDGET");
-		phase.group("TextProperties");
-		phase.subGroup("Opetional");
 		
 		//--------------------
 		
-		Property safe= new Property("boolean", "safe", "ELT_SAFE_PROPERTY_WIDGET");
-		safe.group("RadioProperties");
-		safe.subGroup("safe");
-		
-		Property has_header= new Property("boolean", "has_header", "ELT_HAS_HEADER_WIDGET");
-		has_header.group("RadioProperties");
-		has_header.subGroup("header");
-		//--------------------
-		
-				//--------------------
-		
-				Property schema= new Property("boolean", "Schema", "ELT_SCHEMA_WIDGET");
-				schema.group("Schema");
+				Property name= new Property.Builder("String", "name", "ELT_COMPONENT_NAME_WIDGET")
+				.group("TEXT_PROPERTIES").build();
 				
-				Property runtimeProps= new Property("boolean", "RuntimeProps", "ELT_RUNTIME_PROPERTIES_WIDGET");
-				runtimeProps.group("RuntimeProps");
-				//--------------------
-*/		
-		
-		
-		
-		//--------------------
-		
-				Property name= new Property("String", "name", "ELT_COMPONENT_NAME_WIDGET");
-				name.group("TEXT_PROPERTIES");
+				Property path= new Property.Builder("String", "path", "ELT_FILE_PATH_WIDGET")
+				.group("TEXT_PROPERTIES").build();
 				
-				Property path= new Property("String", "path", "ELT_FILE_PATH_WIDGET");
-				path.group("TEXT_PROPERTIES");
-				
-				Property delimiter= new Property("String", "strict", "ELT_STRICT_CLASS_WIDGET");
-				delimiter.group("TEXT_PROPERTIES");
+				Property delimiter= new Property.Builder("String", "strict", "ELT_STRICT_CLASS_WIDGET")
+				.group("TEXT_PROPERTIES").build();
 				
 				//------
 				
-				Property charset= new Property("String", "charset", "ELT_CHARACTER_SET_WIDGET");
-				charset.group("TEXT_PROPERTIES");
-				charset.subGroup("AAAA");
+				Property charset= new Property.Builder("String", "charset", "ELT_CHARACTER_SET_WIDGET")
+				.group("TEXT_PROPERTIES")
+				.subGroup("AAAA").build();
 						
-				Property phase= new Property("String", "phase", "ELT_PHASE_WIDGET");
-				phase.group("TEXT_PROPERTIES");
-				phase.subGroup("AAAA");
+				Property phase= new Property.Builder("String", "phase", "ELT_PHASE_WIDGET")
+				.group("TEXT_PROPERTIES")
+				.subGroup("AAAA").build();
 				
 				//--------------------
 				
-				Property safe= new Property("boolean", "safe", "ELT_SAFE_PROPERTY_WIDGET");
-				safe.group("RADIO_PROPERTIES");
-				safe.subGroup("safe");
+				Property safe= new Property.Builder("boolean", "safe", "ELT_SAFE_PROPERTY_WIDGET")
+				.group("RADIO_PROPERTIES")
+				.subGroup("safe").build();
 				
-				Property has_header= new Property("boolean", "has_header", "ELT_HAS_HEADER_WIDGET");
-				has_header.group("RADIO_PROPERTIES");
-				has_header.subGroup("header");
+				Property has_header= new Property.Builder("boolean", "has_header", "ELT_HAS_HEADER_WIDGET")
+				.group("RADIO_PROPERTIES")
+				.subGroup("header").build();
 				//--------------------
 				
 				//--------------------
 		
-				Property schema= new Property("boolean", "Schema", "ELT_SCHEMA_WIDGET");
-				schema.group("Schema");
+				Property schema= new Property.Builder("boolean", "Schema", "ELT_SCHEMA_WIDGET")
+				.group("Schema").build();
 				
-				Property runtimeProps= new Property("boolean", "RuntimeProps", "ELT_RUNTIME_PROPERTIES_WIDGET");
-				runtimeProps.group("RUNTIME_PROP");
+				Property runtimeProps= new Property.Builder("boolean", "RuntimeProps", "ELT_RUNTIME_PROPERTIES_WIDGET")
+				.group("RUNTIME_PROP").build();
 				//--------------------
 		
 		inputComponentProperties.add(name);

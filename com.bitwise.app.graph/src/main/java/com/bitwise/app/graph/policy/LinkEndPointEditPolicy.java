@@ -4,11 +4,14 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
+import org.eclipse.swt.graphics.Color;
 
 public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 
 	protected void addSelectionHandles() {
-		getLinkFigure().setForegroundColor(ColorConstants.blue);
+		super.addSelectionHandles();
+		//getLinkFigure().setForegroundColor(ColorConstants.blue);
+		getLinkFigure().setForegroundColor(new Color(null, 22, 169, 199));
 	}
 
 	protected PolylineConnection getLinkFigure() {
@@ -16,6 +19,7 @@ public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 	}
 
 	protected void removeSelectionHandles() {
+		super.removeSelectionHandles();
 		getLinkFigure().setForegroundColor(ColorConstants.black);
 	}
 }

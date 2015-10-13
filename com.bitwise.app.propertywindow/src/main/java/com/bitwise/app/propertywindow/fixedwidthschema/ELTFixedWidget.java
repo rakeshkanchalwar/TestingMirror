@@ -1,11 +1,13 @@
 package com.bitwise.app.propertywindow.fixedwidthschema;
 
+import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTCellEditorIsNumericValidator;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEditorFieldValidator;
+import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTFixedWidget extends ELTSchemaGridWidget{
 
@@ -40,7 +42,14 @@ public class ELTFixedWidget extends ELTSchemaGridWidget{
 	protected void addValidators() {
 		editors[0].setValidator(new ELTCellEditorFieldValidator(table, schemaGridRowList, fieldNameDecorator,propertyDialogButtonBar));
 		editors[3].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator,propertyDialogButtonBar)); 
-		editors[4].setValidator(new ELTCellEditorIsNumericValidator(scaleDecorator,propertyDialogButtonBar)); 
+		editors[4].setValidator(new ELTCellEditorIsNumericValidator(lengthDecorator,propertyDialogButtonBar)); 
+	}
+	//Adding the decorator to show error message when field name same.
+	@Override
+	protected void setDecorator() {
+		fieldNameDecorator = WidgetUtility.addDecorator(editors[0].getControl(),Messages.FIELDNAMEERROR);
+		scaleDecorator = WidgetUtility.addDecorator(editors[3].getControl(),Messages.SCALEERROR);
+		lengthDecorator = WidgetUtility.addDecorator(editors[4].getControl(),Messages.LENGTHERROR);
 	}
 	
 }

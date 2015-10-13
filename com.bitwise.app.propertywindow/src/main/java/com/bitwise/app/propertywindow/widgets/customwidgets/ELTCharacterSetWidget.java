@@ -23,9 +23,9 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
 public class ELTCharacterSetWidget extends AbstractWidget{
-	Combo combo;
-	Text text;
-	String[] ITEMS={"UTF-8","US-ASCII","ISO-8859-1","IUTF-16BE","UTF-16LE","UTF-16","Parameter"};
+	private Combo combo;
+	private Text text;
+	private String[] ITEMS={"UTF-8","US-ASCII","ISO-8859-1","IUTF-16BE","UTF-16LE","UTF-16","Parameter"};
 	private LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 	private String propertyName;
 	private String properties;
@@ -85,7 +85,6 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		populateWidget();
 	}
 
-	//@Override
 	private void populateWidget() {
 		
 		if(this.properties != null){
@@ -124,11 +123,6 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		return property;
 	}
 
-	/*@Override
-	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
+
 	
 }

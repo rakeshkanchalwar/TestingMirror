@@ -1,8 +1,8 @@
 package com.bitwise.app.propertywindow.adapters;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
 import com.bitwise.app.propertywindow.property.Property;
 /**
  * 
@@ -13,52 +13,47 @@ import com.bitwise.app.propertywindow.property.Property;
 
 public class ELTComponentPropertyAdapter implements IPropertyAdapter{
 
-	private ArrayList<Property> properties;
-	private Object rawProperties;
+	private List<Property> properties;
+	private List<com.bitwise.app.common.component.config.Property> rawProperties;
 	
-	private ELTComponentPropertyAdapter(){
-		
-	}
-	
-	public ELTComponentPropertyAdapter(Object rawProperties){
+	public ELTComponentPropertyAdapter(List<com.bitwise.app.common.component.config.Property> rawProperties){
 		this.rawProperties = rawProperties;
 		properties = new ArrayList<>();
 	}
 	
 	@Override
-	public void transform() throws EmptyComponentPropertiesException {
-		ArrayList<com.bitwise.app.common.component.config.Property> castedRawproperties = getCastedRawProperties();
-		for(com.bitwise.app.common.component.config.Property property : castedRawproperties){
+	public void transform() throws ELTComponentPropertyAdapter.EmptyComponentPropertiesException {
+		validateRawProperties();
+		for(com.bitwise.app.common.component.config.Property property : rawProperties){
 			Property tempProperty = transformProperty(property);
 			this.properties.add(tempProperty);
 		} 
 	}
 
-
-	private ArrayList<com.bitwise.app.common.component.config.Property> getCastedRawProperties()
-			throws EmptyComponentPropertiesException {
+	private void validateRawProperties() {
 		if(rawProperties == null)
-			throw new EmptyComponentPropertiesException();
-		
-		ArrayList<com.bitwise.app.common.component.config.Property> castedRawproperties =  (ArrayList<com.bitwise.app.common.component.config.Property>) rawProperties;
-		return castedRawproperties;
+			throw new ELTComponentPropertyAdapter.EmptyComponentPropertiesException();
 	}
 	
 	private Property transformProperty(
 			com.bitwise.app.common.component.config.Property property) {
-		Property tempProperty = new Property(property.getDataType().toString(), property.getName().toString(), property.getRenderer().toString());
-		tempProperty.group(property.getGroup().toString());
-		tempProperty.subGroup(property.getSubGroup().toString());
-		
-		return tempProperty;
+		return new Property.Builder(property.getDataType().toString(), property.getName().toString(), property.getRenderer().toString())
+					.group(property.getGroup().toString())
+					.subGroup(property.getSubGroup().toString()).build();
 	}
 
 	@Override
-	public ArrayList<Property> getProperties() throws EmptyComponentPropertiesException {
-		if(properties == null )
-			throw new EmptyComponentPropertiesException();
-		
-		return properties;
+	public ArrayList<Property> getProperties(){
+		return (ArrayList<Property>) properties;
+	}
+	
+	public static class EmptyComponentPropertiesException extends RuntimeException{
+
+		private static final long serialVersionUID = 1229993313725505841L;
+
+		public EmptyComponentPropertiesException(){
+	        super("Found empty property list");
+	    }	
 	}
 	
 }

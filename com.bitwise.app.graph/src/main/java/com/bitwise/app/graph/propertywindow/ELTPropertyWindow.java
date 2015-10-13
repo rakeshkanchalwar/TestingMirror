@@ -2,6 +2,7 @@ package com.bitwise.app.graph.propertywindow;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
@@ -12,7 +13,7 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
-import com.bitwise.app.propertywindow.exceptions.EmptyComponentPropertiesException;
+
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.IPropertyTreeBuilder;
 import com.bitwise.app.propertywindow.property.Property;
@@ -32,9 +33,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	ELTComponenetProperties eltComponenetProperties;
 	Component component;
 	private boolean propertyChanged = false;
-	private ELTPropertyWindow(){
-		
-	}
+
 	
 	public ELTPropertyWindow(Object componenetModel){
 		this.componenetModel = componenetModel;
@@ -64,22 +63,22 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	}
 	
 	private Property getComponentBaseTypeProperty(){
-		Property property = new Property("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
+		Property property = new Property.Builder("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY").build();
 		return property;
 	}
 	
 	private Property getComponentTypeProperty(){
-		Property property = new Property("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY");
+		Property property = new Property.Builder("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY").build();
 		return property;
 	}
 	
 	//@Override
 	public void open() {
-		Object rowProperties = getComponentPropertiesFromComponentXML();		
+		List<com.bitwise.app.common.component.config.Property> rowProperties = getComponentPropertiesFromComponentXML();		
 		try {			
 			Shell shell = getParentShellForPropertyWindow();
 				
-			ArrayList<Property> componentProperties = transformComponentPropertiesToPropertyWindowUnderstantableFormat(rowProperties);
+			ArrayList<Property> componentProperties = transformToPropertyWindowFormat(rowProperties);
 			componentProperties.add(getComponentBaseTypeProperty());
 			componentProperties.add(getComponentTypeProperty());
 			
@@ -93,7 +92,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 			
 			propertyChanged = propertyDialog.isPropertyChanged();
 			
-		} catch (EmptyComponentPropertiesException e) {
+		} catch (ELTComponentPropertyAdapter.EmptyComponentPropertiesException e) {
 			e.printStackTrace();
 		}
 	}
@@ -116,17 +115,15 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		return newSize;
 	}
 
-	private ArrayList<Property> transformComponentPropertiesToPropertyWindowUnderstantableFormat(
-			Object rowProperties) throws EmptyComponentPropertiesException {
+	private ArrayList<Property> transformToPropertyWindowFormat(
+			List<com.bitwise.app.common.component.config.Property> rowProperties) throws ELTComponentPropertyAdapter.EmptyComponentPropertiesException {
 		ELTComponentPropertyAdapter eltComponentPropertyAdapter = new ELTComponentPropertyAdapter(rowProperties);
 		eltComponentPropertyAdapter.transform();
 		ArrayList<Property> componentProperties = eltComponentPropertyAdapter.getProperties();
 		return componentProperties;
 	}
 
-	private Object getComponentPropertiesFromComponentXML() {
-		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(componenetModel.getClass());
-		Object rowProperties = XMLConfigUtil.INSTANCE.getComponent(componentName).getProperty();
-		return rowProperties;
+	private List<com.bitwise.app.common.component.config.Property> getComponentPropertiesFromComponentXML() {
+		return XMLConfigUtil.INSTANCE.getComponent(DynamicClassProcessor.INSTANCE.getClazzName(componenetModel.getClass())).getProperty();
 	}
 }

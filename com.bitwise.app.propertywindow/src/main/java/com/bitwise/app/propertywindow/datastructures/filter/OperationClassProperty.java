@@ -1,16 +1,11 @@
 package com.bitwise.app.propertywindow.datastructures.filter;
 
-public class OperationClassProperty {
+public class OperationClassProperty implements Cloneable{
 	
 	private String operationClassPath;
 	private boolean isParameter;
-	  
-	private OperationClassProperty(){
-		
-	}
 	
 	public OperationClassProperty(String operationClassPath, boolean isParameter) {
-		super();
 		this.operationClassPath = operationClassPath;
 		this.isParameter = isParameter;
 	}
@@ -21,11 +16,9 @@ public class OperationClassProperty {
 		return isParameter;
 	}
 		
-	public OperationClassProperty getCopy(){
-		/*if(operationClassPath==null)
-			return new OperationClassProperty("",false);
-		else*/
-			return new OperationClassProperty(operationClassPath,isParameter);
+	@Override
+	public OperationClassProperty clone(){
+		return new OperationClassProperty(operationClassPath,isParameter);
 	}
 
 	@Override
@@ -58,13 +51,5 @@ public class OperationClassProperty {
 			return false;
 		return true;
 	}
-	
-	
-	/*public void setParameter(boolean isParameter) {
-		this.isParameter = isParameter;
-	}
-	public void setOperationClassPath(String operationClassPath) {
-		this.operationClassPath = operationClassPath;
-	}*/
   
 }

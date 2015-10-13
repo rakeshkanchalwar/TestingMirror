@@ -1,6 +1,5 @@
 package com.bitwise.app.graph.figure.factory;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
@@ -15,7 +14,7 @@ public class ModelFigureFactory {
 	private static final Logger log = LogFactory.INSTANCE.getLogger(ModelFigureFactory.class);
 	private static final String COM_BITWISE_APP_GRAPH_FIGURE = "com.bitwise.app.graph.figure.";
 	
-	public static class ExpectedFigureNotFoundException extends RuntimeException {
+	private static class ExpectedFigureNotFoundException extends RuntimeException {
 		private static final long serialVersionUID = 8587432523081088051L;
 		public ExpectedFigureNotFoundException(Exception e) {
 			super(e);
@@ -28,11 +27,10 @@ public class ModelFigureFactory {
 		try {
 			
 			return (IFigure)Class.forName(COM_BITWISE_APP_GRAPH_FIGURE + shapeName).getDeclaredConstructor(List.class).newInstance(portSpecification);
-		} catch (InstantiationException | IllegalAccessException 
-				| ClassNotFoundException | IllegalArgumentException 
-				| InvocationTargetException | NoSuchMethodException | SecurityException exception) {
+		} catch (Exception exception) {
+			//TODO do we need a pop up...
 			log.warn("Figure creation failed for {}", componentName, exception);
-			throw new ExpectedFigureNotFoundException(exception);
+			throw new ModelFigureFactory.ExpectedFigureNotFoundException(exception);
 		}
 	}	
 }
