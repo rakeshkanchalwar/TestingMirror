@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Export-Package: com.thoughtworks.xstream,com.thoughtworks.xstream.anno
+ tations,com.thoughtworks.xstream.converters,com.thoughtworks.xstream.
+ converters.basic,com.thoughtworks.xstream.converters.collections,com.
+ thoughtworks.xstream.converters.enums,com.thoughtworks.xstream.conver
+ ters.extended,com.thoughtworks.xstream.converters.javabean,com.though
+ tworks.xstream.converters.reflection,com.thoughtworks.xstream.core,co
+ m.thoughtworks.xstream.core.util,com.thoughtworks.xstream.io,com.thou
+ ghtworks.xstream.io.binary,com.thoughtworks.xstream.io.copy,com.thoug
+ htworks.xstream.io.json,com.thoughtworks.xstream.io.naming,com.though
+ tworks.xstream.io.path,com.thoughtworks.xstream.io.xml,com.thoughtwor
+ ks.xstream.io.xml.xppdom,com.thoughtworks.xstream.mapper,com.thoughtw
+ orks.xstream.persistence,com.thoughtworks.xstream.security,org.xmlpul
+ l.mxp1,org.xmlpull.v1
+Bundle-ClassPath: .
+Bundle-Version: 0.0.1.201510131325
+Bundle-Name: com.xstream
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.xstream
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
