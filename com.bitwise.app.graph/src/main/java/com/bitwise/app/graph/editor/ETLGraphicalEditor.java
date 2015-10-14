@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
@@ -21,16 +22,23 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.draw2d.ConnectionLayer;
+import org.eclipse.draw2d.ViewportAwareConnectionLayerClippingStrategy;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.MouseWheelHandler;
+import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
@@ -41,9 +49,12 @@ import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.gef.ui.actions.ZoomInAction;
+import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.TransferDropTargetListener;
@@ -59,7 +70,9 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.dialogs.SaveAsDialog;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.slf4j.Logger;
@@ -87,13 +100,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	private boolean dirty=false;
 	private final Color palatteBackgroundColor= new Color(null,82,84,81);
-	
-	
+
+
 	Logger logger = LogFactory.INSTANCE.getLogger(ETLGraphicalEditor.class);
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
 	private final Point defaultComponentLocation = new Point(0, 0);
-	
+
 	public ETLGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 	}
@@ -144,13 +157,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.configureGraphicalViewer();
 		final GraphicalViewer viewer = getGraphicalViewer();
 		configureViewer(viewer);
-		//prepareZoomContributions(viewer);
+		prepareZoomContributions(viewer);
 		handleKeyStrokes(viewer);
 	}
 
 	protected PaletteViewerProvider createPaletteViewerProvider() {
 		return new PaletteViewerProvider(getEditDomain()) {
-			
+
 			protected void configurePaletteViewer(final PaletteViewer viewer) {
 				super.configurePaletteViewer(viewer);
 				viewer.setEditPartFactory(new CustomPaletteEditPartFactory(palatteBackgroundColor,palatteBackgroundColor));
@@ -205,13 +218,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					componentConfig.getName(), "Custom components", clazz,
 					new SimpleFactory(clazz),
 					ImageDescriptor
-							.createFromURL(prepareIconPathURL(componentConfig
-									.getIconPath())),
-					ImageDescriptor
+					.createFromURL(prepareIconPathURL(componentConfig
+							.getIconPath())),
+							ImageDescriptor
 							.createFromURL(prepareIconPathURL(componentConfig
 									.getIconPath())));
 			categoryPaletteConatiner.get(componentConfig.getCategory().name())
-					.add(component);
+			.add(component);
 
 		}
 
@@ -244,9 +257,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					}
 				},
 				ImageDescriptor
-						.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")),
+				.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")),
 				ImageDescriptor
-						.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")));
+				.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")));
 		toolbar.add(tool);
 
 		palette.add(toolbar);
@@ -307,12 +320,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		keyHandler.put(KeyStroke.getPressed((char) ('y' - 'a' + 1), 'y', SWT.CTRL), getActionRegistry().getAction(ActionFactory.REDO.getId()));
 		keyHandler.put(KeyStroke.getPressed((char) ('a' - 'a' + 1), 'a', SWT.CTRL), getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
 		//		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
-//				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
-//		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
-//				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
+		//				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
+		//		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
+		//				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
 
-//		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE),
-//				MouseWheelZoomHandler.SINGLETON);
 		viewer.setKeyHandler(keyHandler);
 	}
 
@@ -324,18 +335,58 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		getSite().registerContextMenu(cmProvider, viewer);
 	}
 
+	private void prepareZoomContributions(GraphicalViewer viewer) {
+
+		ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
+
+		// set clipping strategy for connection layer
+		ConnectionLayer connectionLayer = (ConnectionLayer) root
+				.getLayer(LayerConstants.CONNECTION_LAYER);
+		connectionLayer
+		.setClippingStrategy(new ViewportAwareConnectionLayerClippingStrategy(
+				connectionLayer));
+
+		List zoomLevels = new ArrayList(3);
+		zoomLevels.add(ZoomManager.FIT_ALL);
+		zoomLevels.add(ZoomManager.FIT_WIDTH);
+		zoomLevels.add(ZoomManager.FIT_HEIGHT);
+		root.getZoomManager().setZoomLevelContributions(zoomLevels);
+
+		IAction zoomIn = new ZoomInAction(root.getZoomManager());
+		IAction zoomOut = new ZoomOutAction(root.getZoomManager());
+		viewer.setRootEditPart(root);
+		getActionRegistry().registerAction(zoomIn);
+		getActionRegistry().registerAction(zoomOut);
+
+		//zoom on key strokes: ctrl++ and ctrl--
+		IHandlerService service = 
+				(IHandlerService)getEditorSite().getService(IHandlerService. class);
+
+		service.activateHandler(zoomIn.getActionDefinitionId(),
+				new ActionHandler(zoomIn));
+
+		service.activateHandler(zoomOut.getActionDefinitionId(),
+				new ActionHandler(zoomOut));
+
+		// Scroll-wheel Zoom
+		getGraphicalViewer().setProperty(
+				MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1),
+				MouseWheelZoomHandler.SINGLETON);
+	}
+
+
 	@Override
 	public boolean isDirty() {
 		// TODO Auto-generated method stub
 		return dirty;
 	}
-	
+
 	public void setDirty(boolean dirty){
 		this.dirty = dirty;
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
-	
-	
+
+
 	@Override
 	public void setInput(IEditorInput input) {
 		super.setInput(input);
@@ -359,7 +410,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			GenrateContainerData genrateContainerData = new GenrateContainerData();
 			genrateContainerData.setEditorInput(getEditorInput(), this);
 			genrateContainerData.storeContainerData();
-			
+
 		} catch (CoreException | IOException ce) {
 			logger.error(METHOD_NAME , ce);
 			MessageDialog.openError(new Shell(), "Error", "Exception occured while saving the graph -\n"+ce.getMessage());
@@ -381,7 +432,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		logger.debug(METHOD_NAME);
 		IFile file=opeSaveAsDialog();
 		if(file!=null){
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
 				createOutputStream(out);
 				if (file.exists())
@@ -397,7 +448,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				MessageDialog.openError(new Shell(), "Error", "Exception occured while saving the graph -\n"+ce.getMessage());
 			}
 			setDirty(false);
-			}
+		}
 	}
 
 	@Override
@@ -417,12 +468,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 		if (obj.getReturnCode() == 0) {
 			IPath filePath = obj.getResult().removeFileExtension().addFileExtension("job");
-			 file= ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
+			file= ResourcesPlugin.getWorkspace().getRoot().getFile(filePath);
 		}
 		return file;
 	}
 
-	
+
 	public Object fromXMLToObject(InputStream xml) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
 		Object obj = null;
@@ -432,12 +483,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 			obj = xs.fromXML(xml);
 			logger.debug(METHOD_NAME
-							+ "Sucessfully converted JAVA Object from XML Data");
+					+ "Sucessfully converted JAVA Object from XML Data");
 			xml.close();
 		} catch (Exception e) {
 			logger.error(METHOD_NAME,e);
 			MessageDialog
-					.openError(new Shell(), "Error", "Invalid graph file.");
+			.openError(new Shell(), "Error", "Invalid graph file.");
 
 		}
 		return obj;
@@ -467,7 +518,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		} catch (EngineException eexception) {
 			logger.warn("Failed to create the engine xml", eexception);
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "Failed to create the engine xml", eexception.getMessage());
-//			
+			//			
 		}catch (Exception exception) {
 			logger.error("Failed to create the engine xml", exception);
 			Status status = new Status(IStatus.ERROR, "com.bitwise.app.graph",
@@ -485,21 +536,21 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	public CommandStack getCommandStack() {
 		return super.getCommandStack();
 	}
-	
-	
+
+
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		super.init(site, input);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(this), IResourceChangeEvent.POST_CHANGE);
 	}
-	
+
 	public void dispose() {
-        super.dispose();
-       ResourcesPlugin.getWorkspace().removeResourceChangeListener(new ResourceChangeListener(this));
-    }
-	
-	
-		
+		super.dispose();
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(new ResourceChangeListener(this));
+	}
+
+
+
 
 }

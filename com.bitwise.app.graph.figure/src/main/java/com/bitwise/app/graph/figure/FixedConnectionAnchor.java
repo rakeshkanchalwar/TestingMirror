@@ -51,7 +51,9 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 			 xLocation=getOwner().getBounds().getTopRight().x;
 			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
 		}
-		return new Point(xLocation, yLocation);
+		Point point= new Point(xLocation, yLocation);
+		getOwner().translateToAbsolute(point);
+		return point;
 	}
 
 		
