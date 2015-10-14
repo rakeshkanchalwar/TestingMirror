@@ -17,20 +17,24 @@ public class LinkReconnectTargetCommand extends Command{
 	private Component newTarget;
 	private String oldTargetTerminal;
 	private String newTargetTerminal;
-	private Component oldSource;
 	private String componentName;
+	private final Component oldSource;
 	
 	public LinkReconnectTargetCommand(Link link){
 		if (link == null) {
 			throw new IllegalArgumentException();
 		}
 		this.link=link;
+		this.oldSource=link.getSource();
 		this.oldTarget = link.getTarget();
+		setLabel("Target Reconnection");
 	}
 	
+	
+	@Override
 	public boolean canExecute(){
 		List<PortSpecification> portspecification;
-		if(newTarget!=null){
+		if(newTarget != null){
 			if(newTarget.equals(oldSource)){
 				return false;
 			}
@@ -55,16 +59,20 @@ public class LinkReconnectTargetCommand extends Command{
 		return true;
 	}
 	
+	@Override
 	public void execute(){
 		if(newTarget != null){
+			link.detachTarget();
+			link.getTarget().removeInputPort(link.getTargetTerminal());
+			
 			link.setTarget(newTarget);
 			link.setTargetTerminal(newTargetTerminal);
-			newTarget.addInputPort(newTargetTerminal);
-			newTarget.connectInput(link);
-			link.attachTarget();
-			
+						
 			oldTarget.removeInputPort(link.getTargetTerminal());
 			oldTarget.disconnectInput(link);
+
+			link.attachTarget();
+			newTarget.addInputPort(newTargetTerminal);
 			
 		}
 	}
@@ -74,9 +82,6 @@ public class LinkReconnectTargetCommand extends Command{
 			throw new IllegalArgumentException();
 		}
 		newTarget = linkTarget;
-		newTargetTerminal=null;
-		oldTarget.disconnectInput(link);
-		oldTarget.removeInputPort(link.getTargetTerminal());
 	}
 	
 	public void setNewTargetTerminal(String newTargetTerminal){

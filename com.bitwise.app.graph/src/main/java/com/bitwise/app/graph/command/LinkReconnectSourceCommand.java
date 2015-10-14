@@ -15,13 +15,13 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
 public class LinkReconnectSourceCommand extends Command {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(LinkReconnectSourceCommand.class);
 	
-	private Link link;
+	private final Link link;
 
-	private Component newSource, newTarget;
-	private String newSourceTerminal, newTargetTerminal;
+	private Component newSource;
+	private String newSourceTerminal;
 	private String oldSourceTerminal;
 	private Component oldSource;
-	private Component oldTarget;
+	private final  Component oldTarget;
 
 	private String componentName;
 
@@ -32,8 +32,10 @@ public class LinkReconnectSourceCommand extends Command {
 		this.link = link;
 		this.oldSource = link.getSource();
 		this.oldTarget = link.getTarget();
+		setLabel("Source Reconnection");
 	}
 
+	@Override
 	public boolean canExecute() {
 		List<PortSpecification> portspecification;
 		if (newSource != null)
@@ -61,15 +63,22 @@ public class LinkReconnectSourceCommand extends Command {
 		return true;
 	}
 
+	@Override
 	public void execute() {
 		if (newSource != null) {
+			link.detachSource();
+			link.getSource().removeOutputPort(link.getSourceTerminal());
+			
 			link.setSource(newSource);
 			link.setSourceTerminal(newSourceTerminal);
-			newSource.addOutputPort(newSourceTerminal);
-			newSource.connectOutput(link);
-			link.attachSource();
+			
 			oldSource.removeOutputPort(link.getSourceTerminal());
 			oldSource.disconnectOutput(link);
+			
+			link.attachSource();
+			newSource.addOutputPort(newSourceTerminal);
+			
+			
 		}
 
 	}
@@ -79,19 +88,8 @@ public class LinkReconnectSourceCommand extends Command {
 			throw new IllegalArgumentException();
 		}
 		newSource = linkSource;
-		newSourceTerminal=null;
-		oldSource.disconnectOutput(link);
-		oldSource.removeOutputPort(link.getSourceTerminal());
-	}
-
-	/*public void setNewTarget(Component linkTarget) {
-		if (linkTarget == null) {
-			throw new IllegalArgumentException();
-		}
-		newTarget = linkTarget;
-		oldTarget.disconnectInput(link);
 		
-	}*/
+	}
 
 	public void setNewSourceTerminal(String newSourceTerminal) {
 		this.newSourceTerminal = newSourceTerminal;
