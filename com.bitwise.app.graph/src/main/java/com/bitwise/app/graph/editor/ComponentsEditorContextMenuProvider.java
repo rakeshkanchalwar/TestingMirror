@@ -40,9 +40,10 @@ public class ComponentsEditorContextMenuProvider extends ContextMenuProvider {
 		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, // target group id
 				getAction(ActionFactory.UNDO.getId())); // action to add
 		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, getAction(ActionFactory.REDO.getId()));
-		
-		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, getAction(ActionFactory.DELETE.getId()));
+	    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, getAction(ActionFactory.DELETE.getId()));
 		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, getAction(ActionFactory.SAVE.getId()));
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, getAction(ActionFactory.COPY.getId()));
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, getAction(ActionFactory.PASTE.getId()));
 	}
 
 	private IAction getAction(String actionId) {

@@ -49,6 +49,7 @@ import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
@@ -84,6 +85,8 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.exceptions.EngineException;
 import com.bitwise.app.engine.util.ConverterUtil;
+import com.bitwise.app.graph.action.CopyAction;
+import com.bitwise.app.graph.action.PasteAction;
 import com.bitwise.app.graph.editorfactory.GenrateContainerData;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.factory.CustomPaletteEditPartFactory;
@@ -319,12 +322,29 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		keyHandler.put(KeyStroke.getPressed((char) ('z' - 'a' + 1),'z',SWT.CTRL), getActionRegistry().getAction(ActionFactory.UNDO.getId()));
 		keyHandler.put(KeyStroke.getPressed((char) ('y' - 'a' + 1), 'y', SWT.CTRL), getActionRegistry().getAction(ActionFactory.REDO.getId()));
 		keyHandler.put(KeyStroke.getPressed((char) ('a' - 'a' + 1), 'a', SWT.CTRL), getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
+		keyHandler.put(KeyStroke.getPressed((char) ('c' - 'a' + 1), 'c', SWT.CTRL), getActionRegistry().getAction(ActionFactory.COPY.getId()));
+		keyHandler.put(KeyStroke.getPressed((char) ('v' - 'a' + 1), 'v', SWT.CTRL), getActionRegistry().getAction(ActionFactory.PASTE.getId()));
+		
 		//		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
 		//				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
 		//		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
 		//				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
 
 		viewer.setKeyHandler(keyHandler);
+	}
+	
+	public void createActions() {
+		super.createActions();
+		ActionRegistry registry = getActionRegistry();
+		// ...
+		IAction action;
+		 action = new PasteAction(this);
+		 registry.registerAction(action);
+		 getSelectionActions().add(action.getId());
+		 
+		 action=new CopyAction(this, action);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
 	}
 
 	private void configureViewer(GraphicalViewer viewer) {
