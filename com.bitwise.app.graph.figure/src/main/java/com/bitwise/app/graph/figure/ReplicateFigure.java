@@ -18,13 +18,20 @@ implements HandleBounds{
 		setBorder(new ComponentBorder(borderColor));
 	}
 
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.replicateComponent;
+		borderColor = ELTColorConstants.replicateComponentBorder;
+		selectedComponentColor = ELTColorConstants.replicateComponentSelected;
+		selectedBorderColor = ELTColorConstants.replicateComponentSelectedBorder;
+	}
+	
 	@Override
 	protected void paintFigure(Graphics graphics) {
-
+		setInitialColor();
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(ELTColorConstants.darkGrey);
+		//graphics.setBackgroundColor(ELTColorConstants.darkGrey);
 		
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);

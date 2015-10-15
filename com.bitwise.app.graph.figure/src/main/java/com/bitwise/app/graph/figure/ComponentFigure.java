@@ -30,11 +30,23 @@ public class ComponentFigure extends Figure {
 	
 	protected Font labelFont = new Font(null, "", 10, SWT.BOLD); 
 	protected Point labelPoint;
+	
 	protected Color borderColor;
-
+	protected Color selectedBorderColor;	
+	protected Color componentColor;
+	protected Color selectedComponentColor;
+	
+	public void setComponentColorAndBorder(){
+		setBackgroundColor(componentColor);
+		setBorder(new ComponentBorder(borderColor));
+	}
+	
+	public void setSelectedComponentColorAndBorder(){
+		setBackgroundColor(selectedComponentColor);
+		setBorder(new ComponentBorder(selectedBorderColor,3));
+	}
 	
 	public ComponentFigure(List<PortSpecification> portSpecification) {
-
 		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		outputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
@@ -71,7 +83,7 @@ public class ComponentFigure extends Figure {
 		
 		setBounds(newR);
 	}
-
+	
 	protected void drawLable(Rectangle r, Graphics graphics){
 		int x = (r.width - getLabelName().length() * 7) / 2;
 		labelPoint = new Point(x, r.height / 2 - 10);

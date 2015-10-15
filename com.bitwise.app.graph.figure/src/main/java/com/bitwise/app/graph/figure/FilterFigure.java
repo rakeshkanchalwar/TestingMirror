@@ -19,15 +19,22 @@ implements HandleBounds{
 		borderColor=ELTColorConstants.darkRed;
 		setBorder(new ComponentBorder(borderColor));
 	}
+	
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.filterComponent;
+		borderColor = ELTColorConstants.filterComponentBorder;
+		selectedComponentColor = ELTColorConstants.filterComponentSelected;
+		selectedBorderColor = ELTColorConstants.filterComponentSelectedBorder;
+	}
 
 	@Override
 	protected void paintFigure(Graphics graphics) {
-
+		setInitialColor();
 		super.paintFigure(graphics);
 
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(ELTColorConstants.lightRed);
+		//graphics.setBackgroundColor(ELTColorConstants.lightRed);
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 
