@@ -16,7 +16,9 @@ implements HandleBounds{
 	public OutputFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
 		borderColor=ELTColorConstants.black;
-		setBorder(new ComponentBorder(borderColor));
+		//setBorder(new ComponentBorder(borderColor));
+		setInitialColor();
+		setComponentColorAndBorder();
 	}
 
 	private void setInitialColor(){
@@ -28,7 +30,6 @@ implements HandleBounds{
 	
 	@Override
 	protected void paintFigure(Graphics graphics) {
-		setInitialColor();
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());

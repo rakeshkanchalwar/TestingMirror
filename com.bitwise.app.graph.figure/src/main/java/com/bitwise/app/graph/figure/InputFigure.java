@@ -16,7 +16,9 @@ implements HandleBounds{
 	public InputFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
 		borderColor=ELTColorConstants.black;
-		setBorder(new ComponentBorder(borderColor));
+		//setBorder(new ComponentBorder(borderColor));
+		setInitialColor();
+		setComponentColorAndBorder();
 	}
 
 	private void setInitialColor(){
@@ -27,8 +29,7 @@ implements HandleBounds{
 	}
 	
 	@Override
-	protected void paintFigure(Graphics graphics) {
-		setInitialColor();
+	protected void paintFigure(Graphics graphics) {		
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
@@ -38,7 +39,7 @@ implements HandleBounds{
 
 		drawLable(r, graphics);
 		drawPorts(r, graphics);
-
+		
 	}
 
 	public Rectangle getHandleBounds() {

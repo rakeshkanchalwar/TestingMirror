@@ -12,7 +12,9 @@ public class InputFixedWidthFigure extends ComponentFigure{
 	public InputFixedWidthFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
 		borderColor=ELTColorConstants.black;
-		setBorder(new ComponentBorder(borderColor));
+		//setBorder(new ComponentBorder(borderColor));
+		setInitialColor();
+		setComponentColorAndBorder();
 	}
 
 	private void setInitialColor(){
@@ -24,7 +26,6 @@ public class InputFixedWidthFigure extends ComponentFigure{
 	
 	@Override
 	protected void paintFigure(Graphics graphics) {
-		setInitialColor();
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
