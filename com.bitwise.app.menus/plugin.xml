@@ -203,6 +203,14 @@
                   label="Preferences"
                   style="push">
             </command>
+            <menu
+                  label="Show View">
+               <command
+                     commandId="org.eclipse.ui.views.showView"
+                     label="show view"
+                     style="push">
+               </command>
+            </menu>
          </menu>
          <menu
                id="com.bitwise.app.menus.HelpMenu"

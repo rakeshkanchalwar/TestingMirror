@@ -1,12 +1,15 @@
 package com.bitwise.app.project.structure.wizard;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.internal.events.BuildCommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -27,6 +30,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.LibraryLocation;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
@@ -39,12 +43,13 @@ import com.bitwise.app.project.structure.natures.ProjectNature;
  *
  */
 public class ProjectStructureCreator {
+
 	private static Logger logger = LogFactory.INSTANCE.getLogger(ProjectStructureCreator.class);
 	
 	public static final ProjectStructureCreator INSTANCE = new ProjectStructureCreator();
-	public static final String [] paths = {CustomMessages.ProjectSupport_SRC, CustomMessages.ProjectSupport_SCRIPTS, 
-		CustomMessages.ProjectSupport_XML, CustomMessages.ProjectSupport_LIB};
-
+	public static final String [] paths = {CustomMessages.ProjectSupport_Settings,CustomMessages.ProjectSupport_JOBS,CustomMessages.ProjectSupport_SRC,  
+		CustomMessages.ProjectSupport_XML, CustomMessages.ProjectSupport_SCRIPTS,CustomMessages.ProjectSupport_PARAM,CustomMessages.ProjectSupport_SCHEMA,CustomMessages.ProjectSupport_LIB};
+ 
 	private ProjectStructureCreator(){}
 	
 	/**
@@ -73,14 +78,17 @@ public class ProjectStructureCreator {
             
             IFolder libFolder = project.getFolder(CustomMessages.ProjectSupport_LIB);
            
-            //add libs to project class path
+            //add libs to project class path 
 			String installLocation = Platform.getInstallLocation().getURL().getPath();
 			
 			copyExternalLibAndAddToClassPath(installLocation + CustomMessages.ProjectSupport_LIB, libFolder, entries);
             
-			copyBuildFile(installLocation + CustomMessages.ProjectSupport_CONFIG_FOLDER + "/" + CustomMessages.ProjectSupport_BUILD_FOLDER, 
+			copyBuildFile(installLocation + CustomMessages.ProjectSupport_CONFIG_FOLDER + "/" + CustomMessages.ProjectSupport_GRADLE+"/build", 
 					project);
-            
+			
+			//Add gradle prefs file to the project .setting folder. Has information regarding gradle home and args.
+	        generateGradlePrefsFile(project.getFolder(CustomMessages.ProjectSupport_Settings),project.getLocation().toOSString());
+			
             javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);
             	
             //set source folder entry in classpath
@@ -90,7 +98,7 @@ public class ProjectStructureCreator {
 			project = null;
 		}
 		return project;
-	}
+	} 
 
 	private void copyBuildFile(String source, IProject project) throws CoreException {
 		File sourceFileLocation = new File(source);
@@ -179,8 +187,12 @@ public class ProjectStructureCreator {
 			
 			// validate the natures
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
-			IStatus status = workspace.validateNatureSet(newNatures);
-			
+			IStatus status = workspace.validateNatureSet(newNatures); 
+			BuildCommand buildCommand= new BuildCommand();
+			buildCommand.setName("org.eclipse.jdt.core.javabuilder");
+			buildCommand.setName("org.eclipse.buildship.core.gradleprojectbuilder");
+			BuildCommand[] iCommand = {buildCommand};
+			description.setBuildSpec(iCommand); 
 			// only apply new nature, if the status is ok
 			if (status.getCode() == IStatus.OK) {
 				description.setNatureIds(newNatures);
@@ -252,4 +264,40 @@ public class ProjectStructureCreator {
 		 * 
 		 */
 		private static final long serialVersionUID = -6194407190206545086L;}
+	
+	
+
+	/**
+	 * Generate Gradle Prefs file that need to show task list and has gradle information.
+	 * @param destinationFile
+	 * @param projectPath
+	 */
+	public static void generateGradlePrefsFile(IFolder destinationFolder,String projectPath) {
+	    try {
+	    	Map<String, String> env = System.getenv();	    	
+	    	JSONObject gradlePrefsFileJson= new JSONObject();
+	    	JSONObject jsonObject= new JSONObject(); 
+	    	jsonObject.put("project_path",":"); 
+	    	jsonObject.put("project_dir",projectPath);
+	    	jsonObject.put("connection_project_dir",projectPath);
+	    	jsonObject.put("connection_gradle_user_home","");
+	    	jsonObject.put("connection_gradle_distribution","GRADLE_DISTRIBUTION(LOCAL_INSTALLATION("+env.get("GRADLE_USER_HOME")+"))");
+	    	jsonObject.put("connection_java_home","");
+	    	jsonObject.put("connection_arguments","");
+	    	jsonObject.put("connection_jvm_arguments","");
+	    	gradlePrefsFileJson.put("1.0", jsonObject);
+				IFile destinationFile = destinationFolder.getFile("gradle.prefs");
+				try {
+					destinationFile.create(new ByteArrayInputStream(gradlePrefsFileJson.toString().getBytes()), true, null);
+					} catch ( CoreException exception) {
+					logger.debug("Copy external library files operation failed"); 
+					throw new CoreException(new MultiStatus(Activator.PLUGIN_ID, 101, "Copy external library files operation failed", exception));
+			}
+			
+	    } catch (Exception e) {
+	    		logger.error("Error while generating gradle prefs file.");
+	    }
+	}
+
+	
 }
