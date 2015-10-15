@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _bzO_kGZ0EeWlY8j3virDhA
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/12/15 3:37 PM
+Save-Time: 10/15/15 2:15 PM
 Tags: Test Filter Property and Port Setting
 Testcase-Type: ecl
 
@@ -134,7 +134,7 @@ with [get-view Palette | get-palette | get-palette-entry "Solid connection"] {
 }
 with [get-editor   | get-diagram] {
     with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart 
-        | get-handle MoveHandle] {
+       ] {
         mouse-move 177 31 button1 -height 62 -width 179
         mouse-press 177 31 button1 -height 62 -width 179
     }
