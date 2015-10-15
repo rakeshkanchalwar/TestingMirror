@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='com.xstream' version='0.0.1.201510131325'>
+    <properties size='5'>
+      <property name='artifact.size' value='576418'/>
+      <property name='download.size' value='576418'/>
+      <property name='maven-groupId' value='com.bitwise.app'/>
+      <property name='maven-artifactId' value='com.xstream'/>
+      <property name='maven-version' value='0.0.1-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>

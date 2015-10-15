@@ -15,6 +15,7 @@ import com.bitwise.app.graph.model.Link;
 
 public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 
+	@Override
 	protected Command getConnectionCreateCommand(
 			CreateConnectionRequest request) {
 
@@ -34,6 +35,7 @@ public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 
 	}
 
+	@Override
 	protected Command getConnectionCompleteCommand(
 			CreateConnectionRequest request) {
 
@@ -52,6 +54,7 @@ public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 		return command;
 	}
 
+	@Override
 	protected Command getReconnectSourceCommand(
 			ReconnectRequest request) {
 		
@@ -70,6 +73,7 @@ public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 	
 		return cmd;
 	}
+	@Override
 	protected Command getReconnectTargetCommand(
 			ReconnectRequest request) {
 		Link link=(Link)request.getConnectionEditPart().getModel();

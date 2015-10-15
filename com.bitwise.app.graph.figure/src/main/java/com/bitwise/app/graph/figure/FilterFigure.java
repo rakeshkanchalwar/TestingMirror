@@ -17,17 +17,25 @@ implements HandleBounds{
 	{
 		super(portSpecification);
 		borderColor=ELTColorConstants.darkRed;
-		setBorder(new ComponentBorder(borderColor));
+		//setBorder(new ComponentBorder(borderColor));
+		setInitialColor();
+		setComponentColorAndBorder();
+	}
+	
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.filterComponent;
+		borderColor = ELTColorConstants.filterComponentBorder;
+		selectedComponentColor = ELTColorConstants.filterComponentSelected;
+		selectedBorderColor = ELTColorConstants.filterComponentSelectedBorder;
 	}
 
 	@Override
 	protected void paintFigure(Graphics graphics) {
-
 		super.paintFigure(graphics);
 
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(ELTColorConstants.lightRed);
+		//graphics.setBackgroundColor(ELTColorConstants.lightRed);
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 

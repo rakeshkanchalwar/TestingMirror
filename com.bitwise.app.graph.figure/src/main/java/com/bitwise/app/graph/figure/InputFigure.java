@@ -16,23 +16,30 @@ implements HandleBounds{
 	public InputFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
 		borderColor=ELTColorConstants.black;
-		setBorder(new ComponentBorder(borderColor));
+		//setBorder(new ComponentBorder(borderColor));
+		setInitialColor();
+		setComponentColorAndBorder();
 	}
 
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.inputComponent;
+		borderColor = ELTColorConstants.inputComponentBorder;
+		selectedComponentColor = ELTColorConstants.inputComponentSelected;
+		selectedBorderColor = ELTColorConstants.inputComponentSelectedBorder;
+	}
+	
 	@Override
-	protected void paintFigure(Graphics graphics) {
-
+	protected void paintFigure(Graphics graphics) {		
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(ELTColorConstants.lightGrey);
+		//graphics.setBackgroundColor(ELTColorConstants.lightGrey);
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
-
 		drawPorts(r, graphics);
-
+		
 	}
 
 	public Rectangle getHandleBounds() {

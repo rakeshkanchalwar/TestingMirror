@@ -128,6 +128,12 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
+               id="com.bitwise.app.menus.NewMenu.Class"
+               label="Class"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.newWizard"
                id="com.bitwise.app.toolbar.xmlfile"
                label="XML File"
                style="push">
@@ -144,6 +150,20 @@
                   name="newWizardId"
                   value="org.eclipse.ui.wizards.new.file">
             </parameter>
+         </command>
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               label="ELT Project"
+               mnemonic="&amp;E"
+               style="push">
+         </command>
+         <separator
+               name="com.bitwise.app.menus.separator1"
+               visible="true">
+         </separator>
+         <command
+               commandId="org.eclipse.ui.newWizard"
+               label="&amp;Other...">
          </command>
       </menuContribution>
    </extension>

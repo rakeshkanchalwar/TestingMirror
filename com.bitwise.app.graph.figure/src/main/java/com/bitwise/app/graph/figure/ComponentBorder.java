@@ -12,9 +12,15 @@ public class ComponentBorder extends AbstractBorder {
 
 	private Insets insets;
 	private Color borderColor;
-
-	ComponentBorder(Color borderColor){
+	private int lineWidth = 0;
+	public ComponentBorder(Color borderColor){
 		this.borderColor = borderColor;
+		insets=new Insets();
+	}
+	
+	public ComponentBorder(Color borderColor,int lineWidth){
+		this.borderColor = borderColor;
+		this.lineWidth = lineWidth;
 		insets=new Insets();
 	}
 	
@@ -29,6 +35,10 @@ public class ComponentBorder extends AbstractBorder {
 		g.setForegroundColor(borderColor);
 		//g.setBackgroundColor(new Color(null,191, 52, 114));
 
+		if(lineWidth!=0){
+			g.setLineWidth(lineWidth);
+		}
+		
 
 		// Outline the border
 		//r.getShrinked(4, 4);

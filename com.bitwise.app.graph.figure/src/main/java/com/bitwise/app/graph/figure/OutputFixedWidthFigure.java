@@ -15,16 +15,24 @@ public class OutputFixedWidthFigure extends ComponentFigure implements HandleBou
 	public OutputFixedWidthFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
 		borderColor=ELTColorConstants.black;
-		setBorder(new ComponentBorder(borderColor));
+		//setBorder(new ComponentBorder(borderColor));
+		setInitialColor();
+		setComponentColorAndBorder();
+	}
+	
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.outputFWComponent;
+		borderColor = ELTColorConstants.outputFWComponentBorder;
+		selectedComponentColor = ELTColorConstants.outputFWComponentSelected;
+		selectedBorderColor = ELTColorConstants.outputFWComponentSelectedBorder;
 	}
 	
 	@Override
 	protected void paintFigure(Graphics graphics) {
-
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		graphics.setBackgroundColor(new Color(null,220, 221, 227));
+		//graphics.setBackgroundColor(new Color(null,220, 221, 227));
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 

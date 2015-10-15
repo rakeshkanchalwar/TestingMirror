@@ -250,5 +250,24 @@ public class Component extends Model {
 		return "";
 		
 	}
+	
+	@Override
+	public Component clone() throws CloneNotSupportedException {
+		Component component = null;
+		try {
+			component = this.getClass().newInstance();
+		} catch (Exception e) {
+			//TODO : add logger
+			e.printStackTrace();
+		} 
+		component.setBasename(getBasename());
+		component.setCategory(getCategory());
+		component.setParent(getParent());
+		component.setProperties((Map<String, Object>) getProperties().clone());
+		component.setPropertyValue("name", getBasename());
+	    component.setSize(getSize());
+	    component.setLocation(getLocation());	
+	    return component;
+	}
 
 }

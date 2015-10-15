@@ -19,10 +19,6 @@ public class LinkCommand extends Command{
 	
 	/** The connection instance. */
 	private Link connection;
-	/** The desired line style for the connection (dashed or solid). */
-	private int lineStyle;
-
-
 	private Component source, target;
 	protected String sourceTerminal, targetTerminal;
 
@@ -46,11 +42,11 @@ public class LinkCommand extends Command{
 		if (source == null) {
 			throw new IllegalArgumentException();
 		}
-		setLabel("connection creation");
+		setLabel("Connection");
 		this.source = source;
-		this.lineStyle = lineStyle;
 	}
 
+	@Override
 	public boolean canExecute() {
 		String componentName;
 		List<PortSpecification> portspecification;
@@ -113,6 +109,7 @@ public class LinkCommand extends Command{
 	 * 
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
+	@Override
 	public void execute() {
 
 		if(source!=null){

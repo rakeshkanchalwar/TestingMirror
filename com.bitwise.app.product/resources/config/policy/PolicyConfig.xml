@@ -9,5 +9,9 @@
 			<tns:name>GraphicalNodeEditPolicy</tns:name>
 			<tns:value>com.bitwise.app.graph.policy.NodeConnectionEditPolicy</tns:value>
 		</tns:policy>
+		<tns:policy>
+			<tns:name>SelectionEditPolicy</tns:name>
+			<tns:value>com.bitwise.app.graph.policy.ComponentSelectionPolicy</tns:value>
+		</tns:policy>
 	</tns:masterpolicies>
 </tns:PolicyConfig>
