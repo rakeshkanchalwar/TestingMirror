@@ -1,17 +1,17 @@
 apply plugin: 'java'
-
 sourceCompatibility = 1.7
 version = '1.0'
 ext.cascadingVersion = '3.0.1'
 ext.hadoopVersion = '2.6.0'
 ext.hiveVersion = '1.2.0'
+
 def mainClassName='com.bitwiseglobal.bhse.utilities.BHSExecution'
 repositories {
 	maven {
     	url "http://10.30.127.67:9091/artifactory/libs-release-local"
     }
-   mavenLocal() 
-     mavenCentral()
+  mavenLocal() 
+  mavenCentral() 
   maven {
     url 'http://conjars.org/repo/'
 	}
@@ -19,12 +19,14 @@ repositories {
     url 'http://maven.twttr.com/'
 	}
  
-    
+      
 }  
-  
+configurations {
+ compile
+}
  sourceSets {
   main {
-    java.srcDir 'src'
+		java.srcDir 'src'
   } 
   }
 dependencies {
@@ -41,6 +43,7 @@ dependencies {
   }
   compile 'com.google.guava:guava:14.0.1'
   compile 'org.slf4j:slf4j-api:1.7.2' 
+  compile 'log4j:log4j:1.2.16'   
   testCompile 'junit:junit:4.11'
   testCompile 'com.hotels:plunger:2.1.1'
   compile 'com.twitter:parquet-cascading:1.6.0'
@@ -52,34 +55,23 @@ dependencies {
   testCompile 'commons-io:commons-io:2.4' //required by plunger
 }
 
-task copyToLib(dependsOn:build,type: Copy) {
-    into "C:/Users/rahulma/Desktop/bhs/joblib"
-    from configurations.runtime
-}
-
-
-
 test {
      testLogging.showStandardStreams = true
 } 
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
-}    
-def jarFiles = files { file('C:/Users/rahulma/Desktop/bhs/joblib/').listFiles() } 		
+def jarFiles = files {file(project.libsDir.path).listFiles() }
+
+//get property files  	
 def propertyFiles= files { file('C:/Users/rahulma/Desktop/bhs/config/java/').listFiles() } 
 	
 
-task(run, dependsOn: ['copyToLib','classes'], type: JavaExec){	
+task(run, dependsOn:['build','classes'], type: JavaExec){	
+			println "$xmlPath"
 		    main=mainClassName
 	   		standardOutput = System.out
   			errorOutput = System.err
-			classpath += jarFiles	
- 			args = ["-xmlpath","C:/Users/rahulma/Desktop/bhs/NewFile.xml" ]
+			classpath += jarFiles+configurations.compile	
+ 			args = ["-xmlpath","$xmlPath"]
 		  	propertyFiles.each {File file ->
 			   systemProperty file.name, file.absolutePath
 			} 
