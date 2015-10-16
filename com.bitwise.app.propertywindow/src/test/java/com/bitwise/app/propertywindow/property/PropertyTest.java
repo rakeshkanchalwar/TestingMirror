@@ -19,7 +19,7 @@ public class PropertyTest {
 	@Test
 	public void itShouldAllowToAddOptionalPropertyGroupName(){
 		//Given
-		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=GENERAL, propertyDataType=String, propertyType=USER]";
+		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=GENERAL, propertyDataType=String, propertyType=USER, propertyListeners=[]]";
 		
 		//When
 		Property property=new Property.Builder("String","delimiter","TEXT").group("TextProperties").build();
@@ -31,7 +31,7 @@ public class PropertyTest {
 	@Test
 	public void itShouldAllowToAddOptionalPropertySubGroupName(){
 		//Given
-		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=TextSubgroup, propertyDataType=String, propertyType=USER]";
+		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=TextSubgroup, propertyDataType=String, propertyType=USER, propertyListeners=[]]";
 		
 		//When
 		Property property=new Property.Builder("String","delimiter","TEXT").group("TextProperties").subGroup("TextSubgroup").build();
@@ -43,7 +43,7 @@ public class PropertyTest {
 	@Test
 	public void itShouldAllowToAddOptionalPropertyType(){
 		//Given
-		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=TextSubgroup, propertyDataType=String, propertyType=System]";
+		String expectedProperty = "Property [propertyName=delimiter, propertyRenderer=TEXT, propertyGroup=TextProperties, propertySubGroup=TextSubgroup, propertyDataType=String, propertyType=System, propertyListeners=[]]";
 		
 		//When
 		Property property=new Property.Builder("String","delimiter","TEXT")
@@ -58,7 +58,7 @@ public class PropertyTest {
 	@Test
 	public void itShouldGiveAlmostUniqHashCode(){
 		//Given
-		int expectedHashCode = -295445063; 
+		int expectedHashCode = 790634273; 
 				
 		//When
 		Property property=new Property.Builder("String","delimiter","TEXT")
