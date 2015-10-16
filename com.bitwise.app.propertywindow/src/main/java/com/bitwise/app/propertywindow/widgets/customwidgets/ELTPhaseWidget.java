@@ -46,7 +46,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase ");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true);
+		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().textBoxWidth(80).grabExcessHorizontalSpace(false);
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 
 		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();

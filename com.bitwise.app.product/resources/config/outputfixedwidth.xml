@@ -13,7 +13,7 @@
 		
 	</tns:port>
     <tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" type="USER" group="GENERAL" subGroup="DISPLAY"/>
-    <tns:property dataType="string" name="schema" renderer="ELTFixedWidget" type="USER" group="SCHEMA" subGroup="CONFIGURATION"/>
+    <tns:property dataType="string" name="schema" renderer="ELTFixedWidget" type="USER" group="SCHEMA" subGroup="RECORD_STRUCTURE_DETAILS"/>
     <tns:property dataType="string" name="path" renderer="ELTFilePathWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
     <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict" renderer="ELTStrictClassWidget" type="USER"/>
     <tns:property dataType="boolean" name="safe" renderer="ELTSafePropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>

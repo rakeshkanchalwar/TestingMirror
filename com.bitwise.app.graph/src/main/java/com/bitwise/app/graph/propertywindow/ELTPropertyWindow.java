@@ -88,7 +88,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 					eltComponenetProperties);
 			propertyDialog.open();
 
-			component.setSize(getNewComponentSize());
+			//component.setSize(getNewComponentSize());
 			
 			propertyChanged = propertyDialog.isPropertyChanged();
 			

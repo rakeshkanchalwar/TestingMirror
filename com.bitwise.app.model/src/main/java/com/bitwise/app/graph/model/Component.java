@@ -50,7 +50,7 @@ public class Component extends Model {
 
 	public Component(){
 		location = new Point(0, 0);
-		size = new Dimension(80, 60);
+		size = new Dimension(100, 75);
 		properties = new LinkedHashMap<>();
 		inputLinksHash = new Hashtable<String, ArrayList<Link>>();
 		inputLinks = new ArrayList<Link>();

@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlType;
 public enum SubGroup {
 
     DISPLAY,
-    CONFIGURATION;
+    CONFIGURATION,
+    RECORD_STRUCTURE_DETAILS;;
 
     public String value() {
         return name();

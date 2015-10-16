@@ -168,6 +168,7 @@ public class PropertyDialogBuilder {
 		tabItem.setControl(scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
+		scrolledComposite.setAlwaysShowScrollBars(false);
 		attachMouseScrollButtonListener(scrolledComposite);
 		return scrolledComposite;
 	}
