@@ -15,6 +15,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTFilterWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTHasHeaderWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTOperationClassWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTRetentionlogicWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTStrictWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
@@ -61,6 +62,8 @@ public class WidgetFactory {
 			return new ELTComponentType(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar); 
 		}else if(widgetName.equals("ELT_STRICT_CLASS_WIDGET")){
 			return new ELTStrictWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+		}else if(widgetName.equals("ELT_RETENTIONLOGIC_WIDGET")){
+			return new ELTRetentionlogicWidget(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 		}
 		else{ 
 			return new MyCustomWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
