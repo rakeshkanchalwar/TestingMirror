@@ -17,6 +17,16 @@ import com.bitwise.app.graph.command.ComponentCreateCommand;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving paletteContainer events. The class that is interested in processing a
+ * paletteContainer event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addPaletteContainerListener<code> method. When
+ * the paletteContainer event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see PaletteContainerEvent
+ */
 public class PaletteContainerListener implements MouseListener {
 
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(PaletteContainerListener.class);
@@ -25,6 +35,14 @@ public class PaletteContainerListener implements MouseListener {
 	private Component genericComponent;
 	private GraphicalViewer graphicalViewer;
 	
+	/**
+	 * Instantiates a new palette container listener.
+	 * 
+	 * @param viewer
+	 *            the viewer
+	 * @param graphicalViewer
+	 *            the graphical viewer
+	 */
 	public PaletteContainerListener(PaletteViewer viewer, GraphicalViewer graphicalViewer) {
 		this.graphicalViewer = graphicalViewer;
 		this.viewer = viewer;

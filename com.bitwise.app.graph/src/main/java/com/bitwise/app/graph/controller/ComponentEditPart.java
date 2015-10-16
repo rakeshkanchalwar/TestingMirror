@@ -33,6 +33,10 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentEditPart.
+ */
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart, PropertyChangeListener {
 	
@@ -76,6 +80,14 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		} 
 	}
 
+	/**
+	 * Apply general policy.
+	 * 
+	 * @param component
+	 *            the component
+	 * @throws Exception
+	 *             the exception
+	 */
 	public void applyGeneralPolicy(
 			com.bitwise.app.common.component.config.Component component)
 			throws Exception {
@@ -114,6 +126,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return (Component) getModel();
 	}
 
+	/**
+	 * Map connection anchor to terminal.
+	 * 
+	 * @param c
+	 *            the c
+	 * @return the string
+	 */
 	public final String mapConnectionAnchorToTerminal(ConnectionAnchor c) {
 
 		return getComponentFigure().getConnectionAnchorName(c);

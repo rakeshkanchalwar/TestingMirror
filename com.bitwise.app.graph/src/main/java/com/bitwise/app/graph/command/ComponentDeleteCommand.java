@@ -9,6 +9,10 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentDeleteCommand.
+ */
 public class ComponentDeleteCommand extends Command {
 	private final Component child;
 	private final Container parent;
@@ -16,6 +20,14 @@ public class ComponentDeleteCommand extends Command {
 	private List<Link> sourceConnections = new ArrayList<Link>();
 	private List<Link> targetConnections = new ArrayList<Link>();
 
+	/**
+	 * Instantiates a new component delete command.
+	 * 
+	 * @param parent
+	 *            the parent
+	 * @param child
+	 *            the child
+	 */
 	public ComponentDeleteCommand(Container parent, Component child) {
 		this.parent = parent;
 		this.child = child;

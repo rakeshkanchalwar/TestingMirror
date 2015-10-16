@@ -8,11 +8,23 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
 import com.bitwise.app.graph.model.Container;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GraphicalEditorContiner.
+ */
 public class GraphicalEditorContiner implements IGenrateContainerData {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(GraphicalEditorContiner.class);
 	private final ETLGraphicalEditorInput graphicaleditorInput;
 	private final ETLGraphicalEditor eltGraphicalEditorInstance;
 	
+	/**
+	 * Instantiates a new graphical editor continer.
+	 * 
+	 * @param editorInput
+	 *            the editor input
+	 * @param eltGraphicalEditorInstance
+	 *            the elt graphical editor instance
+	 */
 	public GraphicalEditorContiner(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		this.graphicaleditorInput = (ETLGraphicalEditorInput) editorInput;
 		this.eltGraphicalEditorInstance=eltGraphicalEditorInstance;

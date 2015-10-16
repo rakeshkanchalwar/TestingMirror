@@ -23,27 +23,6 @@ public class ThemeHelper {
 
 	private static IThemeEngine getThemeEngine() {
 		
-//		Enumeration e = (Enumeration) bundle.findEntries( "", "*.css", true );
-//		URL url = null;
-//		URL cssUrl = null;
-//		if ( e != null )
-//		{
-//			while ( e.hasMoreElements() )
-//			{
-//				url = (URL) e.nextElement();
-//				try
-//				{
-//					cssUrl = FileLocator.resolve( url );
-//				}
-//				catch ( IOException e1 )
-//				{
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				System.out.println("CSS URL: " + url.toString() );
-//				System.out.println( "CSS FILE: " + cssUrl != null ? cssUrl.toString() : "null" );
-//			}
-//		}
 		
 		BundleContext context = bundle.getBundleContext();
 

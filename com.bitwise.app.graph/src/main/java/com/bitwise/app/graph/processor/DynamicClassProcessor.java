@@ -12,15 +12,33 @@ import com.bitwise.app.graph.model.components.IFDelimited;
 import com.bitwise.app.graph.model.components.OFDelimited;
 import com.bitwise.app.graph.model.components.Replicate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DynamicClassProcessor.
+ */
 public class DynamicClassProcessor extends ClassLoader implements Opcodes{
 	public static DynamicClassProcessor INSTANCE = new DynamicClassProcessor(); 
 	private Hashtable<String, Class<?>> classMapStringToClass = new Hashtable<String, Class<?>>();
 	private Hashtable<Class<?>, String> classMapClassToString = new Hashtable<Class<?>, String>();
 	
+	/**
+	 * Contains.
+	 * 
+	 * @param clazz
+	 *            the clazz
+	 * @return true, if successful
+	 */
 	public boolean contains(Class<?> clazz) {
 		return classMapStringToClass.containsValue(clazz);
 	}
 	
+	/**
+	 * Contains.
+	 * 
+	 * @param clazzName
+	 *            the clazz name
+	 * @return true, if successful
+	 */
 	public boolean contains(String clazzName) {
 		return classMapClassToString.containsValue(clazzName);
 	}
@@ -30,18 +48,42 @@ public class DynamicClassProcessor extends ClassLoader implements Opcodes{
 		classMapClassToString.put(clazz, clazzName);
 	}
 	
+	/**
+	 * Gets the clazz name.
+	 * 
+	 * @param clazz
+	 *            the clazz
+	 * @return the clazz name
+	 */
 	public String getClazzName(Class<?> clazz){
 		return classMapClassToString.get(clazz);
 	}
 	
+	/**
+	 * Gets the clazz.
+	 * 
+	 * @param className
+	 *            the class name
+	 * @return the clazz
+	 */
 	public Class<?> getClazz(String className){
 		return classMapStringToClass.get(className);
 	}
 	
+	/**
+	 * Instantiates a new dynamic class processor.
+	 */
 	public DynamicClassProcessor(){
         super(DynamicClassProcessor.class.getClassLoader());
     }
 	
+	/**
+	 * Creates the class.
+	 * 
+	 * @param componentConfig
+	 *            the component config
+	 * @return the class
+	 */
 	public Class<?> createClass(Component componentConfig){
 		if(contains(componentConfig.getName())){
 			return getClazz(componentConfig.getName());

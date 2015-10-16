@@ -9,9 +9,19 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import com.bitwise.app.graph.command.ComponentPasteCommand;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PasteAction.
+ */
 public class PasteAction extends SelectionAction {
 	private int pasteCounter;
 	
+	/**
+	 * Instantiates a new paste action.
+	 * 
+	 * @param part
+	 *            the part
+	 */
 	public PasteAction(IWorkbenchPart part) {
 		super(part);
 		setLazyEnablementCalculation(true);

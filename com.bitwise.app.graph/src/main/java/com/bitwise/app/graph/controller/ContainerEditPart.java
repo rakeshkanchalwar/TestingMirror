@@ -19,6 +19,9 @@ import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.policy.ShapesXYLayoutEditPolicy;
 
+/**
+ * The Class ContainerEditPart.
+ */
 public class ContainerEditPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
 	
 	/**
