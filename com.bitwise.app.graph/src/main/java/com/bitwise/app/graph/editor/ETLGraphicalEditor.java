@@ -95,8 +95,9 @@ import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.thoughtworks.xstream.XStream;
 
+// TODO: Auto-generated Javadoc
 /**
- * Responsible to render the pellet and container.
+ * Responsible to render the palette and container.
  * 
  */
 public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
@@ -110,6 +111,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	private Container container;
 	private final Point defaultComponentLocation = new Point(0, 0);
 
+	/**
+	 * Instantiates a new ETL graphical editor.
+	 */
 	public ETLGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 	}
@@ -191,6 +195,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.commandStackChanged(event);
 	}
 
+	/**
+	 * Creates the palette container.
+	 * 
+	 * @param CategoryName
+	 *            the category name
+	 * @return the palette drawer
+	 */
 	public PaletteDrawer createPaletteContainer(String CategoryName) {
 		String name = CategoryName.substring(0, 1).toUpperCase()
 				+ CategoryName.substring(1).toLowerCase();
@@ -199,6 +210,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return p;
 	}
 
+	/**
+	 * Adds the container to palette.
+	 * 
+	 * @param p1
+	 *            the p1
+	 * @param p
+	 *            the p
+	 */
 	public void addContainerToPalette(PaletteRoot p1, PaletteDrawer p) {
 		p1.add(p);
 	}
@@ -437,6 +456,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		}
 	}
 
+	/**
+	 * Creates the output stream.
+	 * 
+	 * @param out
+	 *            the out
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	public void createOutputStream(OutputStream out) throws IOException {
 		String METHOD_NAME = "createOutputStream - ";
 		logger.debug(METHOD_NAME);
@@ -494,6 +521,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 
+	/**
+	 * From xml to object.
+	 * 
+	 * @param xml
+	 *            the xml
+	 * @return the object
+	 */
 	public Object fromXMLToObject(InputStream xml) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
 		Object obj = null;
@@ -514,6 +548,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return obj;
 	}
 
+	/**
+	 * From object to xml.
+	 * 
+	 * @param object
+	 *            the object
+	 * @return the string
+	 */
 	public String fromObjectToXML(Serializable object) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromObjectToXML(Serializable object)";
 		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
@@ -529,6 +570,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return str;
 	}
 
+	/**
+	 * Genrate target xml.
+	 * 
+	 * @param ifile
+	 *            the ifile
+	 */
 	public void genrateTargetXml(IFile ifile) {
 		String METHOD_NAME="genrateTargetXml - ";
 		logger.debug(METHOD_NAME+"genrating target XML");

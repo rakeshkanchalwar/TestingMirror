@@ -7,6 +7,10 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 import com.bitwise.app.graph.model.Component;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentSetConstraintCommand.
+ */
 public class ComponentSetConstraintCommand extends Command {
 	/** Stores the new size and location. */
 	private final Rectangle newBounds;

@@ -20,6 +20,7 @@ import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.property.PropertyTreeBuilder;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialog;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * @author Shrirang S. Kumbhar
@@ -35,6 +36,12 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	private boolean propertyChanged = false;
 
 	
+	/**
+	 * Instantiates a new ELT property window.
+	 * 
+	 * @param componenetModel
+	 *            the componenet model
+	 */
 	public ELTPropertyWindow(Object componenetModel){
 		this.componenetModel = componenetModel;
 		component = getCastedModel();

@@ -13,6 +13,10 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentCreateCommand.
+ */
 public class ComponentCreateCommand extends Command {
 	/** The new shape. */
 	private Component component;

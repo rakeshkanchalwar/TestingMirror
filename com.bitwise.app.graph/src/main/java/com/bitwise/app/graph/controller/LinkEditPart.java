@@ -14,6 +14,9 @@ import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.policy.LinkEditPolicy;
 import com.bitwise.app.graph.policy.LinkEndPointEditPolicy;
 
+/**
+ * The Class LinkEditPart.
+ */
 public class LinkEditPart extends AbstractConnectionEditPart
 		implements PropertyChangeListener {
 	/**

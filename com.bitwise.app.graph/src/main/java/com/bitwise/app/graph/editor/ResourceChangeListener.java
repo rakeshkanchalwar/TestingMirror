@@ -12,9 +12,25 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving resourceChange events. The class that is interested in processing a
+ * resourceChange event implements this interface, and the object created with that class is registered with a component
+ * using the component's <code>addResourceChangeListener<code> method. When
+ * the resourceChange event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ResourceChangeEvent
+ */
 public class ResourceChangeListener implements IResourceChangeListener,	IResourceDeltaVisitor {
 	private IEditorPart editorPart;
 
+	/**
+	 * Instantiates a new resource change listener.
+	 * 
+	 * @param editorPart
+	 *            the editor part
+	 */
 	public ResourceChangeListener(IEditorPart editorPart) {
 		this.editorPart = editorPart;
 	}

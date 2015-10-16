@@ -5,11 +5,22 @@ import com.bitwise.app.graph.model.categories.InputCategory;
 import com.bitwise.app.graph.model.categories.OutputCategory;
 import com.bitwise.app.graph.model.categories.StraightPullCategory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentCategoryRepository.
+ */
 public class ComponentCategoryRepository {
 	public static ComponentCategoryRepository INSTANCE = new ComponentCategoryRepository();
 	
 	private ComponentCategoryRepository() {}
 
+	/**
+	 * Gets the class by categoty type.
+	 * 
+	 * @param categoryType
+	 *            the category type
+	 * @return the class by categoty type
+	 */
 	public Class<?> getClassByCategotyType(CategoryType categoryType){
 		switch(categoryType){
 			

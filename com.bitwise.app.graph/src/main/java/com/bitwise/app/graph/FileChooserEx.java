@@ -9,7 +9,18 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileChooserEx.
+ */
 public class FileChooserEx {
+    
+	/**
+	 * The main method.
+	 * 
+	 * @param args
+	 *            the arguments
+	 */
     public static void main(String[] args) {
         Runnable r = new Runnable() {
 
