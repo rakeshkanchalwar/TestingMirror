@@ -11,17 +11,6 @@ public class InputFixedWidthFigure extends ComponentFigure{
 
 	public InputFixedWidthFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
-		borderColor=ELTColorConstants.black;
-		//setBorder(new ComponentBorder(borderColor));
-		setInitialColor();
-		setComponentColorAndBorder();
-	}
-
-	private void setInitialColor(){
-		componentColor = ELTColorConstants.inputFWComponent;
-		borderColor = ELTColorConstants.inputFWComponentBorder;
-		selectedComponentColor = ELTColorConstants.inputFWComponentSelected;
-		selectedBorderColor = ELTColorConstants.inputFWComponentSelectedBorder;
 	}
 	
 	@Override
@@ -29,13 +18,10 @@ public class InputFixedWidthFigure extends ComponentFigure{
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		//graphics.setBackgroundColor(ELTColorConstants.lightGrey);
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
-
-		drawPorts(r, graphics);
 
 	}
 

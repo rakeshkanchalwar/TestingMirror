@@ -10,6 +10,7 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -35,23 +36,25 @@ public class ComponentFigure extends Figure {
 	protected Color selectedBorderColor;	
 	protected Color componentColor;
 	protected Color selectedComponentColor;
+	private int height=0;
+	private int totalPortsofInType=0, totalPortsOfOutType=0;
+	private XYLayout layout;
+	private PortFigure port;
 	
-	public void setComponentColorAndBorder(){
-		setBackgroundColor(componentColor);
-		setBorder(new ComponentBorder(borderColor));
-	}
-	
-	public void setSelectedComponentColorAndBorder(){
-		setBackgroundColor(selectedComponentColor);
-		setBorder(new ComponentBorder(selectedBorderColor,3));
-	}
 	
 	public ComponentFigure(List<PortSpecification> portSpecification) {
+		
+		layout = new XYLayout();
+		setLayoutManager(layout);
+		
 		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		outputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		this.portspecification=portSpecification;
 
+		setInitialColor();
+		setComponentColorAndBorder();
+		
 		for(PortSpecification p:portspecification)
 		{ 	
 			c = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
@@ -63,25 +66,73 @@ public class ComponentFigure extends Figure {
 			
 		}
 		
-	}
-	@Override
-	protected void paintFigure(Graphics graphics) {
-		int totalPortsofInType=0, totalPortsOfOutType=0;
+		
 		for(PortSpecification p:portspecification)
 		{	
-			if(p.getTypeOfPort().equalsIgnoreCase("in"))
+			if(p.getTypeOfPort().equalsIgnoreCase("in")){
 				totalPortsofInType=p.getNumberOfPorts();
-			else
-				totalPortsOfOutType=p.getNumberOfPorts();	
+				System.out.println("totalPortsofInType: "+totalPortsofInType);
+			}
+			else{
+				totalPortsOfOutType=p.getNumberOfPorts();
+				System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
+			}
 		}
 		
-		Rectangle r = getBounds().getCopy();
+		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
+		this.height = (heightFactor+1)*25;
+		System.out.println("height: "+height);
+		Point portPoint;
+		for(PortSpecification p:portspecification)
+		{
+			port =  new PortFigure(borderColor);
+			portPoint=getPortLocation(p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
+			add(port);
+			setConstraint(port, new Rectangle(portPoint.x, portPoint.y, -1, -1));
+			
+		}
 		
-		int height=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
-		
-		Rectangle newR = new Rectangle(r.x, r.y, r.width, (height+1)*25);
-		
-		setBounds(newR);
+	}
+	
+	public void setComponentColorAndBorder(){
+		setBackgroundColor(componentColor);
+		setBorder(new ComponentBorder(borderColor));
+	}
+	
+	public void setSelectedComponentColorAndBorder(){
+		setBackgroundColor(selectedComponentColor);
+		setBorder(new ComponentBorder(selectedBorderColor,3));
+	}
+	
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.bgComponent;
+		borderColor = ELTColorConstants.componentBorder;
+		selectedComponentColor = ELTColorConstants.bgComponentSelected;
+		selectedBorderColor = ELTColorConstants.componentSelectedBorder;
+	}
+	private Point getPortLocation(int totalPortsOfThisType, String type, int sequence) {
+		Point p = null ;
+		int width = 100;
+		int portOffsetFactor = totalPortsOfThisType+1;
+		int portOffset=height/portOffsetFactor;
+		int xLocation, yLocation;
+
+		if(type.equalsIgnoreCase("in")){
+			xLocation=0;
+			yLocation=portOffset*sequence - 4;
+			p=new Point(xLocation, yLocation);
+		}
+		else if(type.equalsIgnoreCase("out")){
+			xLocation=width-7;
+			yLocation=portOffset*sequence - 4;
+			p=new Point(xLocation, yLocation);
+		}
+		return p;
+	}
+	
+	@Override
+	protected void paintFigure(Graphics graphics) {
+
 	}
 	
 	protected void drawLable(Rectangle r, Graphics graphics){
@@ -92,46 +143,6 @@ public class ComponentFigure extends Figure {
 		graphics.drawText(getLabelName(), labelPoint);
 	}
 
-	protected void drawPorts(Rectangle r, Graphics graphics){
-		PointList portPoints = new PointList();
-		portPoints.addPoint(4, 4);
-		portPoints.addPoint(4, -4);
-		portPoints.addPoint(-4, -4);
-		portPoints.addPoint(-4, 4);
-
-		graphics.translate(r.getLocation().getNegated());
-		Point portPoint;
-		for(PortSpecification p:portspecification)
-		{
-			portPoint=getPortLocation(r, p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
-			graphics.translate(portPoint);
-			graphics.setBackgroundColor(borderColor);
-			graphics.fillPolygon(portPoints);
-			graphics.translate(portPoint.getNegated());
-		}
-	}
-	
-	private Point getPortLocation(Rectangle r, int totalPortsOfThisType, String type, int sequence) {
-		Point p = null ;
-		int portOffsetFactor = totalPortsOfThisType+1;
-		int height = r.height;
-		int portOffset=height/portOffsetFactor;
-		int xLocation, yLocation;
-
-		if(type.equalsIgnoreCase("in")){
-			xLocation=r.getTopLeft().x+4;
-			yLocation=r.getTopLeft().y+portOffset*sequence;
-			p=new Point(xLocation, yLocation);
-		}
-		else if(type.equalsIgnoreCase("out")){
-			xLocation=r.getTopRight().x-4;
-			yLocation=r.getTopRight().y+portOffset*sequence;
-
-			p=new Point(xLocation, yLocation);
-
-		}
-		return p;
-	}
 
 	public ConnectionAnchor getConnectionAnchor(String terminal) {
 

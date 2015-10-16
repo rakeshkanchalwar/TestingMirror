@@ -1,5 +1,6 @@
 package com.bitwise.app.graph.command;
 
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -7,6 +8,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
+import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.ComponentCacheUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
@@ -38,9 +40,28 @@ public class ComponentCreateCommand extends Command {
 		component.setProperties(properties);
 		component.setBasename(components.getName());
 		component.setCategory(components.getCategory().value());
+		
+		int totalPortsofInType=0, totalPortsOfOutType=0;
+		List<PortSpecification> portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+		for(PortSpecification p:portSpecification)
+		{	
+			if(p.getTypeOfPort().equalsIgnoreCase("in")){
+				totalPortsofInType=p.getNumberOfPorts();
+				System.out.println("totalPortsofInType: "+totalPortsofInType);
+			}
+			else{
+				totalPortsOfOutType=p.getNumberOfPorts();
+				System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
+			}
+		}
+		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
+		int height = (heightFactor+1)*25;
+		
+		
+		
 		//int defaultWidth = (component.getBasename().length()+3)*7+30;
 		//int defaultHeight = defaultWidth * 6/8;
-		Dimension newSize = new Dimension(component.getSize().width, component.getSize().height);
+		Dimension newSize = new Dimension(component.getSize().width, height);
 		//component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;
