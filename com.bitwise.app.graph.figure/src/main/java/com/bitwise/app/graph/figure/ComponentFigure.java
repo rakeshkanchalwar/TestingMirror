@@ -67,7 +67,30 @@ public class ComponentFigure extends Figure implements Validator{
 				inputConnectionAnchors.add(c);	
 			
 		}
+		for(PortSpecification p:portspecification)
+		{	
+			if(p.getTypeOfPort().equalsIgnoreCase("in")){
+				totalPortsofInType=p.getNumberOfPorts();
+				System.out.println("totalPortsofInType: "+totalPortsofInType);
+			}
+			else{
+				totalPortsOfOutType=p.getNumberOfPorts();
+				System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
+			}
+		}
 		
+		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
+		this.height = (heightFactor+1)*25;
+		System.out.println("height: "+height);
+		Point portPoint;
+		for(PortSpecification p:portspecification)
+		{
+			port =  new PortFigure(borderColor);
+			portPoint=getPortLocation(p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
+			add(port);
+			setConstraint(port, new Rectangle(portPoint.x, portPoint.y, -1, -1));
+			
+		}
 	}
 	
 	/**
@@ -96,7 +119,7 @@ public class ComponentFigure extends Figure implements Validator{
 	
 	public void setSelectedComponentColorAndBorder(){
 		setBackgroundColor(selectedComponentColor);
-		setBorder(new ComponentBorder(selectedBorderColor,3));
+		setBorder(new ComponentBorder(selectedBorderColor,2));
 	}
 	
 	private void setInitialColor(){

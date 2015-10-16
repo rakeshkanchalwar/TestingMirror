@@ -68,10 +68,10 @@ public class ELTSafeWidget extends AbstractWidget{
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
 		
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
-		//txtDecoratorForEmpty=WidgetUtility.addDecorator(text, Messages.EMPTYFIELDMESSAGE);
+		
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
-		//ListenerHelper emptyhelper = new ListenerHelper("decorator", txtDecoratorForEmpty);
+		
 		
 		try {
 			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"),propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
@@ -113,9 +113,5 @@ public class ELTSafeWidget extends AbstractWidget{
 		return property;
 	}
 
-	/*@Override
-	public void setComponentName(String componentName) {
-		// TODO Auto-generated method stub
-		
-	}*/
+
 }
