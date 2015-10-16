@@ -105,6 +105,7 @@
 		<restriction base="string">
 			<enumeration value="DISPLAY" />
 			<enumeration value="CONFIGURATION" />
+			<enumeration value="RECORD_STRUCTURE_DETAILS" />
 		</restriction>
 	</simpleType>
 	
