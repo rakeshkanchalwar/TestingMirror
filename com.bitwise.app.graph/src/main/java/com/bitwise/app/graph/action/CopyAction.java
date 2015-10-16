@@ -16,8 +16,21 @@ import com.bitwise.app.graph.command.ComponentCopyCommand;
 import com.bitwise.app.graph.controller.ComponentEditPart;
 import com.bitwise.app.graph.model.Component;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CopyAction.
+ */
 public class CopyAction extends SelectionAction {
 	PasteAction pasteAction;
+	
+	/**
+	 * Instantiates a new copy action.
+	 * 
+	 * @param part
+	 *            the part
+	 * @param action
+	 *            the action
+	 */
 	public CopyAction(IWorkbenchPart part, IAction action) {
 		super(part);
 		this.pasteAction = (PasteAction) action;

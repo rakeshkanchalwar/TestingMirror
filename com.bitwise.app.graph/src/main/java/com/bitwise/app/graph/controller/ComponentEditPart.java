@@ -2,9 +2,9 @@ package com.bitwise.app.graph.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
@@ -27,11 +27,16 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
+import com.bitwise.app.graph.model.Component.ValidityStatus;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentEditPart.
+ */
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart, PropertyChangeListener {
 	
@@ -75,6 +80,14 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		} 
 	}
 
+	/**
+	 * Apply general policy.
+	 * 
+	 * @param component
+	 *            the component
+	 * @throws Exception
+	 *             the exception
+	 */
 	public void applyGeneralPolicy(
 			com.bitwise.app.common.component.config.Component component)
 			throws Exception {
@@ -95,11 +108,12 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	protected IFigure createFigure() {
-		
-		IFigure f = createFigureForModel();
-		f.setOpaque(true); // non-transparent figure
-		f.setBackgroundColor(ColorConstants.white);
-		return f;
+		IFigure figure = createFigureForModel();
+		figure.setOpaque(true); // non-transparent figure
+		//figure.setBackgroundColor(ColorConstants.white);
+		ValidityStatus status = (ValidityStatus) getCastedModel().getProperties().get(Component.Props.STATUS.getValue());
+		((ComponentFigure)figure).setStatus(status);
+		return figure;
 	}
 
 	private IFigure createFigureForModel() {
@@ -112,6 +126,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return (Component) getModel();
 	}
 
+	/**
+	 * Map connection anchor to terminal.
+	 * 
+	 * @param c
+	 *            the c
+	 * @return the string
+	 */
 	public final String mapConnectionAnchorToTerminal(ConnectionAnchor c) {
 
 		return getComponentFigure().getConnectionAnchorName(c);
@@ -215,6 +236,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			logger.debug("Updated dimentions: " + getCastedModel().getSize().height + ":"
 							+ getCastedModel().getSize().width);
 			
+			updateComponentStatus();
 			refreshVisuals();
 			
 			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
@@ -223,6 +245,15 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			}
 			
 			super.performRequest(req);
+		}
+	}
+	
+	private void updateComponentStatus(){
+		Component component = getCastedModel();
+		LinkedHashMap<String, Object> properties = component.getProperties();
+		String statusName = Component.Props.STATUS.getValue();
+		if(properties.containsKey(statusName)){
+			((ComponentFigure)getFigure()).setStatus((ValidityStatus) properties.get(statusName));
 		}
 	}
 }

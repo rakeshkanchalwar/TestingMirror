@@ -14,17 +14,6 @@ implements HandleBounds{
 	
 	public GatherFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
-		borderColor=ELTColorConstants.black;
-		//setBorder(new ComponentBorder(borderColor));
-		setInitialColor();
-		setComponentColorAndBorder();
-	}
-
-	private void setInitialColor(){
-		componentColor = ELTColorConstants.gatherComponent;
-		borderColor = ELTColorConstants.gatherComponentBorder;
-		selectedComponentColor = ELTColorConstants.gatherComponentSelected;
-		selectedBorderColor = ELTColorConstants.gatherComponentSelectedBorder;
 	}
 	
 	@Override
@@ -32,14 +21,10 @@ implements HandleBounds{
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		//graphics.setBackgroundColor(ELTColorConstants.darkGrey);
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
-
-		drawPorts(r, graphics);
-		
 	}
 
 	

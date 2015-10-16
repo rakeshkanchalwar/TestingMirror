@@ -7,6 +7,12 @@
    </configIni>
 
    <launcherArgs>
+      <programArgs>--launcher.defaultAction
+openFile
+--launcher.XXMaxPermSize
+256M</programArgs>
+      <vmArgs>-Xms256m
+-Xmx1024m</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 

@@ -8,6 +8,9 @@ import com.bitwise.app.graph.command.ComponentDeleteCommand;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 
+/**
+ * The Class GraphComponentEditPolicy.
+ */
 public class GraphComponentEditPolicy extends ComponentEditPolicy {
 	/*
 	 * (non-Javadoc)

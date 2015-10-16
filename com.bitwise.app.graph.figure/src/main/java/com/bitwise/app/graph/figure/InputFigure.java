@@ -15,17 +15,6 @@ implements HandleBounds{
 
 	public InputFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
-		borderColor=ELTColorConstants.black;
-		//setBorder(new ComponentBorder(borderColor));
-		setInitialColor();
-		setComponentColorAndBorder();
-	}
-
-	private void setInitialColor(){
-		componentColor = ELTColorConstants.inputComponent;
-		borderColor = ELTColorConstants.inputComponentBorder;
-		selectedComponentColor = ELTColorConstants.inputComponentSelected;
-		selectedBorderColor = ELTColorConstants.inputComponentSelectedBorder;
 	}
 	
 	@Override
@@ -33,13 +22,18 @@ implements HandleBounds{
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		//graphics.setBackgroundColor(ELTColorConstants.lightGrey);
 		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
-		drawPorts(r, graphics);
-		
+		Rectangle rectangle = getBounds().getCopy();
+		graphics.translate(rectangle.getLocation());
+		//graphics.setBackgroundColor(ELTColorConstants.lightGrey);
+		Rectangle fillRectangleArea = new Rectangle(4, 4, rectangle.width-8, rectangle.height-8);
+		graphics.fillRoundRectangle(fillRectangleArea, 5, 5);
+		//TODO : Enable once the Error mapping for property window is done
+		//drawStatus(graphics);
+		drawLable(rectangle, graphics);
 	}
 
 	public Rectangle getHandleBounds() {

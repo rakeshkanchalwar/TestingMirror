@@ -8,10 +8,21 @@ import org.eclipse.gef.ui.actions.Clipboard;
 
 import com.bitwise.app.graph.model.Component;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentCopyCommand.
+ */
 public class ComponentCopyCommand extends Command {
    
 	private ArrayList<Component> list = new ArrayList<Component>();
    
+	/**
+	 * Adds the element.
+	 * 
+	 * @param node
+	 *            the node
+	 * @return true, if successful
+	 */
 	public boolean addElement(Component node) {
 		if (!list.contains(node)) {
 
@@ -44,6 +55,13 @@ public class ComponentCopyCommand extends Command {
 		return false;
 	}
 
+	/**
+	 * Checks if is copyable node.
+	 * 
+	 * @param node
+	 *            the node
+	 * @return true, if is copyable node
+	 */
 	public boolean isCopyableNode(Component node) {
 		if (node instanceof Component)
 			return true;

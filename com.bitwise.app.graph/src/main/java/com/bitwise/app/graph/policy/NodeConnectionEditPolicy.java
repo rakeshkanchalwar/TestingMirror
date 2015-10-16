@@ -13,6 +13,9 @@ import com.bitwise.app.graph.controller.ComponentEditPart;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 
+/**
+ * The Class NodeConnectionEditPolicy.
+ */
 public class NodeConnectionEditPolicy extends GraphicalNodeEditPolicy{
 
 	@Override

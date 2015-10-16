@@ -1,5 +1,6 @@
 package com.bitwise.app.graph.propertywindow;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * @author Shrirang S. Kumbhar
@@ -8,5 +9,9 @@ package com.bitwise.app.graph.propertywindow;
  */
 
 public interface IELTPropertyWindow {
+	
+	/**
+	 * Open.
+	 */
 	public void open();
 }

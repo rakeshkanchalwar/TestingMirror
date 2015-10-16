@@ -24,7 +24,9 @@ public class ELTDefaultSubgroupComposite extends AbstractELTContainerWidget{
 	@Override
 	public void createContainerWidget() {
 		subGroupComposite = new Composite(inputContainer, SWT.NONE);
-		subGroupComposite.setLayout(new GridLayout(3, false));
+		GridLayout layout = new GridLayout(3, false);
+		layout.horizontalSpacing = 10;
+		subGroupComposite.setLayout(layout);
 		super.outputContainer = subGroupComposite;		
 	}
 
