@@ -14,6 +14,8 @@ import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class ComponentCreateCommand extends Command {
+	private static final String NAME = "name";
+	
 	/** The new shape. */
 	private Component component;
 	/** Container to add to. */
@@ -31,13 +33,7 @@ public class ComponentCreateCommand extends Command {
 	 *             new Shape instance
 	 */
 	public ComponentCreateCommand(Component component, Container parent, Rectangle bounds) {
-		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
-		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
-		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
-		properties.put("name", components.getName());
-		component.setProperties(properties);
-		component.setBasename(components.getName());
-		component.setCategory(components.getCategory().value());
+		setupComponent(component);		
 		//int defaultWidth = (component.getBasename().length()+3)*7+30;
 		//int defaultHeight = defaultWidth * 6/8;
 		Dimension newSize = new Dimension(component.getSize().width, component.getSize().height);
@@ -79,5 +75,20 @@ public class ComponentCreateCommand extends Command {
 	 */
 	public void undo() {
 		parent.removeChild(component);
+	}
+	
+	private void setupComponent(Component component) {
+		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
+		com.bitwise.app.common.component.config.Component componentConfig = XMLConfigUtil.INSTANCE.getComponent(componentName);
+		component.setProperties(prepareComponentProperties(componentName));
+		component.setBasename(componentConfig.getName());
+		component.setCategory(componentConfig.getCategory().value());
+	}
+	
+	private Map<String, Object> prepareComponentProperties(String componentName) {
+		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
+		properties.put(NAME, componentName);
+		properties.put(Component.Props.STATUS.getValue(), Component.ValidityStatus.WARN);
+		return properties;
 	}
 }

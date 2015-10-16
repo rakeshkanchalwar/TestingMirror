@@ -2,7 +2,7 @@ package com.bitwise.app.graph.model.categories;
 
 import com.bitwise.app.graph.model.Component;
 
-public class StraightPullCategory extends Component {
+public abstract class StraightPullCategory extends Component {
 
 	/**
 	 * 

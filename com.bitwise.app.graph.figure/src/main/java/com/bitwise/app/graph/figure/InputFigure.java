@@ -31,15 +31,15 @@ implements HandleBounds{
 	@Override
 	protected void paintFigure(Graphics graphics) {		
 		super.paintFigure(graphics);
-		Rectangle r = getBounds().getCopy();
-		graphics.translate(r.getLocation());
+		Rectangle rectangle = getBounds().getCopy();
+		graphics.translate(rectangle.getLocation());
 		//graphics.setBackgroundColor(ELTColorConstants.lightGrey);
-		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
-		graphics.fillRoundRectangle(q, 5, 5);
-
-		drawLable(r, graphics);
-		drawPorts(r, graphics);
-		
+		Rectangle fillRectangleArea = new Rectangle(4, 4, rectangle.width-8, rectangle.height-8);
+		graphics.fillRoundRectangle(fillRectangleArea, 5, 5);
+		//TODO : Enable once the Error mapping for property window is done
+		//drawStatus(graphics);
+		drawLable(rectangle, graphics);
+		drawPorts(rectangle, graphics);
 	}
 
 	public Rectangle getHandleBounds() {

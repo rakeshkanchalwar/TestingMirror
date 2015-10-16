@@ -2,7 +2,6 @@
 package com.bitwise.app.graph.figure;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -16,11 +15,15 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.graph.model.Component;
+import com.bitwise.app.graph.model.Component.ValidityStatus;
 
-public class ComponentFigure extends Figure {
-
+public class ComponentFigure extends Figure implements Validator{
+	private Component.ValidityStatus status;
 	private String labelName;
 	private FixedConnectionAnchor c; 
 	protected Hashtable<String, FixedConnectionAnchor> connectionAnchors;
@@ -64,6 +67,25 @@ public class ComponentFigure extends Figure {
 		}
 		
 	}
+	
+	/**
+	 * Draws the status image to right corner of the component
+	 * @param graphics
+	 */
+	protected void drawStatus(Graphics graphics){
+		Image statusImage = null;
+		Rectangle rectangle = getBounds().getCopy();
+		if(getStatus().equals(ValidityStatus.WARN)){
+			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/warn.jpg");
+		}
+		else if (getStatus().equals(ValidityStatus.ERROR)){
+			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/error.jpg");
+		}
+		if(statusImage != null){
+			graphics.drawImage(statusImage, new Point(rectangle.width - 15, 8));
+		}
+	}
+	
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		int totalPortsofInType=0, totalPortsOfOutType=0;
@@ -135,14 +157,14 @@ public class ComponentFigure extends Figure {
 
 	public ConnectionAnchor getConnectionAnchor(String terminal) {
 
-		return (ConnectionAnchor) connectionAnchors.get(terminal);
+		return connectionAnchors.get(terminal);
 	}
 
 	public String getConnectionAnchorName(ConnectionAnchor c) {
 		Enumeration<String> keys = connectionAnchors.keys();
 		String key;
 		while (keys.hasMoreElements()) {
-			key = (String) keys.nextElement();
+			key = keys.nextElement();
 
 			if (connectionAnchors.get(key).equals(c))
 				return key;
@@ -186,5 +208,13 @@ public class ComponentFigure extends Figure {
 			return;
 
 	}
-
+	@Override
+	public ValidityStatus getStatus() {
+		return status;
+	}
+	
+	@Override
+	public void setStatus(ValidityStatus status) {
+		this.status = status;
+	}
 }
