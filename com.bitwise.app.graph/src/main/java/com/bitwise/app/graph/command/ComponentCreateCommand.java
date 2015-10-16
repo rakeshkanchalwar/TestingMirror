@@ -38,17 +38,17 @@ public class ComponentCreateCommand extends Command {
 		component.setProperties(properties);
 		component.setBasename(components.getName());
 		component.setCategory(components.getCategory().value());
-		int defaultWidth = (component.getBasename().length()+3)*7+30;
+		//int defaultWidth = (component.getBasename().length()+3)*7+30;
 		//int defaultHeight = defaultWidth * 6/8;
-		Dimension newSize = new Dimension(defaultWidth, component.getSize().height);
-		component.setSize(newSize);
+		Dimension newSize = new Dimension(component.getSize().width, component.getSize().height);
+		//component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;
 		//this.bounds = bounds;
 		Point p = new Point(bounds.x, bounds.y);
 		this.bounds = new Rectangle(p, newSize);
 		setLabel("component creation");
-		setLabel("component reconnection");
+		
 	}
 	
 	public void execute() {
