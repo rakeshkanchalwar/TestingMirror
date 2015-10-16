@@ -133,6 +133,7 @@
 			<enumeration value="ReplicateFigure"/>
 			<enumeration value="OutputFixedWidthFigure"/>
 			<enumeration value="InputFixedWidthFigure"/>
+			<enumeration value="DedupFigure"/>
 		</restriction>
 	</simpleType>
 </schema>
