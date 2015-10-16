@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
@@ -168,7 +167,6 @@ public class PropertyDialog extends Dialog {
 	
 	@Override
 	protected void okPressed() {
-		System.out.println("Prop saved");
 		for(AbstractWidget eltWidget : propertyDialogBuilder.getELTWidgetList()){
 			if(eltWidget.getProperties() != null){
 				savePropertiesInComponentModel(eltWidget);	
