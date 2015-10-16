@@ -2,6 +2,7 @@ package com.bitwise.app.engine.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -14,11 +15,14 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.Converter;
 import com.bitwise.app.engine.converter.ConverterFactory;
 import com.bitwise.app.engine.exceptions.EngineException;
+import com.bitwise.app.engine.xpath.ComponentXpath;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwiseglobal.graph.commontypes.TypeBaseComponent;
 import com.bitwiseglobal.graph.main.Graph;
 import com.bitwiseglobal.graph.main.ObjectFactory;
+
+
 
 public class ConverterUtil {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ConverterUtil.class);
@@ -47,12 +51,17 @@ public class ConverterUtil {
 	
 	private void marshall(Graph graph, boolean validate,IFile outPutFile) {
 		logger.debug("Marshling genrated object into target XML");
+		ByteArrayOutputStream out = null;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(graph.getClass());
 			Marshaller marshaller = jaxbContext.createMarshaller();
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			out = new ByteArrayOutputStream();
+		    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		   	 
+			//marshaller.setProperty("com.sun.xml.internal.bind.characterEscapeHandler", new CustomCharacterEscapeHandler());
 			marshaller.marshal(graph, out);
+		 	 
+			out = ComponentXpath.INSTANCE.addParameters(out);
 			if (outPutFile.exists())
 				outPutFile.setContents(new ByteArrayInputStream(out.toByteArray()), true,false, null);
 			else
@@ -61,7 +70,27 @@ public class ConverterUtil {
 			
 		} catch (Exception exception) {
 			logger.error("Failed in marshall", exception);
+		}finally{
+			if(out != null){
+				try {
+					out.close();
+				} catch (IOException e) {
+				//TODO ADD logger
+				}
+			}
 		}
 	}
 
 }
+
+
+
+
+//JAXBContext jc = JAXBContext.newInstance(graph.getClass());
+// 
+//  Unmarshaller u = jc.createUnmarshaller();
+// 
+//  Graph c = (Graph) u.unmarshal(new ByteArrayInputStream(out.toByteArray()));
+//
+//logger.debug("GRAPH DATA ::<<<<<"+((FileDelimited)c.getInputOrOutputOrStraightPull().get(0)).getDelimiter().getValue()+">>>>>>");
+////"C://WorkSpace//runtime-com.bitwise.app.perspective.product//XpathTEST//CdataTest.xml";
