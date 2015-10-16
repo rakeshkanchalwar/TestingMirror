@@ -9,14 +9,15 @@ import java.util.Map;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
-public class Component extends Model {
+public abstract class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
 
 	public static enum Props {
 		LOCATION_PROP("Location"),
 		SIZE_PROP("Size"),
 		INPUTS("inputs"),
-		OUTPUTS("outputs");
+		OUTPUTS("outputs"),
+		STATUS("status");
 		
 		private String value;
 		private Props(String value){
@@ -32,11 +33,17 @@ public class Component extends Model {
 		}
 	}
 	
+	public static enum ValidityStatus {
+		WARN,
+		ERROR,
+		VALID;
+	}
+	
 	private Point location;
 	private Dimension size;
 	private Map<String, Object> properties;
 	private Container parent;
-	
+	private ValidityStatus validityStatus;
 	
 	private Hashtable<String, ArrayList<Link>> inputLinksHash;
 	private Hashtable<String, ArrayList<Link>> outputLinksHash;
@@ -59,6 +66,7 @@ public class Component extends Model {
 		inputPorts = new ArrayList<String>();
 		outputPorts = new ArrayList<String>();
 		newInstance = true;
+		validityStatus = ValidityStatus.WARN;
 	}
 	
 	private void updateConnectionProperty(String prop, Object newValue) {
@@ -243,13 +251,16 @@ public class Component extends Model {
 		this.category = category;
 	}
 	
-	
-	//For Target XMl
-	public String getConverter()
-	{
-		return "";
-		
+	public ValidityStatus getValidityStatus() {
+		return validityStatus;
 	}
+	
+	public void setValidityStatus(ValidityStatus validityStatus) {
+		this.validityStatus = validityStatus;
+	}
+	
+	//For Target XML
+	public abstract String getConverter();
 	
 	@Override
 	public Component clone() throws CloneNotSupportedException {

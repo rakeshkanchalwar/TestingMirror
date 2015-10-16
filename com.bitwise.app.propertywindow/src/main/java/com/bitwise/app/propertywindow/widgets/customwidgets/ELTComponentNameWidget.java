@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import org.eclipse.swt.widgets.Text;
+import org.slf4j.Logger;
 
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
@@ -17,6 +19,8 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
 
 public class ELTComponentNameWidget extends AbstractWidget {
+
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTComponentNameWidget.class);
 
 	public ELTComponentNameWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
@@ -40,14 +44,8 @@ public class ELTComponentNameWidget extends AbstractWidget {
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
-		/*if (super.names != null) {
-			for (String name : super.names) {
-				System.out.println(name);
-			}
-		}*/
 		ListenerFactory listenerFactory = new ListenerFactory();
 
-		System.out.println("IN ELTComponentNameWidget.attachToPropertySubGroup()");
 
 		ELTDefaultSubgroupComposite eltDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
@@ -71,7 +69,6 @@ public class ELTComponentNameWidget extends AbstractWidget {
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 		/*	eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());*/
-			System.out.println("ELTComponentNameWidget: added the listener");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -83,8 +80,6 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 
 	private void populateWidget() {
-		/*System.out.println("ELTComponentNameWidget.setProperties():-propertyName: " + propertyName + ", properties: "
-				+ properties);*/		
 		listener.setOldName(oldName);
 		text.setText(oldName);
 
@@ -126,7 +121,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 			}
 
 		}
-		System.out.println("isUniqueCompName: result: " + result);
+		logger.debug("isUniqueCompName: result: " + result);
 
 		return result;
 	}

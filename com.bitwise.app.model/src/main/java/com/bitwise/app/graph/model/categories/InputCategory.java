@@ -2,7 +2,7 @@ package com.bitwise.app.graph.model.categories;
 
 import com.bitwise.app.graph.model.Component;
 
-public class InputCategory extends Component{
+public abstract class InputCategory extends Component{
 
 	/**
 	 * 

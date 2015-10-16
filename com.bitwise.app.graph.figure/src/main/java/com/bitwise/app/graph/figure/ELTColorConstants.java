@@ -45,6 +45,11 @@ public interface ELTColorConstants {
 	public final static Color gatherComponentBorder = darkGrey;
 	public final static Color gatherComponentSelectedBorder = darkBlue;
 	
+	public final static Color dedupComponent = lightGrey;
+	public final static Color dedupComponentSelected = lightBlue;
+	public final static Color dedupComponentBorder = darkGrey;
+	public final static Color dedupComponentSelectedBorder = darkBlue;
+	
 	public final static Color replicateComponent = lightGrey;
 	public final static Color replicateComponentSelected = lightBlue;
 	public final static Color replicateComponentBorder = darkGrey;

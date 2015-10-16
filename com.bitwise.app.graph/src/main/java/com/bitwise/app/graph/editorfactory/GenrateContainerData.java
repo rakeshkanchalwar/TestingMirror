@@ -13,10 +13,22 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
 import com.bitwise.app.graph.model.Container;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenrateContainerData.
+ */
 public class GenrateContainerData {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(GenrateContainerData.class);
 	private IGenrateContainerData editorInput;
 	
+	/**
+	 * Sets the editor input.
+	 * 
+	 * @param editorInput
+	 *            the editor input
+	 * @param eltGraphicalEditorInstance
+	 *            the elt graphical editor instance
+	 */
 	public void setEditorInput(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		logger.debug("setEditorInput - ");
 		if((ETLGraphicalEditorInput.class).isAssignableFrom(editorInput.getClass()))
@@ -36,6 +48,14 @@ public class GenrateContainerData {
 		return editorInput.getEditorInput();
 	}
 	
+	/**
+	 * Store container data.
+	 * 
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws CoreException
+	 *             the core exception
+	 */
 	public void storeContainerData() throws IOException, CoreException
 	{
 

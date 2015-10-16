@@ -8,6 +8,10 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentsEditorContextMenuProvider.
+ */
 public class ComponentsEditorContextMenuProvider extends ContextMenuProvider {
 	/** The editor's action registry. */
 	private ActionRegistry actionRegistry;

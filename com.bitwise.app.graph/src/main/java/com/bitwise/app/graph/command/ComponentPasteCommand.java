@@ -12,6 +12,10 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.graph.model.Component;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentPasteCommand.
+ */
 public class ComponentPasteCommand extends Command {
 	private static final Logger log = LogFactory.INSTANCE.getLogger(ComponentPasteCommand.class);
 	private int pasteCounter=0;
@@ -83,6 +87,13 @@ public class ComponentPasteCommand extends Command {
 		}
 	}
 
+	/**
+	 * Checks if is pastable node.
+	 * 
+	 * @param node
+	 *            the node
+	 * @return true, if is pastable node
+	 */
 	public boolean isPastableNode(Component node) {
 		if (node instanceof Component)
 			return true;

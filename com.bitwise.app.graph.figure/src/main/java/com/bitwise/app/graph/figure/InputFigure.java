@@ -26,7 +26,14 @@ implements HandleBounds{
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
-		
+		Rectangle rectangle = getBounds().getCopy();
+		graphics.translate(rectangle.getLocation());
+		//graphics.setBackgroundColor(ELTColorConstants.lightGrey);
+		Rectangle fillRectangleArea = new Rectangle(4, 4, rectangle.width-8, rectangle.height-8);
+		graphics.fillRoundRectangle(fillRectangleArea, 5, 5);
+		//TODO : Enable once the Error mapping for property window is done
+		//drawStatus(graphics);
+		drawLable(rectangle, graphics);
 	}
 
 	public Rectangle getHandleBounds() {
