@@ -14,11 +14,23 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.model.Container;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileStorageEditorContainer.
+ */
 public class FileStorageEditorContainer implements IGenrateContainerData {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(FileStorageEditorContainer.class);
 	private final FileStoreEditorInput fileStrorageEditorInput;
 	private final ETLGraphicalEditor eltGraphicalEditorInstance;
 	
+	/**
+	 * Instantiates a new file storage editor container.
+	 * 
+	 * @param editorInput
+	 *            the editor input
+	 * @param eltGraphicalEditorInstance
+	 *            the elt graphical editor instance
+	 */
 	public FileStorageEditorContainer(IEditorInput editorInput,
 			ETLGraphicalEditor eltGraphicalEditorInstance) {
 		this.fileStrorageEditorInput = (FileStoreEditorInput) editorInput;

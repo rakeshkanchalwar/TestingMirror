@@ -6,6 +6,9 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.swt.graphics.Color;
 
+/**
+ * The Class LinkEndPointEditPolicy.
+ */
 public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 
 	protected void addSelectionHandles() {
