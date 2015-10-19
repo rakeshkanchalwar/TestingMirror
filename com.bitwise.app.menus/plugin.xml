@@ -207,7 +207,7 @@
                   label="Show View">
                <command
                      commandId="org.eclipse.ui.views.showView"
-                     label="show view"
+                     label="Others..."
                      style="push">
                </command>
             </menu>

@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Color;
  */
 public class CustomPaletteEditPartFactory extends PaletteEditPartFactory {
 
-    private Color _entryBackgroundColor;
+    private Color palatteBackgroundColor;
     
 	/**
 	 * Instantiates a new custom palette edit part factory.
@@ -26,7 +26,7 @@ public class CustomPaletteEditPartFactory extends PaletteEditPartFactory {
 	 */
     public CustomPaletteEditPartFactory(Color entryForegroundColor,
                                       Color entryBackgroundColor) {
-        _entryBackgroundColor = entryBackgroundColor;
+        palatteBackgroundColor = entryBackgroundColor;
     }
     @Override
     protected EditPart createMainPaletteEditPart(EditPart parentEditPart, Object model) {
@@ -34,7 +34,7 @@ public class CustomPaletteEditPartFactory extends PaletteEditPartFactory {
             @Override
             public IFigure createFigure() {
                 IFigure fig = super.createFigure();
-                fig.setBackgroundColor(_entryBackgroundColor);
+                fig.setBackgroundColor(palatteBackgroundColor);
                 return fig;
             }
         };

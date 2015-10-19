@@ -1,4 +1,5 @@
 apply plugin: 'java'
+
 sourceCompatibility = 1.7
 version = '1.0'
 ext.cascadingVersion = '3.0.1'
@@ -7,6 +8,7 @@ ext.hiveVersion = '1.2.0'
 
 
 def mainClassName='com.bitwiseglobal.bhse.utilities.BHSExecution'
+
 repositories {
 	maven {
     	url "http://10.30.127.67:9091/artifactory/libs-release-local"
@@ -53,25 +55,38 @@ dependencies {
   compile 'org.hamcrest:hamcrest-core:1.3' //required by plunger
   testCompile 'org.mockito:mockito-core:1.9.5' //required by plunger
   testCompile 'commons-io:commons-io:2.4' //required by plunger
+  
+  compile 'de.undercouch:gradle-download-task:1.0' 
 }
 
 test {
      testLogging.showStandardStreams = true
-} 
+}  
 
 def jarFiles = files {file(project.libsDir.path).listFiles() }
 
 //get property files  	
-def propertyFiles= files { file('C:/Users/rahulma/Desktop/bhs/config/java/').listFiles() } 
-	
+def propertyFiles 
 
-task(run, dependsOn: ['build','classes'], type: JavaExec){
+ 
+task getProperties {
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/xpath.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/componentAssemblyMap.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/engine.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/input_service.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/log4j.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/ParquetDataTypeMapping.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/traversal_service.properties', dest: project.buildDir , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/runtime_service.properties', dest: project.buildDir , skipexisting: 'true') 
+  propertyFiles=files { file(project.buildDir).listFiles() } 
+} 
+task(run, dependsOn: ['build','classes','getProperties'], type: JavaExec){ 
 		    main=mainClassName
 	   		standardOutput = System.out
-  			errorOutput = System.err
+  			errorOutput = System.err 
 			classpath += jarFiles+configurations.compile
-			if (project.hasProperty("xmlPath")) {
-      			args = ["-xmlpath",xmlPath]
+			if (project.hasProperty("xmlpath")) {
+      			args = ["-xmlpath",xmlpath]
   			}	
 		  	propertyFiles.each {File file ->
 			   systemProperty file.name, file.absolutePath
