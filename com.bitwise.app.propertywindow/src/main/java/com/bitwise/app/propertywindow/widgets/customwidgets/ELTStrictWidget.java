@@ -70,10 +70,10 @@ ListenerFactory listenerFactory = new ListenerFactory();
 		
 			try {
 			
-			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultCombo.attachListener(ListenerFactory.Listners.SELECTION.getListener(), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChnageListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			
 			e1.printStackTrace();

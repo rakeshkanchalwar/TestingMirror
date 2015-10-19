@@ -5,9 +5,10 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTCheckFileExtensionLis
 import com.bitwise.app.propertywindow.widgets.listeners.ELTCreateNewClassListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEmptyTextModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEnableButtonListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTEventChangeListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
-import com.bitwise.app.propertywindow.widgets.listeners.ELTModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTModifyListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTOpenFileEditorListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTRuntimeButtonClickListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionListener;
@@ -15,7 +16,6 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameLi
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyNumbericListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
-import com.bitwise.app.propertywindow.widgets.listeners.ELTEventChangeListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridAddSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteAllSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteSelectionListener;
@@ -30,88 +30,39 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridMouseDownLis
  */
 
 public class ListenerFactory {
-	
-	public IELTListener getListener(String listener){
+	public enum Listners{
+		EVENT_CHANGE(ELTEventChangeListener.class),
+		SELECTION(ELTSelectionListener.class),
+		VERIFY_TEXT(ELTVerifyTextListener.class),
+		VERIFY_COMPONENT_NAME(ELTVerifyComponentNameListener.class),
+		RUNTIME_BUTTON_CLICK(ELTRuntimeButtonClickListener.class),
+		FILE_DIALOG_SELECTION(ELTFileDialogSelectionListener.class),
+		FOCUS_OUT(ELTFocusOutListener.class),
+		EMPTY_TEXT_MODIFY(ELTEmptyTextModifyListener.class),
+		CHECK_FILE_EXTENTION(ELTCheckFileExtensionListener.class),
+		OPEN_FILE_EDITOR(ELTOpenFileEditorListener.class),
+		CREATE_NEW_CLASS(ELTCreateNewClassListener.class),
+		BROWSE_FILE_LISTNER(ELTBrowseFileListener.class),
+		ENABLE_BUTTON(ELTEnableButtonListener.class),
+		VERIFY_NUMERIC(ELTVerifyNumbericListener.class),
+		GRID_MOUSE_DOUBLE_CLICK(ELTGridMouseDoubleClickListener.class),
+		GRID_MOUSE_DOWN(ELTGridMouseDownListener.class),
+		GRID_ADD_SELECTION(ELTGridAddSelectionListener.class),
+		GRID_DELETE_SELECTION(ELTGridDeleteSelectionListener.class),
+		GRID_DELETE_ALL(ELTGridDeleteAllSelectionListener.class),
+		MODIFY(ELTModifyListener.class);
 		
-		if(listener.equals("ELTEventChangeListener")){
-			IELTListener myCuIeltListener = new ELTEventChangeListener();
-			return myCuIeltListener;
-		}else if(listener.equals("ELTSelectionListener")){
-			IELTListener selectionlistener = new ELTSelectionListener();
-			return selectionlistener;
-		}else if(listener.equals("ELTVerifyTextListener")){  
-			IELTListener verifytextlistener = new ELTVerifyTextListener();
-			return verifytextlistener;
-		}else if (listener.equals("ELTVerifyComponentNameListener")){
-			IELTListener eltListener = new ELTVerifyComponentNameListener();
-			return eltListener;
-		}else if (listener.equals("ELTRuntimeButtonClickListener")){
-			IELTListener eltListener = new ELTRuntimeButtonClickListener();
-			return eltListener;
-
-		}else if (listener.equals("ELTFileDialogSelectionListener")){
-			IELTListener filedialoglistener = new ELTFileDialogSelectionListener();
-			return filedialoglistener;
+		Class<?> clazz = null;
+		private Listners(Class<?> clazz) {
+			this.clazz = clazz;
 		}
-		else if (listener.equals("ELTFocusOutListener")){
-			IELTListener filedialoglistener = new ELTFocusOutListener();
-			return filedialoglistener;
- 
-		} 
-		else if (listener.equals("ELTEmptyTextModifyListener")){
-			IELTListener eltListener = new ELTEmptyTextModifyListener();
-			return eltListener;
- 
+		public IELTListener getListener(){
+			try {
+				return (IELTListener) clazz.newInstance();
+			} catch (InstantiationException | IllegalAccessException exception) {
+				throw new RuntimeException("Failed to instantiate the Listner " + clazz.getName());
+			}
 		}
-		else if (listener.equals("ELTCheckFileExtensionListener")){
-			IELTListener eltListener = new ELTCheckFileExtensionListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTOpenFileEditorListener")){
-			IELTListener eltListener = new ELTOpenFileEditorListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTCreateNewClassListener")){
-			IELTListener eltListener = new ELTCreateNewClassListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTBrowseFileListener")){
-			IELTListener eltListener = new ELTBrowseFileListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTEnableButtonListener")){
-			IELTListener eltListener = new ELTEnableButtonListener();
-			return eltListener;
-		}else if (listener.equals("ELTVerifyNumbericListener")){
-			IELTListener eltListener = new ELTVerifyNumbericListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTGridMouseDoubleClickListener")){ 
-			IELTListener eltListener = new ELTGridMouseDoubleClickListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTGridMouseDownListener")){ 
-			IELTListener eltListener = new ELTGridMouseDownListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTGridAddSelectionListener")){ 
-			IELTListener eltListener = new ELTGridAddSelectionListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTGridDeleteSelectionListener")){ 
-			IELTListener eltListener = new ELTGridDeleteSelectionListener();
-			return eltListener;
-		}
-		else if (listener.equals("ELTGridDeleteAllSelectionListener")){ 
-			IELTListener eltListener = new ELTGridDeleteAllSelectionListener();
-			return eltListener;
-		}else if (listener.equals("ELTModifyListener")){ 
-			IELTListener eltListener = new ELTModifyListener();
-			return eltListener;
-		}
-		
-		return null;
-		
 	}
 }
 

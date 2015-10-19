@@ -55,12 +55,12 @@ public class ELTPhaseWidget extends AbstractWidget {
 
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"),
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyNumbericListener"),
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_NUMERIC.getListener(),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTModifyListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -72,7 +72,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 	
 	private void populateWidget(){		
 		if (properties != null)
-			textBox.setText((String) properties);
+			textBox.setText(properties);
 		
 	}
 

@@ -1,31 +1,15 @@
 package com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
-import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
@@ -130,10 +114,9 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		runtimeComposite.attachWidget(eltDefaultButton);
 
 		try {
-			eltDefaultButton.attachListener(listenerFactory
-					.getListener("ELTRuntimeButtonClickListener"),
+			eltDefaultButton.attachListener(ListenerFactory.Listners.RUNTIME_BUTTON_CLICK.getListener(),
 					propertyDialogButtonBar, new ListenerHelper(this.getClass()
-							.getName(), (Object) this), eltDefaultButton
+							.getName(), this), eltDefaultButton
 							.getSWTWidgetControl());
 
 		} catch (Exception e1) {

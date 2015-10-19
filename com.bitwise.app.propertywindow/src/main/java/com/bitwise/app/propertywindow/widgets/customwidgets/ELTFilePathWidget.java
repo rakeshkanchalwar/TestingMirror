@@ -7,8 +7,6 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.TouchEvent;
-import org.eclipse.swt.events.TouchListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -111,8 +109,8 @@ public class ELTFilePathWidget extends AbstractWidget{
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTFileDialogSelectionListener"), propertyDialogButtonBar, null, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultButton.attachListener(ListenerFactory.Listners.FILE_DIALOG_SELECTION.getListener(), propertyDialogButtonBar, null, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			} catch (Exception e1) {
 			e1.printStackTrace();

@@ -5,19 +5,16 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
+import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
@@ -29,7 +26,6 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckB
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
-import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 public class ELTOperationClassDialog extends Dialog {
 
@@ -152,13 +148,13 @@ public class ELTOperationClassDialog extends Dialog {
 	//		fileNameText.attachListener(listenerFactory.getListener("ELTCheckFileExtensionListener"),propertyDialogButtonBar, null,fileName,isParameterCheckbox.getSWTWidgetControl());
 			isParameterCheckbox.attachListener(listenerFactory.getListener("ELTEnableButtonListener"),propertyDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());*/
 			
-			fileNameText.attachListener(listenerFactory.getListener("ELTEventChangeListener"),eltOperationClassDialogButtonBar, null,fileName);
-			editButton.attachListener(listenerFactory.getListener("ELTOpenFileEditorListener"),eltOperationClassDialogButtonBar, null,fileName);
-			browseButton.attachListener(listenerFactory.getListener("ELTBrowseFileListener"),eltOperationClassDialogButtonBar, null,fileName);
-			createButton.attachListener(listenerFactory.getListener("ELTCreateNewClassListener"),eltOperationClassDialogButtonBar, null,fileName);
-			fileNameText.attachListener(listenerFactory.getListener("ELTEmptyTextModifyListener"),eltOperationClassDialogButtonBar, null,fileName,editButton.getSWTWidgetControl(),isParameterCheckbox.getSWTWidgetControl());
+			fileNameText.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(),eltOperationClassDialogButtonBar, null,fileName);
+			editButton.attachListener(ListenerFactory.Listners.OPEN_FILE_EDITOR.getListener(),eltOperationClassDialogButtonBar, null,fileName);
+			browseButton.attachListener(ListenerFactory.Listners.BROWSE_FILE_LISTNER.getListener(),eltOperationClassDialogButtonBar, null,fileName);
+			createButton.attachListener(ListenerFactory.Listners.CREATE_NEW_CLASS.getListener(),eltOperationClassDialogButtonBar, null,fileName);
+			fileNameText.attachListener(ListenerFactory.Listners.EMPTY_TEXT_MODIFY.getListener(),eltOperationClassDialogButtonBar, null,fileName,editButton.getSWTWidgetControl(),isParameterCheckbox.getSWTWidgetControl());
 	//		fileNameText.attachListener(listenerFactory.getListener("ELTCheckFileExtensionListener"),propertyDialogButtonBar, null,fileName,isParameterCheckbox.getSWTWidgetControl());
-			isParameterCheckbox.attachListener(listenerFactory.getListener("ELTEnableButtonListener"),eltOperationClassDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());
+			isParameterCheckbox.attachListener(ListenerFactory.Listners.ENABLE_BUTTON.getListener(),eltOperationClassDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());
 			} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

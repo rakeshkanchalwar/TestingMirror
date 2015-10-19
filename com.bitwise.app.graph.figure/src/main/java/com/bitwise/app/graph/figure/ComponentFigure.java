@@ -58,39 +58,52 @@ public class ComponentFigure extends Figure implements Validator{
 		setComponentColorAndBorder();
 		
 		for(PortSpecification p:portspecification)
-		{ 	
-			c = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
-			connectionAnchors.put(c.getType()+c.getSequence(), c);
-			if(p.getTypeOfPort().equalsIgnoreCase("out"))
-				outputConnectionAnchors.add(c);
-			else
-				inputConnectionAnchors.add(c);	
-			
-		}
-		for(PortSpecification p:portspecification)
-		{	
-			if(p.getTypeOfPort().equalsIgnoreCase("in")){
-				totalPortsofInType=p.getNumberOfPorts();
-				System.out.println("totalPortsofInType: "+totalPortsofInType);
-			}
-			else{
-				totalPortsOfOutType=p.getNumberOfPorts();
-				System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
-			}
+		{
+			setPortCount(p);
+			setHeight(totalPortsofInType, totalPortsOfOutType);
 		}
 		
+		for(PortSpecification p:portspecification)
+		{ 	
+			initAnchors(p);	
+			initPorts(p);	
+		}
+		
+	}
+
+	private void initPorts(PortSpecification p) {
+		Point portPoint;
+		port =  new PortFigure(borderColor);
+		portPoint=getPortLocation(p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
+		add(port);
+		setConstraint(port, new Rectangle(portPoint.x, portPoint.y, -1, -1));
+	}
+
+	private void setPortCount(PortSpecification p) {
+		if(p.getTypeOfPort().equalsIgnoreCase("in")){
+			totalPortsofInType=p.getNumberOfPorts();
+			System.out.println("totalPortsofInType: "+totalPortsofInType);
+		}
+		else{
+			totalPortsOfOutType=p.getNumberOfPorts();
+			System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
+		}
+		
+	}
+
+	private void setHeight(int totalPortsofInType, int totalPortsOfOutType) {
 		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
 		this.height = (heightFactor+1)*25;
 		System.out.println("height: "+height);
-		Point portPoint;
-		for(PortSpecification p:portspecification)
-		{
-			port =  new PortFigure(borderColor);
-			portPoint=getPortLocation(p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
-			add(port);
-			setConstraint(port, new Rectangle(portPoint.x, portPoint.y, -1, -1));
-			
-		}
+	}
+
+	private void initAnchors(PortSpecification p) {
+		c = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
+		connectionAnchors.put(c.getType()+c.getSequence(), c);
+		if(p.getTypeOfPort().equalsIgnoreCase("out"))
+			outputConnectionAnchors.add(c);
+		else
+			inputConnectionAnchors.add(c);
 	}
 	
 	/**

@@ -220,6 +220,13 @@
          <hiddenToolBarItem
                id="org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters">
          </hiddenToolBarItem>
+          <hiddenToolBarItem
+               id="org.eclipse.ui.externaltools.ExternalToolMenuDelegateToolbar">
+         </hiddenToolBarItem> 
+          <actionSet
+               id="org.eclipse.debug.ui.launchActionSet">
+         </actionSet>
+              
       </perspectiveExtension>
    </extension>
 
