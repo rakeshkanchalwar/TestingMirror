@@ -55,8 +55,8 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	         @Override
 			public void widgetSelected(SelectionEvent event) {
 	        	 Button button = ((Button) event.widget);
+	        	 propertyDialogButtonBar.enableApplyButton(true);
 	           properties = button.getText();
-	           //propertyDialogButtonBar.enableApplyButton(true);
 	           // property.put(propertyName, button.getText());
 	            logger.debug( "Radio Button Value",button.getText());
 	           // button.getSelection();
@@ -75,17 +75,6 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 		Unique = new ELTRadioButton("Unique");
 		eltSuDefaultSubgroupComposite.attachWidget(Unique);
 		((Button) Unique.getSWTWidgetControl()).addSelectionListener(selectionListener);
-		 
-		try {
-			First.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar, null, First.getSWTWidgetControl());
-			Last.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar, null, Last.getSWTWidgetControl());
-			Unique.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar, null, Unique.getSWTWidgetControl());
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		
 		populateWidget();
 		
