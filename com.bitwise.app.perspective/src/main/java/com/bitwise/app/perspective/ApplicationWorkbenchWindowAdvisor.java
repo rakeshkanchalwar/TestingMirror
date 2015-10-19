@@ -24,7 +24,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         ELTPerspectiveConfig eltPerspectiveConfig = new ELTPerspectiveConfig(configurer);
         
         eltPerspectiveConfig.setDefaultELTPrespectiveConfigurations();
-        PlatformUI.getWorkbench().getThemeManager().setCurrentTheme("de.spiritlink.custom.ui.theme");
+        PlatformUI.getWorkbench().getThemeManager().setCurrentTheme("com.bitwise.app.custom.ui.theme");
     }
     @Override
     public void createWindowContents(Shell shell) {
