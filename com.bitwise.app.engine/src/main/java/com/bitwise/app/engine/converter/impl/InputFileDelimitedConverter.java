@@ -42,6 +42,7 @@ public class InputFileDelimitedConverter extends InputConverter {
 		fileDelimited.setHasHeader(getBoolean(HAS_HEADER));
 		fileDelimited.setSafe(getBoolean(IS_SAFE));
 		fileDelimited.setCharset(charset);
+		fileDelimited.setRuntimeProperties(getRuntimeProperties());
 	}
 
 	@Override

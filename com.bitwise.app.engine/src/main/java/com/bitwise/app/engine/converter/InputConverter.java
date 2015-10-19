@@ -6,7 +6,6 @@ import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwiseglobal.graph.commontypes.TypeInputComponent;
 import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
-import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
 
 public abstract class InputConverter extends Converter {
 	
@@ -15,6 +14,7 @@ public abstract class InputConverter extends Converter {
 		super.prepareForXML();
 		((TypeInputComponent)baseComponent).getOutSocket().addAll(getInOutSocket());
 		((TypeInputComponent)baseComponent).getDependsOn().add(getDependsOn());
+		
 	}
 
 	/**

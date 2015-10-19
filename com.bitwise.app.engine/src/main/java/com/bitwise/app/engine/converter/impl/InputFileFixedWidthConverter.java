@@ -40,7 +40,7 @@ public class InputFileFixedWidthConverter extends InputConverter {
 		fileFixedWidth.setStrict(getBoolean(HAS_HEADER));
 		fileFixedWidth.setSafe(getBoolean(IS_SAFE));
 		fileFixedWidth.setCharset(charset);
-		
+		fileFixedWidth.setRuntimeProperties(getRuntimeProperties());
 	}
 	@Override
 	protected List<TypeInputOutSocket> getInOutSocket() throws SchemaException {

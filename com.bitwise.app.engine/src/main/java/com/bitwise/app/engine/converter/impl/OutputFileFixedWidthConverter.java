@@ -12,8 +12,8 @@ import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
-import com.bitwiseglobal.graph.outputtypes.FileFixedWidth;
 import com.bitwiseglobal.graph.otfd.TypeOutputDelimitedInSocket;
+import com.bitwiseglobal.graph.outputtypes.FileFixedWidth;
 
 public class OutputFileFixedWidthConverter extends OutputConverter {
 
@@ -39,7 +39,7 @@ Logger logger = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class
 		fileFixedWidth.setPath(path);
 		fileFixedWidth.setStrict(getBoolean(HAS_HEADER));
 	    fileFixedWidth.setCharset(charset);
-		
+		fileFixedWidth.setRuntimeProperties(getRuntimeProperties());
 	}
 
 	@Override

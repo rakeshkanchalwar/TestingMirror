@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 
@@ -11,6 +13,8 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.engine.helper.ConverterHelper;
+import com.bitwise.app.engine.xpath.ComponentXpath;
+import com.bitwise.app.engine.xpath.ComponentXpathConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaGrid;
 import com.bitwiseglobal.graph.commontypes.BooleanValueType;
@@ -21,6 +25,8 @@ import com.bitwiseglobal.graph.commontypes.TypeBaseComponent;
 import com.bitwiseglobal.graph.commontypes.TypeBaseField;
 import com.bitwiseglobal.graph.commontypes.TypeBaseRecord;
 import com.bitwiseglobal.graph.commontypes.TypeDependsOn;
+import com.bitwiseglobal.graph.commontypes.TypeProperties;
+import com.bitwiseglobal.graph.commontypes.TypeProperties.Property;
 
 /**
  * Base class for converter implementation. Consists of common methods used by all components.
@@ -30,6 +36,8 @@ import com.bitwiseglobal.graph.commontypes.TypeDependsOn;
 public abstract class Converter {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(Converter.class);
 
+	protected static final String $ID = "$id";
+	protected static final String PROPERTY_NAME = "propertyName";
 	protected static final String DEPENDS_ON = "dependsOn";
 	protected static final String PHASE = "phase";
 	protected static final String NAME = "name";
@@ -39,24 +47,26 @@ public abstract class Converter {
 	protected static final Object CHAR_SET = "charset";
 	protected static final Object SCHEMA = "schema";
 	protected static final Object DELIMITER = "delimiter";
+	protected static final String RUNTIME_PROPERTIES="runtime_properties";
 
 	protected LinkedHashMap<String, Object> properties = new LinkedHashMap<>();
 	protected Component component = null;
 	protected TypeBaseComponent baseComponent = null;
-
+	protected String componentName=null;
 	/**
 	 * Prepares the class of type {@link TypeBaseComponent} for xml conversion
 	 * @throws PhaseException
 	 * @throws SchemaException
 	 */
-	public void prepareForXML() throws PhaseException, SchemaException {
-		baseComponent.setId((String) properties.get(NAME));
+	public void prepareForXML(){
+		componentName=(String) properties.get(NAME);
+		baseComponent.setId(componentName);
+		
 		try {
 			baseComponent.setPhase(new BigInteger((String) properties.get(PHASE)));
 		} catch (NullPointerException | NumberFormatException nfe) {
-			logger.error("Phase id Empty or Invalid for : {}", baseComponent.getId());
-			throw new PhaseException(baseComponent.getId(), nfe);
-		}
+			logger.warn("Phase id Empty or Invalid for : {}", baseComponent.getId());
+			}
 	}
 
 	/**
@@ -66,9 +76,19 @@ public abstract class Converter {
 	 */
 	protected BooleanValueType getBoolean(String propertyName) {
 		logger.debug("Getting boolean Value for {}={}", new Object[]{propertyName, properties.get(propertyName)});
-		BooleanValueType booleanValue = new BooleanValueType();
-		booleanValue.setValue(Boolean.valueOf((String) properties.get(propertyName)));
-		return booleanValue;
+		if(properties.get(propertyName) != null) {
+			BooleanValueType booleanValue = new BooleanValueType();
+			booleanValue.setValue(Boolean.valueOf((String) properties.get(propertyName)));
+			
+			if(!booleanValue.isValue().toString().equalsIgnoreCase((String)properties.get(propertyName))){
+				ComponentXpath.INSTANCE.getXpathMap().put((ComponentXpathConstants.COMPONENT_XPATH_BOOLEAN.value()
+						.replace($ID, componentName)).replace(PROPERTY_NAME, propertyName),properties.get(propertyName).toString());
+				return booleanValue;
+			}else {
+				return booleanValue;
+			}
+		}
+		return null;
 	}
 
 	/** Converts String value to {@link StandardCharsets} 
@@ -84,6 +104,9 @@ public abstract class Converter {
 				break;
 			}
 		}
+		if(charset!=null)
+		ComponentXpath.INSTANCE.getXpathMap().put(ComponentXpathConstants.COMPONENT_CHARSET_XPATH.value()
+				.replace($ID, componentName),charset);
 		return targetCharset;
 	}
 
@@ -105,16 +128,17 @@ public abstract class Converter {
 		logger.debug("Genrating TypeBaseRecord data for {}", properties.get(NAME));
 		TypeBaseRecord typeBaseRecord = new TypeBaseRecord();
 		typeBaseRecord.setName("");
-		typeBaseRecord.getFieldOrRecord().addAll(getFieldOrRecord());
+		//typeBaseRecord.getFieldOrRecord().addAll(getFieldOrRecord());
+		typeBaseRecord.getFieldOrRecordOrIncludeExternalSchema().addAll(getFieldOrRecord());		
 		return typeBaseRecord;
 	}
 
 	/**
 	 * Prepare the Fields/Records for shcema
 	 * @return {@link List}
-	 * @throws SchemaException
+	 *
 	 */
-	protected List<TypeBaseField> getFieldOrRecord() throws SchemaException {
+	protected List<TypeBaseField> getFieldOrRecord(){
 		logger.debug("Genrating data for {} for property {}", new Object[]{properties.get(NAME),SCHEMA});
 		List<SchemaGrid> schemaList = (List) properties.get(SCHEMA);
 		List<TypeBaseField> typeBaseFields = new ArrayList<>();
@@ -136,13 +160,31 @@ public abstract class Converter {
 				}
 			}
 			catch (Exception exception) {
-				logger.error("Exception while creating schema for component : {}{}", new Object[]{properties.get(NAME),exception});
-				throw new SchemaException(baseComponent.getId(), exception);
+				logger.warn("Exception while creating schema for component : {}{}", new Object[]{properties.get(NAME),exception});
+				
 			}
 		}
 		return typeBaseFields;
 	}
 
+	
+	protected TypeProperties getRuntimeProperties() {
+		TypeProperties typeProperties=null;
+		if(properties.get(RUNTIME_PROPERTIES)!=null){
+			typeProperties=new TypeProperties();
+		List<TypeProperties.Property> runtimePropertyList=typeProperties.getProperty();
+		for(Map.Entry<String, String> entry:((TreeMap<String, String>)properties.get(RUNTIME_PROPERTIES)).entrySet())
+		{
+			Property runtimeProperty=new Property();
+			runtimeProperty.setName(entry.getKey());
+			runtimeProperty.setValue(entry.getValue());
+			runtimePropertyList.add(runtimeProperty);			
+		}
+		}
+		return typeProperties ;
+	}
+	
+	
 	/**
 	 * Returns the base type of the component
 	 * @return {@link TypeBaseComponent}
