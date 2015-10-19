@@ -281,7 +281,10 @@ public class ProjectStructureCreator {
 	    	jsonObject.put("project_dir",projectPath);
 	    	jsonObject.put("connection_project_dir",projectPath);
 	    	jsonObject.put("connection_gradle_user_home","");
-	    	jsonObject.put("connection_gradle_distribution","GRADLE_DISTRIBUTION(LOCAL_INSTALLATION("+env.get("GRADLE_USER_HOME")+"))");
+	    	if(env.get("GRADLE_USER_HOME")!=null)
+	    		jsonObject.put("connection_gradle_distribution","GRADLE_DISTRIBUTION(LOCAL_INSTALLATION("+env.get("GRADLE_USER_HOME")+"))");
+	    	else
+		    	jsonObject.put("connection_gradle_distribution","GRADLE_DISTRIBUTION(WRAPPER)");	    		
 	    	jsonObject.put("connection_java_home","");
 	    	jsonObject.put("connection_arguments","");
 	    	jsonObject.put("connection_jvm_arguments","");
@@ -290,7 +293,7 @@ public class ProjectStructureCreator {
 				try {
 					destinationFile.create(new ByteArrayInputStream(gradlePrefsFileJson.toString().getBytes()), true, null);
 					} catch ( CoreException exception) {
-					logger.debug("Copy external library files operation failed"); 
+					logger.error("Copy external library files operation failed"); 
 					throw new CoreException(new MultiStatus(Activator.PLUGIN_ID, 101, "Copy external library files operation failed", exception));
 			}
 			
