@@ -79,8 +79,8 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTModifyListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			e1.printStackTrace();

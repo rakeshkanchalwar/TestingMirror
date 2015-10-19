@@ -142,11 +142,9 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 
 		helper = getListenerHelper();
 		try {
-			eltTable.attachListener(listenerFactory
-					.getListener("ELTGridMouseDoubleClickListener"),
+			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),
 					propertyDialogButtonBar, helper, table);
-			eltTable.attachListener(
-					listenerFactory.getListener("ELTGridMouseDownListener"),
+			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),
 					propertyDialogButtonBar, helper, editors[0].getControl());
 		} catch (Exception e) {
 			// TODO add logger
@@ -174,14 +172,11 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 			buttonSubGroup.attachWidget(deleteButton);
 			buttonSubGroup.attachWidget(deleteAllButton);
 
-			addButton.attachListener(
-					listenerFactory.getListener("ELTGridAddSelectionListener"),
+			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),
 					propertyDialogButtonBar, helper, table);
-			deleteButton.attachListener(listenerFactory
-					.getListener("ELTGridDeleteSelectionListener"),
+			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),
 					propertyDialogButtonBar, helper, table);
-			deleteAllButton.attachListener(listenerFactory
-					.getListener("ELTGridDeleteAllSelectionListener"),
+			deleteAllButton.attachListener(ListenerFactory.Listners.GRID_DELETE_ALL.getListener(),
 					propertyDialogButtonBar, helper, table);
 		} catch (Exception e) {
 			// TODO add logger

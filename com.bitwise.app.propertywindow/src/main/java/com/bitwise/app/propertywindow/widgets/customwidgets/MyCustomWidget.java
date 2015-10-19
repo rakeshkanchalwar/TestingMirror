@@ -69,9 +69,9 @@ public class MyCustomWidget extends AbstractWidget{
 		ListenerHelper listenerHelper = new ListenerHelper("WordUtils", wordUtils);
 		//enableOkButton(false);
 		try {
-			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl(),eltDefaultButton.getSWTWidgetControl());
+			/*eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl(),eltDefaultButton.getSWTWidgetControl());
 			eltDefaultButton.attachListener(listenerFactory.getListener("ELTHiTestListener"), propertyDialogButtonBar,  null);
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());*/
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

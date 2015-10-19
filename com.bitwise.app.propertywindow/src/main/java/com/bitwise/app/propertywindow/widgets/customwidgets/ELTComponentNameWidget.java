@@ -63,7 +63,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		text.setTextLimit(50);
 
 		try {
-			listener = (ELTVerifyComponentNameListener)listenerFactory.getListener("ELTVerifyComponentNameListener");
+			listener = (ELTVerifyComponentNameListener)ListenerFactory.Listners.VERIFY_COMPONENT_NAME.getListener();
 			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames"));
 			eltDefaultTextBox.attachListener(listener,
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());

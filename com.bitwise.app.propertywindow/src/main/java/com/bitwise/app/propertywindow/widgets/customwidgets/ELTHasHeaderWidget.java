@@ -6,6 +6,7 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 
+import com.bitwise.app.propertywindow.datastructures.ComboBoxParameter;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
@@ -19,7 +20,6 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTC
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
-import com.bitwise.app.propertywindow.datastructures.ComboBoxParameter;
 
 public class ELTHasHeaderWidget extends AbstractWidget{
 
@@ -70,10 +70,10 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		
 		try {
-			eltDefaultCombo.attachListener(listenerFactory.getListener("ELTSelectionListener"),propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChangeListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTVerifyTextListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultCombo.attachListener(ListenerFactory.Listners.SELECTION.getListener(), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			
 		} catch (Exception e1) {
 			
