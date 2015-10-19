@@ -5,6 +5,7 @@ ext.cascadingVersion = '3.0.1'
 ext.hadoopVersion = '2.6.0'
 ext.hiveVersion = '1.2.0'
 
+
 def mainClassName='com.bitwiseglobal.bhse.utilities.BHSExecution'
 repositories {
 	maven {
@@ -43,7 +44,6 @@ dependencies {
   }
   compile 'com.google.guava:guava:14.0.1'
   compile 'org.slf4j:slf4j-api:1.7.2' 
-  compile 'log4j:log4j:1.2.16'   
   testCompile 'junit:junit:4.11'
   testCompile 'com.hotels:plunger:2.1.1'
   compile 'com.twitter:parquet-cascading:1.6.0'
@@ -65,12 +65,14 @@ def jarFiles = files {file(project.libsDir.path).listFiles() }
 def propertyFiles= files { file('C:/Users/rahulma/Desktop/bhs/config/java/').listFiles() } 
 	
 
-task(run, dependsOn:['build','classes'], type: JavaExec){	
+task(run, dependsOn: ['build','classes'], type: JavaExec){
 		    main=mainClassName
 	   		standardOutput = System.out
   			errorOutput = System.err
-			classpath += jarFiles+configurations.compile	
- 			args = ["-xmlpath","$xmlPath"]
+			classpath += jarFiles+configurations.compile
+			if (project.hasProperty("xmlPath")) {
+      			args = ["-xmlpath",xmlPath]
+  			}	
 		  	propertyFiles.each {File file ->
 			   systemProperty file.name, file.absolutePath
 			} 
