@@ -42,14 +42,14 @@ public class ELTFilterPropertyWizard {
 	private Table table;
 
 	private Shell shell;
-	private List<ELTFilterProperties> propertyLst;
+	private final List<ELTFilterProperties> propertyLst;
 	public static final String FilterInputFieldName = "Component Name"; //$NON-NLS-1$
 	private Set<String> filterSet;
 	private String componentName;
 	private Label lblHeader;
-	private String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
+	private final String PROPERTY_EXISTS_ERROR = Messages.RuntimePropertAlreadyExists;
 	public static final String[] PROPS = { FilterInputFieldName };
-	private String PROPERTY_NAME_BLANK_ERROR = Messages.EmptyNameNotification;
+	private final String PROPERTY_NAME_BLANK_ERROR = Messages.EmptyNameNotification;
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
@@ -131,6 +131,7 @@ public class ELTFilterPropertyWizard {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				addNewProperty(tableViewer);
+				applyButton.setEnabled(true);
 			}
 
 			@Override
@@ -172,6 +173,7 @@ public class ELTFilterPropertyWizard {
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523, 2);
 		// Below Event will be fired when user closes the Runtime window
 		shell.addListener(SWT.Close, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 
 				if (table.getItemCount() != 0 && !isOkPressed && isAnyUpdatePerformed) {
@@ -203,6 +205,7 @@ public class ELTFilterPropertyWizard {
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(new ELTCellModifier(tableViewer));
 		tableViewer.setCellEditors(editors);
+		applyButton.setEnabled(false);
 
 		decorator = WidgetUtility.addDecorator(propertyNameEditor.getControl(), Messages.CHARACTERSET);
 		loadProperties(tableViewer);
@@ -236,6 +239,7 @@ public class ELTFilterPropertyWizard {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				addNewProperty(tableViewer);
+				applyButton.setEnabled(true);
 			}
 		});
 
@@ -261,6 +265,7 @@ public class ELTFilterPropertyWizard {
 
 		deleteAll = new Button(composite, SWT.NONE);
 		deleteAll.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (table.getItemCount() != 0) {
 					boolean userAns = MessageDialog.openConfirm(shell, "Remove all", //$NON-NLS-1$
@@ -269,7 +274,9 @@ public class ELTFilterPropertyWizard {
 						table.removeAll();
 						propertyLst.removeAll(propertyLst);
 						lblPropertyError.setVisible(false);
-						disableButtons();
+						okButton.setEnabled(true);
+						addButton.setEnabled(true);
+						applyButton.setEnabled(false);
 					}
 				}
 			}
@@ -293,6 +300,7 @@ public class ELTFilterPropertyWizard {
 						messageBox.setText("Information"); //$NON-NLS-1$
 						messageBox.setMessage(Messages.PropertyAppliedNotification);
 						messageBox.open();
+						applyButton.setEnabled(false);
 						isAnyUpdatePerformed = false;
 					}
 				}
@@ -399,14 +407,14 @@ public class ELTFilterPropertyWizard {
 
 	void disableButtons() {
 		okButton.setEnabled(false);
-		applyButton.setEnabled(false);
+		//applyButton.setEnabled(false);
 		addButton.setEnabled(false);
 
 	}
 
 	void enableButtons() {
 		okButton.setEnabled(true);
-		applyButton.setEnabled(true);
+		//applyButton.setEnabled(true);
 		addButton.setEnabled(true);
 	}
 

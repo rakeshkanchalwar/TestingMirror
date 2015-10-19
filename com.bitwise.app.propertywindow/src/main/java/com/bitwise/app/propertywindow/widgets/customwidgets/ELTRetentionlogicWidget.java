@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Button;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -22,10 +23,9 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTRetentionlogicWidget.class);
 	
 	private final String propertyName;
-	private Button button;
-	private final LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-	private final   String properties;
-	AbstractELTWidget first,last,unique;
+	private final  LinkedHashMap<String, Object> property=new LinkedHashMap<>();
+	private String properties;
+	 AbstractELTWidget First,Last,Unique;
 	
 	public ELTRetentionlogicWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
@@ -40,6 +40,8 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
+		ListenerFactory listenerFactory = new ListenerFactory();
+		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		eltSuDefaultSubgroupComposite.numberOfBasicWidgets(4);
@@ -47,29 +49,44 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Retention\n Logic");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
+		
 		SelectionListener selectionListener = new SelectionAdapter () {
+			
 	         @Override
 			public void widgetSelected(SelectionEvent event) {
-	           button = ((Button) event.widget);
+	        	 Button button = ((Button) event.widget);
+	           properties = button.getText();
+	           //propertyDialogButtonBar.enableApplyButton(true);
 	           // property.put(propertyName, button.getText());
 	            logger.debug( "Radio Button Value",button.getText());
 	           // button.getSelection();
 	         };
 	      };
 		
-		first = new ELTRadioButton("First");
-		eltSuDefaultSubgroupComposite.attachWidget(first);
-		((Button) first.getSWTWidgetControl()).addSelectionListener(selectionListener);
-		//buttonOne=(Button) First.getSWTWidgetControl();
+		First = new ELTRadioButton("First");
+		eltSuDefaultSubgroupComposite.attachWidget(First);
+		((Button) First.getSWTWidgetControl()).addSelectionListener(selectionListener);
+		//button=(Button) First.getSWTWidgetControl();
 		
-		last = new ELTRadioButton("Last");
-		eltSuDefaultSubgroupComposite.attachWidget(last);
-		((Button) last.getSWTWidgetControl()).addSelectionListener(selectionListener);
+		Last = new ELTRadioButton("Last");
+		eltSuDefaultSubgroupComposite.attachWidget(Last);
+		((Button) Last.getSWTWidgetControl()).addSelectionListener(selectionListener);
 		
-		unique = new ELTRadioButton("Unique");
-		eltSuDefaultSubgroupComposite.attachWidget(unique);
-		((Button) unique.getSWTWidgetControl()).addSelectionListener(selectionListener);
+		Unique = new ELTRadioButton("Unique");
+		eltSuDefaultSubgroupComposite.attachWidget(Unique);
+		((Button) Unique.getSWTWidgetControl()).addSelectionListener(selectionListener);
 		 
+		try {
+			First.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar, null, First.getSWTWidgetControl());
+			Last.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar, null, Last.getSWTWidgetControl());
+			Unique.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar, null, Unique.getSWTWidgetControl());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		populateWidget();
 		
 	}
@@ -77,15 +94,16 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	private void populateWidget(){
 		switch(this.properties)
 		{
-		case "First":((Button) first.getSWTWidgetControl()).setSelection(true);break;
-		case "Last":((Button) last.getSWTWidgetControl()).setSelection(true); break;
-		case "Unique":((Button) unique.getSWTWidgetControl()).setSelection(true);  break;
+		case "First":((Button) First.getSWTWidgetControl()).setSelection(true);break;
+		case "Last":((Button) Last.getSWTWidgetControl()).setSelection(true); break;
+		case "Unique":((Button) Unique.getSWTWidgetControl()).setSelection(true);  break;
 		}
+		
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		property.put(propertyName, button.getText());
+		property.put(propertyName, properties);
 		return property;
 	}
 
