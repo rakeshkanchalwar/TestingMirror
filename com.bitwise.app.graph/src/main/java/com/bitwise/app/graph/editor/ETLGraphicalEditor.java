@@ -86,6 +86,7 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.exceptions.EngineException;
 import com.bitwise.app.engine.util.ConverterUtil;
 import com.bitwise.app.graph.action.CopyAction;
+import com.bitwise.app.graph.action.CutAction;
 import com.bitwise.app.graph.action.PasteAction;
 import com.bitwise.app.graph.editorfactory.GenrateContainerData;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
@@ -343,12 +344,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		keyHandler.put(KeyStroke.getPressed((char) ('a' - 'a' + 1), 'a', SWT.CTRL), getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
 		keyHandler.put(KeyStroke.getPressed((char) ('c' - 'a' + 1), 'c', SWT.CTRL), getActionRegistry().getAction(ActionFactory.COPY.getId()));
 		keyHandler.put(KeyStroke.getPressed((char) ('v' - 'a' + 1), 'v', SWT.CTRL), getActionRegistry().getAction(ActionFactory.PASTE.getId()));
-		
-		//		keyHandler.put(KeyStroke.getPressed('+', SWT.KEYPAD_ADD, 0),
-		//				getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
-		//		keyHandler.put(KeyStroke.getPressed('-', SWT.KEYPAD_SUBTRACT, 0),
-		//				getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
-
+		keyHandler.put(KeyStroke.getPressed((char) ('x' - 'a' + 1), 'x', SWT.CTRL), getActionRegistry().getAction(ActionFactory.CUT.getId()));
 		viewer.setKeyHandler(keyHandler);
 	}
 	
@@ -356,15 +352,22 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.createActions();
 		ActionRegistry registry = getActionRegistry();
 		// ...
-		IAction action;
-		 action = new PasteAction(this);
-		 registry.registerAction(action);
-		 getSelectionActions().add(action.getId());
+		IAction pasteAction;
+		pasteAction = new PasteAction(this);
+		 registry.registerAction(pasteAction);
+		 getSelectionActions().add(pasteAction.getId());
 		 
-		 action=new CopyAction(this, action);
+		 IAction action;
+		 action=new CopyAction(this, pasteAction);
 		registry.registerAction(action);
 		getSelectionActions().add(action.getId());
+		
+		 action=new CutAction(this, pasteAction);
+		 registry.registerAction(action);
+		getSelectionActions().add(action.getId());
 	}
+		
+		
 
 	private void configureViewer(GraphicalViewer viewer) {
 		viewer.setEditPartFactory(new ComponentsEditPartFactory());
