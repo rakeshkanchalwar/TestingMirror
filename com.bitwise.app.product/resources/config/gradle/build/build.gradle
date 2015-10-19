@@ -70,17 +70,22 @@ def propertyFiles
 
  
 task getProperties {
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/xpath.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/componentAssemblyMap.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/engine.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/input_service.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/log4j.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/ParquetDataTypeMapping.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/traversal_service.properties', dest: project.buildDir , skipexisting: 'true')
-  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/runtime_service.properties', dest: project.buildDir , skipexisting: 'true') 
-  propertyFiles=files { file(project.buildDir).listFiles() } 
+def propertiesFile = file("${System.getProperty('user.home')}/.gradle/properties/")
+if( !propertiesFile.exists() ) {
+  // Create property directory for engine properties.
+  propertiesFile=mkdir(propertiesFile)
+}
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/xpath.properties', dest:propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/componentAssemblyMap.properties',dest: propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/engine.properties', dest: propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/input_service.properties', dest: propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/log4j.properties', dest: propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/ParquetDataTypeMapping.properties', dest: propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/traversal_service.properties', dest: propertiesFile , skipexisting: 'true')
+  ant.get(src: 'http://10.30.127.67:9091/artifactory/libs-release-local/engine_property_files/runtime_service.properties', dest:propertiesFile , skipexisting: 'true') 
+  propertyFiles=files { file(propertiesFile).listFiles() } 
 } 
-task(run, dependsOn: ['build','classes','getProperties'], type: JavaExec){ 
+task(run, dependsOn: ['clean','build','classes','getProperties'], type: JavaExec){ 
 		    main=mainClassName
 	   		standardOutput = System.out
   			errorOutput = System.err 
