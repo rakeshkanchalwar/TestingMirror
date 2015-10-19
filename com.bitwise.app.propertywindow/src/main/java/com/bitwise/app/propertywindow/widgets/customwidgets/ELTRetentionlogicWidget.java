@@ -23,10 +23,10 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	
 	private final String propertyName;
 	private Button button;
-	private Button buttonOne;
 	private final LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-	private final Object properties;
-
+	private final   String properties;
+	AbstractELTWidget first,last,unique;
+	
 	public ELTRetentionlogicWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
@@ -34,7 +34,7 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 		super(componentConfigrationProperty, componentMiscellaneousProperties,
 				propertyDialogButtonBar);
 		this.propertyName = componentConfigrationProperty.getPropertyName();
-		this.properties =  componentConfigrationProperty.getPropertyValue();
+		this.properties =  (String)componentConfigrationProperty.getPropertyValue();
 		
 	}
 
@@ -50,40 +50,41 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 		SelectionListener selectionListener = new SelectionAdapter () {
 	         @Override
 			public void widgetSelected(SelectionEvent event) {
-	            button = ((Button) event.widget);
-	            //button.getText();
-	            property.put(propertyName, button.getText());
-	           // System.out.println(button.getText());
+	           button = ((Button) event.widget);
+	           // property.put(propertyName, button.getText());
 	            logger.debug( "Radio Button Value",button.getText());
 	           // button.getSelection();
 	         };
 	      };
 		
-		AbstractELTWidget firsttButton = new ELTRadioButton("First");
-		eltSuDefaultSubgroupComposite.attachWidget(firsttButton);
-		((Button) firsttButton.getSWTWidgetControl()).addSelectionListener(selectionListener);
-		buttonOne=(Button) firsttButton.getSWTWidgetControl();
-		buttonOne.setSelection(true);
+		first = new ELTRadioButton("First");
+		eltSuDefaultSubgroupComposite.attachWidget(first);
+		((Button) first.getSWTWidgetControl()).addSelectionListener(selectionListener);
+		//buttonOne=(Button) First.getSWTWidgetControl();
 		
-		AbstractELTWidget lastButton = new ELTRadioButton("Last");
-		eltSuDefaultSubgroupComposite.attachWidget(lastButton);
-		((Button) lastButton.getSWTWidgetControl()).addSelectionListener(selectionListener);
+		last = new ELTRadioButton("Last");
+		eltSuDefaultSubgroupComposite.attachWidget(last);
+		((Button) last.getSWTWidgetControl()).addSelectionListener(selectionListener);
 		
-		AbstractELTWidget uniqueButton = new ELTRadioButton("Unique");
-		eltSuDefaultSubgroupComposite.attachWidget(uniqueButton);
-		((Button) uniqueButton.getSWTWidgetControl()).addSelectionListener(selectionListener);
-		
+		unique = new ELTRadioButton("Unique");
+		eltSuDefaultSubgroupComposite.attachWidget(unique);
+		((Button) unique.getSWTWidgetControl()).addSelectionListener(selectionListener);
+		 
 		populateWidget();
+		
 	}
 	
 	private void populateWidget(){
-		
-		
+		switch(this.properties)
+		{
+		case "First":((Button) first.getSWTWidgetControl()).setSelection(true);break;
+		case "Last":((Button) last.getSWTWidgetControl()).setSelection(true); break;
+		case "Unique":((Button) unique.getSWTWidgetControl()).setSelection(true);  break;
+		}
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 		property.put(propertyName, button.getText());
 		return property;
 	}
