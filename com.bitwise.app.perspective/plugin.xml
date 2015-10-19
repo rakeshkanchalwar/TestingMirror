@@ -98,7 +98,7 @@
       <extension
          point="org.eclipse.ui.themes">
           <theme
-            id="de.spiritlink.custom.ui.theme"
+            id="com.bitwise.app.custom.ui.theme"
             name="Custom Theme">
          <colorOverride
                id="org.eclipse.ui.workbench.ACTIVE_TAB_BG_END"
