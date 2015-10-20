@@ -55,9 +55,8 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	         @Override
 			public void widgetSelected(SelectionEvent event) {
 	        	 Button button = ((Button) event.widget);
-	        	 propertyDialogButtonBar.enableApplyButton(true);
 	           properties = button.getText();
-	           // property.put(propertyName, button.getText());
+	           propertyDialogButtonBar.enableApplyButton(true);
 	            logger.debug( "Radio Button Value",button.getText());
 	           // button.getSelection();
 	         };
