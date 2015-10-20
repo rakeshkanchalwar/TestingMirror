@@ -50,7 +50,7 @@ public class CutAction extends SelectionAction{
 			if (ep instanceof ComponentEditPart) {
 				node = (Component) ep.getModel();
 			}
-			if (!cutCommand.isCopyableNode(node))
+			if (!cutCommand.isCutNode(node))
 				return null;
 			cutCommand.addElement(node);
 		}
@@ -67,12 +67,8 @@ public class CutAction extends SelectionAction{
 
 	@Override
 	public void run() {
-		Command cmd = createCutCommand(getSelectedObjects());
-		if (cmd != null && cmd.canExecute()) {
-			cmd.execute();
+		   execute(createCutCommand(getSelectedObjects()));
 			pasteAction.setPasteCounter(1);
 			pasteAction.update();
 		}
-	}
-
-}
+   }
