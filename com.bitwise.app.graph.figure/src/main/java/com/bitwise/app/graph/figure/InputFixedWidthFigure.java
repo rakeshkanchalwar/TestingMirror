@@ -3,14 +3,21 @@ package com.bitwise.app.graph.figure;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Image;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.XMLConfigUtil;
 
 public class InputFixedWidthFigure extends ComponentFigure{
 
+	private final Image canvasIcon;
+
 	public InputFixedWidthFigure(List<PortSpecification> portSpecification) {
 		super(portSpecification);
+		String imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/input_canvas.png" ;
+		canvasIcon = new Image(null, imagePath);
 	}
 	
 	@Override
@@ -22,6 +29,7 @@ public class InputFixedWidthFigure extends ComponentFigure{
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
+		graphics.drawImage(canvasIcon, new Point(r.width/2-10, r.height/2 - 14));
 
 	}
 

@@ -20,7 +20,6 @@ import org.eclipse.swt.graphics.Image;
 import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.model.Port;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
 
 public class ComponentFigure extends Figure implements Validator{
@@ -32,7 +31,7 @@ public class ComponentFigure extends Figure implements Validator{
 	protected List<FixedConnectionAnchor> outputConnectionAnchors;
 	protected List<PortSpecification> portspecification;
 	
-	protected Font labelFont = new Font(null, "", 10, SWT.BOLD); 
+	protected Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
 	protected Point labelPoint;
 	
 	protected Color borderColor;
@@ -41,7 +40,7 @@ public class ComponentFigure extends Figure implements Validator{
 	protected Color selectedComponentColor;
 	private int height=0;
 	private int totalPortsofInType=0, totalPortsOfOutType=0;
-	private XYLayout layout;
+	private final XYLayout layout;
 	private PortFigure port;
 	protected Hashtable<String, PortFigure> ports;
 	
@@ -179,8 +178,8 @@ public class ComponentFigure extends Figure implements Validator{
 	}
 	
 	protected void drawLable(Rectangle r, Graphics graphics){
-		int x = (r.width - getLabelName().length() * 7) / 2;
-		labelPoint = new Point(x, r.height / 2 - 10);
+		int x = (r.width - getLabelName().length() * 6) / 2;
+		labelPoint = new Point(x, r.height / 2 + 8);
 		graphics.setForegroundColor(ELTColorConstants.black);
 		graphics.setFont(labelFont);
 		graphics.drawText(getLabelName(), labelPoint);
