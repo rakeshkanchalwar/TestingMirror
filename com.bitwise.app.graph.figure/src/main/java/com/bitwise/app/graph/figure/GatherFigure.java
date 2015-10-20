@@ -35,7 +35,7 @@ implements HandleBounds{
 
 		drawLable(r, graphics);
 		
-		graphics.drawImage(canvasIcon, new Point(r.width/2-10, r.height/2 - 14));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 14));
 	}
 
 	
