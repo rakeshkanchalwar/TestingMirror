@@ -7,8 +7,10 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTEmptyTextModifyListen
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEnableButtonListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTEventChangeListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFileDialogSelectionListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusGainedListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTModifyListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTNormalFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTOpenFileEditorListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTRuntimeButtonClickListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionListener;
@@ -38,6 +40,7 @@ public class ListenerFactory {
 		RUNTIME_BUTTON_CLICK(ELTRuntimeButtonClickListener.class),
 		FILE_DIALOG_SELECTION(ELTFileDialogSelectionListener.class),
 		FOCUS_OUT(ELTFocusOutListener.class),
+		FOCUS_IN(ELTFocusGainedListener.class),
 		EMPTY_TEXT_MODIFY(ELTEmptyTextModifyListener.class),
 		CHECK_FILE_EXTENTION(ELTCheckFileExtensionListener.class),
 		OPEN_FILE_EDITOR(ELTOpenFileEditorListener.class),
@@ -50,7 +53,8 @@ public class ListenerFactory {
 		GRID_ADD_SELECTION(ELTGridAddSelectionListener.class),
 		GRID_DELETE_SELECTION(ELTGridDeleteSelectionListener.class),
 		GRID_DELETE_ALL(ELTGridDeleteAllSelectionListener.class),
-		MODIFY(ELTModifyListener.class);
+		MODIFY(ELTModifyListener.class), 
+		NORMAL_FOCUS_OUT(ELTNormalFocusOutListener.class);
 		
 		Class<?> clazz = null;
 		private Listners(Class<?> clazz) {

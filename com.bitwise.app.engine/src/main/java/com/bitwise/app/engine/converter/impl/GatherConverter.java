@@ -21,7 +21,7 @@ import com.bitwiseglobal.graph.straightpulltypes.Gather;
  */
 public class GatherConverter extends StraightPullConverter {
 
-	Logger logger = LogFactory.INSTANCE.getLogger(GatherConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(GatherConverter.class);
 	
 	public GatherConverter(Component component) {
 		super();
@@ -32,13 +32,13 @@ public class GatherConverter extends StraightPullConverter {
 
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("Genrating XML for : {}", properties.get(NAME));
+		LOGGER.debug("Genrating XML for : {}", properties.get(NAME));
 		super.prepareForXML();
 	}
 
 	@Override
 	protected List<TypeStraightPullOutSocket> getOutSocket() {
-		logger.debug("Genrating TypeStraightPullOutSocket data for : {}", properties.get(NAME));
+		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}", properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();

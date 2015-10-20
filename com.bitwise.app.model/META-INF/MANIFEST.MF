@@ -8,11 +8,13 @@ Bundle-Vendor: BITWISE
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  com.bitwise.app.common,
- org.slf4j.api
+ org.slf4j.api,
+ com.bitwise.app.asm;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.draw2d,
  org.eclipse.draw2d.geometry
 Export-Package: com.bitwise.app.graph.model,
  com.bitwise.app.graph.model.categories,
- com.bitwise.app.graph.model.components
+ com.bitwise.app.graph.model.components,
+ com.bitwise.app.graph.processor

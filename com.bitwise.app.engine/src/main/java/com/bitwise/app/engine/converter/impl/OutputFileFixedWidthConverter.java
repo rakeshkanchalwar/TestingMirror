@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.OutputConverter;
+import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
@@ -32,12 +33,12 @@ Logger logger = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class
 		super.prepareForXML();
 		FileFixedWidth fileFixedWidth = (FileFixedWidth) baseComponent;
 		FileFixedWidth.Path path = new FileFixedWidth.Path();
-		path.setUri((String) properties.get(PATH));
+		path.setUri((String) properties.get(PropertyNameConstants.PATH.value()));
 		FileFixedWidth.Charset charset = new FileFixedWidth.Charset();
 		charset.setValue(getCharset());
 		
 		fileFixedWidth.setPath(path);
-		fileFixedWidth.setStrict(getBoolean(HAS_HEADER));
+		fileFixedWidth.setStrict(getBoolean(PropertyNameConstants.HAS_HEADER.value()));
 	    fileFixedWidth.setCharset(charset);
 		fileFixedWidth.setRuntimeProperties(getRuntimeProperties());
 	}

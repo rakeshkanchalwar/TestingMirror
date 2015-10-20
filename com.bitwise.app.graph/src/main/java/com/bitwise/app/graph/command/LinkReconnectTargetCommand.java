@@ -57,7 +57,7 @@ public class LinkReconnectTargetCommand extends Command{
 				String portName=p.getTypeOfPort()+p.getSequenceOfPort();
 				if(portName.equals(newTargetTerminal)){
 					if(p.isAllowMultipleLinks() ||
-							!newTarget.hasInputPort(newTargetTerminal)){
+							!newTarget.isInputPortEngaged(newTargetTerminal)){
 						
 					}else{
 						return false;
@@ -73,16 +73,16 @@ public class LinkReconnectTargetCommand extends Command{
 	public void execute(){
 		if(newTarget != null){
 			link.detachTarget();
-			link.getTarget().removeInputPort(link.getTargetTerminal());
+			link.getTarget().freeInputPort(link.getTargetTerminal());
 			
 			link.setTarget(newTarget);
 			link.setTargetTerminal(newTargetTerminal);
 						
-			oldTarget.removeInputPort(link.getTargetTerminal());
+			oldTarget.freeInputPort(link.getTargetTerminal());
 			oldTarget.disconnectInput(link);
 
 			link.attachTarget();
-			newTarget.addInputPort(newTargetTerminal);
+			newTarget.engageInputPort(newTargetTerminal);
 			
 		}
 	}
@@ -114,7 +114,7 @@ public class LinkReconnectTargetCommand extends Command{
 		newTarget=link.getTarget();
 		newTargetTerminal=link.getTargetTerminal();
 		newTarget.disconnectInput(link);
-		newTarget.removeInputPort(link.getTargetTerminal());
+		newTarget.freeInputPort(link.getTargetTerminal());
 		link.detachTarget();
 		
 		link.setTarget(oldTarget);

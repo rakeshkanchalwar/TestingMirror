@@ -34,22 +34,16 @@ import com.bitwiseglobal.graph.commontypes.TypeProperties.Property;
  *
  */
 public abstract class Converter {
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(Converter.class);
+	private static final Logger LOGGER = LogFactory.INSTANCE.getLogger(Converter.class);
 
-	protected static final String $ID = "$id";
+	protected static final String ID = "$id";
 	protected static final String PROPERTY_NAME = "propertyName";
 	protected static final String DEPENDS_ON = "dependsOn";
 	protected static final String PHASE = "phase";
 	protected static final String NAME = "name";
-	protected static final String HAS_HEADER = "has_header";
-	protected static final String PATH = "path";
-	protected static final String IS_SAFE = "safe";
-	protected static final Object CHAR_SET = "charset";
-	protected static final Object SCHEMA = "schema";
-	protected static final Object DELIMITER = "delimiter";
-	protected static final String RUNTIME_PROPERTIES="runtime_properties";
 
-	protected LinkedHashMap<String, Object> properties = new LinkedHashMap<>();
+
+	protected Map<String, Object> properties = new LinkedHashMap<String, Object>();
 	protected Component component = null;
 	protected TypeBaseComponent baseComponent = null;
 	protected String componentName=null;
@@ -65,7 +59,7 @@ public abstract class Converter {
 		try {
 			baseComponent.setPhase(new BigInteger((String) properties.get(PHASE)));
 		} catch (NullPointerException | NumberFormatException nfe) {
-			logger.warn("Phase id Empty or Invalid for : {}", baseComponent.getId());
+			LOGGER.warn("Phase id Empty or Invalid for : {}", baseComponent.getId());
 			}
 	}
 
@@ -75,14 +69,14 @@ public abstract class Converter {
 	 * @return {@link BooleanValueType}
 	 */
 	protected BooleanValueType getBoolean(String propertyName) {
-		logger.debug("Getting boolean Value for {}={}", new Object[]{propertyName, properties.get(propertyName)});
+		LOGGER.debug("Getting boolean Value for {}={}", new Object[]{propertyName, properties.get(propertyName)});
 		if(properties.get(propertyName) != null) {
 			BooleanValueType booleanValue = new BooleanValueType();
 			booleanValue.setValue(Boolean.valueOf((String) properties.get(propertyName)));
 			
 			if(!booleanValue.isValue().toString().equalsIgnoreCase((String)properties.get(propertyName))){
 				ComponentXpath.INSTANCE.getXpathMap().put((ComponentXpathConstants.COMPONENT_XPATH_BOOLEAN.value()
-						.replace($ID, componentName)).replace(PROPERTY_NAME, propertyName),properties.get(propertyName).toString());
+						.replace(ID, componentName)).replace(PROPERTY_NAME, propertyName),properties.get(propertyName).toString());
 				return booleanValue;
 			}else {
 				return booleanValue;
@@ -95,8 +89,8 @@ public abstract class Converter {
 	 * @return {@link StandardCharsets}
 	 */
 	protected StandardCharsets getCharset() {
-		logger.debug("Getting StandardCharsets for {}", properties.get(NAME));
-		String charset = (String) properties.get(CHAR_SET);
+		LOGGER.debug("Getting StandardCharsets for {}", properties.get(NAME));
+		String charset = (String) properties.get(PropertyNameConstants.CHAR_SET.value());
 		StandardCharsets targetCharset = null;
 		for (StandardCharsets standardCharsets : StandardCharsets.values()) {
 			if (standardCharsets.value().equalsIgnoreCase(charset)) {
@@ -106,7 +100,7 @@ public abstract class Converter {
 		}
 		if(charset!=null)
 		ComponentXpath.INSTANCE.getXpathMap().put(ComponentXpathConstants.COMPONENT_CHARSET_XPATH.value()
-				.replace($ID, componentName),charset);
+				.replace(ID, componentName),charset);
 		return targetCharset;
 	}
 
@@ -114,7 +108,7 @@ public abstract class Converter {
 	 * @return {@link TypeDependsOn}
 	 */
 	protected TypeDependsOn getDependsOn() {
-		logger.debug("Getting DependsOn for {}", properties.get(NAME));
+		LOGGER.debug("Getting DependsOn for {}", properties.get(NAME));
 		TypeDependsOn dependsOn = new TypeDependsOn();
 		dependsOn.setComponentId((String) properties.get(DEPENDS_ON));
 		return dependsOn;
@@ -125,7 +119,7 @@ public abstract class Converter {
 	 * @throws SchemaException
 	 */
 	protected TypeBaseRecord getSchema() throws SchemaException {
-		logger.debug("Genrating TypeBaseRecord data for {}", properties.get(NAME));
+		LOGGER.debug("Genrating TypeBaseRecord data for {}", properties.get(NAME));
 		TypeBaseRecord typeBaseRecord = new TypeBaseRecord();
 		typeBaseRecord.setName("");
 		//typeBaseRecord.getFieldOrRecord().addAll(getFieldOrRecord());
@@ -139,8 +133,8 @@ public abstract class Converter {
 	 *
 	 */
 	protected List<TypeBaseField> getFieldOrRecord(){
-		logger.debug("Genrating data for {} for property {}", new Object[]{properties.get(NAME),SCHEMA});
-		List<SchemaGrid> schemaList = (List) properties.get(SCHEMA);
+		LOGGER.debug("Genrating data for {} for property {}", new Object[]{properties.get(NAME),PropertyNameConstants.SCHEMA.value()});
+		List<SchemaGrid> schemaList = (List) properties.get(PropertyNameConstants.SCHEMA.value());
 		List<TypeBaseField> typeBaseFields = new ArrayList<>();
 		if(schemaList!=null){
 			try{
@@ -160,7 +154,7 @@ public abstract class Converter {
 				}
 			}
 			catch (Exception exception) {
-				logger.warn("Exception while creating schema for component : {}{}", new Object[]{properties.get(NAME),exception});
+				LOGGER.warn("Exception while creating schema for component : {}{}", new Object[]{properties.get(NAME),exception});
 				
 			}
 		}
@@ -170,10 +164,10 @@ public abstract class Converter {
 	
 	protected TypeProperties getRuntimeProperties() {
 		TypeProperties typeProperties=null;
-		if(properties.get(RUNTIME_PROPERTIES)!=null){
+		if(properties.get(PropertyNameConstants.RUNTIME_PROPERTIES.value())!=null){
 			typeProperties=new TypeProperties();
 		List<TypeProperties.Property> runtimePropertyList=typeProperties.getProperty();
-		for(Map.Entry<String, String> entry:((TreeMap<String, String>)properties.get(RUNTIME_PROPERTIES)).entrySet())
+		for(Map.Entry<String, String> entry:((TreeMap<String, String>)properties.get(PropertyNameConstants.RUNTIME_PROPERTIES.value())).entrySet())
 		{
 			Property runtimeProperty=new Property();
 			runtimeProperty.setName(entry.getKey());

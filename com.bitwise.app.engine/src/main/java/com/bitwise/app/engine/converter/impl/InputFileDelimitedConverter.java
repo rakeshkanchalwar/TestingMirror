@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.InputConverter;
+import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
@@ -32,15 +33,15 @@ public class InputFileDelimitedConverter extends InputConverter {
 		super.prepareForXML();
 		FileDelimited fileDelimited = (FileDelimited) baseComponent;
 		FileDelimited.Path path = new FileDelimited.Path();
-		path.setUri((String) properties.get(PATH));
+		path.setUri((String) properties.get(PropertyNameConstants.PATH.value()));
 		FileDelimited.Charset charset = new FileDelimited.Charset();
 		charset.setValue(getCharset());
 		FileDelimited.Delimiter delimiter = new FileDelimited.Delimiter();
-		delimiter.setValue((String) properties.get(DELIMITER));
+		delimiter.setValue((String) properties.get(PropertyNameConstants.DELIMITER.value()));
 		fileDelimited.setPath(path);
 		fileDelimited.setDelimiter(delimiter);
-		fileDelimited.setHasHeader(getBoolean(HAS_HEADER));
-		fileDelimited.setSafe(getBoolean(IS_SAFE));
+		fileDelimited.setHasHeader(getBoolean(PropertyNameConstants.HAS_HEADER.value()));
+		fileDelimited.setSafe(getBoolean(PropertyNameConstants.IS_SAFE.value()));
 		fileDelimited.setCharset(charset);
 		fileDelimited.setRuntimeProperties(getRuntimeProperties());
 	}

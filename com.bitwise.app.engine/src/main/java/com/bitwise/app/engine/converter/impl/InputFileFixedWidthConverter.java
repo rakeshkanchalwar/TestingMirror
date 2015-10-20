@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.InputConverter;
+import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
@@ -32,13 +33,13 @@ public class InputFileFixedWidthConverter extends InputConverter {
 		super.prepareForXML();
 		FileFixedWidth fileFixedWidth = (FileFixedWidth) baseComponent;
 		FileFixedWidth.Path path = new FileFixedWidth.Path();
-		path.setUri((String) properties.get(PATH));
+		path.setUri((String) properties.get(PropertyNameConstants.PATH.value()));
 		FileFixedWidth.Charset charset = new FileFixedWidth.Charset();
 		charset.setValue(getCharset());
 		
 		fileFixedWidth.setPath(path);
-		fileFixedWidth.setStrict(getBoolean(HAS_HEADER));
-		fileFixedWidth.setSafe(getBoolean(IS_SAFE));
+		fileFixedWidth.setStrict(getBoolean(PropertyNameConstants.STRICT.value()));
+		fileFixedWidth.setSafe(getBoolean(PropertyNameConstants.IS_SAFE.value()));
 		fileFixedWidth.setCharset(charset);
 		fileFixedWidth.setRuntimeProperties(getRuntimeProperties());
 	}
