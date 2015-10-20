@@ -19,7 +19,8 @@
 			<element name="policy" type="tns:Policy" maxOccurs="unbounded" minOccurs="0" /> 
 		</sequence>
 		<attribute name="name" type="string" use="required"></attribute>
-		<attribute name="iconPath" type="string" use="required"></attribute>
+		<attribute name="paletteIconPath" type="string" use="required"></attribute>
+		<attribute name="canvasIconPath" type="string" use="required"></attribute>
 		<attribute name="shape" type="tns:shape" use="required"></attribute>
 	</complexType>
 

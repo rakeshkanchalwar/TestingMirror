@@ -18,15 +18,14 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import com.bitwise.app.propertywindow.testdata.ComponentModel;
-import com.bitwise.app.propertywindow.testdata.PropertyStore;
-import com.bitwise.app.propertywindow.testdata.RawProperties;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.IPropertyTreeBuilder;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.property.PropertyTreeBuilder;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialog;
+import com.bitwise.app.propertywindow.testdata.ComponentModel;
+import com.bitwise.app.propertywindow.testdata.RawProperties;
 
 /**
  * 
@@ -163,7 +162,6 @@ public class TestWindow extends ApplicationWindow {
 				
 				testDialog.open();*/
 				
-				System.out.println("In Test Window: " + inputCompProps);
 				
 			}
 			

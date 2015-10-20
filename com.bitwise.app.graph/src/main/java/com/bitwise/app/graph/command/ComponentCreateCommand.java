@@ -23,11 +23,11 @@ public class ComponentCreateCommand extends Command {
 	private static final String NAME = "name";
 	
 	/** The new shape. */
-	private Component component;
+	private final Component component;
 	/** Container to add to. */
 	private final Container parent;
 	/** The bounds of the new Shape. */
-	private Rectangle bounds;
+	private final Rectangle bounds;
 	
 	/**
 	 * Create a command that will add a new Shape in Container.
@@ -54,11 +54,9 @@ public class ComponentCreateCommand extends Command {
 		{	
 			if(p.getTypeOfPort().equalsIgnoreCase("in")){
 				totalPortsofInType=p.getNumberOfPorts();
-				System.out.println("totalPortsofInType: "+totalPortsofInType);
 			}
 			else{
 				totalPortsOfOutType=p.getNumberOfPorts();
-				System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
 			}
 		}
 		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
@@ -80,6 +78,7 @@ public class ComponentCreateCommand extends Command {
 		
 	}
 	
+	@Override
 	public void execute() {
 		component.setLocation(bounds.getLocation());
 		Dimension size = bounds.getSize();
@@ -92,6 +91,7 @@ public class ComponentCreateCommand extends Command {
 	 * Can execute if all the necessary information has been provided.
 	 * 
 	 */
+	@Override
 	public boolean canExecute() {
 		return component != null && parent != null && bounds != null;
 	}
@@ -99,6 +99,7 @@ public class ComponentCreateCommand extends Command {
 	/**
 	 * Add component to container
 	 */
+	@Override
 	public void redo() {
 		parent.addChild(component);
 	}
@@ -106,6 +107,7 @@ public class ComponentCreateCommand extends Command {
 	/**
 	 * Undo add action
 	 */
+	@Override
 	public void undo() {
 		parent.removeChild(component);
 	}

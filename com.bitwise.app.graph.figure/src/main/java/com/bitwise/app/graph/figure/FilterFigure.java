@@ -4,26 +4,30 @@ package com.bitwise.app.graph.figure;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
+import org.eclipse.swt.graphics.Image;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.XMLConfigUtil;
 
 public class FilterFigure extends ComponentFigure
 implements HandleBounds{
 
 	
+	Image canvasIcon;
+	
 	public FilterFigure(List<PortSpecification> portSpecification)
 	{
 		super(portSpecification);	
+		String imagePath = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/filter_canvas.png" ;
+		canvasIcon = new Image(null, imagePath);
 	}
 	
 
 	@Override
 	protected void paintFigure(Graphics graphics) {
-		System.out.println("FilterFigure: paintFigure called");
 		super.paintFigure(graphics);
 
 		Rectangle r = getBounds().getCopy();
@@ -33,8 +37,10 @@ implements HandleBounds{
 		graphics.fillRoundRectangle(q, 5, 5);
 
 		drawLable(r, graphics);
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 14));
 	}
 
+	@Override
 	public Rectangle getHandleBounds() {
 
 		return getBounds().getCopy();

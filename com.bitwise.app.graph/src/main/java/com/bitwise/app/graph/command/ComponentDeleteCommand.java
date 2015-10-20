@@ -17,8 +17,8 @@ public class ComponentDeleteCommand extends Command {
 	private final Component child;
 	private final Container parent;
 	private boolean wasRemoved;
-	private List<Link> sourceConnections = new ArrayList<Link>();
-	private List<Link> targetConnections = new ArrayList<Link>();
+	private final List<Link> sourceConnections = new ArrayList<Link>();
+	private final List<Link> targetConnections = new ArrayList<Link>();
 
 	/**
 	 * Instantiates a new component delete command.
@@ -56,11 +56,10 @@ public class ComponentDeleteCommand extends Command {
 	}
 	
 	private void deleteConnections(Component component) {
-		System.out.println("DeleteCommand:deleteConnections");
 		
 		sourceConnections.addAll(component.getSourceConnections());
 		for (int i = 0; i < sourceConnections.size(); i++) {
-			Link link = (Link) sourceConnections.get(i);
+			Link link = sourceConnections.get(i);
 			link.detachSource();
 			link.detachTarget();
 			if(link.getSource()!=null)
@@ -71,7 +70,7 @@ public class ComponentDeleteCommand extends Command {
 		
 		targetConnections.addAll(component.getTargetConnections());
 		for (int i = 0; i < targetConnections.size(); i++) {
-			Link link = (Link) targetConnections.get(i);
+			Link link = targetConnections.get(i);
 			link.detachSource();
 			link.detachTarget();
 			if(link.getSource()!=null)
@@ -83,7 +82,7 @@ public class ComponentDeleteCommand extends Command {
 	
 	private void restoreConnections() {
 		for (int i = 0; i < sourceConnections.size(); i++) {
-			Link link = (Link) sourceConnections.get(i);
+			Link link = sourceConnections.get(i);
 			link.attachSource();
 			link.getSource().engageOutputPort(link.getSourceTerminal());
 			link.attachTarget();
@@ -91,7 +90,7 @@ public class ComponentDeleteCommand extends Command {
 		}
 		sourceConnections.clear();
 		for (int i = 0; i < targetConnections.size(); i++) {
-			Link link = (Link) targetConnections.get(i);
+			Link link = targetConnections.get(i);
 			link.attachSource();
 			link.getSource().engageOutputPort(link.getSourceTerminal());
 			link.attachTarget();

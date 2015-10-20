@@ -43,18 +43,18 @@ public abstract class Component extends Model {
 		VALID;
 	}
 	
-	private Point location;
-	private Dimension size;
+	private final Point location;
+	private final Dimension size;
 	private Map<String, Object> properties;
 	private Container parent;
 	private ValidityStatus validityStatus;
 	
-	private Hashtable<String, ArrayList<Link>> inputLinksHash;
-	private Hashtable<String, ArrayList<Link>> outputLinksHash;
+	private final Hashtable<String, ArrayList<Link>> inputLinksHash;
+	private final Hashtable<String, ArrayList<Link>> outputLinksHash;
     private ArrayList<Link> inputLinks = new ArrayList<Link>();
     private ArrayList<Link> outputLinks = new ArrayList<Link>();
-	private List<String> inputportTerminals;
-	private List<String> outputPortTerminals;
+	private final List<String> inputportTerminals;
+	private final List<String> outputPortTerminals;
 	private boolean newInstance;
 	private String basename;
 	private String category;
@@ -84,7 +84,6 @@ public abstract class Component extends Model {
 	private void initPortSettings(){
 		componentName = DynamicClassProcessor.INSTANCE
 				.getClazzName(this.getClass());
-		System.out.println("componentName: "+componentName);
 		portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
 		
 		ports = new Hashtable<String, Port>();
