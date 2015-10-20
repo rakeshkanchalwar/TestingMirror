@@ -201,8 +201,8 @@ public class LinkCommand extends Command{
 		connection.detachSource();
 		connection.detachTarget();
 		
-		connection.getSource().freeOutputPort(connection.getSourceTerminal());
-		connection.getTarget().freeInputPort(connection.getTargetTerminal());
+//		connection.getSource().freeOutputPort(connection.getSourceTerminal());
+//		connection.getTarget().freeInputPort(connection.getTargetTerminal());
 
 		connection.setSource(oldSource);
 		logger.debug("Link comd Old Name :{}",oldSource.getProperties().get("name"));
@@ -213,8 +213,8 @@ public class LinkCommand extends Command{
 		connection.attachSource();
 		connection.attachTarget();
 		
-		source.engageOutputPort(sourceTerminal);
-		target.engageInputPort(targetTerminal);
+//		source.engageOutputPort(sourceTerminal);
+//		target.engageInputPort(targetTerminal);
 
 	}
 }
