@@ -83,7 +83,7 @@ if( !propertiesFile.exists() ) {
   ant.get(src: ''+artifactUrl+'/engine_property_files/runtime_service.properties', dest:propertiesFile , skipexisting: 'true') 
   propertyFiles=files { file(propertiesFile).listFiles() } 
 } 
-task(run, dependsOn: ['clean','build','classes','getProperties'], type: JavaExec){ 
+task(run, dependsOn: ['build','classes','getProperties'], type: JavaExec){ 
 		    main=mainClassName
 	   		standardOutput = System.out
   			errorOutput = System.err 
