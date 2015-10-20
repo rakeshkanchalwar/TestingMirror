@@ -260,35 +260,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		PaletteToolbar toolbar = new PaletteToolbar("Tools");
 
 		// Add a selection tool to the group
-		ToolEntry tool = new PanningSelectionToolEntry();
-		toolbar.add(tool);
-		palette.setDefaultEntry(tool);
-
-		// Add a marquee tool to the group
-		toolbar.add(new MarqueeToolEntry());
-
-		// Add (solid-line) connection tool
-		tool = new ConnectionCreationToolEntry(
-				"Solid connection",
-				"Create a solid-line connection",
-				new CreationFactory() {
-					@Override
-					public Object getNewObject() {
-						return null;
-					}
-
-					// see ShapeEditPart#createEditPolicies()
-					// this is abused to transmit the desired line style
-					@Override
-					public Object getObjectType() {
-						return Link.SOLID_CONNECTION;
-					}
-				},
-				ImageDescriptor
-				.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")),
-				ImageDescriptor
-				.createFromURL(prepareIconPathURL("/icons/connection_s24.gif")));
-		toolbar.add(tool);
+//		ToolEntry tool = new PanningSelectionToolEntry();
+//		toolbar.add(tool);
+//		palette.setDefaultEntry(tool);
 
 		palette.add(toolbar);
 	}
