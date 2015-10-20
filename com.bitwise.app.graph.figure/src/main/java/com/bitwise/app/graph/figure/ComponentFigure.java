@@ -43,9 +43,16 @@ public class ComponentFigure extends Figure implements Validator{
 	private final XYLayout layout;
 	private PortFigure port;
 	protected Hashtable<String, PortFigure> ports;
+	protected String canvasIconPath;
+	protected Image canvasIcon;
 	
 	
-	public ComponentFigure(List<PortSpecification> portSpecification) {
+	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath) {
+		
+		this.portspecification = portSpecification;
+		this.canvasIconPath = XMLConfigUtil.CONFIG_FILES_PATH + cIconPath;
+		
+		canvasIcon = new Image(null, canvasIconPath);
 		
 		layout = new XYLayout();
 		setLayoutManager(layout);
@@ -54,7 +61,7 @@ public class ComponentFigure extends Figure implements Validator{
 		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		outputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
-		this.portspecification=portSpecification;
+		
 
 		setInitialColor();
 		setComponentColorAndBorder();
@@ -174,7 +181,14 @@ public class ComponentFigure extends Figure implements Validator{
 	
 	@Override
 	protected void paintFigure(Graphics graphics) {
+		Rectangle r = getBounds().getCopy();
+		graphics.translate(r.getLocation());
+		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
+		graphics.fillRoundRectangle(q, 5, 5);
 
+		drawLable(r, graphics);
+		
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 16));
 	}
 	
 	protected void drawLable(Rectangle r, Graphics graphics){

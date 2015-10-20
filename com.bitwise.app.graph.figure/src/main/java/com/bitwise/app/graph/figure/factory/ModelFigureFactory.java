@@ -23,10 +23,11 @@ public class ModelFigureFactory {
 
 	public static IFigure createFigureForComponent(String componentName ) {
 		String shapeName = XMLConfigUtil.INSTANCE.getComponent(componentName).getShape().value();
+		String canvasIconPath = XMLConfigUtil.INSTANCE.getComponent(componentName).getCanvasIconPath();
 		List<PortSpecification> portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
 		try {
 			
-			return (IFigure)Class.forName(COM_BITWISE_APP_GRAPH_FIGURE + shapeName).getDeclaredConstructor(List.class).newInstance(portSpecification);
+			return (IFigure)Class.forName(COM_BITWISE_APP_GRAPH_FIGURE + shapeName).getDeclaredConstructor(List.class,String.class).newInstance(portSpecification, canvasIconPath);
 		} catch (Exception exception) {
 			//TODO do we need a pop up...
 			log.warn("Figure creation failed for {}", componentName, exception);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-  <tns:component paletteIconPath="/icons/input_palette.png" canvasIconPath="/icons" name="InputFixedWidth" shape="InputFixedWidthFigure">
+  <tns:component paletteIconPath="/icons/input_palette.png" canvasIconPath="\icons\input_canvas.png" name="InputFixedWidth" shape="InputFixedWidthFigure">
 	<tns:category>INPUT</tns:category>
 	<tns:port>
 		<tns:portSpecification>
