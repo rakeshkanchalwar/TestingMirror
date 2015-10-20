@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.Image;
 import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
+import com.bitwise.app.graph.model.Port;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
 
 public class ComponentFigure extends Figure implements Validator{
@@ -42,12 +43,14 @@ public class ComponentFigure extends Figure implements Validator{
 	private int totalPortsofInType=0, totalPortsOfOutType=0;
 	private XYLayout layout;
 	private PortFigure port;
+	protected Hashtable<String, PortFigure> ports;
 	
 	
 	public ComponentFigure(List<PortSpecification> portSpecification) {
 		
 		layout = new XYLayout();
 		setLayoutManager(layout);
+		ports = new Hashtable<String, PortFigure>();
 		
 		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
@@ -73,20 +76,21 @@ public class ComponentFigure extends Figure implements Validator{
 
 	private void initPorts(PortSpecification p) {
 		Point portPoint;
-		port =  new PortFigure(borderColor);
+		port =  new PortFigure(borderColor, p.getTypeOfPort()+ p.getSequenceOfPort());
 		portPoint=getPortLocation(p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
 		add(port);
 		setConstraint(port, new Rectangle(portPoint.x, portPoint.y, -1, -1));
+		String portTerminal = p.getTypeOfPort() + p.getSequenceOfPort();
+		ports.put(portTerminal, port);
+		
 	}
 
 	private void setPortCount(PortSpecification p) {
 		if(p.getTypeOfPort().equalsIgnoreCase("in")){
 			totalPortsofInType=p.getNumberOfPorts();
-			System.out.println("totalPortsofInType: "+totalPortsofInType);
 		}
 		else{
 			totalPortsOfOutType=p.getNumberOfPorts();
-			System.out.println("totalPortsOfOutType: "+totalPortsOfOutType);
 		}
 		
 	}
@@ -94,7 +98,14 @@ public class ComponentFigure extends Figure implements Validator{
 	private void setHeight(int totalPortsofInType, int totalPortsOfOutType) {
 		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
 		this.height = (heightFactor+1)*25;
-		System.out.println("height: "+height);
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
+	public PortFigure getPortFigure(String terminal) {
+		return ports.get(terminal);
 	}
 
 	private void initAnchors(PortSpecification p) {
@@ -141,6 +152,7 @@ public class ComponentFigure extends Figure implements Validator{
 		selectedComponentColor = ELTColorConstants.bgComponentSelected;
 		selectedBorderColor = ELTColorConstants.componentSelectedBorder;
 	}
+	
 	private Point getPortLocation(int totalPortsOfThisType, String type, int sequence) {
 		Point p = null ;
 		int width = 100;

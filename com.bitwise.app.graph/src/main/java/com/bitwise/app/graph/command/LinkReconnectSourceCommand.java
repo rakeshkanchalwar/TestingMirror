@@ -63,7 +63,7 @@ public class LinkReconnectSourceCommand extends Command {
 			String portName = p.getTypeOfPort() + p.getSequenceOfPort();
 			if (portName.equals(newSourceTerminal)) {
 				if (p.isAllowMultipleLinks()
-						|| !newSource.hasOutputPort(newSourceTerminal)) {
+						|| !newSource.isOutputPortEngaged(newSourceTerminal)) {
 
 				} else{
 					return false;
@@ -77,16 +77,16 @@ public class LinkReconnectSourceCommand extends Command {
 	public void execute() {
 		if (newSource != null) {
 			link.detachSource();
-			link.getSource().removeOutputPort(link.getSourceTerminal());
+			link.getSource().freeOutputPort(link.getSourceTerminal());
 			
 			link.setSource(newSource);
 			link.setSourceTerminal(newSourceTerminal);
 			
-			oldSource.removeOutputPort(link.getSourceTerminal());
+			oldSource.freeOutputPort(link.getSourceTerminal());
 			oldSource.disconnectOutput(link);
 			
 			link.attachSource();
-			newSource.addOutputPort(newSourceTerminal);
+			newSource.engageOutputPort(newSourceTerminal);
 			
 			
 		}
@@ -123,7 +123,7 @@ public class LinkReconnectSourceCommand extends Command {
 		logger.debug("New source is :{}", newSource.getProperties().get("name"));
 		newSourceTerminal=link.getSourceTerminal();
 		newSource.disconnectOutput(link);
-		newSource.removeOutputPort(link.getSourceTerminal());
+		newSource.freeOutputPort(link.getSourceTerminal());
 		link.detachSource();
 		
 		link.setSource(oldSource);

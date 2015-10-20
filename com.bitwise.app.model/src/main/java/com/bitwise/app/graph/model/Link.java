@@ -127,7 +127,7 @@ public class Link extends Model {
 	public void reconnect(){
 		if(!isConnected){
 			source.connectOutput(this);
-			source.addOutputPort(sourceTerminal);
+			source.engageOutputPort(sourceTerminal);
 			
 			isConnected=true;
 		}

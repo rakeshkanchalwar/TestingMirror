@@ -9,6 +9,10 @@ import java.util.Map;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
+import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.graph.processor.DynamicClassProcessor;
+
 public abstract class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
 
@@ -39,21 +43,24 @@ public abstract class Component extends Model {
 		VALID;
 	}
 	
-	private final Point location;
-	private final Dimension size;
+	private Point location;
+	private Dimension size;
 	private Map<String, Object> properties;
 	private Container parent;
 	private ValidityStatus validityStatus;
 	
-	private final Hashtable<String, ArrayList<Link>> inputLinksHash;
-	private final Hashtable<String, ArrayList<Link>> outputLinksHash;
+	private Hashtable<String, ArrayList<Link>> inputLinksHash;
+	private Hashtable<String, ArrayList<Link>> outputLinksHash;
     private ArrayList<Link> inputLinks = new ArrayList<Link>();
     private ArrayList<Link> outputLinks = new ArrayList<Link>();
-	private final List<String> inputPorts;
-	private final List<String> outputPorts;
+	private List<String> inputportTerminals;
+	private List<String> outputPortTerminals;
 	private boolean newInstance;
 	private String basename;
 	private String category;
+	private Hashtable<String, Port> ports;
+	private String componentName;
+	List<PortSpecification> portSpecification;
 
 	public Component(){
 		location = new Point(0, 0);
@@ -63,10 +70,44 @@ public abstract class Component extends Model {
 		inputLinks = new ArrayList<Link>();
 		outputLinksHash = new Hashtable<String, ArrayList<Link>>();
 		outputLinks = new ArrayList<Link>();
-		inputPorts = new ArrayList<String>();
-		outputPorts = new ArrayList<String>();
+		inputportTerminals = new ArrayList<String>();
+		outputPortTerminals = new ArrayList<String>();
 		newInstance = true;
 		validityStatus = ValidityStatus.WARN;
+		
+		
+		
+		initPortSettings();
+		
+	}
+	
+	private void initPortSettings(){
+		componentName = DynamicClassProcessor.INSTANCE
+				.getClazzName(this.getClass());
+		System.out.println("componentName: "+componentName);
+		portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+		
+		ports = new Hashtable<String, Port>();
+		
+		for(PortSpecification p:portSpecification)
+		{ 	
+			String portTerminal = p.getTypeOfPort() + p.getSequenceOfPort();
+			Port port = new Port(portTerminal, this);
+			ports.put(portTerminal, port);
+		}
+	}
+	
+	public List<PortSpecification> getPortSpecification() {
+		return portSpecification;
+	}
+
+	public Port getPort(String terminal) {
+		return ports.get(terminal);
+	}
+
+	public List<Port> getChildren() {
+		return new ArrayList<Port>(ports.values());
+		
 	}
 	
 	private void updateConnectionProperty(String prop, Object newValue) {
@@ -107,26 +148,26 @@ public abstract class Component extends Model {
 	}
 
 	
-	public void addInputPort(String terminal){
-		inputPorts.add(terminal);
+	public void engageInputPort(String terminal){
+		inputportTerminals.add(terminal);
 	}
-	public void removeInputPort(String terminal){
-		inputPorts.remove(terminal);
+	public void freeInputPort(String terminal){
+		inputportTerminals.remove(terminal);
 	}
-	public boolean hasInputPort(String terminal) {
-		return inputPorts.contains(terminal);
+	public boolean isInputPortEngaged(String terminal) {
+		return inputportTerminals.contains(terminal);
 		
 	}
 
 	
-	public void addOutputPort(String terminal){
-		outputPorts.add(terminal);
+	public void engageOutputPort(String terminal){
+		outputPortTerminals.add(terminal);
 	}
-	public void removeOutputPort(String terminal){
-		outputPorts.remove(terminal);
+	public void freeOutputPort(String terminal){
+		outputPortTerminals.remove(terminal);
 	}
-	public boolean hasOutputPort(String terminal) {
-		return outputPorts.contains(terminal);
+	public boolean isOutputPortEngaged(String terminal) {
+		return outputPortTerminals.contains(terminal);
 	}
 
 	public void setProperties(Map<String, Object> properties) {

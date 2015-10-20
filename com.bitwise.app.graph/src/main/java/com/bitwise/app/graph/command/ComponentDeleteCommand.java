@@ -64,9 +64,9 @@ public class ComponentDeleteCommand extends Command {
 			link.detachSource();
 			link.detachTarget();
 			if(link.getSource()!=null)
-				link.getSource().removeOutputPort(link.getSourceTerminal());
+				link.getSource().freeOutputPort(link.getSourceTerminal());
 			if(link.getTarget()!=null)
-				link.getTarget().removeInputPort(link.getTargetTerminal());
+				link.getTarget().freeInputPort(link.getTargetTerminal());
 		}
 		
 		targetConnections.addAll(component.getTargetConnections());
@@ -75,9 +75,9 @@ public class ComponentDeleteCommand extends Command {
 			link.detachSource();
 			link.detachTarget();
 			if(link.getSource()!=null)
-				link.getSource().removeOutputPort(link.getSourceTerminal());
+				link.getSource().freeOutputPort(link.getSourceTerminal());
 			if(link.getTarget()!=null)
-				link.getTarget().removeInputPort(link.getTargetTerminal());
+				link.getTarget().freeInputPort(link.getTargetTerminal());
 		}
 	}
 	
@@ -85,17 +85,17 @@ public class ComponentDeleteCommand extends Command {
 		for (int i = 0; i < sourceConnections.size(); i++) {
 			Link link = (Link) sourceConnections.get(i);
 			link.attachSource();
-			link.getSource().addOutputPort(link.getSourceTerminal());
+			link.getSource().engageOutputPort(link.getSourceTerminal());
 			link.attachTarget();
-			link.getTarget().addInputPort(link.getTargetTerminal());
+			link.getTarget().engageInputPort(link.getTargetTerminal());
 		}
 		sourceConnections.clear();
 		for (int i = 0; i < targetConnections.size(); i++) {
 			Link link = (Link) targetConnections.get(i);
 			link.attachSource();
-			link.getSource().addOutputPort(link.getSourceTerminal());
+			link.getSource().engageOutputPort(link.getSourceTerminal());
 			link.attachTarget();
-			link.getTarget().addInputPort(link.getTargetTerminal());
+			link.getTarget().engageInputPort(link.getTargetTerminal());
 		}
 		targetConnections.clear();
 	}

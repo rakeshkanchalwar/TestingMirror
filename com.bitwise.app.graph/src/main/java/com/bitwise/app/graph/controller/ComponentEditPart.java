@@ -28,7 +28,9 @@ import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
+import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.graph.model.Port;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 
@@ -110,9 +112,9 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	protected IFigure createFigure() {
 		IFigure figure = createFigureForModel();
 		figure.setOpaque(true); // non-transparent figure
-		//figure.setBackgroundColor(ColorConstants.white);
 		ValidityStatus status = (ValidityStatus) getCastedModel().getProperties().get(Component.Props.STATUS.getValue());
 		((ComponentFigure)figure).setStatus(status);
+
 		return figure;
 	}
 
@@ -126,6 +128,12 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return (Component) getModel();
 	}
 
+	@Override
+	protected List getModelChildren() {
+		// return a list of models
+		return ((Component)getModel()).getChildren();
+	}
+	
 	/**
 	 * Map connection anchor to terminal.
 	 * 
@@ -223,6 +231,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
 				getFigure(), bounds);
+		
 	}
 
 	@Override
