@@ -32,7 +32,6 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		height = componentFigure.getHeight();
 		//PortFigure portFigure = new PortFigure(ELTColorConstants.darkGrey, terminal);
 		
-		System.out.println("PortFigure.createFigure for terminal: "+terminal);
 		
 		List<PortSpecification> portSpecifications = getCastedModel().getParent().getPortSpecification();
 		Point portPoint = null;

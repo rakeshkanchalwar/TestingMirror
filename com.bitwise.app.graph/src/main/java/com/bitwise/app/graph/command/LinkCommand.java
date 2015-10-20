@@ -24,12 +24,8 @@ public class LinkCommand extends Command{
 	/** The connection instance. */
 	private Link connection;
 	private Component source, target;
-	protected String sourceTerminal, targetTerminal;
+	private String sourceTerminal, targetTerminal;
 
-	protected Component oldSource;
-	protected String oldSourceTerminal;
-	protected Component oldTarget;
-	protected String oldTargetTerminal;
 	/**
 	 * Instantiate a command that can create a connection between two shapes.
 	 * @param source the source endpoint (a non-null Shape instance)
@@ -164,6 +160,9 @@ public class LinkCommand extends Command{
 	}
 
 	public void setSource(Component newSource) {
+		if (newSource == null) {
+			throw new IllegalArgumentException();
+		}
 		source = newSource;
 	}
 
@@ -179,10 +178,6 @@ public class LinkCommand extends Command{
 	public void setConnection(Link w) {
 
 		connection = w;
-		oldSource = w.getSource();
-		oldTarget = w.getTarget();
-		oldSourceTerminal = w.getSourceTerminal();
-		oldTargetTerminal = w.getTargetTerminal();
 	}
 
 	@Override
@@ -200,15 +195,11 @@ public class LinkCommand extends Command{
 
 		connection.detachSource();
 		connection.detachTarget();
+		
+		source.freeOutputPort(connection.getSourceTerminal());
+		target.freeInputPort(connection.getTargetTerminal());
 
-		connection.setSource(oldSource);
-		logger.debug("Link comd Old Name :{}",oldSource.getProperties().get("name"));
-		connection.setTarget(oldTarget);
-		connection.setSourceTerminal(oldSourceTerminal);
-		connection.setTargetTerminal(oldTargetTerminal);
-
-		connection.attachSource();
-		connection.attachTarget();
+		
 
 	}
 }

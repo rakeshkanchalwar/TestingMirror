@@ -169,9 +169,11 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		handleKeyStrokes(viewer);
 	}
 
+	@Override
 	protected PaletteViewerProvider createPaletteViewerProvider() {
 		return new PaletteViewerProvider(getEditDomain()) {
 
+			@Override
 			protected void configurePaletteViewer(final PaletteViewer viewer) {
 				super.configurePaletteViewer(viewer);
 				viewer.setEditPartFactory(new CustomPaletteEditPartFactory(null,palatteBackgroundColor));
@@ -190,6 +192,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		};
 	}
 
+	@Override
 	public void commandStackChanged(EventObject event) {		
 		setDirty(true);
 		firePropertyChange(IEditorPart.PROP_DIRTY);
@@ -242,10 +245,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					new SimpleFactory(clazz),
 					ImageDescriptor
 					.createFromURL(prepareIconPathURL(componentConfig
-							.getIconPath())),
+							.getPaletteIconPath())),
 							ImageDescriptor
 							.createFromURL(prepareIconPathURL(componentConfig
-									.getIconPath())));
+									.getPaletteIconPath())));
 			categoryPaletteConatiner.get(componentConfig.getCategory().name())
 			.add(component);
 
@@ -269,12 +272,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				"Solid connection",
 				"Create a solid-line connection",
 				new CreationFactory() {
+					@Override
 					public Object getNewObject() {
 						return null;
 					}
 
 					// see ShapeEditPart#createEditPolicies()
 					// this is abused to transmit the desired line style
+					@Override
 					public Object getObjectType() {
 						return Link.SOLID_CONNECTION;
 					}
@@ -310,6 +315,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	 */
 	private TransferDropTargetListener createTransferDropTargetListener() {
 		return new TemplateTransferDropTargetListener(getGraphicalViewer()) {
+			@Override
 			protected CreationFactory getFactory(Object template) {
 				return new SimpleFactory((Class) template);
 			}
@@ -348,6 +354,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		viewer.setKeyHandler(keyHandler);
 	}
 	
+	@Override
 	public void createActions() {
 		super.createActions();
 		ActionRegistry registry = getActionRegistry();
@@ -477,6 +484,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return container;
 	}
 
+	@Override
 	public void doSaveAs() {
 		String METHOD_NAME = "ETLGraphicalEditor. doSaveAs()";
 		logger.debug(METHOD_NAME);
@@ -603,6 +611,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.setPartName(partName);
 	}
 
+	@Override
 	public CommandStack getCommandStack() {
 		return super.getCommandStack();
 	}
@@ -615,6 +624,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(this), IResourceChangeEvent.POST_CHANGE);
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(new ResourceChangeListener(this));
