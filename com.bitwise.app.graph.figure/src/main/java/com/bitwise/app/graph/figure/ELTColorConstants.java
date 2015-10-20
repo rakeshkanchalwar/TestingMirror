@@ -11,11 +11,12 @@ public interface ELTColorConstants {
 	public final static Color lightGrey = new Color(null,220, 221, 227);
 	public final static Color lightBlue = new Color(null, 22, 169, 199);
 	public final static Color darkBlue =  new Color(null, 17, 128, 151);
+	public final static Color componentSelectBlue =  new Color(null, 83,126,137);
 	public final static Color black = ColorConstants.black;
 
 	
 	public final static Color bgComponent = lightGrey;
-	public final static Color bgComponentSelected = lightBlue;
+	public final static Color bgComponentSelected = componentSelectBlue;
 	public final static Color componentBorder = darkGrey;
 	public final static Color componentSelectedBorder = darkBlue;
 	
