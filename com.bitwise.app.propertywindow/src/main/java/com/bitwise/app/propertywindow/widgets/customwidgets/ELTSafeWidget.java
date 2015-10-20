@@ -78,7 +78,7 @@ public class ELTSafeWidget extends AbstractWidget{
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_IN.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			
 			e1.printStackTrace();

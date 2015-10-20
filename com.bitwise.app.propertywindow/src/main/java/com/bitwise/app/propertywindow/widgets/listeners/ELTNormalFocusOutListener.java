@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Widget;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
-public class ELTFocusOutListener implements IELTListener {
+public class ELTNormalFocusOutListener implements IELTListener {
 
 	ControlDecoration txtDecorator;
 
@@ -43,10 +43,7 @@ public class ELTFocusOutListener implements IELTListener {
 						((Text) widgetList[0]).setToolTipText(Messages.EMPTYFIELDMESSAGE);
 					} else {
 						txtDecorator.hide();
-						((Text) widgetList[0]).setText(charSet.replace("@{", "").replace("}", ""));
-						((Text) widgetList[0]).setText("@{"+((Text) widgetList[0]).getText()+"}");
-						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
-					}
+							}
 
 				} else {
 					txtDecorator.hide();

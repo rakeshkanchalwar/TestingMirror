@@ -55,7 +55,7 @@ public class ELTPhaseWidget extends AbstractWidget {
 
 		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
 		try {
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(),
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.NORMAL_FOCUS_OUT.getListener(),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_NUMERIC.getListener(),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());

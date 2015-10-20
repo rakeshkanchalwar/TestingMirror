@@ -25,13 +25,15 @@ import com.bitwiseglobal.graph.main.ObjectFactory;
 
 
 public class ConverterUtil {
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(ConverterUtil.class);
+	private static final Logger LOGGER = LogFactory.INSTANCE.getLogger(ConverterUtil.class);
 	public static final ConverterUtil INSTANCE = new ConverterUtil();
 	
-	private ConverterUtil(){}
+	private ConverterUtil(){
+		
+	}
 	
 	public void convertToXML(Container container, boolean validate, IFile outPutFile) throws EngineException,Exception{
-		logger.debug("Creating converter based on component");
+		LOGGER.debug("Creating converter based on component");
 		
 			Graph graph = new ObjectFactory().createGraph();
 			List<Component> children = container.getChildren();
@@ -44,21 +46,19 @@ public class ConverterUtil {
 				}
 			}
 			marshall(graph, validate,outPutFile);
-		//throw new IOException();
+		
 		
 	}
 	
 	
 	private void marshall(Graph graph, boolean validate,IFile outPutFile) {
-		logger.debug("Marshling genrated object into target XML");
+		LOGGER.debug("Marshling genrated object into target XML");
 		ByteArrayOutputStream out = null;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(graph.getClass());
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			out = new ByteArrayOutputStream();
 		    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		   	 
-			//marshaller.setProperty("com.sun.xml.internal.bind.characterEscapeHandler", new CustomCharacterEscapeHandler());
 			marshaller.marshal(graph, out);
 		 	 
 			out = ComponentXpath.INSTANCE.addParameters(out);
@@ -69,13 +69,13 @@ public class ConverterUtil {
 			out.close();
 			
 		} catch (Exception exception) {
-			logger.error("Failed in marshall", exception);
+			LOGGER.error("Failed in marshall", exception);
 		}finally{
 			if(out != null){
 				try {
 					out.close();
 				} catch (IOException e) {
-				//TODO ADD logger
+				LOGGER.error("ERROR WHILE CLOSING OUT STREAM OF TARGETXML"+e);
 				}
 			}
 		}
@@ -83,14 +83,3 @@ public class ConverterUtil {
 
 }
 
-
-
-
-//JAXBContext jc = JAXBContext.newInstance(graph.getClass());
-// 
-//  Unmarshaller u = jc.createUnmarshaller();
-// 
-//  Graph c = (Graph) u.unmarshal(new ByteArrayInputStream(out.toByteArray()));
-//
-//logger.debug("GRAPH DATA ::<<<<<"+((FileDelimited)c.getInputOrOutputOrStraightPull().get(0)).getDelimiter().getValue()+">>>>>>");
-////"C://WorkSpace//runtime-com.bitwise.app.perspective.product//XpathTEST//CdataTest.xml";
