@@ -23,28 +23,33 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
 
 public class ComponentFigure extends Figure implements Validator{
-	private Component.ValidityStatus status;
-	private String labelName;
-	private FixedConnectionAnchor c; 
-	protected Hashtable<String, FixedConnectionAnchor> connectionAnchors;
-	protected List<FixedConnectionAnchor> inputConnectionAnchors;
-	protected List<FixedConnectionAnchor> outputConnectionAnchors;
-	protected List<PortSpecification> portspecification;
 	
-	protected Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
-	protected Point labelPoint;
-	
-	protected Color borderColor;
-	protected Color selectedBorderColor;	
-	protected Color componentColor;
-	protected Color selectedComponentColor;
-	private int height=0;
-	private int totalPortsofInType=0, totalPortsOfOutType=0;
 	private final XYLayout layout;
+	private int height=0;
+	
+	private FixedConnectionAnchor c; 
+	private Hashtable<String, FixedConnectionAnchor> connectionAnchors;
+	private List<FixedConnectionAnchor> inputConnectionAnchors;
+	private List<FixedConnectionAnchor> outputConnectionAnchors;
+	private List<PortSpecification> portspecification;
+	
+	private int totalPortsofInType=0, totalPortsOfOutType=0;
 	private PortFigure port;
-	protected Hashtable<String, PortFigure> ports;
-	protected String canvasIconPath;
-	protected Image canvasIcon;
+	private Hashtable<String, PortFigure> ports;
+	
+	private String labelName;
+	private Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
+	private Point labelPoint;
+	
+	private Color borderColor;
+	private Color selectedBorderColor;	
+	private Color componentColor;
+	private Color selectedComponentColor;
+	
+	private String canvasIconPath;
+	private Image canvasIcon;
+	
+	private Component.ValidityStatus status;
 	
 	
 	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath) {
@@ -52,10 +57,11 @@ public class ComponentFigure extends Figure implements Validator{
 		this.portspecification = portSpecification;
 		this.canvasIconPath = XMLConfigUtil.CONFIG_FILES_PATH + cIconPath;
 		
-		canvasIcon = new Image(null, canvasIconPath);
-		
 		layout = new XYLayout();
 		setLayoutManager(layout);
+		
+		canvasIcon = new Image(null, canvasIconPath);
+		
 		ports = new Hashtable<String, PortFigure>();
 		
 		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
@@ -75,19 +81,7 @@ public class ComponentFigure extends Figure implements Validator{
 		for(PortSpecification p:portspecification)
 		{ 	
 			initAnchors(p);	
-			initPorts(p);	
 		}
-		
-	}
-
-	private void initPorts(PortSpecification p) {
-		Point portPoint;
-		port =  new PortFigure(borderColor, p.getTypeOfPort()+ p.getSequenceOfPort());
-		portPoint=getPortLocation(p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
-		add(port);
-		setConstraint(port, new Rectangle(portPoint.x, portPoint.y, -1, -1));
-		String portTerminal = p.getTypeOfPort() + p.getSequenceOfPort();
-		ports.put(portTerminal, port);
 		
 	}
 
@@ -159,26 +153,6 @@ public class ComponentFigure extends Figure implements Validator{
 		selectedBorderColor = ELTColorConstants.componentSelectedBorder;
 	}
 	
-	private Point getPortLocation(int totalPortsOfThisType, String type, int sequence) {
-		Point p = null ;
-		int width = 100;
-		int portOffsetFactor = totalPortsOfThisType+1;
-		int portOffset=height/portOffsetFactor;
-		int xLocation, yLocation;
-
-		if(type.equalsIgnoreCase("in")){
-			xLocation=0;
-			yLocation=portOffset*sequence - 4;
-			p=new Point(xLocation, yLocation);
-		}
-		else if(type.equalsIgnoreCase("out")){
-			xLocation=width-7;
-			yLocation=portOffset*sequence - 4;
-			p=new Point(xLocation, yLocation);
-		}
-		return p;
-	}
-	
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		Rectangle r = getBounds().getCopy();
@@ -191,7 +165,7 @@ public class ComponentFigure extends Figure implements Validator{
 		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 16));
 	}
 	
-	protected void drawLable(Rectangle r, Graphics graphics){
+	private void drawLable(Rectangle r, Graphics graphics){
 		int x = (r.width - getLabelName().length() * 6) / 2;
 		labelPoint = new Point(x, r.height / 2 + 8);
 		graphics.setForegroundColor(ELTColorConstants.black);

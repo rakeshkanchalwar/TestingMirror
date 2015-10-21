@@ -75,8 +75,6 @@ public abstract class Component extends Model {
 		newInstance = true;
 		validityStatus = ValidityStatus.WARN;
 		
-		
-		
 		initPortSettings();
 		
 	}
@@ -91,7 +89,7 @@ public abstract class Component extends Model {
 		for(PortSpecification p:portSpecification)
 		{ 	
 			String portTerminal = p.getTypeOfPort() + p.getSequenceOfPort();
-			Port port = new Port(portTerminal, this);
+			Port port = new Port(portTerminal, this, p.getNumberOfPorts(), p.getTypeOfPort(), p.getSequenceOfPort());
 			ports.put(portTerminal, port);
 		}
 	}

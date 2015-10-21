@@ -67,10 +67,6 @@ public class PortFigure extends Figure {
 
 	}
 
-//	protected boolean useLocalCoordinates() {
-//		return true;
-//	}
-
 	public Rectangle getHandleBounds() {
 		return getBounds().getCopy();
 	}
@@ -79,6 +75,14 @@ public class PortFigure extends Figure {
 		return terminal;
 	}
 	
+	public Color getPortColor() {
+		return portColor;
+	}
+
+	public void setPortColor(Color portColor) {
+		this.portColor = portColor;
+	}
+
 	@Override
 	public String toString() {
 				
