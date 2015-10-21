@@ -40,6 +40,7 @@ public class ComponentSetConstraintCommand extends Command {
 		setLabel("move / resize");
 	}
 	
+	@Override
 	public boolean canExecute() {
 		Object type = request.getType();
 		// make sure the Request is of a type we support:
@@ -50,16 +51,19 @@ public class ComponentSetConstraintCommand extends Command {
 				);
 	}
 	
+	@Override
 	public void execute() {
 		oldBounds = new Rectangle(shape.getLocation(), shape.getSize());
 		redo();
 	}
 	
+	@Override
 	public void redo() {
 		shape.setSize(newBounds.getSize());
 		shape.setLocation(newBounds.getLocation());
 	}
 
+	@Override
 	public void undo() {
 		shape.setSize(oldBounds.getSize());
 		shape.setLocation(oldBounds.getLocation());

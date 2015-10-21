@@ -32,6 +32,7 @@ public class ShapesXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	/**
 	 * Creates the command which is used to move and/or resize a shape
 	 */
+	@Override
 	protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
 		if (child instanceof ComponentEditPart && constraint instanceof Rectangle) {
 			// return a command that can move and/or resize a Shape

@@ -20,6 +20,7 @@ public class ComponentsEditPartFactory implements EditPartFactory{
 	/**
 	 * Creates edit parts for given model.
 	 */
+	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
 		// get EditPart for model element
 		EditPart part = null;

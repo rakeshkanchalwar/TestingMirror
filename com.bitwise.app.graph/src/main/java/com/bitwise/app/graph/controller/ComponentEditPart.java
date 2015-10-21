@@ -48,6 +48,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	 * Upon activation, attach to the model element as a property change
 	 * listener.
 	 */
+	@Override
 	public void activate() {
 		if (!isActive()) {
 			super.activate();
@@ -59,6 +60,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	 * Upon deactivation, detach from the model element as a property change
 	 * listener.
 	 */
+	@Override
 	public void deactivate() {
 		if (isActive()) {
 			super.deactivate();
@@ -157,6 +159,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return getCastedModel().getTargetConnections();
 	}
 
+	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(
 			ConnectionEditPart connection) {
 
@@ -165,6 +168,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				wire.getSourceTerminal());
 	}
 
+	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getSourceConnectionAnchorAt(pt);
@@ -175,6 +179,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		return (ComponentFigure) getFigure();
 	}
 
+	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(
 			ConnectionEditPart connection) {
 
@@ -183,6 +188,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				wire.getTargetTerminal());
 	}
 
+	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		Point pt = new Point(((DropRequest) request).getLocation());
 		return getComponentFigure().getTargetConnectionAnchorAt(pt);
@@ -195,6 +201,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.
 	 * PropertyChangeEvent)
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 
 		String prop = evt.getPropertyName();
@@ -208,6 +215,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		}
 	}
 
+	@Override
 	protected void refreshVisuals() {
 		// notify parent container of changed position & location
 		// if this line is removed, the XYLayoutManager used by the parent
