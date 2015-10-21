@@ -30,13 +30,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void createWindowContents(Shell shell) {
     	
     	super.createWindowContents(shell);
+
   
     }
 
 	@Override
 	public void postWindowOpen() {
 		super.postWindowOpen();
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().setMaximized(true);
+
+		getWindowConfigurer().getWindow().getShell().setMaximized(true);
+		getWindowConfigurer().getWindow().getActivePage().resetPerspective();
 	}
     
     
