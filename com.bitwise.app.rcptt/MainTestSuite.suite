@@ -5,7 +5,7 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/21/15 3:53 PM
+Save-Time: 10/21/15 5:31 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -20,15 +20,13 @@ _UtHuYE2PEeWVXcFohWFibQ	// kind: 'test' name: '2_ProjectExplorer' path: 'com.bit
 _DI38wEyYEeWx06sNG_5SNw	// kind: 'test' name: 'PerspectiveToolbarMenubarTest' path: 'com.bitwise.app.perspective/PerspectiveToolbarMenubarTest.test'
 _TBJ-8EvmEeW6GZlCjF17TQ	// kind: 'test' name: '3_KeyBindingTest' path: 'com.bitwise.app.perspective/3_KeyBindingTest.test'
 _TBwb4EvmEeW6GZlCjF17TQ	// kind: 'test' name: 'Panels/Views Hide restore close launch' path: 'com.bitwise.app.perspective/Panels_Views Hide restore close launch.test'
-_rtczoFeZEeW08Mo9tQCunw	// kind: 'test' name: 'Tt_ComponentLabelTestCase' path: 'com.bitwise.app.componentlabel/Tt_ComponentLabelTestCase.test'
 _ilxg8GwzEeWN3Jyy0d9lOw	// kind: 'test' name: 'ZWindowCloseTestCase' path: 'com.bitwise.app.menubar/ZWindowCloseTestCase.test'
 _nFjYQG2OEeWxZIBc65q_2g	// kind: 'test' name: 'ImportFromGitTestCase' path: 'com.bitwise.app.menubar/ImportFromGitTestCase.test'
 _Cf2gUG2GEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectCreate' path: 'com.bitwise.app.menubar/ImportProjectCreate.test'
 _DT3FQG2IEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectGetFromLocal' path: 'com.bitwise.app.menubar/ImportProjectGetFromLocal.test'
 _p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'ZFileMenuTestCase' path: 'com.bitwise.app.menubar/ZFileMenuTestCase.test'
 _bmAhQGtpEeWjZOxOxCB5iw	// kind: 'test' name: 'Z_CloseWindowTestCase' path: 'com.bitwise.app.menubar/Z_CloseWindowTestCase.test'
-_EBh4kHfFEeWIQqWGoKie1g	// kind: 'test' name: 'TestReconnection' path: 'com.bitwise.app.reconnectfunctionality/TestReconnection.test'
-__EF0kHfMEeWIQqWGoKie1g	// kind: 'test' name: 'TestStandardAction' path: 'com.bitwise.app.standardaction/TestStandardAction.test'
 _qh4lsHfVEeWIQqWGoKie1g	// kind: 'test' name: 'TestFunctionalitywithProperty' path: 'com.bitwise.app.dedup/TestFunctionalitywithProperty.test'
+_Mr_wAGzdEeWdSJQceekD9Q	// kind: 'test' name: 'XML_GenrationTest' path: 'com.bitwise.app.engine/XML_GenrationTest.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--
