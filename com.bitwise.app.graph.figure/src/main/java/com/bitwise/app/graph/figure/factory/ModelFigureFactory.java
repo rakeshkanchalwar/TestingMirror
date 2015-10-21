@@ -11,8 +11,6 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 
 public class ModelFigureFactory {
 	
-	private ModelFigureFactory()
-	{}
 	 
 	private static final Logger log = LogFactory.INSTANCE.getLogger(ModelFigureFactory.class);
 	private static final String COM_BITWISE_APP_GRAPH_FIGURE = "com.bitwise.app.graph.figure.";
