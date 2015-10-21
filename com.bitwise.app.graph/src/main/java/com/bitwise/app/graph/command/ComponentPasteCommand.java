@@ -7,9 +7,12 @@ import java.util.Iterator;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.Clipboard;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.model.Component;
 
 // TODO: Auto-generated Javadoc
@@ -45,7 +48,10 @@ public class ComponentPasteCommand extends Command {
 		while (it.hasNext()) {
        	Component node = it.next();                              
 			try {
+				IWorkbenchPage page = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getActivePage();
 					Component clonedComponent =  node.clone();
+					clonedComponent.setParent(((ETLGraphicalEditor) page.getActiveEditor()).getContainer());
 					Point location = node.getLocation();
 					int incrementedLocation = pasteCounter * 20;
 					clonedComponent.setLocation(new Point(location.getCopy().x + incrementedLocation,

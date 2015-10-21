@@ -451,10 +451,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	public void createOutputStream(OutputStream out) throws IOException {
 		String METHOD_NAME = "createOutputStream - ";
 		logger.debug(METHOD_NAME);
-		out.write(fromObjectToXML(getModel()).getBytes());
+		out.write(fromObjectToXML(getContainer()).getBytes());
 	}
 
-	public Container getModel() {
+	public Container getContainer() {
 		return container;
 	}
 
