@@ -5,7 +5,7 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/21/15 7:21 PM
+Save-Time: 10/21/15 7:44 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -24,6 +24,5 @@ _nFjYQG2OEeWxZIBc65q_2g	// kind: 'test' name: 'ImportFromGitTestCase' path: 'com
 _Cf2gUG2GEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectCreate' path: 'com.bitwise.app.menubar/ImportProjectCreate.test'
 _DT3FQG2IEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectGetFromLocal' path: 'com.bitwise.app.menubar/ImportProjectGetFromLocal.test'
 _p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'ZFileMenuTestCase' path: 'com.bitwise.app.menubar/ZFileMenuTestCase.test'
-_Mr_wAGzdEeWdSJQceekD9Q	// kind: 'test' name: 'XML_GenrationTest' path: 'com.bitwise.app.engine/XML_GenrationTest.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--
