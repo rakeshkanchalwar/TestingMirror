@@ -40,13 +40,9 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
-import org.eclipse.gef.palette.ConnectionCreationToolEntry;
-import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteToolbar;
-import org.eclipse.gef.palette.PanningSelectionToolEntry;
-import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -92,7 +88,6 @@ import com.bitwise.app.graph.editorfactory.GenrateContainerData;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.factory.CustomPaletteEditPartFactory;
 import com.bitwise.app.graph.model.Container;
-import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.thoughtworks.xstream.XStream;
 
@@ -241,7 +236,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 					.createClass(componentConfig);
 
 			CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-					componentConfig.getName(), "Custom components", clazz,
+					componentConfig.getName(), "Component", clazz,
 					new SimpleFactory(clazz),
 					ImageDescriptor
 					.createFromURL(prepareIconPathURL(componentConfig
@@ -400,7 +395,6 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	public boolean isDirty() {
-		// TODO Auto-generated method stub
 		return dirty;
 	}
 
@@ -449,8 +443,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	public void createOutputStream(OutputStream out) throws IOException {
-		String METHOD_NAME = "createOutputStream - ";
-		logger.debug(METHOD_NAME);
+		
 		out.write(fromObjectToXML(getContainer()).getBytes());
 	}
 
@@ -460,8 +453,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	public void doSaveAs() {
-		String METHOD_NAME = "ETLGraphicalEditor. doSaveAs()";
-		logger.debug(METHOD_NAME);
+		
 		IFile file=opeSaveAsDialog();
 		if(file!=null){
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -476,7 +468,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				genrateTargetXml(file);
 				getCommandStack().markSaveLocation();
 			} catch (CoreException  | IOException ce) {
-				logger.error(METHOD_NAME,ce);
+				
 				MessageDialog.openError(new Shell(), "Error", "Exception occured while saving the graph -\n"+ce.getMessage());
 			}
 			setDirty(false);
@@ -516,16 +508,15 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	public Object fromXMLToObject(InputStream xml) {
 		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
 		Object obj = null;
-		logger.debug(METHOD_NAME);
+		
 		XStream xs = new XStream();
 		try {
 
 			obj = xs.fromXML(xml);
-			logger.debug(METHOD_NAME
-					+ "Sucessfully converted JAVA Object from XML Data");
+			logger.debug("Sucessfully converted JAVA Object from XML Data");
 			xml.close();
 		} catch (Exception e) {
-			logger.error(METHOD_NAME,e);
+			
 			MessageDialog
 			.openError(new Shell(), "Error", "Invalid graph file.");
 
@@ -541,16 +532,15 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	 * @return the string
 	 */
 	public String fromObjectToXML(Serializable object) {
-		String METHOD_NAME = "ETLGraphicalEditor.fromObjectToXML(Serializable object)";
+		
 		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
-		logger.debug(METHOD_NAME);
+		
 		XStream xs = new XStream();
 		try {
 			str = str + xs.toXML(object);
-			logger.debug(
-					METHOD_NAME + "Sucessfully converted XML from JAVA Object");
+			logger.debug( "Sucessfully converted XML from JAVA Object");
 		} catch (Exception e) {
-			logger.error(METHOD_NAME,e);
+			logger.error(e.getMessage());
 		}
 		return str;
 	}
@@ -562,8 +552,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	 *            the ifile
 	 */
 	public void genrateTargetXml(IFile ifile) {
-		String METHOD_NAME="genrateTargetXml - ";
-		logger.debug(METHOD_NAME+"genrating target XML");
+		
+		logger.debug("Genrating target XML");
 		IFile outPutFile = ResourcesPlugin.getWorkspace().getRoot().getFile(ifile.getFullPath().removeFileExtension().addFileExtension("xml"));
 		try {
 			ConverterUtil.INSTANCE.convertToXML(container, false, outPutFile);
