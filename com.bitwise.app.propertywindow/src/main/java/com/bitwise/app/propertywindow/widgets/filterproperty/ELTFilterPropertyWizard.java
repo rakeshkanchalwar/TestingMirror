@@ -258,6 +258,7 @@ public class ELTFilterPropertyWizard {
 					table.remove(temp);
 					propertyLst.remove(temp);
 					isAnyUpdatePerformed = true;
+					applyButton.setEnabled(true);
 				}
 			}
 		});
@@ -276,7 +277,7 @@ public class ELTFilterPropertyWizard {
 						lblPropertyError.setVisible(false);
 						okButton.setEnabled(true);
 						addButton.setEnabled(true);
-						applyButton.setEnabled(false);
+						applyButton.setEnabled(true);
 					}
 				}
 			}
