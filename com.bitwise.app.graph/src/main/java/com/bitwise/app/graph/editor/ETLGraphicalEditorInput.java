@@ -32,6 +32,7 @@ public class ETLGraphicalEditorInput implements IEditorInput {
 		return (this.name != null);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ETLGraphicalEditorInput))
 			return false;
