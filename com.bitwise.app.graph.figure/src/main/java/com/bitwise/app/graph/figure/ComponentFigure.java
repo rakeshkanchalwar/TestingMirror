@@ -2,9 +2,10 @@
 package com.bitwise.app.graph.figure;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
@@ -27,15 +28,14 @@ public class ComponentFigure extends Figure implements Validator{
 	private final XYLayout layout;
 	private int height=0;
 	
-	private FixedConnectionAnchor c; 
-	private Hashtable<String, FixedConnectionAnchor> connectionAnchors;
+	private FixedConnectionAnchor fCAnchor; 
+	private HashMap<String, FixedConnectionAnchor> connectionAnchors;
 	private List<FixedConnectionAnchor> inputConnectionAnchors;
 	private List<FixedConnectionAnchor> outputConnectionAnchors;
 	private List<PortSpecification> portspecification;
 	
 	private int totalPortsofInType=0, totalPortsOfOutType=0;
-	private PortFigure port;
-	private Hashtable<String, PortFigure> ports;
+	private HashMap<String, PortFigure> ports;
 	
 	private String labelName;
 	private Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
@@ -62,9 +62,9 @@ public class ComponentFigure extends Figure implements Validator{
 		
 		canvasIcon = new Image(null, canvasIconPath);
 		
-		ports = new Hashtable<String, PortFigure>();
+		ports = new HashMap<String, PortFigure>();
 		
-		connectionAnchors = new Hashtable<String, FixedConnectionAnchor>();
+		connectionAnchors = new HashMap<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		outputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		
@@ -86,7 +86,7 @@ public class ComponentFigure extends Figure implements Validator{
 	}
 
 	private void setPortCount(PortSpecification p) {
-		if(p.getTypeOfPort().equalsIgnoreCase("in")){
+		if(("in").equalsIgnoreCase(p.getTypeOfPort())){
 			totalPortsofInType=p.getNumberOfPorts();
 		}
 		else{
@@ -109,12 +109,12 @@ public class ComponentFigure extends Figure implements Validator{
 	}
 
 	private void initAnchors(PortSpecification p) {
-		c = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
-		connectionAnchors.put(c.getType()+c.getSequence(), c);
-		if(p.getTypeOfPort().equalsIgnoreCase("out"))
-			outputConnectionAnchors.add(c);
+		fCAnchor = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
+		connectionAnchors.put(fCAnchor.getType()+fCAnchor.getSequence(), fCAnchor);
+		if(("out").equalsIgnoreCase(p.getTypeOfPort()))
+			outputConnectionAnchors.add(fCAnchor);
 		else
-			inputConnectionAnchors.add(c);
+			inputConnectionAnchors.add(fCAnchor);
 	}
 	
 	/**
@@ -180,14 +180,16 @@ public class ComponentFigure extends Figure implements Validator{
 	}
 
 	public String getConnectionAnchorName(ConnectionAnchor c) {
-		Enumeration<String> keys = connectionAnchors.keys();
+		
+		Set<String> keys = connectionAnchors.keySet();
 		String key;
-		while (keys.hasMoreElements()) {
-			key = keys.nextElement();
-
-			if (connectionAnchors.get(key).equals(c))
+		Iterator<String> it = keys.iterator();
+		
+	     while(it.hasNext()){
+	    	 key=it.next();
+	    	 if (connectionAnchors.get(key).equals(c))
 				return key;
-		}
+	     }
 		return null;
 	}
 

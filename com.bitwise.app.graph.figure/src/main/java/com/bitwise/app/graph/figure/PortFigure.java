@@ -31,6 +31,7 @@ public class PortFigure extends Figure {
 
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof PortFigure) {
 			PortFigure pf = (PortFigure) o;
@@ -44,6 +45,7 @@ public class PortFigure extends Figure {
 		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		int result = 17;
 		int var1 = terminal.length();
@@ -86,12 +88,11 @@ public class PortFigure extends Figure {
 	@Override
 	public String toString() {
 				
-		 String str="\n******************************************"+
+		 return "\n******************************************"+
 				"\nTerminal: "+this.terminal+
 				"\nParent Figure: "+this.getParent()+
 				"\nHashcode: "+ hashCode()+
 				"\n******************************************\n";
-		 return str;
 	}
 
 }

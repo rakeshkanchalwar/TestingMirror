@@ -2,7 +2,6 @@
 package com.bitwise.app.graph.figure;
 
 import org.eclipse.draw2d.AbstractConnectionAnchor;
-import org.eclipse.draw2d.AnchorListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.geometry.Point;
@@ -26,6 +25,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	/**
 	 * @see org.eclipse.draw2d.AbstractConnectionAnchor#ancestorMoved(IFigure)
 	 */
+	@Override
 	public void ancestorMoved(IFigure figure) {
 		if (figure instanceof ScalableFigure)
 			return;
@@ -35,7 +35,6 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	@Override
 	public Point getLocation(Point reference) {
 		
-		Point p = null ;
 		int portOffsetFactor = this.totalPortsOfThisType+1;
 		int height = getOwner().getBounds().height;
 		int portOffset=height/portOffsetFactor;
@@ -43,11 +42,11 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		int xLocation =0, yLocation = 0;
 		
 		
-		if(this.type.equalsIgnoreCase("in")){
+		if(("in").equalsIgnoreCase(this.type)){
 			 xLocation=getOwner().getBounds().getTopLeft().x;
 			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
 		}
-		else if(this.type.equalsIgnoreCase("out")){
+		else if(("out").equalsIgnoreCase(this.type)){
 			 xLocation=getOwner().getBounds().getTopRight().x;
 			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
 		}
@@ -81,7 +80,7 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	@Override
 	public String toString() {
 				
-		 String str="\n******************************************"+
+		 return "\n******************************************"+
 				"\nOwner: "+getOwner()+
 				"\nallowMultipleLinks: "+this.allowMultipleLinks+
 				"\nlinkMandatory: "+this.linkMandatory+
@@ -89,13 +88,14 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 				"\nsequence: "+this.sequence+
 				"\ntotalPortsOfThisType: "+this.totalPortsOfThisType+
 				"\n******************************************\n";
-		 return str;
+		 
 	}
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof FixedConnectionAnchor) {
 			FixedConnectionAnchor fa = (FixedConnectionAnchor) o;
@@ -119,20 +119,17 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
+	@Override
 	public int hashCode() {
 		int result = 17;
-		int var1 = (allowMultipleLinks?1:0);
-		int var2 = (linkMandatory?1:0);
+		int var1 = allowMultipleLinks?1:0;
+		int var2 = linkMandatory?1:0;
 		result = 31 * result + var1;
 		result = 31 * result + var2;
 		
 		return result;
 		
 		
-	}
-	@Override
-	public void addAnchorListener(AnchorListener listener) {
-		super.addAnchorListener(listener);
 	}
 	
 }

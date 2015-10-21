@@ -55,7 +55,7 @@ public class FileStorageEditorContainer implements IGenrateContainerData {
 		File file = new File(fileStrorageEditorInput.getToolTipText());
 		FileOutputStream fsout = new FileOutputStream(file);
 		fsout.write(eltGraphicalEditorInstance.fromObjectToXML(
-				eltGraphicalEditorInstance.getModel()).getBytes());
+				eltGraphicalEditorInstance.getContainer()).getBytes());
 		fsout.close();
 		eltGraphicalEditorInstance.getCommandStack().markSaveLocation();
 		eltGraphicalEditorInstance.setDirty(false);
