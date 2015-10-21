@@ -118,11 +118,10 @@ public abstract class Converter {
 	 * @return {@link TypeBaseRecord}
 	 * @throws SchemaException
 	 */
-	protected TypeBaseRecord getSchema() throws SchemaException {
+	protected TypeBaseRecord getSchema(){
 		LOGGER.debug("Genrating TypeBaseRecord data for {}", properties.get(NAME));
 		TypeBaseRecord typeBaseRecord = new TypeBaseRecord();
 		typeBaseRecord.setName("");
-		//typeBaseRecord.getFieldOrRecord().addAll(getFieldOrRecord());
 		typeBaseRecord.getFieldOrRecordOrIncludeExternalSchema().addAll(getFieldOrRecord());		
 		return typeBaseRecord;
 	}

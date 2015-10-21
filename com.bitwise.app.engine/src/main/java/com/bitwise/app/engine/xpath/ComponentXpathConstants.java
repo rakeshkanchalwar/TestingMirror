@@ -21,7 +21,6 @@ public enum ComponentXpathConstants {
 				return xpathConstants;
 			}
 		}
-		//TODO Add logger		
 		throw new IllegalArgumentException(value);
 	}
 

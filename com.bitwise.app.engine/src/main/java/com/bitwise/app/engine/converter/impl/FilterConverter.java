@@ -64,7 +64,7 @@ public class FilterConverter extends TransformConverter {
 		TypeOperationInputFields operationInputFields=new TypeOperationInputFields();
 		operationInputFields.getField().addAll(getOperationField());
 		operation.setInputFields(operationInputFields);
-	//	operation.setClazz(properties.get(PropertyNameConstants.OPERATION_CLASS.value()).toString());
+		operation.setClazz(properties.get(PropertyNameConstants.OPERATION_CLASS.value()).toString());
 		operationList.add(operation);
 		return operationList;
 	}

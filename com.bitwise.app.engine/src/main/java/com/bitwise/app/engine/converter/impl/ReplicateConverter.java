@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.StraightPullConverter;
-import com.bitwise.app.engine.exceptions.PhaseException;
-import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
@@ -30,7 +28,7 @@ public class ReplicateConverter extends StraightPullConverter {
 	}
 
 	@Override
-	public void prepareForXML() throws PhaseException, SchemaException {
+	public void prepareForXML(){
 		logger.debug("Genrating XML for :{}", properties.get(NAME));
 		super.prepareForXML();
 

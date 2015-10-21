@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.engine.converter.StraightPullConverter;
-import com.bitwise.app.engine.exceptions.PhaseException;
-import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.KeepValue;
@@ -24,7 +22,7 @@ import com.bitwiseglobal.graph.straightpulltypes.Dedup.Keep;
 
 public class DedupConverter extends StraightPullConverter {
 
-	Logger logger = LogFactory.INSTANCE.getLogger(DedupConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(DedupConverter.class);
 
 	public DedupConverter(Component component) {
 		super();
@@ -34,8 +32,8 @@ public class DedupConverter extends StraightPullConverter {
 	}
 
 	@Override
-	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("Genrating XML for : {}", properties.get(NAME));
+	public void prepareForXML(){
+		LOGGER.debug("Genrating XML for : {}", properties.get(NAME));
 		super.prepareForXML();
 		Dedup dedup = (Dedup) baseComponent;
 		dedup.setRuntimeProperties(getRuntimeProperties());
@@ -63,7 +61,7 @@ public class DedupConverter extends StraightPullConverter {
 	}
 
 	private Keep getKeep() {
-		logger.debug("Genrating Retention Logic for ::{}", componentName);
+		LOGGER.debug("Genrating Retention Logic for ::{}", componentName);
 		String keepValue = properties.get(
 				PropertyNameConstants.RETENTION_LOGIC_KEEP.value()).toString();
 		Keep keep = new Keep();
@@ -73,7 +71,7 @@ public class DedupConverter extends StraightPullConverter {
 
 	@Override
 	protected List<TypeStraightPullOutSocket> getOutSocket() {
-		logger.debug("Genrating TypeStraightPullOutSocket data for : {}",
+		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}",
 				properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
 		for (Link link : component.getSourceConnections()) {

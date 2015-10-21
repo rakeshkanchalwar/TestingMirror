@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.OutputConverter;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
-import com.bitwise.app.engine.exceptions.PhaseException;
-import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
@@ -28,7 +26,7 @@ Logger logger = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class
 	}
 	
 	@Override
-	public void prepareForXML() throws PhaseException, SchemaException{
+	public void prepareForXML(){
 		logger.debug("prepareForXML - Genrating XML data for "+component);
 		super.prepareForXML();
 		FileFixedWidth fileFixedWidth = (FileFixedWidth) baseComponent;
@@ -44,7 +42,7 @@ Logger logger = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class
 	}
 
 	@Override
-	protected List<TypeOutputInSocket> getOutInSocket() throws SchemaException {
+	protected List<TypeOutputInSocket> getOutInSocket(){
 		logger.debug("getInOutSocket - Genrating TypeOutputInSocket data");
 		List<TypeOutputInSocket> outputinSockets = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {

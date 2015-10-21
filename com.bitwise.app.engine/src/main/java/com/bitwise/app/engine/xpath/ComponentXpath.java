@@ -10,7 +10,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -33,11 +32,11 @@ import com.bitwise.app.engine.util.ConverterUtil;
 public class ComponentXpath {
 
 	private static final String VALUE = "value";
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(ConverterUtil.class);
+	private static final Logger LOGGER = LogFactory.INSTANCE.getLogger(ConverterUtil.class);
 	public static final ComponentXpath INSTANCE = new ComponentXpath();
-	private HashMap<String, String> xpathMap;
+	private Map<String, String> xpathMap;
 
-	public HashMap<String, String> getXpathMap() {
+	public Map<String, String> getXpathMap() {
 		if (xpathMap == null) {
 			xpathMap = new HashMap<String, String>();
 		}
@@ -53,7 +52,7 @@ public class ComponentXpath {
 			doc = dBuilder.parse(new ByteArrayInputStream(out.toByteArray()));
 			doc.getDocumentElement().normalize();
 			XPath xPath = XPathFactory.newInstance().newXPath();
-			logger.debug("GENRATED COMPONENTS XPATH {}", getXpathMap().toString());
+			LOGGER.debug("GENRATED COMPONENTS XPATH {}", getXpathMap().toString());
 			for(Map.Entry<String, String> entry: getXpathMap().entrySet()){
 				NodeList nodeList = (NodeList) xPath.compile(entry.getKey()).evaluate(doc, XPathConstants.NODESET);
 			
@@ -74,18 +73,8 @@ public class ComponentXpath {
 			StreamResult result = new StreamResult(out);
 			transformer.transform(source, result);
 			getXpathMap().clear();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
+		} catch (ParserConfigurationException |SAXException|IOException|XPathExpressionException|TransformerException e) {
+			LOGGER.error("Exception occurred while parametrizing the XML");
 		}
 		
 		return out;

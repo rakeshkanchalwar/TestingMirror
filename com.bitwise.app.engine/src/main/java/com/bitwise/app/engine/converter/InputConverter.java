@@ -2,7 +2,6 @@ package com.bitwise.app.engine.converter;
 
 import java.util.List;
 
-import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwiseglobal.graph.commontypes.TypeInputComponent;
 import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
@@ -10,7 +9,7 @@ import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
 public abstract class InputConverter extends Converter {
 	
 	@Override
-	public void prepareForXML() throws PhaseException, SchemaException{
+	public void prepareForXML() {
 		super.prepareForXML();
 		((TypeInputComponent)baseComponent).getOutSocket().addAll(getInOutSocket());
 		((TypeInputComponent)baseComponent).getDependsOn().add(getDependsOn());
@@ -22,6 +21,6 @@ public abstract class InputConverter extends Converter {
 	 * @return {@link List}
 	 * @throws SchemaException
 	 */
-	protected abstract List<TypeInputOutSocket> getInOutSocket() throws SchemaException;
+	protected abstract List<TypeInputOutSocket> getInOutSocket();
 
 }

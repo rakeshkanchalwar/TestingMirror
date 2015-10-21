@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.InputConverter;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
-import com.bitwise.app.engine.exceptions.PhaseException;
-import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
@@ -28,7 +26,7 @@ public class InputFileDelimitedConverter extends InputConverter {
 	}
 	
 	@Override
-	public void prepareForXML() throws PhaseException, SchemaException{
+	public void prepareForXML(){
 		logger.debug("Genrating XML for {}", properties.get(NAME));	
 		super.prepareForXML();
 		FileDelimited fileDelimited = (FileDelimited) baseComponent;
@@ -47,7 +45,7 @@ public class InputFileDelimitedConverter extends InputConverter {
 	}
 
 	@Override
-	protected List<TypeInputOutSocket> getInOutSocket() throws SchemaException {
+	protected List<TypeInputOutSocket> getInOutSocket(){
 		logger.debug("Genrating TypeInputOutSocket data for {}", properties.get(NAME));
 		List<TypeInputOutSocket> outSockets = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
