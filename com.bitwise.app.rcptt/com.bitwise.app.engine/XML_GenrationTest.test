@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _Mr_wAGzdEeWdSJQceekD9Q
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/15/15 2:29 PM
+Save-Time: 10/21/15 12:46 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -105,12 +105,8 @@ with [get-editor  | get-diagram] {
     mouse-press 487 157 button1 -height 410 -width 741
     mouse-release 487 157 button1 524288 -height 410 -width 741
 }
-with [get-view Palette | get-palette | get-palette-entry "Solid connection"] {
-    mouse-move 6 17 button1 -height 27 -width 27
-    mouse-press 6 17 button1 -height 27 -width 27
-    mouse-release 6 17 button1 524288 -height 27 -width 27
-    mouse-move 26 17 -height 27 -width 27
-}
+
+
 with [get-editor  | get-diagram | get-edit-part -className ContainerEditPart] {
     with [get-edit-part -className ComponentEditPart] {
         mouse-move 33 13 button1 -height 50 -width 128
@@ -126,146 +122,152 @@ with [get-editor  | get-diagram | get-edit-part -className ContainerEditPart] {
         mouse-double-click 53 17 button1 -height 75 -width 93
         mouse-release 53 17 button1 524288 -height 75 -width 93
     }
-    with [get-edit-part -className ComponentEditPart -index 2] {
-        mouse-move 4 13 button1 -height 50 -width 128
-        mouse-press 4 13 button1 -height 50 -width 128
-        mouse-release 4 13 button1 524288 -height 50 -width 128
-    }
-    with [get-edit-part -className ComponentEditPart -index 1] {
-        mouse-move 36 53 button1 -height 75 -width 93
-        mouse-press 36 53 button1 -height 75 -width 93
-        mouse-release 36 53 button1 524288 -height 75 -width 93
-    }
-    with [get-edit-part -className ComponentEditPart -index 3] {
-        mouse-move 27 19 button1 -height 50 -width 128
-        mouse-press 27 19 button1 -height 50 -width 128
-        mouse-release 27 19 button1 524288 -height 50 -width 128
-    }
+   
+    
 }
-with [get-view Palette | get-palette] {
-    get-palette-entry OutputFixedWidth | mouse-move 224 5 -height 46 -width 244
-    get-palette-entry OFDelimited | mouse-move 83 2 -height 46 -width 244
-    get-palette-entry Marquee | mouse-move 2 5 -height 19 -width 19
-    with [get-palette-entry Select] {
-        mouse-move 4 4 button1 -height 19 -width 19
-        mouse-press 4 4 button1 -height 19 -width 19
-        mouse-release 4 4 button1 524288 -height 19 -width 19
-    }
-}
-with [get-editor  | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart] {
-    mouse-move 22 26 button1 -height 50 -width 128
-    mouse-press 22 26 button1 -height 50 -width 128
-    mouse-release 22 26 button1 524288 -height 50 -width 128
-    mouse-press 22 26 button1 -height 50 -width 128
-    mouse-double-click 22 26 button1 -height 50 -width 128
-}
-with [get-window "IFDelimited_01 - Properties"] {
-    with [get-group Configuration] {
-        get-editbox -after [get-label Phase] | set-text 2
-        get-combo -after [get-label "Safe Property"] | select True
-        get-combo -after [get-label "Has Header"] | select False
-        get-combo -after [get-label "Character Set"] | select "ISO-8859-1"
-        get-editbox -after [get-label Delimeter] | set-text "#"
-        get-editbox -after [get-label "File Path"] | set-text FilePath
-    }
-    get-button OK | click
-}
-with [get-editor  | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+
+
+get-window "Filter_01 - Properties" | get-button OK | click
+with [get-editor | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
     -className ComponentEditPart -index 1] {
-    mouse-move 38 38 button1 -height 75 -width 93
-    mouse-press 38 38 button1 -height 75 -width 93
-    mouse-release 38 38 button1 524288 -height 75 -width 93
-    mouse-press 38 38 button1 -height 75 -width 93
-    mouse-double-click 38 38 button1 -height 75 -width 93
+    mouse-move 43 27 button1 -height 75 -width 100
+    mouse-press 43 27 button1 -height 75 -width 100
+    mouse-release 43 27 button1 524288 -height 75 -width 100
+    mouse-press 43 27 button1 -height 75 -width 100
+    mouse-double-click 43 27 button1 -height 75 -width 100
 }
-with [get-window "Filter_01 - Properties" | get-group Configuration] {
-    get-editbox -after [get-label Phase] | set-text 3
-    get-button Edit -after [get-label "Operation Fields"] | click
+with [get-window "Filter_01 - Properties"] {
+    get-group Configuration | get-button Edit | click
+    get-window "Operation Class" | get-button Cancel | click
+    get-group Configuration | get-button Edit -after [get-label "Operation Fields"] | click
 }
 with [get-window "Filter Property"] {
-    with [get-table] {
-        double-click
-        get-cell 0 0 | mouse down -count 1
-        activate-cell-edit
-        get-editbox | set-text FileterField1
-        apply-cell-edit -deactivate
-    }
     get-button Add | click
     with [get-table] {
-        get-cell 1 0 | mouse down -count 1
+        get-cell 0 0 | mouse down -count 1
         activate-cell-edit
-        get-editbox | set-text FilterField2
+        get-editbox | set-text uyfjh
         apply-cell-edit -deactivate
     }
+}
+set-dialog-result MessageBox 32
+with [get-window "Filter Property"] {
+    get-button Apply | click
     get-button OK | click
 }
 get-window "Filter_01 - Properties" | get-button OK | click
+get-editor   | get-diagram | mouse-hover 260 459 -height 670 -width 1013
+with [get-view Palette | get-palette] {
+    get-palette-entry OFDelimited | mouse-move 232 12 -height 23 -width 244
+    get-palette-entry InputFixedWidth | mouse-move 139 0 -height 23 -width 244
+    get-palette-entry IFDelimited | mouse-move 84 10 -height 23 -width 244
+    get-palette-entry Filter | mouse-move 121 7 -height 23 -width 244
+    get-palette-entry IFDelimited | mouse-move 9 2 -height 23 -width 244
+}
+
+with [get-editor | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart] {
+    mouse-move 38 23 button1 -height 50 -width 100
+    mouse-press 38 23 button1 -height 50 -width 100
+    mouse-release 38 23 button1 524288 -height 50 -width 100
+    mouse-press 38 23 button1 -height 50 -width 100
+    mouse-double-click 38 23 button1 -height 50 -width 100
+}
+with [get-window "IFDelimited_01 - Properties"] {
+    with [get-group Configuration] {
+        get-combo -after [get-label "Safe Property"] | select Parameter
+        get-editbox -after [get-label "Safe Property"] | set-text tert
+        get-combo -after [get-label "Has Header"] | select Parameter
+        get-editbox -after [get-label "Has Header"] | set-text terte
+        get-combo -after [get-label "Character Set"] | select Parameter
+        get-editbox -after [get-label "Character Set"] | set-text tert
+        get-editbox -after [get-label Phase] | click-text 1
+        get-editbox -after [get-label "Character Set"] | set-text tert
+        get-editbox -after [get-label Phase] | set-text 2
+    }
+    get-button Apply | click
+    get-button OK | click
+}
 with [get-editor  | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
     -className ComponentEditPart -index 2] {
-    mouse-move 91 15 button1 -height 50 -width 128
-    mouse-press 91 15 button1 -height 50 -width 128
-    mouse-release 91 15 button1 524288 -height 50 -width 128
-    mouse-press 91 15 button1 -height 50 -width 128
-    mouse-double-click 91 15 button1 -height 50 -width 128
+    mouse-move 47 27 button1 -height 50 -width 100
+    mouse-press 47 27 button1 -height 50 -width 100
+    mouse-release 47 27 button1 524288 -height 50 -width 100
+    mouse-press 47 27 button1 -height 50 -width 100
+    mouse-double-click 47 27 button1 -height 50 -width 100
 }
 with [get-window "OFDelimited_01 - Properties"] {
     with [get-group Configuration] {
-        get-editbox -after [get-label "File Path"] | set-text OutPath2
-        get-combo -after [get-label "Has Header"] | select True
-        get-combo -after [get-label "Character Set"] | select "ISO-8859-1"
+        get-combo -after [get-label "Has Header"] | select Parameter
+        get-editbox -after [get-label "Has Header"] | set-text etet
+        get-editbox -after [get-label Phase] | click-text 1
+        get-editbox -after [get-label "Has Header"] | set-text etet
         get-editbox -after [get-label Phase] | set-text 3
     }
+    get-button Apply | click
     get-button OK | click
 }
-with [get-editor  | get-diagram] {
-    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 3] {
-        mouse-move 60 22 button1 -height 50 -width 128
-        mouse-press 60 22 button1 -height 50 -width 128
-        mouse-move 60 21 -mask 524288 -height 50 -width 128
+get-editor  | get-diagram | mouse-hover 173 306 -height 670 -width 1013
+with [get-view Palette | get-palette] {
+    with [get-palette-entry InputFixedWidth] {
+        mouse-move 192 17 -height 23 -width 244
+        mouse-move 169 16 -height 23 -width 244
     }
-    mouse-drag 547 178 button1 524288 -height 410 -width 741
-    mouse-release 547 178 button1 524288 -height 410 -width 741
-    with [get-edit-part -className ContainerEditPart | get-edit-part -className ComponentEditPart -index 3] {
-        mouse-move 55 16 button1 -height 50 -width 128
-        mouse-press 55 16 button1 -height 50 -width 128
-        mouse-double-click 55 16 button1 -height 50 -width 128
-    }
-}
-with [get-window "OFDelimited_02 - Properties"] {
-    with [get-group Configuration] {
-        get-editbox -after [get-label "File Path"] | set-text OutPath3
-        get-editbox -after [get-label Delimeter] | set-text "#"
-        get-combo -after [get-label "Has Header"] | select True
-        get-combo -after [get-label "Character Set"] | select "UTF-16"
-        get-editbox -after [get-label Phase] | set-text 5
-    }
-    get-button OK | click
+    get-palette-entry OutputFixedWidth | mouse-move 237 11 -height 23 -width 244
 }
 with [get-editor  | get-diagram] {
-    mouse-hover 235 220 -height 410 -width 741
+    mouse-hover 221 320 -height 670 -width 1013
     key-type "M1+s"
 }
 with [get-window "Save As"] {
     get-tree | select TargetXMl
-    get-editbox -after [get-label "File name:"] | set-text "TargetXMl_JOB"
     get-button OK | click
 }
-get-editor "TargetXMl_JOB.job" | get-diagram | mouse-hover 247 148 -height 410 -width 741
-get-view Palette | get-palette | get-palette-entry OutputFixedWidth | mouse-move 174 40 -height 46 -width 244
-echo "Opening genrated Engine XMl" | log
-get-view "Project Explorer" | get-tree | select "TargetXMl/TargetXMl_JOB.xml" | double-click
 
-get-view "Project Explorer" | get-tree | select "TargetXMl/TargetXMl_JOB.job" | double-click
-with [get-editor "TargetXMl_JOB.job" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
-    -className ComponentEditPart] {
-    mouse-move 82 24 button1 -height 50 -width 138
-    mouse-press 82 24 button1 -height 50 -width 138
-    mouse-release 82 24 button1 524288 -height 50 -width 138
-    mouse-press 82 24 button1 -height 50 -width 138
-    mouse-double-click 82 24 button1 -height 50 -width 138
+with [get-view Palette | get-palette] {
+    get-palette-entry Filter | mouse-move 13 16 -height 23 -width 244
+    get-palette-entry InputFixedWidth | mouse-move 17 19 -height 23 -width 244
+    get-palette-entry IFDelimited | mouse-move 17 4 -height 23 -width 244
 }
-get-window "IFDelimited_01 - Properties" | get-button Cancel | click
+get-menu "File/Close All" | click
+get-view "Project Explorer" | get-tree | select "TargetXMl/Job_1.job" | double-click
+with [get-editor "Job_1.job" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 1] {
+    mouse-move 51 21 button1 -height 75 -width 100
+    mouse-press 51 21 button1 -height 75 -width 100
+    mouse-release 51 21 button1 524288 -height 75 -width 100
+    mouse-press 51 21 button1 -height 75 -width 100
+    mouse-double-click 51 21 button1 -height 75 -width 100
+}
+get-window "Filter_01 - Properties" | get-group Configuration | get-button Edit -after [get-label "Operation Fields"] 
+    | click
+get-window "Filter Property" | get-button OK | click
+with [get-window "Filter_01 - Properties"] {
+    get-group Configuration | get-button Edit | click
+    get-window "Operation Class" | get-button OK | click
+    get-button OK | click
+}
+with [get-editor "Job_1.job" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart -index 2] {
+    mouse-move 23 30 button1 -height 50 -width 100
+    mouse-press 23 30 button1 -height 50 -width 100
+    mouse-release 23 30 button1 524288 -height 50 -width 100
+    mouse-press 23 30 button1 -height 50 -width 100
+    mouse-double-click 23 30 button1 -height 50 -width 100
+}
+get-window "OFDelimited_01 - Properties" | get-button OK | click
+with [get-editor "Job_1.job" | get-diagram | get-edit-part -className ContainerEditPart | get-edit-part 
+    -className ComponentEditPart] {
+    mouse-move 43 24 button1 -height 50 -width 100
+    mouse-press 43 24 button1 -height 50 -width 100
+    mouse-release 43 24 button1 524288 -height 50 -width 100
+    mouse-press 43 24 button1 -height 50 -width 100
+    mouse-double-click 43 24 button1 -height 50 -width 100
+}
+get-window "IFDelimited_01 - Properties" | get-button OK | click
+get-view "Project Explorer" | get-tree | select "TargetXMl/Job_1.xml" | double-click
+get-editor "Job_1.xml" | get-tab-folder | get-tab-item Source | click
+get-menu "File/Close All" | click
 get-view "Project Explorer" | get-tree | select TargetXMl | get-menu Delete | click
 with [get-window "Delete Resources"] {
     get-button "Delete project contents on disk (cannot be undone)" | check

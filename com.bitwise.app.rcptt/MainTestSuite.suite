@@ -5,7 +5,7 @@ Element-Type: testsuite
 Element-Version: 2.0
 Id: _QF1dUEvmEeW6GZlCjF17TQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/12/15 4:05 PM
+Save-Time: 10/21/15 3:53 PM
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8
 Content-Type: text/testcase
@@ -14,7 +14,6 @@ Entry-Name: testcase-items
 _bzO_kGZ0EeWlY8j3virDhA	// kind: 'test' name: 'TestFilterPropertyWithPort' path: 'com.bitwise.app.filterproperty/TestFilterPropertyWithPort.test'
 _p1MS8E1QEeWztZD8rslrjw	// kind: 'test' name: 'MultipleTabsTestCase' path: 'com.bitwise.app.menubar/MultipleTabsTestCase.test'
 _p17SwE1QEeWztZD8rslrjw	// kind: 'test' name: 'TestViewsInWindowMenuTestCase' path: 'com.bitwise.app.menubar/TestViewsInWindowMenuTestCase.test'
-_p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'ZFileMenuTestCase' path: 'com.bitwise.app.menubar/ZFileMenuTestCase.test'
 _40a6cE2UEeW_rJv6exweGg	// kind: 'test' name: 'ToolBarCases' path: 'com.bitwise.app.toolbar/ToolBarCases.test'
 _TCNH0EvmEeW6GZlCjF17TQ	// kind: 'test' name: '1_WorkbenchPerspectiveLayoutTest' path: 'com.bitwise.app.perspective/1_WorkbenchPerspectiveLayoutTest.test'
 _UtHuYE2PEeWVXcFohWFibQ	// kind: 'test' name: '2_ProjectExplorer' path: 'com.bitwise.app.perspective/2_ProjectExplorer.test'
@@ -23,9 +22,13 @@ _TBJ-8EvmEeW6GZlCjF17TQ	// kind: 'test' name: '3_KeyBindingTest' path: 'com.bitw
 _TBwb4EvmEeW6GZlCjF17TQ	// kind: 'test' name: 'Panels/Views Hide restore close launch' path: 'com.bitwise.app.perspective/Panels_Views Hide restore close launch.test'
 _rtczoFeZEeW08Mo9tQCunw	// kind: 'test' name: 'Tt_ComponentLabelTestCase' path: 'com.bitwise.app.componentlabel/Tt_ComponentLabelTestCase.test'
 _ilxg8GwzEeWN3Jyy0d9lOw	// kind: 'test' name: 'ZWindowCloseTestCase' path: 'com.bitwise.app.menubar/ZWindowCloseTestCase.test'
-_Mr_wAGzdEeWdSJQceekD9Q	// kind: 'test' name: 'XML_GenrationTest' path: 'com.bitwise.app.engine/XML_GenrationTest.test'
 _nFjYQG2OEeWxZIBc65q_2g	// kind: 'test' name: 'ImportFromGitTestCase' path: 'com.bitwise.app.menubar/ImportFromGitTestCase.test'
 _Cf2gUG2GEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectCreate' path: 'com.bitwise.app.menubar/ImportProjectCreate.test'
 _DT3FQG2IEeWItZYaiEdPPg	// kind: 'test' name: 'ImportProjectGetFromLocal' path: 'com.bitwise.app.menubar/ImportProjectGetFromLocal.test'
+_p0cFAE1QEeWztZD8rslrjw	// kind: 'test' name: 'ZFileMenuTestCase' path: 'com.bitwise.app.menubar/ZFileMenuTestCase.test'
+_bmAhQGtpEeWjZOxOxCB5iw	// kind: 'test' name: 'Z_CloseWindowTestCase' path: 'com.bitwise.app.menubar/Z_CloseWindowTestCase.test'
+_EBh4kHfFEeWIQqWGoKie1g	// kind: 'test' name: 'TestReconnection' path: 'com.bitwise.app.reconnectfunctionality/TestReconnection.test'
+__EF0kHfMEeWIQqWGoKie1g	// kind: 'test' name: 'TestStandardAction' path: 'com.bitwise.app.standardaction/TestStandardAction.test'
+_qh4lsHfVEeWIQqWGoKie1g	// kind: 'test' name: 'TestFunctionalitywithProperty' path: 'com.bitwise.app.dedup/TestFunctionalitywithProperty.test'
 
 ------=_testcase-items-62c497da-4241-31f4-811a-6b453a3ecff8--

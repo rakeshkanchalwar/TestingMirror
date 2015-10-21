@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _UtHuYE2PEeWVXcFohWFibQ
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 9/30/15 10:31 AM
+Save-Time: 10/20/15 7:27 PM
 Tags: Test Project Explorer Functionality
 Testcase-Type: ecl
 
@@ -43,10 +43,14 @@ get-view "Project Explorer" | get-tree | get-item Test | get-property caption | 
 get-view "Project Explorer" | get-tree | select "Test/bin"
 with [get-view "Project Explorer" | get-tree] {
     get-item "Test/bin" | get-property caption | equals bin | verify-true
-    get-item "Test/lib" | get-property caption | equals lib | verify-true
+	get-item "Test/jobs" | get-property caption | equals jobs | verify-true
+	get-item "Test/lib" | get-property caption | equals lib | verify-true
+	get-item "Test/lib/bhs.jar" | get-property caption | equals bhs.jar | verify-true
+	 get-item "Test/param" | get-property caption | equals param | verify-true
+	  get-item "Test/schema" | get-property caption | equals schema | verify-true
     get-item "Test/scripts" | get-property caption | equals scripts | verify-true
     get-item "Test/src" | get-property caption | equals src | verify-true
-    get-item "Test/xml" | get-property caption | equals xml | verify-true
+    get-item "Test/build.gradle" | get-property caption | equals build.gradle | verify-true
 }
 get-view "Project Explorer" | get-tree | select Test | get-menu Delete | click
 with [get-window "Delete Resources"] {

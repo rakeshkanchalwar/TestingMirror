@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _rtczoFeZEeW08Mo9tQCunw
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/15/15 2:21 PM
+Save-Time: 10/20/15 8:15 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -72,7 +72,7 @@ with [get-editor  | get-diagram | get-edit-part -className ContainerEditPart | g
     mouse-press 35 35 button1 -height 60 -width 177
     mouse-double-click 35 35 button1 -height 60 -width 177
 }
-with [get-window "IFDelimited_02 - Properties"] {
+with [get-window ] {
     get-group Display | get-editbox -after [get-label Name] | set-text Inputfile
     get-button Apply | click
     get-button OK | click
