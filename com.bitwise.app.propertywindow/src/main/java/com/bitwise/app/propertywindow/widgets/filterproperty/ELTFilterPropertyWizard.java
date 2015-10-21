@@ -297,10 +297,10 @@ public class ELTFilterPropertyWizard {
 						for (ELTFilterProperties temp : propertyLst) {
 							filterSet.add(temp.getPropertyname());
 						}
-						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
-						messageBox.setText("Information"); //$NON-NLS-1$
-						messageBox.setMessage(Messages.PropertyAppliedNotification);
-						messageBox.open();
+						//MessageBox messageBox = new MessageBox(shell, SWT.NONE);
+						//messageBox.setText("Information"); //$NON-NLS-1$
+						//messageBox.setMessage(Messages.PropertyAppliedNotification);
+						//messageBox.open();
 						applyButton.setEnabled(false);
 						isAnyUpdatePerformed = false;
 					}

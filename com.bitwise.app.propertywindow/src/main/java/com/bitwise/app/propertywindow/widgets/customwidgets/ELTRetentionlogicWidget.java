@@ -46,7 +46,7 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		eltSuDefaultSubgroupComposite.numberOfBasicWidgets(4);
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Retention\n Logic");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Retain");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		
@@ -71,7 +71,7 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 		eltSuDefaultSubgroupComposite.attachWidget(Last);
 		((Button) Last.getSWTWidgetControl()).addSelectionListener(selectionListener);
 		
-		Unique = new ELTRadioButton("Unique Only");
+		Unique = new ELTRadioButton("Unique");
 		eltSuDefaultSubgroupComposite.attachWidget(Unique);
 		((Button) Unique.getSWTWidgetControl()).addSelectionListener(selectionListener);
 		
