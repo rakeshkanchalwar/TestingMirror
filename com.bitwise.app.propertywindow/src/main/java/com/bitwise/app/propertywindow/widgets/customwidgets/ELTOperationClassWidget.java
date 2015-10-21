@@ -4,27 +4,18 @@ import java.util.LinkedHashMap;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
-import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.dialogs.ELTOperationClassDialog;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTSaparater;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
-import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
 public class ELTOperationClassWidget extends AbstractWidget {
 
@@ -57,8 +48,6 @@ public class ELTOperationClassWidget extends AbstractWidget {
 	 */
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-
-		ListenerFactory listenerFactory = new ListenerFactory();
 
 		final ELTDefaultSubgroupComposite runtimeComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());

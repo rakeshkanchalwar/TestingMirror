@@ -17,41 +17,39 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
 public class ELTComponentNameWidget extends AbstractWidget {
+	private static final String COMPONENT_NAMES = "componentNames";
+
+	private static final String NAME = "Name";
 
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTComponentNameWidget.class);
 
-	public ELTComponentNameWidget(
-			ComponentConfigrationProperty componentConfigrationProperty,
-			ComponentMiscellaneousProperties componentMiscellaneousProperties,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(componentConfigrationProperty, componentMiscellaneousProperties,
-				propertyDialogButtonBar);
+	private String newName = "newName";
+	private String oldName = "oldName";
+	private Text text;
+	private String propertyName;
+	
+	private ELTVerifyComponentNameListener listener;
+
+	public ELTComponentNameWidget(ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 
 		this.propertyName = componentConfigrationProperty.getPropertyName();
 		this.oldName = (String) componentConfigrationProperty.getPropertyValue();
 	}
 
-	private Text text;
-	private String oldName = "oldName";
-	private String propertyName;
-
-	private String newName = "newName";
-	
-	private ELTVerifyComponentNameListener listener;
-
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
-		ListenerFactory listenerFactory = new ListenerFactory();
-
-
 		ELTDefaultSubgroupComposite eltDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
 		eltDefaultSubgroupComposite.createContainerWidget();
 
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Name");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable(NAME);
 		eltDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello")
@@ -61,17 +59,17 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		
 		text.setTextLimit(50);
-
+		ListenerHelper listenerHelper = new ListenerHelper();
+		listenerHelper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		try {
 			listener = (ELTVerifyComponentNameListener)ListenerFactory.Listners.VERIFY_COMPONENT_NAME.getListener();
-			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames"));
+			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES));
 			eltDefaultTextBox.attachListener(listener,
-					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
 		/*	eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());*/
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception exception) {
+			logger.error("Exception occured", exception);
 		}
 		
 		populateWidget();
@@ -92,9 +90,9 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		if (newName != null && newName != "" && isUniqueCompName(newName)) {
 			property.put(propertyName, newName);
 			//super.names.remove(oldName);
-			((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames")).remove(oldName);			
+			((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES)).remove(oldName);			
 			//super.names.add(newName);
-			((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames")).add(newName);
+			((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES)).add(newName);
 			oldName = newName;
 		} else {
 			// old name already should be there in the names arraylist
@@ -114,14 +112,13 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		componentName = componentName.trim();
 		boolean result = true;
 
-		for (String cname : ((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty("componentNames"))) {
+		for (String cname : ((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES))) {
 			if (cname.equalsIgnoreCase(componentName)) {
 				result = false;
 				break;
 			}
-
 		}
-		logger.debug("isUniqueCompName: result: " + result);
+		logger.debug("result: {}", result);
 
 		return result;
 	}

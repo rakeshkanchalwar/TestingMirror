@@ -2,6 +2,7 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -20,6 +21,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTDelimeterWidget extends AbstractWidget{
@@ -30,21 +32,15 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	private Object txtDecorator;
 	private ControlDecoration decorator;
 
-	public ELTDelimeterWidget(
-			ComponentConfigrationProperty componentConfigrationProperty,
-			ComponentMiscellaneousProperties componentMiscellaneousProperties,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(componentConfigrationProperty, componentMiscellaneousProperties,
-				propertyDialogButtonBar);
-		
+	public ELTDelimeterWidget(ComponentConfigrationProperty componentConfigrationProperty,
+			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 		this.propertyName = componentConfigrationProperty.getPropertyName();
 		this.properties =  componentConfigrationProperty.getPropertyValue();
 	}
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		ListenerFactory listenerFactory = new ListenerFactory();
-		
 
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -77,11 +73,13 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		
 		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
 		
-		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		
 		try {
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -90,8 +88,15 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	}
 
 	private void populateWidget(){
-		if(properties != null)
-			textBox.setText((String) properties);
+		String property = (String) properties;
+		if(StringUtils.isNotBlank(property)){
+			textBox.setText(property);
+			decorator.hide();
+		}
+		else{
+			textBox.setText("");
+			decorator.show();
+		}
 	}
 
 	@Override
@@ -100,5 +105,4 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		property.put(propertyName, textBox.getText());
 		return property;
 	}
-
 }

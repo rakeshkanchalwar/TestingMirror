@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.Button;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -35,12 +34,12 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 				propertyDialogButtonBar);
 		this.propertyName = componentConfigrationProperty.getPropertyName();
 		this.properties =  (String)componentConfigrationProperty.getPropertyValue();
-		
+		// This will be valid always as one of the value will be selected
+		validationStatus.setIsValid(true);
 	}
 
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -80,11 +79,16 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	}
 	
 	private void populateWidget(){
-		switch(this.properties)
-		{
-		case "First":((Button) First.getSWTWidgetControl()).setSelection(true);break;
-		case "Last":((Button) Last.getSWTWidgetControl()).setSelection(true); break;
-		case "Unique Only":((Button) Unique.getSWTWidgetControl()).setSelection(true);  break;
+		switch(this.properties){
+			case "First":
+				((Button) First.getSWTWidgetControl()).setSelection(true);
+				break;
+			case "Last":
+				((Button) Last.getSWTWidgetControl()).setSelection(true); 
+				break;
+			case "Unique":
+				((Button) Unique.getSWTWidgetControl()).setSelection(true);  
+				break;
 		}
 		
 	}

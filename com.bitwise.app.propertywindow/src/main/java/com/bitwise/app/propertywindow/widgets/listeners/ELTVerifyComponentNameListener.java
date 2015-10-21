@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
 public class ELTVerifyComponentNameListener implements IELTListener {
 	
@@ -26,7 +28,8 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 	private String oldName;
 	
 	private ControlDecoration txtDecorator;
-
+	private ValidationStatus validationStatus; 
+	
 	@Override
 	public int getListenerType() {
 		return SWT.Verify;
@@ -34,11 +37,14 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 
 	@Override
 	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helpers,  Widget... widgets) {
-		final String METHOD_NAME = "ELTVerifyComponentNameListener.getListener(): ";
 		Widget[] widgetList = widgets;
 		final Text text = (Text) widgetList[0];
 		
+		if(helpers != null){
+			validationStatus = (ValidationStatus) helpers.get(HelperType.VALIDATION_STATUS); 
+		}
 		txtDecorator = new ControlDecoration(text, SWT.TOP|SWT.LEFT);
+
 		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
 		Image img = fieldDecoration.getImage();
 		txtDecorator.setImage(img);
@@ -54,7 +60,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 					String currentText = ((Text) e.widget).getText();
 					String newName = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end)).trim();
 
-					logger.debug(METHOD_NAME + "addVerifyListener():  new text: " + newName);
+					logger.debug("new text: {}", newName);
 					if (newName == null || newName.equals("")) {
 						// e.doit=false;
 						text.setBackground(new Color(Display.getDefault(), 255, 255, 204));
@@ -62,14 +68,14 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 						propertyDialogButtonBar.enableOKButton(false);
 						propertyDialogButtonBar.enableApplyButton(false);
 						txtDecorator.show();
-
+						setValidationStatus(false);
 					} else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
 						text.setBackground(new Color(Display.getDefault(),255,255,204));
 						text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 						propertyDialogButtonBar.enableOKButton(false);
 						propertyDialogButtonBar.enableApplyButton(false);
 						txtDecorator.show();
-
+						setValidationStatus(false);
 					} else {
 						text.setBackground(null);
 						text.setToolTipText("");
@@ -77,6 +83,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 						propertyDialogButtonBar.enableOKButton(true);
 						propertyDialogButtonBar.enableApplyButton(true);
 						txtDecorator.hide();
+						setValidationStatus(true);
 					}
 				}
 			}
@@ -93,7 +100,6 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 	}
 	
 	private boolean isUniqueCompName(String componentName) {
-		String METHOD_NAME = "ELTVerifyComponentNameListener.isUniqueCompName";
 		componentName = componentName.trim();
 		boolean result = true;
 
@@ -102,10 +108,8 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 				result = false;
 				break;
 			}
-
 		}
-		logger.debug(METHOD_NAME + "isUniqueCompName: result: " + result);
-
+		logger.debug("result: {}", result);
 		return result;
 	}
 
@@ -117,4 +121,9 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 		this.oldName = oldName;
 	}
 
+	private void setValidationStatus(boolean status) {
+		if(validationStatus != null){
+			validationStatus.setIsValid(status);
+		}
+	}
 }

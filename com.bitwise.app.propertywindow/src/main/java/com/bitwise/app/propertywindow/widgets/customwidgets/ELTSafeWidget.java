@@ -2,6 +2,7 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
@@ -19,6 +20,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTSafeWidget extends AbstractWidget{
@@ -49,7 +51,6 @@ public class ELTSafeWidget extends AbstractWidget{
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -70,8 +71,9 @@ public class ELTSafeWidget extends AbstractWidget{
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		
 		
-		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
-		
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		
 		try {
 			eltDefaultCombo.attachListener(ListenerFactory.Listners.SELECTION.getListener(),propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
@@ -79,8 +81,8 @@ public class ELTSafeWidget extends AbstractWidget{
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_IN.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
-			
 			e1.printStackTrace();
 		}
 		 populateWidget();
@@ -95,7 +97,14 @@ public class ELTSafeWidget extends AbstractWidget{
 			}else{
 				combo.select(2);
 				text.setVisible(true);
-				text.setText(this.properties);
+				if (StringUtils.isNotEmpty(properties)){
+					text.setText(properties);
+					txtDecorator.hide();
+				}
+				else{
+					text.setText("");
+					txtDecorator.show();
+				}
 			}
 		}
 	}

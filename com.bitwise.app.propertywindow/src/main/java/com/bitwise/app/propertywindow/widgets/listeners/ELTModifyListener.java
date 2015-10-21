@@ -11,10 +11,12 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
 public class ELTModifyListener implements IELTListener{
-
-	ControlDecoration txtDecorator;
+	private ControlDecoration txtDecorator;
+	private ValidationStatus validationStatus;
 	
 	@Override
 	public int getListenerType() {
@@ -22,12 +24,11 @@ public class ELTModifyListener implements IELTListener{
 	}
 
 	@Override
-	public Listener getListener(
-			PropertyDialogButtonBar propertyDialogButtonBar,
-			ListenerHelper helpers, Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper, Widget... widgets) {
 		final Widget[] widgetList = widgets;
-		if (helpers != null) {
-			txtDecorator = (ControlDecoration) helpers.getObject();
+		if (helper != null) {
+			txtDecorator = (ControlDecoration) helper.get(HelperType.CONTROL_DECORATION);
+			validationStatus = (ValidationStatus) helper.get(HelperType.VALIDATION_STATUS); 
 		}
 		Listener listener=new Listener() {
 			
@@ -39,22 +40,29 @@ public class ELTModifyListener implements IELTListener{
 						txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
 						txtDecorator.show();
 						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 204));
+						setValidationStatus(false);
 					}else{
 						//txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
 						txtDecorator.hide();
-					((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
+						((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
+						setValidationStatus(true);
 					}
 					
 				}else{
 					//txtDecorator.setDescriptionText(Messages.EMPTYFIELDMESSAGE);
 					txtDecorator.hide();
-				((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
-				
+					((Text) widgetList[0]).setBackground(new Color(Display.getDefault(), 255, 255, 255));
+					setValidationStatus(true);
 				}
 			}		
 		};
 		
 		return listener;
 	}
-
+	
+	private void setValidationStatus(boolean status) {
+		if(validationStatus != null){
+			validationStatus.setIsValid(status);
+		}
+	}
 }

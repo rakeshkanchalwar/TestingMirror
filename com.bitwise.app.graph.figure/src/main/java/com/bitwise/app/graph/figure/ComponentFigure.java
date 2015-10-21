@@ -17,13 +17,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
-import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
 
 public class ComponentFigure extends Figure implements Validator{
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ComponentFigure.class);
 	
 	private final XYLayout layout;
 	private int height=0;
@@ -49,7 +51,7 @@ public class ComponentFigure extends Figure implements Validator{
 	private String canvasIconPath;
 	private Image canvasIcon;
 	
-	private Component.ValidityStatus status;
+	private String status;
 	
 	
 	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath) {
@@ -124,14 +126,15 @@ public class ComponentFigure extends Figure implements Validator{
 	protected void drawStatus(Graphics graphics){
 		Image statusImage = null;
 		Rectangle rectangle = getBounds().getCopy();
-		if(getStatus().equals(ValidityStatus.WARN)){
-			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/warn.jpg");
+		if(getStatus().equals(ValidityStatus.WARN.name())){
+			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/warn.png");
 		}
-		else if (getStatus().equals(ValidityStatus.ERROR)){
-			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/error.jpg");
+		else if (getStatus().equals(ValidityStatus.ERROR.name())){
+			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/error.png");
 		}
+		logger.debug("Component has {} status.", getStatus());
 		if(statusImage != null){
-			graphics.drawImage(statusImage, new Point(rectangle.width - 15, 8));
+			graphics.drawImage(statusImage, new Point(rectangle.width - 30, 8));
 		}
 	}
 	
@@ -162,7 +165,8 @@ public class ComponentFigure extends Figure implements Validator{
 
 		drawLable(r, graphics);
 		
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 16));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
+		drawStatus(graphics);
 	}
 	
 	private void drawLable(Rectangle r, Graphics graphics){
@@ -230,12 +234,12 @@ public class ComponentFigure extends Figure implements Validator{
 
 	}
 	@Override
-	public ValidityStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	
 	@Override
-	public void setStatus(ValidityStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 }

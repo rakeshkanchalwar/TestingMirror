@@ -66,7 +66,9 @@ public class MyCustomWidget extends AbstractWidget{
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Submit");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		WordUtils wordUtils= new WordUtils();
+		
 		ListenerHelper listenerHelper = new ListenerHelper("WordUtils", wordUtils);
+		
 		//enableOkButton(false);
 		try {
 			/*eltDefaultButton.attachListener(listenerFactory.getListener("ELTHelloTestListener"),propertyDialogButtonBar, null,eltDefaultTextBox.getSWTWidgetControl(),eltDefaultButton.getSWTWidgetControl());

@@ -10,12 +10,13 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
-import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
 public class ELTSelectionListener implements IELTListener {
-
-	ControlDecoration txtDecorator;
-
+	private ControlDecoration txtDecorator;
+	private ValidationStatus validationStatus;
+	
 	@Override
 	public int getListenerType() {
 
@@ -23,15 +24,14 @@ public class ELTSelectionListener implements IELTListener {
 	}
 
 	@Override
-	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper,
-			Widget... widgets) {
+	public Listener getListener(final PropertyDialogButtonBar propertyDialogButtonBar, ListenerHelper helper, Widget... widgets) {
 		final Widget[] widgetList = widgets;
 
-		/*
-		 * for(Widget widget: widgets){ widgetList.add(widget); }
-		 */
 		if (helper != null) {
-			txtDecorator = (ControlDecoration) helper.getObject();
+			txtDecorator = (ControlDecoration) helper.get(HelperType.CONTROL_DECORATION);
+			validationStatus = (ValidationStatus) helper.get(HelperType.VALIDATION_STATUS);
+			//since this is dropdown, so set it to true as it is valid
+			setValidationStatus(true);
 		}
 
 		Listener listener = new Listener() {
@@ -40,16 +40,22 @@ public class ELTSelectionListener implements IELTListener {
 				if (((Combo) widgetList[0]).getText().equals("Parameter")) {
 					((Text) widgetList[1]).setVisible(true);
 					((Text) widgetList[1]).setFocus();
-
 					txtDecorator.hide();
+					setValidationStatus(false);
 				} else {
 					((Text) widgetList[1]).setVisible(false);
 					txtDecorator.hide();
+					setValidationStatus(true);
 				}
 				propertyDialogButtonBar.enableApplyButton(true);
 			}
 		};
 		return listener;
 	}
-
+	
+	private void setValidationStatus(boolean status) {
+		if(validationStatus != null){
+			validationStatus.setIsValid(status);
+		}
+	}
 }

@@ -44,13 +44,14 @@ import com.bitwise.app.project.structure.natures.ProjectNature;
  */
 public class ProjectStructureCreator {
 
-	private static Logger logger = LogFactory.INSTANCE.getLogger(ProjectStructureCreator.class);
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ProjectStructureCreator.class);
 	
 	public static final ProjectStructureCreator INSTANCE = new ProjectStructureCreator();
 	public static final String [] paths = {CustomMessages.ProjectSupport_Settings,CustomMessages.ProjectSupport_JOBS,CustomMessages.ProjectSupport_SRC,  
 		 CustomMessages.ProjectSupport_SCRIPTS,CustomMessages.ProjectSupport_PARAM,CustomMessages.ProjectSupport_SCHEMA,CustomMessages.ProjectSupport_LIB};
  
-	private ProjectStructureCreator(){}
+	private ProjectStructureCreator(){
+	}
 	
 	/**
 	 * Creates the custom project structure at the specified location and name

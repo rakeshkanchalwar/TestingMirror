@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
 public class ELTNormalFocusOutListener implements IELTListener {
 
@@ -26,7 +27,7 @@ public class ELTNormalFocusOutListener implements IELTListener {
 			Widget... widgets) {
 		final Widget[] widgetList = widgets;
 		if (helper != null) {
-			txtDecorator = (ControlDecoration) helper.getObject();
+			txtDecorator = (ControlDecoration) helper.get(HelperType.CONTROL_DECORATION);
 		}
 
 		Listener listener = new Listener() {

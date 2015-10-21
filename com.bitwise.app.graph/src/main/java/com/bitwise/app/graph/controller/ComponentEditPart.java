@@ -27,8 +27,6 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.model.Component.ValidityStatus;
-import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.model.Port;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -114,9 +112,9 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	protected IFigure createFigure() {
 		IFigure figure = createFigureForModel();
 		figure.setOpaque(true); // non-transparent figure
-		ValidityStatus status = (ValidityStatus) getCastedModel().getProperties().get(Component.Props.STATUS.getValue());
+		LinkedHashMap<String, Object> properties = getCastedModel().getProperties();
+		String status = (String) properties.get(Component.Props.VALIDITY_STATUS.getValue());
 		((ComponentFigure)figure).setStatus(status);
-
 		return figure;
 	}
 
@@ -239,7 +237,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
 				getFigure(), bounds);
-		
 	}
 
 	@Override
@@ -268,9 +265,9 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	private void updateComponentStatus(){
 		Component component = getCastedModel();
 		LinkedHashMap<String, Object> properties = component.getProperties();
-		String statusName = Component.Props.STATUS.getValue();
+		String statusName = Component.Props.VALIDITY_STATUS.getValue();
 		if(properties.containsKey(statusName)){
-			((ComponentFigure)getFigure()).setStatus((ValidityStatus) properties.get(statusName));
+			((ComponentFigure)getFigure()).setStatus((String)properties.get(statusName));
 		}
 	}
 }

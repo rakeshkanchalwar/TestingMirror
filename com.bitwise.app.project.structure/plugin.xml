@@ -63,7 +63,7 @@
                id="org.eclipse.gef.ui.palette_view"
                minimized="false"
                moveable="true"
-               ratio="0.25"
+               ratio="0.2"
                relationship="left"
                relative="org.eclipse.ui.editorss"
                showTitle="true"
@@ -73,7 +73,7 @@
                closeable="true"
                id="com.bitwise.app.project.structure.navigator"
                minimized="false"
-               ratio="0.50"
+               ratio="0.7"
                relationship="bottom"
                relative="org.eclipse.gef.ui.palette_view"
                visible="true">
@@ -86,13 +86,6 @@
                relationship="bottom"
                relative="org.eclipse.ui.editorss"
                visible="true">
-         </view>
-         <view
-               closeable="true"
-               id="org.eclipse.ui.views.PropertySheet"
-               relationship="stack"
-               relative="org.eclipse.ui.console.ConsoleView"
-               visible="false">
          </view>
       </perspectiveExtension>
    </extension>

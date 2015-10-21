@@ -16,6 +16,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTPhaseWidget extends AbstractWidget {
@@ -38,7 +39,6 @@ public class ELTPhaseWidget extends AbstractWidget {
 
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -53,7 +53,10 @@ public class ELTPhaseWidget extends AbstractWidget {
 
 		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
 
-		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		
 		try {
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.NORMAL_FOCUS_OUT.getListener(),
 					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
@@ -71,9 +74,14 @@ public class ELTPhaseWidget extends AbstractWidget {
 
 	
 	private void populateWidget(){		
-		if (properties != null)
+		if (properties != null){
 			textBox.setText(properties);
-		
+			txtDecorator.hide();
+		}
+		else{
+			textBox.setText("");
+			txtDecorator.show();
+		}
 	}
 
 	@Override

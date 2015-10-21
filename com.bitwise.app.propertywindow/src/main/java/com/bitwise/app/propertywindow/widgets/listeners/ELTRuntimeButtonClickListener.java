@@ -16,9 +16,7 @@ public class ELTRuntimeButtonClickListener implements IELTListener {
 	}
 
 	@Override
-	public Listener getListener(
-			PropertyDialogButtonBar propertyDialogButtonBar,
-			final ListenerHelper helpers, Widget... widgets) {
+	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar, final ListenerHelper helpers, Widget... widgets) {
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
 				if (event.type == SWT.Selection) {

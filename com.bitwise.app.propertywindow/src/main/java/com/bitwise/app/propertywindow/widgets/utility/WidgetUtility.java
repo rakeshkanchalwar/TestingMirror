@@ -62,8 +62,8 @@ public class WidgetUtility {
 		Image img = fieldDecoration.getImage();
 		txtDecorator.setImage(img);
 		txtDecorator.setDescriptionText(message);
-		// hiding it initially
-		txtDecorator.hide();
+		/*// hiding it initially
+		txtDecorator.hide();*/
 		return txtDecorator; 
 	} 
 	

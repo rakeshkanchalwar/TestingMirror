@@ -19,6 +19,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ELTStrictWidget extends AbstractWidget{
@@ -45,7 +46,6 @@ public class ELTStrictWidget extends AbstractWidget{
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -66,10 +66,10 @@ ListenerFactory listenerFactory = new ListenerFactory();
 		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		
-		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
-		
-			try {
-			
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		try {
 			eltDefaultCombo.attachListener(ListenerFactory.Listners.SELECTION.getListener(), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTEventChnageListener"), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
@@ -91,7 +91,14 @@ ListenerFactory listenerFactory = new ListenerFactory();
 			}else{
 				combo.select(2);
 				text.setVisible(true);
-				text.setText(this.properties);
+				if(properties != null){
+					text.setText(properties);	
+					txtDecorator.hide();
+				}
+				else{
+					text.setText("");
+					txtDecorator.show();
+				}
 			}
 		}
 		this.properties = text.getText();

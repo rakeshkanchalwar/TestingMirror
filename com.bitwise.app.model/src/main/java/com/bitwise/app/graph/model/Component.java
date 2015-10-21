@@ -21,7 +21,7 @@ public abstract class Component extends Model {
 		SIZE_PROP("Size"),
 		INPUTS("inputs"),
 		OUTPUTS("outputs"),
-		STATUS("status");
+		VALIDITY_STATUS("validityStatus");
 		
 		private String value;
 		private Props(String value){
@@ -47,7 +47,7 @@ public abstract class Component extends Model {
 	private final Dimension size;
 	private Map<String, Object> properties;
 	private Container parent;
-	private ValidityStatus validityStatus;
+	private String validityStatus;
 	
 	private final Hashtable<String, ArrayList<Link>> inputLinksHash;
 	private final Hashtable<String, ArrayList<Link>> outputLinksHash;
@@ -73,7 +73,7 @@ public abstract class Component extends Model {
 		inputportTerminals = new ArrayList<String>();
 		outputPortTerminals = new ArrayList<String>();
 		newInstance = true;
-		validityStatus = ValidityStatus.WARN;
+		validityStatus = ValidityStatus.WARN.name();
 		
 		initPortSettings();
 		
@@ -289,11 +289,11 @@ public abstract class Component extends Model {
 		this.category = category;
 	}
 	
-	public ValidityStatus getValidityStatus() {
+	public String getValidityStatus() {
 		return validityStatus;
 	}
 	
-	public void setValidityStatus(ValidityStatus validityStatus) {
+	public void setValidityStatus(String validityStatus) {
 		this.validityStatus = validityStatus;
 	}
 	

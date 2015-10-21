@@ -123,7 +123,7 @@ public class ComponentCreateCommand extends Command {
 	private Map<String, Object> prepareComponentProperties(String componentName) {
 		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
 		properties.put(NAME, componentName);
-		properties.put(Component.Props.STATUS.getValue(), Component.ValidityStatus.WARN);
+		properties.put(Component.Props.VALIDITY_STATUS.getValue(), Component.ValidityStatus.WARN.name());
 		return properties;
 	}
 }

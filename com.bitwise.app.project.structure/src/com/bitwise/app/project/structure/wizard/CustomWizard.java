@@ -18,8 +18,8 @@ public class CustomWizard extends Wizard implements INewWizard, IExecutableExten
 	
 	private static final String ETL_PROJECT_WIZARD = "ELT Project Wizard"; //$NON-NLS-1$
 	private static final String WINDOW_TITLE = "New ELT Project"; //$NON-NLS-1$
-	private WizardNewProjectCreationPage _pageOne;
-	private IConfigurationElement _configurationElement;
+	private WizardNewProjectCreationPage pageOne;
+	private IConfigurationElement configurationElement;
 	public CustomWizard() {
 		setWindowTitle(WINDOW_TITLE);
 	}
@@ -31,30 +31,30 @@ public class CustomWizard extends Wizard implements INewWizard, IExecutableExten
 
 	@Override
 	public boolean performFinish() {
-		String projectName = _pageOne.getProjectName();
+		String projectName = pageOne.getProjectName();
 		URI location = null;
-		if(!_pageOne.useDefaults()){
-			location = _pageOne.getLocationURI();
+		if(!pageOne.useDefaults()){
+			location = pageOne.getLocationURI();
 		}
 		ProjectStructureCreator.INSTANCE.createProject(projectName, location);
-	    BasicNewProjectResourceWizard.updatePerspective(_configurationElement);
+	    BasicNewProjectResourceWizard.updatePerspective(configurationElement);
 		return true;
 	}
 
 	@Override
 	public void addPages() {
 		super.addPages();
-		_pageOne = new WizardNewProjectCreationPage(ETL_PROJECT_WIZARD);
-	    _pageOne.setTitle(CustomMessages.CustomWizard_CREATE_ETL_PROJECT);
-	    _pageOne.setDescription(CustomMessages.CustomWizard_ENTER_PROJECT_NAME);
+		pageOne = new WizardNewProjectCreationPage(ETL_PROJECT_WIZARD);
+	    pageOne.setTitle(CustomMessages.CustomWizard_CREATE_ETL_PROJECT);
+	    pageOne.setDescription(CustomMessages.CustomWizard_ENTER_PROJECT_NAME);
 	 
-	    addPage(_pageOne);
+	    addPage(pageOne);
 	}
 
 	@Override
 	public void setInitializationData(IConfigurationElement config,
 			String propertyName, Object data) throws CoreException {
-		_configurationElement = config;
+		configurationElement = config;
 		
 	}
 }

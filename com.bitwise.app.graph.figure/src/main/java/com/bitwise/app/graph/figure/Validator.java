@@ -4,7 +4,7 @@ import com.bitwise.app.graph.model.Component;
 
 public interface Validator {
 	
-	public void setStatus(Component.ValidityStatus status);
+	public void setStatus(String status);
 	
-	public Component.ValidityStatus getStatus();
+	public String getStatus();
 }

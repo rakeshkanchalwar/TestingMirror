@@ -19,6 +19,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
@@ -47,8 +48,6 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
-		ListenerFactory listenerFactory = new ListenerFactory();
-		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
@@ -69,7 +68,9 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 		
 		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		
-		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		
 		try {
 			
@@ -78,6 +79,7 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_IN.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 		} catch (Exception e1) {
 			
 			e1.printStackTrace();

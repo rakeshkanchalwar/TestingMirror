@@ -2,6 +2,7 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -24,6 +25,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
@@ -32,7 +34,7 @@ public class ELTFilePathWidget extends AbstractWidget{
 	private Text textBox;
 	private Object properties;
 	private String propertyName;
-	private Object txtDecorator;
+	private ControlDecoration txtDecorator;
 	private ControlDecoration decorator;
 	private Button button;
 	
@@ -50,7 +52,6 @@ public class ELTFilePathWidget extends AbstractWidget{
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		ListenerFactory listenerFactory = new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -71,14 +72,16 @@ public class ELTFilePathWidget extends AbstractWidget{
 				if(textBox.getText().isEmpty()){
 					decorator.show();
 					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 204));
-					}
+				}
+				else{
+					decorator.hide();
+				}
 			}
 			
 			@Override
 			public void focusGained(FocusEvent e) {
 				decorator.hide();
 				textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));
-			
 			}
 		});
 		
@@ -106,11 +109,14 @@ public class ELTFilePathWidget extends AbstractWidget{
 		
 		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.CHARACTERSET);
 		
-		ListenerHelper helper = new ListenerHelper("decorator", txtDecorator);
-		
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+
 		try {
 			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultButton.attachListener(ListenerFactory.Listners.FILE_DIALOG_SELECTION.getListener(), propertyDialogButtonBar, null, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper, eltDefaultTextBox.getSWTWidgetControl());
+			eltDefaultButton.attachListener(ListenerFactory.Listners.FILE_DIALOG_SELECTION.getListener(), propertyDialogButtonBar, helper, eltDefaultButton.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
 			//eltDefaultTextBox.attachListener(listenerFactory.getListener("ELTFocusOutListener"), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
 			} catch (Exception e1) {
 			e1.printStackTrace();
@@ -120,11 +126,16 @@ public class ELTFilePathWidget extends AbstractWidget{
 	}
 
 	private void populateWidget(){		
-		if(properties != null)
-			textBox.setText((String) properties);		
-		else
+		String property = (String)properties;
+		if(StringUtils.isNotBlank(property)){
+			textBox.setText(property);	
+			decorator.hide();
+			txtDecorator.hide();
+		}
+		else{
 			textBox.setText("");
-		
+			decorator.show();
+		}
 	}
 
 	@Override
@@ -132,7 +143,6 @@ public class ELTFilePathWidget extends AbstractWidget{
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 		property.put(propertyName, textBox.getText());
 		return property;
-		
 	}
 
 	/*@Override

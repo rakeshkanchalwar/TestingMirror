@@ -27,6 +27,7 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTTableViewer;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDetails;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.GridChangeListener;
 import com.bitwise.app.propertywindow.widgets.utility.GridWidgetCommonBuilder;
@@ -214,12 +215,14 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 
 	private ListenerHelper getListenerHelper() {
 		if (helper == null) {
-			return new ListenerHelper("schemaGrid",
-					new ELTGridDetails(schemaGridRowList, tableViewer,
-							(Label) fieldError.getSWTWidgetControl(),
-							gridWidgetBuilder));
-		} else {
-			return helper;
+			helper = new ListenerHelper();
+			ELTGridDetails value = new ELTGridDetails(schemaGridRowList, tableViewer, 
+					(Label) fieldError.getSWTWidgetControl(), gridWidgetBuilder);
+			helper.put(HelperType.SCHEMA_GRID, value);
+			//TODO : temporary change it
+			validationStatus.setIsValid(true);
+			helper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		}
+		return helper;
 	}
 }
