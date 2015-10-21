@@ -11,9 +11,9 @@ import org.eclipse.swt.graphics.Color;
  */
 public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 
+	@Override
 	protected void addSelectionHandles() {
 		super.addSelectionHandles();
-		//getLinkFigure().setForegroundColor(ColorConstants.blue);
 		getLinkFigure().setForegroundColor(new Color(null, 22, 169, 199));
 	}
 
@@ -21,6 +21,7 @@ public class LinkEndPointEditPolicy extends ConnectionEndpointEditPolicy{
 		return (PolylineConnection) ((GraphicalEditPart) getHost()).getFigure();
 	}
 
+	@Override
 	protected void removeSelectionHandles() {
 		super.removeSelectionHandles();
 		getLinkFigure().setForegroundColor(ColorConstants.black);

@@ -10,6 +10,7 @@ import com.bitwise.app.graph.model.Link;
  * The Class LinkEditPolicy.
  */
 public class LinkEditPolicy extends org.eclipse.gef.editpolicies.ConnectionEditPolicy {
+	@Override
 	protected Command getDeleteCommand(GroupRequest request) {
 		LinkCommand c = new LinkCommand();
 		c.setConnection((Link) getHost().getModel());

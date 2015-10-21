@@ -28,6 +28,7 @@ public class ContainerEditPart extends AbstractGraphicalEditPart implements Prop
 	 * Upon activation, attach to the model element as a property change
 	 * listener.
 	 */
+	@Override
 	public void activate() {
 		if (!isActive()) {
 			super.activate();
@@ -39,6 +40,7 @@ public class ContainerEditPart extends AbstractGraphicalEditPart implements Prop
 	 * Upon deactivation, detach from the model element as a property change
 	 * listener.
 	 */
+	@Override
 	public void deactivate() {
 		if (isActive()) {
 			super.deactivate();

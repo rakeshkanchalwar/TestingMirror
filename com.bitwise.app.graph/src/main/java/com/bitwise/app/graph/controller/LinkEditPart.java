@@ -23,6 +23,7 @@ public class LinkEditPart extends AbstractConnectionEditPart
 	 * Upon activation, attach to the model element as a property change
 	 * listener.
 	 */
+	@Override
 	public void activate() {
 		if (!isActive()) {
 			super.activate();
@@ -34,6 +35,7 @@ public class LinkEditPart extends AbstractConnectionEditPart
 	 * Upon deactivation, detach from the model element as a property change
 	 * listener.
 	 */
+	@Override
 	public void deactivate() {
 		if (isActive()) {
 			super.deactivate();
