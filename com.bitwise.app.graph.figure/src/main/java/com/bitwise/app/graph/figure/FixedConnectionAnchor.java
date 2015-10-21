@@ -130,9 +130,5 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		
 		
 	}
-	@Override
-	public void addAnchorListener(AnchorListener listener) {
-		super.addAnchorListener(listener);
-	}
 	
 }

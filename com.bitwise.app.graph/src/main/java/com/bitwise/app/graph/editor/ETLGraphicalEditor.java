@@ -407,14 +407,13 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	@Override
 	public void setInput(IEditorInput input) {
 		super.setInput(input);
-		String METHOD_NAME = "setInput - ";
-		logger.debug(METHOD_NAME);
+		
 		try {
 			GenrateContainerData genrateContainerData = new GenrateContainerData();
 			genrateContainerData.setEditorInput(input, this);
 			container = genrateContainerData.getContainerData();
 		} catch (CoreException | IOException ce) {
-			logger.error(METHOD_NAME , ce);
+			logger.error(ce.getMessage());
 		}
 	}
 
@@ -506,7 +505,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	 * @return the object
 	 */
 	public Object fromXMLToObject(InputStream xml) {
-		String METHOD_NAME = "ETLGraphicalEditor.fromXMLToJava(InputStream xml)";
+		
 		Object obj = null;
 		
 		XStream xs = new XStream();

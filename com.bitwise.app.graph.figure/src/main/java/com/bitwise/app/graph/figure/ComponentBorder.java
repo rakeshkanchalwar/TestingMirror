@@ -1,7 +1,6 @@
 package com.bitwise.app.graph.figure;
 
 import org.eclipse.draw2d.AbstractBorder;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
@@ -23,25 +22,21 @@ public class ComponentBorder extends AbstractBorder {
 		this.lineWidth = lineWidth;
 		insets=new Insets();
 	}
-	
+	@Override
 	public Insets getInsets(IFigure figure) {
 		return insets;
 	}
 
+	@Override
 	public void paint(IFigure figure, Graphics g, Insets in) {
 		
 		Rectangle r = figure.getBounds().getCopy();
 		
 		g.setForegroundColor(borderColor);
-		//g.setBackgroundColor(new Color(null,191, 52, 114));
 
 		if(lineWidth!=0){
 			g.setLineWidth(lineWidth);
 		}
-		
-
-		// Outline the border
-		//r.getShrinked(4, 4);
 
 		//top
 		g.drawLine(r.x+4+4, r.y+4, r.right() - 5-4, r.y+4);
