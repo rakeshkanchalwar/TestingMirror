@@ -1,4 +1,3 @@
-
 package com.bitwise.app.graph.figure;
 
 import java.util.ArrayList;
@@ -24,6 +23,12 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentFigure.
+ * 
+ * @author Bitwise
+ */
 public class ComponentFigure extends Figure implements Validator{
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ComponentFigure.class);
 	
@@ -54,6 +59,14 @@ public class ComponentFigure extends Figure implements Validator{
 	private String status;
 	
 	
+	/**
+	 * Instantiates a new component figure.
+	 * 
+	 * @param portSpecification
+	 *            the port specification
+	 * @param cIconPath
+	 *            the c icon path
+	 */
 	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath) {
 		
 		this.portspecification = portSpecification;
@@ -106,6 +119,13 @@ public class ComponentFigure extends Figure implements Validator{
 		return height;
 	}
 	
+	/**
+	 * Gets the port figure.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 * @return the port figure
+	 */
 	public PortFigure getPortFigure(String terminal) {
 		return ports.get(terminal);
 	}
@@ -139,11 +159,17 @@ public class ComponentFigure extends Figure implements Validator{
 	}
 	
 		
+	/**
+	 * Sets the component color and border.
+	 */
 	public void setComponentColorAndBorder(){
 		setBackgroundColor(componentColor);
 		setBorder(new ComponentBorder(borderColor));
 	}
 	
+	/**
+	 * Sets the selected component color and border.
+	 */
 	public void setSelectedComponentColorAndBorder(){
 		setBackgroundColor(selectedComponentColor);
 		setBorder(new ComponentBorder(selectedBorderColor,2));
@@ -178,11 +204,25 @@ public class ComponentFigure extends Figure implements Validator{
 	}
 
 
+	/**
+	 * Gets the connection anchor.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 * @return the connection anchor
+	 */
 	public ConnectionAnchor getConnectionAnchor(String terminal) {
 
 		return connectionAnchors.get(terminal);
 	}
 
+	/**
+	 * Gets the connection anchor name.
+	 * 
+	 * @param c
+	 *            the c
+	 * @return the connection anchor name
+	 */
 	public String getConnectionAnchorName(ConnectionAnchor c) {
 		
 		Set<String> keys = connectionAnchors.keySet();
@@ -210,10 +250,24 @@ public class ComponentFigure extends Figure implements Validator{
 		return closest;
 	}
 	
+	/**
+	 * Gets the source connection anchor at.
+	 * 
+	 * @param p
+	 *            the p
+	 * @return the source connection anchor at
+	 */
 	public ConnectionAnchor getSourceConnectionAnchorAt(Point p) {
 		return closestAnchor(p, outputConnectionAnchors);
 	}
 
+	/**
+	 * Gets the target connection anchor at.
+	 * 
+	 * @param p
+	 *            the p
+	 * @return the target connection anchor at
+	 */
 	public ConnectionAnchor getTargetConnectionAnchorAt(Point p) {
 		return closestAnchor(p, inputConnectionAnchors);
 	}

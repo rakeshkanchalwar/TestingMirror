@@ -7,11 +7,25 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PortFigure.
+ * 
+ * @author Bitwise
+ */
 public class PortFigure extends Figure {
 
 	private Color portColor;
 	private String terminal;
 	
+	/**
+	 * Instantiates a new port figure.
+	 * 
+	 * @param portColor
+	 *            the port color
+	 * @param terminal
+	 *            the terminal
+	 */
 	public PortFigure(Color portColor, String terminal) {
 		this.portColor = portColor;
 		this.terminal = terminal;

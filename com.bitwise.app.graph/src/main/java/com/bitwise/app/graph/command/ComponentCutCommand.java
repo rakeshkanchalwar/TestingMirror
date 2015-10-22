@@ -10,6 +10,7 @@ import org.eclipse.gef.ui.actions.Clipboard;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ComponentCutCommand represents Cut command for Component.
  * 

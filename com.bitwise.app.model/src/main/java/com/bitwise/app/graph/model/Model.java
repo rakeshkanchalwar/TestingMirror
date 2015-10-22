@@ -4,12 +4,21 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Model.
+ * 
+ * @author Bitwise
+ */
 abstract class Model implements Serializable {
 
 	private static final long serialVersionUID = -4073149938391231758L;
 	
 	private final PropertyChangeSupport propertyChangeSupport;
 		
+	/**
+	 * Instantiates a new model.
+	 */
 	Model(){
 		propertyChangeSupport = new PropertyChangeSupport(this);
 	}

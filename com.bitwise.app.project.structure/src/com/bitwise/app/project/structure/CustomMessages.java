@@ -2,6 +2,11 @@ package com.bitwise.app.project.structure;
 
 import org.eclipse.osgi.util.NLS;
 
+/**
+ * The Class CustomMessages.
+ * 
+ * @author Bitwise
+ */
 public class CustomMessages extends NLS {
 	private static final String BUNDLE_NAME = "com.bitwise.app.project.structure.messages"; //$NON-NLS-1$
 	public static String ProjectSupport_JOBS;

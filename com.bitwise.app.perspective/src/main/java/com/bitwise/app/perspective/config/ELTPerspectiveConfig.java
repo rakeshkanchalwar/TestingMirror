@@ -4,6 +4,7 @@ import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * @author Bitwise
@@ -15,6 +16,12 @@ public class ELTPerspectiveConfig {
 	IWorkbenchWindowConfigurer configurer;	
 	PerspectiveRemover perspectiveRemover;
 		
+	/**
+	 * Instantiates a new ELT perspective config.
+	 * 
+	 * @param configurer
+	 *            the configurer
+	 */
 	public ELTPerspectiveConfig(IWorkbenchWindowConfigurer configurer){
 		this.configurer=configurer;
 		perspectiveRemover=new PerspectiveRemover();
@@ -24,6 +31,9 @@ public class ELTPerspectiveConfig {
 		PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.DOCK_PERSPECTIVE_BAR, IWorkbenchPreferenceConstants.TOP_RIGHT);
 	}
 	
+	/**
+	 * Sets the default elt prespective configurations.
+	 */
 	public void setDefaultELTPrespectiveConfigurations(){
 		
 		configurer.setInitialSize(configurer.getInitialSize());

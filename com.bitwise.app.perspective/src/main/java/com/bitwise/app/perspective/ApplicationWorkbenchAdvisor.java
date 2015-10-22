@@ -12,14 +12,16 @@ import org.eclipse.ui.ide.IDE;
 
 import theme.ThemeHelper;
 
+/**
+ * The Class ApplicationWorkbenchAdvisor.
+ * 
+ * @author Bitwise
+ */
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
 	private static final String PERSPECTIVE_ID = "com.bitwise.app.perspective.ETLPerspective"; //$NON-NLS-1$
 	
-	private static final String DEFAULT_THEME = "com.example.e4.rcp.todo.default";
-	  private static final String RAINBOW_THEME = "com.example.e4.rcp.todo.rainbow";
-
-    public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
     	IDE.registerAdapters();
     	 PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.ENABLE_DETACHED_VIEWS, false);
         return new ApplicationWorkbenchWindowAdvisor(configurer);

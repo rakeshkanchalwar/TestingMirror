@@ -14,18 +14,37 @@ import com.bitwise.app.project.structure.natures.ProjectNature;
 import com.bitwise.app.project.structure.wizard.ProjectStructureCreator;
  
  
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestProjectStructure.
+ * 
+ * @author Bitwise
+ */
 public class TestProjectStructure {
+    
+	/**
+	 * Test create project with empty name arg.
+	 */
     @SuppressWarnings("nls")
     @Test(expected = ProjectStructureCreator.InvalidProjectNameException.class)
     public void testCreateProjectWithEmptyNameArg() {
         ProjectStructureCreator.INSTANCE.createProject("", null);
     }
  
+	/**
+	 * Test create project with null name arg.
+	 */
     @Test(expected = ProjectStructureCreator.InvalidProjectNameException.class)
     public void testCreateProjectWithNullNameArg() {
         ProjectStructureCreator.INSTANCE.createProject(null, null);
     }
     
+	/**
+	 * Test create project with good args.
+	 * 
+	 * @throws CoreException
+	 *             the core exception
+	 */
     @SuppressWarnings("nls")
     @Test
     public void testCreateProjectWithGoodArgs() throws CoreException {

@@ -38,6 +38,7 @@ import com.bitwise.app.project.structure.Activator;
 import com.bitwise.app.project.structure.CustomMessages;
 import com.bitwise.app.project.structure.natures.ProjectNature;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class to create the Custom Project Structure.
  *
@@ -259,6 +260,11 @@ public class ProjectStructureCreator {
 		}
 	}
 	
+	/**
+	 * The Class InvalidProjectNameException.
+	 * 
+	 * @author Bitwise
+	 */
 	public class InvalidProjectNameException extends RuntimeException{
 
 		/**

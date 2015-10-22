@@ -1,5 +1,6 @@
 package com.bitwise.app.perspective.config;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * @author Bitwise
@@ -16,6 +17,13 @@ public enum ELTPerspectives {
 		this.perspectiveID = perspectiveID;
 	}
 	
+	/**
+	 * Contains.
+	 * 
+	 * @param perspectiveID
+	 *            the perspective id
+	 * @return true, if successful
+	 */
 	public static boolean contains(String perspectiveID){
 		for(ELTPerspectives eltPerspective : ELTPerspectives.values()){
 			if(eltPerspective.toString().equals(perspectiveID)){

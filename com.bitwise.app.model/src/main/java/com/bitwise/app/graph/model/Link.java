@@ -2,6 +2,12 @@ package com.bitwise.app.graph.model;
 
 import org.eclipse.draw2d.Graphics;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Link.
+ * 
+ * @author Bitwise
+ */
 public class Link extends Model {
 	private static final long serialVersionUID = -4969635974273718739L;
 
@@ -30,10 +36,16 @@ public class Link extends Model {
 	
 	
 	
+	/**
+	 * Instantiates a new link.
+	 */
 	public Link() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Attach source.
+	 */
 	public void attachSource() {
 		if (getSource() == null
 				|| getSource().getSourceConnections().contains(this))
@@ -42,6 +54,9 @@ public class Link extends Model {
 		getSource().connectOutput(this);
 	}
 
+	/**
+	 * Attach target.
+	 */
 	public void attachTarget() {
 		if (getTarget() == null
 				|| getTarget().getTargetConnections().contains(this))
@@ -49,12 +64,18 @@ public class Link extends Model {
 		getTarget().connectInput(this);
 	}
 	
+	/**
+	 * Detach source.
+	 */
 	public void detachSource() {
 		if (getSource() == null)
 			return;
 		getSource().disconnectOutput(this);
 	}
 	
+	/**
+	 * Detach target.
+	 */
 	public void detachTarget() {
 		if (getTarget() == null)
 			return;
@@ -124,6 +145,9 @@ public class Link extends Model {
 		firePropertyChange(LINESTYLE_PROP, null, new Integer(this.lineStyle));
 	}
 	
+	/**
+	 * Reconnect.
+	 */
 	public void reconnect(){
 		if(!isConnected){
 			source.connectOutput(this);
@@ -133,6 +157,14 @@ public class Link extends Model {
 		}
 	}
 	
+	/**
+	 * Reconnect.
+	 * 
+	 * @param newSource
+	 *            the new source
+	 * @param sourceTerminal
+	 *            the source terminal
+	 */
 	//Reconnect to different Source or Target
 	public void reconnect(Component newSource,String sourceTerminal){
 		if(newSource==null && sourceTerminal==null){

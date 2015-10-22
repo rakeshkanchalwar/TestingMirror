@@ -7,16 +7,37 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComponentBorder.
+ * 
+ * @author Bitwise
+ */
 public class ComponentBorder extends AbstractBorder {
 
 	private Insets insets;
 	private Color borderColor;
 	private int lineWidth = 0;
+	
+	/**
+	 * Instantiates a new component border.
+	 * 
+	 * @param borderColor
+	 *            the border color
+	 */
 	public ComponentBorder(Color borderColor){
 		this.borderColor = borderColor;
 		insets=new Insets();
 	}
 	
+	/**
+	 * Instantiates a new component border.
+	 * 
+	 * @param borderColor
+	 *            the border color
+	 * @param lineWidth
+	 *            the line width
+	 */
 	public ComponentBorder(Color borderColor,int lineWidth){
 		this.borderColor = borderColor;
 		this.lineWidth = lineWidth;

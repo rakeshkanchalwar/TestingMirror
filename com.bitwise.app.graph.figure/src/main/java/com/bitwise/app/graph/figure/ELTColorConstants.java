@@ -3,6 +3,11 @@ package com.bitwise.app.graph.figure;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 
+/**
+ * The Class ELTColorConstants.
+ * 
+ * @author Bitwise
+ */
 public class ELTColorConstants {
 	
 	private ELTColorConstants()

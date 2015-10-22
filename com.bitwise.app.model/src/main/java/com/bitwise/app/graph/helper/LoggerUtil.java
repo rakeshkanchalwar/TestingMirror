@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * @author Bitwise
  * 
@@ -13,6 +14,13 @@ import com.bitwise.app.common.util.LogFactory;
 public class LoggerUtil {
 	private static HashMap<Class<?>, Logger> loggerMap = new HashMap<>();
 
+	/**
+	 * Gets the loger.
+	 * 
+	 * @param clazz
+	 *            the clazz
+	 * @return the loger
+	 */
 	public static Logger getLoger(Class<?> clazz) {
 		Logger tempLogger = loggerMap.get(clazz);
 		if (tempLogger != null) {

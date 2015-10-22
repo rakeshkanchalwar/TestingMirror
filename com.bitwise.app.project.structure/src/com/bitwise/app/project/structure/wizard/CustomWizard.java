@@ -14,12 +14,22 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
 import com.bitwise.app.project.structure.CustomMessages;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomWizard.
+ * 
+ * @author Bitwise
+ */
 public class CustomWizard extends Wizard implements INewWizard, IExecutableExtension  {
 	
 	private static final String ETL_PROJECT_WIZARD = "ELT Project Wizard"; //$NON-NLS-1$
 	private static final String WINDOW_TITLE = "New ELT Project"; //$NON-NLS-1$
 	private WizardNewProjectCreationPage pageOne;
 	private IConfigurationElement configurationElement;
+
+	/**
+	 * Instantiates a new custom wizard.
+	 */
 	public CustomWizard() {
 		setWindowTitle(WINDOW_TITLE);
 	}

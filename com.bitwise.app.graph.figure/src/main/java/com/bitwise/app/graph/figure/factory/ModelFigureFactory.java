@@ -9,6 +9,10 @@ import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating ModelFigure objects.
+ */
 public class ModelFigureFactory {
 	
 	 
@@ -22,6 +26,13 @@ public class ModelFigureFactory {
 		}
 	}
 
+	/**
+	 * Creates a new ModelFigure object.
+	 * 
+	 * @param componentName
+	 *            the component name
+	 * @return the i figure
+	 */
 	public static IFigure createFigureForComponent(String componentName ) {
 		String shapeName = XMLConfigUtil.INSTANCE.getComponent(componentName).getShape().value();
 		String canvasIconPath = XMLConfigUtil.INSTANCE.getComponent(componentName).getCanvasIconPath();

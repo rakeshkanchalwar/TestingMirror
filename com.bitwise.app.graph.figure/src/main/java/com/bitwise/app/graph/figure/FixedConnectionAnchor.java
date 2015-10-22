@@ -6,6 +6,12 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.geometry.Point;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FixedConnectionAnchor.
+ * 
+ * @author Bitwise
+ */
 public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	private boolean allowMultipleLinks, linkMandatory;
@@ -15,6 +21,18 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 
 	
 
+	/**
+	 * Instantiates a new fixed connection anchor.
+	 * 
+	 * @param owner
+	 *            the owner
+	 * @param type
+	 *            the type
+	 * @param totalPortsOfThisType
+	 *            the total ports of this type
+	 * @param sequence
+	 *            the sequence
+	 */
 	public FixedConnectionAnchor(IFigure owner, String type, int totalPortsOfThisType, int sequence) {
 		super(owner);
 		this.type=type;

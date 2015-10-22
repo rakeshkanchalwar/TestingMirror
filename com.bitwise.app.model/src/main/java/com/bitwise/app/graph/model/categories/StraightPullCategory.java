@@ -2,6 +2,11 @@ package com.bitwise.app.graph.model.categories;
 
 import com.bitwise.app.graph.model.Component;
 
+/**
+ * The Class StraightPullCategory.
+ * 
+ * @author Bitwise
+ */
 public abstract class StraightPullCategory extends Component {
 
 	/**

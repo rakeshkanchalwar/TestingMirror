@@ -10,6 +10,11 @@ import org.osgi.framework.ServiceReference;
 
 import com.bitwise.app.perspective.Activator;
 
+/**
+ * The Class ThemeHelper.
+ * 
+ * @author Bitwise
+ */
 public class ThemeHelper {
 	private static IThemeEngine engine = null;
 	private static Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);

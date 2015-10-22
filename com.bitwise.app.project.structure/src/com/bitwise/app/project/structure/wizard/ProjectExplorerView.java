@@ -5,6 +5,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.navigator.CommonNavigator;
 
+/**
+ * The Class ProjectExplorerView.
+ * 
+ * @author Bitwise
+ */
 public class ProjectExplorerView extends CommonNavigator {
 @Override
 public void createPartControl(Composite aParent) {

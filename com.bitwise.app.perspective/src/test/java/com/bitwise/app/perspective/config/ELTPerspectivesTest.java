@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * @author Bitwise
@@ -16,6 +17,9 @@ import org.junit.Test;
 
 public class ELTPerspectivesTest {
 			
+	/**
+	 * It should have elt perspective id.
+	 */
 	@Test
 	public void itShouldHaveELTPerspectiveID(){
 		//Given
@@ -28,6 +32,9 @@ public class ELTPerspectivesTest {
 		assertEquals(expectedPerspective, actualPerspectiveID);
 	}
 	
+	/**
+	 * It should have one perspective id.
+	 */
 	@Test
 	public void itShouldHaveOnePerspectiveID(){
 		//Given
@@ -45,6 +52,9 @@ public class ELTPerspectivesTest {
 		assertFalse(expectedPerspectiveList.size() != actualPerspectiveList.length);
 	}
 	
+	/**
+	 * It should return true if given perspective id is exist.
+	 */
 	@Test
 	public void itShouldReturnTrueIfGivenPerspectiveIDIsExist(){
 		//Given
@@ -54,6 +64,9 @@ public class ELTPerspectivesTest {
 		assertTrue(ELTPerspectives.contains(eltPerspectiveID));
 	}
 	
+	/**
+	 * It should return false if given perspective id does not exist.
+	 */
 	@Test
 	public void itShouldReturnFalseIfGivenPerspectiveIDDoesNotExist(){
 		//Given

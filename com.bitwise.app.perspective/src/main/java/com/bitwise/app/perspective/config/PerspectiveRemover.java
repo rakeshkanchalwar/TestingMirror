@@ -8,6 +8,7 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.PlatformUI;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * @author Bitwise

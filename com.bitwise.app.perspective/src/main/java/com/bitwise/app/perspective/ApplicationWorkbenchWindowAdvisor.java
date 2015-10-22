@@ -9,8 +9,20 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import com.bitwise.app.perspective.config.ELTPerspectiveConfig;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationWorkbenchWindowAdvisor.
+ * 
+ * @author Bitwise
+ */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
+	/**
+	 * Instantiates a new application workbench window advisor.
+	 * 
+	 * @param configurer
+	 *            the configurer
+	 */
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
     }

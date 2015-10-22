@@ -13,9 +13,20 @@ import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Component.
+ * 
+ * @author Bitwise
+ */
 public abstract class Component extends Model {
 	private static final long serialVersionUID = 2587870876576884352L;
 
+	/**
+	 * The Enum Props.
+	 * 
+	 * @author Bitwise
+	 */
 	public static enum Props {
 		LOCATION_PROP("Location"),
 		SIZE_PROP("Size"),
@@ -32,11 +43,23 @@ public abstract class Component extends Model {
 			return this.value;
 		}
 		
+		/**
+		 * Eq.
+		 * 
+		 * @param property
+		 *            the property
+		 * @return true, if successful
+		 */
 		public boolean eq(String property){
 			return this.value.equals(property);
 		}
 	}
 	
+	/**
+	 * The Enum ValidityStatus.
+	 * 
+	 * @author Bitwise
+	 */
 	public static enum ValidityStatus {
 		WARN,
 		ERROR,
@@ -62,6 +85,9 @@ public abstract class Component extends Model {
 	private String componentName;
 	List<PortSpecification> portSpecification;
 
+	/**
+	 * Instantiates a new component.
+	 */
 	public Component(){
 		location = new Point(0, 0);
 		size = new Dimension(100, 75);
@@ -98,6 +124,13 @@ public abstract class Component extends Model {
 		return portSpecification;
 	}
 
+	/**
+	 * Gets the port.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 * @return the port
+	 */
 	public Port getPort(String terminal) {
 		return ports.get(terminal);
 	}
@@ -111,24 +144,48 @@ public abstract class Component extends Model {
 		firePropertyChange(prop, null,newValue);
 	}
 	
+	/**
+	 * Connect input.
+	 * 
+	 * @param c
+	 *            the c
+	 */
 	public void connectInput(Link c) {
 		inputLinks.add(c);
 		inputLinksHash.put(c.getTargetTerminal(), inputLinks);
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
+	/**
+	 * Connect output.
+	 * 
+	 * @param c
+	 *            the c
+	 */
 	public void connectOutput(Link c) {
 		outputLinks.add(c);
 		outputLinksHash.put(c.getSourceTerminal(), outputLinks);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);
 	}
 	
+	/**
+	 * Disconnect input.
+	 * 
+	 * @param c
+	 *            the c
+	 */
 	public void disconnectInput(Link c) {
 		inputLinks.remove(c);
 		inputLinksHash.remove(c.getTargetTerminal());
 		updateConnectionProperty(Props.INPUTS.getValue(), c);
 	}
 
+	/**
+	 * Disconnect output.
+	 * 
+	 * @param c
+	 *            the c
+	 */
 	public void disconnectOutput(Link c) {
 		outputLinks.remove(c);
 		outputLinksHash.remove(c.getSourceTerminal());
@@ -145,24 +202,66 @@ public abstract class Component extends Model {
 	}
 
 	
+	/**
+	 * Engage input port.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 */
 	public void engageInputPort(String terminal){
 		inputportTerminals.add(terminal);
 	}
+
+	/**
+	 * Free input port.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 */
 	public void freeInputPort(String terminal){
 		inputportTerminals.remove(terminal);
 	}
+
+	/**
+	 * Checks if is input port engaged.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 * @return true, if is input port engaged
+	 */
 	public boolean isInputPortEngaged(String terminal) {
 		return inputportTerminals.contains(terminal);
 		
 	}
 
 	
+	/**
+	 * Engage output port.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 */
 	public void engageOutputPort(String terminal){
 		outputPortTerminals.add(terminal);
 	}
+
+	/**
+	 * Free output port.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 */
 	public void freeOutputPort(String terminal){
 		outputPortTerminals.remove(terminal);
 	}
+
+	/**
+	 * Checks if is output port engaged.
+	 * 
+	 * @param terminal
+	 *            the terminal
+	 * @return true, if is output port engaged
+	 */
 	public boolean isOutputPortEngaged(String terminal) {
 		return outputPortTerminals.contains(terminal);
 	}
