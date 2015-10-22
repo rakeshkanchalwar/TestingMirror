@@ -13,10 +13,26 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBo
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTComponentType.
+ * 
+ * @author Bitwise
+ */
 public class ELTComponentType extends AbstractWidget{	
 
 	private ELTDefaultTextBox eltDefaultTextBox;
 	
+	/**
+	 * Instantiates a new ELT component type.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTComponentType(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

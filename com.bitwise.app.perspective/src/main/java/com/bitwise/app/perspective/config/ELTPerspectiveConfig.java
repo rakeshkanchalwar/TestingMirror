@@ -6,7 +6,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Aug 26, 2015
  * 
  */

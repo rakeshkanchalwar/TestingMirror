@@ -10,15 +10,19 @@ import com.bitwise.app.propertywindow.testdata.PropertyStore;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.property.PropertyTreeBuilder;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 04, 2015
  * 
  */
 
 public class PropertyTreeBuilderTest {
 
+	/**
+	 * It should build componenet property tree.
+	 */
 	@Test
 	public void itShouldBuildComponenetPropertyTree(){
 		//Given
@@ -33,6 +37,9 @@ public class PropertyTreeBuilderTest {
 		assertEquals(expectedTree,propertyTreeBuilder.toString());
 	}
 	
+	/**
+	 * It should provide property tree.
+	 */
 	@Test
 	public void itShouldProvidePropertyTree(){
 		//Given

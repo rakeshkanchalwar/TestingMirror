@@ -5,9 +5,10 @@ import java.util.LinkedHashMap;
 
 import com.bitwise.app.propertywindow.property.Property;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 04, 2015
  * 
  */
@@ -15,11 +16,17 @@ import com.bitwise.app.propertywindow.property.Property;
 public class PropertyStore {
 	LinkedHashMap<String,ArrayList<Property>> properties;
 	
+	/**
+	 * Instantiates a new property store.
+	 */
 	public PropertyStore(){
 		properties=new LinkedHashMap<>();
 		addInputComponentProperties();
 	}
 	
+	/**
+	 * Adds the input component properties.
+	 */
 	public void addInputComponentProperties(){
 		ArrayList<Property> inputComponentProperties = new ArrayList<>();
 		
@@ -78,6 +85,13 @@ public class PropertyStore {
 		properties.put("Input", inputComponentProperties);
 	}
 	
+	/**
+	 * Gets the properties.
+	 * 
+	 * @param componentName
+	 *            the component name
+	 * @return the properties
+	 */
 	public ArrayList<Property> getProperties(String componentName){
 		return properties.get(componentName);
 	}

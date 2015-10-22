@@ -2,9 +2,10 @@ package com.bitwise.app.propertywindow.property;
 
 import java.util.LinkedHashMap;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 29, 2015
  * 
  */
@@ -17,6 +18,14 @@ public class ELTComponenetProperties {
 		
 	}
 	
+	/**
+	 * Instantiates a new ELT componenet properties.
+	 * 
+	 * @param componentConfigurationProperties
+	 *            the component configuration properties
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 */
 	public ELTComponenetProperties(
 			LinkedHashMap<String, Object> componentConfigurationProperties,
 			LinkedHashMap<String, Object> componentMiscellaneousProperties) {
@@ -29,6 +38,13 @@ public class ELTComponenetProperties {
 		return componentConfigurationProperties;
 	}
 
+	/**
+	 * Gets the component configuration property.
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @return the component configuration property
+	 */
 	public Object getComponentConfigurationProperty(String propertyName) {
 		return componentConfigurationProperties.get(propertyName);
 	}
@@ -42,6 +58,13 @@ public class ELTComponenetProperties {
 		return componentMiscellaneousProperties;
 	}
 	
+	/**
+	 * Gets the component miscellaneous property.
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @return the component miscellaneous property
+	 */
 	public Object getComponentMiscellaneousProperty(String propertyName) {
 		return componentMiscellaneousProperties.get(propertyName);
 	}

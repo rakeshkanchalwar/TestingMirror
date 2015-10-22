@@ -11,6 +11,15 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTMouseDownListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+/**
+ * The listener interface for receiving ELTGridMouseDown events. The class that is interested in processing a
+ * ELTGridMouseDown event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTGridMouseDownListener<code> method. When
+ * the ELTGridMouseDown event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTGridMouseDownEvent
+ */
 public class ELTGridMouseDownListener extends ELTMouseDownListener{
 	public ControlDecoration fieldNameDecorator;
 	@Override

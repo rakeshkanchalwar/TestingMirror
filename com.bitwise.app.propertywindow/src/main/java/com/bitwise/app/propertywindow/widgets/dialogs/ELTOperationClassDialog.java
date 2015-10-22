@@ -27,11 +27,16 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTOperationClassDialog.
+ * 
+ * @author Bitwise
+ */
 public class ELTOperationClassDialog extends Dialog {
 
 	private Text fileName;
 	private Button btnCheckButton; 
-	private PropertyDialogButtonBar propertyDialogButtonBar;
 	private Button applyButton;
 	private Composite container;
 	private OperationClassProperty operationClassProperty;
@@ -43,7 +48,6 @@ public class ELTOperationClassDialog extends Dialog {
 	 */
 	public ELTOperationClassDialog(Shell parentShell,PropertyDialogButtonBar propertyDialogButtonBar, OperationClassProperty operationClassProperty) {
 		super(parentShell);
-		this.propertyDialogButtonBar = propertyDialogButtonBar;
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE |  SWT.WRAP | SWT.APPLICATION_MODAL);
 		this.operationClassProperty = operationClassProperty;
 	}
@@ -91,7 +95,7 @@ public class ELTOperationClassDialog extends Dialog {
 		
 		//=================================
 		
-		ListenerFactory listenerFactory = new ListenerFactory();
+		new ListenerFactory();
 		
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(composite);
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -160,11 +164,14 @@ public class ELTOperationClassDialog extends Dialog {
 			e1.printStackTrace();
 		} 
 		
-		poulateWidget();
+		populateWidget();
 		return container;
 	}
 
-    public void poulateWidget() {
+	/**
+	 * Populate widget.
+	 */
+    public void populateWidget() {
         if (!operationClassProperty.getOperationClassPath().equalsIgnoreCase("")) {
               fileName.setText(operationClassProperty.getOperationClassPath());
               btnCheckButton.setSelection(operationClassProperty.isParameter());

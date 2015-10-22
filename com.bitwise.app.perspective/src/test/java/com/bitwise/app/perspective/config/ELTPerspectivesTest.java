@@ -9,7 +9,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Aug 28, 2015
  *
  */

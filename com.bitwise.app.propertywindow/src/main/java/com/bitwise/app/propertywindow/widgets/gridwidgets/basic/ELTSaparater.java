@@ -5,9 +5,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 28, 2015
  * 
  */
@@ -31,16 +32,37 @@ public class ELTSaparater extends AbstractELTWidget{
 		widget = label;
 	}
 
+	/**
+	 * Lable width.
+	 * 
+	 * @param lableWidth
+	 *            the lable width
+	 * @return the ELT saparater
+	 */
 	public ELTSaparater lableWidth(int lableWidth){
 		this.lableWidth = lableWidth;
 		return this;
 	}
 	
+	/**
+	 * Grab excess horizontal space.
+	 * 
+	 * @param grabExcessSpace
+	 *            the grab excess space
+	 * @return the ELT saparater
+	 */
 	public ELTSaparater grabExcessHorizontalSpace(boolean grabExcessSpace){
 		this.grabExcessSpace = grabExcessSpace;
 		return this;
 	}
 	
+	/**
+	 * Visibility.
+	 * 
+	 * @param visible
+	 *            the visible
+	 * @return the ELT saparater
+	 */
 	public ELTSaparater visibility(boolean visible){ 
 		this.visible =visible;
 		return this;

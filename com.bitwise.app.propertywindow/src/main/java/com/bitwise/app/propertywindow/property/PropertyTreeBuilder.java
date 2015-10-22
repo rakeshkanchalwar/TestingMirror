@@ -3,9 +3,10 @@ package com.bitwise.app.propertywindow.property;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 03, 2015
  * 
  */
@@ -18,6 +19,12 @@ public class PropertyTreeBuilder implements IPropertyTreeBuilder{
 	private PropertyTreeBuilder(){
 	}
 	
+	/**
+	 * Instantiates a new property tree builder.
+	 * 
+	 * @param properties
+	 *            the properties
+	 */
 	public PropertyTreeBuilder(ArrayList<Property> properties){
 		buildComponenetPropertyTree(properties);
 	}

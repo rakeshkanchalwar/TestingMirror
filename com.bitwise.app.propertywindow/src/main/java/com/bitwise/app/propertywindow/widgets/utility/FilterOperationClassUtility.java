@@ -21,9 +21,21 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FilterOperationClassUtility.
+ * 
+ * @author Bitwise
+ */
 public class FilterOperationClassUtility {
 	private static String filePath = "";
 
+	/**
+	 * Creates the new class wizard.
+	 * 
+	 * @param fileName
+	 *            the file name
+	 */
 	public static void createNewClassWizard(Text fileName) {
 		OpenNewClassWizardAction wizard = new OpenNewClassWizardAction();
 		wizard.setOpenEditorOnFinish(false);
@@ -41,6 +53,14 @@ public class FilterOperationClassUtility {
 					+ page.getTypeName() + ".java");
 	}
 
+	/**
+	 * Browse file.
+	 * 
+	 * @param filterExtension
+	 *            the filter extension
+	 * @param fileName
+	 *            the file name
+	 */
 	public static void browseFile(String filterExtension, Text fileName) {
 		ResourceFileSelectionDialog dialog = new ResourceFileSelectionDialog(
 				"Project", "Select Java Class (.java)", new String[] { filterExtension });
@@ -52,6 +72,13 @@ public class FilterOperationClassUtility {
 		}
 	} 
 
+	/**
+	 * Open file editor.
+	 * 
+	 * @param fileName
+	 *            the file name
+	 * @return true, if successful
+	 */
 	public static boolean openFileEditor(String fileName) {
 		try {
 			File fileToOpen = new File(fileName);

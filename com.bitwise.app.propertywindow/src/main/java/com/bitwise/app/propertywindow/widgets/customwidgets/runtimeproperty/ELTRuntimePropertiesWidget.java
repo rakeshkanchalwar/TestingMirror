@@ -16,6 +16,12 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTC
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTRuntimePropertiesWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTRuntimePropertiesWidget extends AbstractWidget {
 	
 	private TreeMap<String, String> InstializeMap;
@@ -28,6 +34,16 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		tempPropertyMap = new LinkedHashMap<String, Object>();
 	}*/
 	
+	/**
+	 * Instantiates a new ELT runtime properties widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTRuntimePropertiesWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
@@ -99,7 +115,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 	 */
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		ListenerFactory listenerFactory = new ListenerFactory();
+		new ListenerFactory();
 
 		ELTDefaultSubgroupComposite runtimeComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
@@ -130,6 +146,14 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 	}
 
 	
+	/**
+	 * Sets the properties.
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @param properties
+	 *            the properties
+	 */
 	public void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
 		this.InstializeMap = (TreeMap<String, String>) properties;
@@ -149,6 +173,9 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 
 	}*/
 
+	/**
+	 * New window launcher.
+	 */
 	public void newWindowLauncher() {
 		RunTimePropertyWizard runTimeWizardObj = new RunTimePropertyWizard();
 		runTimeWizardObj.setComponentName(componentName);

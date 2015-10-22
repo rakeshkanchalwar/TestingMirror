@@ -4,9 +4,10 @@ import org.eclipse.jface.viewers.ICellEditorListener;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Oct 12, 2015
  * 
  */
@@ -15,6 +16,12 @@ public class GridCellEditorListener implements ICellEditorListener{
 
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	
+	/**
+	 * Instantiates a new grid cell editor listener.
+	 * 
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public GridCellEditorListener(PropertyDialogButtonBar propertyDialogButtonBar){
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
 	}

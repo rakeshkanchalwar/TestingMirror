@@ -28,9 +28,26 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTCellEditorIsNume
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDetails;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEditorFieldValidator;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class ELTFieldSequenceWidget.
+ * 
+ * @author Bitwise
+ */
 //TODO : REMOVE THIS CLASS
 public class ELTFieldSequenceWidget extends AbstractWidget {
 
+	/**
+	 * Instantiates a new ELT field sequence widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTFieldSequenceWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
@@ -150,6 +167,14 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 	}  
  
 	
+	/**
+	 * Sets the properties.
+	 * 
+	 * @param propertyName
+	 *            the property name
+	 * @param properties
+	 *            the properties
+	 */
 	public void setProperties(String propertyName, Object properties) {
 		/*this.properties =  properties;
 		this.propertyName = propertyName;

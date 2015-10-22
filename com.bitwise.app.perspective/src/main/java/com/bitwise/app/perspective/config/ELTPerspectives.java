@@ -2,7 +2,7 @@ package com.bitwise.app.perspective.config;
 
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Aug 28, 2015
  *
  */

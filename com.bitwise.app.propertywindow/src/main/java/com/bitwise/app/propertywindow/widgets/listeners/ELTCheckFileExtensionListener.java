@@ -16,6 +16,15 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+/**
+ * The listener interface for receiving ELTCheckFileExtension events. The class that is interested in processing a
+ * ELTCheckFileExtension event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTCheckFileExtensionListener<code> method. When
+ * the ELTCheckFileExtension event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTCheckFileExtensionEvent
+ */
 public class ELTCheckFileExtensionListener implements IELTListener{
 
 	@Override

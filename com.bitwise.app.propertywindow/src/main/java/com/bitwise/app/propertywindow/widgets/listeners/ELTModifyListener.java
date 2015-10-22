@@ -14,6 +14,15 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTModify events. The class that is interested in processing a ELTModify event
+ * implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addELTModifyListener<code> method. When
+ * the ELTModify event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTModifyEvent
+ */
 public class ELTModifyListener implements IELTListener{
 	private ControlDecoration txtDecorator;
 	private ValidationStatus validationStatus;

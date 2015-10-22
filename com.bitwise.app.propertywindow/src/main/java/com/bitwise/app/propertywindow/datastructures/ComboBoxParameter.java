@@ -1,5 +1,10 @@
 package com.bitwise.app.propertywindow.datastructures;
 
+/**
+ * The Class ComboBoxParameter.
+ * 
+ * @author Bitwise
+ */
 public class ComboBoxParameter {
 	private String option;
 	private String optionValue;

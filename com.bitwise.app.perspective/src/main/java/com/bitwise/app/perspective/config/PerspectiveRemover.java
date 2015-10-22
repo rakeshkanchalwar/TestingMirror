@@ -10,7 +10,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Aug 25, 2015
  *
  */

@@ -23,6 +23,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperTyp
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTCharacterSetWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTCharacterSetWidget extends AbstractWidget{
 	private Combo combo;
 	private Text text;
@@ -34,6 +40,16 @@ public class ELTCharacterSetWidget extends AbstractWidget{
 	private ControlDecoration txtDecorator; //=WidgetUtility.addDecorator((Text)widgetList[0], Messages.CHARACTERSET);
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
 	
+	/**
+	 * Instantiates a new ELT character set widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTCharacterSetWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

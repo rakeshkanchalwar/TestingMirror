@@ -2,6 +2,11 @@ package com.bitwise.app.propertywindow.messages;
 
 import org.eclipse.osgi.util.NLS;
 
+/**
+ * The Class Messages.
+ * 
+ * @author Bitwise
+ */
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "com.bitwise.app.propertywindow.messages.messages";
 	public static String LENGTHERROR;

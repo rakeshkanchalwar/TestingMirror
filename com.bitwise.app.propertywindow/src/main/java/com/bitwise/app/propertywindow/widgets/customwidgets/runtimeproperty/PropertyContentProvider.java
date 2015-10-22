@@ -14,6 +14,11 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Item;
 
+/**
+ * The Class PropertyContentProvider.
+ * 
+ * @author Bitwise
+ */
 public class PropertyContentProvider implements IStructuredContentProvider {
 	/**
 	 * Returns the Person objects

@@ -19,6 +19,12 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTFilterWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTFilterWidget extends AbstractWidget {
 
 
@@ -30,6 +36,16 @@ public class ELTFilterWidget extends AbstractWidget {
 	private HashSet<String> set;
 	private String componentName;
 
+	/**
+	 * Instantiates a new ELT filter widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTFilterWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

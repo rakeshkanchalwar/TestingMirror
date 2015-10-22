@@ -13,7 +13,7 @@ import com.bitwise.app.graph.figure.ELTColorConstants;
 
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Oct 15, 2015
  * 
  */

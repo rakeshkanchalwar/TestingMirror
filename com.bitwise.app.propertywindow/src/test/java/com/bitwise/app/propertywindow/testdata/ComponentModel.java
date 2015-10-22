@@ -3,9 +3,10 @@ package com.bitwise.app.propertywindow.testdata;
 import java.util.LinkedHashMap;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 08, 2015
  * 
  */
@@ -28,6 +29,13 @@ public class ComponentModel {
 		return inputComponenetProperties;
 	}
 	
+	/**
+	 * Gets the properties.
+	 * 
+	 * @param componentName
+	 *            the component name
+	 * @return the properties
+	 */
 	public LinkedHashMap<String,Object> getProperties(String componentName){
 		if(componentName.equals("Input")){
 			return getInputComponenetProperties();

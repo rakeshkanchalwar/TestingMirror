@@ -15,6 +15,15 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+/**
+ * The listener interface for receiving ELTEmptyTextModify events. The class that is interested in processing a
+ * ELTEmptyTextModify event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTEmptyTextModifyListener<code> method. When
+ * the ELTEmptyTextModify event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTEmptyTextModifyEvent
+ */
 public class ELTEmptyTextModifyListener implements IELTListener {
 
 	@Override

@@ -11,8 +11,9 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 
 /**
- * @author shashankk
- Class ComponentCutCommand represent Cut command for Component.  
+ * The Class ComponentCutCommand represents Cut command for Component.
+ * 
+ * @author Bitwise
  */
 public class ComponentCutCommand extends Command {
 	private ArrayList<Component> list = new ArrayList<Component>();

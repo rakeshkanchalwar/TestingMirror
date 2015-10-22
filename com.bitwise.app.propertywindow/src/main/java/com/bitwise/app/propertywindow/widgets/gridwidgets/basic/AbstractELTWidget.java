@@ -7,9 +7,10 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 18, 2015
  * 
  */
@@ -18,8 +19,28 @@ public abstract class AbstractELTWidget {
 	protected Widget widget;
 	protected Object jfaceWidgets;
 
+	/**
+	 * Attach widget.
+	 * 
+	 * @param container
+	 *            the container
+	 */
 	public abstract void attachWidget(Composite container);
 	
+	/**
+	 * Attach listener.
+	 * 
+	 * @param ELTListener
+	 *            the ELT listener
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 * @param helpers
+	 *            the helpers
+	 * @param widgets
+	 *            the widgets
+	 * @throws Exception
+	 *             the exception
+	 */
 	public void attachListener(IELTListener ELTListener,PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) throws Exception{
 		if(widget != null)
 			widget.addListener(ELTListener.getListenerType(), ELTListener.getListener(propertyDialogButtonBar, helpers, widgets));

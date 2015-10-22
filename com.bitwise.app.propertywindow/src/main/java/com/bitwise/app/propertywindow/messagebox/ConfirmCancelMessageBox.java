@@ -7,9 +7,10 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 24, 2015
  * 
  */
@@ -22,6 +23,12 @@ public class ConfirmCancelMessageBox {
 		
 	}
 	
+	/**
+	 * Instantiates a new confirm cancel message box.
+	 * 
+	 * @param container
+	 *            the container
+	 */
 	public ConfirmCancelMessageBox(Composite container){
 		this.container =container;
 		createMessageBox();

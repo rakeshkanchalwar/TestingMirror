@@ -22,6 +22,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTStrictWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTStrictWidget extends AbstractWidget{
 
 	Combo combo;
@@ -33,6 +39,16 @@ public class ELTStrictWidget extends AbstractWidget{
 	private ControlDecoration txtDecorator;
 	private ComboBoxParameter comboBoxParameter=new ComboBoxParameter();
 
+	/**
+	 * Instantiates a new ELT strict widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTStrictWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

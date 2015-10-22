@@ -12,19 +12,75 @@ import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GridWidgetCommonBuilder.
+ * 
+ * @author Bitwise
+ */
 public abstract class GridWidgetCommonBuilder {
+	
+	/**
+	 * Creates the default schema.
+	 * 
+	 * @param grids
+	 *            the grids
+	 * @param tableViewer
+	 *            the table viewer
+	 * @param errorLabel
+	 *            the error label
+	 */
 	public abstract void createDefaultSchema(List grids,TableViewer tableViewer,Label errorLabel);
+	
+	/**
+	 * Creates the cell editor list.
+	 * 
+	 * @param table
+	 *            the table
+	 * @param size
+	 *            the size
+	 * @return the cell editor[]
+	 */
 	public abstract CellEditor[] createCellEditorList(Table table,int size);
 	
+	/**
+	 * Creates the cell editor.
+	 * 
+	 * @param size
+	 *            the size
+	 * @return the cell editor[]
+	 */
 	protected CellEditor[] createCellEditor(int size){
 		CellEditor[] cellEditor = new CellEditor[size];
 		return cellEditor;
 	}
 	
+	/**
+	 * Adds the text editor.
+	 * 
+	 * @param table
+	 *            the table
+	 * @param cellEditor
+	 *            the cell editor
+	 * @param position
+	 *            the position
+	 */
 	protected void addTextEditor(Table table, CellEditor[] cellEditor, int position){
 		cellEditor[position]=new TextCellEditor(table);
 	}
 	
+	/**
+	 * Adds the combo box.
+	 * 
+	 * @param table
+	 *            the table
+	 * @param cellEditor
+	 *            the cell editor
+	 * @param data
+	 *            the data
+	 * @param position
+	 *            the position
+	 */
 	protected void addComboBox(Table table, CellEditor[] cellEditor, String[] data, int position){
 		cellEditor[position] = new ComboBoxCellEditor(table, data,SWT.READ_ONLY);		
 	}
@@ -33,6 +89,9 @@ public abstract class GridWidgetCommonBuilder {
 	public static String[] dataTypeKey;
 	public static String[] dataTypeValue;
 
+	/**
+	 * Sets the data type key value.
+	 */
 	public static void setDataTypeKeyValue() {
 		if (dataTypeList != null)
 		{

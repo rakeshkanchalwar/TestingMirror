@@ -9,12 +9,31 @@ import org.eclipse.swt.widgets.Table;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.GridRow;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTCellEditorFieldValidator.
+ * 
+ * @author Bitwise
+ */
 public class ELTCellEditorFieldValidator implements ICellEditorValidator {
 
 	private Table table;
 	private List schemaGrids;
 	private ControlDecoration fieldNameDecorator;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
+	
+	/**
+	 * Instantiates a new ELT cell editor field validator.
+	 * 
+	 * @param table
+	 *            the table
+	 * @param schemaGrids
+	 *            the schema grids
+	 * @param fieldNameDecorator
+	 *            the field name decorator
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTCellEditorFieldValidator(Table table, List schemaGrids,
 			ControlDecoration fieldNameDecorator,PropertyDialogButtonBar propertyDialogButtonBar) {
 		super();

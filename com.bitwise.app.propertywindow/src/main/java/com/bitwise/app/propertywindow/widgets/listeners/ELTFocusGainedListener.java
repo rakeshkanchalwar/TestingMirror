@@ -10,6 +10,15 @@ import org.eclipse.swt.widgets.Widget;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTFocusGained events. The class that is interested in processing a
+ * ELTFocusGained event implements this interface, and the object created with that class is registered with a component
+ * using the component's <code>addELTFocusGainedListener<code> method. When
+ * the ELTFocusGained event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTFocusGainedEvent
+ */
 public class ELTFocusGainedListener implements IELTListener {
 
 	ControlDecoration txtDecorator;

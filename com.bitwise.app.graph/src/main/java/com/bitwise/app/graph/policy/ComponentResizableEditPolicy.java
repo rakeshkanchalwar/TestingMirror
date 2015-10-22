@@ -7,7 +7,7 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Oct 15, 2015
  * 
  */

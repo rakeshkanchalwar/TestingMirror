@@ -9,6 +9,15 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
+/**
+ * The listener interface for receiving ELTEnableButton events. The class that is interested in processing a
+ * ELTEnableButton event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTEnableButtonListener<code> method. When
+ * the ELTEnableButton event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTEnableButtonEvent
+ */
 public class ELTEnableButtonListener implements IELTListener{
 
 	@Override

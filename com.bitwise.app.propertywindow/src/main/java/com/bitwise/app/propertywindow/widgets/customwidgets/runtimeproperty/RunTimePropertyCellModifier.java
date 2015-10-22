@@ -6,9 +6,21 @@ import org.eclipse.swt.widgets.Item;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RunTimePropertyCellModifier.
+ * 
+ * @author Bitwise
+ */
 public class RunTimePropertyCellModifier implements ICellModifier {
 	private Viewer viewer;
 
+	/**
+	 * Instantiates a new run time property cell modifier.
+	 * 
+	 * @param viewer
+	 *            the viewer
+	 */
 	public RunTimePropertyCellModifier(Viewer viewer) {
 		this.viewer = viewer;
 	}

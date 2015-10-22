@@ -15,15 +15,19 @@ import com.bitwise.app.propertywindow.testdata.RawProperties;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
 import com.bitwise.app.propertywindow.property.Property;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 04, 2015
  * 
  */
 
 public class ELTComponentPropertyAdapterTest {
 	
+	/**
+	 * It should transform row properties to elt property window format.
+	 */
 	@Test
 	public void itShouldTransformRowPropertiesToELTPropertyWindowFormat(){
 		//Given
@@ -40,6 +44,9 @@ public class ELTComponentPropertyAdapterTest {
 		assertEquals(expectedProperties,transformedProperties.toString());
 	}
 	
+	/**
+	 * It should throw empty component properties exception if raw properties are empty while transformation.
+	 */
 	@Test(expected = ELTComponentPropertyAdapter.EmptyComponentPropertiesException.class)
 	public void itShouldThrowEmptyComponentPropertiesExceptionIfRawPropertiesAreEmptyWhileTransformation() {
 		//Given

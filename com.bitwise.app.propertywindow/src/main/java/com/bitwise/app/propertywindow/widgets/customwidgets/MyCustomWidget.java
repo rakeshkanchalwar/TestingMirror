@@ -18,9 +18,10 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSu
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 08, 2015
  * 
  */
@@ -34,6 +35,16 @@ public class MyCustomWidget extends AbstractWidget{
 	
 	private Text textBox;
 	
+	/**
+	 * Instantiates a new my custom widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public MyCustomWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

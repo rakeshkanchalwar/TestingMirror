@@ -2,6 +2,11 @@ package com.bitwise.app.propertywindow.fixedwidthschema;
 
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.GridRow;
 
+/**
+ * The Class FixedWidthGridRow.
+ * 
+ * @author Bitwise
+ */
 public class FixedWidthGridRow extends GridRow{
 	private String length;
 

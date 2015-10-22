@@ -7,15 +7,19 @@ import org.junit.Test;
 
 import com.bitwise.app.propertywindow.property.Property;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 04, 2015
  * 
  */
 
 public class PropertyTest {
 
+	/**
+	 * It should allow to add optional property group name.
+	 */
 	@Test
 	public void itShouldAllowToAddOptionalPropertyGroupName(){
 		//Given
@@ -28,6 +32,9 @@ public class PropertyTest {
 		assertEquals(expectedProperty,property.toString());	
 	}
 	
+	/**
+	 * It should allow to add optional property sub group name.
+	 */
 	@Test
 	public void itShouldAllowToAddOptionalPropertySubGroupName(){
 		//Given
@@ -40,6 +47,9 @@ public class PropertyTest {
 		assertEquals(expectedProperty,property.toString());	
 	}
 	
+	/**
+	 * It should allow to add optional property type.
+	 */
 	@Test
 	public void itShouldAllowToAddOptionalPropertyType(){
 		//Given
@@ -55,6 +65,9 @@ public class PropertyTest {
 	}
 		
 	
+	/**
+	 * It should give almost uniq hash code.
+	 */
 	@Test
 	public void itShouldGiveAlmostUniqHashCode(){
 		//Given
@@ -70,6 +83,9 @@ public class PropertyTest {
 		assertEquals(expectedHashCode,property.hashCode());
 	}
 	
+	/**
+	 * It should have equal method.
+	 */
 	@Test
 	public void itShouldHaveEqualMethod(){
 		//Given
@@ -88,6 +104,9 @@ public class PropertyTest {
 		assertTrue(actualProperty.equals(expectedProperty));
 	}
 	
+	/**
+	 * It should give subgroup id as concatination of group and sub group name.
+	 */
 	@Test
 	public void itShouldGiveSubgroupIDAsConcatinationOfGroupAndSubGroupName(){
 		//Given
@@ -103,6 +122,9 @@ public class PropertyTest {
 		assertEquals(expectedSubgroupName,property.getPropertySubGroupID());
 	}
 	
+	/**
+	 * It should give subgroup name.
+	 */
 	@Test
 	public void itShouldGiveSubgroupName(){
 		//Given

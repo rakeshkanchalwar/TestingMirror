@@ -13,6 +13,15 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTSelection events. The class that is interested in processing a ELTSelection
+ * event implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addELTSelectionListener<code> method. When
+ * the ELTSelection event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTSelectionEvent
+ */
 public class ELTSelectionListener implements IELTListener {
 	private ControlDecoration txtDecorator;
 	private ValidationStatus validationStatus;

@@ -19,9 +19,26 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WidgetUtility.
+ * 
+ * @author Bitwise
+ */
 public class WidgetUtility {
 	
 	 
+	/**
+	 * Creates the table viewer.
+	 * 
+	 * @param tableViewer
+	 *            the table viewer
+	 * @param iStructuredContentProvider
+	 *            the i structured content provider
+	 * @param iTableLabelProvider
+	 *            the i table label provider
+	 * @return the table viewer
+	 */
 	public static TableViewer createTableViewer( TableViewer tableViewer,IStructuredContentProvider iStructuredContentProvider,ITableLabelProvider iTableLabelProvider){
 		tableViewer.setContentProvider(iStructuredContentProvider);
 		tableViewer.setLabelProvider(iTableLabelProvider);
@@ -29,6 +46,14 @@ public class WidgetUtility {
 
 	}
 	
+	/**
+	 * Creates the table columns.
+	 * 
+	 * @param table
+	 *            the table
+	 * @param fields
+	 *            the fields
+	 */
 	public static void createTableColumns(Table table,String[] fields){
 		for (String field : fields) {
 			new TableColumn(table, SWT.CENTER).setText(field);
@@ -38,11 +63,25 @@ public class WidgetUtility {
 		
 	}
 	
+	/**
+	 * Creates the layout.
+	 * 
+	 * @param z
+	 *            the z
+	 * @return the layout
+	 */
 	public static Layout createLayout(Object...z){
 		return null;
 	}
 	
 	
+	/**
+	 * Creates the cell editor.
+	 * 
+	 * @param cellEditorList
+	 *            the cell editor list
+	 * @return the cell editor[]
+	 */
 	public static CellEditor[] createCellEditor(List<CellEditor> cellEditorList){
 		CellEditor[] editors = new CellEditor[cellEditorList.size()];
 		editors = (CellEditor[]) cellEditorList.toArray();
@@ -69,6 +108,15 @@ public class WidgetUtility {
 	
 
 
+/**
+ * Checks if is file extention.
+ * 
+ * @param file
+ *            the file
+ * @param extention
+ *            the extention
+ * @return true, if is file extention
+ */
 public static boolean isFileExtention(String file,String extention) {
      try {
         return extention.equalsIgnoreCase(file.substring(file.lastIndexOf(".")));
@@ -78,6 +126,13 @@ public static boolean isFileExtention(String file,String extention) {
     }
 
 }
+
+/**
+ * Error message.
+ * 
+ * @param message
+ *            the message
+ */
 public static void errorMessage(String message) {
 	Shell shell = new Shell();
 	MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
@@ -86,6 +141,13 @@ public static void errorMessage(String message) {
 	messageBox.open();
 }
 
+/**
+ * Elt confirm message.
+ * 
+ * @param message
+ *            the message
+ * @return true, if successful
+ */
 public static boolean eltConfirmMessage(String message){
 	Shell shell = new Shell();
 MessageBox messageBox = new MessageBox(shell, SWT.ICON_QUESTION

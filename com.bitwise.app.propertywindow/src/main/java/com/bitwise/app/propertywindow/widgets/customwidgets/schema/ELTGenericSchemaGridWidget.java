@@ -8,8 +8,24 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTCellEditorIsNume
 import com.bitwise.app.propertywindow.widgets.listeners.grid.schema.ELTCellEditorFieldValidator;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTGenericSchemaGridWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTGenericSchemaGridWidget extends ELTSchemaGridWidget {
 
+	/**
+	 * Instantiates a new ELT generic schema grid widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTGenericSchemaGridWidget(ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
 		super(componentConfigrationProperty, componentMiscellaneousProperties,propertyDialogButtonBar);

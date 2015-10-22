@@ -1,5 +1,10 @@
 package com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty;
 
+/**
+ * The Class RuntimeProperties.
+ * 
+ * @author Bitwise
+ */
 public class RuntimeProperties {
 
 	String propertyName;

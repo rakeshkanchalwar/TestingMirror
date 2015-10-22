@@ -8,6 +8,15 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionTaskListener
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+/**
+ * The listener interface for receiving ELTGridDeleteSelection events. The class that is interested in processing a
+ * ELTGridDeleteSelection event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTGridDeleteSelectionListener<code> method. When
+ * the ELTGridDeleteSelection event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTGridDeleteSelectionEvent
+ */
 public class ELTGridDeleteSelectionListener extends ELTSelectionTaskListener{
 
 	@Override

@@ -6,7 +6,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * @author rahulma
+ * @author Bitwise
  * This class provides the content for the schemaGrid table
  */
 

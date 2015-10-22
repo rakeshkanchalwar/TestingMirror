@@ -24,9 +24,10 @@ import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 07, 2015
  * 
  */

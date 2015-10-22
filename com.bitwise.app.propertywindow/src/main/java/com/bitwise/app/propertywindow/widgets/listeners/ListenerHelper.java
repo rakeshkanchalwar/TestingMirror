@@ -3,14 +3,21 @@ package com.bitwise.app.propertywindow.widgets.listeners;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 24, 2015
  * 
  */
 
 public class ListenerHelper {
+	
+	/**
+	 * The Enum HelperType.
+	 * 
+	 * @author Bitwise
+	 */
 	public enum HelperType{
 		CONTROL_DECORATION,
 		VALIDATION_STATUS,
@@ -19,14 +26,32 @@ public class ListenerHelper {
 	
 	private Map<HelperType, Object> helpers;
 	
+	/**
+	 * Instantiates a new listener helper.
+	 */
 	public ListenerHelper() {
 		this.helpers = new HashMap<>();
 	}
 	
+	/**
+	 * Put.
+	 * 
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 */
 	public void put(HelperType key, Object value){
 		helpers.put(key, value);
 	}
 	
+	/**
+	 * Gets the.
+	 * 
+	 * @param key
+	 *            the key
+	 * @return the object
+	 */
 	public Object get(HelperType key){
 		return helpers.get(key);
 	}
@@ -36,6 +61,14 @@ public class ListenerHelper {
 	String type;
 	Object object;
 	
+	/**
+	 * Instantiates a new listener helper.
+	 * 
+	 * @param type
+	 *            the type
+	 * @param object
+	 *            the object
+	 */
 	public ListenerHelper(String type, Object object) {
 		super();
 		this.type = type;

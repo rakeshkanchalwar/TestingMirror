@@ -1,5 +1,10 @@
 package com.bitwise.app.propertywindow.widgets.filterproperty;
 
+/**
+ * The Class ELTFilterProperties.
+ * 
+ * @author Bitwise
+ */
 public class ELTFilterProperties {
 
 	String propertyname;

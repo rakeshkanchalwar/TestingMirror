@@ -13,7 +13,7 @@ import com.bitwise.app.propertywindow.utils.WordUtils;
 
 /**
  * 
- * @author Shrirang S. Kumbhar Sep 22, 2015
+ * @author Bitwise Sep 22, 2015
  * 
  */
 

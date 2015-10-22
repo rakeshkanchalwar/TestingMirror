@@ -9,6 +9,12 @@ import org.eclipse.swt.widgets.Label;
 
 import com.bitwise.app.propertywindow.widgets.utility.GridWidgetCommonBuilder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTGridDetails.
+ * 
+ * @author Bitwise
+ */
 public class ELTGridDetails {
 
 	private List grids;
@@ -16,6 +22,18 @@ public class ELTGridDetails {
 	private Label label;
 	private GridWidgetCommonBuilder gridWidgetCommonBuilder;
 	
+	/**
+	 * Instantiates a new ELT grid details.
+	 * 
+	 * @param grids
+	 *            the grids
+	 * @param tableViewer
+	 *            the table viewer
+	 * @param label
+	 *            the label
+	 * @param gridWidgetCommonBuilder
+	 *            the grid widget common builder
+	 */
 	public ELTGridDetails(List grids, TableViewer tableViewer,
 			Label label,GridWidgetCommonBuilder gridWidgetCommonBuilder) {
 		super();

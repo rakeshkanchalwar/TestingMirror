@@ -1,9 +1,10 @@
 package com.bitwise.app.propertywindow.property;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 03, 2015
  * 
  */
@@ -17,6 +18,11 @@ public class Property {
 	private String subGroup;	
 	private String type;
 	
+	/**
+	 * The Class Builder.
+	 * 
+	 * @author Bitwise
+	 */
 	public static class Builder{
 		// Required parameters
 		private String name;
@@ -28,6 +34,16 @@ public class Property {
 		private String subGroup;	
 		private String type;
 		
+		/**
+		 * Instantiates a new builder.
+		 * 
+		 * @param dataType
+		 *            the data type
+		 * @param name
+		 *            the name
+		 * @param renderer
+		 *            the renderer
+		 */
 		public Builder(String dataType,String name,String renderer){
 			this.dataType = dataType;
 			this.name = name;
@@ -37,21 +53,47 @@ public class Property {
 			this.subGroup = "GENERAL";
 		}
 		
+		/**
+		 * Group.
+		 * 
+		 * @param propertyGroup
+		 *            the property group
+		 * @return the builder
+		 */
 		public Builder group(String propertyGroup){
 			this.group = propertyGroup;
 			return this;
 		}
 		
+		/**
+		 * Sub group.
+		 * 
+		 * @param propertySubGroup
+		 *            the property sub group
+		 * @return the builder
+		 */
 		public Builder subGroup(String propertySubGroup){
 			this.subGroup = propertySubGroup;
 			return this;
 		}
 		
+		/**
+		 * Type.
+		 * 
+		 * @param propertyType
+		 *            the property type
+		 * @return the builder
+		 */
 		public Builder type(String propertyType){
 			this.type = propertyType;
 			return this;
 		}
 		
+		/**
+		 * Builds the.
+		 * 
+		 * @return the property
+		 */
 		public Property build(){
 			return new Property(this);			
 		}

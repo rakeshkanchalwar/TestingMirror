@@ -2,6 +2,11 @@ package com.bitwise.app.propertywindow.widgets.customwidgets.schema;
 
 
 
+/**
+ * The Class SchemaGrid.
+ * 
+ * @author Bitwise
+ */
 public class SchemaGrid extends GridRow{
 
 	public SchemaGrid copy() {

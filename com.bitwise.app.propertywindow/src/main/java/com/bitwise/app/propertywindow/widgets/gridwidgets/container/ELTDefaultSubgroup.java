@@ -10,9 +10,10 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.utility.SWTResourceManager;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 18, 2015
  * 
  */
@@ -21,6 +22,12 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 	private Group subGroup;
 	private String subgroupName="Default Sub Group";
 	
+	/**
+	 * Instantiates a new ELT default subgroup.
+	 * 
+	 * @param container
+	 *            the container
+	 */
 	public ELTDefaultSubgroup(Composite container) {
 		super(container);
 	}
@@ -52,6 +59,13 @@ public class ELTDefaultSubgroup extends AbstractELTContainerWidget{
 		return this;
 	}
 	
+	/**
+	 * Sub group name.
+	 * 
+	 * @param subgroupName
+	 *            the subgroup name
+	 * @return the ELT default subgroup
+	 */
 	public ELTDefaultSubgroup subGroupName(String subgroupName){
 		this.subgroupName = subgroupName;
 		return this;

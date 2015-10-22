@@ -10,6 +10,16 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving ELTSelectionTask events. The class that is interested in processing a
+ * ELTSelectionTask event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTSelectionTaskListener<code> method. When
+ * the ELTSelectionTask event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTSelectionTaskEvent
+ */
 public abstract class ELTSelectionTaskListener implements IELTListener {
 	@Override
 	public int getListenerType() {
@@ -30,6 +40,17 @@ public abstract class ELTSelectionTaskListener implements IELTListener {
 		};
 		return listener;
 	}
+	
+	/**
+	 * Selection listener action.
+	 * 
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 * @param helpers
+	 *            the helpers
+	 * @param widgets
+	 *            the widgets
+	 */
 	public abstract void selectionListenerAction(PropertyDialogButtonBar propertyDialogButtonBar,
 			final ListenerHelper helpers, Widget... widgets);
 	

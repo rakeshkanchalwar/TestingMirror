@@ -24,6 +24,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTDelimeterWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTDelimeterWidget extends AbstractWidget{
 	
 	private Text textBox;
@@ -32,6 +38,16 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	private Object txtDecorator;
 	private ControlDecoration decorator;
 
+	/**
+	 * Instantiates a new ELT delimeter widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTDelimeterWidget(ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
 		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);

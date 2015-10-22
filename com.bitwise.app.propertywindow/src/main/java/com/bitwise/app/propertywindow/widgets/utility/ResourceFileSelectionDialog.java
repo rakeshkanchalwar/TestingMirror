@@ -20,8 +20,9 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author rahulma
+ * @author Bitwise
  */
 public class ResourceFileSelectionDialog extends ElementTreeSelectionDialog {
 
@@ -71,6 +72,16 @@ public class ResourceFileSelectionDialog extends ElementTreeSelectionDialog {
         }
     };
 
+	/**
+	 * Instantiates a new resource file selection dialog.
+	 * 
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
+	 * @param type
+	 *            the type
+	 */
     public ResourceFileSelectionDialog(String title, String message, String[] type) {
         this(Display.getDefault().getActiveShell(), WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
                 contentProvider);
@@ -82,6 +93,16 @@ public class ResourceFileSelectionDialog extends ElementTreeSelectionDialog {
         setValidator(validator);
     }
 
+	/**
+	 * Instantiates a new resource file selection dialog.
+	 * 
+	 * @param parent
+	 *            the parent
+	 * @param labelProvider
+	 *            the label provider
+	 * @param contentProvider
+	 *            the content provider
+	 */
     public ResourceFileSelectionDialog(Shell parent, ILabelProvider labelProvider, ITreeContentProvider contentProvider) {
         super(parent, labelProvider, contentProvider);
     } 

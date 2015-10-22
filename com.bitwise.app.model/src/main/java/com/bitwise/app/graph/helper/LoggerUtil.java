@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 
 /**
- * @author niting
- *
+ * @author Bitwise
+ * 
  */
 public class LoggerUtil {
 	private static HashMap<Class<?>, Logger> loggerMap = new HashMap<>();

@@ -7,6 +7,15 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionTaskListener
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTGridAddSelection events. The class that is interested in processing a
+ * ELTGridAddSelection event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTGridAddSelectionListener<code> method. When
+ * the ELTGridAddSelection event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTGridAddSelectionEvent
+ */
 public class ELTGridAddSelectionListener extends ELTSelectionTaskListener{
 
 	@Override

@@ -9,6 +9,11 @@ import org.eclipse.swt.widgets.Table;
 
 import com.bitwise.app.propertywindow.widgets.utility.GridWidgetCommonBuilder;
 
+/**
+ * The Class GeneralGridWidgetBuilder.
+ * 
+ * @author Bitwise
+ */
 public class GeneralGridWidgetBuilder extends GridWidgetCommonBuilder {
 	
 	public static GeneralGridWidgetBuilder INSTANCE = new GeneralGridWidgetBuilder();

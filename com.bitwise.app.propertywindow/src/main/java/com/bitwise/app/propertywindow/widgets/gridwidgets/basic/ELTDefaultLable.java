@@ -5,9 +5,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 18, 2015
  * 
  */
@@ -21,6 +22,12 @@ public class ELTDefaultLable extends AbstractELTWidget{
 	
 	private ELTDefaultLable(){}
 	
+	/**
+	 * Instantiates a new ELT default lable.
+	 * 
+	 * @param lableText
+	 *            the lable text
+	 */
 	public ELTDefaultLable(String lableText){
 		this.lableText = lableText;
 	}
@@ -36,6 +43,13 @@ public class ELTDefaultLable extends AbstractELTWidget{
 		widget = defaultELTLable;
 	}
 
+	/**
+	 * Lable width.
+	 * 
+	 * @param lableWidth
+	 *            the lable width
+	 * @return the ELT default lable
+	 */
 	public ELTDefaultLable lableWidth(int lableWidth){
 		this.lableWidth = lableWidth;
 		return this;

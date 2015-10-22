@@ -1,5 +1,11 @@
 package com.bitwise.app.propertywindow.widgets.customwidgets.schema;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GridRow.
+ * 
+ * @author Bitwise
+ */
 public class GridRow {
 
 		private String fieldName;
@@ -98,6 +104,11 @@ public class GridRow {
 			return builder.toString();
 		}
 
+		/**
+		 * Copy.
+		 * 
+		 * @return the grid row
+		 */
 		public GridRow copy() {
 			GridRow tempschemaGrid = new GridRow();
 			tempschemaGrid.setDataType(dataType);

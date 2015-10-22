@@ -19,6 +19,15 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTFileDialogSelection events. The class that is interested in processing a
+ * ELTFileDialogSelection event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTFileDialogSelectionListener<code> method. When
+ * the ELTFileDialogSelection event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTFileDialogSelectionEvent
+ */
 public class ELTFileDialogSelectionListener implements IELTListener{
 
 	Shell shell;

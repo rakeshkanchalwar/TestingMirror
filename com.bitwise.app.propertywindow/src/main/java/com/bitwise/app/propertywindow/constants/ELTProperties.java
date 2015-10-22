@@ -1,8 +1,9 @@
 package com.bitwise.app.propertywindow.constants;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Oct 05, 2015
  * 
  */
@@ -15,6 +16,11 @@ public enum ELTProperties {
 		this.propertyName = propertyName;
 	}
 	
+	/**
+	 * Property name.
+	 * 
+	 * @return the string
+	 */
 	public String propertyName(){
 		return propertyName;
 	}

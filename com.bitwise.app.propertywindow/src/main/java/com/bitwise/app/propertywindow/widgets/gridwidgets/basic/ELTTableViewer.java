@@ -6,11 +6,25 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTTableViewer.
+ * 
+ * @author Bitwise
+ */
 public class ELTTableViewer extends AbstractELTWidget{
 
 	IStructuredContentProvider iStructuredContentProvider;
 	ITableLabelProvider iTableLabelProvider;
 	
+	/**
+	 * Instantiates a new ELT table viewer.
+	 * 
+	 * @param iStructuredContentProvider
+	 *            the i structured content provider
+	 * @param iTableLabelProvider
+	 *            the i table label provider
+	 */
 	public ELTTableViewer(
 			IStructuredContentProvider iStructuredContentProvider,
 			ITableLabelProvider iTableLabelProvider) {

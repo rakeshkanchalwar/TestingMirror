@@ -8,6 +8,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
+/**
+ * The Class ELTFilterLabelProvider.
+ * 
+ * @author Bitwise
+ */
 public class ELTFilterLabelProvider implements ITableLabelProvider, ITableColorProvider {
 
 	@Override

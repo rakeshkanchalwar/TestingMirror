@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * 
- * @author rahulma
+ * @author Bitwise
  *
  */
 class SchemaGridLabelProvider implements ITableLabelProvider , ITableColorProvider {

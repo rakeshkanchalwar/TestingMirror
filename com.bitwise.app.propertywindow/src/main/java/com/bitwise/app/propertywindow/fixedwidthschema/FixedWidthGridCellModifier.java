@@ -6,10 +6,22 @@ import org.eclipse.swt.widgets.Item;
 
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTSchemaGridWidget;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FixedWidthGridCellModifier.
+ * 
+ * @author Bitwise
+ */
 public class FixedWidthGridCellModifier implements ICellModifier{
    private Viewer viewer;
    
    
+	/**
+	 * Instantiates a new fixed width grid cell modifier.
+	 * 
+	 * @param viewer
+	 *            the viewer
+	 */
 	public FixedWidthGridCellModifier(Viewer viewer) {
 	this.viewer = viewer;
 }

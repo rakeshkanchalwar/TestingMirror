@@ -5,10 +5,22 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Item;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTCellModifier.
+ * 
+ * @author Bitwise
+ */
 public class ELTCellModifier implements ICellModifier{
 	
 	private Viewer viewer;
 	
+	/**
+	 * Instantiates a new ELT cell modifier.
+	 * 
+	 * @param viewer
+	 *            the viewer
+	 */
 	public ELTCellModifier(Viewer viewer) {
 		this.viewer = viewer;
 	}

@@ -21,6 +21,15 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTVerifyComponentName events. The class that is interested in processing a
+ * ELTVerifyComponentName event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTVerifyComponentNameListener<code> method. When
+ * the ELTVerifyComponentName event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTVerifyComponentNameEvent
+ */
 public class ELTVerifyComponentNameListener implements IELTListener {
 	
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTVerifyComponentNameListener.class);

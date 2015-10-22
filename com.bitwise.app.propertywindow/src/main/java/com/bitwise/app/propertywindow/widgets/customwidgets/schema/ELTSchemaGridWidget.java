@@ -33,6 +33,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.GridChangeListener;
 import com.bitwise.app.propertywindow.widgets.utility.GridWidgetCommonBuilder;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTSchemaGridWidget.
+ * 
+ * @author Bitwise
+ */
 public abstract class ELTSchemaGridWidget extends AbstractWidget {
 	// Table column names/properties
 	public static final String FIELDNAME = Messages.FIELDNAME;
@@ -57,6 +63,16 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 	private ListenerHelper helper;
 	private LinkedHashMap<String, Object> property = new LinkedHashMap<>();
 
+	/**
+	 * Instantiates a new ELT schema grid widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTSchemaGridWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
@@ -78,8 +94,14 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 
 	protected abstract ICellModifier getCellModifier();
 
+	/**
+	 * Adds the validators.
+	 */
 	protected abstract void addValidators();
 
+	/**
+	 * Sets the decorator.
+	 */
 	protected abstract void setDecorator();
 
 	@Override

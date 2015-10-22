@@ -28,7 +28,6 @@ import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
-import com.bitwise.app.graph.model.Port;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 
@@ -252,7 +251,9 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			updateComponentStatus();
 			refreshVisuals();
-			
+
+			getFigure().repaint();
+
 			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			if(eltPropertyWindow.isPropertyChanged()){
 				eltGraphicalEditor.setDirty(true);

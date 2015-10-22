@@ -13,6 +13,15 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTVerifyNumberic events. The class that is interested in processing a
+ * ELTVerifyNumberic event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTVerifyNumbericListener<code> method. When
+ * the ELTVerifyNumberic event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTVerifyNumbericEvent
+ */
 public class ELTVerifyNumbericListener implements IELTListener{
 
 	private ControlDecoration txtDecorator;

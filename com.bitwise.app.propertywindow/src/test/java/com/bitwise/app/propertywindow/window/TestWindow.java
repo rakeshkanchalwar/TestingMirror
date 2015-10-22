@@ -27,9 +27,10 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialog;
 import com.bitwise.app.propertywindow.testdata.ComponentModel;
 import com.bitwise.app.propertywindow.testdata.RawProperties;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 07, 2015
  * 
  */

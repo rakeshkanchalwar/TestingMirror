@@ -3,6 +3,11 @@ package com.bitwise.app.propertywindow;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+/**
+ * The Class Activator.
+ * 
+ * @author Bitwise
+ */
 public class Activator implements BundleActivator {
 
 	private static BundleContext context;

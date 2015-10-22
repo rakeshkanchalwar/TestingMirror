@@ -1,10 +1,24 @@
 package com.bitwise.app.propertywindow.datastructures.filter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OperationClassProperty.
+ * 
+ * @author Bitwise
+ */
 public class OperationClassProperty implements Cloneable{
 	
 	private String operationClassPath;
 	private boolean isParameter;
 	
+	/**
+	 * Instantiates a new operation class property.
+	 * 
+	 * @param operationClassPath
+	 *            the operation class path
+	 * @param isParameter
+	 *            the is parameter
+	 */
 	public OperationClassProperty(String operationClassPath, boolean isParameter) {
 		this.operationClassPath = operationClassPath;
 		this.isParameter = isParameter;

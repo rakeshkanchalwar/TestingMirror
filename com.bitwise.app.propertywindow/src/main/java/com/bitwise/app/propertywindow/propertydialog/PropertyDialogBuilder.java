@@ -26,9 +26,10 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroup;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 07, 2015
  * 
  */
@@ -41,6 +42,18 @@ public class PropertyDialogBuilder {
 	private ELTComponenetProperties eltComponenetProperties;
 	private PropertyDialogButtonBar propertyDialogButtonBar;	
 
+	/**
+	 * Instantiates a new property dialog builder.
+	 * 
+	 * @param container
+	 *            the container
+	 * @param propertyTree
+	 *            the property tree
+	 * @param eltComponenetProperties
+	 *            the elt componenet properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public PropertyDialogBuilder(Composite container, LinkedHashMap<String,LinkedHashMap<String,ArrayList<Property>>> propertyTree, 
 			ELTComponenetProperties eltComponenetProperties,PropertyDialogButtonBar propertyDialogButtonBar){
 		this.container = container;
@@ -51,6 +64,9 @@ public class PropertyDialogBuilder {
 		eltWidgetList= new ArrayList<>();
 	}
 	
+	/**
+	 * Builds the property window.
+	 */
 	public void buildPropertyWindow(){
 		TabFolder tabFolder = addTabFolderToPropertyWindow();
 		addTabsInTabFolder(tabFolder);
@@ -130,6 +146,11 @@ public class PropertyDialogBuilder {
 		return eltWidget;
 	}
 
+	/**
+	 * Adds the tab folder to property window.
+	 * 
+	 * @return the tab folder
+	 */
 	public TabFolder addTabFolderToPropertyWindow(){
 		TabFolder tabFolder = new TabFolder(container, SWT.NONE);
 		final ColumnLayoutData cld_tabFolder = new ColumnLayoutData();
@@ -146,6 +167,15 @@ public class PropertyDialogBuilder {
 		return tabFolder;
 	}
 
+	/**
+	 * Gets the property window tab.
+	 * 
+	 * @param groupName
+	 *            the group name
+	 * @param tabFolder
+	 *            the tab folder
+	 * @return the property window tab
+	 */
 	public ScrolledCompositeHolder getPropertyWindowTab(String groupName,TabFolder tabFolder){	
 		TabItem tabItem = createTab(groupName, tabFolder);
 		ScrolledComposite scrolledComposite = addScrolledCompositeToTab(tabFolder,tabItem);				
@@ -198,6 +228,15 @@ public class PropertyDialogBuilder {
 		});
 	}
 
+	/**
+	 * Adds the subgroup to property window tab.
+	 * 
+	 * @param subgroupName
+	 *            the subgroup name
+	 * @param scrolledCompositeHolder
+	 *            the scrolled composite holder
+	 * @return the abstract elt container widget
+	 */
 	public AbstractELTContainerWidget addSubgroupToPropertyWindowTab(String subgroupName,ScrolledCompositeHolder scrolledCompositeHolder){
 		AbstractELTContainerWidget eltDefaultSubgroup= new ELTDefaultSubgroup(scrolledCompositeHolder.getComposite()).subGroupName(WordUtils.capitalize(subgroupName.replace("_", " ").toLowerCase(), null));
 		eltDefaultSubgroup.createContainerWidget();		

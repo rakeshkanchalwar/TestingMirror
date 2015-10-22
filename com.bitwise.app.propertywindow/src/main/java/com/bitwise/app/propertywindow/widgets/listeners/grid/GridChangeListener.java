@@ -15,9 +15,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.listeners.extended.GridCellEditorListener;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Oct 12, 2015
  * 
  */
@@ -28,12 +29,24 @@ public class GridChangeListener {
 	private GridChangeListener(){
 		
 	}
+	
+	/**
+	 * Instantiates a new grid change listener.
+	 * 
+	 * @param cellEditors
+	 *            the cell editors
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public GridChangeListener(CellEditor[] cellEditors,PropertyDialogButtonBar propertyDialogButtonBar){
 		this.cellEditors = new ArrayList<>();
 		this.cellEditors.addAll(Arrays.asList(cellEditors));
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
 	}
 	
+	/**
+	 * Attach cell change listener.
+	 */
 	public void attachCellChangeListener(){
 		for(CellEditor cellEditor : cellEditors){
 			if(cellEditor instanceof TextCellEditor)

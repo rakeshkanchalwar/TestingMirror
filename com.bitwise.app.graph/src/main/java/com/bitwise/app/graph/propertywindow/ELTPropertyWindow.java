@@ -23,7 +23,7 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialog;
 // TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 25, 2015
  * 
  */

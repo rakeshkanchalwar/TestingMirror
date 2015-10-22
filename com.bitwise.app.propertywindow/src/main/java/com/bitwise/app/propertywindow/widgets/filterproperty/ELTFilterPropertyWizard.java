@@ -35,6 +35,12 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTFilterPropertyWizard.
+ * 
+ * @author Bitwise
+ */
 public class ELTFilterPropertyWizard {
 
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTFilterPropertyWizard.class);
@@ -60,6 +66,9 @@ public class ELTFilterPropertyWizard {
 	private Shell parentShell;
 
 
+	/**
+	 * Instantiates a new ELT filter property wizard.
+	 */
 	public ELTFilterPropertyWizard() {
 		propertyLst = new ArrayList<ELTFilterProperties>();
 		filterSet = new HashSet<String>();
@@ -343,6 +352,11 @@ public class ELTFilterPropertyWizard {
 
 	}
 
+	/**
+	 * Validate.
+	 * 
+	 * @return true, if successful
+	 */
 	protected boolean validate() {
 
 		int propertyCounter = 0;
@@ -406,6 +420,9 @@ public class ELTFilterPropertyWizard {
 		return propertyValidator;
 	}
 
+	/**
+	 * Disable buttons.
+	 */
 	void disableButtons() {
 		okButton.setEnabled(false);
 		//applyButton.setEnabled(false);
@@ -413,6 +430,9 @@ public class ELTFilterPropertyWizard {
 
 	}
 
+	/**
+	 * Enable buttons.
+	 */
 	void enableButtons() {
 		okButton.setEnabled(true);
 		//applyButton.setEnabled(true);

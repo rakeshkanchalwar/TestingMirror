@@ -11,6 +11,11 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Item;
 
+/**
+ * The Class PropertyLabelProvider.
+ * 
+ * @author Bitwise
+ */
 public class PropertyLabelProvider implements ITableLabelProvider, ITableColorProvider {
 	/**
 	 * Returns the image

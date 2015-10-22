@@ -7,9 +7,10 @@ import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar 
+ * @author Bitwise 
  * Sep 08, 2015
  * 
  */
@@ -20,6 +21,16 @@ public abstract class AbstractWidget {
 	protected PropertyDialogButtonBar propertyDialogButtonBar;
 	protected ValidationStatus validationStatus = new ValidationStatus();
 	
+	/**
+	 * Instantiates a new abstract widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public AbstractWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
@@ -30,6 +41,12 @@ public abstract class AbstractWidget {
 		this.propertyDialogButtonBar = propertyDialogButtonBar;
 	}
 
+	/**
+	 * Attach to property sub group.
+	 * 
+	 * @param subGroup
+	 *            the sub group
+	 */
 	public abstract void attachToPropertySubGroup(AbstractELTContainerWidget subGroup);
 
 	public abstract LinkedHashMap<String, Object> getProperties();

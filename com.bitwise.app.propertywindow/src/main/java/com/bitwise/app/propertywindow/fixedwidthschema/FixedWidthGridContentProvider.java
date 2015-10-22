@@ -5,6 +5,11 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+/**
+ * The Class FixedWidthGridContentProvider.
+ * 
+ * @author Bitwise
+ */
 public class FixedWidthGridContentProvider implements IStructuredContentProvider {
 
 	@Override

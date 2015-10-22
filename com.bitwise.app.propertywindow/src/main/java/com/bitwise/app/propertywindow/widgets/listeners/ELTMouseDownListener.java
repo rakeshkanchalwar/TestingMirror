@@ -7,6 +7,16 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving ELTMouseDown events. The class that is interested in processing a ELTMouseDown
+ * event implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addELTMouseDownListener<code> method. When
+ * the ELTMouseDown event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTMouseDownEvent
+ */
 public abstract class ELTMouseDownListener implements IELTListener{
 
 	@Override
@@ -28,6 +38,17 @@ public abstract class ELTMouseDownListener implements IELTListener{
 			};
 	return listener;
 	}
+	
+	/**
+	 * Mouse down action.
+	 * 
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 * @param helpers
+	 *            the helpers
+	 * @param widgets
+	 *            the widgets
+	 */
 	public abstract void mouseDownAction(
 			PropertyDialogButtonBar propertyDialogButtonBar,
 			final ListenerHelper helpers, Widget... widgets);	

@@ -20,6 +20,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameLi
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTComponentNameWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTComponentNameWidget extends AbstractWidget {
 	private static final String COMPONENT_NAMES = "componentNames";
 
@@ -34,12 +40,22 @@ public class ELTComponentNameWidget extends AbstractWidget {
 	
 	private ELTVerifyComponentNameListener listener;
 
-	public ELTComponentNameWidget(ComponentConfigrationProperty componentConfigrationProperty,
+	/**
+	 * Instantiates a new ELT component name widget.
+	 * 
+	 * @param componentConfigurationProperty
+	 *            the component configuration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
+	public ELTComponentNameWidget(ComponentConfigrationProperty componentConfigurationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
+		super(componentConfigurationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 
-		this.propertyName = componentConfigrationProperty.getPropertyName();
-		this.oldName = (String) componentConfigrationProperty.getPropertyValue();
+		this.propertyName = componentConfigurationProperty.getPropertyName();
+		this.oldName = (String) componentConfigurationProperty.getPropertyValue();
 	}
 
 	@Override

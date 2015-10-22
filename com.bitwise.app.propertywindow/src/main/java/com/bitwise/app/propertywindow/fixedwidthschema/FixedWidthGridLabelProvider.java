@@ -10,6 +10,11 @@ import org.eclipse.swt.widgets.Display;
 
 import com.bitwise.app.propertywindow.widgets.utility.GridWidgetCommonBuilder;
 
+/**
+ * The Class FixedWidthGridLabelProvider.
+ * 
+ * @author Bitwise
+ */
 public class FixedWidthGridLabelProvider implements ITableLabelProvider,ITableColorProvider {
 
 	/**

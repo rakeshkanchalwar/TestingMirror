@@ -4,14 +4,21 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Item;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author rahulma
+ * @author Bitwise
  * This class represents the cell modifier for the SchemaEditor program
  */
 
 class SchemaGridCellModifier implements ICellModifier {
   private Viewer viewer;
 
+  /**
+	 * Instantiates a new schema grid cell modifier.
+	 * 
+	 * @param viewer
+	 *            the viewer
+	 */
   public SchemaGridCellModifier(Viewer viewer) {
     this.viewer = viewer;
   }

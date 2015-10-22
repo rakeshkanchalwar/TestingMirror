@@ -22,14 +22,29 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTGenericSchemaGridWidget;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Sep 08, 2015
  * 
  */
 
 public class WidgetFactory {
+	
+	/**
+	 * Gets the widget.
+	 * 
+	 * @param widgetName
+	 *            the widget name
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 * @return the widget
+	 */
 	public static AbstractWidget getWidget(String widgetName, ComponentConfigrationProperty componentConfigrationProperty, ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar){
 		if(widgetName.equals("ELT_SCHEMA_WIDGET") || widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
 			return new ELTGenericSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);

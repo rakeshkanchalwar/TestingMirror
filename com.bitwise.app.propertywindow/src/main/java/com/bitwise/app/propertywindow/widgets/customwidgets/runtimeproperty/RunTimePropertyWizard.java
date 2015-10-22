@@ -31,9 +31,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The class RunTimePropertyWizard
  * 
- * @author Nitin Gupta Sep 09, 2015
+ * @author Bitwise
  * 
  */
 
@@ -62,6 +64,9 @@ public class RunTimePropertyWizard {
 
 	// private boolean firstTimeEdit;
 
+	/**
+	 * Instantiates a new run time property wizard.
+	 */
 	public RunTimePropertyWizard() {
 
 		propertyLst = new ArrayList<RuntimeProperties>();
@@ -370,6 +375,11 @@ public class RunTimePropertyWizard {
 
 	}
 
+	/**
+	 * Validate.
+	 * 
+	 * @return true, if successful
+	 */
 	protected boolean validate() {
 
 		int propertyCounter = 0;
@@ -433,7 +443,7 @@ public class RunTimePropertyWizard {
 			@Override
 			public String isValid(Object value) {
 				isAnyUpdatePerformed = true;
-				String currentSelectedFld = table.getItem(
+				table.getItem(
 						table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
 				if (valueToValidate.isEmpty()) {
@@ -452,12 +462,18 @@ public class RunTimePropertyWizard {
 		return propertyValidator;
 	}
 
+	/**
+	 * Disable buttons.
+	 */
 	void disableButtons() {
 		okButton.setEnabled(false);
 		applyButton.setEnabled(false);
 
 	}
 
+	/**
+	 * Enable buttons.
+	 */
 	void enableButtons() {
 		okButton.setEnabled(true);
 		applyButton.setEnabled(true);

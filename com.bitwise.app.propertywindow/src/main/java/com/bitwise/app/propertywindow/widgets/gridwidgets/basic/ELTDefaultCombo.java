@@ -5,6 +5,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTDefaultCombo.
+ * 
+ * @author Bitwise
+ */
 public class ELTDefaultCombo extends AbstractELTWidget{
 	private Combo defaultELTcom;
 	private int textboxWidth=65;
@@ -24,16 +30,37 @@ public class ELTDefaultCombo extends AbstractELTWidget{
 		widget = defaultELTcom;
 	}
 
+	/**
+	 * Default text.
+	 * 
+	 * @param defaultTextMessage
+	 *            the default text message
+	 * @return the ELT default combo
+	 */
 	public ELTDefaultCombo defaultText(String[] defaultTextMessage){
 		this.defaultTextMessage = defaultTextMessage;
 		return this;
 	}
 	
+	/**
+	 * Grab excess horizontal space.
+	 * 
+	 * @param grabExcessSpace
+	 *            the grab excess space
+	 * @return the ELT default combo
+	 */
 	public ELTDefaultCombo grabExcessHorizontalSpace(boolean grabExcessSpace){
 		this.grabExcessSpace = grabExcessSpace;
 		return this;
 	}
 	
+	/**
+	 * Combo box width.
+	 * 
+	 * @param textboxWidth
+	 *            the textbox width
+	 * @return the ELT default combo
+	 */
 	public ELTDefaultCombo comboBoxWidth(int textboxWidth){
 		this.textboxWidth = textboxWidth;
 		return this;

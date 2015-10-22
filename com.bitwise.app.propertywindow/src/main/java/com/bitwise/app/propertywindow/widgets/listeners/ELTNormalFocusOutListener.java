@@ -13,6 +13,15 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
+/**
+ * The listener interface for receiving ELTNormalFocusOut events. The class that is interested in processing a
+ * ELTNormalFocusOut event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTNormalFocusOutListener<code> method. When
+ * the ELTNormalFocusOut event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTNormalFocusOutEvent
+ */
 public class ELTNormalFocusOutListener implements IELTListener {
 
 	ControlDecoration txtDecorator;

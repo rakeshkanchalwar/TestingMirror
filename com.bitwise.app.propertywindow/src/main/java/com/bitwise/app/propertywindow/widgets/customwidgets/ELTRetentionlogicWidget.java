@@ -18,6 +18,12 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTRadioButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTRetentionlogicWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTRetentionlogicWidget extends AbstractWidget{
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTRetentionlogicWidget.class);
 	
@@ -26,6 +32,16 @@ public class ELTRetentionlogicWidget extends AbstractWidget{
 	private String properties;
 	 AbstractELTWidget First,Last,Unique;
 	
+	/**
+	 * Instantiates a new ELT retentionlogic widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTRetentionlogicWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

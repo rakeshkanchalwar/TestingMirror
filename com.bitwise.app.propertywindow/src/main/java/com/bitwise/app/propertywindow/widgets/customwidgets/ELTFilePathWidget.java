@@ -29,6 +29,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperTyp
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTFilePathWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTFilePathWidget extends AbstractWidget{
 	
 	private Text textBox;
@@ -39,6 +45,16 @@ public class ELTFilePathWidget extends AbstractWidget{
 	private Button button;
 	
 
+	/**
+	 * Instantiates a new ELT file path widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTFilePathWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,

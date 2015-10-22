@@ -6,10 +6,22 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTTable.
+ * 
+ * @author Bitwise
+ */
 public class ELTTable extends AbstractELTWidget{
 
 	Table table;
 	
+	/**
+	 * Instantiates a new ELT table.
+	 * 
+	 * @param tableViewer
+	 *            the table viewer
+	 */
 	public ELTTable(TableViewer tableViewer) {
 		super();
 		this.table = tableViewer.getTable();

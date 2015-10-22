@@ -13,6 +13,15 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+/**
+ * The listener interface for receiving ELTOpenFileEditor events. The class that is interested in processing a
+ * ELTOpenFileEditor event implements this interface, and the object created with that class is registered with a
+ * component using the component's <code>addELTOpenFileEditorListener<code> method. When
+ * the ELTOpenFileEditor event occurs, that object's appropriate
+ * method is invoked.
+ * 
+ * @see ELTOpenFileEditorEvent
+ */
 public class ELTOpenFileEditorListener implements IELTListener{
 
 	@Override

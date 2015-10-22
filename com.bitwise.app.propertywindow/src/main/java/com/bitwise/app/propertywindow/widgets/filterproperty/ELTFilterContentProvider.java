@@ -5,6 +5,11 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+/**
+ * The Class ELTFilterContentProvider.
+ * 
+ * @author Bitwise
+ */
 public class ELTFilterContentProvider implements IStructuredContentProvider{
 
 	@Override

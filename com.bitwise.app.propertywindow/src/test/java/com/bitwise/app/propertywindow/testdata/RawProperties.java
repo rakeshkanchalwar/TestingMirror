@@ -10,9 +10,10 @@ import com.bitwise.app.common.component.config.PropertyType;
 import com.bitwise.app.common.component.config.SubGroup;
 import com.bitwise.app.propertywindow.utils.WordUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
- * @author Shrirang S. Kumbhar
+ * @author Bitwise
  * Oct 05, 2015
  * 
  */
@@ -21,6 +22,9 @@ public class RawProperties {
 	
 	private ArrayList<Property> rawProperties=null;
 	
+	/**
+	 * Instantiates a new raw properties.
+	 */
 	public RawProperties(){
 		rawProperties = new ArrayList<>();
 	}

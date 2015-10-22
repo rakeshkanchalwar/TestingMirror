@@ -23,6 +23,12 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ELTSafeWidget.
+ * 
+ * @author Bitwise
+ */
 public class ELTSafeWidget extends AbstractWidget{
 
 	
@@ -37,6 +43,16 @@ public class ELTSafeWidget extends AbstractWidget{
 	private ControlDecoration txtDecorator;
 	private ControlDecoration txtDecoratorForEmpty;
 	
+	/**
+	 * Instantiates a new ELT safe widget.
+	 * 
+	 * @param componentConfigrationProperty
+	 *            the component configration property
+	 * @param componentMiscellaneousProperties
+	 *            the component miscellaneous properties
+	 * @param propertyDialogButtonBar
+	 *            the property dialog button bar
+	 */
 	public ELTSafeWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
