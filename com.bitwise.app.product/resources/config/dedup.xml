@@ -34,7 +34,7 @@
 		<tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget"
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" />
 			<tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
-			<tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
+			<tns:property dataType="string" name="dedup" renderer="ELTColumnNameWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
  			 <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="retention_logic" value="First" renderer="ELTRetentionlogicWidget" type="USER"/>
 	</tns:component>
 </tns:Config>

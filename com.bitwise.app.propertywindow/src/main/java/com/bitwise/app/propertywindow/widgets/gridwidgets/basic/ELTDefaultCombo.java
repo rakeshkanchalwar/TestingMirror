@@ -15,15 +15,13 @@ public class ELTDefaultCombo extends AbstractELTWidget{
 	private Combo defaultELTcom;
 	private int textboxWidth=65;
 	private String[] defaultTextMessage;
-	private boolean grabExcessSpace = true;
-	
 	@Override
 	public void attachWidget(Composite container) {
 		defaultELTcom = new Combo(container,SWT.READ_ONLY);
 		defaultELTcom.setItems(defaultTextMessage);
 		//defaultELTcom.setItems(new String[] {"True","false"});
 		//defaultELTcom.setItem(0, "");
-		GridData gd_defaultELTTextBox = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		GridData gd_defaultELTTextBox = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
 		gd_defaultELTTextBox.widthHint = textboxWidth;
 		defaultELTcom.setLayoutData(gd_defaultELTTextBox);
 		
@@ -50,7 +48,6 @@ public class ELTDefaultCombo extends AbstractELTWidget{
 	 * @return the ELT default combo
 	 */
 	public ELTDefaultCombo grabExcessHorizontalSpace(boolean grabExcessSpace){
-		this.grabExcessSpace = grabExcessSpace;
 		return this;
 	}
 	

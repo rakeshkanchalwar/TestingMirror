@@ -63,7 +63,7 @@ public class ELTFilterPropertyWizard {
 	public ControlDecoration scaleDecorator;
 	private Button addButton, deleteAll, applyButton, okButton, deleteButton, cacelButton;
 	private boolean isAnyUpdatePerformed;
-	private Shell parentShell;
+
 
 
 	/**
@@ -165,33 +165,34 @@ public class ELTFilterPropertyWizard {
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public Set<String> launchRuntimeWindow() {
+	public Set<String> launchRuntimeWindow(Shell parentShell) {
 
-		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
+		shell = new  Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
 		isAnyUpdatePerformed = false;
 		shell.setSize(506, 540);
 		shell.setLayout(null);
-		shell.setText("Filter Property");
+		shell.setText("Properties");
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
 		if (getComponentName() != null)
 			lblHeader.setText(getComponentName() + "Filter Operation Field"); //$NON-NLS-1$
 			else
-			lblHeader.setText("Filter Component Property");
+			lblHeader.setText("Component Properties");
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523, 2);
+		
 		// Below Event will be fired when user closes the Runtime window
-		shell.addListener(SWT.Close, new Listener() {
+		shell.addListener(SWT.CLOSE, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-
+			
 				if (table.getItemCount() != 0 && !isOkPressed && isAnyUpdatePerformed) {
 					int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
 					MessageBox messageBox = new MessageBox(shell, style);
 					messageBox.setText("Information"); //$NON-NLS-1$
 					messageBox.setMessage(Messages.MessageBeforeClosingWindow);
-					event.doit = messageBox.open() == SWT.YES;
 				}
+				
 			}
 		});
 
@@ -227,7 +228,7 @@ public class ELTFilterPropertyWizard {
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 
 		shell.setLocation(x, y);
-
+		shell.pack();
 		shell.open();
 
 		while (!shell.isDisposed()) {

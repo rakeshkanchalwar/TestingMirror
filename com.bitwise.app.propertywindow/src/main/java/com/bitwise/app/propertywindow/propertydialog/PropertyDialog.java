@@ -5,7 +5,10 @@ import java.util.LinkedHashMap;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
@@ -35,13 +38,16 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 public class PropertyDialog extends Dialog {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(PropertyDialog.class);
 	private Composite container;
-	private LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
+	private final LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree;
 	private PropertyDialogBuilder propertyDialogBuilder;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
-	private String componentName;
+	private final String componentName;
 	private Button applyButton;
 	private boolean propertyChanged=false;	
-	private ELTComponenetProperties eltComponenetProperties;
+	private final ELTComponenetProperties eltComponenetProperties;
+	private   final String DIALOG_FONT_DATA = "DIALOG_FONT_NAME"; //$NON-NLS-1$
+	private   final String DIALOG_WIDTH = "DIALOG_WIDTH"; //$NON-NLS-1$
+	private   final String DIALOG_HEIGHT = "DIALOG_HEIGHT";
 	
 	private boolean isPropertyWindowValid;
 	
@@ -82,7 +88,7 @@ public class PropertyDialog extends Dialog {
 	private void createPropertyDialogContainer(Composite parent) {
 		container = (Composite) super.createDialogArea(parent);
 		setPropertyDialogContainerLayout();
-		setPropertyDialogSize();
+		//setPropertyDialogSize();
 		setPropertyDialogTitle();
 	}
 
@@ -94,10 +100,6 @@ public class PropertyDialog extends Dialog {
 
 	private void setPropertyDialogTitle() {
 		container.getShell().setText(componentName + " - Properties");
-	}
-
-	private void setPropertyDialogSize() {
-		container.getShell().setMinimumSize(400, 500);
 	}
 
 	/**
@@ -189,8 +191,63 @@ public class PropertyDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(400, 500);
-	}
+		Point result = getDefaultSize();
+
+	    // Check the dialog settings for a stored size.
+	    if((getDialogBoundsStrategy() & DIALOG_PERSISTSIZE) != 0)
+	    {
+	      IDialogSettings settings = getDialogBoundsSettings();
+
+	      if(settings != null)
+	      {
+	 
+	        boolean useStoredBounds = true;
+	        String previousDialogFontData = settings.get(DIALOG_FONT_DATA);
+ 
+	        if(previousDialogFontData != null && previousDialogFontData.length() > 0)
+	        {
+	          FontData[] fontDatas = JFaceResources.getDialogFont().getFontData();
+
+	          if(fontDatas.length > 0)
+	          {
+	            String currentDialogFontData = fontDatas[0].toString();
+	            useStoredBounds = currentDialogFontData.equalsIgnoreCase(previousDialogFontData);
+	          }
+	        }
+
+	        if(useStoredBounds)
+	        {
+	          try
+	          {
+	            // Get the stored width and height.
+	            int width = settings.getInt(DIALOG_WIDTH);
+
+	            if(width != DIALOG_DEFAULT_BOUNDS)
+	            {
+	              result.x = width;
+	            }
+
+	            int height = settings.getInt(DIALOG_HEIGHT);
+
+	            if(height != DIALOG_DEFAULT_BOUNDS)
+	            {
+	              result.y = height;
+	            }
+	          }
+	          catch(NumberFormatException e)
+	          {
+	          }
+	        }
+	      }
+	    }
+ 
+	    return result;
+	  }
+	
+	 protected Point getDefaultSize()
+	  {
+	    return getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
+	  }
 	
 	@Override
 	protected void okPressed() {

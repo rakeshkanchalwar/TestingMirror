@@ -6,6 +6,7 @@ import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.ELTColumnWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentBaseType;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentNameWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentType;
@@ -79,6 +80,8 @@ public class WidgetFactory {
 			return new ELTStrictWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
 		}else if(widgetName.equals("ELT_RETENTIONLOGIC_WIDGET")){
 			return new ELTRetentionlogicWidget(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
+		}else if(widgetName.equals("ELT_COLUMN_NAME_WIDGET")){
+			return new ELTColumnWidget(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 		}
 		else{ 
 			return new MyCustomWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);

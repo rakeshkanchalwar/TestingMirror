@@ -30,7 +30,7 @@ public class ELTRadioButton extends AbstractELTWidget{
 	@Override
 	public void attachWidget(Composite container) {
 		defaultELTButton = new Button(container, SWT.RADIO);
-		GridData gd_defaultELTButton = new GridData(SWT.FILL, SWT.CENTER, grabExcessSpace, false, 1, 1);
+		GridData gd_defaultELTButton = new GridData(SWT.FILL, SWT.FILL, grabExcessSpace, false, 1, 1);
 		defaultELTButton.setLayoutData(gd_defaultELTButton);
 		defaultELTButton.setText(buttonText);
 		

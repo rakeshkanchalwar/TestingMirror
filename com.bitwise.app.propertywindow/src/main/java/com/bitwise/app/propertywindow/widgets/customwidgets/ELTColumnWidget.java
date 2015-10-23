@@ -18,32 +18,13 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ELTFilterWidget.
- * 
- * @author Bitwise
- */
-public class ELTFilterWidget extends AbstractWidget {
-
-
-
-
+public class ELTColumnWidget extends AbstractWidget{
+	
 	private String propertyName;
 	private HashSet<String> set;
 	private Shell shell;
 
-	/**
-	 * Instantiates a new ELT filter widget.
-	 * 
-	 * @param componentConfigrationProperty
-	 *            the component configration property
-	 * @param componentMiscellaneousProperties
-	 *            the component miscellaneous properties
-	 * @param propertyDialogButtonBar
-	 *            the property dialog button bar
-	 */
-	public ELTFilterWidget(
+	public ELTColumnWidget(
 			ComponentConfigrationProperty componentConfigrationProperty,
 			ComponentMiscellaneousProperties componentMiscellaneousProperties,
 			PropertyDialogButtonBar propertyDialogButtonBar) {
@@ -53,11 +34,11 @@ public class ELTFilterWidget extends AbstractWidget {
 		this.propertyName = componentConfigrationProperty.getPropertyName();
 		setProperties(componentConfigrationProperty.getPropertyName(), componentConfigrationProperty.getPropertyValue());
 		validationStatus.setIsValid(true);
+		
 	}
-	
+
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -66,7 +47,7 @@ public class ELTFilterWidget extends AbstractWidget {
 		if(this.propertyName.equals("dedup")){
 			System.out.println(propertyName);
 		}
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\n Fields");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Column\n Name");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 
 		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Edit");
@@ -85,6 +66,7 @@ public class ELTFilterWidget extends AbstractWidget {
 			
 			}
 		});
+		
 	}
 	private void setProperties(String propertyName, Object properties) {
 		this.propertyName = propertyName;
@@ -99,9 +81,4 @@ public class ELTFilterWidget extends AbstractWidget {
 		return property;
 	}
 
-	/*@Override
-	public void setComponentName(String componentName) {
-			this.componentName=componentName;
-	}
-*/
 }
