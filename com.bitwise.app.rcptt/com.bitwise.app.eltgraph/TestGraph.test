@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _Noi4kGOtEeWOxYxxMSgO0A
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/22/15 5:23 PM
+Save-Time: 10/23/15 12:18 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -403,4 +403,7 @@ with [get-editor  | get-diagram] {
     }
     mouse-hover 749 446 -height 583 -width 1052
 }
+get-view Palette | get-palette | get-palette-entry Dedup | mouse-move 202 9 -height 23 -width 248
+get-menu "File/Close All" | click
+get-window "Save Resource" | get-button No | click
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
