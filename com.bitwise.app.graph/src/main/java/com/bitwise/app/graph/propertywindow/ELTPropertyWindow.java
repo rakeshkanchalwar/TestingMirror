@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
-
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.IPropertyTreeBuilder;
 import com.bitwise.app.propertywindow.property.Property;
@@ -80,6 +80,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	}
 	
 	//@Override
+	@Override
 	public void open() {
 		List<com.bitwise.app.common.component.config.Property> rowProperties = getComponentPropertiesFromComponentXML();		
 		try {			
@@ -111,15 +112,15 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	private Shell getParentShellForPropertyWindow() {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display.getActiveShell(), SWT.WRAP | SWT.APPLICATION_MODAL);
-		return shell;
-	}
+		Monitor primary = shell.getDisplay().getPrimaryMonitor();
+		Rectangle bounds = primary.getBounds();
+		Rectangle rect = shell.getBounds();
 
-	private Dimension getNewComponentSize() {
-		int w = ((String) component.getPropertyValue("name")).length()*7+40;
-		int defaultWidth = (component.getBasename().length()+3)*7+30;
-		int defaultHeight = (defaultWidth * 6)/8;
-		Dimension newSize = new Dimension(w < defaultWidth ? defaultWidth : w, defaultHeight);
-		return newSize;
+		int x = bounds.x + (bounds.width - rect.width) / 2;
+		int y = bounds.y + (bounds.height - rect.height) / 2;
+
+		shell.setLocation(x, y);
+		return shell;
 	}
 
 	private ArrayList<Property> transformToPropertyWindowFormat(
