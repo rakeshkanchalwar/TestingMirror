@@ -12,6 +12,7 @@ import org.eclipse.draw2d.geometry.Point;
 import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.tooltip.informationprovider.PropertyInformation;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -84,7 +85,7 @@ public abstract class Component extends Model {
 	private Hashtable<String, Port> ports;
 	private String componentName;
 	List<PortSpecification> portSpecification;
-
+	private Map<String,PropertyInformation> tooltipInformation;
 	/**
 	 * Instantiates a new component.
 	 */
@@ -284,7 +285,8 @@ public abstract class Component extends Model {
 	 * Set the property value for the given property id.
 	 */
 	public void setPropertyValue(Object propertyId, Object value) {
-		properties.put((String) propertyId, (String) value);
+		properties.put((String) propertyId, value);
+		tooltipInformation.get(propertyId).setPropertyValue(value);
 	}
 
 
@@ -418,4 +420,24 @@ public abstract class Component extends Model {
 	    return component;
 	}
 
+	public void setTooltipInformation(
+			Map<String, PropertyInformation> tooltipInformation) {
+		this.tooltipInformation = tooltipInformation;
+	}
+
+	public Map<String, PropertyInformation> getTooltipInformation() {
+		return tooltipInformation;
+	}
+
+	public void updateTooltipInformation() {
+		for(String propertyName: properties.keySet()){
+			if(tooltipInformation != null){
+				if(tooltipInformation.get(propertyName) != null){
+					tooltipInformation.get(propertyName).setPropertyValue(properties.get(propertyName));
+				}
+			}	
+		}		
+	}
+	
+	
 }

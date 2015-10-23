@@ -35,7 +35,9 @@
 		<attribute name="name" type="string" use="required" />
 		<attribute name="value" type="string" use="optional" />
 		<attribute name="group" type="tns:group" use="required" />
-		<attribute name="subGroup" type="tns:sub_group" use="required" /> 
+		<attribute name="subGroup" type="tns:sub_group" use="required" />
+		<attribute name="showAsTooltip" type="tns:showAsTooltip" use="required" />
+		<attribute name="tooltipDataType" type="tns:tooltipDataType" use="required" />  
 	</complexType>
 
 	<complexType name="Validation">
@@ -137,6 +139,23 @@
 			<enumeration value="OutputFixedWidthFigure"/>
 			<enumeration value="InputFixedWidthFigure"/>
 			<enumeration value="DedupFigure"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="tooltipDataType">
+		<restriction base="string">
+			<enumeration value="TEXT"></enumeration>
+			<enumeration value="MAP"></enumeration>
+			<enumeration value="LIST"></enumeration>
+			<enumeration value="LINK"></enumeration>
+			<enumeration value="NONE"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="showAsTooltip">
+		<restriction base="string">
+			<enumeration value="TRUE"></enumeration>
+			<enumeration value="FALSE"></enumeration>
 		</restriction>
 	</simpleType>
 </schema>

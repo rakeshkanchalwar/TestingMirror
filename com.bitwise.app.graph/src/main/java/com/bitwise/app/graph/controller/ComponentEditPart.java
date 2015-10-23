@@ -259,6 +259,8 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				eltGraphicalEditor.setDirty(true);
 			}
 			
+			getCastedModel().updateTooltipInformation();
+			
 			super.performRequest(req);
 		}
 	}
