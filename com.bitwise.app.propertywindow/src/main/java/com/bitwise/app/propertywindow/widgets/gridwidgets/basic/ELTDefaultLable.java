@@ -20,8 +20,6 @@ public class ELTDefaultLable extends AbstractELTWidget{
 	private int lableWidth=75;
 	private String lableText="Lable";
 	
-	private ELTDefaultLable(){}
-	
 	/**
 	 * Instantiates a new ELT default lable.
 	 * 
@@ -35,7 +33,7 @@ public class ELTDefaultLable extends AbstractELTWidget{
 	@Override
 	public void attachWidget(Composite container) {
 		defaultELTLable = new Label(container, SWT.NONE);
-		GridData gd_defaultELTLable = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		GridData gd_defaultELTLable = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
 		gd_defaultELTLable.widthHint = lableWidth;
 		defaultELTLable.setLayoutData(gd_defaultELTLable);		
 		defaultELTLable.setText(lableText);

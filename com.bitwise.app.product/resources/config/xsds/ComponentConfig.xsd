@@ -85,6 +85,7 @@
 			<enumeration value="ELTStrictClassWidget" />
 			<enumeration value="ELTFixedWidget"/>
 			<enumeration value="ELTRetentionlogicWidget"/>
+			<enumeration value="ELTColumnNameWidget"/>
 		</restriction>
 	</simpleType>
 
