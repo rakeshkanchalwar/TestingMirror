@@ -93,6 +93,7 @@ public class RunTimePropertyWizard {
 			propertyLst.add(p);
 			tv.refresh();
 		}
+		enableButtons();
 	}
 
 	public void setRuntimePropertyMap(TreeMap<String, String> runtimePropertyMap) {
@@ -147,7 +148,6 @@ public class RunTimePropertyWizard {
 
 			@Override
 			public void mouseDown(MouseEvent e) {
-				enableButtons();
 				lblPropertyError.setVisible(false);
 
 			}
@@ -186,13 +186,10 @@ public class RunTimePropertyWizard {
 		this.propertyDialogButtonBar=propertyDialogButtonBar;
 		shell.setSize(506, 540);
 		shell.setLayout(null);
-		shell.setText("Runtime Property");
+		shell.setText(Messages.RUNTIME_WINDOW_NAME);
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
-		if (getComponentName() != null)
-			lblHeader.setText(getComponentName() + "Runtime Property"); //$NON-NLS-1$
-		else
-			lblHeader.setText("Component Runtime Property");
+		lblHeader.setText(Messages.RUNTIME_HEADER);
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523,
 				2);
 		// Below Event will be fired when user closes the Runtime window
@@ -242,7 +239,7 @@ public class RunTimePropertyWizard {
 		tableViewer.setCellEditors(editors);
 
 		loadProperties(tableViewer);
-
+		disableButtons();
 		Monitor primary = shell.getDisplay().getPrimaryMonitor();
 		Rectangle bounds = primary.getBounds();
 		Rectangle rect = shell.getBounds();
@@ -291,6 +288,7 @@ public class RunTimePropertyWizard {
 					table.remove(temp);
 					propertyLst.remove(temp);
 					isAnyUpdatePerformed = true;
+					enableButtons();
 				}
 			}
 		});
@@ -308,6 +306,7 @@ public class RunTimePropertyWizard {
 						propertyLst.removeAll(propertyLst);
 						lblPropertyError.setVisible(false);
 						isAnyUpdatePerformed=true;
+						enableButtons();
 					}
 				}
 			}
@@ -328,15 +327,10 @@ public class RunTimePropertyWizard {
 							runtimePropertyMap.put(temp.getPropertyName(),
 									temp.getPropertyValue());
 						}
-						MessageBox messageBox = new MessageBox(shell, SWT.NONE);
-						messageBox.setText("Information"); //$NON-NLS-1$
-						messageBox
-								.setMessage(Messages.PropertyAppliedNotification);
-						messageBox.open();
 						isAnyUpdatePerformed = false;
 						propertyDialogButtonBar.enableApplyButton(true);
 					}
-				}
+				}applyButton.setEnabled(false);
 			}
 		});
 		applyButton.setBounds(253, 10, 75, 25);
@@ -443,7 +437,7 @@ public class RunTimePropertyWizard {
 			@Override
 			public String isValid(Object value) {
 				isAnyUpdatePerformed = true;
-				table.getItem(
+				String currentSelectedFld=table.getItem(
 						table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
 				if (valueToValidate.isEmpty()) {
@@ -466,7 +460,7 @@ public class RunTimePropertyWizard {
 	 * Disable buttons.
 	 */
 	void disableButtons() {
-		okButton.setEnabled(false);
+		
 		applyButton.setEnabled(false);
 
 	}
@@ -475,9 +469,13 @@ public class RunTimePropertyWizard {
 	 * Enable buttons.
 	 */
 	void enableButtons() {
-		okButton.setEnabled(true);
+		
 		applyButton.setEnabled(true);
 
 	}
-
+	public static void main(String[] args) {			
+		RunTimePropertyWizard obj=new RunTimePropertyWizard();		
+		obj.launchRuntimeWindow(new Shell(),null);			
+	}
+	
 }

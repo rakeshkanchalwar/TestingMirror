@@ -60,52 +60,6 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		validationStatus.setIsValid(true);
 	}
 	
-	
-	/*public ELTRuntimePropertiesWidget(
-			ComponentConfigrationProperty componentModelProperty,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(componentModelProperty, propertyDialogButtonBar);
-
-		this.propertyName = componentModelProperty.getPropertyName();
-		this.InstializeMap = (TreeMap<String, String>) componentModelProperty.getPropertyValue();
-		
-		tempPropertyMap = new LinkedHashMap<String, Object>();
-		
-	}*/
-	
-	/*public ELTRuntimePropertiesWidget(
-			ELTComponenetProperties eltComponenetProperties,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(eltComponenetProperties, propertyDialogButtonBar);
-
-		this.propertyName = componentProperties.get(key);
-		this.InstializeMap = (TreeMap<String, String>) properties;
-		
-		tempPropertyMap = new LinkedHashMap<String, Object>();
-		
-	}*/
-
-	/*public ELTRuntimePropertiesWidget(
-			PropertyDialogButtonBar propertyDialogButtonBar,
-			LinkedHashMap<String, Object> componentMiscellaneousProperties,
-			LinkedHashMap<String, Object> componentProperties) {
-		super(propertyDialogButtonBar, componentMiscellaneousProperties,
-				componentProperties);
-		
-		
-		this.propertyName = componentProperties.get(key);
-		this.InstializeMap = (TreeMap<String, String>) properties;
-		
-		tempPropertyMap = new LinkedHashMap<String, Object>();
-	}*/
-		
-
-	/*public ELTRuntimePropertiesWidget(
-			ELTComponenetProperties eltComponenetProperties,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		// TODO Auto-generated constructor stub
-	}*/
-
 
 	private LinkedHashMap<String, Object> tempPropertyMap;
 
@@ -127,9 +81,10 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		ELTDefaultLable defaultLable1 = new ELTDefaultLable("Runtime\nProperties"); 
 		runtimeComposite.attachWidget(defaultLable1);
 		
+		
 		ELTDefaultButton eltDefaultButton = new ELTDefaultButton(
 				"Edit");
-		//eltDefaultButton.buttonWidth(120);
+		
 		runtimeComposite.attachWidget(eltDefaultButton);
 
 		try {
@@ -166,12 +121,7 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		return (tempPropertyMap);
 	}
 
-	/*@Override
-	public void setComponentName(String componentName) {
-
-		this.componentName = componentName;
-
-	}*/
+	
 
 	/**
 	 * New window launcher.
