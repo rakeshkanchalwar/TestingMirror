@@ -4,13 +4,11 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
+import org.slf4j.Logger;
 
-import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.propertywindow.factory.ListenerFactory.Listners;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
@@ -20,23 +18,28 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ELTDelimeterWidget.
+ * Widget for showing Delimiter text box in property window.
  * 
  * @author Bitwise
  */
 public class ELTDelimeterWidget extends AbstractWidget{
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTPhaseWidget.class);
+	private static final String DELIMITER = "Delimiter";
+	private static final IELTListener[] listeners = {
+														Listners.NORMAL_FOCUS_IN.getListener(),	Listners.NORMAL_FOCUS_OUT.getListener(), 
+														Listners.EVENT_CHANGE.getListener(), Listners.MODIFY.getListener()
+													};
 	
 	private Text textBox;
-	private Object properties;
+	private String properties;
 	private String propertyName;
-	private Object txtDecorator;
-	private ControlDecoration decorator;
+	private ControlDecoration txtDecorator;
 
 	/**
 	 * Instantiates a new ELT delimeter widget.
@@ -52,66 +55,55 @@ public class ELTDelimeterWidget extends AbstractWidget{
 			ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar) {
 		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 		this.propertyName = componentConfigrationProperty.getPropertyName();
-		this.properties =  componentConfigrationProperty.getPropertyValue();
+		this.properties =  (String) componentConfigrationProperty.getPropertyValue();
 	}
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-
-		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
-		eltSuDefaultSubgroupComposite.createContainerWidget();
+		logger.debug("Starting {} textbox creation", DELIMITER);
+		ELTDefaultSubgroupComposite lableAndTextBox = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		lableAndTextBox.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Delimeter ");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
+		AbstractELTWidget lable = new ELTDefaultLable(DELIMITER + " ");
+		lableAndTextBox.attachWidget(lable);
 		
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
+		AbstractELTWidget textBoxWidget = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(100);
+		lableAndTextBox.attachWidget(textBoxWidget);
 		
-		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
-		decorator=WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
+		textBox = (Text) textBoxWidget.getSWTWidgetControl();
+		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.bind(Messages.EMPTY_FIELD, DELIMITER));
 		
-		textBox.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(textBox.getText().isEmpty()){
-					decorator.show();
-					textBox.setBackground(new Color(Display.getDefault(), 255, 255, 204));
-				}
-			}
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				decorator.hide();
-				textBox.setBackground(new Color(Display.getDefault(), 255, 255, 255));	
-			}
-		});
-		
-		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
-		
-		ListenerHelper helper = new ListenerHelper();
-		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
-		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		ListenerHelper helper = prepareListenerHelper();
 		
 		try {
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
+			for (int i = 0; i < listeners.length; i++) {
+				textBoxWidget.attachListener(listeners[i], propertyDialogButtonBar, helper, textBoxWidget.getSWTWidgetControl());
+			}
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			logger.error("Failed in attaching listeners to {}", DELIMITER);
 		}
 		
 		populateWidget();
+		logger.debug("Finished {} textbox creation", DELIMITER);
 	}
 
+	private ListenerHelper prepareListenerHelper() {
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		return helper;
+	}
+	
 	private void populateWidget(){
-		String property = (String) properties;
+		logger.debug("Populating {} textbox", DELIMITER);
+		String property = properties;
 		if(StringUtils.isNotBlank(property)){
 			textBox.setText(property);
-			decorator.hide();
+			txtDecorator.hide();
 		}
 		else{
 			textBox.setText("");
-			decorator.show();
+			txtDecorator.show();
 		}
 	}
 

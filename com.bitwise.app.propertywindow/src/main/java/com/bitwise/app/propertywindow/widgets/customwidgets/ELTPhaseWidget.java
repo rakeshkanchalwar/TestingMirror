@@ -2,10 +2,13 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.widgets.Text;
+import org.slf4j.Logger;
 
-import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.propertywindow.factory.ListenerFactory.Listners;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
@@ -15,17 +18,29 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ELTPhaseWidget.
+ * Widget for showing phase text box in property window.
  * 
  * @author Bitwise
  */
 public class ELTPhaseWidget extends AbstractWidget {
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTPhaseWidget.class);
+	private static final String PHASE = "Phase";
+	private static final IELTListener[] listeners = {
+														Listners.NORMAL_FOCUS_IN.getListener(),	Listners.NORMAL_FOCUS_OUT.getListener(), 
+														Listners.VERIFY_NUMERIC.getListener(), 	Listners.EVENT_CHANGE.getListener(), 
+														Listners.MODIFY.getListener()
+													};
+	
+	private Text textBox;
+	private String properties;
+	private String propertyName;
+	private ControlDecoration txtDecorator;
 
 	/**
 	 * Instantiates a new ELT phase widget.
@@ -37,60 +52,54 @@ public class ELTPhaseWidget extends AbstractWidget {
 	 * @param propertyDialogButtonBar
 	 *            the property dialog button bar
 	 */
-	public ELTPhaseWidget(
-			ComponentConfigrationProperty componentConfigrationProperty,
-			ComponentMiscellaneousProperties componentMiscellaneousProperties,
-			PropertyDialogButtonBar propertyDialogButtonBar) {
-		super(componentConfigrationProperty, componentMiscellaneousProperties,
-				propertyDialogButtonBar);
+	public ELTPhaseWidget(ComponentConfigrationProperty componentConfigrationProperty,	
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,	PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
 		
 		this.properties = (String)componentConfigrationProperty.getPropertyValue();
 		this.propertyName = componentConfigrationProperty.getPropertyName();
 	}
 
-	private Text textBox;
-	private String properties;
-	private String propertyName;
-	private ControlDecoration txtDecorator;
-
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
+		logger.debug("Starting {} textbox creation", PHASE);
+		ELTDefaultSubgroupComposite lableAndTextBox = new ELTDefaultSubgroupComposite(container.getContainerControl());
+		lableAndTextBox.createContainerWidget();
 		
-		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
-		eltSuDefaultSubgroupComposite.createContainerWidget();
+		AbstractELTWidget lable = new ELTDefaultLable(PHASE + " ");
+		lableAndTextBox.attachWidget(lable);
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Phase ");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
+		AbstractELTWidget textBoxWidget = new ELTDefaultTextBox().textBoxWidth(80).grabExcessHorizontalSpace(false);
+		lableAndTextBox.attachWidget(textBoxWidget);
+
+		textBox = (Text) textBoxWidget.getSWTWidgetControl();
+
+		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.bind(Messages.EMPTY_FIELD, PHASE));
+
+		ListenerHelper helper = prepareListenerHelper();
 		
-		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().textBoxWidth(80).grabExcessHorizontalSpace(false);
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
+		try {
+			for (int i = 0; i < listeners.length; i++) {
+				textBoxWidget.attachListener(listeners[i], propertyDialogButtonBar, helper, textBoxWidget.getSWTWidgetControl());
+			}
+		} catch (Exception e1) {
+			logger.error("Failed in attaching listeners to {}", PHASE);
+		}
+		populateWidget();
+		logger.debug("Finished {} textbox creation", PHASE);
+	}
 
-		textBox = (Text) eltDefaultTextBox.getSWTWidgetControl();
-
-		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.EMPTYFIELDMESSAGE);
-
+	private ListenerHelper prepareListenerHelper() {
 		ListenerHelper helper = new ListenerHelper();
 		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
 		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
-		
-		try {
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.NORMAL_FOCUS_OUT.getListener(),
-					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_NUMERIC.getListener(),
-					propertyDialogButtonBar, helper, eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
-		populateWidget();
+		return helper;
 	}
 
 	
 	private void populateWidget(){		
-		if (properties != null){
+		logger.debug("Populating {} textbox", PHASE);
+		if (StringUtils.isNotBlank(properties)){
 			textBox.setText(properties);
 			txtDecorator.hide();
 		}

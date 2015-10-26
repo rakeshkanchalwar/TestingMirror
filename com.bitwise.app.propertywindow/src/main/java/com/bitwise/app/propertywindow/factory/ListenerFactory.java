@@ -17,6 +17,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyNumbericListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
+import com.bitwise.app.propertywindow.widgets.listeners.FocusInListener;
 import com.bitwise.app.propertywindow.widgets.listeners.IELTListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridAddSelectionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDeleteAllSelectionListener;
@@ -61,7 +62,8 @@ public class ListenerFactory {
 		GRID_DELETE_SELECTION(ELTGridDeleteSelectionListener.class),
 		GRID_DELETE_ALL(ELTGridDeleteAllSelectionListener.class),
 		MODIFY(ELTModifyListener.class), 
-		NORMAL_FOCUS_OUT(ELTNormalFocusOutListener.class);
+		NORMAL_FOCUS_OUT(ELTNormalFocusOutListener.class),
+		NORMAL_FOCUS_IN(FocusInListener.class);
 		
 		Class<?> clazz = null;
 		private Listners(Class<?> clazz) {

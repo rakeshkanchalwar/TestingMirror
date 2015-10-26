@@ -36,6 +36,8 @@ public class Messages extends NLS {
 	public static String EMPTYFIELDMESSAGE;
 	public static String LENGTH;
 
+	public static String EMPTY_FIELD;
+	
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
@@ -43,4 +45,5 @@ public class Messages extends NLS {
 
 	private Messages() {
 	}
+	
 }
