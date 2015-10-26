@@ -63,9 +63,6 @@ public class ELTFilterWidget extends AbstractWidget {
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		shell =eltSuDefaultSubgroupComposite.getContainerControl().getShell();
 		
-		if(this.propertyName.equals("dedup")){
-			System.out.println(propertyName);
-		}
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\n Fields");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 
@@ -76,6 +73,7 @@ public class ELTFilterWidget extends AbstractWidget {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ELTFilterPropertyWizard filterWizardObj=new ELTFilterPropertyWizard();
+				filterWizardObj.setComponentName("Operation Field ");
 				
 				if(getProperties().get(propertyName)==null){
 					setProperties(propertyName, new HashSet<String>());

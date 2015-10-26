@@ -175,10 +175,10 @@ public class ELTFilterPropertyWizard {
 		shell.setText("Properties");
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
-		if (getComponentName() != null)
-			lblHeader.setText(getComponentName() + "Filter Operation Field"); //$NON-NLS-1$
-			else
-			lblHeader.setText("Component Properties");
+		if (getComponentName() != null){
+			lblHeader.setText(getComponentName() + "Properties"); //$NON-NLS-1$
+		}/*else
+			lblHeader.setText("Filter Operation Field");*/
 		new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL).setBounds(0, 35, 523, 2);
 		
 		// Below Event will be fired when user closes the Runtime window
