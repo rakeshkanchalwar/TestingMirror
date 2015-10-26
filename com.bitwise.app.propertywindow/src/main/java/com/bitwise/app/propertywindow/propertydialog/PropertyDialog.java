@@ -27,6 +27,7 @@ import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.Property;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * 
@@ -102,6 +103,16 @@ public class PropertyDialog extends Dialog {
 		container.getShell().setText(componentName + " - Properties");
 	}
 
+	/*private void setPropertyDialogSize() {
+		Monitor primary = container.getDisplay().getPrimaryMonitor();
+		Rectangle bounds = primary.getBounds();
+		Rectangle rect = container.getBounds();
+
+		int x = bounds.x + (bounds.width - rect.width+5) / 2;
+		int y = bounds.y + (bounds.height - rect.height) / 2;
+		container.getShell().setMinimumSize(x, y);
+	}
+*/
 	/**
 	 * Create contents of the button bar.
 	 * @param parent
@@ -246,7 +257,7 @@ public class PropertyDialog extends Dialog {
 	
 	 protected Point getDefaultSize()
 	  {
-	    return getShell().computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
+	    return getShell().computeSize(400, 500, true);
 	  }
 	
 	@Override
