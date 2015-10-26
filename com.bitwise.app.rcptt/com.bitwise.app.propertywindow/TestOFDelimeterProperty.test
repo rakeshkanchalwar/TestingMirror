@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _ZlHKMGd8EeWAU4M7SOOrow
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/26/15 3:10 PM
+Save-Time: 10/26/15 9:01 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -46,7 +46,7 @@ with [get-editor   | get-diagram | get-edit-part -className ContainerEditPart | 
 with [get-window "OFDelimited_01 - Properties"] {
     get-tab-folder | key-type BackSpace
     with [get-group Configuration] {
-        get-editbox -after [get-label Delimeter] | set-text ";"
+        get-editbox -after [get-label Delimiter] | set-text ";"
         get-combo -after [get-label "Has Header"] | select Parameter
         get-editbox -after [get-label "Has Header"] | set-text erf
         get-combo -after [get-label "Character Set"] | select Parameter
@@ -78,7 +78,7 @@ with [get-window "OFDelimited_01 - Properties"] {
     }
     with [get-group Configuration] {
         get-editbox -after [get-label Phase] | set-text ""
-        with [get-editbox -after [get-label Delimeter]] {
+        with [get-editbox -after [get-label Delimiter]] {
             click-text 2
             set-focus
         }
