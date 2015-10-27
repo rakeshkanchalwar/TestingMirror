@@ -5,9 +5,7 @@ version = '1.0'
 ext.cascadingVersion = '3.0.1'
 ext.hadoopVersion = '2.6.0'
 ext.hiveVersion = '1.2.0'
-
 def mainClassName='com.bitwiseglobal.bhse.utilities.BHSExecution'
-
 def artifactUrl="http://10.30.127.67:9091/artifactory/libs-release-local"
 
 repositories {
@@ -61,12 +59,19 @@ test {
      testLogging.showStandardStreams = true
 }  
 
+/**
+*return project build jar file.
+*/
 def jarFiles = files {file(project.libsDir.path).listFiles() }
 
 //get property files  	
 def propertyFiles 
 
  
+/**
+*Create properties folder in .gradle folder of user home and download the property files from artifect. 
+* also create propertyFiles variable to update system property.
+*/
 task getProperties {
 def propertiesFile = file("${System.getProperty('user.home')}/.gradle/properties/")
 if( !propertiesFile.exists() ) {
@@ -83,15 +88,36 @@ if( !propertiesFile.exists() ) {
   ant.get(src: ''+artifactUrl+'/engine_property_files/runtime_service.properties', dest:propertiesFile , skipexisting: 'true') 
   propertyFiles=files { file(propertiesFile).listFiles() } 
 } 
+
+/**
+*Main run job method that depends on build and property files need to run the job.
+* Adding all dependency jar files in classpath and resolve args.
+*/
 task(run, dependsOn: ['build','classes','getProperties'], type: JavaExec){ 
 		    main=mainClassName
 	   		standardOutput = System.out
   			errorOutput = System.err 
 			classpath += jarFiles+configurations.compile
-			if (project.hasProperty("xmlpath")) {
-      			args = ["-xmlpath",xmlpath]
-  			}	
+			def argsArray = getArgsForRunJob()
+			args=[''+argsArray[0]+'',''+argsArray[1]+'',''+argsArray[2]+'',''+argsArray[3]+'']
 		  	propertyFiles.each {File file ->
 			   systemProperty file.name, file.absolutePath
 			} 
+}
+
+/**
+* Get the Argument array
+*return args
+**/
+def getArgsForRunJob(){
+			def argsArray = new String[4]
+			if (project.hasProperty("xmlpath")) {
+			argsArray[0]="-xmlpath"
+			argsArray[1]=xmlpath
+			}
+			if (project.hasProperty("paramFiles")) {
+			argsArray[2]="-paramFiles"
+			argsArray[3]=paramFiles			
+			}
+			return argsArray
 }

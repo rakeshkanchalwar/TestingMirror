@@ -7,6 +7,12 @@ public class Messages extends NLS {
 	public static String GRADLE_RUN;
 	public static String XMLPATH;
 	public static String PARAM_FILE;
+	public static String PARAM;
+	public static String CONSOLE_NAME;
+	public static String JOBEXTENSION;
+	public static String XMLEXTENSION;
+	public static String CMD;
+
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
