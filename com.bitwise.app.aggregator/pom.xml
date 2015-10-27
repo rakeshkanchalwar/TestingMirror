@@ -29,5 +29,6 @@
 		<module>../com.bitwise.app.xstream</module>
 		<module>../com.bitwise.app.engine</module>
 		<module>../com.bitwise.app.common.datastructures</module>
+		<module>../com.bitwise.app.tooltip</module>
 	</modules>
 </project>

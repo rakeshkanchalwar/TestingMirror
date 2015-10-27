@@ -10,7 +10,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gef;bundle-version="3.7.2",
  com.bitwise.app.common;bundle-version="0.0.1",
  org.slf4j.api,
- com.bitwise.app.model;bundle-version="0.0.1"
+ com.bitwise.app.model;bundle-version="0.0.1",
+ com.bitwise.app.common.datastructures;bundle-version="0.0.1",
+ com.bitwise.app.tooltip;bundle-version="0.0.1",
+ org.eclipse.jface.text;bundle-version="3.7.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: com.bitwise.app.graph.figure,
