@@ -5,7 +5,6 @@ Bundle-SymbolicName: com.bitwise.app.xstream
 Bundle-Version: 0.0.1.qualifier
 Bundle-ClassPath: .
 Export-Package: com.thoughtworks.xstream,
- com.thoughtworks.xstream.annotations,
  com.thoughtworks.xstream.converters,
  com.thoughtworks.xstream.converters.basic,
  com.thoughtworks.xstream.converters.collections,
@@ -31,4 +30,6 @@ Export-Package: com.thoughtworks.xstream,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: com.bitwise.app.model;bundle-version="0.0.1",
  com.bitwise.app.propertywindow;bundle-version="0.0.1",
- com.bitwise.app.common;bundle-version="0.0.1"
+ com.bitwise.app.common;bundle-version="0.0.1",
+ com.bitwise.app.xstream.annotations;bundle-version="0.0.1"
+Import-Package: com.thoughtworks.xstream.annotations

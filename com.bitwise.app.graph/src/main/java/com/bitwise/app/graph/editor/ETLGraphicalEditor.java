@@ -509,6 +509,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		Object obj = null;
 		
 		XStream xs = new XStream();
+		xs.autodetectAnnotations(true);
 		try {
 
 			obj = xs.fromXML(xml);
@@ -535,6 +536,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		String str = "<!-- It is recommended to avoid changes to xml data -->\n\n";
 		
 		XStream xs = new XStream();
+		xs.autodetectAnnotations(true);
 		try {
 			str = str + xs.toXML(object);
 			logger.debug( "Sucessfully converted XML from JAVA Object");

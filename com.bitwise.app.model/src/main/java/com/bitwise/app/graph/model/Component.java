@@ -13,6 +13,7 @@ import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -86,6 +87,7 @@ public abstract class Component extends Model {
 	private String componentName;
 	List<PortSpecification> portSpecification;
 	
+	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
 
 	/**

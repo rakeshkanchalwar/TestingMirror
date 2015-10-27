@@ -47,6 +47,7 @@ openFile
       <plugin id="com.bitwise.app.propertywindow"/>
       <plugin id="com.bitwise.app.tooltip"/>
       <plugin id="com.bitwise.app.xstream"/>
+      <plugin id="com.bitwise.app.xstream.annotations"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="com.jcraft.jsch"/>
       <plugin id="com.ning.async-http-client"/>
@@ -56,7 +57,7 @@ openFile
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.batik.util.gui"/>
-      <plugin id="org.apache.commons.beanutils" fragment=""/>
+      <plugin id="org.apache.commons.beanutils"/>
       <plugin id="org.apache.commons.el"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.jasper"/>
