@@ -154,7 +154,7 @@ public class ComponentFigure extends Figure implements Validator{
 		}
 		logger.debug("Component has {} status.", getStatus());
 		if(statusImage != null){
-			graphics.drawImage(statusImage, new Point(rectangle.width - 30, 8));
+			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8));
 		}
 	}
 	
