@@ -68,8 +68,6 @@ public class ELTOperationClassWidget extends AbstractWidget {
 		final ELTDefaultSubgroupComposite runtimeComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
 		runtimeComposite.createContainerWidget();
-		runtimeComposite.numberOfBasicWidgets(2);
-		
 		ELTDefaultLable defaultLable1 = new ELTDefaultLable("Operation\nClass"); 
 		runtimeComposite.attachWidget(defaultLable1);
 		

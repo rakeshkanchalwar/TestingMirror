@@ -34,6 +34,21 @@ class SchemaGridCellModifier implements ICellModifier {
    */
   public boolean canModify(Object element, String property) {
     // Allow editing of all values
+	  SchemaGrid p1 = (SchemaGrid) element;
+	  if (ELTSchemaGridWidget.DATEFORMAT.equals(property))
+	      {
+		    if(p1.getDataTypeValue().equalsIgnoreCase("java.util.date"))
+		    return true;
+		    else 
+		   return false; 	
+	      }
+	  if (ELTSchemaGridWidget.SCALE.equals(property))
+      {
+	    if(p1.getDataTypeValue().equalsIgnoreCase("java.lang.Float") ||p1.getDataTypeValue().equalsIgnoreCase("java.lang.Double")||p1.getDataTypeValue().equalsIgnoreCase("java.math.BigDecimal"))
+	    return true;
+	    else 
+	   return false; 	
+      }
     return true;
   }
 

@@ -74,7 +74,6 @@ public class ELTRuntimePropertiesWidget extends AbstractWidget {
 		ELTDefaultSubgroupComposite runtimeComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());
 		runtimeComposite.createContainerWidget();
-		runtimeComposite.numberOfBasicWidgets(2);
 		shell = runtimeComposite.getContainerControl().getShell();
 
 		

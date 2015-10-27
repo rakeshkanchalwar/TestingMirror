@@ -39,6 +39,8 @@ public class ELTComponentType extends AbstractWidget{
 			PropertyDialogButtonBar propertyDialogButtonBar) {
 		super(componentConfigrationProperty, componentMiscellaneousProperties,
 				propertyDialogButtonBar);
+		//Component type is not editable so it is valid always
+		validationStatus.setIsValid(true);
 	}
 	
 	@Override

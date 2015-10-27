@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 
 import org.eclipse.swt.widgets.Text;
 
-import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -39,6 +38,8 @@ public class ELTComponentBaseType extends AbstractWidget{
 			PropertyDialogButtonBar propertyDialogButtonBar) {
 		super(componentConfigrationProperty, componentMiscellaneousProperties,
 				propertyDialogButtonBar);
+		//Base type is not editable so it is valid always
+		validationStatus.setIsValid(true);
 	}
 	
 	@Override
