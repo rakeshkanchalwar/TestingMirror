@@ -36,6 +36,7 @@ openFile
       <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="com.bitwise.app.asm"/>
       <plugin id="com.bitwise.app.common"/>
+      <plugin id="com.bitwise.app.common.datastructures"/>
       <plugin id="com.bitwise.app.engine"/>
       <plugin id="com.bitwise.app.graph"/>
       <plugin id="com.bitwise.app.graph.figure"/>
@@ -54,7 +55,7 @@ openFile
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.batik.util.gui"/>
-      <plugin id="org.apache.commons.beanutils"/>
+      <plugin id="org.apache.commons.beanutils" fragment=""/>
       <plugin id="org.apache.commons.el"/>
       <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.jasper"/>

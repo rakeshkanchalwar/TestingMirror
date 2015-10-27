@@ -257,6 +257,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			if(eltPropertyWindow.isPropertyChanged()){
 				eltGraphicalEditor.setDirty(true);
+				getCastedModel().updateTooltipInformation();
 			}
 			
 			super.performRequest(req);

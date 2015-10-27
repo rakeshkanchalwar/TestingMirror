@@ -28,15 +28,20 @@
 				<tns:linkMandatory>false</tns:linkMandatory>
 			</tns:portSpecification>
 		</tns:port>
+		
 		<tns:property dataType="string" name="name"
 			renderer="ELTComponentNameWidget" type="USER" group="GENERAL"
-			subGroup="DISPLAY" />
+			subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT" />
+			
 		<tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget"
-			type="USER" group="GENERAL" subGroup="CONFIGURATION" />
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT" />
+			
 		<tns:property dataType="string" name="oprationClass"
 			renderer="ELTOperationalClassWidget" type="USER" group="GENERAL"
-			subGroup="CONFIGURATION" />
-			 <tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" type="USER" group="GENERAL" subGroup="CONFIGURATION"/>
-   
+			subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LINK" />
+			
+		<tns:property dataType="string" name="filter" renderer="ELTFilterPropertyWidget" 
+		    type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST" />
+		    
 	</tns:component>
 </tns:Config>

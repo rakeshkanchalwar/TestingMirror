@@ -1,5 +1,6 @@
 package com.bitwise.app.graph.command;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.component.config.Property;
+import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.ComponentCacheUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
@@ -47,6 +50,14 @@ public class ComponentCreateCommand extends Command {
 		component.setProperties(properties);
 		component.setBasename(components.getName());
 		component.setCategory(components.getCategory().value());
+		
+		
+		//attach tooltip information to component
+		Map<String,PropertyToolTipInformation> tooltipInformation = new LinkedHashMap<>();
+		for(Property property : components.getProperty()){
+			tooltipInformation.put(property.getName(),new PropertyToolTipInformation(property.getName(), property.getShowAsTooltip().value(), property.getTooltipDataType().value()));
+		}
+		component.setTooltipInformation(tooltipInformation);
 		
 		int totalPortsofInType=0, totalPortsOfOutType=0;
 		List<PortSpecification> portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
