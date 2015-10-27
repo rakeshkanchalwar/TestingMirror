@@ -281,6 +281,14 @@ public class PropertyDialog extends Dialog {
 
 	@Override
 	protected void cancelPressed(){
+		for(AbstractWidget customWidget : propertyDialogBuilder.getELTWidgetList()){
+			if(Boolean.FALSE.equals(customWidget.isDataValid())){
+				logger.debug("{} is not valid ", customWidget);
+				isPropertyWindowValid = false;
+				break;
+			}
+		}
+		updateComponentValidityStatus();
 		if(applyButton.isEnabled()){
 			ConfirmCancelMessageBox confirmCancelMessageBox = new ConfirmCancelMessageBox(container);
 			MessageBox confirmCancleMessagebox = confirmCancelMessageBox.getMessageBox();

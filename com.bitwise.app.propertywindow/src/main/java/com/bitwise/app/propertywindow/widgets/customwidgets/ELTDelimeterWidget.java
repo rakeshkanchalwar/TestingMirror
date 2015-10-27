@@ -31,10 +31,8 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 public class ELTDelimeterWidget extends AbstractWidget{
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTPhaseWidget.class);
 	private static final String DELIMITER = "Delimiter";
-	private static final IELTListener[] listeners = {
-														Listners.NORMAL_FOCUS_IN.getListener(),	Listners.NORMAL_FOCUS_OUT.getListener(), 
-														Listners.EVENT_CHANGE.getListener(), Listners.MODIFY.getListener()
-													};
+	private static final Listners[] listeners = {Listners.NORMAL_FOCUS_IN,	Listners.NORMAL_FOCUS_OUT, 
+												 Listners.EVENT_CHANGE, Listners.MODIFY};
 	
 	private Text textBox;
 	private String properties;
@@ -77,7 +75,8 @@ public class ELTDelimeterWidget extends AbstractWidget{
 		
 		try {
 			for (int i = 0; i < listeners.length; i++) {
-				textBoxWidget.attachListener(listeners[i], propertyDialogButtonBar, helper, textBoxWidget.getSWTWidgetControl());
+				IELTListener listener = listeners[i].getListener();
+				textBoxWidget.attachListener(listener, propertyDialogButtonBar, helper, textBoxWidget.getSWTWidgetControl());
 			}
 		} catch (Exception e1) {
 			logger.error("Failed in attaching listeners to {}", DELIMITER);
