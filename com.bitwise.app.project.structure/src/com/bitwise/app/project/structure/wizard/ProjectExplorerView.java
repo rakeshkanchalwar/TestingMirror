@@ -38,5 +38,14 @@ public class ProjectExplorerView extends CommonNavigator {
 		return false;
 	}
 
+	@Override
+	public void doSaveAs() {
 	
+		IEditorPart editorPart = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		
+		if (editorPart != null) {
+			editorPart.doSaveAs();
+			}
+	}
 }

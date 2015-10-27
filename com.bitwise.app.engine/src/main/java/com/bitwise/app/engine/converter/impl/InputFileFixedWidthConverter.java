@@ -3,6 +3,8 @@ package com.bitwise.app.engine.converter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
@@ -10,13 +12,17 @@ import com.bitwise.app.engine.converter.InputConverter;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.propertywindow.fixedwidthschema.FixedWidthGridRow;
+import com.bitwiseglobal.graph.commontypes.FieldDataTypes;
+import com.bitwiseglobal.graph.commontypes.ScaleTypeList;
+import com.bitwiseglobal.graph.commontypes.TypeBaseField;
 import com.bitwiseglobal.graph.commontypes.TypeInputOutSocket;
 import com.bitwiseglobal.graph.inputtypes.FileFixedWidth;
-import com.bitwiseglobal.graph.itfd.TypeInputDelimitedOutSocket;
+import com.bitwiseglobal.graph.itffw.TypeInputFixedwidthOutSocket;
 
 public class InputFileFixedWidthConverter extends InputConverter {
 
-	Logger logger = LogFactory.INSTANCE.getLogger(InputFileFixedWidthConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(InputFileFixedWidthConverter.class);
 
 	public InputFileFixedWidthConverter(Component component) {
 		super();
@@ -27,7 +33,7 @@ public class InputFileFixedWidthConverter extends InputConverter {
 	
 	@Override
 	public void prepareForXML(){
-		logger.debug("prepareForXML - Genrating XML data for "+component);
+		LOGGER.debug("prepareForXML - Genrating XML data for "+component);
 		super.prepareForXML();
 		FileFixedWidth fileFixedWidth = (FileFixedWidth) baseComponent;
 		FileFixedWidth.Path path = new FileFixedWidth.Path();
@@ -43,17 +49,52 @@ public class InputFileFixedWidthConverter extends InputConverter {
 	}
 	@Override
 	protected List<TypeInputOutSocket> getInOutSocket(){
-		logger.debug("getInOutSocket - Genrating TypeInputOutSocket data for "+component);
+		LOGGER.debug("getInOutSocket - Genrating TypeInputOutSocket data for "+component);
 		List<TypeInputOutSocket> outSockets = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
-			TypeInputDelimitedOutSocket outSocket = new TypeInputDelimitedOutSocket();
-			outSocket.setId((String) link.getTarget().getProperties().get(NAME));
-			outSocket.setType("");
+			TypeInputFixedwidthOutSocket outSocket = new TypeInputFixedwidthOutSocket();
+			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
+			outSocket.setType(OUT_SOCKET_TYPE);
 			outSocket.setSchema(getSchema());
 			outSocket.getOtherAttributes();
 			outSockets.add(outSocket);
 		}
 		return outSockets;
+	}
+
+	@Override
+	protected List<TypeBaseField> getFieldOrRecord() {
+		{
+			LOGGER.debug("Genrating data for {} for property {}", new Object[]{properties.get(NAME),PropertyNameConstants.SCHEMA.value()});
+			List<FixedWidthGridRow> schemaList = (List) properties.get(PropertyNameConstants.SCHEMA.value());
+			List<TypeBaseField> typeBaseFields = new ArrayList<>();
+			if(schemaList!=null){
+				try{
+					for (FixedWidthGridRow object : schemaList ) {
+						TypeBaseField typeBaseField = new TypeBaseField();
+						typeBaseField.setName(object.getFieldName());
+						typeBaseField.setFormat(object.getDateFormat());
+						if(!object.getScale().trim().isEmpty())
+							typeBaseField.setScale(Integer.parseInt(object.getScale()));
+						typeBaseField.setScaleType(ScaleTypeList.IMPLICIT );
+						for(FieldDataTypes fieldDataType:FieldDataTypes.values()){
+							if(fieldDataType.value().equalsIgnoreCase(object.getDataTypeValue()))
+								typeBaseField.setType(fieldDataType);
+						}
+						if(object.getLength()!=null)
+						{
+							typeBaseField.getOtherAttributes().put(new QName("length"), object.getLength());
+						}
+						typeBaseFields.add(typeBaseField);
+					}
+				}
+				catch (Exception exception) {
+					LOGGER.warn("Exception while creating schema for component : {}{}", new Object[]{properties.get(NAME),exception});
+					
+				}
+			}
+			return typeBaseFields;
+		}
 	}
 
 }

@@ -15,6 +15,7 @@ import com.bitwiseglobal.graph.commontypes.KeepValue;
 import com.bitwiseglobal.graph.commontypes.KeyfieldDescriptionType;
 import com.bitwiseglobal.graph.commontypes.KeyfieldDescriptionType.KeyFields;
 import com.bitwiseglobal.graph.commontypes.KeyfieldDescriptionType.KeyFields.Field;
+import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
 import com.bitwiseglobal.graph.straightpulltypes.Dedup;
@@ -83,11 +84,30 @@ public class DedupConverter extends StraightPullConverter {
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
 			outSocket
 					.setId((String) link.getTarget().getProperties().get(NAME));
-			outSocket.setType("");
+			outSocket.setType(OUT_SOCKET_TYPE);
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
 		}
 		return outSockectList;
+	}
+
+	@Override
+	public List<TypeBaseInSocket> getInSocket() {
+		LOGGER.debug("Genrating TypeBaseInSocket data for :{}", component
+				.getProperties().get(NAME));
+		List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
+		for (Link link : component.getTargetConnections()) {
+			TypeBaseInSocket inSocket = new TypeBaseInSocket();
+			inSocket.setFromComponentId((String) link.getSource()
+					.getProperties().get(NAME));
+			inSocket.setFromSocketId(DEFAULT_OUT_SOCKET_ID);
+			inSocket.setId(IN_SOCKET_ID_PREFIX);
+			inSocket.setType(IN_SOCKET_TYPE);
+			inSocket.getOtherAttributes();
+			inSocketsList.add(inSocket);
+			
+		}
+		return inSocketsList;
 	}
 
 }

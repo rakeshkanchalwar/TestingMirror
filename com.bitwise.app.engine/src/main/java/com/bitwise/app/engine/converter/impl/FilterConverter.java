@@ -14,8 +14,11 @@ import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
+import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeInputField;
 import com.bitwiseglobal.graph.commontypes.TypeOperationInputFields;
+import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOutSocket;
 import com.bitwiseglobal.graph.transformtypes.Filter;
@@ -24,7 +27,7 @@ import com.bitwiseglobal.graph.transformtypes.Filter;
  * Converter implementation for Filter component
  */
 public class FilterConverter extends TransformConverter {
-
+	private static final String FILTER_OPERATION_ID="opt";
 	Logger LOGGER = LogFactory.INSTANCE.getLogger(FilterConverter.class);
 	
 	public FilterConverter(Component component) {
@@ -43,17 +46,21 @@ public class FilterConverter extends TransformConverter {
 
 	@Override
 	protected List<TypeTransformOutSocket> getOutSocket() {
-		LOGGER.debug("Genrating TypeTransformOutSocket data :{}", properties.get(NAME));
-		List<TypeTransformOutSocket> outSocketList = new ArrayList<>();
+		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}",
+				properties.get(NAME));
+		List<TypeTransformOutSocket> outSockectList = new ArrayList<TypeTransformOutSocket>();
 		for (Link link : component.getSourceConnections()) {
 			TypeTransformOutSocket outSocket = new TypeTransformOutSocket();
-			outSocket.setId((String) link.getTarget().getProperties().get(NAME));
-			outSocket.setType("");
+			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
+			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
+			outSocketAsInsocket.getOtherAttributes();
+			outSocket.setCopyOfInsocket(outSocketAsInsocket);
+			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
+			outSocket.setType(OUT_SOCKET_TYPE);
 			outSocket.getOtherAttributes();
-			outSocketList.add(outSocket);
-
+			outSockectList.add(outSocket);
 		}
-		return outSocketList;
+		return outSockectList;
 	}
 
 	@Override
@@ -64,7 +71,8 @@ public class FilterConverter extends TransformConverter {
 		TypeOperationInputFields operationInputFields=new TypeOperationInputFields();
 		operationInputFields.getField().addAll(getOperationField());
 		operation.setInputFields(operationInputFields);
-		operation.setClazz(properties.get(PropertyNameConstants.OPERATION_CLASS.value()).toString());
+		operation.setId(FILTER_OPERATION_ID);
+		operation.setClazz(((OperationClassProperty)properties.get(PropertyNameConstants.OPERATION_CLASS.value())).getOperationClassPath());
 		operationList.add(operation);
 		return operationList;
 	}
@@ -77,9 +85,30 @@ public class FilterConverter extends TransformConverter {
 			for(String object:componentOperationFileds){
 				TypeInputField operationFiled=new TypeInputField();
 				operationFiled.setName(object);
+				operationFiled.setInSocketId(DEFAULT_IN_SOCKET_ID);
 				operationFiledList.add(operationFiled);
 			}
 		}
 		return operationFiledList;
 	}
+
+	@Override
+	public List<TypeBaseInSocket> getInSocket() {
+			LOGGER.debug("Genrating TypeBaseInSocket data for :{}", component
+					.getProperties().get(NAME));
+			List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
+			for (Link link : component.getTargetConnections()) {
+				TypeBaseInSocket inSocket = new TypeBaseInSocket();
+				inSocket.setFromComponentId((String) link.getSource()
+						.getProperties().get(NAME));
+				inSocket.setFromSocketId(DEFAULT_IN_SOCKET_ID);
+				inSocket.setId(DEFAULT_IN_SOCKET_ID);
+				inSocket.setType(IN_SOCKET_TYPE);
+				inSocket.getOtherAttributes();
+				inSocketsList.add(inSocket);
+			}
+			return inSocketsList;
+		}
+
+	
 }
