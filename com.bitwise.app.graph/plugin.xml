@@ -14,12 +14,20 @@
             id="com.bitwise.app.graph.newGraphcategory"
             name="New Graph Category">
       </category>
+      <command
+            id="com.bitwise.app.graph.command.runjob"
+            name="RunJob">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="com.bitwise.app.graph.handler.NewGraphHandler"
             commandId="com.bitwise.app.graph.newGraphcommand">
+      </handler>
+      <handler
+            class="com.bitwise.app.graph.handler.RunJobHandler"
+            commandId="com.bitwise.app.graph.command.runjob">
       </handler>
    </extension> 
    <extension
@@ -116,6 +124,12 @@
             <separator
                   name="com.bitwise.app.graph.separator1">
             </separator>
+            <command
+                  commandId="com.bitwise.app.graph.command.runjob"
+                  icon="resources/icons/run.png"
+                  label="Run Job"
+                  style="push">
+            </command>
          </toolbar>
       </menuContribution>
       <menuContribution

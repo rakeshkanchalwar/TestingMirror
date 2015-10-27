@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.ui,
  org.slf4j.api,
  org.eclipse.buildship.branding;bundle-version="1.0.5",
  org.eclipse.buildship.core;bundle-version="1.0.5",
- org.eclipse.buildship.ui;bundle-version="1.0.5"
+ org.eclipse.buildship.ui;bundle-version="1.0.5",
+ org.eclipse.ui.console;bundle-version="3.5.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.bitwise.app.graph.model,
