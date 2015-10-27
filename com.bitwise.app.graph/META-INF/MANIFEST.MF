@@ -29,3 +29,4 @@ Bundle-ActivationPolicy: lazy
 Import-Package: com.bitwise.app.graph.model,
  com.bitwise.app.graph.processor,
  com.thoughtworks.xstream
+Export-Package: com.bitwise.app.graph.editor

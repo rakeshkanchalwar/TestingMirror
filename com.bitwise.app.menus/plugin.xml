@@ -47,6 +47,138 @@
             class="com.bitwise.app.menus.handlers.PaletteHandler"
             commandId="com.bitwise.window.palette">
       </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.DeleteHandler"
+            commandId="org.eclipse.ui.edit.delete">
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count>
+            </not>
+         </enabledWhen>
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.CutHandler"
+            commandId="org.eclipse.ui.edit.cut">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count>
+            </not>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.CopyHandler"
+            commandId="org.eclipse.ui.edit.copy">
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count></not>
+         </enabledWhen>
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.PasteHandler"
+            commandId="org.eclipse.ui.edit.paste">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count>
+            </not>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.UndoHandler"
+            commandId="org.eclipse.ui.edit.undo">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count>
+            </not>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.RedoHandler"
+            commandId="org.eclipse.ui.edit.redo">
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count>
+            </not>
+         </enabledWhen>
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.SelectAllHandler"
+            commandId="org.eclipse.ui.edit.selectAll">
+         <activeWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="com.bitwise.app.graph.etlgraphicaleditor">
+               </equals>
+            </with>
+         </activeWhen>
+         <enabledWhen>
+            <not>
+               <count
+                     value="0">
+               </count>
+            </not>
+         </enabledWhen>
+      </handler>
    </extension>
    		
    <extension
@@ -154,12 +286,8 @@
             </command>
          </menu>
          <menu
+               id="com.bitwsie.edit.menu"
                label="Edit">
-            <command
-                  commandId="org.eclipse.ui.edit.cut"
-                  label="Cut"
-                  style="push">
-            </command>
             <command
                   commandId="org.eclipse.ui.edit.undo"
                   label="Undo"
@@ -168,6 +296,31 @@
             <command
                   commandId="org.eclipse.ui.edit.redo"
                   label="Redo"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.cut"
+                  label="Cut"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.copy"
+                  label="Copy"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.paste"
+                  label="Paste"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.delete"
+                  label="Delete"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.edit.selectAll"
+                  label="Select All"
                   style="push">
             </command>
          </menu>

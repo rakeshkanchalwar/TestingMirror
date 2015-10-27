@@ -288,7 +288,7 @@ public abstract class Component extends Model {
 	 */
 	public void setPropertyValue(Object propertyId, Object value) {
 		properties.put((String) propertyId, value);
-		tooltipInformation.get(propertyId).setPropertyValue(value);
+		//tooltipInformation.get(propertyId).setPropertyValue(value);
 	}
 
 
