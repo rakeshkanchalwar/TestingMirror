@@ -592,6 +592,29 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		super.dispose();
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(new ResourceChangeListener(this));
 	}
+	public void deleteSelection() {
+		//getActionRegistry().getAction(DeleteAction.ID).run();
+	     getActionRegistry().getAction(ActionFactory.DELETE.getId()).run();
+	}
+
+	public void copySelection() {
+		getActionRegistry().getAction(ActionFactory.COPY.getId()).run();
+	}
+
+	public void pasteSelection() {
+		getActionRegistry().getAction(ActionFactory.PASTE.getId()).run();
+	}
+	public void undoSelection() {
+		getActionRegistry().getAction(ActionFactory.UNDO.getId()).run();
+	}
+
+	public void redoSelection() {
+		getActionRegistry().getAction(ActionFactory.REDO.getId()).run();
+	}
+
+	public void selectAllSelection() {
+	 getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()).run();	
+	}
 
 
 
