@@ -1,12 +1,12 @@
 --- RCPTT testcase ---
 Format-Version: 1.0
-Element-Name: TestIFDelimeterProperty
+Element-Name: IFDelimeterProperty
 Element-Type: testcase
 Element-Version: 3.0
 External-Reference: 
 Id: _kt6HwGd1EeWAU4M7SOOrow
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/26/15 2:34 PM
+Save-Time: 10/27/15 12:38 PM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -153,7 +153,7 @@ with [get-window "IFDelimited_01 - Properties"] {
             get-cell 1 1 | mouse down -count 1
             apply-cell-edit -deactivate
             select [get-item "frff,\\/.\\/$#%" -index 0] | activate-cell-edit -column 1
-            get-combo | select integer
+            get-combo | select date
             get-cell 1 2 | mouse down -count 1
             apply-cell-edit -deactivate
             select [get-item "frff,\\/.\\/$#%" -index 0] | activate-cell-edit -column 2
