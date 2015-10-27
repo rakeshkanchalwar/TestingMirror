@@ -45,6 +45,7 @@ public class ConverterUtil {
 					graph.getInputOrOutputOrStraightPull().add(typeBaseComponent);
 				}
 			}
+			
 			marshall(graph, validate,outPutFile);
 		
 		

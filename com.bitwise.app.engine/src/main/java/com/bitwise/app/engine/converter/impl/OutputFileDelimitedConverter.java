@@ -10,13 +10,17 @@ import com.bitwise.app.engine.converter.OutputConverter;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
+import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaGrid;
+import com.bitwiseglobal.graph.commontypes.FieldDataTypes;
+import com.bitwiseglobal.graph.commontypes.ScaleTypeList;
+import com.bitwiseglobal.graph.commontypes.TypeBaseField;
 import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
 import com.bitwiseglobal.graph.otfd.TypeOutputDelimitedInSocket;
 import com.bitwiseglobal.graph.outputtypes.FileDelimited;
 
 public class OutputFileDelimitedConverter extends OutputConverter {
 	
-	Logger logger = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(OutputFileDelimitedConverter.class);
 	
 	public OutputFileDelimitedConverter(Component component) {
 		super();
@@ -27,7 +31,7 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 	
 	@Override
 	public void prepareForXML(){
-		logger.debug("Genrating XML data for {}", properties.get(NAME));
+		LOGGER.debug("Genrating XML data for {}", properties.get(NAME));
 		super.prepareForXML();
 		
 		FileDelimited fileDelimited = (FileDelimited) baseComponent;
@@ -50,17 +54,49 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 
 	@Override
 	protected List<TypeOutputInSocket> getOutInSocket(){
-		logger.debug("Genrating TypeOutputInSocket data");
+		LOGGER.debug("Genrating TypeOutputInSocket data");
 		List<TypeOutputInSocket> outputinSockets = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
 			TypeOutputDelimitedInSocket outInSocket = new TypeOutputDelimitedInSocket();
-			outInSocket.setId("");
-			outInSocket.setType("");
+			outInSocket.setId(DEFAULT_IN_SOCKET_ID);
+			outInSocket.setType(IN_SOCKET_TYPE);
 			outInSocket.setSchema(getSchema());
 			outInSocket.getOtherAttributes();
 			outInSocket.setFromComponentId((String) link.getSource().getProperties().get(NAME));
+			outInSocket.setFromSocketId(DEFAULT_OUT_SOCKET_ID);
 			outputinSockets.add(outInSocket);
 		}
 		return outputinSockets;
+	}
+
+	@Override
+	protected List<TypeBaseField> getFieldOrRecord() {
+		LOGGER.debug("Genrating data for {} for property {}", new Object[]{properties.get(NAME),PropertyNameConstants.SCHEMA.value()});
+		List<SchemaGrid> schemaList = (List) properties.get(PropertyNameConstants.SCHEMA.value());
+		List<TypeBaseField> typeBaseFields = new ArrayList<>();
+		if(schemaList!=null){
+			try{
+				for (SchemaGrid object : schemaList ) {
+					TypeBaseField typeBaseField = new TypeBaseField();
+					typeBaseField.setName(object.getFieldName());
+					typeBaseField.setDescription("");
+					typeBaseField.setFormat(object.getDateFormat());
+					if(!object.getScale().trim().isEmpty())
+						typeBaseField.setScale(Integer.parseInt(object.getScale()));
+					typeBaseField.setScaleType(ScaleTypeList.IMPLICIT );
+					for(FieldDataTypes fieldDataType:FieldDataTypes.values()){
+						if(fieldDataType.value().equalsIgnoreCase(object.getDataTypeValue()))
+							typeBaseField.setType(fieldDataType);
+					}
+					
+					typeBaseFields.add(typeBaseField);
+				}
+			}
+			catch (Exception exception) {
+				LOGGER.warn("Exception while creating schema for component : {}{}", new Object[]{properties.get(NAME),exception});
+				
+			}
+		}
+		return typeBaseFields;
 	}
 }
