@@ -1,5 +1,6 @@
 package com.bitwise.app.graph.editor;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -15,6 +16,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.xml.sax.SAXException;
 
 public class CustomFigureCanvas extends FigureCanvas{
 	private int cashedToolHeight = 24;
@@ -45,13 +47,13 @@ public class CustomFigureCanvas extends FigureCanvas{
         }
     }
 
-    public CustomFigureCanvas(Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot) {
-        this(SWT.DOUBLE_BUFFERED, parent, lws, toolViewer, paletteRoot);
+    public CustomFigureCanvas(Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ETLGraphicalEditor editor) {
+        this(SWT.DOUBLE_BUFFERED, parent, lws, toolViewer, paletteRoot,editor);
     }
 
-    public CustomFigureCanvas(int style, Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot) {
+    public CustomFigureCanvas(int style, Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ETLGraphicalEditor editor) {
         super(style | DEFAULT_STYLES, parent, lws);
-            toolControl = toolViewer.creatToolControl(this, paletteRoot);
+            toolControl = toolViewer.creatToolControl(this, paletteRoot,editor);
         if (toolControl != null && toolViewer != null) {
             org.eclipse.swt.graphics.Point bounds = toolControl.computeSize(SWT.DEFAULT, SWT.DEFAULT);
             if (cashedToolHeight < bounds.y) {

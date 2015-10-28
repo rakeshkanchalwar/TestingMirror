@@ -1,10 +1,11 @@
 package com.bitwise.app.graph.editor;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
-
-
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.LightweightSystem;
@@ -29,6 +30,7 @@ import org.eclipse.swt.widgets.Control;
 
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
+import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
@@ -36,110 +38,121 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
-public class CustomPaletteViewer extends PaletteViewer{
+
+public class CustomPaletteViewer extends PaletteViewer {
 	private List<PaletteContainer> paletteContainer;
-	private Logger logger=LogFactory.INSTANCE.getLogger(XMLConfigUtil.class);
-	
+	private Logger logger = LogFactory.INSTANCE.getLogger(XMLConfigUtil.class);
 
-
-	public Control creatToolControl(Composite parent, final PaletteRoot paletteRoot) {
-		final Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
-		final ETLGraphicalEditor eLEtlGraphicalEditor=new ETLGraphicalEditor();
+	public Control creatToolControl(Composite parent,final PaletteRoot paletteRoot,final ETLGraphicalEditor editor) {
+		 final Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
 		Composite container = createCompositeForSearchTextBox(parent);
 		final Text text = createSearchTextBox(container);
-		text.addVerifyListener(new VerifyListener() {
 
-			@Override
-			public void verifyText(VerifyEvent e) {
+		try {
+			 final List<Component> componentsConfig = XMLConfigUtil.INSTANCE.getComponentConfig();
+			
 
-				CombinedTemplateCreationEntry removeDuplicateComponent=null;
-				paletteRoot.getChildren().clear();
-				String searchedString=text.getText().trim().toUpperCase();
-				createPaletteContainers(paletteRoot, categoryPaletteConatiner,eLEtlGraphicalEditor);
+			text.addVerifyListener(new VerifyListener() {
 
-				try {
-					List<Component> 	componentsConfig = XMLConfigUtil.INSTANCE
-							.getComponentConfig();
-					for (Component componentConfig : componentsConfig) {
+				@Override
+				public void verifyText(VerifyEvent e) {
 
-						if(componentConfig.getName().toUpperCase().equals(searchedString)||componentConfig.getName().toUpperCase().startsWith(searchedString))
-						{
-							CombinedTemplateCreationEntry component = getComponentToAddInContainer(eLEtlGraphicalEditor, componentConfig);
-							removeDuplicateComponent=component;
-							categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
-							showRequiredPaletteContainers(paletteRoot,categoryPaletteConatiner, componentConfig);
+					CombinedTemplateCreationEntry removeDuplicateComponent = null;
+					ArrayList<Component> matchingComponents = new ArrayList<>();
+					paletteRoot.getChildren().clear();
+					String currentText = text.getText().trim();
+					createPaletteContainers(paletteRoot, categoryPaletteConatiner, editor);
+
+					String searchedString = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end))
+							.trim().toUpperCase();
+					try {
+
+						for (Component componentConfig : componentsConfig) {
+
+							String componentName = componentConfig.getName().toUpperCase();
+							if (componentName.contains(searchedString)) {
+								System.out.println("componentName inside IF: " + componentName);
+								CombinedTemplateCreationEntry component = getComponentToAddInContainer(
+										editor, componentConfig);
+								removeDuplicateComponent = component;
+								categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
+								matchingComponents.add(componentConfig);
+								
+								
+							}
+							if (searchedString.trim().isEmpty() || searchedString.equals("")) {
+								categoryPaletteConatiner.get(componentConfig.getCategory().name()).remove(
+										removeDuplicateComponent);
+								CombinedTemplateCreationEntry component = getComponentToAddInContainer(
+										editor, componentConfig);
+								categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
+								showClosedPaletteContainersWhenSearchTextBoxIsEmpty(paletteRoot.getChildren());
+							}
+
 						}
-						if(text.getText().trim().isEmpty()||text.getText().trim().length()==1)
-						{
-							categoryPaletteConatiner.get(componentConfig.getCategory().name()).remove(removeDuplicateComponent);
-							CombinedTemplateCreationEntry component = getComponentToAddInContainer(eLEtlGraphicalEditor, componentConfig);
-							categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
-							paletteContainer=paletteRoot.getChildren();
-							showClosedPaletteContainersWhenSearchTextBoxIsEmpty();
-						}
-
-					}
-				} catch (Exception exception) {
+						
+						showRequiredPaletteContainers(paletteRoot, categoryPaletteConatiner, matchingComponents);
+						
+						
+					} catch (Exception exception) {
 						logger.error(exception.getMessage());
-				} 
-			}
+					}
 
-			private void showClosedPaletteContainersWhenSearchTextBoxIsEmpty() {
-				for(int i=0;i<paletteContainer.size();i++)
-				{
-					PaletteDrawer paletteDrawer=(PaletteDrawer) paletteContainer.get(i);
-					paletteDrawer.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
-					paletteDrawer.setVisible(true);
 				}
-			}
+			});
 
-			private void showRequiredPaletteContainers(final PaletteRoot paletteRoot,final Map<String, PaletteDrawer> categoryPaletteConatiner,
-					Component componentConfig) {
-				paletteContainer=paletteRoot.getChildren();
-				for(int i=0;i<paletteContainer.size();i++)
-				{
-					if(paletteContainer.get(i).equals(categoryPaletteConatiner.get(componentConfig.getCategory().name())))
-						paletteContainer.get(i).setVisible(true);
-					else
-						paletteContainer.get(i).setVisible(false);
-				}
-			}
-
-			private void createPaletteContainers(
-					final PaletteRoot paletteRoot,
-					final Map<String, PaletteDrawer> categoryPaletteConatiner,
-					final ETLGraphicalEditor eLEtlGraphicalEditor) {
-				for (CategoryType category : CategoryType.values()) {	
-					PaletteDrawer p = eLEtlGraphicalEditor.createPaletteContainer(category.name());
-					p.setInitialState(PaletteDrawer.INITIAL_STATE_OPEN);
-					eLEtlGraphicalEditor.addContainerToPalette(paletteRoot, p);
-					categoryPaletteConatiner.put(category.name(), p);
-				}
-			}
-
-			private CombinedTemplateCreationEntry getComponentToAddInContainer(
-					final ETLGraphicalEditor eLEtlGraphicalEditor,
-					Component componentConfig) {
-				Class<?> clazz = DynamicClassProcessor.INSTANCE
-						.createClass(componentConfig);
-
-				CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-						componentConfig.getName(), "Custom components", clazz,
-						new SimpleFactory(clazz),
-						ImageDescriptor
-						.createFromURL(eLEtlGraphicalEditor.prepareIconPathURL(componentConfig
-								.getPaletteIconPath())),
-								ImageDescriptor
-								.createFromURL(eLEtlGraphicalEditor.prepareIconPathURL(componentConfig
-										.getPaletteIconPath())));
-				return component;
-			}
-		});
-
-
+		} catch (Exception exception) {
+			logger.error(exception.getMessage());
+		}
 		return container;
 	}
 
+	private void showClosedPaletteContainersWhenSearchTextBoxIsEmpty(List list) {
+		for (int i = 0; i < list.size(); i++) {
+			PaletteDrawer paletteDrawer = (PaletteDrawer) list.get(i);
+			paletteDrawer.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
+			paletteDrawer.setVisible(true);
+		}
+	}
+
+	private void showRequiredPaletteContainers(PaletteRoot paletteRoot,
+			Map<String, PaletteDrawer> categoryPaletteConatiner, ArrayList<Component> matchingComponents) {
+		List<PaletteContainer> children = paletteRoot.getChildren();
+		for (PaletteContainer paletteContainer : children) {
+			paletteContainer.setVisible(false);
+
+		}
+		for (Component component : matchingComponents) {
+			for (int i = 0; i < children.size(); i++) {
+				if (children.get(i).equals(categoryPaletteConatiner.get(component.getCategory().name())))
+					children.get(i).setVisible(true);
+
+			}
+		}
+
+	}
+
+	private void createPaletteContainers(PaletteRoot paletteRoot,
+			Map<String, PaletteDrawer> categoryPaletteConatiner, ETLGraphicalEditor eLEtlGraphicalEditor) {
+		for (CategoryType category : CategoryType.values()) {
+			PaletteDrawer paletteDrawer = eLEtlGraphicalEditor.createPaletteContainer(category.name());
+			paletteDrawer.setInitialState(PaletteDrawer.INITIAL_STATE_OPEN);
+			eLEtlGraphicalEditor.addContainerToPalette(paletteRoot, paletteDrawer);
+			categoryPaletteConatiner.put(category.name(), paletteDrawer);
+		}
+	}
+
+	private CombinedTemplateCreationEntry getComponentToAddInContainer(ETLGraphicalEditor eLEtlGraphicalEditor,
+			Component componentConfig) {
+		Class<?> clazz = DynamicClassProcessor.INSTANCE.createClass(componentConfig);
+
+		CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(componentConfig.getName(),
+				"Custom components", clazz, new SimpleFactory(clazz),
+				ImageDescriptor.createFromURL(eLEtlGraphicalEditor.prepareIconPathURL(componentConfig
+						.getPaletteIconPath())), ImageDescriptor.createFromURL(eLEtlGraphicalEditor
+						.prepareIconPathURL(componentConfig.getPaletteIconPath())));
+		return component;
+	}
 
 	private Composite createCompositeForSearchTextBox(Composite parent) {
 		Composite container = new Composite(parent, SWT.BORDER);
@@ -148,30 +161,34 @@ public class CustomPaletteViewer extends PaletteViewer{
 		return container;
 	}
 
-
 	private Text createSearchTextBox(Composite container) {
-		final Text text = new Text(container, SWT.NONE);
+		 Text text = new Text(container, SWT.NONE);
 		GridData textGridData = new GridData(SWT.FILL, SWT.CENTER, true, true);
 		text.setLayoutData(textGridData);
 		text.setToolTipText("Enter component name");
 		return text;
 	}
+
 	public LightweightSystem getLightweightSys() {
 		return getLightweightSystem();
 	}
+
 	public void setFigureCanvas(FigureCanvas canvas) {
 		setControl(canvas);
+
 		callHookRootFigure();
 	}
-	
-	
-	private void callHookRootFigure(){
-    //use getRootFigure depreciated method when alternate of this method is got then it will be replaced 
+
+	private void callHookRootFigure() {
+		// use getRootFigure depreciated method when alternate of this method is got then it will be replaced
 		if (getFigureCanvas() == null)
 			return;
-		if (getRootFigure() instanceof Viewport)
+		if (getRootFigure() instanceof Viewport) {
+			
 			getFigureCanvas().setViewport((Viewport) getRootFigure());
-		else
+		} else {
+			
 			getFigureCanvas().setContents(getRootFigure());
+		}
 	}
 }

@@ -171,6 +171,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	protected PaletteViewerProvider createPaletteViewerProvider() {
+		final ETLGraphicalEditor editor = this;
 		return new PaletteViewerProvider(getEditDomain()) {
 
 			@Override
@@ -191,7 +192,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			}
 			public PaletteViewer createPaletteViewer(Composite parent) {
 				CustomPaletteViewer pViewer = new CustomPaletteViewer();
-				CustomFigureCanvas figureCanvas=new CustomFigureCanvas(parent,pViewer.getLightweightSys(),pViewer, getPalettesRoot());
+				CustomFigureCanvas figureCanvas=new CustomFigureCanvas(parent,pViewer.getLightweightSys(),pViewer, getPalettesRoot(),editor);
 				pViewer.setFigureCanvas(figureCanvas);
 					configurePaletteViewer(pViewer);
 					hookPaletteViewer(pViewer);
