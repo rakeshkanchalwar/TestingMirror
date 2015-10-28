@@ -166,7 +166,7 @@ public class CustomPaletteViewer extends PaletteViewer{
 	
 	
 	private void callHookRootFigure(){
-
+    //use getRootFigure depreciated method when alternate of this method is got then it will be replaced 
 		if (getFigureCanvas() == null)
 			return;
 		if (getRootFigure() instanceof Viewport)
