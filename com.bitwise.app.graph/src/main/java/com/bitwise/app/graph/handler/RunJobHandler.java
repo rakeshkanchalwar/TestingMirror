@@ -156,7 +156,10 @@ public class RunJobHandler extends AbstractHandler {
 		    	  sb.append(Messages.PARAM+"/"+listOfFiles[i].getName()+",");
 		      }  
 		    }
-		    return sb.substring(0, sb.length()-1);
+		    if(sb.toString().isEmpty())
+		    	return "";
+		    else
+		    	return sb.substring(0, sb.length()-1);
 	} 
 	
 }
