@@ -3,6 +3,7 @@ package com.bitwise.app.propertywindow.testdata;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import com.bitwise.app.propertywindow.factory.WidgetFactory.Widgets;
 import com.bitwise.app.propertywindow.property.Property;
 
 // TODO: Auto-generated Javadoc
@@ -33,42 +34,42 @@ public class PropertyStore {
 		
 		//--------------------
 		
-				Property name= new Property.Builder("String", "name", "ELT_COMPONENT_NAME_WIDGET")
+				Property name= new Property.Builder("String", "name", Widgets.COMPONENT_NAME_WIDGET.name())
 				.group("TEXT_PROPERTIES").build();
 				
-				Property path= new Property.Builder("String", "path", "ELT_FILE_PATH_WIDGET")
+				Property path= new Property.Builder("String", "path", Widgets.FILE_PATH_WIDGET.name())
 				.group("TEXT_PROPERTIES").build();
 				
-				Property delimiter= new Property.Builder("String", "strict", "ELT_STRICT_CLASS_WIDGET")
+				Property delimiter= new Property.Builder("String", "strict", Widgets.STRICT_CLASS_WIDGET.name())
 				.group("TEXT_PROPERTIES").build();
 				
 				//------
 				
-				Property charset= new Property.Builder("String", "charset", "ELT_CHARACTER_SET_WIDGET")
+				Property charset= new Property.Builder("String", "charset", Widgets.CHARACTER_SET_WIDGET.name())
 				.group("TEXT_PROPERTIES")
 				.subGroup("AAAA").build();
 						
-				Property phase= new Property.Builder("String", "phase", "ELT_PHASE_WIDGET")
+				Property phase= new Property.Builder("String", "phase", Widgets.PHASE_WIDGET.name())
 				.group("TEXT_PROPERTIES")
 				.subGroup("AAAA").build();
 				
 				//--------------------
 				
-				Property safe= new Property.Builder("boolean", "safe", "ELT_SAFE_PROPERTY_WIDGET")
+				Property safe= new Property.Builder("boolean", "safe", Widgets.SAFE_PROPERTY_WIDGET.name())
 				.group("RADIO_PROPERTIES")
 				.subGroup("safe").build();
 				
-				Property has_header= new Property.Builder("boolean", "has_header", "ELT_HAS_HEADER_WIDGET")
+				Property has_header= new Property.Builder("boolean", "has_header", Widgets.HAS_HEADER_WIDGET.name())
 				.group("RADIO_PROPERTIES")
 				.subGroup("header").build();
 				//--------------------
 				
 				//--------------------
 		
-				Property schema= new Property.Builder("boolean", "Schema", "ELT_SCHEMA_WIDGET")
+				Property schema= new Property.Builder("boolean", "Schema", Widgets.SCHEMA_WIDGET.name())
 				.group("Schema").build();
 				
-				Property runtimeProps= new Property.Builder("boolean", "RuntimeProps", "ELT_RUNTIME_PROPERTIES_WIDGET")
+				Property runtimeProps= new Property.Builder("boolean", "RuntimeProps", Widgets.RUNTIME_PROPERTIES_WIDGET.name())
 				.group("RUNTIME_PROP").build();
 				//--------------------
 		

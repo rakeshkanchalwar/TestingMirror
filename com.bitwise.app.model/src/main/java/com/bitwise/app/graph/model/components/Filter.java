@@ -1,25 +1,21 @@
 package com.bitwise.app.graph.model.components;
 
-import com.bitwise.app.graph.model.categories.StraightPullCategory;
+import com.bitwise.app.graph.model.categories.TransformCategory;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Filter.
  * 
  * @author Bitwise
  */
-public class Filter extends StraightPullCategory {
+public class Filter extends TransformCategory {
 
 	/**
-	 * Instantiates a new filter.
+	 * 
 	 */
-	public Filter() {
-		super();
-	}
+	private static final long serialVersionUID = -5885805870300509574L;
+
 	
-	public String getConverter()
-	{
+	public String getConverter(){
 		return "com.bitwise.app.engine.converter.impl.FilterConverter";
-		
 	}
 }
