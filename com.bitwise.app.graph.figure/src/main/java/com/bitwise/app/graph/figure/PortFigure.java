@@ -17,6 +17,7 @@ public class PortFigure extends Figure {
 
 	private Color portColor;
 	private String terminal;
+	private FixedConnectionAnchor anchor;
 	
 	/**
 	 * Instantiates a new port figure.
@@ -26,10 +27,10 @@ public class PortFigure extends Figure {
 	 * @param terminal
 	 *            the terminal
 	 */
-	public PortFigure(Color portColor, String terminal) {
+	public PortFigure(Color portColor, String portType, int portSeq, int totalPorts) {
 		this.portColor = portColor;
-		this.terminal = terminal;
-		
+		this.terminal = portType+portSeq;
+		this.anchor = new FixedConnectionAnchor(this, portType, totalPorts, portSeq);
 		getBounds().setSize(new Dimension(8, 8));
 
 	}
@@ -93,6 +94,10 @@ public class PortFigure extends Figure {
 	
 	public Color getPortColor() {
 		return portColor;
+	}
+
+	public FixedConnectionAnchor getAnchor() {
+		return anchor;
 	}
 
 	public void setPortColor(Color portColor) {

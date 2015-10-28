@@ -50,29 +50,25 @@ public class FixedConnectionAnchor extends AbstractConnectionAnchor {
 		super.ancestorMoved(figure);
 	}
 	
+
 	@Override
-	public Point getLocation(Point reference) {
-		
-		int portOffsetFactor = this.totalPortsOfThisType+1;
-		int height = getOwner().getBounds().height;
-		int portOffset=height/portOffsetFactor;
-		
+	public Point getLocation(Point arg0) {
 		int xLocation =0, yLocation = 0;
 		
-		
+			
 		if(("in").equalsIgnoreCase(this.type)){
-			 xLocation=getOwner().getBounds().getTopLeft().x;
-			 yLocation=getOwner().getBounds().getTopLeft().y+portOffset*this.sequence;
+			 xLocation=getOwner().getBounds().getTopLeft().x-1;
+			 yLocation=getOwner().getBounds().getTopLeft().y+4;
 		}
 		else if(("out").equalsIgnoreCase(this.type)){
-			 xLocation=getOwner().getBounds().getTopRight().x;
-			 yLocation=getOwner().getBounds().getTopRight().y+portOffset*this.sequence;
+			 xLocation=getOwner().getBounds().getTopRight().x-1;
+			 yLocation=getOwner().getBounds().getTopRight().y+4;
 		}
+		
 		Point point= new Point(xLocation, yLocation);
-		getOwner().translateToAbsolute(point);
+		getOwner().getParent().translateToAbsolute(point);
 		return point;
 	}
-
 		
 	public String getType() {
 		return type;

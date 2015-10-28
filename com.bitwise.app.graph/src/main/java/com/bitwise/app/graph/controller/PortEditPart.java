@@ -34,11 +34,12 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		Point portPoint = null;
 		int height = componentFigure.getHeight();
 		
-		port =  new PortFigure(borderColor, getCastedModel().getPortType()+ getCastedModel().getSequence());	
+		port =  new PortFigure(borderColor, getCastedModel().getPortType(), getCastedModel().getSequence(), getCastedModel().getNumberOfPortsOfThisType());	
 		
 		portPoint = getPortLocation(getCastedModel().getNumberOfPortsOfThisType(), getCastedModel().getPortType(),
 				getCastedModel().getSequence(), height);
 		port.setLocation(portPoint);
+		componentFigure.setAnchors(port.getAnchor());
 		
 		return port;
 		
