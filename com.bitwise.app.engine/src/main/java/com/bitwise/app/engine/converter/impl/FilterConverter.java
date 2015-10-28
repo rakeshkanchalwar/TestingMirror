@@ -49,16 +49,23 @@ public class FilterConverter extends TransformConverter {
 		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}",
 				properties.get(NAME));
 		List<TypeTransformOutSocket> outSockectList = new ArrayList<TypeTransformOutSocket>();
+		int outSocketCounter=1;
 		for (Link link : component.getSourceConnections()) {
 			TypeTransformOutSocket outSocket = new TypeTransformOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
 			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
+			if(outSocketCounter==1){
 			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
 			outSocket.setType(OUT_SOCKET_TYPE);
+			}else{
+			outSocket.setId(DEFAULT_UNUSED_SOCKET_ID);
+			outSocket.setType(UNUSED_SOCKET_TYPE);
+			}	
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
+			outSocketCounter++;
 		}
 		return outSockectList;
 	}

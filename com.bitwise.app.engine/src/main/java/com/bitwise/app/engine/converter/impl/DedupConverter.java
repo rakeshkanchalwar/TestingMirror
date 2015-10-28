@@ -12,12 +12,11 @@ import com.bitwise.app.engine.converter.StraightPullConverter;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.KeepValue;
-import com.bitwiseglobal.graph.commontypes.KeyfieldDescriptionType;
-import com.bitwiseglobal.graph.commontypes.KeyfieldDescriptionType.KeyFields;
-import com.bitwiseglobal.graph.commontypes.KeyfieldDescriptionType.KeyFields.Field;
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
+import com.bitwiseglobal.graph.commontypes.TypeFieldName;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
+import com.bitwiseglobal.graph.dedup.TypePrimaryKeyFields;
 import com.bitwiseglobal.graph.straightpulltypes.Dedup;
 import com.bitwiseglobal.graph.straightpulltypes.Dedup.Keep;
 
@@ -39,26 +38,25 @@ public class DedupConverter extends StraightPullConverter {
 		Dedup dedup = (Dedup) baseComponent;
 		dedup.setRuntimeProperties(getRuntimeProperties());
 		dedup.setKeep(getKeep());
-		dedup.setKeyDescription(getKeyDescriptionValue());
+		dedup.setPrimaryKeys(getPrimaryKeys());
 	}
 
-	private KeyfieldDescriptionType getKeyDescriptionValue() {
+	private TypePrimaryKeyFields getPrimaryKeys() {
 
-		HashSet<String> fieldValueSet = ((HashSet<String>) properties.get(PropertyNameConstants.OPERATION_FILEDS.value()));
+		HashSet<String> fieldValueSet = ((HashSet<String>) properties.get(PropertyNameConstants.DEDUP_FILEDS.value()));
 
-		KeyfieldDescriptionType keyfieldDescriptionType = null;
+		TypePrimaryKeyFields typePrimaryKeyFields = null;
 		if (fieldValueSet != null) {
-			keyfieldDescriptionType = new KeyfieldDescriptionType();
-			KeyFields keyFields = new KeyFields();
-			List<Field> keyFiledList = keyFields.getField();
+			typePrimaryKeyFields = new TypePrimaryKeyFields();
+			List<TypeFieldName> fieldNameList = typePrimaryKeyFields.getField();
 			for (String value : fieldValueSet) {
-				Field field = new Field();
+				TypeFieldName field = new TypeFieldName();
 				field.setName(value);
-				keyFiledList.add(field);
+				fieldNameList.add(field);
 			}
-			keyfieldDescriptionType.setKeyFields(keyFields);
+			
 		}
-		return keyfieldDescriptionType;
+		return typePrimaryKeyFields;
 	}
 
 	private Keep getKeep() {
@@ -66,7 +64,9 @@ public class DedupConverter extends StraightPullConverter {
 		String keepValue = properties.get(
 				PropertyNameConstants.RETENTION_LOGIC_KEEP.value()).toString();
 		Keep keep = new Keep();
-		keep.setValue(KeepValue.fromValue(keepValue.toLowerCase().replace(" ", "")));
+		if(keepValue.toLowerCase().contains("unique"))
+			keepValue="uniqueonly";
+		keep.setValue(KeepValue.fromValue(keepValue.toLowerCase()));
 		return keep;
 	}
 
@@ -75,18 +75,24 @@ public class DedupConverter extends StraightPullConverter {
 		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}",
 				properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
+		int outSocketCounter=1;
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
-			outSocketAsInsocket.setInSocketId(link.getSource().getProperties()
-					.get(NAME).toString());
+			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			outSocket
-					.setId((String) link.getTarget().getProperties().get(NAME));
+			if(outSocketCounter==1){
+			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
 			outSocket.setType(OUT_SOCKET_TYPE);
+			}else{
+				outSocket.setId(DEFAULT_UNUSED_SOCKET_ID);
+				outSocket.setType(UNUSED_SOCKET_TYPE);
+			}
+			
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
+			outSocketCounter++;
 		}
 		return outSockectList;
 	}
@@ -101,7 +107,7 @@ public class DedupConverter extends StraightPullConverter {
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
 			inSocket.setFromSocketId(DEFAULT_OUT_SOCKET_ID);
-			inSocket.setId(IN_SOCKET_ID_PREFIX);
+			inSocket.setId(DEFAULT_IN_SOCKET_ID);
 			inSocket.setType(IN_SOCKET_TYPE);
 			inSocket.getOtherAttributes();
 			inSocketsList.add(inSocket);

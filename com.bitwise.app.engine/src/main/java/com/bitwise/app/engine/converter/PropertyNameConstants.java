@@ -13,7 +13,8 @@ public enum PropertyNameConstants {
 		STRICT("strict"),
 		OPERATION_CLASS("oprationClass"),
 		RETENTION_LOGIC_KEEP("retention_logic"),
-		OPERATION_FILEDS("filter");
+		OPERATION_FILEDS("filter"),
+		DEDUP_FILEDS("dedup");
 		private final String value;
 
 	PropertyNameConstants(String value) {
