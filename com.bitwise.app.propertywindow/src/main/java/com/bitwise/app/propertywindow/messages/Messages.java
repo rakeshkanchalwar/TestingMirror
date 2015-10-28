@@ -25,6 +25,7 @@ public class Messages extends NLS {
 	public static String MessageBeforeClosingWindow;
 	public static String SelectRowToDelete;
 	public static String ConfirmToDeleteAllProperties;
+	public static String CustomWindowOnButtonWidget_EDIT;
 	public static String PropertyAppliedNotification;
 	public static String EmptyFiledNotification;
 	public static String EmptyNameNotification;

@@ -140,7 +140,7 @@ public class PropertyDialogBuilder {
 		ComponentMiscellaneousProperties componentMiscellaneousProperties = new ComponentMiscellaneousProperties(
 				eltComponenetProperties.getComponentMiscellaneousProperties());
 
-		AbstractWidget eltWidget=WidgetFactory.getWidget(property.getPropertyRenderer(),componentConfigrationProperty,
+		AbstractWidget eltWidget = WidgetFactory.INSTANCE.getWidget(property.getPropertyRenderer(),componentConfigrationProperty,
 				componentMiscellaneousProperties,propertyDialogButtonBar);
 		eltWidget.attachToPropertySubGroup(subGroupContainer);
 		return eltWidget;

@@ -1,10 +1,16 @@
 package com.bitwise.app.propertywindow.factory;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.slf4j.Logger;
+
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.fixedwidthschema.ELTFixedWidget;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.CustomWindowOnButtonWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTColumnWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentBaseType;
@@ -19,72 +25,63 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTRetentionlogicWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTStrictWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.MyCustomWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTGenericSchemaGridWidget;
 
-// TODO: Auto-generated Javadoc
 /**
- * 
+ * Factory for creating Widgets
  * @author Bitwise
  * Sep 08, 2015
  * 
  */
 
 public class WidgetFactory {
+	public static final WidgetFactory INSTANCE = new WidgetFactory();
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(WidgetFactory.class);
 	
-	/**
-	 * Gets the widget.
-	 * 
-	 * @param widgetName
-	 *            the widget name
-	 * @param componentConfigrationProperty
-	 *            the component configration property
-	 * @param componentMiscellaneousProperties
-	 *            the component miscellaneous properties
-	 * @param propertyDialogButtonBar
-	 *            the property dialog button bar
-	 * @return the widget
-	 */
-	public static AbstractWidget getWidget(String widgetName, ComponentConfigrationProperty componentConfigrationProperty, ComponentMiscellaneousProperties componentMiscellaneousProperties, PropertyDialogButtonBar propertyDialogButtonBar){
-		if(widgetName.equals("ELT_SCHEMA_WIDGET") || widgetName.equals("ELT_FIELD_SEQUENCE_WIDGET")){
-			return new ELTGenericSchemaGridWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_FIXED_WIDGET")){
-			return new ELTFixedWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_RUNTIME_PROPERTIES_WIDGET")){
-			return new ELTRuntimePropertiesWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_FILE_PATH_WIDGET")){
-			return new ELTFilePathWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_CHARACTER_SET_WIDGET")){
-			return new ELTCharacterSetWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_DELIMETER_WIDGET")){
-			return new ELTDelimeterWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-			//return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_PHASE_WIDGET")){
-			return new ELTPhaseWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_HAS_HEADER_WIDGET")){
-			return new ELTHasHeaderWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_COMPONENT_NAME_WIDGET")){
-			return new ELTComponentNameWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_SAFE_PROPERTY_WIDGET")){
-			return new ELTSafeWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_FILTER_PROPERTY_WIDGET")){
-			return new ELTFilterWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_OPERATIONAL_CLASS_WIDGET")){
-			return new ELTOperationClassWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_COMPONENT_BASETYPE_WIDGET")){
-			return new ELTComponentBaseType(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);  
-		}else if(widgetName.equals("ELT_COMPONENT_TYPE_WIDGET")){
-			return new ELTComponentType(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar); 
-		}else if(widgetName.equals("ELT_STRICT_CLASS_WIDGET")){
-			return new ELTStrictWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_RETENTIONLOGIC_WIDGET")){
-			return new ELTRetentionlogicWidget(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
-		}else if(widgetName.equals("ELT_COLUMN_NAME_WIDGET")){
-			return new ELTColumnWidget(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
+	public enum Widgets{
+		SCHEMA_WIDGET(ELTGenericSchemaGridWidget.class),
+		FIELD_SEQUENCE_WIDGET(ELTGenericSchemaGridWidget.class),
+		FIXED_WIDGET(ELTFixedWidget.class),
+		RUNTIME_PROPERTIES_WIDGET(ELTRuntimePropertiesWidget.class),
+		FILE_PATH_WIDGET(ELTFilePathWidget.class),
+		CHARACTER_SET_WIDGET(ELTCharacterSetWidget.class),
+		DELIMETER_WIDGET(ELTDelimeterWidget.class),
+		PHASE_WIDGET(ELTPhaseWidget.class),
+		HAS_HEADER_WIDGET(ELTHasHeaderWidget.class),
+		COMPONENT_NAME_WIDGET(ELTComponentNameWidget.class),
+		SAFE_PROPERTY_WIDGET(ELTSafeWidget.class),
+		FILTER_PROPERTY_WIDGET(ELTFilterWidget.class),
+		OPERATIONAL_CLASS_WIDGET(ELTOperationClassWidget.class),
+		COMPONENT_BASETYPE_WIDGET(ELTComponentBaseType.class),
+		COMPONENT_TYPE_WIDGET(ELTComponentType.class),
+		STRICT_CLASS_WIDGET(ELTStrictWidget.class),
+		RETENTION_LOGIC_WIDGET(ELTRetentionlogicWidget.class),
+		COLUMN_NAME_WIDGET(ELTColumnWidget.class),
+		CUSTOM_WINDOW_ON_BUTTON_WIDGET(CustomWindowOnButtonWidget.class);
+		
+		private Class<?> clazz = null;
+		private Widgets(Class<?> clazz) {
+			this.clazz = clazz;
 		}
-		else{ 
-			return new MyCustomWidget(componentConfigrationProperty,componentMiscellaneousProperties,propertyDialogButtonBar);
+		
+		public Class<?> getClazz(){
+			return this.clazz;
+		}
+	}
+
+	public AbstractWidget getWidget(String widgetName, ComponentConfigrationProperty componentConfigProperty, 
+			ComponentMiscellaneousProperties componentMiscProperties, PropertyDialogButtonBar propertyDialogButtonBar){
+		try {
+			Widgets widget = Widgets.valueOf(widgetName);
+			return (AbstractWidget) widget.getClazz().getDeclaredConstructor(ComponentConfigrationProperty.class,
+					ComponentMiscellaneousProperties.class,	PropertyDialogButtonBar.class).
+					newInstance(componentConfigProperty, componentMiscProperties, propertyDialogButtonBar);
+		
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
+				InvocationTargetException | NoSuchMethodException | SecurityException exception) {
+			logger.error("Failed to create widget for class : {}", widgetName);
+			throw new RuntimeException("Failed to instantiate the Listner {}" + widgetName);
 		}
 	}
 }

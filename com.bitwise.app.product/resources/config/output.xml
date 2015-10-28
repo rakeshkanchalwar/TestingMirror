@@ -12,28 +12,28 @@
 		</tns:portSpecification>
 		
 	</tns:port>
-    <tns:property dataType="string" name="name" renderer="ELTComponentNameWidget" 
+    <tns:property dataType="string" name="name" renderer="COMPONENT_NAME_WIDGET" 
     	type="USER" group="GENERAL" subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT"/>
     	
     <tns:property dataType="string" group="FIELD_SEQUENCE" subGroup="RECORD_STRUCTURE_DETAILS"
-    	 name="schema" renderer="ELTFieldSequenceWidget" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
+    	 name="schema" renderer="FIELD_SEQUENCE_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
     	 
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="path" 
-    	renderer="ELTFilePathWidget" type="USER" showAsTooltip="TRUE" tooltipDataType="LINK" />
+    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="path"
+    	renderer="FILE_PATH_WIDGET" type="USER" showAsTooltip="TRUE" tooltipDataType="LINK" />
     	
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="delimiter" value="|" 
-    	renderer="ELTDelimeterWidget" type="USER" showAsTooltip="TRUE" tooltipDataType="TEXT"/>
+    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="delimiter" value="|"
+    	renderer="DELIMETER_WIDGET" type="USER" showAsTooltip="TRUE" tooltipDataType="TEXT"/>
     	
-    <tns:property dataType="boolean" group="GENERAL" subGroup="CONFIGURATION" name="has_header" 
-    	renderer="ELTHasHeaderWidget" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
+    <tns:property dataType="boolean" group="GENERAL" subGroup="CONFIGURATION" name="HAS_HEADER_WIDGET"
+    	renderer="HAS_HEADER_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
     	
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="charset" value="UTF-8" 
-    	renderer="ELTCharacterSetWidget" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
+    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="charset" value="UTF-8"
+    	renderer="CHARACTER_SET_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
     	
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="runtime_properties" 
-    	renderer="ELTRuntimePropertiesWidget" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
+    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="runtime_properties"
+    	renderer="RUNTIME_PROPERTIES_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"/>
     	
-    <tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget" type="USER" 
+    <tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER" 
     	group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"/>
   </tns:component>
 </tns:Config>

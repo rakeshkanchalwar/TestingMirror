@@ -72,22 +72,23 @@
 
 	<simpleType name="property_renderer">
 		<restriction base="string">
-			<enumeration value="ELTComponentNameWidget" />
-			<enumeration value="ELTSchemaWidget" />
-			<enumeration value="ELTRuntimePropertiesWidget" />
-			<enumeration value="ELTFilePathWidget" />
-			<enumeration value="ELTCharacterSetWidget" />
-			<enumeration value="ELTDelimeterWidget" />
-			<enumeration value="ELTPhaseWidget" />
-			<enumeration value="ELTHasHeaderWidget" />
-			<enumeration value="ELTSafePropertyWidget" />
-			<enumeration value="ELTFieldSequenceWidget" />
-			<enumeration value="ELTFilterPropertyWidget" />
-			<enumeration value="ELTOperationalClassWidget" />
-			<enumeration value="ELTStrictClassWidget" />
-			<enumeration value="ELTFixedWidget"/>
-			<enumeration value="ELTRetentionlogicWidget"/>
-			<enumeration value="ELTColumnNameWidget"/>
+			<enumeration value="SCHEMA_WIDGET" />
+			<enumeration value="FIELD_SEQUENCE_WIDGET" />
+			<enumeration value="FIXED_WIDGET"/>
+			<enumeration value="RUNTIME_PROPERTIES_WIDGET" />
+			<enumeration value="FILE_PATH_WIDGET" />
+			<enumeration value="CHARACTER_SET_WIDGET" />
+			<enumeration value="DELIMETER_WIDGET" />
+			<enumeration value="PHASE_WIDGET" />
+			<enumeration value="HAS_HEADER_WIDGET" />
+			<enumeration value="SAFE_PROPERTY_WIDGET" />
+			<enumeration value="COMPONENT_NAME_WIDGET" />
+			<enumeration value="FILTER_PROPERTY_WIDGET" />
+			<enumeration value="OPERATIONAL_CLASS_WIDGET" />
+			<enumeration value="STRICT_CLASS_WIDGET" />
+			<enumeration value="RETENTION_LOGIC_WIDGET"/>
+			<enumeration value="COLUMN_NAME_WIDGET"/>
+			<enumeration value="CUSTOM_WINDOW_ON_BUTTON_WIDGET"/>
 		</restriction>
 	</simpleType>
 
