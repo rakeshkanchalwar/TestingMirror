@@ -1,6 +1,7 @@
 package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -87,6 +88,8 @@ public abstract class Component extends Model {
 	private String componentName;
 	List<PortSpecification> portSpecification;
 	
+	private ComponentLabel componentLabel;
+	
 	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
 
@@ -105,14 +108,17 @@ public abstract class Component extends Model {
 		outputPortTerminals = new ArrayList<String>();
 		newInstance = true;
 		validityStatus = ValidityStatus.WARN.name();
+		componentName = DynamicClassProcessor.INSTANCE
+				.getClazzName(this.getClass());
+		
+		componentLabel = new ComponentLabel(componentName);
 		
 		initPortSettings();
 		
 	}
 	
 	private void initPortSettings(){
-		componentName = DynamicClassProcessor.INSTANCE
-				.getClazzName(this.getClass());
+		
 		portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
 		
 		ports = new Hashtable<String, Port>();
@@ -139,9 +145,13 @@ public abstract class Component extends Model {
 	public Port getPort(String terminal) {
 		return ports.get(terminal);
 	}
-
-	public List<Port> getChildren() {
-		return new ArrayList<Port>(ports.values());
+	
+	public List<Model> getChildren() {	
+		
+		List<Model> children = new ArrayList<Model>(ports.values());
+		children.add(componentLabel);
+		
+		return children;
 		
 	}
 	
@@ -293,6 +303,10 @@ public abstract class Component extends Model {
 		//tooltipInformation.get(propertyId).setPropertyValue(value);
 	}
 
+
+	public ComponentLabel getComponentLabel() {
+		return componentLabel;
+	}
 
 	/**
 	 * Set the Location of this shape.
