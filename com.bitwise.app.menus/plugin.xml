@@ -50,13 +50,6 @@
       <handler
             class="com.bitwise.app.menus.handlers.DeleteHandler"
             commandId="org.eclipse.ui.edit.delete">
-         <enabledWhen>
-            <not>
-               <count
-                     value="0">
-               </count>
-            </not>
-         </enabledWhen>
          <activeWhen>
             <with
                   variable="activeEditorId">
@@ -65,6 +58,14 @@
                </equals>
             </with>
          </activeWhen>
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <count
+                     value="+">
+               </count>
+            </with>
+         </enabledWhen>
       </handler>
       <handler
             class="com.bitwise.app.menus.handlers.CutHandler"
@@ -78,21 +79,24 @@
             </with>
          </activeWhen>
          <enabledWhen>
-            <not>
+            <with
+                  variable="selection">
                <count
-                     value="0">
+                     value="+">
                </count>
-            </not>
+            </with>
          </enabledWhen>
       </handler>
       <handler
             class="com.bitwise.app.menus.handlers.CopyHandler"
             commandId="org.eclipse.ui.edit.copy">
          <enabledWhen>
-            <not>
+            <with
+                  variable="selection">
                <count
-                     value="0">
-               </count></not>
+                     value="+">
+               </count>
+            </with>
          </enabledWhen>
          <activeWhen>
             <with
@@ -115,11 +119,12 @@
             </with>
          </activeWhen>
          <enabledWhen>
-            <not>
+            <with
+                  variable="selection">
                <count
-                     value="0">
+                     value="+">
                </count>
-            </not>
+            </with>
          </enabledWhen>
       </handler>
       <handler
@@ -134,22 +139,24 @@
             </with>
          </activeWhen>
          <enabledWhen>
-            <not>
+            <with
+                  variable="selection">
                <count
-                     value="0">
+                     value="+">
                </count>
-            </not>
+            </with>
          </enabledWhen>
       </handler>
       <handler
             class="com.bitwise.app.menus.handlers.RedoHandler"
             commandId="org.eclipse.ui.edit.redo">
          <enabledWhen>
-            <not>
+            <with
+                  variable="selection">
                <count
-                     value="0">
+                     value="+">
                </count>
-            </not>
+            </with>
          </enabledWhen>
          <activeWhen>
             <with
@@ -172,11 +179,12 @@
             </with>
          </activeWhen>
          <enabledWhen>
-            <not>
+            <with
+                  variable="selection">
                <count
-                     value="0">
+                     value="+">
                </count>
-            </not>
+            </with>
          </enabledWhen>
       </handler>
    </extension>
@@ -292,6 +300,14 @@
                   commandId="org.eclipse.ui.edit.undo"
                   label="Undo"
                   style="push">
+               <visibleWhen>
+                  <with
+                        variable="selection">
+                     <count
+                           value="+">
+                     </count>
+                  </with>
+               </visibleWhen>
             </command>
             <command
                   commandId="org.eclipse.ui.edit.redo"

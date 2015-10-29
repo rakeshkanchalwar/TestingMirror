@@ -12,6 +12,8 @@
 				<tns:sequenceOfPort>1</tns:sequenceOfPort>
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
+				<tns:nameOfPort>in0</tns:nameOfPort>
+				
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
@@ -19,6 +21,7 @@
 				<tns:sequenceOfPort>1</tns:sequenceOfPort>
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
+				<tns:nameOfPort>out0</tns:nameOfPort>
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
@@ -26,6 +29,7 @@
 				<tns:sequenceOfPort>2</tns:sequenceOfPort>
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>false</tns:linkMandatory>
+				<tns:nameOfPort>unused0</tns:nameOfPort>
 			</tns:portSpecification>
 		</tns:port>
 		

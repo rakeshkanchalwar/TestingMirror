@@ -41,6 +41,7 @@ public class FixedWidthGridWidgetBuilder extends GridWidgetCommonBuilder {
 		fixedGrid.setDateFormat("");
 		fixedGrid.setScale("");
 		fixedGrid.setDataType(Integer.valueOf("0"));
+		fixedGrid.setDataTypeValue(getDataTypeValue()[Integer.valueOf("0")]); 
 		fixedGrid.setLength("0");
 		
 		if(!grids.contains(fixedGrid)){
