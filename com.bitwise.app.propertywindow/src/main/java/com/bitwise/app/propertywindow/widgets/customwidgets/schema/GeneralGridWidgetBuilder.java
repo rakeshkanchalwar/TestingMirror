@@ -38,11 +38,11 @@ public class GeneralGridWidgetBuilder extends GridWidgetCommonBuilder {
 	public void createDefaultSchema(List grids, TableViewer tableViewer, Label errorLabel) {
 		SchemaGrid schemaGrid = new SchemaGrid();
 		schemaGrid.setFieldName("");
-		schemaGrid.setDateFormat("");
+		schemaGrid.setDateFormat(""); 
 		schemaGrid.setScale("");
 		schemaGrid.setDataType(Integer.valueOf("0"));
-		
-		if(!grids.contains(schemaGrid)){
+		schemaGrid.setDataTypeValue(getDataTypeValue()[Integer.valueOf("0")]);
+ 		if(!grids.contains(schemaGrid)){
 			grids.add(schemaGrid);  
 			tableViewer.refresh();
 		}
