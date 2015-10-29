@@ -163,28 +163,51 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 		viewer.addDropTargetListener(createTransferDropTargetListener());
 		// listener for selection on canvas
 		viewer.addSelectionChangedListener(createISelectionChangedListener());
-		attachCanvasMouseTrackListener();
+		attachCanvasMouseListeners();
 	}
 
-	public void attachCanvasMouseTrackListener(){
+	private void hideToolTip(){
+		if(toolTipComponentBounds !=null && componentTooltip != null){
+			componentTooltip.setVisible(false);
+			componentTooltip=null;
+			toolTipComponentBounds=null;
+		}
+	}
+	
+	public void attachCanvasMouseListeners(){
+		viewer.getControl().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {
+				if(toolTipComponentBounds !=null && componentTooltip != null){
+					org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
+					if(!toolTipComponentBounds.contains(point)){
+						hideToolTip();
+					}
+				}				
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// Do nothing
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// Do nothing
+			}
+		});
 		
 		viewer.getControl().addMouseMoveListener(new MouseMoveListener() {
 			
 			@Override
 			public void mouseMove(MouseEvent e) {
-				// TODO Auto-generated method stub
 				if(toolTipComponentBounds !=null && componentTooltip != null){
-					org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
-					if(!toolTipComponentBounds.contains(point)){
-						try{
-							componentTooltip.setVisible(false);
-							//componentTooltip.dispose();
-						}catch(Exception exc){
-							//System.out.println("Got exeption");
+					if(!componentTooltip.hasToolBarManager()){
+						org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
+						if(!toolTipComponentBounds.contains(point)){
+							hideToolTip();
 						}
-						
-						componentTooltip=null;
-						toolTipComponentBounds=null;
 					}
 				}
 			}
@@ -195,31 +218,23 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			@Override
 			public void mouseHover(MouseEvent e) {
 				if(toolTipComponentBounds !=null && componentTooltip != null){
-					org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
-					if(!toolTipComponentBounds.contains(point)){
-						try{
-							componentTooltip.setVisible(false);
-							//componentTooltip.dispose();
-						}catch(Exception exc){
-							//System.out.println("Got exeption");
+					if(!componentTooltip.hasToolBarManager()){
+						org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
+						if(!toolTipComponentBounds.contains(point)){
+							hideToolTip();
 						}
-						
-						componentTooltip=null;
-						toolTipComponentBounds=null;
 					}
 				}
 			}
 			
 			@Override
 			public void mouseExit(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+				// Do nothing				
 			}
 			
 			@Override
 			public void mouseEnter(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+				// Do nothing				
 			}
 		});
 	}
@@ -717,7 +732,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 
 	@Override
 	public ComponentTooltip getComponentTooltip() {
-		return componentTooltip;
+		return this.componentTooltip;
 	}
 
 }
