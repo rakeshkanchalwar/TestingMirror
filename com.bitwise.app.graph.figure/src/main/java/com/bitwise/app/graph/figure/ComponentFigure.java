@@ -11,6 +11,7 @@ import java.util.Set;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
@@ -72,6 +73,7 @@ public class ComponentFigure extends Figure implements Validator{
 	private Map<String,PropertyToolTipInformation> propertyToolTipInformation;
 	private ComponentCanvas componentCanvas;
 	private ComponentTooltip componentToolTip;
+	org.eclipse.swt.graphics.Rectangle componentBounds;
 	/**
 	 * Instantiates a new component figure.
 	 * 
@@ -104,10 +106,24 @@ public class ComponentFigure extends Figure implements Validator{
 			setHeight(totalPortsofInType, totalPortsOfOutType);
 		}
 		
-		
-		attachMouseListener();
 		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		attachMouseListener();
+	}
+	
+	private void hideToolTip(){
+		if(componentCanvas != null){
+			if(componentCanvas.getComponentTooltip() != null){
+				componentCanvas.getComponentTooltip().setVisible(false);
+				componentCanvas.issueToolTip(null, null);
+			}
+		}
 		
+		if(componentToolTip != null){
+			componentToolTip.setVisible(false);
+			componentToolTip = null;
+			componentBounds=null;
+		}
+		componentCanvas=null;
 	}
 	
 	public void setPropertyToolTipInformation(Map<String,PropertyToolTipInformation> propertyToolTipInformation){
@@ -136,39 +152,49 @@ public class ComponentFigure extends Figure implements Validator{
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-				
+				// Do nothing
 			}
 			
 			@Override
 			public void focusGained(FocusEvent e) {
 				showToolBarToolTip();
-				Rectangle tempComponuntBound = getBounds();
-				org.eclipse.swt.graphics.Rectangle componentBound = new org.eclipse.swt.graphics.Rectangle(tempComponuntBound.x, tempComponuntBound.y, tempComponuntBound.width, tempComponuntBound.height);
-				componentCanvas.issueToolTip(componentToolTip, componentBound);
 			}
-			
-			
 		});
 	}
 	
 	private void showStatusToolTip(
 			org.eclipse.swt.graphics.Point location) {
-		
-		if(componentToolTip == null || componentCanvas.getComponentTooltip() == null){
+	
+		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if(componentCanvas.getComponentTooltip() == null){
 			componentToolTip = getStatusToolTip(componentCanvas.getCanvasControl().getShell(), location);
+			componentBounds = getComponentBounds();			
+			componentCanvas.issueToolTip(componentToolTip, componentBounds);
+			
 			componentToolTip.setVisible(true);
+			setStatusToolTipFocusListener();
+		}else{
+			System.out.println("There is tool tip, So I am not shousing new one");
 		}
+	}
+
+	private org.eclipse.swt.graphics.Rectangle getComponentBounds() {
+		Rectangle tempComponuntBound = getBounds();
+		org.eclipse.swt.graphics.Rectangle componentBound = new org.eclipse.swt.graphics.Rectangle(tempComponuntBound.x, tempComponuntBound.y, tempComponuntBound.width, tempComponuntBound.height);
+		return componentBound;
 	}
 	
 	private void showToolBarToolTip() {
 		org.eclipse.swt.graphics.Rectangle toltipBounds = componentToolTip.getBounds();
 		
-		componentToolTip.setVisible(false);
-		//componentToolTip.dispose();		
-		componentToolTip=null;
+		hideToolTip();
+		
+		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		
 		componentToolTip = getToolBarToolTip(componentCanvas.getCanvasControl().getShell(),toltipBounds);
+		componentBounds = getComponentBounds();
+		componentCanvas.issueToolTip(componentToolTip, componentBounds);
+		
 		componentToolTip.setVisible(true);
 	}
 	
@@ -177,8 +203,7 @@ public class ComponentFigure extends Figure implements Validator{
 			
 			@Override
 			public void mouseMoved(org.eclipse.draw2d.MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				// Do nothing
 			}
 			
 			@Override
@@ -186,35 +211,45 @@ public class ComponentFigure extends Figure implements Validator{
 				arg0.consume();
 				java.awt.Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 				org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
-				
-				
+								
 				showStatusToolTip(location);
-				Rectangle tempComponuntBound = getBounds();
-				org.eclipse.swt.graphics.Rectangle componentBound = new org.eclipse.swt.graphics.Rectangle(tempComponuntBound.x, tempComponuntBound.y, tempComponuntBound.width, tempComponuntBound.height);
-				componentCanvas.issueToolTip(componentToolTip, componentBound);
-				setStatusToolTipFocusListener();
-				
 			}
 			
 			@Override
 			public void mouseExited(org.eclipse.draw2d.MouseEvent arg0) {
-				Point p = new Point(arg0.getLocation().x, arg0.getLocation().y);
-				if(!getBounds().contains(p) && componentToolTip != null){
-					componentToolTip.setVisible(false);
-					//componentToolTip.dispose();
-					componentToolTip=null;
-					componentCanvas.issueToolTip(componentToolTip, null);				
-				}
+				// Do nothing
 			}
 			
 			@Override
 			public void mouseEntered(org.eclipse.draw2d.MouseEvent arg0) {
-				// TODO Auto-generated method stub
+				// Do nothing
 			}
 			
 			@Override
 			public void mouseDragged(org.eclipse.draw2d.MouseEvent arg0) {
+				// Do nothing
+			}
+		});
+		
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(org.eclipse.draw2d.MouseEvent arg0) {
 				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(org.eclipse.draw2d.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				hideToolTip();
+			}
+			
+			@Override
+			public void mouseDoubleClicked(org.eclipse.draw2d.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				hideToolTip();
 			}
 		});
 	}
@@ -262,7 +297,7 @@ public class ComponentFigure extends Figure implements Validator{
 		}
 		logger.debug("Component has {} status.", getStatus());
 		if(statusImage != null){
-			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8));
+			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8+ELTFigureConstants.componentLabelMargin));
 		}
 	}
 	
@@ -294,12 +329,13 @@ public class ComponentFigure extends Figure implements Validator{
 	protected void paintFigure(Graphics graphics) {
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
+		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
 		graphics.fillRoundRectangle(q, 5, 5);
 
-		drawLable(r, graphics);
+		//drawLable(r, graphics);
 		
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
+		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-4));
 		drawStatus(graphics);
 	}
 	

@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.Color;
 
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.ELTColorConstants;
+import com.bitwise.app.graph.figure.ELTFigureConstants;
 import com.bitwise.app.graph.figure.PortFigure;
 import com.bitwise.app.graph.model.Port;
 
@@ -50,18 +51,16 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		int width = 100;
 		int portOffsetFactor = totalPortsOfThisType+1;
 		int portOffset=height/portOffsetFactor;
-		int xLocation, yLocation;
+		int xLocation=0, yLocation=0;
 
 		if(type.equalsIgnoreCase("in")){
 			xLocation=0;
-			yLocation=portOffset*sequence - 4;
-			p=new Point(xLocation, yLocation);
 		}
 		else if(type.equalsIgnoreCase("out")){
 			xLocation=width-7;
-			yLocation=portOffset*sequence - 4;
-			p=new Point(xLocation, yLocation);
 		}
+		yLocation=portOffset*sequence - 4 + ELTFigureConstants.componentLabelMargin;
+		p=new Point(xLocation, yLocation);
 		return p;
 	}
 	

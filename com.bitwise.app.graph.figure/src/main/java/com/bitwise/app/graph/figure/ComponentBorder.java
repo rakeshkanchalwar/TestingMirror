@@ -58,23 +58,23 @@ public class ComponentBorder extends AbstractBorder {
 		if(lineWidth!=0){
 			g.setLineWidth(lineWidth);
 		}
-
+		
 		//top
-		g.drawLine(r.x+4+4, r.y+4, r.right() - 5-4, r.y+4);
+		g.drawLine(r.x+4+4, r.y+4+ELTFigureConstants.componentLabelMargin, r.right() - 5-4, r.y+4+ELTFigureConstants.componentLabelMargin);
 		
 		//Bottom
 		g.drawLine(r.x+4+4, r.bottom()-5, r.right() - 5-4, r.bottom()-5);
 		
 		//Left
-		g.drawLine(r.x+4, r.y + 4+4, r.x+4, r.bottom() - 5-4);
+		g.drawLine(r.x+4, r.y + 4+4+ELTFigureConstants.componentLabelMargin, r.x+4, r.bottom() - 5-4);
 		
 		//right
-		g.drawLine(r.right() - 5, r.bottom() - 5-4, r.right() - 5, r.y + 4+4);
+		g.drawLine(r.right() - 5, r.bottom() - 5-4, r.right() - 5, r.y + 4+4+ELTFigureConstants.componentLabelMargin);
 		
 		//----------Arcs at corners---------------------------
 		
 		//top right
-		g.drawArc(r.right() - 5-4-4, r.y + 4, 8, 8, 0, 90);
+		g.drawArc(r.right() - 5-4-4, r.y + 4 + ELTFigureConstants.componentLabelMargin, 8, 8, 0, 90);
 		
 		//bottom left
 		g.drawArc(r.x+4, r.bottom()-5-4-4, 8, 8, 180, 90);
@@ -83,7 +83,7 @@ public class ComponentBorder extends AbstractBorder {
 		g.drawArc(r.right() - 5-4-4, r.bottom()-5-4-4, 8, 8, 0, -90);
 		
 		//top left
-		g.drawArc(r.x+4, r.y + 4, 8, 8, 180, -90);
+		g.drawArc(r.x+4, r.y + 4 + ELTFigureConstants.componentLabelMargin, 8, 8, 180, -90);
 		
 		
 		r.getExpanded(new Insets(0, 0, 0, 0));
