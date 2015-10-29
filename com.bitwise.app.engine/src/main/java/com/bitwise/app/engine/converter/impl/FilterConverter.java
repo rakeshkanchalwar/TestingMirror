@@ -8,6 +8,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.engine.converter.PortTypeConstant;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.engine.converter.TransformConverter;
 import com.bitwise.app.engine.exceptions.PhaseException;
@@ -28,6 +29,7 @@ import com.bitwiseglobal.graph.transformtypes.Filter;
  */
 public class FilterConverter extends TransformConverter {
 	private static final String FILTER_OPERATION_ID="opt";
+	private static final String DEFAULT_IN_SOCKET_ID = "in0";
 	Logger LOGGER = LogFactory.INSTANCE.getLogger(FilterConverter.class);
 	
 	public FilterConverter(Component component) {
@@ -49,20 +51,18 @@ public class FilterConverter extends TransformConverter {
 		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}",
 				properties.get(NAME));
 		List<TypeTransformOutSocket> outSockectList = new ArrayList<TypeTransformOutSocket>();
+		String temp,temp2;
 		int outSocketCounter=1;
 		for (Link link : component.getSourceConnections()) {
 			TypeTransformOutSocket outSocket = new TypeTransformOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
-			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
+			outSocketAsInsocket.setInSocketId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			if(outSocketCounter==1){
-			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
-			outSocket.setType(OUT_SOCKET_TYPE);
-			}else{
-			outSocket.setId(DEFAULT_UNUSED_SOCKET_ID);
-			outSocket.setType(UNUSED_SOCKET_TYPE);
-			}	
+		
+			outSocket.setId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
+			
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
 			outSocketCounter++;
@@ -109,9 +109,9 @@ public class FilterConverter extends TransformConverter {
 				TypeBaseInSocket inSocket = new TypeBaseInSocket();
 				inSocket.setFromComponentId((String) link.getSource()
 						.getProperties().get(NAME));
-				inSocket.setFromSocketId(DEFAULT_IN_SOCKET_ID);
-				inSocket.setId(DEFAULT_IN_SOCKET_ID);
-				inSocket.setType(IN_SOCKET_TYPE);
+				inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+				inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
+				inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 				inSocket.getOtherAttributes();
 				inSocketsList.add(inSocket);
 			}

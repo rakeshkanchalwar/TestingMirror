@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.engine.converter.PortTypeConstant;
 import com.bitwise.app.engine.converter.StraightPullConverter;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
@@ -42,11 +43,11 @@ public class GatherConverter extends StraightPullConverter {
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
-			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
+			outSocketAsInsocket.setInSocketId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
-			outSocket.setType(OUT_SOCKET_TYPE);
+			outSocket.setId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
 		}
@@ -63,9 +64,9 @@ public class GatherConverter extends StraightPullConverter {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
-			inSocket.setFromSocketId(DEFAULT_OUT_SOCKET_ID);
-			inSocket.setId(IN_SOCKET_ID_PREFIX + inSocketCounter);
-			inSocket.setType(IN_SOCKET_TYPE);
+			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setId(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort())+ inSocketCounter);
+			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();
 			inSocketsList.add(inSocket);
 			inSocketCounter++;

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.engine.converter.InputConverter;
+import com.bitwise.app.engine.converter.PortTypeConstant;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
@@ -57,8 +58,8 @@ public class InputFileDelimitedConverter extends InputConverter {
 		List<TypeInputOutSocket> outSockets = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
 			TypeInputDelimitedOutSocket outSocket = new TypeInputDelimitedOutSocket();
-			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
-			outSocket.setType(OUT_SOCKET_TYPE);
+			outSocket.setId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.setSchema(getSchema());
 			outSocket.getOtherAttributes();
 			outSockets.add(outSocket);

@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.engine.converter.PortTypeConstant;
 import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.engine.converter.StraightPullConverter;
 import com.bitwise.app.graph.model.Component;
@@ -79,17 +80,11 @@ public class DedupConverter extends StraightPullConverter {
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
-			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
+			outSocketAsInsocket.setInSocketId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			if(outSocketCounter==1){
-			outSocket.setId(DEFAULT_OUT_SOCKET_ID);
-			outSocket.setType(OUT_SOCKET_TYPE);
-			}else{
-				outSocket.setId(DEFAULT_UNUSED_SOCKET_ID);
-				outSocket.setType(UNUSED_SOCKET_TYPE);
-			}
-			
+			outSocket.setId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
 			outSocketCounter++;
@@ -104,11 +99,12 @@ public class DedupConverter extends StraightPullConverter {
 		List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
+			
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
-			inSocket.setFromSocketId(DEFAULT_OUT_SOCKET_ID);
-			inSocket.setId(DEFAULT_IN_SOCKET_ID);
-			inSocket.setType(IN_SOCKET_TYPE);
+			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
+			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();
 			inSocketsList.add(inSocket);
 			
