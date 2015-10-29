@@ -71,15 +71,15 @@ public class RawProperties {
 	
 	public ArrayList<Property> getRawProperties(){
 		
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_COMPONENT_NAME_WIDGET, dataType=STRING, name=name, value=null, group=GENERAL, subGroup=DISPLAY]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_SCHEMA_WIDGET, dataType=STRING, name=schema, value=null, group=SCHEMA, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_FILE_PATH_WIDGET, dataType=STRING, name=path, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_DELIMETER_WIDGET, dataType=STRING, name=delimiter, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_SAFE_PROPERTY_WIDGET, dataType=BOOLEAN, name=safe, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_HAS_HEADER_WIDGET, dataType=BOOLEAN, name=has_header, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_CHARACTER_SET_WIDGET, dataType=STRING, name=charset, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_RUNTIME_PROPERTIES_WIDGET, dataType=STRING, name=runtime_properties, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
-		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=ELT_PHASE_WIDGET, dataType=STRING, name=phase, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=COMPONENT_NAME_WIDGET, dataType=STRING, name=name, value=null, group=GENERAL, subGroup=DISPLAY]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=SCHEMA_WIDGET, dataType=STRING, name=schema, value=null, group=SCHEMA, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=FILE_PATH_WIDGET, dataType=STRING, name=path, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=DELIMETER_WIDGET, dataType=STRING, name=delimiter, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=SAFE_PROPERTY_WIDGET, dataType=BOOLEAN, name=safe, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=HAS_HEADER_WIDGET, dataType=BOOLEAN, name=has_header, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=CHARACTER_SET_WIDGET, dataType=STRING, name=charset, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=RUNTIME_PROPERTIES_WIDGET, dataType=STRING, name=runtime_properties, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
+		rawProperties.add(getRawProperty("[validation=null, type=USER, renderer=PHASE_WIDGET, dataType=STRING, name=phase, value=null, group=GENERAL, subGroup=CONFIGURATION]"));
 		
 		return rawProperties;
 	}

@@ -29,19 +29,19 @@
 			</tns:portSpecification>
 		</tns:port>
 		<tns:property dataType="string" name="name"
-			renderer="ELTComponentNameWidget" type="USER" group="GENERAL"
+			renderer="COMPONENT_NAME_WIDGET" type="USER" group="GENERAL"
 			subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT" />
 			
-		<tns:property dataType="string" name="phase" value="0" renderer="ELTPhaseWidget"
+		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET"
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT" />
 			
-		<tns:property dataType="string" name="runtime_properties" renderer="ELTRuntimePropertiesWidget" 
+		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET" 
 		    type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
 				
-		<tns:property dataType="string" name="dedup" renderer="ELTColumnNameWidget"
+		<tns:property dataType="string" name="dedup" renderer="COLUMN_NAME_WIDGET"
 		 type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"/>
  		
  		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="retention_logic"
- 		    value="First" renderer="ELTRetentionlogicWidget" type="USER" showAsTooltip="TRUE" tooltipDataType="TEXT" />
+ 		    value="First" renderer="RETENTION_LOGIC_WIDGET" type="USER" showAsTooltip="TRUE" tooltipDataType="TEXT" />
 	</tns:component>
 </tns:Config>

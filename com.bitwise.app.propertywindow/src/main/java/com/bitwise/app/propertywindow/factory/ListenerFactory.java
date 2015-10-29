@@ -1,5 +1,8 @@
 package com.bitwise.app.propertywindow.factory;
 
+import org.slf4j.Logger;
+
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTBrowseFileListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTCheckFileExtensionListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTCreateNewClassListener;
@@ -34,6 +37,7 @@ import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridMouseDownLis
  */
 
 public class ListenerFactory {
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ListenerFactory.class);
 	
 	/**
 	 * The Enum Listners.
@@ -73,6 +77,7 @@ public class ListenerFactory {
 			try {
 				return (IELTListener) clazz.newInstance();
 			} catch (InstantiationException | IllegalAccessException exception) {
+				logger.error("Failed to create listener for class : {}", clazz.getName());
 				throw new RuntimeException("Failed to instantiate the Listner " + clazz.getName());
 			}
 		}

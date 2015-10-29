@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
+import com.bitwise.app.propertywindow.factory.WidgetFactory.Widgets;
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;
 import com.bitwise.app.propertywindow.property.IPropertyTreeBuilder;
 import com.bitwise.app.propertywindow.property.Property;
@@ -55,12 +56,12 @@ public class TestWindow extends ApplicationWindow {
 	}
 
 	private Property getComponentBaseTypeProperty(){
-		Property property = new Property.Builder("String", "Base Type", "ELT_COMPONENT_BASETYPE_WIDGET").group("GENERAL").subGroup("DISPLAY").build();
+		Property property = new Property.Builder("String", "Base Type", Widgets.COMPONENT_BASETYPE_WIDGET.name()).group("GENERAL").subGroup("DISPLAY").build();
 		return property;
 	}
 	
 	private Property getComponentTypeProperty(){
-		Property property = new Property.Builder("String", "Type", "ELT_COMPONENT_TYPE_WIDGET").group("GENERAL").subGroup("DISPLAY").build();
+		Property property = new Property.Builder("String", "Type", Widgets.COMPONENT_TYPE_WIDGET.name()).group("GENERAL").subGroup("DISPLAY").build();
 		return property;
 	}
 	

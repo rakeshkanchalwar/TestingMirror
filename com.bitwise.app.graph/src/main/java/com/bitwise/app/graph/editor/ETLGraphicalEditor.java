@@ -67,6 +67,7 @@ import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -109,7 +110,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 
 	private boolean dirty=false;
 	private final Color palatteBackgroundColor= new Color(null,82,84,81);
-
+	private PaletteRoot paletteRoot = null;
 
 	Logger logger = LogFactory.INSTANCE.getLogger(ETLGraphicalEditor.class);
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
@@ -130,6 +131,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	@Override
 	protected PaletteRoot getPaletteRoot() {
 		PaletteRoot palette = new PaletteRoot();
+		paletteRoot = palette;
 		createToolsGroup(palette);
 		try {
 			createShapesDrawer(palette);
@@ -144,6 +146,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			e.printStackTrace();
 		}
 		return palette;
+	}
+	protected PaletteRoot getPalettesRoot(){
+		return paletteRoot;
 	}
 
 	/**
@@ -238,6 +243,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 
 	@Override
 	protected PaletteViewerProvider createPaletteViewerProvider() {
+		final ETLGraphicalEditor editor = this;
 		return new PaletteViewerProvider(getEditDomain()) {
 
 			@Override
@@ -256,6 +262,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 				viewer.getControl().addMouseListener(
 						new PaletteContainerListener(viewer, getGraphicalViewer()));
 			}
+			public PaletteViewer createPaletteViewer(Composite parent) {
+				CustomPaletteViewer pViewer = new CustomPaletteViewer();
+				CustomFigureCanvas figureCanvas=new CustomFigureCanvas(parent,pViewer.getLightweightSys(),pViewer, getPalettesRoot(),editor);
+				pViewer.setFigureCanvas(figureCanvas);
+					configurePaletteViewer(pViewer);
+					hookPaletteViewer(pViewer);
+					return pViewer;
+				}
 		};
 	}
 
@@ -334,7 +348,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 		palette.add(toolbar);
 	}
 
-	private URL prepareIconPathURL(String iconPath) {
+	protected URL prepareIconPathURL(String iconPath) {
 		URL iconUrl = null;
 
 		try {

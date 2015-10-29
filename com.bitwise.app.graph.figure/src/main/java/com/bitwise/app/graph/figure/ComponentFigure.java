@@ -48,14 +48,12 @@ public class ComponentFigure extends Figure implements Validator{
 	private final XYLayout layout;
 	private int height=0;
 	
-	private FixedConnectionAnchor fCAnchor; 
 	private HashMap<String, FixedConnectionAnchor> connectionAnchors;
 	private List<FixedConnectionAnchor> inputConnectionAnchors;
 	private List<FixedConnectionAnchor> outputConnectionAnchors;
 	private List<PortSpecification> portspecification;
 	
 	private int totalPortsofInType=0, totalPortsOfOutType=0;
-	private HashMap<String, PortFigure> ports;
 	
 	private String labelName;
 	private Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
@@ -92,8 +90,6 @@ public class ComponentFigure extends Figure implements Validator{
 		
 		canvasIcon = new Image(null, canvasIconPath);
 		
-		ports = new HashMap<String, PortFigure>();
-		
 		connectionAnchors = new HashMap<String, FixedConnectionAnchor>();
 		inputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
 		outputConnectionAnchors = new ArrayList<FixedConnectionAnchor>();
@@ -106,11 +102,6 @@ public class ComponentFigure extends Figure implements Validator{
 		{
 			setPortCount(p);
 			setHeight(totalPortsofInType, totalPortsOfOutType);
-		}
-		
-		for(PortSpecification p:portspecification)
-		{ 	
-			initAnchors(p);	
 		}
 		
 		
@@ -247,21 +238,10 @@ public class ComponentFigure extends Figure implements Validator{
 		return height;
 	}
 	
-	/**
-	 * Gets the port figure.
-	 * 
-	 * @param terminal
-	 *            the terminal
-	 * @return the port figure
-	 */
-	public PortFigure getPortFigure(String terminal) {
-		return ports.get(terminal);
-	}
 
-	private void initAnchors(PortSpecification p) {
-		fCAnchor = new FixedConnectionAnchor(this, p.getTypeOfPort(), p.getNumberOfPorts(), p.getSequenceOfPort());
+	public void setAnchors(FixedConnectionAnchor fCAnchor) {		
 		connectionAnchors.put(fCAnchor.getType()+fCAnchor.getSequence(), fCAnchor);
-		if(("out").equalsIgnoreCase(p.getTypeOfPort()))
+		if(("out").equalsIgnoreCase(fCAnchor.getType()))
 			outputConnectionAnchors.add(fCAnchor);
 		else
 			inputConnectionAnchors.add(fCAnchor);
