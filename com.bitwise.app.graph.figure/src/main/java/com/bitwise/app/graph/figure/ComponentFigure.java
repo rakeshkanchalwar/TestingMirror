@@ -297,7 +297,7 @@ public class ComponentFigure extends Figure implements Validator{
 		}
 		logger.debug("Component has {} status.", getStatus());
 		if(statusImage != null){
-			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8));
+			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8+ELTFigureConstants.componentLabelMargin));
 		}
 	}
 	
@@ -329,12 +329,13 @@ public class ComponentFigure extends Figure implements Validator{
 	protected void paintFigure(Graphics graphics) {
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		Rectangle q = new Rectangle(4, 4, r.width-8, r.height-8);
+		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
 		graphics.fillRoundRectangle(q, 5, 5);
 
-		drawLable(r, graphics);
+		//drawLable(r, graphics);
 		
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
+		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-4));
 		drawStatus(graphics);
 	}
 	
