@@ -21,11 +21,11 @@ import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.Policy;
+import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentFigure;
-import com.bitwise.app.graph.figure.factory.ModelFigureFactory;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -120,7 +120,11 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 	private IFigure createFigureForModel() {
 		String componentName = DynamicClassProcessor.INSTANCE
 				.getClazzName(getModel().getClass());
-		return new ModelFigureFactory().createFigureForComponent(componentName);
+		
+		String canvasIconPath = XMLConfigUtil.INSTANCE.getComponent(componentName).getCanvasIconPath();
+		List<PortSpecification> portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
+		
+		return new ComponentFigure(portSpecification, canvasIconPath);
 	}
 
 	public Component getCastedModel() {
