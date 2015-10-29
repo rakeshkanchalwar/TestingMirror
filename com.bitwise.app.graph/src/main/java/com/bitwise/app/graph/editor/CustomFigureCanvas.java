@@ -1,6 +1,6 @@
 package com.bitwise.app.graph.editor;
 
-import java.io.IOException;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,34 +16,45 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.xml.sax.SAXException;
+import org.slf4j.Logger;
+
+import com.bitwise.app.common.util.LogFactory;
+
 
 public class CustomFigureCanvas extends FigureCanvas{
-	private int cashedToolHeight = 24;
-    protected Control toolControl;
+	private int containerHeight = 0;
+    protected Control containerForSearchTextBox;
+    private static Logger logger = LogFactory.INSTANCE.getLogger(CustomFigureCanvas.class);
 
-    static final int DEFAULT_STYLES = SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND | SWT.V_SCROLL | SWT.H_SCROLL;
+    static final int APPLY_STYLES =  SWT.V_SCROLL | SWT.H_SCROLL|SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND;
 
-    // reflection method to invoke a package private method
-    private static Method setIgnoreResizeMethod;
+ 
+    //call package private method using reflection method
+    private static Method reflectionMethod;
 
-    // reflection field to access a private field
-    private static Field listenersField;
+  
+    //access package private field using reflection field
+    private static Field reflectionField;
 
-    // reflection is used to work our way around some limitation in the Figurecanvas upper class
-    // retreive method and field in a static way to avoid doing it everytime they are called and improve perf
+  
+   /* reflection is using because of some limitations of figurecanvas class 
+    access method in static form so that it can be avoided to do it every time these are called so that performance can be improved*/
+    
     static {
         try {
-            listenersField = UpdateManager.class.getDeclaredField("listeners"); //$NON-NLS-1$
-            listenersField.setAccessible(true);
-            setIgnoreResizeMethod = LightweightSystem.class.getDeclaredMethod("setIgnoreResize", boolean.class); //$NON-NLS-1$
-            setIgnoreResizeMethod.setAccessible(true);
+            reflectionField = UpdateManager.class.getDeclaredField("listeners"); //$NON-NLS-1$
+            reflectionField.setAccessible(true);
+            reflectionMethod = LightweightSystem.class.getDeclaredMethod("setIgnoreResize", boolean.class); //$NON-NLS-1$
+            reflectionMethod.setAccessible(true);
         } catch (SecurityException e) {
-            handleReflectionFailure(e);
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         } catch (NoSuchMethodException e) {
-            handleReflectionFailure(e);
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         } catch (NoSuchFieldException e) {
-            handleReflectionFailure(e);
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         }
     }
 
@@ -52,78 +63,74 @@ public class CustomFigureCanvas extends FigureCanvas{
     }
 
     public CustomFigureCanvas(int style, Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ETLGraphicalEditor editor) {
-        super(style | DEFAULT_STYLES, parent, lws);
-            toolControl = toolViewer.creatToolControl(this, paletteRoot,editor);
-        if (toolControl != null && toolViewer != null) {
-            org.eclipse.swt.graphics.Point bounds = toolControl.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-            if (cashedToolHeight < bounds.y) {
-                cashedToolHeight = bounds.y;
+        super(style | APPLY_STYLES, parent, lws);
+            containerForSearchTextBox = toolViewer.creatSearchTextBox(this, paletteRoot,editor);
+        if (containerForSearchTextBox != null && toolViewer != null) {
+            org.eclipse.swt.graphics.Point bounds = containerForSearchTextBox.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+            if (containerHeight < bounds.y) {
+                containerHeight = bounds.y;
             }
         }
         
-        setupNewLayoutHook();
+        customLayoutViewPort();
     }
 
-    /**
-     * Layout Viewport is not overridable in the FigureCanvas so we use a work around to setup our own layout viewport
-     */
-    private void setupNewLayoutHook() {
+  
+     // cannot override  Layout Viewport in the FigureCanvas so make custom layout viewport
+     
+    private void customLayoutViewPort() {
         try {
-            // reset the listener of the update manager using reflection
-            Object emptyArray = Array.newInstance(UpdateListener.class, 0);
-            listenersField.set(getLightweightSystem().getUpdateManager(), emptyArray);
-            // setup our own layout
-            getLightweightSystem().getUpdateManager().addUpdateListener(new UpdateListener() {
+            Object nullArray = Array.newInstance(UpdateListener.class, 0);
+            reflectionField.set(getLightweightSystem().getUpdateManager(), nullArray);
+             getLightweightSystem().getUpdateManager().addUpdateListener(new UpdateListener() {
 
                 @Override
                 public void notifyPainting(Rectangle damage, java.util.Map dirtyRegions) {
-                    if (toolControl != null) {
-                        toolControl.setBounds(0, 0, toolControl.getBounds().width, cashedToolHeight);
+                    if (containerForSearchTextBox != null) {
+                        containerForSearchTextBox.setBounds(0, 0, containerForSearchTextBox.getBounds().width, containerHeight);
                     }
                 }
 
                 @Override
                 public void notifyValidating() {
                     if (!isDisposed()) {
-                        layoutViewport2();
+                        layoutViewport();
                     }
                 }
             });
-        } catch (IllegalAccessException iae) {
-            handleReflectionFailure(iae);
+        } catch (IllegalAccessException e) {
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         }
     }
 
-    /**
-     * log the exception and throw a Runtime exception cause this is serious.
-     * 
-     * @param iae
-     */
-    private static void handleReflectionFailure(Exception e) {
-        // our hook is not working so say it
-     //   log.error("Draw2D Canvas hook failed", e);
-        throw new RuntimeException(e);
+  
+    private static void throwExceptionWhenReflectionIsFailed(Exception e) {
+             throw new RuntimeException(e);
 
     }
 
-    protected void layoutViewport2() {
+    protected void layoutViewport() {
         ScrollPaneSolver.Result result;
         int viewPortY = 0;
-        if (toolControl != null) {
-            viewPortY = cashedToolHeight;
+        if (containerForSearchTextBox != null) {
+            viewPortY = containerHeight;
         }
         result = ScrollPaneSolver.solve(new Rectangle(getBounds()).setLocation(0, viewPortY), getViewport(),
                 getHorizontalScrollBarVisibility(), getVerticalScrollBarVisibility(), computeTrim(0, 0, 0, 0).width,
                 computeTrim(0, 0, 0, 0).height);
         try {
-            // reflection call to a package priveate method
-            setIgnoreResizeMethod.invoke(getLightweightSystem(), true);
+           
+            reflectionMethod.invoke(getLightweightSystem(), true);
         } catch (IllegalArgumentException e) {
-            handleReflectionFailure(e);
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         } catch (IllegalAccessException e) {
-            handleReflectionFailure(e);
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         } catch (InvocationTargetException e) {
-            handleReflectionFailure(e);
+        	logger.error(e.getMessage());
+            throwExceptionWhenReflectionIsFailed(e);
         }
         try {
             if (getHorizontalBar().getVisible() != result.showH) {
@@ -133,24 +140,27 @@ public class CustomFigureCanvas extends FigureCanvas{
                 getVerticalBar().setVisible(result.showV);
             }
             Rectangle r = new Rectangle(getClientArea());
-            if (toolControl != null) {
-                toolControl.setBounds(0, 0, r.width, cashedToolHeight);
-                r.height -= cashedToolHeight;
-                r.setLocation(0, cashedToolHeight);
+            if (containerForSearchTextBox != null) {
+                containerForSearchTextBox.setBounds(0, 0, r.width, containerHeight);
+                r.height -= containerHeight;
+                r.setLocation(0, containerHeight);
             } else {
                 r.setLocation(0, 0);
             }
             getLightweightSystem().getRootFigure().setBounds(r);
         } finally {
             try {
-                // reflection call to a package priveate method
-                setIgnoreResizeMethod.invoke(getLightweightSystem(), false);
+                
+                reflectionMethod.invoke(getLightweightSystem(), false);
             } catch (IllegalArgumentException e) {
-                handleReflectionFailure(e);
+            	logger.error(e.getMessage());
+                throwExceptionWhenReflectionIsFailed(e);
             } catch (IllegalAccessException e) {
-                handleReflectionFailure(e);
+            	logger.error(e.getMessage());
+                throwExceptionWhenReflectionIsFailed(e);
             } catch (InvocationTargetException e) {
-                handleReflectionFailure(e);
+            	logger.error(e.getMessage());
+                throwExceptionWhenReflectionIsFailed(e);
             }
         }
     }

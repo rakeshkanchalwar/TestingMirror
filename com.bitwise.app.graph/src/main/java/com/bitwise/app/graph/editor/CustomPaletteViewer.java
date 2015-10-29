@@ -1,6 +1,6 @@
 package com.bitwise.app.graph.editor;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,14 +23,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
+
+import org.eclipse.swt.layout.FillLayout;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
-import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
@@ -40,76 +41,80 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
 
 public class CustomPaletteViewer extends PaletteViewer {
-	private List<PaletteContainer> paletteContainer;
-	private Logger logger = LogFactory.INSTANCE.getLogger(XMLConfigUtil.class);
+	private Logger logger = LogFactory.INSTANCE.getLogger(CustomPaletteViewer.class);
 
-	public Control creatToolControl(Composite parent, final PaletteRoot paletteRoot, final ETLGraphicalEditor editor) {
+	public Control creatSearchTextBox(Composite parent, final PaletteRoot paletteRoot, final ETLGraphicalEditor editor) {
 		final Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
 		Composite container = createCompositeForSearchTextBox(parent);
-		final Text text = createSearchTextBox(container);
+	    final Text text = createSearchTextBox(container,0,0,SWT.BORDER);
+	    final Label label=new Label(container,SWT.LEFT);
+	    label.setText("No component found");
+	    label.setVisible(false);
 		text.setMessage("Search component");
-		
-
 		try {
 			final List<Component> componentsConfig = XMLConfigUtil.INSTANCE.getComponentConfig();
-
-			text.addVerifyListener(new VerifyListener() {
-
-				@Override
-				public void verifyText(VerifyEvent e) {
-
-					CombinedTemplateCreationEntry removeDuplicateComponent = null;
-					ArrayList<Component> matchingComponents = new ArrayList<>();
-					paletteRoot.getChildren().clear();
-					String currentText = ((Text) e.widget).getText();
-					createPaletteContainers(paletteRoot, categoryPaletteConatiner, editor);
-
-					String searchedString = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end))
-							.toUpperCase();
-					
-					try {
-
-						if (searchedString.isEmpty() || searchedString.equals("")) {
-							for (Component componentConfig : componentsConfig) {
-								categoryPaletteConatiner.get(componentConfig.getCategory().name()).remove(
-										removeDuplicateComponent);
-								CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
-										componentConfig);
-								categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
-								showClosedPaletteContainersWhenSearchTextBoxIsEmpty(paletteRoot.getChildren());
-							}
-							text.setMessage("Search component");
-						} else {
-
-							for (Component componentConfig : componentsConfig) {
-
-								String componentName = componentConfig.getName().toUpperCase();
-								if (componentName.contains(searchedString.trim())) {
-									CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
-											componentConfig);
-									removeDuplicateComponent = component;
-									categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
-									matchingComponents.add(componentConfig);
-
-								}
-
-							}
-
-							showRequiredPaletteContainers(paletteRoot, categoryPaletteConatiner, matchingComponents);
-
-						}
-
-					} catch (Exception exception) {
-						logger.error(exception.getMessage());
-					}
-
-				}
-			});
+			checkSearchTextBoxAndShowMatchedResults(paletteRoot, editor, categoryPaletteConatiner, text, label,
+					componentsConfig);
 
 		} catch (Exception exception) {
 			logger.error(exception.getMessage());
 		}
 		return container;
+	}
+
+	private void checkSearchTextBoxAndShowMatchedResults(final PaletteRoot paletteRoot,
+			final ETLGraphicalEditor editor, final Map<String, PaletteDrawer> categoryPaletteConatiner,
+			final Text text, final Label label, final List<Component> componentsConfig) {
+		text.addVerifyListener(new VerifyListener() {
+			@Override
+			public void verifyText(VerifyEvent e) {
+
+				CombinedTemplateCreationEntry removeDuplicateComponent = null;
+				ArrayList<Component> matchingComponents = new ArrayList<>();
+				paletteRoot.getChildren().clear();
+				String currentText = ((Text) e.widget).getText();
+				createPaletteContainers(paletteRoot, categoryPaletteConatiner, editor);
+				String searchedString = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end))
+						.toUpperCase();
+				try {
+					if (searchedString.isEmpty() || searchedString.equals("")) {
+						for (Component componentConfig : componentsConfig) {
+							categoryPaletteConatiner.get(componentConfig.getCategory().name()).remove(
+									removeDuplicateComponent);
+							CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
+									componentConfig);
+							categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
+							showClosedPaletteContainersWhenSearchTextBoxIsEmpty(paletteRoot.getChildren());
+						}
+						text.setMessage("Search component");
+						
+					} else {
+
+						for (Component componentConfig : componentsConfig) {
+
+							String componentName = componentConfig.getName().toUpperCase();
+							if (componentName.contains(searchedString.trim())) {
+								CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
+										componentConfig);
+								removeDuplicateComponent = component;
+								categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
+								matchingComponents.add(componentConfig);
+							}
+							else
+							{
+								label.setVisible(true);
+							}
+						}
+
+						showRequiredPaletteContainers(paletteRoot, categoryPaletteConatiner, matchingComponents,label);
+
+					}
+				} catch (Exception exception) {
+					logger.error(exception.getMessage());
+				}
+
+			}
+		});
 	}
 
 	private void showClosedPaletteContainersWhenSearchTextBoxIsEmpty(List list) {
@@ -121,7 +126,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 	}
 
 	private void showRequiredPaletteContainers(PaletteRoot paletteRoot,
-			Map<String, PaletteDrawer> categoryPaletteConatiner, ArrayList<Component> matchingComponents) {
+			Map<String, PaletteDrawer> categoryPaletteConatiner, ArrayList<Component> matchingComponents,Label label) {
 		List<PaletteContainer> children = paletteRoot.getChildren();
 		for (PaletteContainer paletteContainer : children) {
 			paletteContainer.setVisible(false);
@@ -130,8 +135,10 @@ public class CustomPaletteViewer extends PaletteViewer {
 		for (Component component : matchingComponents) {
 			for (int i = 0; i < children.size(); i++) {
 				if (children.get(i).equals(categoryPaletteConatiner.get(component.getCategory().name())))
+				{
 					children.get(i).setVisible(true);
-
+					label.setVisible(false);
+				}
 			}
 		}
 
@@ -160,16 +167,19 @@ public class CustomPaletteViewer extends PaletteViewer {
 	}
 
 	private Composite createCompositeForSearchTextBox(Composite parent) {
-		Composite container = new Composite(parent, SWT.BORDER);
-		GridLayout layout = new GridLayout(2, false);
+		Composite container = new Composite(parent,SWT.NONE);
+		FillLayout layout=new FillLayout();
+		layout.type = SWT.VERTICAL;
+		layout.marginHeight=5;
+		layout.marginWidth=5;
+		layout.spacing=5;
 		container.setLayout(layout);
 		return container;
 	}
 
-	private Text createSearchTextBox(Composite container) {
-		Text text = new Text(container, SWT.NONE);
-		GridData textGridData = new GridData(SWT.FILL, SWT.CENTER, true, true);
-		text.setLayoutData(textGridData);
+	private Text createSearchTextBox(Composite container, int height,int width, int border) {
+		Text text = new Text(container,border);
+		text.setSize(width, height);
 		text.setToolTipText("Enter component name");
 		return text;
 	}
