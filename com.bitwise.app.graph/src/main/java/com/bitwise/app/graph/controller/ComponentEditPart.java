@@ -227,15 +227,20 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		 * getParent()).setLayoutConstraint(this, getFigure(), bounds);
 		 */
 		
-		Component comp = getCastedModel();
-		ComponentFigure c = getComponentFigure();
-		c.setLabelName((String) comp.getPropertyValue("name"));
-		logger.debug("New component/figure name :"+c.getLabelName());
+		Component component = getCastedModel();
+		ComponentFigure componentFigure = getComponentFigure();
+		componentFigure.setLabelName((String) component.getPropertyValue("name"));
+		logger.debug("New component/figure name :"+componentFigure.getLabelName());
 		//comp.setSize(newSize);
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
 				getFigure(), bounds);
+		
+		
+		component.updateTooltipInformation();
+		componentFigure.setPropertyToolTipInformation(component.getTooltipInformation());
+		
 	}
 
 	@Override

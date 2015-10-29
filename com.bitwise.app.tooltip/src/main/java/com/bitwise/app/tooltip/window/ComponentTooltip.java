@@ -1,10 +1,13 @@
 package com.bitwise.app.tooltip.window;
 
+import java.util.Map;
+
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.text.AbstractInformationControl;
 import org.eclipse.jface.text.IInformationControlExtension2;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -15,28 +18,24 @@ import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 public class ComponentTooltip extends AbstractInformationControl implements IInformationControlExtension2 {
 	Text text;
 	private ToolBarManager toolBarManager=null;
-	private PropertyToolTipInformation propertyToolTipInformation;
+	//private PropertyToolTipInformation propertyToolTipInformation;
+	private Map<String,PropertyToolTipInformation> componentToolTipInformation;
 	private Composite tooltipContainer;
 	private String toolTipData;
 	
-	public ComponentTooltip(Shell parent, ToolBarManager toolBarManager,PropertyToolTipInformation propertyToolTipInformation) {
+	public ComponentTooltip(Shell parent, ToolBarManager toolBarManager,Map<String,PropertyToolTipInformation> propertyToolTipInformation) {
 		super(parent, toolBarManager);
-		create();
 		this.toolBarManager= getToolBarManager();		
-		this.propertyToolTipInformation = propertyToolTipInformation;
+		this.componentToolTipInformation = propertyToolTipInformation;
+		create();
 	}
 	
-	public ComponentTooltip(Shell parent, String status,PropertyToolTipInformation propertyToolTipInformation) {
+	public ComponentTooltip(Shell parent, String status,Map<String,PropertyToolTipInformation> propertyToolTipInformation) {
 		super(parent, status);
+		this.componentToolTipInformation = propertyToolTipInformation;
 		create();
-		this.propertyToolTipInformation = propertyToolTipInformation;
 	}
 	
-	public ComponentTooltip(Shell parent, String status,String toolTipData) {
-		super(parent, status);
-		create();
-		this.toolTipData = toolTipData;
-	}
 	
 	public boolean hasToolBarManager(){
 		if(toolBarManager != null ){
@@ -52,37 +51,42 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 		super.setLocation(location);
 	}
 	
-	public void setLoc(Point p){
-		
-	}
 	
 	@Override
 	protected void createContent(Composite parent) {
 	
-		tooltipContainer = new Composite(parent,SWT.NONE);
-		tooltipContainer.setLayout(new ColumnLayout());
-		tooltipContainer.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+		Composite container = new Composite(parent, SWT.NONE);
+		container.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		text = new Text(tooltipContainer, SWT.BORDER);
+		text = new Text(container, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
 		
-		/*tooltipContainer = new Composite(parent,SWT.NONE);
-		tooltipContainer.setLayout(new ColumnLayout());
-		tooltipContainer.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-		
-		Composite comp2 = new Composite(tooltipContainer,SWT.NONE);
-		comp2.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_BLUE));
-		
-		text = new Text(tooltipContainer, SWT.BORDER);
-		btnHello = new Button(tooltipContainer, SWT.NONE);
-		btnHello.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				MessageBox megbox= new MessageBox(tooltipContainer.getShell());
-				megbox.setMessage("Hello World");
-				megbox.open();
+		StringBuilder stringBuilder = new StringBuilder();
+		for(String property: componentToolTipInformation.keySet()){
+			PropertyToolTipInformation propertyInfo = componentToolTipInformation.get(property);
+			if(propertyInfo.isShowAsTooltip()){
+				if(propertyInfo.getTooltipDataType().equalsIgnoreCase("TEXT") || propertyInfo.getTooltipDataType().equalsIgnoreCase("LINK")){
+					if(propertyInfo.getPropertyValue() != null){
+						if(propertyInfo.getPropertyName().equalsIgnoreCase("oprationClass")){
+							stringBuilder.append(propertyInfo.getPropertyValue());
+							stringBuilder.append("\n");
+						}else{
+							stringBuilder.append(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue());
+							stringBuilder.append("\n");
+						}	
+					}
+					
+					
+				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LIST")){
+					if(propertyInfo.getPropertyValue() != null){
+						stringBuilder.append(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue().toString());
+						stringBuilder.append("\n");
+					}
+				}
 			}
-		});
-		btnHello.setText("Hello");*/
+		}
+		text.setText(stringBuilder.toString());
+		text.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+		text.setEditable(false);
 	}
 
 	
@@ -114,7 +118,6 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 			return;
 		}
 		
-
 		super.setVisible(true);
 	}
 
@@ -125,7 +128,14 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 
 	@Override
 	protected void handleDispose() {
+		text.dispose();
+		//tooltipContainer.dispose();
 		super.handleDispose();
 	}
 
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		super.dispose();
+	}
 }

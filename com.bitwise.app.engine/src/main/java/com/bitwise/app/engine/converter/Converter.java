@@ -35,12 +35,14 @@ public abstract class Converter {
 	protected static final String OUT_SOCKET_ID_PREFIX = "out";
 	protected static final String DEFAULT_IN_SOCKET_ID = "in0";
 	protected static final String DEFAULT_OUT_SOCKET_ID = "out0";
+	protected static final String DEFAULT_UNUSED_SOCKET_ID = "unused0";
 	protected static final String ID = "$id";
 	protected static final String PROPERTY_NAME = "propertyName";
 	protected static final String DEPENDS_ON = "dependsOn";
 	protected static final String PHASE = "phase";
 	protected static final String NAME = "name";
 	protected static final String OUT_SOCKET_TYPE = "out";
+	protected static final String UNUSED_SOCKET_TYPE = "unused";
 	protected static final String IN_SOCKET_TYPE = "in";
 	protected Map<String, Object> properties = new LinkedHashMap<String, Object>();
 	protected Component component = null;

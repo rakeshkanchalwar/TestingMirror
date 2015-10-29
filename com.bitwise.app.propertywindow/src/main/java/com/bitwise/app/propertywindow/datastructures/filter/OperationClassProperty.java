@@ -65,5 +65,13 @@ public class OperationClassProperty implements Cloneable{
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "OperationClass : [operationClassPath="
+				+ operationClassPath + ", isParameter=" + isParameter + "]";
+	}
+	
+	
   
 }
