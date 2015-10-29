@@ -1,5 +1,6 @@
 package com.bitwise.app.graph.editor;
 
+import java.awt.MouseInfo;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -59,7 +60,13 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -77,6 +84,7 @@ import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
+import com.bitwise.app.common.interfaces.tooltip.ComponentCanvas;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.exceptions.EngineException;
@@ -89,6 +97,7 @@ import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.factory.CustomPaletteEditPartFactory;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.tooltip.window.ComponentTooltip;
 import com.thoughtworks.xstream.XStream;
 
 // TODO: Auto-generated Javadoc
@@ -96,7 +105,7 @@ import com.thoughtworks.xstream.XStream;
  * Responsible to render the palette and container.
  * 
  */
-public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
+public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette implements ComponentCanvas{
 
 	private boolean dirty=false;
 	private final Color palatteBackgroundColor= new Color(null,82,84,81);
@@ -107,6 +116,10 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	private Container container;
 	private final Point defaultComponentLocation = new Point(0, 0);
 
+	private GraphicalViewer viewer;
+	
+	private ComponentTooltip componentTooltip;
+	private Rectangle toolTipComponentBounds;
 	/**
 	 * Instantiates a new ETL graphical editor.
 	 */
@@ -139,14 +152,73 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	@Override
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		GraphicalViewer viewer = getGraphicalViewer();
+		viewer = getGraphicalViewer();
 		viewer.setContents(container);
 		// listen for dropped parts
 		viewer.addDropTargetListener(createTransferDropTargetListener());
 		// listener for selection on canvas
 		viewer.addSelectionChangedListener(createISelectionChangedListener());
+		attachCanvasMouseTrackListener();
 	}
 
+	public void attachCanvasMouseTrackListener(){
+		
+		viewer.getControl().addMouseMoveListener(new MouseMoveListener() {
+			
+			@Override
+			public void mouseMove(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(toolTipComponentBounds !=null && componentTooltip != null){
+					org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
+					if(!toolTipComponentBounds.contains(point)){
+						try{
+							componentTooltip.setVisible(false);
+							//componentTooltip.dispose();
+						}catch(Exception exc){
+							//System.out.println("Got exeption");
+						}
+						
+						componentTooltip=null;
+						toolTipComponentBounds=null;
+					}
+				}
+			}
+		});
+		
+		viewer.getControl().addMouseTrackListener(new MouseTrackListener() {
+			
+			@Override
+			public void mouseHover(MouseEvent e) {
+				if(toolTipComponentBounds !=null && componentTooltip != null){
+					org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
+					if(!toolTipComponentBounds.contains(point)){
+						try{
+							componentTooltip.setVisible(false);
+							//componentTooltip.dispose();
+						}catch(Exception exc){
+							//System.out.println("Got exeption");
+						}
+						
+						componentTooltip=null;
+						toolTipComponentBounds=null;
+					}
+				}
+			}
+			
+			@Override
+			public void mouseExit(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEnter(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
 	/**
 	 * Configure the graphical viewer with
 	 * <ul>
@@ -618,7 +690,20 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	 getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()).run();	
 	}
 
+	@Override
+	public Control getCanvasControl() {
+		return viewer.getControl();
+	}
 
+	@Override
+	public void issueToolTip(ComponentTooltip componentTooltip,Rectangle toolTipComponentBounds) {
+		this.toolTipComponentBounds = toolTipComponentBounds;
+		this.componentTooltip = componentTooltip;
+	}
 
+	@Override
+	public ComponentTooltip getComponentTooltip() {
+		return componentTooltip;
+	}
 
 }

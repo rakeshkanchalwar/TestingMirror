@@ -1,27 +1,40 @@
 package com.bitwise.app.graph.figure;
 
+import java.awt.MouseInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
+import com.bitwise.app.common.interfaces.tooltip.ComponentCanvas;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
+import com.bitwise.app.tooltip.window.ComponentTooltip;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -57,8 +70,10 @@ public class ComponentFigure extends Figure implements Validator{
 	private Image canvasIcon;
 	
 	private String status;
-	
-	
+
+	private Map<String,PropertyToolTipInformation> propertyToolTipInformation;
+	private ComponentCanvas componentCanvas;
+	private ComponentTooltip componentToolTip;
 	/**
 	 * Instantiates a new component figure.
 	 * 
@@ -98,6 +113,119 @@ public class ComponentFigure extends Figure implements Validator{
 			initAnchors(p);	
 		}
 		
+		
+		attachMouseListener();
+		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		
+	}
+	
+	public void setPropertyToolTipInformation(Map<String,PropertyToolTipInformation> propertyToolTipInformation){
+		this.propertyToolTipInformation = propertyToolTipInformation;
+	}
+
+	private ComponentTooltip getStatusToolTip(Shell parent, org.eclipse.swt.graphics.Point location){
+		ComponentTooltip tooltip = new ComponentTooltip(parent, "Click to focus", propertyToolTipInformation);
+		tooltip.setSize(300, 100);
+		tooltip.setLocation(location);
+		return tooltip;
+	}
+	
+	private ComponentTooltip getToolBarToolTip(Shell parent, org.eclipse.swt.graphics.Rectangle toltipBounds){
+		ToolBarManager toolBarManager = new ToolBarManager();
+		ComponentTooltip tooltip = new ComponentTooltip(parent, toolBarManager, propertyToolTipInformation);
+		org.eclipse.swt.graphics.Point location=new org.eclipse.swt.graphics.Point(toltipBounds.x, toltipBounds.y);
+		tooltip.setLocation(location);
+		tooltip.setSize(toltipBounds.width, toltipBounds.height);
+		return tooltip;
+	}
+	
+	private void setStatusToolTipFocusListener() {
+		
+		componentToolTip.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				showToolBarToolTip();
+				Rectangle tempComponuntBound = getBounds();
+				org.eclipse.swt.graphics.Rectangle componentBound = new org.eclipse.swt.graphics.Rectangle(tempComponuntBound.x, tempComponuntBound.y, tempComponuntBound.width, tempComponuntBound.height);
+				componentCanvas.issueToolTip(componentToolTip, componentBound);
+			}
+			
+			
+		});
+	}
+	
+	private void showStatusToolTip(
+			org.eclipse.swt.graphics.Point location) {
+		
+		if(componentToolTip == null || componentCanvas.getComponentTooltip() == null){
+			componentToolTip = getStatusToolTip(componentCanvas.getCanvasControl().getShell(), location);
+			componentToolTip.setVisible(true);
+		}
+	}
+	
+	private void showToolBarToolTip() {
+		org.eclipse.swt.graphics.Rectangle toltipBounds = componentToolTip.getBounds();
+		
+		componentToolTip.setVisible(false);
+		//componentToolTip.dispose();		
+		componentToolTip=null;
+		
+		componentToolTip = getToolBarToolTip(componentCanvas.getCanvasControl().getShell(),toltipBounds);
+		componentToolTip.setVisible(true);
+	}
+	
+	private void attachMouseListener() {
+		addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(org.eclipse.draw2d.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseHover(org.eclipse.draw2d.MouseEvent arg0) {
+				arg0.consume();
+				java.awt.Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+				org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
+				
+				
+				showStatusToolTip(location);
+				Rectangle tempComponuntBound = getBounds();
+				org.eclipse.swt.graphics.Rectangle componentBound = new org.eclipse.swt.graphics.Rectangle(tempComponuntBound.x, tempComponuntBound.y, tempComponuntBound.width, tempComponuntBound.height);
+				componentCanvas.issueToolTip(componentToolTip, componentBound);
+				setStatusToolTipFocusListener();
+				
+			}
+			
+			@Override
+			public void mouseExited(org.eclipse.draw2d.MouseEvent arg0) {
+				Point p = new Point(arg0.getLocation().x, arg0.getLocation().y);
+				if(!getBounds().contains(p) && componentToolTip != null){
+					componentToolTip.setVisible(false);
+					//componentToolTip.dispose();
+					componentToolTip=null;
+					componentCanvas.issueToolTip(componentToolTip, null);				
+				}
+			}
+			
+			@Override
+			public void mouseEntered(org.eclipse.draw2d.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+			
+			@Override
+			public void mouseDragged(org.eclipse.draw2d.MouseEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 
 	private void setPortCount(PortSpecification p) {
