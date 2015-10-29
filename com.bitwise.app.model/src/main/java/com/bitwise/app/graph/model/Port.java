@@ -10,15 +10,16 @@ package com.bitwise.app.graph.model;
 public class Port extends Model{
 	
 	private static final long serialVersionUID = 302760655288792415L;
-	private String terminal;
-	private int numberOfPortsOfThisType;
-	private String portType;
-	private int sequence;
-	private Component parent;
-	
+	private final String terminal;
+	private final int numberOfPortsOfThisType;
+	private final String portType;
+	private final int sequence;
+	private final Component parent;
+	private final String nameOfPort;
 	/**
 	 * Instantiates a new port.
-	 * 
+	 * * @param nameOfPort
+	 *            the nameOfPort
 	 * @param terminal
 	 *            the terminal
 	 * @param component
@@ -30,12 +31,13 @@ public class Port extends Model{
 	 * @param seq
 	 *            the seq
 	 */
-	public Port(String terminal, Component component, int noPortsOfThisType, String type, int seq){
+	public Port(String nameOfPort,String terminal, Component component, int noPortsOfThisType, String type, int seq){
 		this.terminal = terminal;
 		this.numberOfPortsOfThisType = noPortsOfThisType;
 		this.portType = type;
 		this.sequence = seq;
 		this.parent =component;
+		this.nameOfPort=nameOfPort;
 	}
 
 	public Component getParent() {
@@ -57,4 +59,9 @@ public class Port extends Model{
 	public int getSequence() {
 		return sequence;
 	}
+	
+	public String getNameOfPort() {
+		return nameOfPort;
+	}
+	
 }
