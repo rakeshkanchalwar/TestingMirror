@@ -28,10 +28,7 @@
     <tns:property dataType="boolean" name="safe" renderer="SAFE_PROPERTY_WIDGET" 
     	type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
     	
-    <tns:property dataType="boolean" name="has_header" renderer="HAS_HEADER_WIDGET" 
-    	type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
-    	
-    <tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET" 
+   <tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET" 
     	type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
     	
     <tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET"
