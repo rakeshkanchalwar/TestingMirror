@@ -18,6 +18,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -190,6 +192,23 @@ public class ComponentFigure extends Figure implements Validator{
 		return componentBound;
 	}
 	
+	private void hideToolTip2() {
+		if(componentCanvas != null){
+			if(componentCanvas.getComponentTooltip() != null){
+				componentCanvas.getComponentTooltip().setVisible(false);
+				if(componentCanvas!=null)
+					componentCanvas.issueToolTip(null, null);
+			}
+		}
+		
+		if(componentToolTip != null){
+			componentToolTip.setVisible(false);
+			componentToolTip = null;
+			componentBounds=null;
+		}
+		componentCanvas=null;
+	}
+	
 	private void showToolBarToolTip() {
 		org.eclipse.swt.graphics.Rectangle toltipBounds = componentToolTip.getBounds();
 		
@@ -202,6 +221,30 @@ public class ComponentFigure extends Figure implements Validator{
 		componentCanvas.issueToolTip(componentToolTip, componentBounds);
 		
 		componentToolTip.setVisible(true);
+		
+		componentToolTip.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				hideToolTip2();				
+			}
+
+			
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		componentToolTip.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				hideToolTip2();
+			}
+		});
+		
 	}
 	
 	private void attachMouseListener() {

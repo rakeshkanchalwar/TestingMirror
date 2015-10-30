@@ -60,10 +60,19 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.events.ShellAdapter;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
@@ -73,7 +82,18 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IPageListener;
+import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IWindowListener;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchListener;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.dialogs.SaveAsDialog;
@@ -167,6 +187,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	}
 
 	private void hideToolTip(){
+		System.out.println((toolTipComponentBounds !=null) + " : " + (componentTooltip != null));
 		if(toolTipComponentBounds !=null && componentTooltip != null){
 			componentTooltip.setVisible(false);
 			componentTooltip=null;
@@ -175,6 +196,21 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	}
 	
 	public void attachCanvasMouseListeners(){
+		
+		viewer.getControl().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				hideToolTip();
+			}
+		});
+		
 		viewer.getControl().addMouseListener(new MouseListener() {
 			
 			@Override
@@ -202,14 +238,14 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			
 			@Override
 			public void mouseMove(MouseEvent e) {
-				if(toolTipComponentBounds !=null && componentTooltip != null){
-					if(!componentTooltip.hasToolBarManager()){
-						org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
-						if(!toolTipComponentBounds.contains(point)){
-							hideToolTip();
+					if(toolTipComponentBounds !=null && componentTooltip != null){
+						if(!componentTooltip.hasToolBarManager()){
+							org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x, e.y);
+							if(!toolTipComponentBounds.contains(point)){
+								hideToolTip();
+							}
 						}
 					}
-				}
 			}
 		});
 		

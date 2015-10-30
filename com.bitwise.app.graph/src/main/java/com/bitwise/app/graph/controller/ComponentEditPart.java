@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
@@ -22,6 +23,8 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.Policy;
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.component.config.Property;
+import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
@@ -242,9 +245,25 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				getFigure(), bounds);
 		
 		
+		if(component.getTooltipInformation() == null){
+			addTooltipInfoToComponent();
+		}
+		
 		component.updateTooltipInformation();
 		componentFigure.setPropertyToolTipInformation(component.getTooltipInformation());
 		
+	}
+
+	private void addTooltipInfoToComponent() {
+		// TODO Auto-generated method stub
+		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(getModel().getClass());
+		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
+		//attach tooltip information to component
+				Map<String,PropertyToolTipInformation> tooltipInformation = new LinkedHashMap<>();
+				for(Property property : components.getProperty()){
+					tooltipInformation.put(property.getName(),new PropertyToolTipInformation(property.getName(), property.getShowAsTooltip().value(), property.getTooltipDataType().value()));
+				}
+				getCastedModel().setTooltipInformation(tooltipInformation);
 	}
 
 	@Override
