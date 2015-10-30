@@ -18,6 +18,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -55,10 +57,6 @@ public class ComponentFigure extends Figure implements Validator{
 	private List<PortSpecification> portspecification;
 	
 	private int totalPortsofInType=0, totalPortsOfOutType=0;
-	
-	private String labelName;
-	private Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
-	private Point labelPoint;
 	
 	private Color borderColor;
 	private Color selectedBorderColor;	
@@ -142,7 +140,7 @@ public class ComponentFigure extends Figure implements Validator{
 		ComponentTooltip tooltip = new ComponentTooltip(parent, toolBarManager, propertyToolTipInformation);
 		org.eclipse.swt.graphics.Point location=new org.eclipse.swt.graphics.Point(toltipBounds.x, toltipBounds.y);
 		tooltip.setLocation(location);
-		tooltip.setSize(toltipBounds.width, toltipBounds.height);
+		tooltip.setSize(toltipBounds.width + 20, toltipBounds.height + 20);
 		return tooltip;
 	}
 	
@@ -173,6 +171,12 @@ public class ComponentFigure extends Figure implements Validator{
 			
 			componentToolTip.setVisible(true);
 			setStatusToolTipFocusListener();
+			org.eclipse.swt.graphics.Point tooltipSize = componentToolTip.computeSizeHint();
+			//componentToolTip.setSizeConstraints(300, 100);
+			if(tooltipSize.x > 300){
+				tooltipSize.x = 300;
+			}
+			componentToolTip.setSize(tooltipSize.x, tooltipSize.y);
 		}else{
 			System.out.println("There is tool tip, So I am not shousing new one");
 		}
@@ -182,6 +186,23 @@ public class ComponentFigure extends Figure implements Validator{
 		Rectangle tempComponuntBound = getBounds();
 		org.eclipse.swt.graphics.Rectangle componentBound = new org.eclipse.swt.graphics.Rectangle(tempComponuntBound.x, tempComponuntBound.y, tempComponuntBound.width, tempComponuntBound.height);
 		return componentBound;
+	}
+	
+	private void hideToolTip2() {
+		if(componentCanvas != null){
+			if(componentCanvas.getComponentTooltip() != null){
+				componentCanvas.getComponentTooltip().setVisible(false);
+				if(componentCanvas!=null)
+					componentCanvas.issueToolTip(null, null);
+			}
+		}
+		
+		if(componentToolTip != null){
+			componentToolTip.setVisible(false);
+			componentToolTip = null;
+			componentBounds=null;
+		}
+		componentCanvas=null;
 	}
 	
 	private void showToolBarToolTip() {
@@ -196,6 +217,30 @@ public class ComponentFigure extends Figure implements Validator{
 		componentCanvas.issueToolTip(componentToolTip, componentBounds);
 		
 		componentToolTip.setVisible(true);
+		
+		componentToolTip.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				hideToolTip2();				
+			}
+
+			
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		componentToolTip.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				hideToolTip2();
+			}
+		});
+		
 	}
 	
 	private void attachMouseListener() {
@@ -322,7 +367,7 @@ public class ComponentFigure extends Figure implements Validator{
 		componentColor = ELTColorConstants.bgComponent;
 		borderColor = ELTColorConstants.componentBorder;
 		selectedComponentColor = ELTColorConstants.bgComponentSelected;
-		selectedBorderColor = ELTColorConstants.componentSelectedBorder;
+		selectedBorderColor = ELTColorConstants.blueBrandBoder;
 	}
 	
 	@Override
@@ -331,20 +376,10 @@ public class ComponentFigure extends Figure implements Validator{
 		graphics.translate(r.getLocation());
 		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
 		graphics.fillRoundRectangle(q, 5, 5);
-
-		//drawLable(r, graphics);
 		
 		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-4));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-10));
 		drawStatus(graphics);
-	}
-	
-	private void drawLable(Rectangle r, Graphics graphics){
-		int x = (r.width - getLabelName().length() * 6) / 2;
-		labelPoint = new Point(x, r.height / 2 + 8);
-		graphics.setForegroundColor(ELTColorConstants.black);
-		graphics.setFont(labelFont);
-		graphics.drawText(getLabelName(), labelPoint);
 	}
 
 
@@ -415,13 +450,7 @@ public class ComponentFigure extends Figure implements Validator{
 	public ConnectionAnchor getTargetConnectionAnchorAt(Point p) {
 		return closestAnchor(p, inputConnectionAnchors);
 	}
-	public String getLabelName() {
-		return labelName;
-	}
 
-	public void setLabelName(String labelName) {
-		this.labelName = labelName;
-	}
 	
 	@Override
 	public void validate() {

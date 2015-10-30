@@ -14,6 +14,7 @@ import com.bitwise.app.common.component.config.Property;
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.ComponentCacheUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.graph.figure.ELTFigureConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -78,7 +79,7 @@ public class ComponentCreateCommand extends Command {
 
 		//int defaultWidth = (component.getBasename().length()+3)*7+30;
 		//int defaultHeight = defaultWidth * 6/8;
-		Dimension newSize = new Dimension(component.getSize().width, height + 30);
+		Dimension newSize = new Dimension(component.getSize().width, height + ELTFigureConstants.componentLabelMargin);
 		//component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;

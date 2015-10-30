@@ -52,7 +52,8 @@ public class CustomFigureCanvas extends FigureCanvas{
         } catch (NoSuchMethodException e) {
         	logger.error(e.getMessage());
             throwExceptionWhenReflectionIsFailed(e);
-        } catch (NoSuchFieldException e) {
+        } 
+            catch (NoSuchFieldException e) {
         	logger.error(e.getMessage());
             throwExceptionWhenReflectionIsFailed(e);
         }
@@ -69,6 +70,7 @@ public class CustomFigureCanvas extends FigureCanvas{
             org.eclipse.swt.graphics.Point bounds = containerForSearchTextBox.computeSize(SWT.DEFAULT, SWT.DEFAULT);
             if (containerHeight < bounds.y) {
                 containerHeight = bounds.y;
+                
             }
         }
         
@@ -87,8 +89,9 @@ public class CustomFigureCanvas extends FigureCanvas{
                 @Override
                 public void notifyPainting(Rectangle damage, java.util.Map dirtyRegions) {
                     if (containerForSearchTextBox != null) {
-                        containerForSearchTextBox.setBounds(0, 0, containerForSearchTextBox.getBounds().width, containerHeight);
-                    }
+                    	int count =((Composite)containerForSearchTextBox).getChildren().length;
+                    		containerForSearchTextBox.setBounds(0, 0, containerForSearchTextBox.getBounds().width, containerHeight*count);	
+                     }
                 }
 
                 @Override

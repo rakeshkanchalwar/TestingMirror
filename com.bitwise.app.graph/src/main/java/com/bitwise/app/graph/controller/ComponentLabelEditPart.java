@@ -6,12 +6,13 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.bitwise.app.graph.figure.ComponentLabelFigure;
 import com.bitwise.app.graph.model.Component;
+import com.bitwise.app.graph.model.ComponentLabel;
 
 public class ComponentLabelEditPart extends AbstractGraphicalEditPart{
 
 	@Override
 	protected IFigure createFigure() {
-		//ComponentFigure componentFigure = ((ComponentEditPart) getParent()).getComponentFigure();
+		
 		Component component = ((ComponentEditPart) getParent()).getCastedModel();
 		
 		String compLabel = component.getComponentLabel().getComponentLabel();
@@ -24,6 +25,15 @@ public class ComponentLabelEditPart extends AbstractGraphicalEditPart{
 	@Override
 	protected void createEditPolicies() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	@Override
+	protected void refreshVisuals() {
+		
+		String label = ((ComponentLabel)getModel()).getComponentLabel();
+		((ComponentLabelFigure)getFigure()).setComponentLabel(label);
 		
 	}
 

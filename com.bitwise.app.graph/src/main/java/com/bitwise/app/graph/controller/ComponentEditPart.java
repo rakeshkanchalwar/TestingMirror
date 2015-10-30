@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
@@ -22,6 +23,8 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.Policy;
 import com.bitwise.app.common.component.config.PortSpecification;
+import com.bitwise.app.common.component.config.Property;
+import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
@@ -233,18 +236,45 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		
 		Component component = getCastedModel();
 		ComponentFigure componentFigure = getComponentFigure();
-		componentFigure.setLabelName((String) component.getPropertyValue("name"));
-		logger.debug("New component/figure name :"+componentFigure.getLabelName());
-		//comp.setSize(newSize);
+				
+		component.setComponentLabel((String) component.getPropertyValue(Component.Props.NAME_PROP.getValue()));
+		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
+		if (!childrenEditParts.isEmpty()){
+			ComponentLabelEditPart cLabelEditPart = null;
+			for(AbstractGraphicalEditPart part:childrenEditParts)
+			{
+				if(part instanceof ComponentLabelEditPart)
+					cLabelEditPart = (ComponentLabelEditPart) part;
+			}
+			cLabelEditPart.refreshVisuals();
+		}
+		
+		
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
 				getFigure(), bounds);
 		
 		
+		if(component.getTooltipInformation() == null){
+			addTooltipInfoToComponent();
+		}
+		
 		component.updateTooltipInformation();
 		componentFigure.setPropertyToolTipInformation(component.getTooltipInformation());
 		
+	}
+
+	private void addTooltipInfoToComponent() {
+		// TODO Auto-generated method stub
+		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(getModel().getClass());
+		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
+		//attach tooltip information to component
+				Map<String,PropertyToolTipInformation> tooltipInformation = new LinkedHashMap<>();
+				for(Property property : components.getProperty()){
+					tooltipInformation.put(property.getName(),new PropertyToolTipInformation(property.getName(), property.getShowAsTooltip().value(), property.getTooltipDataType().value()));
+				}
+				getCastedModel().setTooltipInformation(tooltipInformation);
 	}
 
 	@Override
@@ -252,7 +282,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		// Opens Property Window only on Double click.
 		if (req.getType().equals(RequestConstants.REQ_OPEN)) {
 			ELTPropertyWindow eltPropertyWindow = new ELTPropertyWindow(getModel());
-			//ProdELTPropertyWindow eltPropertyWindow = new ProdELTPropertyWindow(getModel());
 			eltPropertyWindow.open();
 			
 			logger.debug("Updated dimentions: " + getCastedModel().getSize().height + ":"
@@ -260,8 +289,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			updateComponentStatus();
 			refreshVisuals();
-
-			getFigure().repaint();
 
 			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			if(eltPropertyWindow.isPropertyChanged()){

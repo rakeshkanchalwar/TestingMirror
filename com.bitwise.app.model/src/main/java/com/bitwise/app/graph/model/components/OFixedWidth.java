@@ -8,12 +8,12 @@ import com.bitwise.app.graph.model.categories.OutputCategory;
  * 
  * @author Bitwise
  */
-public class OutputFixedWidth extends OutputCategory {
+public class OFixedWidth extends OutputCategory {
 
 	/**
 	 * Instantiates a new output fixed width.
 	 */
-	public OutputFixedWidth() {
+	public OFixedWidth() {
 		super();
 	}
 
