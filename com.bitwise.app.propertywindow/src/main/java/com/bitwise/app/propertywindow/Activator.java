@@ -10,6 +10,9 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator implements BundleActivator {
 
+	// The plug-in ID
+	public static final String PLUGIN_ID = "com.bitwise.app.propertywindow"; //$NON-NLS-1$
+		
 	private static BundleContext context;
 
 	static BundleContext getContext() {
