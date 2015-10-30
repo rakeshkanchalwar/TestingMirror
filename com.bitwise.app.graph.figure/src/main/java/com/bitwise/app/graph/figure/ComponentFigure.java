@@ -142,7 +142,7 @@ public class ComponentFigure extends Figure implements Validator{
 		ComponentTooltip tooltip = new ComponentTooltip(parent, toolBarManager, propertyToolTipInformation);
 		org.eclipse.swt.graphics.Point location=new org.eclipse.swt.graphics.Point(toltipBounds.x, toltipBounds.y);
 		tooltip.setLocation(location);
-		tooltip.setSize(toltipBounds.width, toltipBounds.height);
+		tooltip.setSize(toltipBounds.width + 20, toltipBounds.height + 20);
 		return tooltip;
 	}
 	
@@ -173,6 +173,12 @@ public class ComponentFigure extends Figure implements Validator{
 			
 			componentToolTip.setVisible(true);
 			setStatusToolTipFocusListener();
+			org.eclipse.swt.graphics.Point tooltipSize = componentToolTip.computeSizeHint();
+			//componentToolTip.setSizeConstraints(300, 100);
+			if(tooltipSize.x > 300){
+				tooltipSize.x = 300;
+			}
+			componentToolTip.setSize(tooltipSize.x, tooltipSize.y);
 		}else{
 			System.out.println("There is tool tip, So I am not shousing new one");
 		}

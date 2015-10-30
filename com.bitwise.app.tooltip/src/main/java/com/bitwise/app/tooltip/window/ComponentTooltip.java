@@ -1,22 +1,37 @@
 package com.bitwise.app.tooltip.window;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.text.AbstractInformationControl;
 import org.eclipse.jface.text.IInformationControlExtension2;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
+import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
+import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 public class ComponentTooltip extends AbstractInformationControl implements IInformationControlExtension2 {
-	Text text;
+	//Text text;
 	private ToolBarManager toolBarManager=null;
 	//private PropertyToolTipInformation propertyToolTipInformation;
 	private Map<String,PropertyToolTipInformation> componentToolTipInformation;
@@ -55,38 +70,80 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 	@Override
 	protected void createContent(Composite parent) {
 	
-		Composite container = new Composite(parent, SWT.NONE);
-		container.setLayout(new FillLayout(SWT.HORIZONTAL));
+		ScrolledComposite scrolledComposite = new ScrolledComposite(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		scrolledComposite.setExpandHorizontal(true);
+		scrolledComposite.setExpandVertical(true);
 		
-		text = new Text(container, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		final Composite container = new Composite(scrolledComposite, SWT.NONE);
+		container.setLayout(new GridLayout(1, true));
 		
-		StringBuilder stringBuilder = new StringBuilder();
 		for(String property: componentToolTipInformation.keySet()){
 			PropertyToolTipInformation propertyInfo = componentToolTipInformation.get(property);
 			if(propertyInfo.isShowAsTooltip()){
-				if(propertyInfo.getTooltipDataType().equalsIgnoreCase("TEXT") || propertyInfo.getTooltipDataType().equalsIgnoreCase("LINK")){
-					if(propertyInfo.getPropertyValue() != null){
-						if(propertyInfo.getPropertyName().equalsIgnoreCase("oprationClass")){
-							stringBuilder.append(propertyInfo.getPropertyValue());
-							stringBuilder.append("\n");
-						}else{
-							stringBuilder.append(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue());
-							stringBuilder.append("\n");
-						}	
+				if(propertyInfo.getTooltipDataType().equalsIgnoreCase("TEXT")){
+					if(propertyInfo.getPropertyValue() != null){						
+						Label lblTextProperty = new Label(container, SWT.NONE);
+						lblTextProperty.setText(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue());
+						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}
-					
-					
-				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LIST")){
+				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LINK")){
 					if(propertyInfo.getPropertyValue() != null){
-						stringBuilder.append(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue().toString());
-						stringBuilder.append("\n");
+						if(propertyInfo.getPropertyName().equalsIgnoreCase("oprationClass")){							
+							Link link = new Link(container, SWT.NONE);
+							String tempText= propertyInfo.getPropertyName() + " : <a>" + propertyInfo.getPropertyValue().toString() + "</a>";
+							final String filePath = propertyInfo.getPropertyValue().toString();
+							link.setText(tempText);
+							link.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+							
+							link.addSelectionListener(new SelectionAdapter() {
+								@Override
+								public void widgetSelected(SelectionEvent e) {
+									// TODO Auto-generated method stub
+									super.widgetSelected(e);
+									boolean flag = FilterOperationClassUtility.openFileEditor(filePath);
+									if (!flag) {
+										WidgetUtility.errorMessage("File Not Found"); 
+									} else {
+										setVisible(false);
+										//shell.close(); 
+									}
+								}
+							});
+							
+						}else{
+							Label lblLinkProperty = new Label(container, SWT.NONE);
+							lblLinkProperty.setText(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue());
+							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+						}	
+					}				
+				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LIST")){
+					if(propertyInfo.getPropertyValue() != null){						
+						Label lblTextProperty = new Label(container, SWT.NONE);
+						lblTextProperty.setText(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue().toString());
+						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}
 				}
 			}
 		}
-		text.setText(stringBuilder.toString());
-		text.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-		text.setEditable(false);
+		
+		container.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+		
+		scrolledComposite.setContent(container);
+		scrolledComposite.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+	}
+
+	private Listener getMouseClickListener(final Composite container) {
+		return new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				// TODO Auto-generated method stub
+				container.setFocus();
+			}
+		};
 	}
 
 	
@@ -128,7 +185,7 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 
 	@Override
 	protected void handleDispose() {
-		text.dispose();
+		//text.dispose();
 		//tooltipContainer.dispose();
 		super.handleDispose();
 	}
