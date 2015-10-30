@@ -32,8 +32,6 @@ public class ComponentLabelEditPart extends AbstractGraphicalEditPart{
 	@Override
 	protected void refreshVisuals() {
 		
-		System.out.println("ComponentLabelEditPart refreshVisuals called.");
-		
 		String label = ((ComponentLabel)getModel()).getComponentLabel();
 		((ComponentLabelFigure)getFigure()).setComponentLabel(label);
 		
