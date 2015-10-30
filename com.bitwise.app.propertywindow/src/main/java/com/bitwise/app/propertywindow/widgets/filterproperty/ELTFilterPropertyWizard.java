@@ -1,15 +1,21 @@
 package com.bitwise.app.propertywindow.widgets.filterproperty;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
@@ -52,6 +58,8 @@ import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.propertywindow.Activator;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
@@ -372,7 +380,8 @@ public class ELTFilterPropertyWizard {
 		new Label(composite, SWT.SEPARATOR|SWT.HORIZONTAL).setBounds(0, 41, 513, 60);
 		addButton = new Button(composite, SWT.PUSH);
 		//addButton.setText("+");
-		addButton.setImage(new Image(disple, "resources/icons/add_arrow.png"));
+		String addIconPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png";
+		addButton.setImage(new Image(null, addIconPath));
 		addButton.setBounds(384, 10, 20, 20);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -382,8 +391,8 @@ public class ELTFilterPropertyWizard {
 		});
 		
 		deleteButton = new Button(composite, SWT.PUSH|SWT.BORDER);
-		//deleteButton.setText("X");
-		deleteButton.setImage(new Image(disple, "resources/icons/delete.png"));
+		String deleteIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png";
+		deleteButton.setImage(new Image(null, deleteIonPath));
 		deleteButton.setBounds(406, 10, 25, 20);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			int[] temp;
@@ -415,7 +424,8 @@ public class ELTFilterPropertyWizard {
 		
 		upButton = new Button(composite, SWT.PUSH);
 		//upButton.setText("^");
-		upButton.setImage(new Image(disple, "resources/icons/green-up.png"));
+		String upIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/up_arrow.png";
+		upButton.setImage(new Image(null, upIonPath));
 		upButton.setBounds(433, 10, 20, 20);
 		
 		upButton.addSelectionListener(new SelectionAdapter() {
@@ -429,7 +439,8 @@ public class ELTFilterPropertyWizard {
 		
 		downButton = new Button(composite, SWT.PUSH|SWT.BORDER);
 		//downButton.setText("->");
-		downButton.setImage(new Image(disple, "resources/icons/down_arrow.png"));
+		String downIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/down_arrow.png";
+		downButton.setImage(new Image(null, downIonPath));
 		downButton.setBounds(450, 10, 25, 20);
 		downButton.addSelectionListener(new SelectionAdapter() {
 			int temp=0;
