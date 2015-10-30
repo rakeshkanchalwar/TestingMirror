@@ -21,10 +21,12 @@ public class ELTColorConstants {
 	public static final Color darkBlue =  new Color(null, 17, 128, 151);
 	public static final Color componentSelectBlue =  new Color(null, 83,126,137);
 	public static final Color black = ColorConstants.black;
-
+	
+	public static final Color blueBrand =  new Color(null,0,148,202);
+	public static final Color blueBrandBoder =  new Color(null,5,117,158);
 	
 	public static final Color bgComponent = lightGrey;
-	public static final Color bgComponentSelected = componentSelectBlue;
+	public static final Color bgComponentSelected = blueBrand;
 	public static final Color componentBorder = darkGrey;
 	public static final Color componentSelectedBorder = darkBlue;
 	

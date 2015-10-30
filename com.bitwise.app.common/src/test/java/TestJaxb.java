@@ -91,7 +91,7 @@ public class TestJaxb {
 	public void itShouldValidateXmlWithXsd() throws Exception
 	{
 		String xsdPath="../com.bitwise.app.product/resources/config/xsds/ComponentConfig.xsd";
-		String xmlPath="../com.bitwise.app.product/resources/config/input.xml";
+		String xmlPath="../com.bitwise.app.product/resources/config/inputdelimited.xml";
 		Assert.assertTrue(XMLConfigUtil.INSTANCE.validateXMLSchema(xsdPath,xmlPath));
 	}
 }

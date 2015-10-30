@@ -8,12 +8,12 @@ import com.bitwise.app.graph.model.categories.InputCategory;
  * 
  * @author Bitwise
  */
-public class InputFixedWidth extends InputCategory{
+public class IFixedWidth extends InputCategory{
 
 	/**
 	 * Instantiates a new input fixed width.
 	 */
-	public InputFixedWidth() {
+	public IFixedWidth() {
 		super();
 	}
 
