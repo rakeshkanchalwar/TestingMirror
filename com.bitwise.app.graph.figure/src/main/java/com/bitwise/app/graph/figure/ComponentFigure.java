@@ -56,10 +56,6 @@ public class ComponentFigure extends Figure implements Validator{
 	
 	private int totalPortsofInType=0, totalPortsOfOutType=0;
 	
-	private String labelName;
-	private Font labelFont = new Font(null, "", 8, SWT.NORMAL); 
-	private Point labelPoint;
-	
 	private Color borderColor;
 	private Color selectedBorderColor;	
 	private Color componentColor;
@@ -337,20 +333,10 @@ public class ComponentFigure extends Figure implements Validator{
 		graphics.translate(r.getLocation());
 		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
 		graphics.fillRoundRectangle(q, 5, 5);
-
-		//drawLable(r, graphics);
 		
 		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
 		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-4));
 		drawStatus(graphics);
-	}
-	
-	private void drawLable(Rectangle r, Graphics graphics){
-		int x = (r.width - getLabelName().length() * 6) / 2;
-		labelPoint = new Point(x, r.height / 2 + 8);
-		graphics.setForegroundColor(ELTColorConstants.black);
-		graphics.setFont(labelFont);
-		graphics.drawText(getLabelName(), labelPoint);
 	}
 
 
@@ -421,13 +407,7 @@ public class ComponentFigure extends Figure implements Validator{
 	public ConnectionAnchor getTargetConnectionAnchorAt(Point p) {
 		return closestAnchor(p, inputConnectionAnchors);
 	}
-	public String getLabelName() {
-		return labelName;
-	}
 
-	public void setLabelName(String labelName) {
-		this.labelName = labelName;
-	}
 	
 	@Override
 	public void validate() {

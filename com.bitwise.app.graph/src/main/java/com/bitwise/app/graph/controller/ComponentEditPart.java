@@ -233,9 +233,20 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		
 		Component component = getCastedModel();
 		ComponentFigure componentFigure = getComponentFigure();
-		componentFigure.setLabelName((String) component.getPropertyValue("name"));
-		logger.debug("New component/figure name :"+componentFigure.getLabelName());
-		//comp.setSize(newSize);
+				
+		component.setComponentLabel((String) component.getPropertyValue(Component.Props.NAME_PROP.getValue()));
+		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
+		if (!childrenEditParts.isEmpty()){
+			ComponentLabelEditPart cLabelEditPart = null;
+			for(AbstractGraphicalEditPart part:childrenEditParts)
+			{
+				if(part instanceof ComponentLabelEditPart)
+					cLabelEditPart = (ComponentLabelEditPart) part;
+			}
+			cLabelEditPart.refreshVisuals();
+		}
+		
+		
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
 		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
@@ -252,7 +263,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		// Opens Property Window only on Double click.
 		if (req.getType().equals(RequestConstants.REQ_OPEN)) {
 			ELTPropertyWindow eltPropertyWindow = new ELTPropertyWindow(getModel());
-			//ProdELTPropertyWindow eltPropertyWindow = new ProdELTPropertyWindow(getModel());
 			eltPropertyWindow.open();
 			
 			logger.debug("Updated dimentions: " + getCastedModel().getSize().height + ":"
@@ -260,8 +270,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			updateComponentStatus();
 			refreshVisuals();
-
-			getFigure().repaint();
 
 			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			if(eltPropertyWindow.isPropertyChanged()){
