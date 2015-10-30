@@ -324,7 +324,7 @@ public class ComponentFigure extends Figure implements Validator{
 		componentColor = ELTColorConstants.bgComponent;
 		borderColor = ELTColorConstants.componentBorder;
 		selectedComponentColor = ELTColorConstants.bgComponentSelected;
-		selectedBorderColor = ELTColorConstants.componentSelectedBorder;
+		selectedBorderColor = ELTColorConstants.blueBrandBoder;
 	}
 	
 	@Override

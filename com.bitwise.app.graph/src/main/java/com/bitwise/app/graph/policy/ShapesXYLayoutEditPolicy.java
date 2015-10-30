@@ -36,7 +36,7 @@ public class ShapesXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	@Override
 	protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
 		if (child instanceof ComponentEditPart && constraint instanceof Rectangle) {
-			// return a command that can move and/or resize a Shape
+			//return a command that can move and/or resize a Shape
 			return new ComponentSetConstraintCommand((Component) child.getModel(),
 					request, (Rectangle) constraint);
 		}
@@ -46,8 +46,8 @@ public class ShapesXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	
 	@Override 
 	protected EditPolicy createChildEditPolicy(EditPart child) { 
-		//return new ComponentResizableEditPolicy();
-		return new NonResizableEditPolicy(); 
+		return new ComponentResizableEditPolicy();
+		//return new NonResizableEditPolicy(); 
 	} 
 	
 }

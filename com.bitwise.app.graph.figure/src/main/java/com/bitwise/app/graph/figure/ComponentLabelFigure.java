@@ -52,10 +52,5 @@ public class ComponentLabelFigure extends Figure{
 		setBackgroundColor(ColorConstants.white);
 	}
 	
-	@Override
-	protected void paintFigure(Graphics graphics) {
-		
-		Rectangle r = getBounds();
-		graphics.fillRectangle(r);
-	}
+
 }

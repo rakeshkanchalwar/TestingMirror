@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 
-import com.bitwise.app.graph.controller.ComponentLabelEditPart;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.ComponentLabelFigure;
+import com.bitwise.app.graph.figure.PortFigure;
 
 /**
  * 
@@ -39,8 +39,8 @@ public class ComponentSelectionPolicy extends SelectionEditPolicy {
 		if (!childrenFigures.isEmpty()){
 			for(Figure figure:childrenFigures)
 			{
-				if(figure instanceof ComponentLabelFigure)
-					((ComponentLabelFigure) figure).selectLabel();
+				if(figure instanceof PortFigure)
+					((PortFigure) figure).selectPort();
 			}
 		}
 	}
@@ -50,8 +50,8 @@ public class ComponentSelectionPolicy extends SelectionEditPolicy {
 		if (!childrenFigures.isEmpty()){
 			for(Figure figure:childrenFigures)
 			{
-				if(figure instanceof ComponentLabelFigure)
-					((ComponentLabelFigure) figure).deSelectlabel();
+				if(figure instanceof PortFigure)
+					((PortFigure) figure).deSelectPort();
 			}
 		}
 	}
