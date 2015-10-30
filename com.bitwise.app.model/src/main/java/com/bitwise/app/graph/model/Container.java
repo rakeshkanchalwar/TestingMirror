@@ -18,12 +18,9 @@ public class Container extends Model {
 	 */
 	private static final long serialVersionUID = 8825716379098354511L;
 	
-	/** Property ID to use when a child is added to this diagram. */
 	public static final String CHILD_ADDED_PROP = "ComponentsDiagram.ChildAdded";
-	/** Property ID to use when a child is removed from this diagram. */
 	public static final String CHILD_REMOVED_PROP = "ComponentsDiagram.ChildRemoved";
 	
-	private static final String NAME_PROP = "name";
 	
 	private final List<Component> components = new ArrayList<>();
 	private final Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
@@ -33,15 +30,16 @@ public class Container extends Model {
 	
 	
 	/**
-	 * Add a shape to this diagram.
-	 * @return true, if the shape was added, false otherwise
+	 * Add a component to this graph.
+	 * @return true, if the component was added, false otherwise
 	 */
 	public boolean addChild(Component component) {
 		if (component != null && components.add(component)) {
 			component.setParent(this);
-			String compType = (String) component.getPropertyValue(NAME_PROP);
-			String compName = getDefaultNameForComponent(compType.trim(),component.getBasename(),component.isNewInstance()).trim();
-			component.setPropertyValue(NAME_PROP, compName);
+			String compOldName = (String) component.getPropertyValue(Component.Props.NAME_PROP.getValue());
+			String compNewName = getDefaultNameForComponent(compOldName.trim(),component.getBasename(),component.isNewInstance()).trim();
+			component.setComponentLabel(compNewName);
+			
 			if (component.isNewInstance()) {
 				component.setNewInstance(false);
 			}
@@ -52,7 +50,7 @@ public class Container extends Model {
 	}
 
 	/**
-	 * Return a List of Shapes in this diagram. The returned List should not be
+	 * Return a List of Components in this graph. The returned List should not be
 	 * modified.
 	 */
 	public List<Component> getChildren() {
@@ -60,12 +58,12 @@ public class Container extends Model {
 	}
 
 	/**
-	 * Remove a shape from this diagram.
-	 * @return true, if the shape was removed, false otherwise
+	 * Remove a component from this diagram.
+	 * @return true, if the component was removed, false otherwise
 	 */
 	public boolean removeChild(Component component) {
 		if (component != null && components.remove(component)) {
-			componentNames.remove(component.getPropertyValue(NAME_PROP));
+			componentNames.remove(component.getPropertyValue(Component.Props.NAME_PROP.getValue()));
 			firePropertyChange(CHILD_REMOVED_PROP, null, component);
 			return true;
 		}
@@ -157,7 +155,6 @@ public class Container extends Model {
 	}
 	
 	private boolean isUniqueCompName(String componentName) {
-		String METHOD_NAME = "Container.isUniqueCompName(): ";
 		componentName = componentName.trim();
 		boolean result = true;
 
@@ -168,12 +165,9 @@ public class Container extends Model {
 			}
 
 		}
-		LoggerUtil.getLoger(this.getClass()).debug(METHOD_NAME + "Conainer.isUniqueCompName(): result: " + result);
+		LoggerUtil.getLoger(this.getClass()).debug("Conainer.isUniqueCompName(): result: " + result);
 
 		return result;
 	}
-	
-	
-
 	
 }

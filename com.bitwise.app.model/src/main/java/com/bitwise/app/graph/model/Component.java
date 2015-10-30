@@ -31,6 +31,7 @@ public abstract class Component extends Model {
 	 * @author Bitwise
 	 */
 	public static enum Props {
+		NAME_PROP("name"),
 		LOCATION_PROP("Location"),
 		SIZE_PROP("Size"),
 		INPUTS("inputs"),
@@ -457,4 +458,8 @@ public abstract class Component extends Model {
 		}		
 	}
 	
+	public void setComponentLabel(String label) {
+		setPropertyValue(Component.Props.NAME_PROP.getValue(), label);
+		componentLabel.setComponentLabel(label);
+	}
 }
