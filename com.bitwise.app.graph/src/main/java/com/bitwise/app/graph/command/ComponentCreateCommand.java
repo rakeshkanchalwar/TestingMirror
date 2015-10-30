@@ -14,6 +14,7 @@ import com.bitwise.app.common.component.config.Property;
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.ComponentCacheUtil;
 import com.bitwise.app.common.util.XMLConfigUtil;
+import com.bitwise.app.graph.figure.ELTFigureConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.processor.DynamicClassProcessor;
@@ -25,28 +26,28 @@ import com.bitwise.app.graph.processor.DynamicClassProcessor;
 public class ComponentCreateCommand extends Command {
 	private static final String NAME = "name";
 	
-	/** The new shape. */
+	/** The new Component. */
 	private final Component component;
-	/** Container to add to. */
+	/** Graph to add to. */
 	private final Container parent;
-	/** The bounds of the new Shape. */
+	/** The bounds of the new Component. */
 	private final Rectangle bounds;
 	
 	/**
-	 * Create a command that will add a new Shape in Container.
+	 * Create a command that will add a new Component in Graph.
 	 * 
-	 * @param component the new Shape that is to be added
-	 * @param parent the Container that will hold the new element
-	 * @param bounds the bounds of the new shape; the size can be (-1, -1) if not known
+	 * @param component the new Component that is to be added
+	 * @param parent the Graph that will hold the new element
+	 * @param bounds the bounds of the new component; the size can be (-1, -1) if not known
 	 * @throws IllegalArgumentException if any parameter is null, or the request does not provide a
-	 *             new Shape instance
+	 *             new Component instance
 	 */
 	public ComponentCreateCommand(Component component, Container parent, Rectangle bounds) {
 
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
 		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
 		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
-		properties.put("name", components.getName());
+		properties.put(Component.Props.NAME_PROP.getValue(), components.getName());
 		component.setProperties(properties);
 		component.setBasename(components.getName());
 		component.setCategory(components.getCategory().value());
@@ -78,14 +79,14 @@ public class ComponentCreateCommand extends Command {
 
 		//int defaultWidth = (component.getBasename().length()+3)*7+30;
 		//int defaultHeight = defaultWidth * 6/8;
-		Dimension newSize = new Dimension(component.getSize().width, height + 30);
+		Dimension newSize = new Dimension(component.getSize().width, height + ELTFigureConstants.componentLabelMargin);
 		//component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;
 		//this.bounds = bounds;
 		Point p = new Point(bounds.x, bounds.y);
 		this.bounds = new Rectangle(p, newSize);
-		setLabel("component creation");
+		setLabel("Component creation");
 		
 	}
 	

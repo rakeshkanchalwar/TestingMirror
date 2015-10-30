@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-  <tns:component paletteIconPath="/icons/output_palette.png" canvasIconPath="/icons/output_canvas.png" name="OutputFixedWidth" shape="OutputFixedWidthFigure">
+  <tns:component paletteIconPath="/icons/output_palette.png" canvasIconPath="/icons/output_canvas.png" name="OFixedWidth" shape="OutputFixedWidthFigure">
     <tns:category>OUTPUT</tns:category>
  <tns:port>
 		<tns:portSpecification>
@@ -28,10 +28,7 @@
     <tns:property dataType="boolean" name="safe" renderer="SAFE_PROPERTY_WIDGET" type="USER" group="GENERAL" 
     	subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
     	
-    <tns:property dataType="boolean" name="has_header" renderer="HAS_HEADER_WIDGET" type="USER" group="GENERAL" 
-    	subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
-    	
-    <tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET" type="USER" 
+  <tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET" type="USER" 
     	group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
     	
     <tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET" type="USER" 

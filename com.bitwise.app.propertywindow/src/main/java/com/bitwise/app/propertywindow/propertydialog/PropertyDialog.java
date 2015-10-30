@@ -257,7 +257,7 @@ public class PropertyDialog extends Dialog {
 	
 	 protected Point getDefaultSize()
 	  {
-	    return getShell().computeSize(400, 500, true);
+	    return getShell().computeSize(450, 560, true);
 	  }
 	
 	@Override

@@ -40,7 +40,6 @@ public class PortFigure extends Figure {
 
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
-		graphics.setBackgroundColor(portColor);
 		graphics.fillRectangle(getBounds().getLocation().x, getBounds()
 				.getLocation().y, r.width, r.height);
 
@@ -72,7 +71,14 @@ public class PortFigure extends Figure {
 		
 		return result;
 		
-		
+	}
+	
+	public void selectPort(){
+		setBackgroundColor(ELTColorConstants.blueBrandBoder);
+	}
+	
+	public void deSelectPort(){
+		setBackgroundColor(ELTColorConstants.componentBorder);
 	}
 	
 	@Override
@@ -92,17 +98,11 @@ public class PortFigure extends Figure {
 		return terminal;
 	}
 	
-	public Color getPortColor() {
-		return portColor;
-	}
 
 	public FixedConnectionAnchor getAnchor() {
 		return anchor;
 	}
 
-	public void setPortColor(Color portColor) {
-		this.portColor = portColor;
-	}
 
 	@Override
 	public String toString() {

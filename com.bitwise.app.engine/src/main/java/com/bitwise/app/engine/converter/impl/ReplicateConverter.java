@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.engine.converter.PortTypeConstant;
 import com.bitwise.app.engine.converter.StraightPullConverter;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
@@ -45,11 +46,11 @@ public class ReplicateConverter extends StraightPullConverter {
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
-			outSocketAsInsocket.setInSocketId(DEFAULT_IN_SOCKET_ID);
+			outSocketAsInsocket.setInSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			outSocket.setId(OUT_SOCKET_ID_PREFIX + outSocketCounter);
-			outSocket.setType(OUT_SOCKET_TYPE);
+			outSocket.setId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()) + outSocketCounter);
+			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
 			outSocketCounter++;
@@ -66,9 +67,9 @@ public class ReplicateConverter extends StraightPullConverter {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
-			inSocket.setFromSocketId(DEFAULT_IN_SOCKET_ID);
-			inSocket.setId(DEFAULT_IN_SOCKET_ID);
-			inSocket.setType(IN_SOCKET_TYPE);
+			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();
 			inSocketsList.add(inSocket);
 		}
