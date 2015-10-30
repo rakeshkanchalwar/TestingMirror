@@ -335,7 +335,7 @@ public class ComponentFigure extends Figure implements Validator{
 		graphics.fillRoundRectangle(q, 5, 5);
 		
 		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-4));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-10));
 		drawStatus(graphics);
 	}
 

@@ -2,14 +2,12 @@ package com.bitwise.app.graph.policy;
 
 import java.util.List;
 
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.gef.LayerConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 
-import com.bitwise.app.graph.figure.ComponentBorder;
+import com.bitwise.app.graph.controller.ComponentLabelEditPart;
 import com.bitwise.app.graph.figure.ComponentFigure;
-import com.bitwise.app.graph.figure.ELTColorConstants;
+import com.bitwise.app.graph.figure.ComponentLabelFigure;
 
 /**
  * 
@@ -25,14 +23,37 @@ public class ComponentSelectionPolicy extends SelectionEditPolicy {
 	@Override
 	protected void hideSelection() {		
 		((ComponentFigure)getHostFigure()).setComponentColorAndBorder();
+		hideLabelSelection();
 	}
 
 	@Override
 	protected void showSelection() {
-		((ComponentFigure)getHostFigure()).setSelectedComponentColorAndBorder();	
+		((ComponentFigure)getHostFigure()).setSelectedComponentColorAndBorder();
+		showLabelSelection();
+		
 	}
 
 	
+	private void showLabelSelection(){
+		List<Figure> childrenFigures = ((ComponentFigure)getHostFigure()).getChildren();
+		if (!childrenFigures.isEmpty()){
+			for(Figure figure:childrenFigures)
+			{
+				if(figure instanceof ComponentLabelFigure)
+					((ComponentLabelFigure) figure).selectLabel();
+			}
+		}
+	}
 	
+	private void hideLabelSelection(){
+		List<Figure> childrenFigures = ((ComponentFigure)getHostFigure()).getChildren();
+		if (!childrenFigures.isEmpty()){
+			for(Figure figure:childrenFigures)
+			{
+				if(figure instanceof ComponentLabelFigure)
+					((ComponentLabelFigure) figure).deSelectlabel();
+			}
+		}
+	}
 
 }
