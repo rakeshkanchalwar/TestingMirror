@@ -1,7 +1,5 @@
 package com.bitwise.app.tooltip.window;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.action.ToolBarManager;
@@ -13,9 +11,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -23,8 +19,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.forms.widgets.ColumnLayout;
 
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
@@ -40,8 +34,8 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 	
 	public ComponentTooltip(Shell parent, ToolBarManager toolBarManager,Map<String,PropertyToolTipInformation> propertyToolTipInformation) {
 		super(parent, toolBarManager);
-		this.toolBarManager= getToolBarManager();		
-		this.componentToolTipInformation = propertyToolTipInformation;
+		this.toolBarManager= getToolBarManager();
+		this.componentToolTipInformation = propertyToolTipInformation;		
 		create();
 	}
 	
@@ -83,7 +77,16 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 				if(propertyInfo.getTooltipDataType().equalsIgnoreCase("TEXT")){
 					if(propertyInfo.getPropertyValue() != null){						
 						Label lblTextProperty = new Label(container, SWT.NONE);
-						lblTextProperty.setText(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue());
+						String propertyName = propertyInfo.getPropertyName();
+						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						lblTextProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue());
+						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+					}else{
+						Label lblTextProperty = new Label(container, SWT.NONE);
+						String propertyName = propertyInfo.getPropertyName();
+						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						lblTextProperty.setText(propertyNameCapitalized + " : ");
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}
@@ -91,7 +94,10 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 					if(propertyInfo.getPropertyValue() != null){
 						if(propertyInfo.getPropertyName().equalsIgnoreCase("oprationClass")){							
 							Link link = new Link(container, SWT.NONE);
-							String tempText= propertyInfo.getPropertyName() + " : <a>" + propertyInfo.getPropertyValue().toString() + "</a>";
+							String propertyName = propertyInfo.getPropertyName();
+							String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							
+							String tempText= propertyNameCapitalized + " : <a>" + propertyInfo.getPropertyValue().toString() + "</a>";
 							final String filePath = propertyInfo.getPropertyValue().toString();
 							link.setText(tempText);
 							link.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
@@ -113,15 +119,33 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 							
 						}else{
 							Label lblLinkProperty = new Label(container, SWT.NONE);
-							lblLinkProperty.setText(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue());
+							String propertyName = propertyInfo.getPropertyName();
+							String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							lblLinkProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue());
 							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 						}	
-					}				
+					}else{
+							Label lblLinkProperty = new Label(container, SWT.NONE);
+							String propertyName = propertyInfo.getPropertyName();
+							String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							lblLinkProperty.setText(propertyNameCapitalized + " : ");
+							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+					}
 				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LIST")){
 					if(propertyInfo.getPropertyValue() != null){						
 						Label lblTextProperty = new Label(container, SWT.NONE);
-						lblTextProperty.setText(propertyInfo.getPropertyName() + " : " + propertyInfo.getPropertyValue().toString());
+						String propertyName = propertyInfo.getPropertyName();
+						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						lblTextProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue().toString());
+						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+					}else{
+						Label lblTextProperty = new Label(container, SWT.NONE);
+						String propertyName = propertyInfo.getPropertyName();
+						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						lblTextProperty.setText(propertyNameCapitalized + " : ");
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}
@@ -151,6 +175,8 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 				
 			}
 		});
+		
+		//container.setFocus();
 		
 		scrolledComposite.setContent(container);
 		scrolledComposite.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));

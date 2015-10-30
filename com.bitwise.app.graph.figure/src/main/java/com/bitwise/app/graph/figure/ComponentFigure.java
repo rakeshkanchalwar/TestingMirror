@@ -240,7 +240,7 @@ public class ComponentFigure extends Figure implements Validator{
 				hideToolTip2();
 			}
 		});
-		
+		componentToolTip.setFocus();
 	}
 	
 	private void attachMouseListener() {
