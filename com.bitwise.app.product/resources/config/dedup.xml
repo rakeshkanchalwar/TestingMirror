@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
 	<tns:component paletteIconPath="/icons/dedup_palette.png" canvasIconPath="/icons/dedup_canvas.png" name="Dedup"
-		shape="DedupFigure">
+		nameInPalette="Dedup" defaultNamePrefix="Dedup">
 		<tns:category>STRAIGHTPULL</tns:category>
 		<tns:port>
 			<tns:portSpecification>

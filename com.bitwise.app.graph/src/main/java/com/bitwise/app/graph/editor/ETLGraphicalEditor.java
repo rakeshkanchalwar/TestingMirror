@@ -373,7 +373,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 					.createClass(componentConfig);
 
 			CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-					componentConfig.getName(), "Component", clazz,
+					componentConfig.getNameInPalette(), "Component", clazz,
 					new SimpleFactory(clazz),
 					ImageDescriptor
 					.createFromURL(prepareIconPathURL(componentConfig

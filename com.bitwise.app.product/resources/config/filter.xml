@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
 	<tns:component paletteIconPath="/icons/filter_palette.png" canvasIconPath="/icons/filter_canvas.png" name="Filter"
-		shape="FilterFigure">
+		nameInPalette="Filter" defaultNamePrefix="Filter">
 		<tns:category>TRANSFORM</tns:category>
 		<tns:port>
 			<tns:portSpecification>
