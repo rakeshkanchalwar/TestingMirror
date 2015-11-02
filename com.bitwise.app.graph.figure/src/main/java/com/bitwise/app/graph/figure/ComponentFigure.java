@@ -259,6 +259,7 @@ public class ComponentFigure extends Figure implements Validator{
 				final org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
 								
 				//showStatusToolTip(location);
+				componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				componentCanvas.getCanvasControl().getShell().getDisplay().timerExec(TOOLTIP_SHOW_DELAY, new Runnable() {
 					public void run() {
 						//if(componentCanvas.isToolTipTimerRunning())
