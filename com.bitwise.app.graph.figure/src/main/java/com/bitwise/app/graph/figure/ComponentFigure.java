@@ -72,6 +72,7 @@ public class ComponentFigure extends Figure implements Validator{
 	private ComponentCanvas componentCanvas;
 	private ComponentTooltip componentToolTip;
 	org.eclipse.swt.graphics.Rectangle componentBounds;
+	private static final int TOOLTIP_SHOW_DELAY=800;
 	/**
 	 * Instantiates a new component figure.
 	 * 
@@ -255,9 +256,19 @@ public class ComponentFigure extends Figure implements Validator{
 			public void mouseHover(org.eclipse.draw2d.MouseEvent arg0) {
 				arg0.consume();
 				java.awt.Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-				org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
+				final org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
 								
-				showStatusToolTip(location);
+				//showStatusToolTip(location);
+				componentCanvas.getCanvasControl().getShell().getDisplay().timerExec(TOOLTIP_SHOW_DELAY, new Runnable() {
+					public void run() {
+						//if(componentCanvas.isToolTipTimerRunning())
+						java.awt.Point mouseLocation2 = MouseInfo.getPointerInfo().getLocation();
+						org.eclipse.swt.graphics.Point location2 = new org.eclipse.swt.graphics.Point(mouseLocation2.x, mouseLocation2.y);
+						
+						if(location2.equals(location))
+							showStatusToolTip(location);
+	                }
+				});
 			}
 			
 			@Override

@@ -197,6 +197,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 	private Text createSearchTextBox(Composite container, int height, int width, int border) {
 		Text text = new Text(container, border);
 		text.setToolTipText("Enter component name");
+		text.setMessage("Search component");
 		return text;
 	}
 
