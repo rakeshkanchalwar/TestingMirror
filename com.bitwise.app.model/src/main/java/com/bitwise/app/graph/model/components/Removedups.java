@@ -8,12 +8,12 @@ import com.bitwise.app.graph.model.categories.StraightPullCategory;
  * 
  * @author Bitwise
  */
-public class Dedup extends StraightPullCategory{
+public class Removedups extends StraightPullCategory{
 
 	/**
 	 * Instantiates a new dedup.
 	 */
-	public Dedup(){
+	public Removedups(){
 		super();
 	}
 	@Override

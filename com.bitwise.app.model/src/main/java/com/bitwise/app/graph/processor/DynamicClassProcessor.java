@@ -7,10 +7,10 @@ import org.objectweb.asm.Type;
 
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.graph.model.components.Filter;
-import com.bitwise.app.graph.model.components.Gather;
+import com.bitwise.app.graph.model.components.Unionall;
 import com.bitwise.app.graph.model.components.IFDelimited;
 import com.bitwise.app.graph.model.components.OFDelimited;
-import com.bitwise.app.graph.model.components.Replicate;
+import com.bitwise.app.graph.model.components.Clone;
 
 // TODO: Auto-generated Javadoc
 /**

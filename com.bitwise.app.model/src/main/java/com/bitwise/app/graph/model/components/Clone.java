@@ -8,12 +8,12 @@ import com.bitwise.app.graph.model.categories.StraightPullCategory;
  * 
  * @author Bitwise
  */
-public class Replicate extends StraightPullCategory {
+public class Clone extends StraightPullCategory {
 
 	/**
 	 * Instantiates a new replicate.
 	 */
-	public Replicate() {
+	public Clone() {
 		super();
 	}
 
