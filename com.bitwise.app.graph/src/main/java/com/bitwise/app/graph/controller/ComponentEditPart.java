@@ -306,6 +306,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		String statusName = Component.Props.VALIDITY_STATUS.getValue();
 		if(properties.containsKey(statusName)){
 			((ComponentFigure)getFigure()).setStatus((String)properties.get(statusName));
+			((ComponentFigure)getFigure()).repaint();
 		}
 	}
 }
