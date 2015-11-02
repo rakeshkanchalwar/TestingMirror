@@ -17,15 +17,11 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -39,7 +35,6 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component.ValidityStatus;
 import com.bitwise.app.tooltip.window.ComponentTooltip;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ComponentFigure.
  * 
@@ -72,13 +67,14 @@ public class ComponentFigure extends Figure implements Validator{
 	private ComponentCanvas componentCanvas;
 	private ComponentTooltip componentToolTip;
 	org.eclipse.swt.graphics.Rectangle componentBounds;
+	
 	/**
 	 * Instantiates a new component figure.
 	 * 
 	 * @param portSpecification
 	 *            the port specification
 	 * @param cIconPath
-	 *            the c icon path
+	 *            the canvas icon path
 	 */
 	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath) {
 		
@@ -107,6 +103,47 @@ public class ComponentFigure extends Figure implements Validator{
 		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		attachMouseListener();
 	}
+	
+	private void setInitialColor(){
+		componentColor = ELTColorConstants.bgComponent;
+		borderColor = ELTColorConstants.componentBorder;
+		selectedComponentColor = ELTColorConstants.bgComponentSelected;
+		selectedBorderColor = ELTColorConstants.blueBrandBoder;
+	}
+	
+	/**
+	 * Sets the component color and border.
+	 */
+	public void setComponentColorAndBorder(){
+		setBackgroundColor(componentColor);
+		setBorder(new ComponentBorder(borderColor));
+	}
+	
+	/**
+	 * Sets the selected component color and border.
+	 */
+	public void setSelectedComponentColorAndBorder(){
+		setBackgroundColor(selectedComponentColor);
+		setBorder(new ComponentBorder(selectedBorderColor,2));
+	}
+	
+	private void setPortCount(PortSpecification p) {
+		if(("in").equalsIgnoreCase(p.getTypeOfPort())){
+			totalPortsofInType=p.getNumberOfPorts();
+		}
+		else{
+			totalPortsOfOutType=p.getNumberOfPorts();
+		}
+		
+	}
+	
+	private void setHeight(int totalPortsofInType, int totalPortsOfOutType) {
+		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
+		this.height = (heightFactor+1)*25;
+	}
+	
+	
+	
 	
 	private void hideToolTip(){
 		if(componentCanvas != null){
@@ -240,7 +277,7 @@ public class ComponentFigure extends Figure implements Validator{
 				hideToolTip2();
 			}
 		});
-		
+		componentToolTip.setFocus();
 	}
 	
 	private void attachMouseListener() {
@@ -299,20 +336,9 @@ public class ComponentFigure extends Figure implements Validator{
 		});
 	}
 
-	private void setPortCount(PortSpecification p) {
-		if(("in").equalsIgnoreCase(p.getTypeOfPort())){
-			totalPortsofInType=p.getNumberOfPorts();
-		}
-		else{
-			totalPortsOfOutType=p.getNumberOfPorts();
-		}
-		
-	}
+	
 
-	private void setHeight(int totalPortsofInType, int totalPortsOfOutType) {
-		int heightFactor=totalPortsofInType > totalPortsOfOutType ? totalPortsofInType : totalPortsOfOutType;
-		this.height = (heightFactor+1)*25;
-	}
+	
 
 	public int getHeight() {
 		return height;
@@ -327,11 +353,24 @@ public class ComponentFigure extends Figure implements Validator{
 			inputConnectionAnchors.add(fCAnchor);
 	}
 	
+		
+	@Override
+	protected void paintFigure(Graphics graphics) {
+		Rectangle r = getBounds().getCopy();
+		graphics.translate(r.getLocation());
+		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
+		graphics.fillRoundRectangle(q, 5, 5);
+		
+		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
+		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-10));
+		drawStatus(graphics);
+	}
+	
 	/**
 	 * Draws the status image to right corner of the component
 	 * @param graphics
 	 */
-	protected void drawStatus(Graphics graphics){
+	private void drawStatus(Graphics graphics){
 		Image statusImage = null;
 		Rectangle rectangle = getBounds().getCopy();
 		if(getStatus().equals(ValidityStatus.WARN.name())){
@@ -344,42 +383,6 @@ public class ComponentFigure extends Figure implements Validator{
 		if(statusImage != null){
 			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8+ELTFigureConstants.componentLabelMargin));
 		}
-	}
-	
-		
-	/**
-	 * Sets the component color and border.
-	 */
-	public void setComponentColorAndBorder(){
-		setBackgroundColor(componentColor);
-		setBorder(new ComponentBorder(borderColor));
-	}
-	
-	/**
-	 * Sets the selected component color and border.
-	 */
-	public void setSelectedComponentColorAndBorder(){
-		setBackgroundColor(selectedComponentColor);
-		setBorder(new ComponentBorder(selectedBorderColor,2));
-	}
-	
-	private void setInitialColor(){
-		componentColor = ELTColorConstants.bgComponent;
-		borderColor = ELTColorConstants.componentBorder;
-		selectedComponentColor = ELTColorConstants.bgComponentSelected;
-		selectedBorderColor = ELTColorConstants.blueBrandBoder;
-	}
-	
-	@Override
-	protected void paintFigure(Graphics graphics) {
-		Rectangle r = getBounds().getCopy();
-		graphics.translate(r.getLocation());
-		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
-		graphics.fillRoundRectangle(q, 5, 5);
-		
-		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-10));
-		drawStatus(graphics);
 	}
 
 

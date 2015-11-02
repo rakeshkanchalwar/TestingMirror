@@ -6,7 +6,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.geometry.Point;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class FixedConnectionAnchor.
  * 

@@ -1,6 +1,5 @@
 package com.bitwise.app.graph.figure;
 
-import com.bitwise.app.graph.model.Component;
 
 /**
  * The Interface Validator.

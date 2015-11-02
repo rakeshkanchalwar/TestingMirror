@@ -1,4 +1,4 @@
-package com.bitwise.app.graph.helper;
+package com.bitwise.app.graph.model.helper;
 
 import java.util.HashMap;
 

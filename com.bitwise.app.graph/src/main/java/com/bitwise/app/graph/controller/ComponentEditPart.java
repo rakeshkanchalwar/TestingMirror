@@ -31,7 +31,7 @@ import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
-import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 
 

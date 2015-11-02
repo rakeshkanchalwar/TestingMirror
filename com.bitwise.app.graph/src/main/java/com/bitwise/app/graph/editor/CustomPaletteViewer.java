@@ -36,7 +36,7 @@ import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 
-import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 
 public class CustomPaletteViewer extends PaletteViewer {
 	private Logger logger = LogFactory.INSTANCE.getLogger(CustomPaletteViewer.class);

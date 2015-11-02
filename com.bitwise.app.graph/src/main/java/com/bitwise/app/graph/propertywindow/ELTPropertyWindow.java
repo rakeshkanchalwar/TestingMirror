@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
-import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 import com.bitwise.app.propertywindow.adapters.ELTComponentPropertyAdapter;
 import com.bitwise.app.propertywindow.factory.WidgetFactory.Widgets;
 import com.bitwise.app.propertywindow.property.ELTComponenetProperties;

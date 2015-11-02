@@ -7,7 +7,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ComponentBorder.
  * 

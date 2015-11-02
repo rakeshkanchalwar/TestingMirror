@@ -10,6 +10,12 @@ import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
 
+/**
+ * The Class ComponentLabelFigure.
+ * 
+ * @author Bitwise
+ */
+
 public class ComponentLabelFigure extends Figure{
 	private TextFlow textFlow;
 	private FlowPage flowPage;

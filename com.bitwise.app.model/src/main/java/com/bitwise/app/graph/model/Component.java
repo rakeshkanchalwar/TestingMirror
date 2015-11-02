@@ -13,7 +13,7 @@ import org.eclipse.draw2d.geometry.Point;
 import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.XMLConfigUtil;
-import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 // TODO: Auto-generated Javadoc

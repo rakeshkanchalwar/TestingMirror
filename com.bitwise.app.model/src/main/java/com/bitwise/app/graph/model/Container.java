@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.bitwise.app.graph.helper.LoggerUtil;
+import com.bitwise.app.graph.model.helper.LoggerUtil;
 
 // TODO: Auto-generated Javadoc
 /**

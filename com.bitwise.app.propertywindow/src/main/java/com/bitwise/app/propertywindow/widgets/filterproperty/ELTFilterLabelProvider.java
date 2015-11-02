@@ -2,8 +2,10 @@ package com.bitwise.app.propertywindow.widgets.filterproperty;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableColorProvider;
+import org.eclipse.jface.viewers.ITableFontProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
@@ -13,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author Bitwise
  */
-public class ELTFilterLabelProvider implements ITableLabelProvider, ITableColorProvider {
+public class ELTFilterLabelProvider implements ITableLabelProvider, ITableColorProvider, ITableFontProvider {
 
 	@Override
 	public void addListener(ILabelProviderListener listener) {
@@ -38,11 +40,13 @@ public class ELTFilterLabelProvider implements ITableLabelProvider, ITableColorP
 	@Override
 	public Color getForeground(Object element, int columnIndex) {
 		return new Color(Display.getDefault(), new RGB(100, 0, 0));
+		
 	}
 
 	@Override
 	public Color getBackground(Object element, int columnIndex) {
-		return new Color(Display.getDefault(), new RGB(255, 255, 230));
+		return new Color(Display.getDefault(), new RGB(255, 255, 255));
+		
 	}
 
 	@Override
@@ -55,6 +59,12 @@ public class ELTFilterLabelProvider implements ITableLabelProvider, ITableColorP
 	public String getColumnText(Object element, int columnIndex) {
 		ELTFilterProperties filter = (ELTFilterProperties) element;
 		return filter.getPropertyname();
+	}
+
+	@Override
+	public Font getFont(Object element, int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
