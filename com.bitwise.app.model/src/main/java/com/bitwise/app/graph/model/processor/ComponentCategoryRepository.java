@@ -1,4 +1,4 @@
-package com.bitwise.app.graph.processor;
+package com.bitwise.app.graph.model.processor;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.graph.model.categories.InputCategory;

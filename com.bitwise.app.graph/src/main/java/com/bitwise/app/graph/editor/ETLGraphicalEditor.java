@@ -117,7 +117,7 @@ import com.bitwise.app.graph.editorfactory.GenrateContainerData;
 import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.factory.CustomPaletteEditPartFactory;
 import com.bitwise.app.graph.model.Container;
-import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 import com.bitwise.app.tooltip.window.ComponentTooltip;
 import com.thoughtworks.xstream.XStream;
 

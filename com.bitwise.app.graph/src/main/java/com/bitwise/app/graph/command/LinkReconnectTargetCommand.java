@@ -8,7 +8,7 @@ import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
-import com.bitwise.app.graph.processor.DynamicClassProcessor;
+import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 
 // TODO: Auto-generated Javadoc
 /**

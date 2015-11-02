@@ -29,6 +29,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.bitwise.app.graph.model,
- com.bitwise.app.graph.processor,
+ com.bitwise.app.graph.model.processor,
  com.thoughtworks.xstream
 Export-Package: com.bitwise.app.graph.editor

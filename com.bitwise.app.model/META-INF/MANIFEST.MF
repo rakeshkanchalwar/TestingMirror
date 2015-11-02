@@ -19,4 +19,4 @@ Import-Package: org.eclipse.draw2d,
 Export-Package: com.bitwise.app.graph.model,
  com.bitwise.app.graph.model.categories,
  com.bitwise.app.graph.model.components,
- com.bitwise.app.graph.processor
+ com.bitwise.app.graph.model.processor

@@ -1,4 +1,4 @@
-package com.bitwise.app.graph.processor;
+package com.bitwise.app.graph.model.processor;
 
 import java.util.Hashtable;
 
