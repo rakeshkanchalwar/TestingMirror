@@ -20,7 +20,7 @@ openFile
 
    <splash
       location="com.bitwise.app.perspective" />
-   <launcher name="ELTTOOL">
+   <launcher>
       <solaris/>
       <win useIco="false">
          <bmp/>
