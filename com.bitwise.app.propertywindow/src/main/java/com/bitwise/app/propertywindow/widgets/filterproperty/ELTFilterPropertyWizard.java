@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -89,7 +90,7 @@ public class ELTFilterPropertyWizard {
 	private Button addButton, deleteAll, okButton, deleteButton, cacelButton, button, upButton, downButton;
 	private boolean isAnyUpdatePerformed;
 
-	private TableCursor cursor;
+	
 		
 
 
@@ -179,8 +180,8 @@ public class ELTFilterPropertyWizard {
 			
 			@Override
 			public void keyTraversed(TraverseEvent e) {
-				if(e.keyCode==SWT.TAB){
-					e.doit=true;
+				if(e.keyCode==SWT.ARROW_UP){
+					e.doit=false;
 				}
 				
 			}
@@ -193,19 +194,32 @@ public class ELTFilterPropertyWizard {
 		TableColumn tc1 = new TableColumn(table, SWT.CENTER);
 		tc1.setText("Field Name");
 		tc1.setWidth(460);
-		//tc1.pack();
-		//tableViewer.getTable().setLinesVisible(true);
 		table.setHeaderVisible(true);
 		
-		/* cursor = new TableCursor(table, SWT.NONE);
-		final ControlEditor editor = new ControlEditor(cursor);*/
+		 /*final TableCursor cursor = new TableCursor(table, SWT.NONE);
+		 ControlEditor editor = new ControlEditor(cursor);
+		 editor.grabHorizontal = true;
+		 editor.grabVertical = true;
+		 
+		 cursor.addSelectionListener(new SelectionAdapter() {
+			 @Override
+			 public void widgetSelected(SelectionEvent e){
+				 table.setSelection(new TableItem[] { cursor.getRow() });
+			 }
+			 
+			 public void widgetDefaultSelected(SelectionEvent event) {
+				 	Text text = new Text(table, SWT.None);
+				 	text.setFocus();
+				 	text.setText(cursor.getRow().getText(cursor.getColumn()));
+				 	text.setFocus();
+			 }
+		});*/
 		
 		/*cursor.addSelectionListener(new SelectionAdapter() {
+			@Override
 			 public void widgetSelected(SelectionEvent e) {
-			        table.setSelection(new TableItem[] { cursor.getRow() });
-			      
-			      }*/
-		
+			        table.setSelection(new TableItem[] { cursor.getRow() });*/
+			
 		/*public void widgetDefaultSelected(SelectionEvent e){
 			  final Text text = new Text(cursor, SWT.NONE);
 		        TableItem row = cursor.getRow();
@@ -254,7 +268,7 @@ public class ELTFilterPropertyWizard {
 	                }
 	                else
 	                {
-	                     button = new Button((Composite) cell.getViewerRow().getControl(),SWT.NONE);
+	                     button = new Button((Composite) cell.getViewerRow(1).getControl(),SWT.NONE);
 	                    button.setText("+");
 	                    button.pack();
 	                   buttons.put(cell.getElement(), button);
@@ -410,21 +424,29 @@ public class ELTFilterPropertyWizard {
 		upButton.setBounds(433, 10, 20, 20);
 		
 		upButton.addSelectionListener(new SelectionAdapter() {
-			int temp,temp2=0;
+			int index1=0,index2=0;
+
+			List<String> list=new LinkedList<String>();
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				temp=table.getSelectionIndex();
-				table.setSelection(temp-1);
-				/*temp=table.getSelectionIndex();
-				temp2=temp-1;
-				String data=tableViewer.getTable().getItem(temp).getText();
-				String data2=tableViewer.getTable().getItem(temp2).getText();
-				
-				
-				tableViewer.getTable().getItem(temp).setText(data2);
-				tableViewer.getTable().getItem(temp2).setText(data);
-				
-				System.out.println("Index::"+temp+"::"+data);*/
+	
+				index1=table.getSelectionIndex();
+			
+				if(index1 > 0){
+					index2 = index1 - 1;
+					String data=tableViewer.getTable().getItem(index1).getText();
+					String data2=tableViewer.getTable().getItem(index2).getText();
+					
+					ELTFilterProperties filter = new ELTFilterProperties();
+					filter.setPropertyname(data2);
+					propertyLst.set(index1, filter);
+					
+					filter = new ELTFilterProperties();
+					filter.setPropertyname(data);
+					propertyLst.set(index2, filter);
+					tableViewer.refresh();
+					table.setSelection(index1 - 1);
+				}	
 				
 			}
 		});
@@ -435,11 +457,30 @@ public class ELTFilterPropertyWizard {
 		downButton.setImage(new Image(null, downIonPath));
 		downButton.setBounds(450, 10, 25, 20);
 		downButton.addSelectionListener(new SelectionAdapter() {
-			int temp=0;
+			int index1=0,index2=0;
+		
+			List<String> list=new LinkedList<String>();
+			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				temp=table.getSelectionIndex();
-				table.setSelection(temp+1);
+				index1=table.getSelectionIndex();
+				//System.out.println(index1+" ::"+list.size());
+				
+				//if(index1 <= list.size()){
+					index2 = index1 + 1;
+					String data=tableViewer.getTable().getItem(index1).getText();
+					String data2=tableViewer.getTable().getItem(index2).getText();
+					
+					ELTFilterProperties filter = new ELTFilterProperties();
+					filter.setPropertyname(data2);
+					propertyLst.set(index1, filter);
+					
+					filter = new ELTFilterProperties();
+					filter.setPropertyname(data);
+					propertyLst.set(index2, filter);
+					tableViewer.refresh();
+					table.setSelection(index1 + 1);
+				//}	
 			}
 		});
 	}
