@@ -25,8 +25,9 @@ public class ELTTable extends AbstractELTWidget{
 	public ELTTable(TableViewer tableViewer) {
 		super();
 		this.table = tableViewer.getTable();
-		GridData gd_tableGridData = new GridData(SWT.FILL, SWT.FILL, true, true, 0, 0);
+		GridData gd_tableGridData = new GridData(SWT.FILL, SWT.FILL, false,false,0,0);
 		gd_tableGridData.heightHint = 250;
+		gd_tableGridData.widthHint = 360;
 		this.table.setLayoutData(gd_tableGridData);
 		
 	}
