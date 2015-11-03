@@ -17,7 +17,7 @@ import com.bitwiseglobal.graph.commontypes.ScaleTypeList;
 import com.bitwiseglobal.graph.commontypes.TypeBaseField;
 import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
 import com.bitwiseglobal.graph.otfd.TypeOutputDelimitedInSocket;
-import com.bitwiseglobal.graph.outputtypes.FileDelimited;
+import com.bitwiseglobal.graph.outputtypes.TextFileDelimited;
 
 public class OutputFileDelimitedConverter extends OutputConverter {
 	
@@ -27,7 +27,7 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 		super();
 		this.component = component;
 		this.properties = component.getProperties();
-		this.baseComponent = new FileDelimited();
+		this.baseComponent = new TextFileDelimited();
 	}
 	
 	@Override
@@ -35,15 +35,15 @@ public class OutputFileDelimitedConverter extends OutputConverter {
 		LOGGER.debug("Genrating XML data for {}", properties.get(NAME));
 		super.prepareForXML();
 		
-		FileDelimited fileDelimited = (FileDelimited) baseComponent;
+		TextFileDelimited fileDelimited = (TextFileDelimited) baseComponent;
 		
-		FileDelimited.Path path = new FileDelimited.Path();
+		TextFileDelimited.Path path = new TextFileDelimited.Path();
 		path.setUri((String) properties.get(PropertyNameConstants.PATH.value()));
 		
-		FileDelimited.Charset charset = new FileDelimited.Charset();
+		TextFileDelimited.Charset charset = new TextFileDelimited.Charset();
 		charset.setValue(getCharset());
 		
-		FileDelimited.Delimiter delimiter = new FileDelimited.Delimiter();
+		TextFileDelimited.Delimiter delimiter = new TextFileDelimited.Delimiter();
 		delimiter.setValue((String) properties.get(PropertyNameConstants.DELIMITER.value()));
 		
 		fileDelimited.setPath(path);

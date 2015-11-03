@@ -13,7 +13,7 @@ import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
-import com.bitwiseglobal.graph.straightpulltypes.Replicate;
+import com.bitwiseglobal.graph.straightpulltypes.Clone;
 
 /**
  * Converter implementation for Replicate component
@@ -24,7 +24,7 @@ public class ReplicateConverter extends StraightPullConverter {
 
 	public ReplicateConverter(Component component) {
 		super();
-		this.baseComponent = new Replicate();
+		this.baseComponent = new Clone();
 		this.component = component;
 		this.properties = component.getProperties();
 	}
