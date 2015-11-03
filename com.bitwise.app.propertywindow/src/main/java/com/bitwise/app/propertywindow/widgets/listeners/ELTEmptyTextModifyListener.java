@@ -4,7 +4,6 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -13,6 +12,8 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 /**
@@ -25,7 +26,8 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
  * @see ELTEmptyTextModifyEvent
  */
 public class ELTEmptyTextModifyListener implements IELTListener {
-
+	private ValidationStatus validationStatus;
+	
 	@Override
 	public int getListenerType() {
 
@@ -36,6 +38,11 @@ public class ELTEmptyTextModifyListener implements IELTListener {
 	public Listener getListener(
 			PropertyDialogButtonBar propertyDialogButtonBar,
 			ListenerHelper helpers, Widget... widgets) {
+		
+		if (helpers != null) {
+			validationStatus = (ValidationStatus) helpers.get(HelperType.VALIDATION_STATUS); 
+		}
+		
 		final Widget[] widgetList = widgets;
 		final ControlDecoration fieldNameDecorator = WidgetUtility
 				.addDecorator((Text) widgetList[0],
@@ -52,10 +59,12 @@ public class ELTEmptyTextModifyListener implements IELTListener {
 						((Button) widgetList[1]).setEnabled(false);
 						((Text) widgetList[0]).setBackground(new Color(Display
 								.getDefault(), 255, 255, 204));
+						validationStatus.setIsValid(false);
 					} else {
 						fieldNameDecorator.hide();
 						fieldNameMustJava.hide();
 						((Button) widgetList[1]).setEnabled(true);
+						validationStatus.setIsValid(true);
 					} 
 					if (!WidgetUtility.isFileExtention(
 							(((Text) widgetList[0]).getText()).trim(), ".java")
@@ -65,16 +74,19 @@ public class ELTEmptyTextModifyListener implements IELTListener {
 						fieldNameDecorator.hide();
 						((Text) widgetList[0]).setBackground(new Color(Display
 								.getDefault(), 255, 255, 204));
+						validationStatus.setIsValid(false);
 					} else {
 						((Text) widgetList[0]).setBackground(new Color(Display
 								.getDefault(), 255, 255, 255));
 						fieldNameMustJava.hide();
+						validationStatus.setIsValid(true);
 					}
 				}
 				else
 				{
 					fieldNameDecorator.hide();
 					fieldNameMustJava.hide();
+					validationStatus.setIsValid(true);
 				}
 
 			}

@@ -8,11 +8,15 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
+import org.slf4j.Logger;
 
 import com.bitwise.app.common.component.config.PortSpecification;
 import com.bitwise.app.common.component.config.Property;
+import com.bitwise.app.common.component.config.Usage;
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.ComponentCacheUtil;
+import com.bitwise.app.common.util.Constants;
+import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.figure.ELTFigureConstants;
 import com.bitwise.app.graph.model.Component;
@@ -24,7 +28,8 @@ import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
  * The Class ComponentCreateCommand.
  */
 public class ComponentCreateCommand extends Command {
-	private static final String NAME = "name";
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ComponentCreateCommand.class);
+
 	
 	/** The new Component. */
 	private final Component component;
@@ -46,8 +51,6 @@ public class ComponentCreateCommand extends Command {
 
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
 		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
-		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
-		properties.put(Component.Props.NAME_PROP.getValue(), components.getName());
 //		component.setProperties(properties);
 //		component.setType(components.getName());
 //		component.setCategory(components.getCategory().value());
@@ -134,9 +137,23 @@ public class ComponentCreateCommand extends Command {
 	}
 	
 	private Map<String, Object> prepareComponentProperties(String componentName) {
+		boolean componentHasRequiredValues = Boolean.TRUE;
 		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
-		properties.put(NAME, componentName);
-		properties.put(Component.Props.VALIDITY_STATUS.getValue(), Component.ValidityStatus.WARN.name());
+		properties.put(Constants.NAME, componentName);
+		
+		com.bitwise.app.common.component.config.Component component = XMLConfigUtil.INSTANCE.getComponent(componentName);
+		for (Property configProperty : component.getProperty()) {
+			Object propertyValue = properties.get(configProperty.getName());
+			if(configProperty.getUsage() != null && Usage.REQUIRED.equals(configProperty.getUsage()) &&
+				propertyValue == null){
+				componentHasRequiredValues = Boolean.FALSE;
+				logger.debug("Mandatory parameter for {} does not have default value for {} parameter", 
+						new Object[]{component.getName(), configProperty.getName()});
+			}
+		}
+		if(!componentHasRequiredValues){
+			properties.put(Component.Props.VALIDITY_STATUS.getValue(), Component.ValidityStatus.WARN.name());
+		}
 		return properties;
 	}
 }
