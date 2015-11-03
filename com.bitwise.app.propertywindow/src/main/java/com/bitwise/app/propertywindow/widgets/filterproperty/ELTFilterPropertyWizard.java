@@ -180,7 +180,9 @@ public class ELTFilterPropertyWizard {
 			
 			@Override
 			public void keyTraversed(TraverseEvent e) {
-				if(e.keyCode==SWT.ARROW_UP){
+				if(e.keyCode == SWT.ARROW_UP){
+					e.doit=false;
+				}else if(e.keyCode == SWT.ARROW_DOWN){
 					e.doit=false;
 				}
 				
@@ -297,6 +299,7 @@ public class ELTFilterPropertyWizard {
 		shell.setSize(506, 540);
 		shell.setLayout(null);
 		shell.setText("Properties");
+		//imageShell(shell);
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
 		if (getComponentName() != null){
@@ -375,10 +378,10 @@ public class ELTFilterPropertyWizard {
 		
 		new Label(composite, SWT.SEPARATOR|SWT.HORIZONTAL).setBounds(0, 41, 513, 60);
 		addButton = new Button(composite, SWT.PUSH);
-		//addButton.setText("+");
-		String addIconPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png";
+		addButton.setText("+");
+		/*String addIconPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png";
 		addButton.setImage(new Image(null, addIconPath));
-		addButton.setBounds(384, 10, 20, 20);
+		*/addButton.setBounds(388, 10, 20, 20);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -388,10 +391,10 @@ public class ELTFilterPropertyWizard {
 		
 		
 		deleteButton = new Button(composite, SWT.PUSH);
-		//deleteButton.setText("X");
-		String deleteIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png";
+		deleteButton.setText("X");
+		/*String deleteIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png";
 		deleteButton.setImage(new Image(null, deleteIonPath));
-		deleteButton.setBounds(406, 10, 25, 20);
+		*/deleteButton.setBounds(407, 10, 25, 20);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			
 			@Override
@@ -401,9 +404,7 @@ public class ELTFilterPropertyWizard {
 							Messages.SelectRowToDelete);
 						 
 				}else {*/
-				/*for(int i=0;i<temp.length;i++){
-					table.remove(temp[i]);
-					propertyLst.remove(temp[i]);}*/
+				
 				IStructuredSelection selection = (IStructuredSelection)tableViewer.getSelection();
 				for (Iterator<?> iterator = selection.iterator(); iterator.hasNext(); )
 				 {
@@ -418,15 +419,14 @@ public class ELTFilterPropertyWizard {
 		});
 		
 		upButton = new Button(composite, SWT.PUSH);
-		//upButton.setText("^");
-		String upIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/up.png";
+		upButton.setText("^");
+		/*String upIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/up.png";
 		upButton.setImage(new Image(null, upIonPath));
-		upButton.setBounds(433, 10, 20, 20);
+		*/upButton.setBounds(431, 10, 20, 20);
 		
 		upButton.addSelectionListener(new SelectionAdapter() {
 			int index1=0,index2=0;
 
-			List<String> list=new LinkedList<String>();
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 	
@@ -452,21 +452,21 @@ public class ELTFilterPropertyWizard {
 		});
 		
 		downButton = new Button(composite, SWT.PUSH);
-		//downButton.setText("->");
-		String downIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/down.png";
+		downButton.setText("->");
+		/*String downIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/down.png";
 		downButton.setImage(new Image(null, downIonPath));
-		downButton.setBounds(450, 10, 25, 20);
+		*/downButton.setBounds(450, 10, 25, 20);
 		downButton.addSelectionListener(new SelectionAdapter() {
 			int index1=0,index2=0;
 		
-			List<String> list=new LinkedList<String>();
+			//List<String> list=new LinkedList<String>();
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				index1=table.getSelectionIndex();
-				//System.out.println(index1+" ::"+list.size());
+				System.out.println("List size::"+propertyLst.size());
 				
-				//if(index1 <= list.size()){
+				if(index1 < propertyLst.size()){
 					index2 = index1 + 1;
 					String data=tableViewer.getTable().getItem(index1).getText();
 					String data2=tableViewer.getTable().getItem(index2).getText();
@@ -480,7 +480,7 @@ public class ELTFilterPropertyWizard {
 					propertyLst.set(index2, filter);
 					tableViewer.refresh();
 					table.setSelection(index1 + 1);
-				//}	
+				}	
 			}
 		});
 	}
@@ -605,6 +605,11 @@ public class ELTFilterPropertyWizard {
 		okButton.setEnabled(true);
 		addButton.setEnabled(true);
 	}
+	
+	/*public void imageShell(Shell shell){
+		String image = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/property_window_icon.png";
+		shell.setImage(new Image(null, image));
+	}*/
 	
 	public static void main(String[] args) {
 		ELTFilterPropertyWizard obj = new ELTFilterPropertyWizard();
