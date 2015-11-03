@@ -187,7 +187,6 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	}
 
 	private void hideToolTip(){
-		System.out.println((toolTipComponentBounds !=null) + " : " + (componentTooltip != null));
 		if(toolTipComponentBounds !=null && componentTooltip != null){
 			componentTooltip.setVisible(false);
 			componentTooltip=null;
