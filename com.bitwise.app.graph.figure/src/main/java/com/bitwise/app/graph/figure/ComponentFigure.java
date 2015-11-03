@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -382,10 +383,10 @@ public class ComponentFigure extends Figure implements Validator{
 	private void drawStatus(Graphics graphics){
 		Image statusImage = null;
 		Rectangle rectangle = getBounds().getCopy();
-		if(getStatus().equals(ValidityStatus.WARN.name())){
+		if(StringUtils.isNotBlank(getStatus()) && getStatus().equals(ValidityStatus.WARN.name())){
 			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/warn.png");
 		}
-		else if (getStatus().equals(ValidityStatus.ERROR.name())){
+		else if (StringUtils.isNotBlank(getStatus()) && getStatus().equals(ValidityStatus.ERROR.name())){
 			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/error.png");
 		}
 		logger.debug("Component has {} status.", getStatus());

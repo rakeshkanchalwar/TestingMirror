@@ -8,6 +8,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 
 /**
@@ -20,7 +22,8 @@ import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtilit
  * @see ELTCreateNewClassEvent
  */
 public class ELTCreateNewClassListener implements IELTListener{
-
+	private ValidationStatus validationStatus;
+	
 	@Override
 	public int getListenerType() {
 		
@@ -30,12 +33,17 @@ public class ELTCreateNewClassListener implements IELTListener{
 	@Override
 	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
 		final Widget[] widgetList = widgets;
-				
+			
+		if (helpers != null) {
+			validationStatus = (ValidationStatus) helpers.get(HelperType.VALIDATION_STATUS); 
+		}
+		
 		Listener listener=new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				FilterOperationClassUtility.createNewClassWizard((Text)widgetList[0]);
-				}
+				validationStatus.setIsValid(true);
+			}
 		};
 		return listener;
 	}

@@ -180,6 +180,7 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		
 
 		addButtonsAndRegisterListners(container, listenerFactory, editors);
+		populateWidget();
   
 	}
 
