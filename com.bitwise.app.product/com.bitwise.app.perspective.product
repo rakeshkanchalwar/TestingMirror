@@ -16,7 +16,7 @@ openFile
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
+   <windowImages i32="/com.bitwise.app.perspective/icons/app_icon.gif"/>
 
    <splash
       location="com.bitwise.app.perspective" />

@@ -28,7 +28,7 @@ public class ConverterFactory {
 		catch (ClassNotFoundException exception) {
 			logger.error("Exception Occured getting Converter for {}, {}:", 
 					new Object[]{component.getProperties().get(Converter.NAME),exception});
-			throw new ConverterNotFoundException(component.getBasename(), exception);
+			throw new ConverterNotFoundException(component.getPrefix(), exception);
 		}
 	}
 }

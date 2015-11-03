@@ -13,32 +13,32 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for showAsTooltip.
+ * <p>Java class for usage.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="showAsTooltip">
+ * &lt;simpleType name="usage">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="TRUE"/>
- *     &lt;enumeration value="FALSE"/>
+ *     &lt;enumeration value="REQUIRED"/>
+ *     &lt;enumeration value="OPTIONAL"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "showAsTooltip")
+@XmlType(name = "usage")
 @XmlEnum
-public enum ShowAsTooltip {
+public enum Usage {
 
-    TRUE,
-    FALSE;
+    REQUIRED,
+    OPTIONAL;
 
     public String value() {
         return name();
     }
 
-    public static ShowAsTooltip fromValue(String v) {
+    public static Usage fromValue(String v) {
         return valueOf(v);
     }
 

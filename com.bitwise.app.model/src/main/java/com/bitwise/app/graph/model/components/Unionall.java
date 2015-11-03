@@ -8,13 +8,13 @@ import com.bitwise.app.graph.model.categories.StraightPullCategory;
  * 
  * @author Bitwise
  */
-public class Gather extends StraightPullCategory {
+public class Unionall extends StraightPullCategory {
 
 		
 	/**
 	 * Instantiates a new gather.
 	 */
-	public Gather() {
+	public Unionall() {
 		super();
 	}
 	

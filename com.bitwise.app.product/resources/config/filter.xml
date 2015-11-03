@@ -2,8 +2,11 @@
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-	<tns:component paletteIconPath="/icons/filter_palette.png" canvasIconPath="/icons/filter_canvas.png" name="Filter"
-		shape="FilterFigure">
+	<tns:component paletteIconPath="/icons/filter_palette.png" 
+				   canvasIconPath="/icons/filter_canvas.png" 
+				   name="Filter"
+				   nameInPalette="Filter" 
+				   defaultNamePrefix="Filter">
 		<tns:category>TRANSFORM</tns:category>
 		<tns:port>
 			<tns:portSpecification>
@@ -40,7 +43,7 @@
 		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET"
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT" />
 			
-		<tns:property dataType="string" name="oprationClass"
+		<tns:property dataType="string" name="OPERATION_CLASS"
 			renderer="OPERATIONAL_CLASS_WIDGET" type="USER" group="GENERAL"
 			subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LINK" />
 			

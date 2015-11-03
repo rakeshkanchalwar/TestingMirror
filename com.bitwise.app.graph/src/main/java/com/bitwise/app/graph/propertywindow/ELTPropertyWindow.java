@@ -66,7 +66,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		
 		ComponentMiscellaneousProperties.put("componentNames", component.getParent().getComponentNames());
 		ComponentMiscellaneousProperties.put("componentBaseType", component.getCategory());
-		ComponentMiscellaneousProperties.put("componentType", component.getBasename());
+		ComponentMiscellaneousProperties.put("componentType", component.getType());
 		return ComponentMiscellaneousProperties;
 	}
 	

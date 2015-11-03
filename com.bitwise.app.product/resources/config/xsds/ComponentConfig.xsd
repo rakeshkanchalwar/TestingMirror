@@ -19,9 +19,11 @@
 			<element name="policy" type="tns:Policy" maxOccurs="unbounded" minOccurs="0" /> 
 		</sequence>
 		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="nameInPalette" type="string" use="required"></attribute>
+		<attribute name="defaultNamePrefix" type="string" use="required"></attribute>
 		<attribute name="paletteIconPath" type="string" use="required"></attribute>
 		<attribute name="canvasIconPath" type="string" use="required"></attribute>
-		<attribute name="shape" type="tns:shape" use="required"></attribute>
+
 	</complexType>
 
 
@@ -38,6 +40,7 @@
 		<attribute name="subGroup" type="tns:sub_group" use="required" /> 
 		<attribute name="showAsTooltip" type="tns:showAsTooltip" use="required" />
 		<attribute name="tooltipDataType" type="tns:tooltipDataType" use="required" />  
+		<attribute name="usage" type="tns:usage" use="optional" />  
 	</complexType>
 
 	<complexType name="Validation">
@@ -93,6 +96,13 @@
 		</restriction>
 	</simpleType>
 
+	<simpleType name="usage">
+		<restriction base="string">
+			<enumeration value="REQUIRED" />
+			<enumeration value="OPTIONAL" />
+		</restriction>
+	</simpleType>
+	
 	<simpleType name="property_type">
 		<restriction base="string">
 			<enumeration value="CONFIG" />

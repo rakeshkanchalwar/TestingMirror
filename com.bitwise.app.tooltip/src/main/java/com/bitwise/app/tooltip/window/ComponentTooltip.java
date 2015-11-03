@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
+import com.bitwise.app.common.util.WordUtils;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
@@ -78,24 +79,27 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 					if(propertyInfo.getPropertyValue() != null){						
 						Label lblTextProperty = new Label(container, SWT.NONE);
 						String propertyName = propertyInfo.getPropertyName();
-						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
 						lblTextProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue());
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}else{
 						Label lblTextProperty = new Label(container, SWT.NONE);
 						String propertyName = propertyInfo.getPropertyName();
-						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
 						lblTextProperty.setText(propertyNameCapitalized + " : ");
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}
 				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LINK")){
 					if(propertyInfo.getPropertyValue() != null){
-						if(propertyInfo.getPropertyName().equalsIgnoreCase("oprationClass")){							
+						if(propertyInfo.getPropertyName().equalsIgnoreCase("OPERATION_CLASS")){							
 							Link link = new Link(container, SWT.NONE);
 							String propertyName = propertyInfo.getPropertyName();
-							String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
 							
 							String tempText= propertyNameCapitalized + " : <a>" + propertyInfo.getPropertyValue().toString() + "</a>";
 							final String filePath = propertyInfo.getPropertyValue().toString();
@@ -120,7 +124,9 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 						}else{
 							Label lblLinkProperty = new Label(container, SWT.NONE);
 							String propertyName = propertyInfo.getPropertyName();
-							String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
+							
 							lblLinkProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue());
 							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
@@ -128,7 +134,9 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 					}else{
 							Label lblLinkProperty = new Label(container, SWT.NONE);
 							String propertyName = propertyInfo.getPropertyName();
-							String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+							String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
+							
 							lblLinkProperty.setText(propertyNameCapitalized + " : ");
 							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
@@ -137,14 +145,18 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 					if(propertyInfo.getPropertyValue() != null){						
 						Label lblTextProperty = new Label(container, SWT.NONE);
 						String propertyName = propertyInfo.getPropertyName();
-						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
+						
 						lblTextProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue().toString());
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 					}else{
 						Label lblTextProperty = new Label(container, SWT.NONE);
 						String propertyName = propertyInfo.getPropertyName();
-						String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						//String propertyNameCapitalized = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+						String propertyNameCapitalized = WordUtils.capitalize(propertyName.toLowerCase(), '_').replace("_", " ");
+						
 						lblTextProperty.setText(propertyNameCapitalized + " : ");
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));

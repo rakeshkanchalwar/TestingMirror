@@ -2,8 +2,11 @@
 <tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-	<tns:component paletteIconPath="/icons/dedup_palette.png" canvasIconPath="/icons/dedup_canvas.png" name="Dedup"
-		shape="DedupFigure">
+	<tns:component paletteIconPath="/icons/dedup_palette.png" 
+				   canvasIconPath="/icons/dedup_canvas.png" 
+				   name="Removedups"
+				   nameInPalette="Remove Dups" 
+				   defaultNamePrefix="Removedups">
 		<tns:category>STRAIGHTPULL</tns:category>
 		<tns:port>
 			<tns:portSpecification>
@@ -41,7 +44,7 @@
 		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET" 
 		    type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
 				
-		<tns:property dataType="string" name="dedup" renderer="COLUMN_NAME_WIDGET"
+		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET"
 		 type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"/>
  		
  		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="retention_logic"

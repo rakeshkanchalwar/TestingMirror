@@ -187,7 +187,6 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	}
 
 	private void hideToolTip(){
-		System.out.println((toolTipComponentBounds !=null) + " : " + (componentTooltip != null));
 		if(toolTipComponentBounds !=null && componentTooltip != null){
 			componentTooltip.setVisible(false);
 			componentTooltip=null;
@@ -373,7 +372,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 					.createClass(componentConfig);
 
 			CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-					componentConfig.getName(), "Component", clazz,
+					componentConfig.getNameInPalette(), "Component", clazz,
 					new SimpleFactory(clazz),
 					ImageDescriptor
 					.createFromURL(prepareIconPathURL(componentConfig
