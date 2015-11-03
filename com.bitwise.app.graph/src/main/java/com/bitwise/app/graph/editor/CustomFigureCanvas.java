@@ -21,6 +21,11 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 
 
+/**
+ * create CustomFigureCanvas
+ * @author Bitwise
+ *
+ */
 public class CustomFigureCanvas extends FigureCanvas{
 	private int containerHeight = 0;
     protected Control containerForSearchTextBox;
@@ -113,6 +118,9 @@ public class CustomFigureCanvas extends FigureCanvas{
 
     }
 
+    /**
+     * set layout of canvas and its elements
+     */
     protected void layoutViewport() {
         ScrollPaneSolver.Result result;
         int viewPortY = 0;

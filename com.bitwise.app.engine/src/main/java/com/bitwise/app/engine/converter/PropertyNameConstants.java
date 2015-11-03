@@ -11,10 +11,10 @@ public enum PropertyNameConstants {
 		RUNTIME_PROPERTIES("runtime_properties"),
 		HAS_HEADER("HAS_HEADER_WIDGET"),
 		STRICT("strict"),
-		OPERATION_CLASS("oprationClass"),
+		OPERATION_CLASS("OPERATION_CLASS"),
 		RETENTION_LOGIC_KEEP("retention_logic"),
 		OPERATION_FILEDS("filter"),
-		DEDUP_FILEDS("dedup");
+		DEDUP_FILEDS("COLUMN_NAME");
 		private final String value;
 
 	PropertyNameConstants(String value) {

@@ -12,7 +12,6 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
@@ -146,6 +145,7 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		tableViewer.setColumnProperties(PROPS);
 		tableViewer.setCellModifier(getCellModifier());
 		ELTTable eltTable = new ELTTable(tableViewer);
+		
 		gridSubGroup.attachWidget(eltTable);
 		table = (Table) eltTable.getSWTWidgetControl();
 		// Create Table column
@@ -153,14 +153,16 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		// Set up the table
 		for (int columnIndex = 0, n = table.getColumnCount(); columnIndex < n; columnIndex++) {
 			table.getColumn(columnIndex).pack();
-			table.getColumn(columnIndex).setWidth(80);
+			table.getColumn(columnIndex).setWidth(94);
+			
 		}
+		
+		
 		editors = gridWidgetBuilder.createCellEditorList(table, PROPS.length);
 		tableViewer.setCellEditors(editors);
-
 		// Adding the decorator to show error message when field name same.
 		setDecorator();
-
+		
 		addValidators();
 
 		helper = getListenerHelper();
@@ -169,17 +171,21 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 					propertyDialogButtonBar, helper, table);
 			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),
 					propertyDialogButtonBar, helper, editors[0].getControl());
+			
+			
 		} catch (Exception e) {
 			// TODO add logger
 			throw new RuntimeException("Failed to attach listeners to table");
 		}
+		
 
 		addButtonsAndRegisterListners(container, listenerFactory, editors);
-
 		populateWidget();
+  
 	}
 
-	private void addButtonsAndRegisterListners(
+	
+private void addButtonsAndRegisterListners(
 			AbstractELTContainerWidget container,
 			ListenerFactory listenerFactory, CellEditor[] cellEditors) {
 

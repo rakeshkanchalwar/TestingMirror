@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -67,7 +68,7 @@ public class ComponentFigure extends Figure implements Validator{
 	private ComponentCanvas componentCanvas;
 	private ComponentTooltip componentToolTip;
 	org.eclipse.swt.graphics.Rectangle componentBounds;
-	
+	private static final int TOOLTIP_SHOW_DELAY=800;
 	/**
 	 * Instantiates a new component figure.
 	 * 
@@ -214,8 +215,6 @@ public class ComponentFigure extends Figure implements Validator{
 				tooltipSize.x = 300;
 			}
 			componentToolTip.setSize(tooltipSize.x, tooltipSize.y);
-		}else{
-			System.out.println("There is tool tip, So I am not shousing new one");
 		}
 	}
 
@@ -292,9 +291,20 @@ public class ComponentFigure extends Figure implements Validator{
 			public void mouseHover(org.eclipse.draw2d.MouseEvent arg0) {
 				arg0.consume();
 				java.awt.Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-				org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
+				final org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
 								
-				showStatusToolTip(location);
+				//showStatusToolTip(location);
+				componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+				componentCanvas.getCanvasControl().getShell().getDisplay().timerExec(TOOLTIP_SHOW_DELAY, new Runnable() {
+					public void run() {
+						//if(componentCanvas.isToolTipTimerRunning())
+						java.awt.Point mouseLocation2 = MouseInfo.getPointerInfo().getLocation();
+						org.eclipse.swt.graphics.Point location2 = new org.eclipse.swt.graphics.Point(mouseLocation2.x, mouseLocation2.y);
+						
+						if(location2.equals(location))
+							showStatusToolTip(location);
+	                }
+				});
 			}
 			
 			@Override
@@ -373,10 +383,10 @@ public class ComponentFigure extends Figure implements Validator{
 	private void drawStatus(Graphics graphics){
 		Image statusImage = null;
 		Rectangle rectangle = getBounds().getCopy();
-		if(getStatus().equals(ValidityStatus.WARN.name())){
+		if(StringUtils.isNotBlank(getStatus()) && getStatus().equals(ValidityStatus.WARN.name())){
 			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/warn.png");
 		}
-		else if (getStatus().equals(ValidityStatus.ERROR.name())){
+		else if (StringUtils.isNotBlank(getStatus()) && getStatus().equals(ValidityStatus.ERROR.name())){
 			statusImage = new Image(null, XMLConfigUtil.CONFIG_FILES_PATH + "/icons/error.png");
 		}
 		logger.debug("Component has {} status.", getStatus());

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Runjobgrid
+Bundle-SymbolicName: com.bitwise.app.parametergrid;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.bitwise.app.parametergrid.Activator
+Bundle-Vendor: BITWISE
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

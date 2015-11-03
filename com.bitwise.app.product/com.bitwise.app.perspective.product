@@ -43,6 +43,7 @@ openFile
       <plugin id="com.bitwise.app.graph.figure"/>
       <plugin id="com.bitwise.app.menus"/>
       <plugin id="com.bitwise.app.model"/>
+      <plugin id="com.bitwise.app.parametergrid"/>
       <plugin id="com.bitwise.app.perspective"/>
       <plugin id="com.bitwise.app.project.structure"/>
       <plugin id="com.bitwise.app.propertywindow"/>

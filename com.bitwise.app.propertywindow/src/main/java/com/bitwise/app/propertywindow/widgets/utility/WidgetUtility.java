@@ -56,7 +56,9 @@ public class WidgetUtility {
 	 */
 	public static void createTableColumns(Table table,String[] fields){
 		for (String field : fields) {
-			new TableColumn(table, SWT.CENTER).setText(field);
+			TableColumn tc = new TableColumn(table, SWT.CENTER);
+			tc.setText(field);
+			tc.setMoveable(true);
 		}
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);

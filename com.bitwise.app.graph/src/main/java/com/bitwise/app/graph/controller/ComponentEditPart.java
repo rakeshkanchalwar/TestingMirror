@@ -262,7 +262,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		
 		component.updateTooltipInformation();
 		componentFigure.setPropertyToolTipInformation(component.getTooltipInformation());
-		
+		componentFigure.repaint();
 	}
 
 	private void addTooltipInfoToComponent() {

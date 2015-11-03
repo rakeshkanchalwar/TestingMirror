@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-  <tns:component paletteIconPath="/icons/output_palette.png" canvasIconPath="/icons/output_canvas.png" name="OFixedWidth" nameInPalette="Fixed Width" defaultNamePrefix="OFixedWidth">
-    <tns:category>OUTPUT</tns:category>
- <tns:port>
-		<tns:portSpecification>
-		    <tns:typeOfPort>in</tns:typeOfPort>
-		    <tns:numberOfPorts>1</tns:numberOfPorts>
-			<tns:sequenceOfPort>1</tns:sequenceOfPort>
-			<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
-			<tns:linkMandatory>true</tns:linkMandatory>
-			<tns:nameOfPort>in0</tns:nameOfPort>
-		</tns:portSpecification>
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
+	<tns:component paletteIconPath="/icons/output_palette.png" canvasIconPath="/icons/output_canvas.png"
+		name="OFixedWidth" nameInPalette="File Fixed Width" defaultNamePrefix="OFixedWidth">
+		<tns:category>OUTPUT</tns:category>
+		<tns:port>
+			<tns:portSpecification>
+				<tns:typeOfPort>in</tns:typeOfPort>
+				<tns:numberOfPorts>1</tns:numberOfPorts>
+				<tns:sequenceOfPort>1</tns:sequenceOfPort>
+				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
+				<tns:linkMandatory>true</tns:linkMandatory>
+				<tns:nameOfPort>in0</tns:nameOfPort>
+			</tns:portSpecification>
+			
+		</tns:port>
+		<tns:property dataType="string" name="name" renderer="COMPONENT_NAME_WIDGET" type="USER"
+			group="GENERAL" subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT"
+			usage="REQUIRED"/>
 		
-	</tns:port>
-    <tns:property dataType="string" name="name" renderer="COMPONENT_NAME_WIDGET" type="USER" group="GENERAL" 
-    	subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT"/>
-    	
-    <tns:property dataType="string" name="schema" renderer="FIXED_WIDGET" type="USER" group="SCHEMA" 
-    	subGroup="RECORD_STRUCTURE_DETAILS" showAsTooltip="FALSE" tooltipDataType="NONE"/>
-    	
-    <tns:property dataType="string" name="path" renderer="FILE_PATH_WIDGET" type="USER" group="GENERAL" 
-    	subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LINK"/>
-    	
-    <tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict"
-    	renderer="STRICT_CLASS_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE" />
-    	
-    <tns:property dataType="boolean" name="safe" renderer="SAFE_PROPERTY_WIDGET" type="USER" group="GENERAL" 
-    	subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
-    	
-  <tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET" type="USER" 
-    	group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
-    	
-    <tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET" type="USER" 
-    	group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
-    	
-    <tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER" group="GENERAL"
-    	 subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT" />
-  </tns:component>
+		<tns:property dataType="string" name="schema" renderer="FIXED_WIDGET" type="USER"
+			group="SCHEMA" subGroup="RECORD_STRUCTURE_DETAILS" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="path" renderer="FILE_PATH_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LINK"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict"
+			renderer="STRICT_CLASS_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="OPTIONAL"/>
+		
+		<tns:property dataType="boolean" name="safe" renderer="SAFE_PROPERTY_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="OPTIONAL"/>
+		
+		<tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET"
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET"
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="OPTIONAL"/>
+		
+		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"
+			usage="REQUIRED"/>
+	</tns:component>
 </tns:Config>

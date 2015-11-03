@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-	<tns:component paletteIconPath="/icons/filter_palette.png" canvasIconPath="/icons/filter_canvas.png" name="Filter"
-		nameInPalette="Filter" defaultNamePrefix="Filter">
+	<tns:component paletteIconPath="/icons/filter_palette.png" canvasIconPath="/icons/filter_canvas.png"
+		name="Filter" nameInPalette="Filter" defaultNamePrefix="Filter">
 		<tns:category>TRANSFORM</tns:category>
 		<tns:port>
 			<tns:portSpecification>
@@ -33,19 +32,21 @@
 			</tns:portSpecification>
 		</tns:port>
 		
-		<tns:property dataType="string" name="name"
-			renderer="COMPONENT_NAME_WIDGET" type="USER" group="GENERAL"
-			subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT" />
-			
-		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET"
-			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT" />
-			
-		<tns:property dataType="string" name="oprationClass"
-			renderer="OPERATIONAL_CLASS_WIDGET" type="USER" group="GENERAL"
-			subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LINK" />
-			
-		<tns:property dataType="string" name="filter" renderer="FILTER_PROPERTY_WIDGET" 
-		    type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST" />
-		    
+		<tns:property dataType="string" name="name" renderer="COMPONENT_NAME_WIDGET" type="USER"
+			group="GENERAL" subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="OPERATION_CLASS" renderer="OPERATIONAL_CLASS_WIDGET"
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LINK"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="filter" renderer="FILTER_PROPERTY_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
+			usage="OPTIONAL"/>
+		
 	</tns:component>
 </tns:Config>
