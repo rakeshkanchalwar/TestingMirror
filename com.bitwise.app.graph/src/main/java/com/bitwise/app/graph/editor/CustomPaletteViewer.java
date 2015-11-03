@@ -3,31 +3,26 @@ package com.bitwise.app.graph.editor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.Viewport;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
-
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
-
 import org.eclipse.swt.layout.FillLayout;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 
@@ -35,13 +30,24 @@ import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
-
 import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 
+/**
+ *create CustomPaletteViewer 
+ * @author Bitwise
+ *
+ */
 public class CustomPaletteViewer extends PaletteViewer {
 	private Logger logger = LogFactory.INSTANCE.getLogger(CustomPaletteViewer.class);
 	private Label label;
 
+	/**
+	 * create searchTextBox and show components according to text entered in search box
+	 * @param parent
+	 * @param paletteRoot
+	 * @param editor
+	 * @return Control
+	 */
 	public Control creatSearchTextBox(Composite parent, final PaletteRoot paletteRoot, final ETLGraphicalEditor editor) {
 		final Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
 		Composite container = createCompositeForSearchTextBox(parent);
@@ -212,16 +218,14 @@ public class CustomPaletteViewer extends PaletteViewer {
 		callHookRootFigure();
 	}
 
+
 	private void callHookRootFigure() {
-		// use getRootFigure depreciated method when alternate of this method is got then it will be replaced
 		if (getFigureCanvas() == null)
 			return;
-		if (getRootFigure() instanceof Viewport) {
-
-			getFigureCanvas().setViewport((Viewport) getRootFigure());
+		if (((GraphicalEditPart) getRootEditPart()).getFigure() instanceof Viewport) {
+			getFigureCanvas().setViewport((Viewport) ((GraphicalEditPart) getRootEditPart()).getFigure());
 		} else {
-
-			getFigureCanvas().setContents(getRootFigure());
+			getFigureCanvas().setContents(((GraphicalEditPart) getRootEditPart()).getFigure());
 		}
 	}
 }
