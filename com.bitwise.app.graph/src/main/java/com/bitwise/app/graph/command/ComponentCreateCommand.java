@@ -48,9 +48,9 @@ public class ComponentCreateCommand extends Command {
 		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
 		Map<String, Object> properties = ComponentCacheUtil.INSTANCE.getProperties(componentName);
 		properties.put(Component.Props.NAME_PROP.getValue(), components.getName());
-		component.setProperties(properties);
-		component.setBasename(components.getName());
-		component.setCategory(components.getCategory().value());
+//		component.setProperties(properties);
+//		component.setType(components.getName());
+//		component.setCategory(components.getCategory().value());
 		
 		
 		//attach tooltip information to component
@@ -128,8 +128,9 @@ public class ComponentCreateCommand extends Command {
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
 		com.bitwise.app.common.component.config.Component componentConfig = XMLConfigUtil.INSTANCE.getComponent(componentName);
 		component.setProperties(prepareComponentProperties(componentName));
-		component.setBasename(componentConfig.getName());
+		component.setType(componentConfig.getNameInPalette());
 		component.setCategory(componentConfig.getCategory().value());
+		component.setPrefix(componentConfig.getDefaultNamePrefix());
 	}
 	
 	private Map<String, Object> prepareComponentProperties(String componentName) {

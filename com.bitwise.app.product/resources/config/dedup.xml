@@ -6,7 +6,7 @@
 				   canvasIconPath="/icons/dedup_canvas.png" 
 				   name="Removedups"
 				   nameInPalette="Remove Dups" 
-				   defaultNamePrefix="Dedup">
+				   defaultNamePrefix="Removedups">
 		<tns:category>STRAIGHTPULL</tns:category>
 		<tns:port>
 			<tns:portSpecification>
