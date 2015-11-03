@@ -1,7 +1,6 @@
 package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -83,7 +82,8 @@ public abstract class Component extends Model {
 	private final List<String> inputportTerminals;
 	private final List<String> outputPortTerminals;
 	private boolean newInstance;
-	private String basename;
+	private String type;
+	private String prefix;
 	private String category;
 	private Hashtable<String, Port> ports;
 	private String componentName;
@@ -114,6 +114,7 @@ public abstract class Component extends Model {
 		
 		componentLabel = new ComponentLabel(componentName);
 		
+		prefix = XMLConfigUtil.INSTANCE.getComponent(componentName).getDefaultNamePrefix();
 		initPortSettings();
 		
 	}
@@ -393,14 +394,22 @@ public abstract class Component extends Model {
 		this.newInstance = newInstance;
 	}
 
-	public String getBasename() {
-		return basename;
+	public String getType() {
+		return type;
 	}
 
-	public void setBasename(String basename) {
-		this.basename = basename;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
 	public String getCategory() {
 		return category;
 	}
@@ -429,11 +438,11 @@ public abstract class Component extends Model {
 			//TODO : add logger
 			e.printStackTrace();
 		} 
-		component.setBasename(getBasename());
+		component.setType(getType());
 		component.setCategory(getCategory());
 		component.setParent(getParent());
 		component.setProperties((Map<String, Object>) getProperties().clone());
-		component.setPropertyValue("name", getBasename());
+		component.setPropertyValue("name", getPrefix());
 	    component.setSize(getSize());
 	    component.setLocation(getLocation());	
 	    return component;

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<tns:Config xmlns:tns="http://www.bitwise.com/ComponentConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.bitwise.com/ComponentConfig ComponentConfig.xsd ">
-	<tns:component paletteIconPath="/icons/dedup_palette.png" 
-				   canvasIconPath="/icons/dedup_canvas.png" 
-				   name="Removedups"
-				   nameInPalette="Remove Dups" 
-				   defaultNamePrefix="Dedup">
+	<tns:component paletteIconPath="/icons/dedup_palette.png" canvasIconPath="/icons/dedup_canvas.png"
+		name="Removedups" nameInPalette="Remove Dups" defaultNamePrefix="Removedups">
 		<tns:category>STRAIGHTPULL</tns:category>
 		<tns:port>
 			<tns:portSpecification>
@@ -34,20 +30,24 @@
 				<tns:nameOfPort>unused0</tns:nameOfPort>
 			</tns:portSpecification>
 		</tns:port>
-		<tns:property dataType="string" name="name"
-			renderer="COMPONENT_NAME_WIDGET" type="USER" group="GENERAL"
-			subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT" />
-			
-		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET"
-			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT" />
-			
-		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET" 
-		    type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE" />
-				
-		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET"
-		 type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"/>
- 		
- 		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="retention_logic"
- 		    value="First" renderer="RETENTION_LOGIC_WIDGET" type="USER" showAsTooltip="TRUE" tooltipDataType="TEXT" />
+		<tns:property dataType="string" name="name" renderer="COMPONENT_NAME_WIDGET" type="USER"
+			group="GENERAL" subGroup="DISPLAY" showAsTooltip="TRUE" tooltipDataType="TEXT"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"
+			usage="REQUIRED"/>
+		
+		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET"
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="OPTIONAL"/>
+		
+		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
+			usage="OPTIONAL"/>
+		
+		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="retention_logic"
+			value="First" renderer="RETENTION_LOGIC_WIDGET" type="USER" showAsTooltip="TRUE"
+			tooltipDataType="TEXT" usage="OPTIONAL"/>
 	</tns:component>
 </tns:Config>

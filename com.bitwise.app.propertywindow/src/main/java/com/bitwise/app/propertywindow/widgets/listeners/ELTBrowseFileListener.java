@@ -2,14 +2,14 @@ package com.bitwise.app.propertywindow.widgets.listeners;
 
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
 
-import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 
 /**
@@ -22,7 +22,8 @@ import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtilit
  * @see ELTBrowseFileEvent
  */
 public class ELTBrowseFileListener implements IELTListener{
-
+	private ValidationStatus validationStatus;
+	
 	@Override
 	public int getListenerType() {
 		
@@ -33,10 +34,15 @@ public class ELTBrowseFileListener implements IELTListener{
 	public Listener getListener(PropertyDialogButtonBar propertyDialogButtonBar,ListenerHelper helpers, Widget... widgets) {
 		final Widget[] widgetList = widgets;
 				
+		if (helpers != null) {
+			validationStatus = (ValidationStatus) helpers.get(HelperType.VALIDATION_STATUS); 
+		}
+		
 		Listener listener=new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 					FilterOperationClassUtility.browseFile("java",(Text)widgetList[0]);
+					validationStatus.setIsValid(true);
 				}
 		};
 		return listener;
