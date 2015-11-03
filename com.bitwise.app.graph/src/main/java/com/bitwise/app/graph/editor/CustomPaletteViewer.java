@@ -1,5 +1,6 @@
 package com.bitwise.app.graph.editor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
+import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
@@ -33,12 +35,12 @@ import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 
 /**
- *create CustomPaletteViewer 
+ *Creates Custom Palette Viewer 
  * @author Bitwise
  *
  */
 public class CustomPaletteViewer extends PaletteViewer {
-	private Logger logger = LogFactory.INSTANCE.getLogger(CustomPaletteViewer.class);
+	private static final Logger LOGGER = LogFactory.INSTANCE.getLogger(CustomPaletteViewer.class);
 	private Label label;
 
 	/**
@@ -54,46 +56,38 @@ public class CustomPaletteViewer extends PaletteViewer {
 		final Text text = createSearchTextBox(container,SWT.BORDER);
 		try {
 			final List<Component> componentsConfig = XMLConfigUtil.INSTANCE.getComponentConfig();
-			checkSearchTextBoxAndShowMatchedResults(paletteRoot, editor, categoryPaletteConatiner, text,
+			refreshThePaletteBasedOnSearchString(paletteRoot, editor, categoryPaletteConatiner, text,
 					componentsConfig, container);
 
-		} catch (Exception exception) {
-			logger.error(exception.getMessage());
+		} catch (RuntimeException|SAXException|IOException exception) {
+			LOGGER.error(exception.getMessage(),exception);
+			throw new RuntimeException(exception);
 		}
 		return container;
 	}
 
-	private void checkSearchTextBoxAndShowMatchedResults(final PaletteRoot paletteRoot,
+	private void refreshThePaletteBasedOnSearchString(final PaletteRoot paletteRoot,
 			final ETLGraphicalEditor editor, final Map<String, PaletteDrawer> categoryPaletteConatiner,
 			final Text text, final List<Component> componentsConfig, final Composite container) {
 		text.addVerifyListener(new VerifyListener() {
 			@Override
 			public void verifyText(VerifyEvent e) {
 				boolean matchFound = false;
-				CombinedTemplateCreationEntry removeDuplicateComponent = null;
-				ArrayList<Component> matchingComponents = new ArrayList<>();
+				final List<Component> matchingComponents = new ArrayList<>();
 				paletteRoot.getChildren().clear();
 				String currentText = ((Text) e.widget).getText();
 				createPaletteContainers(paletteRoot, categoryPaletteConatiner, editor);
 				String searchedString = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end))
 						.toUpperCase();
-				try {
-					if (searchedString.isEmpty() || searchedString.equals("")) {
-						showAllContainers(paletteRoot, editor, categoryPaletteConatiner, componentsConfig,
-								removeDuplicateComponent);
+					if (searchedString.isEmpty() || "".equals(searchedString)) {
+						showAllContainers(paletteRoot, editor, categoryPaletteConatiner, componentsConfig);
 					} else {
-						matchFound = showMatchedContainers(editor, categoryPaletteConatiner, componentsConfig,
-								matchFound, matchingComponents, searchedString);
+						matchFound = showMatchingContainers(editor, categoryPaletteConatiner, componentsConfig,
+								 matchingComponents, searchedString);
 						showMessageWhenComponentNotFound(container, matchFound);
 						showRequiredPaletteContainers(paletteRoot, categoryPaletteConatiner, matchingComponents);
 					}
-				} catch (Exception exception) {
-					logger.error(exception.getMessage());
-				}
-
 			}
-
-			
 		});
 	}
 	
@@ -106,16 +100,15 @@ public class CustomPaletteViewer extends PaletteViewer {
 		}
 	}
 
-	private boolean showMatchedContainers(final ETLGraphicalEditor editor,
+	private boolean showMatchingContainers(final ETLGraphicalEditor editor,
 			final Map<String, PaletteDrawer> categoryPaletteConatiner, final List<Component> componentsConfig,
-			boolean matchFound, ArrayList<Component> matchingComponents, String searchedString) {
-		CombinedTemplateCreationEntry removeDuplicateComponent;
+			 List<Component> matchingComponents, String searchedString) {
+		boolean matchFound = false;
 		for (Component componentConfig : componentsConfig) {
 			String componentName = componentConfig.getName().toUpperCase();
 			if (componentName.contains(searchedString.trim())) {
 				CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
 						componentConfig);
-				removeDuplicateComponent = component;
 				categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
 				matchingComponents.add(componentConfig);
 				matchFound = true;
@@ -129,11 +122,8 @@ public class CustomPaletteViewer extends PaletteViewer {
 	}
 
 	private void showAllContainers(final PaletteRoot paletteRoot, final ETLGraphicalEditor editor,
-			final Map<String, PaletteDrawer> categoryPaletteConatiner, final List<Component> componentsConfig,
-			CombinedTemplateCreationEntry removeDuplicateComponent) {
+			final Map<String, PaletteDrawer> categoryPaletteConatiner, final List<Component> componentsConfig) {
 		for (Component componentConfig : componentsConfig) {
-			categoryPaletteConatiner.get(componentConfig.getCategory().name()).remove(
-					removeDuplicateComponent);
 			CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
 					componentConfig);
 			categoryPaletteConatiner.get(componentConfig.getCategory().name()).add(component);
@@ -153,7 +143,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 	}
 
 	private void showRequiredPaletteContainers(PaletteRoot paletteRoot,
-			Map<String, PaletteDrawer> categoryPaletteConatiner, ArrayList<Component> matchingComponents) {
+			Map<String, PaletteDrawer> categoryPaletteConatiner, List<Component> matchingComponents) {
 		List<PaletteContainer> children = paletteRoot.getChildren();
 		for (PaletteContainer paletteContainer : children) {
 			paletteContainer.setVisible(false);

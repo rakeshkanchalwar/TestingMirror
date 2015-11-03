@@ -29,7 +29,7 @@ import com.bitwise.app.common.util.LogFactory;
 public class CustomFigureCanvas extends FigureCanvas{
 	private int containerHeight = 0;
     protected Control containerForSearchTextBox;
-    private static Logger logger = LogFactory.INSTANCE.getLogger(CustomFigureCanvas.class);
+    private static final Logger LOGGER = LogFactory.INSTANCE.getLogger(CustomFigureCanvas.class);
 
     static final int APPLY_STYLES =  SWT.V_SCROLL | SWT.H_SCROLL|SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND;
 
@@ -51,17 +51,10 @@ public class CustomFigureCanvas extends FigureCanvas{
             reflectionField.setAccessible(true);
             reflectionMethod = LightweightSystem.class.getDeclaredMethod("setIgnoreResize", boolean.class); //$NON-NLS-1$
             reflectionMethod.setAccessible(true);
-        } catch (SecurityException e) {
-        	logger.error(e.getMessage());
-            throwExceptionWhenReflectionIsFailed(e);
-        } catch (NoSuchMethodException e) {
-        	logger.error(e.getMessage());
+        } catch (SecurityException | NoSuchMethodException | NoSuchFieldException e) {
+        	LOGGER.error(e.getMessage());
             throwExceptionWhenReflectionIsFailed(e);
         } 
-            catch (NoSuchFieldException e) {
-        	logger.error(e.getMessage());
-            throwExceptionWhenReflectionIsFailed(e);
-        }
     }
 
     public CustomFigureCanvas(Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ETLGraphicalEditor editor) {
@@ -107,13 +100,14 @@ public class CustomFigureCanvas extends FigureCanvas{
                 }
             });
         } catch (IllegalAccessException e) {
-        	logger.error(e.getMessage());
+        	LOGGER.error(e.getMessage(),e);
             throwExceptionWhenReflectionIsFailed(e);
         }
     }
 
   
     private static void throwExceptionWhenReflectionIsFailed(Exception e) {
+    	LOGGER.error(e.getMessage(),e);
              throw new RuntimeException(e);
 
     }
@@ -133,16 +127,10 @@ public class CustomFigureCanvas extends FigureCanvas{
         try {
            
             reflectionMethod.invoke(getLightweightSystem(), true);
-        } catch (IllegalArgumentException e) {
-        	logger.error(e.getMessage());
+        } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+        	LOGGER.error(e.getMessage());
             throwExceptionWhenReflectionIsFailed(e);
-        } catch (IllegalAccessException e) {
-        	logger.error(e.getMessage());
-            throwExceptionWhenReflectionIsFailed(e);
-        } catch (InvocationTargetException e) {
-        	logger.error(e.getMessage());
-            throwExceptionWhenReflectionIsFailed(e);
-        }
+     } 
         try {
             if (getHorizontalBar().getVisible() != result.showH) {
                 getHorizontalBar().setVisible(result.showH);
@@ -163,16 +151,10 @@ public class CustomFigureCanvas extends FigureCanvas{
             try {
                 
                 reflectionMethod.invoke(getLightweightSystem(), false);
-            } catch (IllegalArgumentException e) {
-            	logger.error(e.getMessage());
+            }catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+            	LOGGER.error(e.getMessage());
                 throwExceptionWhenReflectionIsFailed(e);
-            } catch (IllegalAccessException e) {
-            	logger.error(e.getMessage());
-                throwExceptionWhenReflectionIsFailed(e);
-            } catch (InvocationTargetException e) {
-            	logger.error(e.getMessage());
-                throwExceptionWhenReflectionIsFailed(e);
-            }
+         } 
         }
     }
 
