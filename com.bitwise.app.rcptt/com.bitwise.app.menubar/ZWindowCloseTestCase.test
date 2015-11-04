@@ -6,7 +6,7 @@ Element-Version: 3.0
 External-Reference: 
 Id: _ilxg8GwzEeWN3Jyy0d9lOw
 Runtime-Version: 2.0.0.201506120617
-Save-Time: 10/21/15 7:00 PM
+Save-Time: 11/4/15 10:06 AM
 Testcase-Type: ecl
 
 ------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
@@ -20,7 +20,7 @@ with [get-view Palette | get-palette] {
         mouse-press 68 13 button1 -height 22 -width 244
         mouse-release 68 13 button1 524288 -height 22 -width 244
     }
-    with [get-palette-entry IFDelimited] {
+    with [get-palette-entry "File Delimited"] {
         mouse-move 50 18 button1 -height 42 -width 244
         mouse-press 50 18 button1 -height 42 -width 244
         get-figure "0/0" | drag-start 34 15
@@ -34,7 +34,7 @@ with [get-editor | get-diagram | get-edit-part -className ContainerEditPart] {
 }
 get-view Palette | get-palette | drag-set-data
 get-editor  | get-diagram | get-edit-part -className ContainerEditPart | drop 418 71 -detail copy
-get-view Palette | get-palette | get-palette-entry InputFixedWidth | mouse-move 82 7 -height 23 -width 244
+get-view Palette | get-palette | get-palette-entry "File Fixed Width" | mouse-move 82 7 -height 23 -width 244
 get-menu "File/Close All" | click
 get-window "Save Resource" | get-button No | click
 get-menu "File/Exit" | click
