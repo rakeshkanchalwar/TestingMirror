@@ -262,7 +262,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		
 		component.updateTooltipInformation();
 		componentFigure.setPropertyToolTipInformation(component.getTooltipInformation());
-		componentFigure.repaint();
 	}
 
 	private void addTooltipInfoToComponent() {
@@ -306,6 +305,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		String statusName = Component.Props.VALIDITY_STATUS.getValue();
 		if(properties.containsKey(statusName)){
 			((ComponentFigure)getFigure()).setStatus((String)properties.get(statusName));
+			getFigure().repaint();
 		}
 	}
 }

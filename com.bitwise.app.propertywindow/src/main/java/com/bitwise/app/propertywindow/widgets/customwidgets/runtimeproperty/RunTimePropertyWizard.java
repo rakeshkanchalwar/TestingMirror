@@ -2,13 +2,9 @@ package com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -35,12 +31,10 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
-import com.bitwise.app.propertywindow.widgets.filterproperty.ELTFilterProperties;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -67,10 +61,10 @@ public class RunTimePropertyWizard {
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
-	private Button addButton, deleteAll, okButton, deleteButton, cacelButton, button, upButton, downButton;
+	private Button addButton, okButton, deleteButton, cacelButton, upButton, downButton;
 	private boolean isAnyUpdatePerformed;
 
-	private PropertyDialogButtonBar propertyDialogButtonBar;
+	
 
 	// private boolean firstTimeEdit;
 
@@ -210,7 +204,6 @@ public class RunTimePropertyWizard {
 		shell = new Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
 		isAnyUpdatePerformed = false;
-		this.propertyDialogButtonBar=propertyDialogButtonBar;
 		shell.setSize(506, 542);
 		shell.setLayout(null);
 		shell.setText(Messages.RUNTIME_WINDOW_NAME);
@@ -295,10 +288,10 @@ private void createIcons(Composite composite){
 		
 		new Label(composite, SWT.SEPARATOR|SWT.HORIZONTAL).setBounds(0, 41, 513, 60);
 		addButton = new Button(composite, SWT.PUSH);
-		addButton.setText("+");
-		/*String addIconPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png";
+		// addButton.setText("+");
+		String addIconPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png";
 		addButton.setImage(new Image(null, addIconPath));
-		*/addButton.setBounds(388, 10, 20, 20);
+		addButton.setBounds(388, 10, 20, 20);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -308,10 +301,10 @@ private void createIcons(Composite composite){
 		
 		
 		deleteButton = new Button(composite, SWT.PUSH);
-		deleteButton.setText("X");
-		/*String deleteIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png";
+		// deleteButton.setText("X");
+		String deleteIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png";
 		deleteButton.setImage(new Image(null, deleteIonPath));
-		*/deleteButton.setBounds(407, 10, 25, 20);
+		deleteButton.setBounds(407, 10, 25, 20);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			
 			@Override
@@ -336,10 +329,10 @@ private void createIcons(Composite composite){
 		});
 		
 		upButton = new Button(composite, SWT.PUSH);
-		upButton.setText("^");
-		/*String upIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/up.png";
+		// upButton.setText("^");
+		String upIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/up.png";
 		upButton.setImage(new Image(null, upIonPath));
-		*/upButton.setBounds(431, 10, 20, 20);
+		upButton.setBounds(431, 10, 20, 20);
 		
 		upButton.addSelectionListener(new SelectionAdapter() {
 			int index1=0,index2=0;
@@ -372,10 +365,10 @@ private void createIcons(Composite composite){
 		});
 		
 		downButton = new Button(composite, SWT.PUSH);
-		downButton.setText("->");
-		/*String downIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/down.png";
+		// downButton.setText("->");
+		String downIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/down.png";
 		downButton.setImage(new Image(null, downIonPath));
-		*/downButton.setBounds(450, 10, 25, 20);
+		downButton.setBounds(450, 10, 25, 20);
 		downButton.addSelectionListener(new SelectionAdapter() {
 			int index1=0,index2=0;
 				
@@ -584,7 +577,7 @@ private void createIcons(Composite composite){
 			@Override
 			public String isValid(Object value) {
 				isAnyUpdatePerformed = true;
-				String currentSelectedFld=table.getItem(
+				table.getItem(
 						table.getSelectionIndex()).getText();
 				String valueToValidate = String.valueOf(value).trim();
 				if (valueToValidate.isEmpty()) {
