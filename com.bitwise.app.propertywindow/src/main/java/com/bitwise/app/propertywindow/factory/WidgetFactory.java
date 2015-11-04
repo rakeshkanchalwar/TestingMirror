@@ -11,20 +11,17 @@ import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.CustomWindowOnButtonWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTCharacterSetWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTColumnWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.DropDownWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentBaseType;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentNameWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentType;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTDelimeterWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTFilePathWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTFilterWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTHasHeaderWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTOperationClassWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTPhaseWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTRetentionlogicWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTSafeWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.ELTStrictWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.SingleColumnWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.TextBoxWithLabelWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.WidgetHelper;
+import com.bitwise.app.propertywindow.widgets.customwidgets.config.WidgetConfig;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTGenericSchemaGridWidget;
 
@@ -41,32 +38,50 @@ public class WidgetFactory {
 	
 	public enum Widgets{
 		SCHEMA_WIDGET(ELTGenericSchemaGridWidget.class),
-		FIELD_SEQUENCE_WIDGET(ELTGenericSchemaGridWidget.class),
 		FIXED_WIDGET(ELTFixedWidget.class),
-		RUNTIME_PROPERTIES_WIDGET(ELTRuntimePropertiesWidget.class),
+		FIELD_SEQUENCE_WIDGET(ELTGenericSchemaGridWidget.class),
+
 		FILE_PATH_WIDGET(ELTFilePathWidget.class),
-		CHARACTER_SET_WIDGET(ELTCharacterSetWidget.class),
-		DELIMETER_WIDGET(ELTDelimeterWidget.class),
-		PHASE_WIDGET(ELTPhaseWidget.class),
-		HAS_HEADER_WIDGET(ELTHasHeaderWidget.class),
 		COMPONENT_NAME_WIDGET(ELTComponentNameWidget.class),
-		SAFE_PROPERTY_WIDGET(ELTSafeWidget.class),
-		FILTER_PROPERTY_WIDGET(ELTFilterWidget.class),
-		OPERATIONAL_CLASS_WIDGET(ELTOperationClassWidget.class),
+		
 		COMPONENT_BASETYPE_WIDGET(ELTComponentBaseType.class),
 		COMPONENT_TYPE_WIDGET(ELTComponentType.class),
-		STRICT_CLASS_WIDGET(ELTStrictWidget.class),
+
 		RETENTION_LOGIC_WIDGET(ELTRetentionlogicWidget.class),
-		COLUMN_NAME_WIDGET(ELTColumnWidget.class),
+
+		STRICT_CLASS_WIDGET(DropDownWidget.class, WidgetHelper.INSTANCE.getStrictWidgetConfig()),
+		SAFE_PROPERTY_WIDGET(DropDownWidget.class, WidgetHelper.INSTANCE.getSafeWidgetConfig()),
+		CHARACTER_SET_WIDGET(DropDownWidget.class, WidgetHelper.INSTANCE.getCharacterSetWidgetConfig()),
+		HAS_HEADER_WIDGET(DropDownWidget.class, WidgetHelper.INSTANCE.getHasHeaderWidgetConfig()),
+
+		DELIMETER_WIDGET(TextBoxWithLabelWidget.class, WidgetHelper.INSTANCE.getDelimiterWidgetConfig()),
+		PHASE_WIDGET(TextBoxWithLabelWidget.class, WidgetHelper.INSTANCE.getPhaseWidgetConfig()),
+
+		FILTER_PROPERTY_WIDGET(SingleColumnWidget.class, WidgetHelper.INSTANCE.getOperationFieldsConfig()),
+		COLUMN_NAME_WIDGET(SingleColumnWidget.class, WidgetHelper.INSTANCE.getColumnNameConfig()),
+
+		OPERATIONAL_CLASS_WIDGET(ELTOperationClassWidget.class),
+		RUNTIME_PROPERTIES_WIDGET(ELTRuntimePropertiesWidget.class),
 		CUSTOM_WINDOW_ON_BUTTON_WIDGET(CustomWindowOnButtonWidget.class);
 		
 		private Class<?> clazz = null;
+		private WidgetConfig widgetConfig = null;
+		
 		private Widgets(Class<?> clazz) {
 			this.clazz = clazz;
 		}
 		
+		private Widgets(Class<?> clazz, WidgetConfig widgetConfig) {
+			this.clazz = clazz;
+			this.widgetConfig = widgetConfig;
+		}
+		
 		public Class<?> getClazz(){
 			return this.clazz;
+		}
+		
+		public WidgetConfig getWidgetConfig() {
+			return widgetConfig;
 		}
 	}
 
@@ -74,9 +89,11 @@ public class WidgetFactory {
 			ComponentMiscellaneousProperties componentMiscProperties, PropertyDialogButtonBar propertyDialogButtonBar){
 		try {
 			Widgets widget = Widgets.valueOf(widgetName);
-			return (AbstractWidget) widget.getClazz().getDeclaredConstructor(ComponentConfigrationProperty.class,
+			AbstractWidget abstractWidget = (AbstractWidget) widget.getClazz().getDeclaredConstructor(ComponentConfigrationProperty.class,
 					ComponentMiscellaneousProperties.class,	PropertyDialogButtonBar.class).
 					newInstance(componentConfigProperty, componentMiscProperties, propertyDialogButtonBar);
+			abstractWidget.setWidgetConfig(widget.getWidgetConfig());
+			return abstractWidget;
 		
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
 				InvocationTargetException | NoSuchMethodException | SecurityException exception) {

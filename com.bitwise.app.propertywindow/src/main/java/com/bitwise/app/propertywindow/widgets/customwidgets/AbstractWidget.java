@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Text;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.config.WidgetConfig;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 
 // TODO: Auto-generated Javadoc
@@ -23,7 +24,7 @@ public abstract class AbstractWidget {
 	protected PropertyDialogButtonBar propertyDialogButtonBar;
 	protected ValidationStatus validationStatus = new ValidationStatus();
 	protected Text firstTextWidget=null;
-	
+	protected WidgetConfig widgetConfig;
 	
 	
 	/**
@@ -76,5 +77,13 @@ public abstract class AbstractWidget {
 	}
 	public Text getFirstTextWidget(){
 		return firstTextWidget;
+	}
+
+	public WidgetConfig getWidgetConfig() {
+		return widgetConfig;
+	}
+
+	public void setWidgetConfig(WidgetConfig widgetConfig) {
+		this.widgetConfig = widgetConfig;
 	}
 }
