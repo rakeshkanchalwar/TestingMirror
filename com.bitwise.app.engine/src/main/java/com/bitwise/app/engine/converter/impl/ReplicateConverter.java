@@ -70,7 +70,6 @@ public class ReplicateConverter extends StraightPullConverter {
 			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
 			inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
-			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();
 			inSocketsList.add(inSocket);
 		}
