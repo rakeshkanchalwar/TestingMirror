@@ -69,7 +69,9 @@ public class PropertyDialogBuilder {
 	 */
 	public void buildPropertyWindow(){
 		TabFolder tabFolder = addTabFolderToPropertyWindow();
-		addTabsInTabFolder(tabFolder);
+        addTabsInTabFolder(tabFolder);
+      
+		
 	}
 
 	private void addTabsInTabFolder(TabFolder tabFolder) {
@@ -156,17 +158,31 @@ public class PropertyDialogBuilder {
 		final ColumnLayoutData cld_tabFolder = new ColumnLayoutData();
 		cld_tabFolder.heightHint = 303;
 		tabFolder.setLayoutData(cld_tabFolder);
-
+		
 		container.addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {
 				cld_tabFolder.heightHint = container.getBounds().height - 50;
 			}
 		});
-
+		
+		tabFolder.addListener(SWT.FOCUSED,getMouseClickListener() );
+       
 		return tabFolder;
 	}
-
+	private Listener getMouseClickListener() {
+		return new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				for(AbstractWidget abstractWidget: eltWidgetList){
+			    	  if(abstractWidget.getFirstTextWidget() != null){
+			    		   abstractWidget.getFirstTextWidget().setFocus();
+			    	  }
+			      }
+			}
+		};
+	}
 	/**
 	 * Gets the property window tab.
 	 * 
@@ -178,7 +194,8 @@ public class PropertyDialogBuilder {
 	 */
 	public ScrolledCompositeHolder getPropertyWindowTab(String groupName,TabFolder tabFolder){	
 		TabItem tabItem = createTab(groupName, tabFolder);
-		ScrolledComposite scrolledComposite = addScrolledCompositeToTab(tabFolder,tabItem);				
+		
+		ScrolledComposite scrolledComposite = addScrolledCompositeToTab(tabFolder,tabItem);	
 		Composite composite = addCompositeToScrolledComposite(scrolledComposite);
 		return new ScrolledCompositeHolder(scrolledComposite,composite);
 	}
@@ -187,14 +204,15 @@ public class PropertyDialogBuilder {
 		Composite composite = new Composite(scrolledComposite, SWT.NONE);
 		ColumnLayout cl_composite = new ColumnLayout();
 		cl_composite.maxNumColumns = 1;
-		composite.setLayout(cl_composite);
 		cl_composite.bottomMargin = -10;
+		
+		composite.setLayout(cl_composite);
+		
 		return composite;
 	}
 
 	private ScrolledComposite addScrolledCompositeToTab(TabFolder tabFolder,TabItem tabItem) {
-		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder, SWT.V_SCROLL);
-		scrolledComposite.setAlwaysShowScrollBars(true);
+		ScrolledComposite scrolledComposite = new ScrolledComposite(tabFolder,SWT.V_SCROLL);
 		tabItem.setControl(scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);

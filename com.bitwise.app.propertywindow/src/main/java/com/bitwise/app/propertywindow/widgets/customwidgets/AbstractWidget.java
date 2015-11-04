@@ -2,6 +2,8 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 
 import java.util.LinkedHashMap;
 
+import org.eclipse.swt.widgets.Text;
+
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -20,6 +22,9 @@ public abstract class AbstractWidget {
 	protected ComponentMiscellaneousProperties componentMiscellaneousProperties;
 	protected PropertyDialogButtonBar propertyDialogButtonBar;
 	protected ValidationStatus validationStatus = new ValidationStatus();
+	protected Text firstTextWidget=null;
+	
+	
 	
 	/**
 	 * Instantiates a new abstract widget.
@@ -68,5 +73,8 @@ public abstract class AbstractWidget {
 	
 	public boolean isDataValid() {
 		return validationStatus.isValid;
+	}
+	public Text getFirstTextWidget(){
+		return firstTextWidget;
 	}
 }
