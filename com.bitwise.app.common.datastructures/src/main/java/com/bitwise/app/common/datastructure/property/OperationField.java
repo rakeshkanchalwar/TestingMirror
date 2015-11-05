@@ -2,6 +2,11 @@ package com.bitwise.app.common.datastructure.property;
 
 public class OperationField extends PropertyField{
 	
+	public OperationField(boolean isOpInputField, boolean isPropInner) {
+		super(isOpInputField, isPropInner);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String operationField;
 
 	public String getOperationField() {

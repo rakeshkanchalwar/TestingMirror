@@ -1,9 +1,16 @@
 package com.bitwise.app.common.datastructure.property;
 
 public class NameValueProperty extends PropertyField{
+
+	public NameValueProperty(boolean isOpInputField, boolean isPropInner) {
+		super(isOpInputField, isPropInner);
+	}
+
 	private String propertyName;
 	private String propertyValue;
 
+	
+	
 	public String getPropertyValue() {
 		return propertyValue;
 	}
