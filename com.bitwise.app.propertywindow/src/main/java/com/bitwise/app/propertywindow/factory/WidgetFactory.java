@@ -10,7 +10,6 @@ import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget;
-import com.bitwise.app.propertywindow.widgets.customwidgets.CustomWindowOnButtonWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.DropDownWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentBaseType;
 import com.bitwise.app.propertywindow.widgets.customwidgets.ELTComponentNameWidget;
@@ -22,6 +21,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.SingleColumnWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.TextBoxWithLabelWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.WidgetHelper;
 import com.bitwise.app.propertywindow.widgets.customwidgets.config.WidgetConfig;
+import com.bitwise.app.propertywindow.widgets.customwidgets.operational.TransformWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTGenericSchemaGridWidget;
 
@@ -59,10 +59,10 @@ public class WidgetFactory {
 
 		FILTER_PROPERTY_WIDGET(SingleColumnWidget.class, WidgetHelper.INSTANCE.getOperationFieldsConfig()),
 		COLUMN_NAME_WIDGET(SingleColumnWidget.class, WidgetHelper.INSTANCE.getColumnNameConfig()),
-
+		SECONDARY_KEYS_WIDGET(SingleColumnWidget.class, WidgetHelper.INSTANCE.getSecondaryKeysConfig()),
 		OPERATIONAL_CLASS_WIDGET(ELTOperationClassWidget.class),
 		RUNTIME_PROPERTIES_WIDGET(ELTRuntimePropertiesWidget.class),
-		CUSTOM_WINDOW_ON_BUTTON_WIDGET(CustomWindowOnButtonWidget.class);
+		TRANSFORM_WIDGET(TransformWidget.class);
 		
 		private Class<?> clazz = null;
 		private WidgetConfig widgetConfig = null;

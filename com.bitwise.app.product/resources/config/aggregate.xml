@@ -32,14 +32,19 @@
 		
 		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
-			usage="OPTIONAL"/>
-		
-		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET" type="USER"
+			usage="REQUIRED"/>
+			
+		<tns:property dataType="string" name="SECONDARY_KEYS" renderer="SECONDARY_KEYS_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
 			usage="OPTIONAL"/>
 		
 		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"
 			usage="REQUIRED"/>
+			
+		<tns:property dataType="string" name="OPERATION" renderer="TRANSFORM_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
+			usage="OPTIONAL"/>			
+			
 	</tns:component>
 </tns:Config>

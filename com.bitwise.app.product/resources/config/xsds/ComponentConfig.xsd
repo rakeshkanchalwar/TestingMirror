@@ -92,7 +92,8 @@
 			<enumeration value="STRICT_CLASS_WIDGET" />
 			<enumeration value="RETENTION_LOGIC_WIDGET"/>
 			<enumeration value="COLUMN_NAME_WIDGET"/>
-			<enumeration value="CUSTOM_WINDOW_ON_BUTTON_WIDGET"/>
+			<enumeration value="SECONDARY_KEYS_WIDGET"/>
+			<enumeration value="TRANSFORM_WIDGET"/>
 		</restriction>
 	</simpleType>
 
@@ -139,19 +140,6 @@
 			<enumeration value="OUTPUT" />
 			<enumeration value="TRANSFORM" />
 			<enumeration value="STRAIGHTPULL" />
-		</restriction>
-	</simpleType>
-	
-	<simpleType name="shape">
-		<restriction base="string">
-			<enumeration value="InputFigure"/>
-			<enumeration value="OutputFigure"/>
-			<enumeration value="FilterFigure"/>
-			<enumeration value="GatherFigure"/>
-			<enumeration value="ReplicateFigure"/>
-			<enumeration value="OutputFixedWidthFigure"/>
-			<enumeration value="InputFixedWidthFigure"/>
-			<enumeration value="DedupFigure"/>
 		</restriction>
 	</simpleType>
 	

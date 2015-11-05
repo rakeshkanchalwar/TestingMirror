@@ -28,4 +28,6 @@ public class Constants {
 	public static final String OPERATION_FIELDS = "Operation\n Fields";
 	public static final String COLUMN_NAME2 = "Column Name ";
 	public static final String COLUMN_NAME = "Column\n Name";
+	public static final String SECONDARY_KEYS2 = "Secondary Keys ";
+	public static final String SECONDARY_KEYS = "Secondary\n Keys";
 }
