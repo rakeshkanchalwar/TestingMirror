@@ -56,7 +56,6 @@ import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
-import com.bitwise.app.propertywindow.widgets.customwidgets.schema.SchemaGridContentProvider;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
@@ -241,7 +240,7 @@ public class TransformDialog extends Dialog {
 		Composite nameValueComposite = new Composite(middleContainerComposite, SWT.NONE);
 		nameValueComposite.setBounds(10, 267, 767, 171);
 
-		tableViewerPropOuter = createTableViewer(nameValueComposite, new String[]{"Property Name","Property Values"},new SchemaGridContentProvider(),new PropertyLabelProvider());
+		tableViewerPropOuter = createTableViewer(nameValueComposite, new String[]{"Property Name","Property Values"},new TransformGridContentProvider(),new PropertyLabelProvider());
 		tableViewerPropOuter.setCellModifier(new PropertyGridCellModifier(tableViewerPropOuter));
 		applyDrop(tableViewerPropOuter.getTable(), tableViewerPropOuter,new NameValueProperty());
 		
@@ -336,7 +335,7 @@ public class TransformDialog extends Dialog {
 		btnNewButton_5.setBounds(88, 10, 28, 25);
 		btnNewButton_5.setImage(SWTResourceManager.getImage(ADD_ICON));		
 		
-		tableViewer = createTableViewer(OpInputFieldComposite, new String[]{"Operation Input Fields"},new SchemaGridContentProvider(),new OperationLabelProvider());
+		tableViewer = createTableViewer(OpInputFieldComposite, new String[]{"Operation Input Fields"},new TransformGridContentProvider(),new OperationLabelProvider());
 		tableViewer.setCellModifier(new OperationGridCellModifier(tableViewer));
 		applyDrop(tableViewer.getTable(), tableViewer,new OperationField());
 		
@@ -361,7 +360,7 @@ public class TransformDialog extends Dialog {
 	
 		
 		Composite nameValueInnerComposite = new Composite(composite_4, SWT.NONE);
-		tableViewerInnerPropValue = createTableViewer(nameValueInnerComposite, new String[]{"Property Name","Property Values"},new SchemaGridContentProvider(),new PropertyLabelProvider());
+		tableViewerInnerPropValue = createTableViewer(nameValueInnerComposite, new String[]{"Property Name","Property Values"},new TransformGridContentProvider(),new PropertyLabelProvider());
 		tableViewerInnerPropValue.setCellModifier(new PropertyGridCellModifier(tableViewerInnerPropValue));
 	
 		ELTDefaultSubgroupComposite defaultnameValueInnerComposite = new ELTDefaultSubgroupComposite(nameValueInnerComposite);
@@ -396,7 +395,7 @@ public class TransformDialog extends Dialog {
 
 		
 		
-		tableViewerOutput = createTableViewer(opOutputFieldComposite, new String[]{"Operation Output Fields"},new SchemaGridContentProvider(),new OperationLabelProvider());
+		tableViewerOutput = createTableViewer(opOutputFieldComposite, new String[]{"Operation Output Fields"},new TransformGridContentProvider(),new OperationLabelProvider());
 		tableViewerOutput.setCellModifier(new OperationGridCellModifier(tableViewerOutput));
 		
 		ELTTable eltOpOutTable = new ELTTable(tableViewerOutput);
