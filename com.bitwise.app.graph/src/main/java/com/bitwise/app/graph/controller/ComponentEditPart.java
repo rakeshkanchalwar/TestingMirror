@@ -237,20 +237,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		Component component = getCastedModel();
 		ComponentFigure componentFigure = getComponentFigure();
 				
-		component.setComponentLabel((String) component.getPropertyValue(Component.Props.NAME_PROP.getValue()));
-		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
-		if (!childrenEditParts.isEmpty()){
-			ComponentLabelEditPart cLabelEditPart = null;
-			for(AbstractGraphicalEditPart part:childrenEditParts)
-			{
-				if(part instanceof ComponentLabelEditPart){
-					cLabelEditPart = (ComponentLabelEditPart) part;
-					cLabelEditPart.refreshVisuals();
-				}
-			}
-			
-		}
-		
+		refreshChildren();
 		
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
