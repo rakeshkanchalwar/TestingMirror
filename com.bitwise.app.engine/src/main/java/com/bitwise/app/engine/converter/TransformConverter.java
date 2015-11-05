@@ -3,25 +3,25 @@ package com.bitwise.app.engine.converter;
 import java.util.List;
 
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
-import com.bitwiseglobal.graph.commontypes.TypeTransformComponent;
+import com.bitwiseglobal.graph.commontypes.TypeOperationsComponent;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
-import com.bitwiseglobal.graph.commontypes.TypeTransformOutSocket;
+import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
 
 public abstract class TransformConverter extends Converter {
 		
 	@Override
 	public void prepareForXML(){
 		super.prepareForXML();
-		((TypeTransformComponent) baseComponent).getInSocket().addAll(getInSocket());
-		((TypeTransformComponent)baseComponent).getOutSocket().addAll(getOutSocket());
-		((TypeTransformComponent)baseComponent).getOperation().addAll(getOperations());
+		((TypeOperationsComponent) baseComponent).getInSocket().addAll(getInSocket());
+		((TypeOperationsComponent)baseComponent).getOutSocket().addAll(getOutSocket());
+		((TypeOperationsComponent)baseComponent).getOperation().addAll(getOperations());
 	}
 	
 	/**
 	 * Returns {@link List} of classes of type {@link TypeTransformOutSocket}
 	 * @return {@link List}
 	 */
-	protected abstract  List<TypeTransformOutSocket> getOutSocket();
+	protected abstract  List<TypeOperationsOutSocket> getOutSocket();
 	
 	/**
 	 * Returns {@link List} of classes of type {@link TypeTransformOperation} 

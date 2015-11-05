@@ -21,8 +21,8 @@ import com.bitwiseglobal.graph.commontypes.TypeInputField;
 import com.bitwiseglobal.graph.commontypes.TypeOperationInputFields;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
-import com.bitwiseglobal.graph.commontypes.TypeTransformOutSocket;
-import com.bitwiseglobal.graph.transformtypes.Filter;
+import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
+import com.bitwiseglobal.graph.operationstypes.Filter;
 
 /**
  * Converter implementation for Filter component
@@ -47,14 +47,14 @@ public class FilterConverter extends TransformConverter {
 
 
 	@Override
-	protected List<TypeTransformOutSocket> getOutSocket() {
+	protected List<TypeOperationsOutSocket> getOutSocket() {
 		LOGGER.debug("Genrating TypeStraightPullOutSocket data for : {}",
 				properties.get(NAME));
-		List<TypeTransformOutSocket> outSockectList = new ArrayList<TypeTransformOutSocket>();
+		List<TypeOperationsOutSocket> outSockectList = new ArrayList<TypeOperationsOutSocket>();
 		String temp,temp2;
 		int outSocketCounter=1;
 		for (Link link : component.getSourceConnections()) {
-			TypeTransformOutSocket outSocket = new TypeTransformOutSocket();
+			TypeOperationsOutSocket outSocket = new TypeOperationsOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
 			outSocketAsInsocket.setInSocketId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();

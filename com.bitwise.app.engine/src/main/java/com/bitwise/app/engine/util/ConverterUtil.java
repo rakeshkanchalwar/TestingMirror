@@ -42,7 +42,7 @@ public class ConverterUtil {
 					Converter converter = ConverterFactory.INSTANCE.getConverter(component); 
 					converter.prepareForXML();
 					TypeBaseComponent typeBaseComponent = converter.getComponent();
-					graph.getInputOrOutputOrStraightPull().add(typeBaseComponent);
+					graph.getInputsOrOutputsOrStraightPulls().add(typeBaseComponent);
 				}
 			}
 			

@@ -13,7 +13,7 @@ import com.bitwise.app.graph.model.Link;
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
-import com.bitwiseglobal.graph.straightpulltypes.Gather;
+import com.bitwiseglobal.graph.straightpulltypes.UnionAll;
 
 /**
  * Converter implementation for Gather component
@@ -24,7 +24,7 @@ public class GatherConverter extends StraightPullConverter {
 
 	public GatherConverter(Component component) {
 		super();
-		this.baseComponent = new Gather();
+		this.baseComponent = new UnionAll();
 		this.component = component;
 		this.properties = component.getProperties();
 	}

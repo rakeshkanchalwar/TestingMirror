@@ -1,8 +1,9 @@
 package com.bitwise.app.graph.figure;
 
-
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -17,7 +18,8 @@ public class PortFigure extends Figure {
 	private Color portColor;
 	private String terminal;
 	private FixedConnectionAnchor anchor;
-	
+	private TooltipFigure tooltipFigure;
+
 	/**
 	 * Instantiates a new port figure.
 	 * 
@@ -26,15 +28,43 @@ public class PortFigure extends Figure {
 	 * @param terminal
 	 *            the terminal
 	 */
-	public PortFigure(Color portColor, String portType, int portSeq, int totalPorts) {
+	public PortFigure(Color portColor, String portType, int portSeq,
+			int totalPorts, String nameOfPort) {
 		this.portColor = portColor;
-		this.terminal = portType+portSeq;
-		this.anchor = new FixedConnectionAnchor(this, portType, totalPorts, portSeq);
+		this.terminal = portType + portSeq;
+		this.anchor = new FixedConnectionAnchor(this, portType, totalPorts,
+				portSeq);
 		getBounds().setSize(new Dimension(8, 8));
 
+		tooltipFigure = new TooltipFigure();
+		setToolTip(tooltipFigure);
+		
+		//NOTE : to Suppress the component tooltip when user hover the mouse on Port 
+		addMouseMotionListener(new MouseMotionListener() {
+			@Override
+			public void mouseMoved(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseHover(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+			}
+		});
+		
 	}
 
-	@Override
+   @Override
 	protected void paintFigure(Graphics graphics) {
 
 		super.paintFigure(graphics);
@@ -48,16 +78,15 @@ public class PortFigure extends Figure {
 	public boolean equals(Object o) {
 		if (o instanceof PortFigure) {
 			PortFigure pf = (PortFigure) o;
-			if ( 
-					pf.getParent() == this.getParent() &&
-					pf.getTerminal() == this.getTerminal()
+			if (pf.getParent() == this.getParent()
+					&& pf.getTerminal() == this.getTerminal()
 
-					)
+			)
 				return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int result = 17;
@@ -67,19 +96,19 @@ public class PortFigure extends Figure {
 		result = 31 * result + var1;
 		result = 31 * result + sequence;
 		result = 31 * result + var2;
-		
+
 		return result;
-		
+
 	}
-	
-	public void selectPort(){
+
+	public void selectPort() {
 		setBackgroundColor(ELTColorConstants.blueBrandBoder);
 	}
-	
-	public void deSelectPort(){
+
+	public void deSelectPort() {
 		setBackgroundColor(ELTColorConstants.componentBorder);
 	}
-	
+
 	@Override
 	public void validate() {
 		super.validate();
@@ -96,21 +125,25 @@ public class PortFigure extends Figure {
 	public String getTerminal() {
 		return terminal;
 	}
-	
 
 	public FixedConnectionAnchor getAnchor() {
 		return anchor;
 	}
 
-
 	@Override
 	public String toString() {
-				
-		 return "\n******************************************"+
-				"\nTerminal: "+this.terminal+
-				"\nParent Figure: "+this.getParent()+
-				"\nHashcode: "+ hashCode()+
-				"\n******************************************\n";
+
+		return "\n******************************************" + "\nTerminal: "
+				+ this.terminal + "\nParent Figure: " + this.getParent()
+				+ "\nHashcode: " + hashCode()
+				+ "\n******************************************\n";
 	}
 
+	public void setTooltipText(String tooltipText) {
+		tooltipFigure.setMessage(tooltipText);
+	}
+
+	public TooltipFigure getToolTipFigure() {
+		return tooltipFigure;
+	}
 }

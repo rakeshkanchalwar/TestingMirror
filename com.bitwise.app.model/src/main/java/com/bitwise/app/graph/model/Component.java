@@ -180,6 +180,10 @@ public abstract class Component extends Model {
 	 *            the c
 	 */
 	public void connectOutput(Link c) {
+		if(outputLinksHash.get(c.getSourceTerminal())!=null)
+			c.setLinkNumber(outputLinksHash.get(c.getSourceTerminal()).size());
+		else
+			c.setLinkNumber(0);
 		outputLinks.add(c);
 		outputLinksHash.put(c.getSourceTerminal(), outputLinks);
 		updateConnectionProperty(Props.OUTPUTS.getValue(), c);

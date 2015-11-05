@@ -13,13 +13,24 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.ui.actions.OpenNewClassWizardAction;
 import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+
+import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
+import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckBox;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
+import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -106,5 +117,64 @@ public class FilterOperationClassUtility {
 
 	}
 
+public static void createOperationalClass(Composite composite,
+											PropertyDialogButtonBar eltOperationClassDialogButtonBar,Text fileName
+											,Button btnCheckButton,ValidationStatus validationStatus ){
+	
+	ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(composite);
+	eltSuDefaultSubgroupComposite.createContainerWidget();
+	eltSuDefaultSubgroupComposite.numberOfBasicWidgets(4);
+	
+	AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\nClass");
+	eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
+	
+	AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150);
+	eltSuDefaultSubgroupComposite.attachWidget(fileNameText);
+	
+	fileName = (Text) fileNameText.getSWTWidgetControl();
+	
+	AbstractELTWidget browseButton = new ELTDefaultButton("...").buttonWidth(20);
+	eltSuDefaultSubgroupComposite.attachWidget(browseButton);
+	
+	AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("Is Parameter").checkBoxLableWidth(100);
+	eltSuDefaultSubgroupComposite.attachWidget(isParameterCheckbox);
+	
+	
+	ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite2 = new ELTDefaultSubgroupComposite(composite);
+	eltSuDefaultSubgroupComposite2.createContainerWidget();
+	eltSuDefaultSubgroupComposite2.numberOfBasicWidgets(3);
+	
+	
+	ELTDefaultButton emptyButton = new ELTDefaultButton("").buttonWidth(75);
+	eltSuDefaultSubgroupComposite2.attachWidget(emptyButton);
+	emptyButton.visible(false);
+			
+	// Create new button, that use to create operational class
+	AbstractELTWidget createButton = new ELTDefaultButton("Create New");
+	eltSuDefaultSubgroupComposite2.attachWidget(createButton);
 
+	// Edit new button, that use to edit operational class
+	AbstractELTWidget editButton = new ELTDefaultButton("Edit");
+	eltSuDefaultSubgroupComposite2.attachWidget(editButton); 
+	
+	btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
+	
+		ListenerHelper helper = new ListenerHelper();
+		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+	try { 						
+		
+		fileNameText.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(),eltOperationClassDialogButtonBar, null,fileName);
+		editButton.attachListener(ListenerFactory.Listners.OPEN_FILE_EDITOR.getListener(),eltOperationClassDialogButtonBar, null,fileName);
+		browseButton.attachListener(ListenerFactory.Listners.BROWSE_FILE_LISTNER.getListener(),eltOperationClassDialogButtonBar, helper,fileName);
+		createButton.attachListener(ListenerFactory.Listners.CREATE_NEW_CLASS.getListener(),eltOperationClassDialogButtonBar, helper,fileName);
+		fileNameText.attachListener(ListenerFactory.Listners.EMPTY_TEXT_MODIFY.getListener(),eltOperationClassDialogButtonBar, helper,fileName,editButton.getSWTWidgetControl(),isParameterCheckbox.getSWTWidgetControl());
+		isParameterCheckbox.attachListener(ListenerFactory.Listners.ENABLE_BUTTON.getListener(),eltOperationClassDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());
+		} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} 
+	
+}
+	
+	
 }

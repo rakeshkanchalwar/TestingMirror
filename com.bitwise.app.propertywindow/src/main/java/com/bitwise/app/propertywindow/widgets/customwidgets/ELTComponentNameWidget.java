@@ -67,14 +67,15 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 		AbstractELTWidget eltDefaultLable = new ELTDefaultLable(NAME);
 		eltDefaultSubgroupComposite.attachWidget(eltDefaultLable);
-
+		
 		AbstractELTWidget eltDefaultTextBox = new ELTDefaultTextBox().defaultText("Hello")
 				.grabExcessHorizontalSpace(true).textBoxWidth(200);
 		eltDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
 
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
-		
+		text.setFocus();
 		text.setTextLimit(15);
+		firstTextWidget = text;
 		ListenerHelper listenerHelper = new ListenerHelper();
 		listenerHelper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		try {

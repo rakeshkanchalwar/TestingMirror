@@ -19,7 +19,7 @@ import com.bitwiseglobal.graph.commontypes.ScaleTypeList;
 import com.bitwiseglobal.graph.commontypes.TypeBaseField;
 import com.bitwiseglobal.graph.commontypes.TypeOutputInSocket;
 import com.bitwiseglobal.graph.otffw.TypeOutputFixedwidthInSocket;
-import com.bitwiseglobal.graph.outputtypes.FileFixedWidth;
+import com.bitwiseglobal.graph.outputtypes.TextFileFixedWidth;
 
 public class OutputFileFixedWidthConverter extends OutputConverter {
 
@@ -29,17 +29,17 @@ public class OutputFileFixedWidthConverter extends OutputConverter {
 		super();
 		this.component = component;
 		this.properties = component.getProperties();
-		this.baseComponent = new FileFixedWidth();
+		this.baseComponent = new TextFileFixedWidth();
 	}
 	
 	@Override
 	public void prepareForXML(){
 		LOGGER.debug("prepareForXML - Genrating XML data for "+component);
 		super.prepareForXML();
-		FileFixedWidth fileFixedWidth = (FileFixedWidth) baseComponent;
-		FileFixedWidth.Path path = new FileFixedWidth.Path();
+		TextFileFixedWidth fileFixedWidth = (TextFileFixedWidth) baseComponent;
+		TextFileFixedWidth.Path path = new TextFileFixedWidth.Path();
 		path.setUri((String) properties.get(PropertyNameConstants.PATH.value()));
-		FileFixedWidth.Charset charset = new FileFixedWidth.Charset();
+		TextFileFixedWidth.Charset charset = new TextFileFixedWidth.Charset();
 		charset.setValue(getCharset());
 		fileFixedWidth.setSafe(getBoolean(PropertyNameConstants.IS_SAFE.value()));
 		fileFixedWidth.setPath(path);

@@ -17,9 +17,9 @@ import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeFieldName;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
-import com.bitwiseglobal.graph.dedup.TypePrimaryKeyFields;
-import com.bitwiseglobal.graph.straightpulltypes.Dedup;
-import com.bitwiseglobal.graph.straightpulltypes.Dedup.Keep;
+import com.bitwiseglobal.graph.removedups.TypePrimaryKeyFields;
+import com.bitwiseglobal.graph.straightpulltypes.RemoveDups;
+import com.bitwiseglobal.graph.straightpulltypes.RemoveDups.Keep;
 
 public class DedupConverter extends StraightPullConverter {
 
@@ -27,7 +27,7 @@ public class DedupConverter extends StraightPullConverter {
 
 	public DedupConverter(Component component) {
 		super();
-		this.baseComponent = new Dedup();
+		this.baseComponent = new RemoveDups();
 		this.component = component;
 		this.properties = component.getProperties();
 	}
@@ -36,7 +36,7 @@ public class DedupConverter extends StraightPullConverter {
 	public void prepareForXML(){
 		LOGGER.debug("Genrating XML for : {}", properties.get(NAME));
 		super.prepareForXML();
-		Dedup dedup = (Dedup) baseComponent;
+		RemoveDups dedup = (RemoveDups) baseComponent;
 		dedup.setRuntimeProperties(getRuntimeProperties());
 		dedup.setKeep(getKeep());
 		dedup.setPrimaryKeys(getPrimaryKeys());

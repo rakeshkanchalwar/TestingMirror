@@ -1,40 +1,22 @@
 package com.bitwise.app.propertywindow.widgets.filterproperty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import javax.swing.text.TableView.TableCell;
-
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellEditorValidator;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ControlEditor;
-import org.eclipse.swt.custom.TableCursor;
-import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Color;
@@ -51,8 +33,6 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
@@ -86,10 +66,10 @@ public class ELTFilterPropertyWizard {
 	private TableViewer tableViewer;
 	private ControlDecoration decorator;
 	public ControlDecoration scaleDecorator;
-	private Button addButton, deleteAll, okButton, deleteButton, cacelButton, button, upButton, downButton;
+	private Button addButton, okButton, deleteButton, cacelButton, upButton, downButton;
 	private boolean isAnyUpdatePerformed;
 
-	private TableCursor cursor;
+	
 		
 
 
@@ -179,8 +159,10 @@ public class ELTFilterPropertyWizard {
 			
 			@Override
 			public void keyTraversed(TraverseEvent e) {
-				if(e.keyCode==SWT.TAB){
-					e.doit=true;
+				if(e.keyCode == SWT.ARROW_UP){
+					e.doit=false;
+				}else if(e.keyCode == SWT.ARROW_DOWN){
+					e.doit=false;
 				}
 				
 			}
@@ -193,19 +175,32 @@ public class ELTFilterPropertyWizard {
 		TableColumn tc1 = new TableColumn(table, SWT.CENTER);
 		tc1.setText("Field Name");
 		tc1.setWidth(460);
-		//tc1.pack();
-		//tableViewer.getTable().setLinesVisible(true);
 		table.setHeaderVisible(true);
 		
-		/* cursor = new TableCursor(table, SWT.NONE);
-		final ControlEditor editor = new ControlEditor(cursor);*/
+		 /*final TableCursor cursor = new TableCursor(table, SWT.NONE);
+		 ControlEditor editor = new ControlEditor(cursor);
+		 editor.grabHorizontal = true;
+		 editor.grabVertical = true;
+		 
+		 cursor.addSelectionListener(new SelectionAdapter() {
+			 @Override
+			 public void widgetSelected(SelectionEvent e){
+				 table.setSelection(new TableItem[] { cursor.getRow() });
+			 }
+			 
+			 public void widgetDefaultSelected(SelectionEvent event) {
+				 	Text text = new Text(table, SWT.None);
+				 	text.setFocus();
+				 	text.setText(cursor.getRow().getText(cursor.getColumn()));
+				 	text.setFocus();
+			 }
+		});*/
 		
 		/*cursor.addSelectionListener(new SelectionAdapter() {
+			@Override
 			 public void widgetSelected(SelectionEvent e) {
-			        table.setSelection(new TableItem[] { cursor.getRow() });
-			      
-			      }*/
-		
+			        table.setSelection(new TableItem[] { cursor.getRow() });*/
+			
 		/*public void widgetDefaultSelected(SelectionEvent e){
 			  final Text text = new Text(cursor, SWT.NONE);
 		        TableItem row = cursor.getRow();
@@ -254,7 +249,7 @@ public class ELTFilterPropertyWizard {
 	                }
 	                else
 	                {
-	                     button = new Button((Composite) cell.getViewerRow().getControl(),SWT.NONE);
+	                     button = new Button((Composite) cell.getViewerRow(1).getControl(),SWT.NONE);
 	                    button.setText("+");
 	                    button.pack();
 	                   buttons.put(cell.getElement(), button);
@@ -283,6 +278,7 @@ public class ELTFilterPropertyWizard {
 		shell.setSize(506, 540);
 		shell.setLayout(null);
 		shell.setText("Properties");
+		//imageShell(shell);
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
 		if (getComponentName() != null){
@@ -361,10 +357,10 @@ public class ELTFilterPropertyWizard {
 		
 		new Label(composite, SWT.SEPARATOR|SWT.HORIZONTAL).setBounds(0, 41, 513, 60);
 		addButton = new Button(composite, SWT.PUSH);
-		//addButton.setText("+");
+		// addButton.setText("+");
 		String addIconPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png";
 		addButton.setImage(new Image(null, addIconPath));
-		addButton.setBounds(384, 10, 20, 20);
+		addButton.setBounds(388, 10, 20, 20);
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -374,10 +370,10 @@ public class ELTFilterPropertyWizard {
 		
 		
 		deleteButton = new Button(composite, SWT.PUSH);
-		//deleteButton.setText("X");
+		// deleteButton.setText("X");
 		String deleteIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png";
 		deleteButton.setImage(new Image(null, deleteIonPath));
-		deleteButton.setBounds(406, 10, 25, 20);
+		deleteButton.setBounds(407, 10, 25, 20);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			
 			@Override
@@ -387,9 +383,7 @@ public class ELTFilterPropertyWizard {
 							Messages.SelectRowToDelete);
 						 
 				}else {*/
-				/*for(int i=0;i<temp.length;i++){
-					table.remove(temp[i]);
-					propertyLst.remove(temp[i]);}*/
+				
 				IStructuredSelection selection = (IStructuredSelection)tableViewer.getSelection();
 				for (Iterator<?> iterator = selection.iterator(); iterator.hasNext(); )
 				 {
@@ -404,42 +398,68 @@ public class ELTFilterPropertyWizard {
 		});
 		
 		upButton = new Button(composite, SWT.PUSH);
-		//upButton.setText("^");
+		// upButton.setText("^");
 		String upIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/up.png";
 		upButton.setImage(new Image(null, upIonPath));
-		upButton.setBounds(433, 10, 20, 20);
+		upButton.setBounds(431, 10, 20, 20);
 		
 		upButton.addSelectionListener(new SelectionAdapter() {
-			int temp,temp2=0;
+			int index1=0,index2=0;
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				temp=table.getSelectionIndex();
-				table.setSelection(temp-1);
-				/*temp=table.getSelectionIndex();
-				temp2=temp-1;
-				String data=tableViewer.getTable().getItem(temp).getText();
-				String data2=tableViewer.getTable().getItem(temp2).getText();
-				
-				
-				tableViewer.getTable().getItem(temp).setText(data2);
-				tableViewer.getTable().getItem(temp2).setText(data);
-				
-				System.out.println("Index::"+temp+"::"+data);*/
+	
+				index1=table.getSelectionIndex();
+			
+				if(index1 > 0){
+					index2 = index1 - 1;
+					String data=tableViewer.getTable().getItem(index1).getText();
+					String data2=tableViewer.getTable().getItem(index2).getText();
+					
+					ELTFilterProperties filter = new ELTFilterProperties();
+					filter.setPropertyname(data2);
+					propertyLst.set(index1, filter);
+					
+					filter = new ELTFilterProperties();
+					filter.setPropertyname(data);
+					propertyLst.set(index2, filter);
+					tableViewer.refresh();
+					table.setSelection(index1 - 1);
+				}	
 				
 			}
 		});
 		
 		downButton = new Button(composite, SWT.PUSH);
-		//downButton.setText("->");
+		// downButton.setText("->");
 		String downIonPath = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/down.png";
 		downButton.setImage(new Image(null, downIonPath));
 		downButton.setBounds(450, 10, 25, 20);
 		downButton.addSelectionListener(new SelectionAdapter() {
-			int temp=0;
+			int index1=0,index2=0;
+		
+			//List<String> list=new LinkedList<String>();
+			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				temp=table.getSelectionIndex();
-				table.setSelection(temp+1);
+				index1=table.getSelectionIndex();
+				System.out.println("List size::"+propertyLst.size());
+				
+				if(index1 < propertyLst.size()){
+					index2 = index1 + 1;
+					String data=tableViewer.getTable().getItem(index1).getText();
+					String data2=tableViewer.getTable().getItem(index2).getText();
+					
+					ELTFilterProperties filter = new ELTFilterProperties();
+					filter.setPropertyname(data2);
+					propertyLst.set(index1, filter);
+					
+					filter = new ELTFilterProperties();
+					filter.setPropertyname(data);
+					propertyLst.set(index2, filter);
+					tableViewer.refresh();
+					table.setSelection(index1 + 1);
+				}	
 			}
 		});
 	}
@@ -564,6 +584,11 @@ public class ELTFilterPropertyWizard {
 		okButton.setEnabled(true);
 		addButton.setEnabled(true);
 	}
+	
+	/*public void imageShell(Shell shell){
+		String image = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/property_window_icon.png";
+		shell.setImage(new Image(null, image));
+	}*/
 	
 	public static void main(String[] args) {
 		ELTFilterPropertyWizard obj = new ELTFilterPropertyWizard();

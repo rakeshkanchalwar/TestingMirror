@@ -243,12 +243,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			ComponentLabelEditPart cLabelEditPart = null;
 			for(AbstractGraphicalEditPart part:childrenEditParts)
 			{
-				if(part instanceof ComponentLabelEditPart)
+				if(part instanceof ComponentLabelEditPart){
 					cLabelEditPart = (ComponentLabelEditPart) part;
+					cLabelEditPart.refreshVisuals();
+				}
 			}
-			cLabelEditPart.refreshVisuals();
+			
 		}
-		
 		
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
@@ -262,7 +263,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		
 		component.updateTooltipInformation();
 		componentFigure.setPropertyToolTipInformation(component.getTooltipInformation());
-		componentFigure.repaint();
 	}
 
 	private void addTooltipInfoToComponent() {
@@ -306,6 +306,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		String statusName = Component.Props.VALIDITY_STATUS.getValue();
 		if(properties.containsKey(statusName)){
 			((ComponentFigure)getFigure()).setStatus((String)properties.get(statusName));
+			getFigure().repaint();
 		}
 	}
 }
