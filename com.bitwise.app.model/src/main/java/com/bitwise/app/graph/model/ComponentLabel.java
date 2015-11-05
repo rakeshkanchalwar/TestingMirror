@@ -11,7 +11,7 @@ public class ComponentLabel extends Model{
 		return componentLabel;
 	}
 
-	public void setComponentLabel(String componentLabel) {
+	public void setComponentLabelContents(String componentLabel) {
 		this.componentLabel = componentLabel;
 	}
 	

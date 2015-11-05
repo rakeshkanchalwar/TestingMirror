@@ -37,7 +37,7 @@ public class Container extends Model {
 		if (component != null && components.add(component)) {
 			component.setParent(this);
 			String compOldName = (String) component.getPropertyValue(Component.Props.NAME_PROP.getValue());
-			String compNewName = getDefaultNameForComponent(compOldName.trim(),component.getPrefix(),component.isNewInstance()).trim();
+			String compNewName = getDefaultNameForComponent(component.getPrefix());
 			component.setComponentLabel(compNewName);
 			
 			if (component.isNewInstance()) {
@@ -70,22 +70,10 @@ public class Container extends Model {
 		return false;
 	}
 
-	private String getDefaultNameForComponent(String componentName, String prefix, boolean isNewInstance){
-		if (!isNewInstance) {
-			// OK, so it's not a new instance of the component (probably undo ), check if the component name is still
-			// unique
-			if (isUniqueCompName(componentName)) {
-				componentNames.add(componentName);
-				return componentName;
-			} else {
-				// not a new instance nor the name is unique. get the default name using prefix
-				componentName = prefix;
-			}
+	private String getDefaultNameForComponent(String prefix){
 
-		}
-		componentName = componentName.trim();
 		String newName = "";
-		Integer nextSuffix = componentNextNameSuffixes.get(componentName);
+		Integer nextSuffix = componentNextNameSuffixes.get(prefix);
 		LoggerUtil.getLoger(this.getClass()).debug(
 				"componentNextNameSuffixes.size(): " + componentNextNameSuffixes.size());
 		int next = 1;
@@ -93,7 +81,7 @@ public class Container extends Model {
 		if (nextSuffix == null) {
 			LoggerUtil.getLoger(this.getClass())
 					.debug( "component "
-							+ componentName
+							+ prefix
 							+ " not present in the map! will check if default component name is already taken by some other component. If not, then return default name.");
 
 		} else {
@@ -102,13 +90,13 @@ public class Container extends Model {
 			next = nextSuffix.intValue();
 		}
 
-		newName = componentName + "_" + (next < 10 ? "0" : "") + next;
+		newName = prefix + "_" + (next < 10 ? "0" : "") + next;
 
 
 		// populate Hashtable
 		nextSuffix = new Integer(++next);
-		Integer i = componentNextNameSuffixes.put(componentName, nextSuffix);
-		LoggerUtil.getLoger(this.getClass()).debug("previous value for component " + componentName + " in map: " + i);
+		Integer i = componentNextNameSuffixes.put(prefix, nextSuffix);
+		LoggerUtil.getLoger(this.getClass()).debug("previous value for component " + prefix + " in map: " + i);
 		LoggerUtil.getLoger(this.getClass()).debug("Adding New component name to the list: " + newName);
 		componentNames.add(newName);
 
