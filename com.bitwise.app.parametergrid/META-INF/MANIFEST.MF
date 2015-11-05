@@ -6,6 +6,8 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.bitwise.app.parametergrid.Activator
 Bundle-Vendor: BITWISE
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.ui.forms;bundle-version="3.5.101",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
