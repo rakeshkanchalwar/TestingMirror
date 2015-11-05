@@ -19,9 +19,9 @@ import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProper
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeInputField;
 import com.bitwiseglobal.graph.commontypes.TypeOperationInputFields;
+import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
-import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
 import com.bitwiseglobal.graph.operationstypes.Filter;
 
 /**
@@ -109,7 +109,7 @@ public class FilterConverter extends TransformConverter {
 				TypeBaseInSocket inSocket = new TypeBaseInSocket();
 				inSocket.setFromComponentId((String) link.getSource()
 						.getProperties().get(NAME));
-				inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+				inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort())+link.getLinkNumber());
 				inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 				inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 				inSocket.getOtherAttributes();

@@ -102,7 +102,7 @@ public class DedupConverter extends StraightPullConverter {
 			
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
-			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort())+link.getLinkNumber());
 			inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();

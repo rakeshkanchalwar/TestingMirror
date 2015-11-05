@@ -42,18 +42,18 @@ public class ReplicateConverter extends StraightPullConverter {
 				"getOutSocket - Genrating TypeStraightPullOutSocket data for :{}",
 				properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
-		int outSocketCounter = 0;
+		
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
 			outSocketAsInsocket.setInSocketId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			outSocket.setId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()) + outSocketCounter);
+			outSocket.setId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()) + link.getLinkNumber());
 			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
-			outSocketCounter++;
+			
 		}
 
 		return outSockectList;
@@ -67,7 +67,7 @@ public class ReplicateConverter extends StraightPullConverter {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
-			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort())+link.getLinkNumber());
 			inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();

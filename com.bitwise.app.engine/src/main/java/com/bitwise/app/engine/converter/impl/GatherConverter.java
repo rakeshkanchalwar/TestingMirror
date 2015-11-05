@@ -62,9 +62,8 @@ public class GatherConverter extends StraightPullConverter {
 		int inSocketCounter = 0;
 		for (Link link : component.getTargetConnections()) {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
-			inSocket.setFromComponentId((String) link.getSource()
-					.getProperties().get(NAME));
-			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setFromComponentId((String) link.getSource().getProperties().get(NAME));
+			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort())+link.getLinkNumber());
 			inSocket.setId(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort())+ inSocketCounter);
 			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();

@@ -216,4 +216,7 @@ public class Container extends Model {
 		return result;
 	}
 	
+	public Hashtable<String, Integer> getComponentNextNameSuffixes() {
+		return componentNextNameSuffixes;
+	}
 }
