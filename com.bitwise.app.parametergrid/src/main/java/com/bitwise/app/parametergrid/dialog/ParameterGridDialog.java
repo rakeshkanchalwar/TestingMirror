@@ -48,7 +48,7 @@ public class ParameterGridDialog extends Dialog {
 		cld_composite.heightHint = 30;
 		composite.setLayoutData(cld_composite);
 		
-		TextGridColumns textGridColumns = new TextGridColumns();
+		final TextGridColumns textGridColumns = new TextGridColumns();
 		textGridColumns.addColumn(new ColumnData.Builder().columnWidth(90).editable(false).build());
 		textGridColumns.addColumn(new ColumnData.Builder().grabHorizantalAccessSpace(true).build());
 		final TextGrid textGrid = new TextGrid();
@@ -57,6 +57,7 @@ public class ParameterGridDialog extends Dialog {
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				textGridColumns.resetColumnData(0, new ColumnData.Builder().columnWidth(90).editable(true).build());
 				textGrid.addRow();				
 				textGrid.refresh();
 				textGrid.scrollToLastRow();

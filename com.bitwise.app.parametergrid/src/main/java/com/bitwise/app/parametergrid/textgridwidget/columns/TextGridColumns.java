@@ -24,5 +24,10 @@ public class TextGridColumns {
 		return textGridColumns;
 	}
 	
+	public void resetColumnData(int columnNumber,ColumnData columnData){
+		if(textGridColumns.containsKey(columnNumber)){
+			textGridColumns.put(columnNumber, columnData);
+		}
+	}
 	
 }

@@ -73,4 +73,10 @@ public class TextGrid {
 	public void setHeight(int height){
 		textGridCompositeLayoutData.heightHint = height;
 	}
+
+	public TextGridColumns getTextGridColumns() {
+		return textGridColumns;
+	}
+	
+	
 }
