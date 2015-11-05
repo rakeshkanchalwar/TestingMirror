@@ -8,17 +8,17 @@ import com.bitwise.app.graph.model.categories.StraightPullCategory;
  * 
  * @author Bitwise
  */
-public class Clone extends StraightPullCategory {
+public class CloneComponent extends StraightPullCategory {
 
 	/**
 	 * Instantiates a new replicate.
 	 */
-	public Clone() {
+	public CloneComponent() {
 		super();
 	}
 
 	public String getConverter() {
-		return "com.bitwise.app.engine.converter.impl.ReplicateConverter";
+		return "com.bitwise.app.engine.converter.impl.CloneConverter";
 
 	}
 }

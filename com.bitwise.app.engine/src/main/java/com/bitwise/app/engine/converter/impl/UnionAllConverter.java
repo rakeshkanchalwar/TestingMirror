@@ -18,11 +18,11 @@ import com.bitwiseglobal.graph.straightpulltypes.UnionAll;
 /**
  * Converter implementation for Gather component
  */
-public class GatherConverter extends StraightPullConverter {
+public class UnionAllConverter extends StraightPullConverter {
 
-	Logger LOGGER = LogFactory.INSTANCE.getLogger(GatherConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(UnionAllConverter.class);
 
-	public GatherConverter(Component component) {
+	public UnionAllConverter(Component component) {
 		super();
 		this.baseComponent = new UnionAll();
 		this.component = component;
@@ -62,9 +62,8 @@ public class GatherConverter extends StraightPullConverter {
 		int inSocketCounter = 0;
 		for (Link link : component.getTargetConnections()) {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
-			inSocket.setFromComponentId((String) link.getSource()
-					.getProperties().get(NAME));
-			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setFromComponentId((String) link.getSource().getProperties().get(NAME));
+			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort())+link.getLinkNumber());
 			inSocket.setId(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort())+ inSocketCounter);
 			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();

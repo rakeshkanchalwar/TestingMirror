@@ -13,7 +13,7 @@ public class Link extends Model {
 
 	/** Line drawing style for this connection. */
 	private int lineStyle = Graphics.LINE_SOLID;
-	
+	private int linkNumber;
 	/**
 	 * Used for indicating that a Connection with solid line style should be
 	 * created.
@@ -145,6 +145,14 @@ public class Link extends Model {
 		firePropertyChange(LINESTYLE_PROP, null, new Integer(this.lineStyle));
 	}
 	
+	public int getLinkNumber() {
+		return linkNumber;
+	}
+
+	public void setLinkNumber(int linkNumber) {
+		this.linkNumber = linkNumber;
+	}
+
 	/**
 	 * Reconnect.
 	 */

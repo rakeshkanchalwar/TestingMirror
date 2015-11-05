@@ -18,11 +18,11 @@ import com.bitwiseglobal.graph.straightpulltypes.Clone;
 /**
  * Converter implementation for Replicate component
  */
-public class ReplicateConverter extends StraightPullConverter {
+public class CloneConverter extends StraightPullConverter {
 
-	Logger LOGGER = LogFactory.INSTANCE.getLogger(ReplicateConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(CloneConverter.class);
 
-	public ReplicateConverter(Component component) {
+	public CloneConverter(Component component) {
 		super();
 		this.baseComponent = new Clone();
 		this.component = component;
@@ -42,18 +42,18 @@ public class ReplicateConverter extends StraightPullConverter {
 				"getOutSocket - Genrating TypeStraightPullOutSocket data for :{}",
 				properties.get(NAME));
 		List<TypeStraightPullOutSocket> outSockectList = new ArrayList<TypeStraightPullOutSocket>();
-		int outSocketCounter = 0;
+		
 		for (Link link : component.getSourceConnections()) {
 			TypeStraightPullOutSocket outSocket = new TypeStraightPullOutSocket();
 			TypeOutSocketAsInSocket outSocketAsInsocket = new TypeOutSocketAsInSocket();
 			outSocketAsInsocket.setInSocketId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			outSocketAsInsocket.getOtherAttributes();
 			outSocket.setCopyOfInsocket(outSocketAsInsocket);
-			outSocket.setId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()) + outSocketCounter);
+			outSocket.setId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()) + link.getLinkNumber());
 			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.getOtherAttributes();
 			outSockectList.add(outSocket);
-			outSocketCounter++;
+			
 		}
 
 		return outSockectList;
@@ -67,7 +67,7 @@ public class ReplicateConverter extends StraightPullConverter {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
 			inSocket.setFromComponentId((String) link.getSource()
 					.getProperties().get(NAME));
-			inSocket.setFromSocketId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			inSocket.setFromSocketId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort())+link.getLinkNumber());
 			inSocket.setId(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort());
 			inSocket.setType(PortTypeConstant.getPortType(link.getTarget().getPort(link.getTargetTerminal()).getNameOfPort()));
 			inSocket.getOtherAttributes();

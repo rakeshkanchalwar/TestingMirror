@@ -4,24 +4,22 @@ import com.bitwise.app.graph.model.categories.StraightPullCategory;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Gather.
+ * The Class Dedup.
  * 
  * @author Bitwise
  */
-public class Unionall extends StraightPullCategory {
+public class RemovedupsComponent extends StraightPullCategory{
 
-		
 	/**
-	 * Instantiates a new gather.
+	 * Instantiates a new dedup.
 	 */
-	public Unionall() {
+	public RemovedupsComponent(){
 		super();
 	}
-	
+	@Override
 	public String getConverter()
 	{
-		return "com.bitwise.app.engine.converter.impl.GatherConverter";
+		return "com.bitwise.app.engine.converter.impl.RemoveDupsConverter";
 		
 	}
-
 }

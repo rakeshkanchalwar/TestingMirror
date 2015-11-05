@@ -54,7 +54,7 @@ public class InputFileFixedWidthConverter extends InputConverter {
 		List<TypeInputOutSocket> outSockets = new ArrayList<>();
 		for (Link link : component.getSourceConnections()) {
 			TypeInputFixedwidthOutSocket outSocket = new TypeInputFixedwidthOutSocket();
-			outSocket.setId(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort());
+			outSocket.setId(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()) + link.getLinkNumber());
 			outSocket.setType(PortTypeConstant.getPortType(link.getSource().getPort(link.getSourceTerminal()).getNameOfPort()));
 			outSocket.setSchema(getSchema());
 			outSocket.getOtherAttributes();
