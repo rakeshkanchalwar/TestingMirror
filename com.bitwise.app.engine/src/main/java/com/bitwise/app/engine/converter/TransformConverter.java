@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOperationsComponent;
-import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
+import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
+import com.bitwiseglobal.graph.transform.TypeTransformOutSocket;
 
 public abstract class TransformConverter extends Converter {
 		
@@ -15,6 +16,7 @@ public abstract class TransformConverter extends Converter {
 		((TypeOperationsComponent) baseComponent).getInSocket().addAll(getInSocket());
 		((TypeOperationsComponent)baseComponent).getOutSocket().addAll(getOutSocket());
 		((TypeOperationsComponent)baseComponent).getOperation().addAll(getOperations());
+		((TypeOperationsComponent)baseComponent).getRuntimeProperties().add(getRuntimeProperties());
 	}
 	
 	/**
