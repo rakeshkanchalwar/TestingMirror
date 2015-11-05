@@ -19,7 +19,7 @@ public class RemovedupsComponent extends StraightPullCategory{
 	@Override
 	public String getConverter()
 	{
-		return "com.bitwise.app.engine.converter.impl.DedupConverter";
+		return "com.bitwise.app.engine.converter.impl.RemoveDupsConverter";
 		
 	}
 }

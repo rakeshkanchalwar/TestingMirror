@@ -20,7 +20,7 @@ public class UnionallComponent extends StraightPullCategory {
 	
 	public String getConverter()
 	{
-		return "com.bitwise.app.engine.converter.impl.GatherConverter";
+		return "com.bitwise.app.engine.converter.impl.UnionAllConverter";
 		
 	}
 

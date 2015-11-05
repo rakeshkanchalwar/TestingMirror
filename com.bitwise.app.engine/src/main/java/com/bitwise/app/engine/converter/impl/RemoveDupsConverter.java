@@ -21,11 +21,11 @@ import com.bitwiseglobal.graph.removedups.TypePrimaryKeyFields;
 import com.bitwiseglobal.graph.straightpulltypes.RemoveDups;
 import com.bitwiseglobal.graph.straightpulltypes.RemoveDups.Keep;
 
-public class DedupConverter extends StraightPullConverter {
+public class RemoveDupsConverter extends StraightPullConverter {
 
-	Logger LOGGER = LogFactory.INSTANCE.getLogger(DedupConverter.class);
+	Logger LOGGER = LogFactory.INSTANCE.getLogger(RemoveDupsConverter.class);
 
-	public DedupConverter(Component component) {
+	public RemoveDupsConverter(Component component) {
 		super();
 		this.baseComponent = new RemoveDups();
 		this.component = component;

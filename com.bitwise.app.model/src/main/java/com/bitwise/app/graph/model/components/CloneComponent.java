@@ -18,7 +18,7 @@ public class CloneComponent extends StraightPullCategory {
 	}
 
 	public String getConverter() {
-		return "com.bitwise.app.engine.converter.impl.ReplicateConverter";
+		return "com.bitwise.app.engine.converter.impl.CloneConverter";
 
 	}
 }
