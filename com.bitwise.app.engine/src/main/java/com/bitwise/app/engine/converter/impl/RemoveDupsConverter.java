@@ -37,7 +37,6 @@ public class RemoveDupsConverter extends StraightPullConverter {
 		LOGGER.debug("Genrating XML for : {}", properties.get(NAME));
 		super.prepareForXML();
 		RemoveDups dedup = (RemoveDups) baseComponent;
-		dedup.setRuntimeProperties(getRuntimeProperties());
 		dedup.setKeep(getKeep());
 		dedup.setPrimaryKeys(getPrimaryKeys());
 	}
