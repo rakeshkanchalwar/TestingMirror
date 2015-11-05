@@ -237,7 +237,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		Component component = getCastedModel();
 		ComponentFigure componentFigure = getComponentFigure();
 				
-		component.setComponentLabel((String) component.getPropertyValue(Component.Props.NAME_PROP.getValue()));
+		
 		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
 		if (!childrenEditParts.isEmpty()){
 			ComponentLabelEditPart cLabelEditPart = null;
@@ -286,7 +286,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			logger.debug("Updated dimentions: " + getCastedModel().getSize().height + ":"
 							+ getCastedModel().getSize().width);
-			
+			getCastedModel().setComponentLabel((String) getCastedModel().getPropertyValue(Component.Props.NAME_PROP.getValue()));
 			updateComponentStatus();
 			refreshVisuals();
 
