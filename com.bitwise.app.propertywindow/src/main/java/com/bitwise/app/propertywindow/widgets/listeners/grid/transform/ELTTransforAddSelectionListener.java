@@ -24,8 +24,8 @@ public class ELTTransforAddSelectionListener extends GridWidgetCommonBuilder {
 	@Override
 	public void createDefaultSchema(List grids, TableViewer tableViewer,
 			Label errorLabel) {
-		OperationField operationField = new OperationField(false,false);
-		operationField.setOperationField("Test");
+		OperationField operationField = new OperationField();
+		operationField.setName("Test");
  		if(!grids.contains(operationField)){
 			grids.add(operationField);  
 			tableViewer.refresh();

@@ -3,15 +3,16 @@ package com.bitwise.app.common.datastructure.property;
 import java.util.List;
 
 public class TransformOperation {
-	private NameValueProperty nameValueProp;
 	private List<OperationField> inputFields;
 	private List<OperationField> outputFields;
 	private OperationClassProperty opClassProperty;
-	public NameValueProperty getNameValueProp() {
-		return nameValueProp;
+	private List<NameValueProperty> nameValueProps;
+	
+	public List<NameValueProperty> getNameValueProps() {
+		return nameValueProps;
 	}
-	public void setNameValueProp(NameValueProperty nameValueProp) {
-		this.nameValueProp = nameValueProp;
+	public void setNameValueProps(List<NameValueProperty> nameValueProps) {
+		this.nameValueProps = nameValueProps;
 	}
 	public List<OperationField> getInputFields() {
 		return inputFields;

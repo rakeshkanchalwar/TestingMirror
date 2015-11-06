@@ -51,9 +51,9 @@ public class PropertyGridCellModifier implements ICellModifier {
   public Object getValue(Object element, String property) {
 	  NameValueProperty p = (NameValueProperty) element;
 	  
-    if (TransformDialog.PROPERTYNAME.equals(property))
+    if (TransformDialog.PROPERTY_NAME.equals(property))
         return p.getPropertyName();
-    else if (TransformDialog.PROPERTYVALUE.equals(property))
+    else if (TransformDialog.PROPERTY_VALUE.equals(property))
         return p.getPropertyValue();
     else
         return null;
@@ -75,9 +75,9 @@ public class PropertyGridCellModifier implements ICellModifier {
       element = ((Item) element).getData();
  
     NameValueProperty p = (NameValueProperty) element;
-    if (TransformDialog.PROPERTYNAME.equals(property))
+    if (TransformDialog.PROPERTY_NAME.equals(property))
       p.setPropertyName((String) value);
-    if (TransformDialog.PROPERTYVALUE.equals(property))
+    if (TransformDialog.PROPERTY_VALUE.equals(property))
         p.setPropertyValue((String) value);
     viewer.refresh();
   }

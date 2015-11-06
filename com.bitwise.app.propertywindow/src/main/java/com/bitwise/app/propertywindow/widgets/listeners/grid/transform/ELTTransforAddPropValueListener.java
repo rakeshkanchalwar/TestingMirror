@@ -24,7 +24,7 @@ public class ELTTransforAddPropValueListener extends GridWidgetCommonBuilder {
 	@Override
 	public void createDefaultSchema(List grids, TableViewer tableViewer,
 			Label errorLabel) {
-		NameValueProperty nameValueProperty = new NameValueProperty(false,false);
+		NameValueProperty nameValueProperty = new NameValueProperty();
 		nameValueProperty.setPropertyName("Name");
 		nameValueProperty.setPropertyValue("Value");
  		if(!grids.contains(nameValueProperty)){

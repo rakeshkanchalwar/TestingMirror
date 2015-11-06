@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import com.bitwise.app.common.datastructure.property.NameValueProperty;
 import com.bitwise.app.common.datastructure.property.OperationField;
 import com.bitwise.app.common.datastructure.property.PropertyField;
+import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.messages.Messages;
@@ -78,34 +79,38 @@ import com.bitwise.app.propertywindow.widgets.utility.SWTResourceManager;
 public class TransformDialog extends Dialog {
 
 	
-	private static final String ADD_ICON = "C:\\BHS\\bhs\\add.png";
+	public static final String PROPERTY_NAME = "Property Name";
+	public static final String PROPERTY_VALUE = "Property Values";
+	public static final String OPERATIONAL_INPUT_FIELD = "Operation Input Fields";
+	public static final String OPERATIONAL_OUTPUT_FIELD = "Operation Output Fields";
+	private static final String ADD_ICON = XMLConfigUtil.CONFIG_FILES_PATH + "/icons/" + "add.png";
 	private Composite container;
-	public static final String PROPERTYNAME = "Property Name";
-	public static final String PROPERTYVALUE = "Property Values";
-	public static final String OPERATIONALINPUTFIELD = "Operation Input Fields";
-	public static final String OPERATIONALOUTPUTFIELD = "Operation Output Fields";
+	private static final String[] NAME_VALUE_COLUMN = {PROPERTY_NAME, PROPERTY_VALUE};
+	
 	private ELTTransforAddSelectionListener eltTransforAddSelectionListener = new ELTTransforAddSelectionListener();
 	private ELTTransforAddPropValueListener eltTransforAddPropValueListener = new ELTTransforAddPropValueListener();
-    private final List<OperationField> OpInputFields = new ArrayList<OperationField>();
+  
+	private final List<OperationField> OpInputFields = new ArrayList<OperationField>();
     private final List<OperationField> opOutputFields = new ArrayList<OperationField>();
     private final List<OperationField> opOutputOuterFields = new ArrayList<OperationField>();
     private final List<NameValueProperty> opClassProperty = new ArrayList<NameValueProperty>();
     private final List<NameValueProperty> opOuterClassProperty = new ArrayList<NameValueProperty>();    
-	public Tree tree_1;
+	
+    private TableViewer innerOpInputTabViewer;
+	private TableViewer innerOpOutputTabViewer;
+	private TableViewer innerKeyValueTabViewer;
+	private TableViewer outerKeyValueTabViewer;
+	private TableViewer	outerOpTabViewer;
+	
 	private Text fileName;
 	private ExpandBar expandBar = null;
-	private OperationClassProperty operationClassProperty;
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	private Button btnCheckButton;
 	private ValidationStatus validationStatus;
+	
+
 	// Operational class label.
-	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR)
-			.lableWidth(250);
-	private TableViewer tableViewer;
-	private TableViewer tableViewerOutput;
-	private TableViewer tableViewerInnerPropValue;
-	private TableViewer tableViewerPropOuter;
-	private TableViewer	tableViewerOpOuter;
+	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(250);
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -114,7 +119,6 @@ public class TransformDialog extends Dialog {
 	public TransformDialog(Shell parentShell,PropertyDialogButtonBar propertyDialogButtonBar,OperationClassProperty operationClassProperty) {
 		super(parentShell);
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE |  SWT.WRAP | SWT.APPLICATION_MODAL);
-		this.operationClassProperty = operationClassProperty;
 		this.propertyDialogButtonBar=propertyDialogButtonBar;
 	}
 
@@ -213,18 +217,18 @@ public class TransformDialog extends Dialog {
 		tree_1.setBounds(10, 10, 89, 424);
 */
 		
-		tableViewerOpOuter = createTableViewer(rightContainerComposite, new String[]{"Operation Output Fields"},new TransformGridContentProvider(),new OperationLabelProvider());
-		tableViewerOpOuter.setCellModifier(new OperationGridCellModifier(tableViewerOpOuter));
-		tableViewerOpOuter.setInput(opOutputOuterFields); 
-		applyDrop(tableViewerOpOuter.getTable(), tableViewerOpOuter,new OperationField(false,false));
-
+		outerOpTabViewer = createTableViewer(rightContainerComposite, new String[]{OPERATIONAL_OUTPUT_FIELD},new TransformGridContentProvider(),new OperationLabelProvider());
+		outerOpTabViewer.setCellModifier(new OperationGridCellModifier(outerOpTabViewer));
+		outerOpTabViewer.setInput(opOutputOuterFields); 
+		//applyDrop(tableViewerOpOuter.getTable(), tableViewerOpOuter,new OperationField(false,false));
+		applyDrop(outerOpTabViewer, opOutputOuterFields, true);
 		tree.addListener(SWT.Selection, new Listener() {
 		      public void handleEvent(Event event) {
 		       if(((TreeItem)event.item).getChecked()){
-		    	   OperationField opField = new OperationField(false, false);
-		    	   opField.setOperationField(((TreeItem)event.item).getText()); 
+		    	   OperationField opField = new OperationField();
+		    	   opField.setName(((TreeItem)event.item).getText()); 
 		    	   opOutputOuterFields.add(opField);
-		    	   tableViewerOpOuter.refresh(); 
+		    	   outerOpTabViewer.refresh(); 
 		      }
 		      } 
 		    });
@@ -250,15 +254,15 @@ public class TransformDialog extends Dialog {
 		Composite nameValueComposite = new Composite(middleContainerComposite, SWT.NONE);
 		nameValueComposite.setBounds(10, 267, 767, 171);
 
-		tableViewerPropOuter = createTableViewer(nameValueComposite, new String[]{"Property Name","Property Values"},new TransformGridContentProvider(),new PropertyLabelProvider());
-		tableViewerPropOuter.setCellModifier(new PropertyGridCellModifier(tableViewerPropOuter));
-		tableViewerPropOuter.setInput(opOuterClassProperty);
-		applyDrop(tableViewerPropOuter.getTable(), tableViewerPropOuter,new NameValueProperty(false,false));
-		 
+		outerKeyValueTabViewer = createTableViewer(nameValueComposite, NAME_VALUE_COLUMN, new TransformGridContentProvider(),new PropertyLabelProvider());
+		outerKeyValueTabViewer.setCellModifier(new PropertyGridCellModifier(outerKeyValueTabViewer));
+		outerKeyValueTabViewer.setInput(opOuterClassProperty);
+		/*applyDrop(tableViewerPropOuter.getTable(), tableViewerPropOuter,new NameValueProperty(false,false));*/
+		applyDrop(outerKeyValueTabViewer, opOuterClassProperty, false);
 		ELTDefaultSubgroupComposite defaultnameValueComposite = new ELTDefaultSubgroupComposite(nameValueComposite);
 		defaultnameValueComposite.createContainerWidget();
 
-		ELTTable eltPropOuterTable = new ELTTable(tableViewerPropOuter);
+		ELTTable eltPropOuterTable = new ELTTable(outerKeyValueTabViewer);
 		defaultnameValueComposite.attachWidget(eltPropOuterTable);
 	
 		
@@ -269,7 +273,7 @@ public class TransformDialog extends Dialog {
 			}
 		}); 
 		
-		ListenerHelper helperPropertyValue=getListenerHelper(opOuterClassProperty, tableViewerPropOuter, fieldError,eltTransforAddPropValueListener);
+		ListenerHelper helperPropertyValue=getListenerHelper(opOuterClassProperty, outerKeyValueTabViewer, fieldError,eltTransforAddPropValueListener);
 
 		/*
 		 * Listener attached for property name value Outer main grid
@@ -277,7 +281,7 @@ public class TransformDialog extends Dialog {
 		//addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperPropertyValue, tableViewerInnerPropValue.getTable());
 		//deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperPropertyValue, tableViewerInnerPropValue.getTable());
 			try {
-				eltPropOuterTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperPropertyValue, tableViewerPropOuter.getTable());
+				eltPropOuterTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperPropertyValue, outerKeyValueTabViewer.getTable());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -288,7 +292,6 @@ public class TransformDialog extends Dialog {
 		
 		return container;
 	}
-
 
 	private void addExpandItem(Composite shell, ScrolledComposite expandBarScrolledComposite) {
 		Composite middleContainerComposite = new Composite(shell, SWT.NONE);
@@ -346,12 +349,12 @@ public class TransformDialog extends Dialog {
 		btnNewButton_5.setBounds(88, 10, 28, 25);
 		btnNewButton_5.setImage(SWTResourceManager.getImage(ADD_ICON));		 
 		
-		tableViewer = createTableViewer(OpInputFieldComposite, new String[]{"Operation Input Fields"},new TransformGridContentProvider(),new OperationLabelProvider());
-		tableViewer.setCellModifier(new OperationGridCellModifier(tableViewer));
-		tableViewer.setInput(OpInputFields);
-		applyDrop(tableViewer.getTable(), tableViewer,new OperationField(true,false));
-		
-		ELTTable eltOpInTable = new ELTTable(tableViewer);
+		innerOpInputTabViewer = createTableViewer(OpInputFieldComposite, new String[]{OPERATIONAL_INPUT_FIELD},new TransformGridContentProvider(),new OperationLabelProvider());
+		innerOpInputTabViewer.setCellModifier(new OperationGridCellModifier(innerOpInputTabViewer));
+		innerOpInputTabViewer.setInput(OpInputFields);
+		//applyDrop(tableViewer.getTable(), tableViewer,new OperationField(true,false));
+		applyDrop(innerOpInputTabViewer, OpInputFields, true);
+		ELTTable eltOpInTable = new ELTTable(innerOpInputTabViewer);
 		
 		eltSuDefaultSubgroupComposite2.attachWidget(eltOpInTable);
 		
@@ -372,13 +375,13 @@ public class TransformDialog extends Dialog {
 	
 		
 		Composite nameValueInnerComposite = new Composite(composite_4, SWT.NONE);
-		tableViewerInnerPropValue = createTableViewer(nameValueInnerComposite, new String[]{"Property Name","Property Values"},new TransformGridContentProvider(),new PropertyLabelProvider());
-		tableViewerInnerPropValue.setCellModifier(new PropertyGridCellModifier(tableViewerInnerPropValue));
-		tableViewerInnerPropValue.setInput(opClassProperty);  
+		innerKeyValueTabViewer = createTableViewer(nameValueInnerComposite, NAME_VALUE_COLUMN, new TransformGridContentProvider(),new PropertyLabelProvider());
+		innerKeyValueTabViewer.setCellModifier(new PropertyGridCellModifier(innerKeyValueTabViewer));
+		innerKeyValueTabViewer.setInput(opClassProperty);  
 		ELTDefaultSubgroupComposite defaultnameValueInnerComposite = new ELTDefaultSubgroupComposite(nameValueInnerComposite);
 		defaultnameValueInnerComposite.createContainerWidget();
 		
-		ELTTable eltPropValueTable = new ELTTable(tableViewerInnerPropValue);
+		ELTTable eltPropValueTable = new ELTTable(innerKeyValueTabViewer);
 		
 		defaultnameValueInnerComposite.attachWidget(eltPropValueTable);
 
@@ -407,41 +410,41 @@ public class TransformDialog extends Dialog {
 
 		
 		
-		tableViewerOutput = createTableViewer(opOutputFieldComposite, new String[]{"Operation Output Fields"},new TransformGridContentProvider(),new OperationLabelProvider());
-		tableViewerOutput.setCellModifier(new OperationGridCellModifier(tableViewerOutput));
-		tableViewerOutput.setInput(opOutputFields);
-		ELTTable eltOpOutTable = new ELTTable(tableViewerOutput);
+		innerOpOutputTabViewer = createTableViewer(opOutputFieldComposite, new String[]{"Operation Output Fields"},new TransformGridContentProvider(),new OperationLabelProvider());
+		innerOpOutputTabViewer.setCellModifier(new OperationGridCellModifier(innerOpOutputTabViewer));
+		innerOpOutputTabViewer.setInput(opOutputFields);
+		ELTTable eltOpOutTable = new ELTTable(innerOpOutputTabViewer);
 		
 		buttonOprationOutputComposite.attachWidget(eltOpOutTable);
 
 		
-		applyDragFromTableViewer(tableViewerOutput.getTable());
+		applyDragFromTableViewer(innerOpOutputTabViewer.getTable());
 		//applyDropToTree(tree_1, tableViewerOutput,new OperationField(false,false)); 		
 		expandBarScrolledComposite.setContent(expandBar);
 		expandBarScrolledComposite.setMinSize(expandBar.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
-		ListenerHelper helperOpIn=getListenerHelper(OpInputFields, tableViewer, fieldError,eltTransforAddSelectionListener);  
-		ListenerHelper helperOpOut=getListenerHelper(opOutputFields, tableViewerOutput, fieldError,eltTransforAddSelectionListener);
-		ListenerHelper helperPropertyValue=getListenerHelper(opClassProperty, tableViewerInnerPropValue, fieldError,eltTransforAddPropValueListener);
+		ListenerHelper helperOpIn=getListenerHelper(OpInputFields, innerOpInputTabViewer, fieldError,eltTransforAddSelectionListener);  
+		ListenerHelper helperOpOut=getListenerHelper(opOutputFields, innerOpOutputTabViewer, fieldError,eltTransforAddSelectionListener);
+		ListenerHelper helperPropertyValue=getListenerHelper(opClassProperty, innerKeyValueTabViewer, fieldError,eltTransforAddPropValueListener);
 		try {
 			
 			/*
 			 * Listener attached for operational input and operation output grid
 			 */
-			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperOpIn, tableViewer.getTable());
-			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperOpIn, tableViewer.getTable());
-			addOpOutButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperOpOut, tableViewerOutput.getTable());
-			deleteOpOutButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperOpOut, tableViewerOutput.getTable());  
-			eltOpInTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperOpIn, tableViewer.getTable());
-			eltOpOutTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperOpOut, tableViewerOutput.getTable());
+			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperOpIn, innerOpInputTabViewer.getTable());
+			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperOpIn, innerOpInputTabViewer.getTable());
+			addOpOutButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperOpOut, innerOpOutputTabViewer.getTable());
+			deleteOpOutButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperOpOut, innerOpOutputTabViewer.getTable());  
+			eltOpInTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperOpIn, innerOpInputTabViewer.getTable());
+			eltOpOutTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperOpOut, innerOpOutputTabViewer.getTable());
 			//eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),propertyDialogButtonBar, helperOpOut, editors[0].getControl());
 
 			/*
 			 * Listener attached for property name value inner grid
 			 */
-			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperPropertyValue, tableViewerInnerPropValue.getTable());
-			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperPropertyValue, tableViewerInnerPropValue.getTable());
-			eltPropValueTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperPropertyValue, tableViewerInnerPropValue.getTable());
+			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),propertyDialogButtonBar, helperPropertyValue, innerKeyValueTabViewer.getTable());
+			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),propertyDialogButtonBar, helperPropertyValue, innerKeyValueTabViewer.getTable());
+			eltPropValueTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),	propertyDialogButtonBar, helperPropertyValue, innerKeyValueTabViewer.getTable());
 			//eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),propertyDialogButtonBar, helperOpOut, editors[0].getControl());
 			
 			
@@ -528,80 +531,37 @@ public class TransformDialog extends Dialog {
 
 		}
 		
-		public void applyDrop(Control desControl,final TableViewer tableViewer,final PropertyField propertyField){
-		    Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
-		    int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_LINK;
-		    Table table = (Table)desControl ;
-		    DropTarget target = new DropTarget(table, operations);
-		    target.setTransfer(types);
-		    target.addDropListener(new DropTargetAdapter() {
-		      public void dragOver(DropTargetEvent event) {
-		        event.feedback = DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL;
-		      }
-
-		      public void drop(DropTargetEvent event) {
-		        if (event.data == null) {
-		          event.detail = DND.DROP_NONE;
-		          return;
-		        }
-		        String text = (String) event.data;
-		        addPropertyToGrid(propertyField, text);
-		        tableViewer.refresh(); 
-		      } 
-		    });
+		private void applyDrop(final TableViewer tableViewerOpOuter, final List listOfFields, final boolean isSingleColumn) {
+			Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
+			int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_LINK;
+			DropTarget target = new DropTarget(tableViewerOpOuter.getTable(), operations);
+			target.setTransfer(types);
+			
+			target.addDropListener(new DropTargetAdapter() {
+			      public void dragOver(DropTargetEvent event) {
+			    	  event.feedback = DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL; 
+			      }
+	
+			      public void drop(DropTargetEvent event) {
+			        if (event.data == null) {
+			        	event.detail = DND.DROP_NONE;
+			        	return;
+			        }
+			        if(isSingleColumn){
+			        	OperationField field = new OperationField();
+			        	field.setName((String) event.data);
+			        	listOfFields.add(field);
+			        }
+			        else{
+			        	System.out.println(listOfFields);
+			        	NameValueProperty field = new NameValueProperty();
+			        	field.setPropertyName((String) event.data);
+			        	listOfFields.add(field);
+			        }
+			        tableViewerOpOuter.refresh(); 
+			      } 
+			});
 		}
-		
-		public void addPropertyToGrid(PropertyField propertyField,String data){
-			if(propertyField instanceof NameValueProperty)
-			{
-		        NameValueProperty pFields =(NameValueProperty) propertyField ;
-		        pFields.setPropertyName(data);
-		        pFields.setPropertyValue("");
-		        if (pFields.isPropInner())
-		        	opClassProperty.add(pFields);
-		        else
-		        	opOuterClassProperty.add(pFields);
-		        
-			}
-			else if(propertyField instanceof OperationField)
-			{
-				OperationField pFields = (OperationField) propertyField;
-				pFields.setOperationField(data);
-				if(pFields.isPropInner()){
-				if(pFields.isOpInputField())
-					OpInputFields.add(pFields);
-				else
-					opOutputFields.add(pFields);
-				}
-				else
-					opOutputOuterFields.add(pFields);
-			} 
-		}
-		
-		public void applyDropToTree(Control desControl,final TableViewer tableViewer,final PropertyField propertyField){
-		    Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
-		    int operations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_LINK;
-		    desControl.setData(DND.DROP_TARGET_KEY,this);
-		    Tree tree = (Tree)desControl ;
-		    DropTarget target = new DropTarget(tree, operations);
-		    target.setTransfer(types);
-		    target.addDropListener(new DropTargetAdapter() {
-		      public void dragOver(DropTargetEvent event) {
-		        event.feedback = DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL;
-		      }
-
-		      public void drop(DropTargetEvent event) {
-		        if (event.data == null) {
-		          event.detail = DND.DROP_NONE;
-		          return;
-		        }
-		        String text = (String) event.data;
-		        TreeItem item = new TreeItem(tree_1, SWT.NONE);
-			      item.setText(text); 
-		      }
-		    });
-		}
-		
 		
 		public void applyDragFromTableViewer(Control sourceControl){
 		    Transfer[] types = new Transfer[] { TextTransfer.getInstance() };

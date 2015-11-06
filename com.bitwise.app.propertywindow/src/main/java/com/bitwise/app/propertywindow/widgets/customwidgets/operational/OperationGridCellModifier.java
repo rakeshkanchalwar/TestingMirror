@@ -51,8 +51,8 @@ public class OperationGridCellModifier implements ICellModifier {
   public Object getValue(Object element, String property) {
 	  OperationField p = (OperationField) element;
 	  
-    if (TransformDialog.OPERATIONALINPUTFIELD.equals(property) ||TransformDialog.OPERATIONALOUTPUTFIELD.equals(property) )
-        return p.getOperationField();
+    if (TransformDialog.OPERATIONAL_INPUT_FIELD.equals(property) ||TransformDialog.OPERATIONAL_OUTPUT_FIELD.equals(property) )
+        return p.getName();
       else
         return null;
     
@@ -73,8 +73,8 @@ public class OperationGridCellModifier implements ICellModifier {
       element = ((Item) element).getData();
  
     OperationField p = (OperationField) element;
-    if (TransformDialog.OPERATIONALINPUTFIELD.equals(property) ||TransformDialog.OPERATIONALOUTPUTFIELD.equals(property) )
-      p.setOperationField((String) value);
+    if (TransformDialog.OPERATIONAL_INPUT_FIELD.equals(property) ||TransformDialog.OPERATIONAL_OUTPUT_FIELD.equals(property) )
+      p.setName((String) value);
 
     viewer.refresh();
   }

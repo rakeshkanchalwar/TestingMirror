@@ -3,16 +3,17 @@ package com.bitwise.app.common.datastructure.property;
 import java.util.List;
 
 public class TransformPropertyGrid {
-	private NameValueProperty nameValueProperty;
+	private List<String> passThrough;
+	private List<NameValueProperty> nameValueProps;
 	private List<OperationField> outputTreeFields;
 	private List<TransformOperation> operation;
-
-	public NameValueProperty getNameValueProperty() {
-		return nameValueProperty;
+	
+	public List<NameValueProperty> getNameValueProps() {
+		return nameValueProps;
 	}
 
-	public void setNameValueProperty(NameValueProperty nameValueProperty) {
-		this.nameValueProperty = nameValueProperty;
+	public void setNameValueProps(List<NameValueProperty> nameValueProps) {
+		this.nameValueProps = nameValueProps;
 	}
 
 	public List<OperationField> getOutputTreeFields() {
@@ -29,6 +30,14 @@ public class TransformPropertyGrid {
 
 	public void setOperation(List<TransformOperation> operation) {
 		this.operation = operation;
+	}
+
+	public List<String> getPassThrough() {
+		return passThrough;
+	}
+
+	public void setPassThrough(List<String> passThrough) {
+		this.passThrough = passThrough;
 	}
 
 }

@@ -42,7 +42,7 @@ public class OperationLabelProvider implements ITableLabelProvider , ITableColor
 	  OperationField operation = (OperationField) element;
     switch (columnIndex) {
     case 0:
-      return operation.getOperationField();
+      return operation.getName();
 
     }
     return null;
