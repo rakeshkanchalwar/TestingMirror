@@ -29,7 +29,6 @@ import com.bitwiseglobal.graph.operationstypes.Filter;
  */
 public class FilterConverter extends TransformConverter {
 	private static final String FILTER_OPERATION_ID="opt";
-	private static final String DEFAULT_IN_SOCKET_ID = "in0";
 	Logger LOGGER = LogFactory.INSTANCE.getLogger(FilterConverter.class);
 	
 	public FilterConverter(Component component) {

@@ -30,11 +30,11 @@
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
 			usage="OPTIONAL"/>
 		
-		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET" type="USER"
+		<tns:property dataType="string" name="column_name" renderer="COLUMN_NAME_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
 			usage="REQUIRED"/>
 			
-		<tns:property dataType="string" name="SECONDARY_KEYS" renderer="SECONDARY_KEYS_WIDGET" type="USER"
+		<tns:property dataType="string" name="secondary_keys" renderer="SECONDARY_KEYS_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
 			usage="OPTIONAL"/>
 		
@@ -42,7 +42,7 @@
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"
 			usage="REQUIRED"/>
 			
-		<tns:property dataType="string" name="OPERATION" renderer="TRANSFORM_WIDGET" type="USER"
+		<tns:property dataType="string" name="operation" renderer="TRANSFORM_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
 			usage="OPTIONAL"/>			
 			

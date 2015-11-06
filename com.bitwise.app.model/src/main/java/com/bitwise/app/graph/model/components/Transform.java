@@ -15,6 +15,6 @@ public class Transform extends TransformCategory {
 	private static final long serialVersionUID = 7251671460714273114L;
 
 	public String getConverter(){
-		return "com.bitwise.app.engine.converter.impl.TransformConverter";
+		return "com.bitwise.app.engine.converter.impl.TrasformComponentConverter";
 	}
 }
