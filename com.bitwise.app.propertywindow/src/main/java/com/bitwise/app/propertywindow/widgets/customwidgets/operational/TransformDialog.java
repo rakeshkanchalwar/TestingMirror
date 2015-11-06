@@ -90,8 +90,6 @@ public class TransformDialog extends Dialog {
 	private ELTTransforAddSelectionListener eltTransforAddSelectionListener = new ELTTransforAddSelectionListener();
 	private ELTTransforAddPropValueListener eltTransforAddPropValueListener = new ELTTransforAddPropValueListener();
   
-	private final List<OperationField> OpInputFields = new ArrayList<OperationField>();
-    private final List<OperationField> opOutputFields = new ArrayList<OperationField>();
     private final List<OperationField> opOutputOuterFields = new ArrayList<OperationField>();
     private final List<NameValueProperty> opClassProperty = new ArrayList<NameValueProperty>();
     private final List<NameValueProperty> opOuterClassProperty = new ArrayList<NameValueProperty>();    
@@ -249,14 +247,16 @@ public class TransformDialog extends Dialog {
 		
 		expandBar = new ExpandBar(expandBarScrolledComposite, SWT.NONE);
 		expandBar.setVisible(true);
-		addExpandItem(container, expandBarScrolledComposite);
+		List<OperationField> OpInputFields = new ArrayList<OperationField>();
+	    List<OperationField> opOutputFields = new ArrayList<OperationField>();
+		addExpandItem(container, expandBarScrolledComposite,OpInputFields,opOutputFields);
 		
 		Composite nameValueComposite = new Composite(middleContainerComposite, SWT.NONE);
 		nameValueComposite.setBounds(10, 267, 767, 171);
 
 		outerKeyValueTabViewer = createTableViewer(nameValueComposite, NAME_VALUE_COLUMN, new TransformGridContentProvider(),new PropertyLabelProvider());
 		outerKeyValueTabViewer.setCellModifier(new PropertyGridCellModifier(outerKeyValueTabViewer));
-		outerKeyValueTabViewer.setInput(opOuterClassProperty);
+		outerKeyValueTabViewer.setInput(opOuterClassProperty); 
 		/*applyDrop(tableViewerPropOuter.getTable(), tableViewerPropOuter,new NameValueProperty(false,false));*/
 		applyDrop(outerKeyValueTabViewer, opOuterClassProperty, false);
 		ELTDefaultSubgroupComposite defaultnameValueComposite = new ELTDefaultSubgroupComposite(nameValueComposite);
@@ -269,7 +269,9 @@ public class TransformDialog extends Dialog {
 		btnAddOperation.addSelectionListener(new SelectionAdapter() {
 			@Override 
 			public void widgetSelected(SelectionEvent e) {
-				addExpandItem(container, expandBarScrolledComposite);
+				List<OperationField> OpInputFields = new ArrayList<OperationField>();
+			    List<OperationField> opOutputFields = new ArrayList<OperationField>();
+				addExpandItem(container, expandBarScrolledComposite,OpInputFields,opOutputFields);
 			}
 		}); 
 		
@@ -293,7 +295,7 @@ public class TransformDialog extends Dialog {
 		return container;
 	}
 
-	private void addExpandItem(Composite shell, ScrolledComposite expandBarScrolledComposite) {
+	private void addExpandItem(Composite shell, ScrolledComposite expandBarScrolledComposite,List<OperationField> OpInputFields,List<OperationField> opOutputFields ) {
 		Composite middleContainerComposite = new Composite(shell, SWT.NONE);
 		FormData fd_middleContainerComposite = new FormData();
 		fd_middleContainerComposite.top = new FormAttachment(0, 10);
