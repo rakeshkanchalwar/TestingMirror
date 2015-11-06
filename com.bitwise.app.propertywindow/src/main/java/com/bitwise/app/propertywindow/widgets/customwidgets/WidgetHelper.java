@@ -43,15 +43,21 @@ public class WidgetHelper {
 	}
 	
 	public WidgetConfig getSafeWidgetConfig(){
-		return populateTrueFalseConfig(Constants.SAFE_PROPERTY);
+		DropDownConfig dropDownConfig = populateTrueFalseConfig(Constants.SAFE_PROPERTY);
+		addComboBoxListeners(dropDownConfig);
+		return dropDownConfig;
 	}
 	
 	public WidgetConfig getHasHeaderWidgetConfig(){
-		return populateTrueFalseConfig(Constants.HAS_HEADER);
+		DropDownConfig dropDownConfig =  populateTrueFalseConfig(Constants.HAS_HEADER);
+		addComboBoxListeners(dropDownConfig);
+		return dropDownConfig;
 	}
 	
 	public WidgetConfig getStrictWidgetConfig(){
-		return populateTrueFalseConfig(Constants.STRICT);
+		DropDownConfig dropDownConfig =  populateTrueFalseConfig(Constants.STRICT);
+		addComboBoxListeners(dropDownConfig);
+		return dropDownConfig;
 	}
 	
 	public WidgetConfig getCharacterSetWidgetConfig(){
