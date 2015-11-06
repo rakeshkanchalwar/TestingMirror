@@ -1,5 +1,6 @@
 package com.bitwise.app.common.datastructure.property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransformOperation {
@@ -7,6 +8,13 @@ public class TransformOperation {
 	private List<OperationField> outputFields;
 	private OperationClassProperty opClassProperty;
 	private List<NameValueProperty> nameValueProps;
+	
+	public TransformOperation() {
+		inputFields=new ArrayList<>();
+		outputFields=new ArrayList<>();
+		opClassProperty=new OperationClassProperty("", false);
+		nameValueProps=new ArrayList<>();
+	}
 	
 	public List<NameValueProperty> getNameValueProps() {
 		return nameValueProps;
