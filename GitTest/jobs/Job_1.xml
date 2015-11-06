@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><ns2:graph xmlns:ns2="http://www.bitwiseglobal.com/graph/main">
+    <inputs xmlns:ns4="http://www.bitwiseglobal.com/graph/inputtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="IFDelimited_01" phase="0" xsi:type="ns4:text-file-delimited">
+        <path/>
+        <delimiter value="|"/>
+        <charset value="UTF-8"/>
+    </inputs>
+    <outputs xmlns:ns4="http://www.bitwiseglobal.com/graph/outputtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="OFixedWidth_01" phase="0" xsi:type="ns4:text-file-fixed-width">
+        <path/>
+        <charset value="UTF-8"/>
+    </outputs>
+    <Operations xmlns:ns4="http://www.bitwiseglobal.com/graph/operationstypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Filter_01" phase="0" xsi:type="ns4:Filter">
+        <operation id="opt">
+            <inputFields/>
+        </operation>
+    </Operations>
+</ns2:graph>

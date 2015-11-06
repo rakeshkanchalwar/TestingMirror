@@ -1,0 +1,420 @@
+<!-- It is recommended to avoid changes to xml data -->
+
+<com.bitwise.app.graph.model.Container>
+  <propertyChangeSupport serialization="custom">
+    <java.beans.PropertyChangeSupport>
+      <default>
+        <source class="com.bitwise.app.graph.model.Container" reference="../../../.."/>
+        <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+      </default>
+      <null/>
+    </java.beans.PropertyChangeSupport>
+  </propertyChangeSupport>
+  <components>
+    <com.bitwise.app.graph.model.components.IFDelimited>
+      <propertyChangeSupport serialization="custom">
+        <java.beans.PropertyChangeSupport>
+          <default>
+            <source class="com.bitwise.app.graph.model.components.IFDelimited" reference="../../../.."/>
+            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+          </default>
+          <null/>
+        </java.beans.PropertyChangeSupport>
+      </propertyChangeSupport>
+      <location>
+        <x>182</x>
+        <y>102</y>
+      </location>
+      <size>
+        <width>100</width>
+        <height>65</height>
+      </size>
+      <properties class="linked-hash-map">
+        <entry>
+          <string>name</string>
+          <string>IFDelimited_01</string>
+        </entry>
+        <entry>
+          <string>schema</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>path</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>delimiter</string>
+          <string>|</string>
+        </entry>
+        <entry>
+          <string>safe</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>HAS_HEADER_WIDGET</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>charset</string>
+          <string>UTF-8</string>
+        </entry>
+        <entry>
+          <string>runtime_properties</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>phase</string>
+          <string>0</string>
+        </entry>
+        <entry>
+          <string>validityStatus</string>
+          <string>WARN</string>
+        </entry>
+      </properties>
+      <parent reference="../../.."/>
+      <validityStatus>WARN</validityStatus>
+      <inputLinksHash/>
+      <outputLinksHash/>
+      <inputLinks/>
+      <outputLinks/>
+      <inputportTerminals/>
+      <outputPortTerminals/>
+      <newInstance>false</newInstance>
+      <type>File Delimited</type>
+      <prefix>IFDelimited</prefix>
+      <category>INPUT</category>
+      <ports>
+        <entry>
+          <string>out1</string>
+          <com.bitwise.app.graph.model.Port>
+            <propertyChangeSupport serialization="custom">
+              <java.beans.PropertyChangeSupport>
+                <default>
+                  <source class="com.bitwise.app.graph.model.Port" reference="../../../.."/>
+                  <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                </default>
+                <null/>
+              </java.beans.PropertyChangeSupport>
+            </propertyChangeSupport>
+            <terminal>out1</terminal>
+            <numberOfPortsOfThisType>1</numberOfPortsOfThisType>
+            <portType>out</portType>
+            <sequence>1</sequence>
+            <parent class="com.bitwise.app.graph.model.components.IFDelimited" reference="../../../.."/>
+            <nameOfPort>out0</nameOfPort>
+          </com.bitwise.app.graph.model.Port>
+        </entry>
+      </ports>
+      <componentName>IFDelimited</componentName>
+      <portSpecification>
+        <com.bitwise.app.common.component.config.PortSpecification>
+          <typeOfPort>out</typeOfPort>
+          <numberOfPorts>1</numberOfPorts>
+          <sequenceOfPort>1</sequenceOfPort>
+          <allowMultipleLinks>false</allowMultipleLinks>
+          <linkMandatory>true</linkMandatory>
+          <nameOfPort>out0</nameOfPort>
+        </com.bitwise.app.common.component.config.PortSpecification>
+      </portSpecification>
+      <componentLabel>
+        <propertyChangeSupport serialization="custom">
+          <java.beans.PropertyChangeSupport>
+            <default>
+              <source class="com.bitwise.app.graph.model.ComponentLabel" reference="../../../.."/>
+              <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+            </default>
+            <null/>
+          </java.beans.PropertyChangeSupport>
+        </propertyChangeSupport>
+        <componentLabel>IFDelimited_01</componentLabel>
+      </componentLabel>
+    </com.bitwise.app.graph.model.components.IFDelimited>
+    <com.bitwise.app.graph.model.components.OFixedWidth>
+      <propertyChangeSupport serialization="custom">
+        <java.beans.PropertyChangeSupport>
+          <default>
+            <source class="com.bitwise.app.graph.model.components.OFixedWidth" reference="../../../.."/>
+            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+          </default>
+          <null/>
+        </java.beans.PropertyChangeSupport>
+      </propertyChangeSupport>
+      <location>
+        <x>128</x>
+        <y>190</y>
+      </location>
+      <size>
+        <width>100</width>
+        <height>65</height>
+      </size>
+      <properties class="linked-hash-map">
+        <entry>
+          <string>name</string>
+          <string>OFixedWidth_01</string>
+        </entry>
+        <entry>
+          <string>schema</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>path</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>strict</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>safe</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>charset</string>
+          <string>UTF-8</string>
+        </entry>
+        <entry>
+          <string>runtime_properties</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>phase</string>
+          <string>0</string>
+        </entry>
+        <entry>
+          <string>validityStatus</string>
+          <string>WARN</string>
+        </entry>
+      </properties>
+      <parent reference="../../.."/>
+      <validityStatus>WARN</validityStatus>
+      <inputLinksHash/>
+      <outputLinksHash/>
+      <inputLinks/>
+      <outputLinks/>
+      <inputportTerminals/>
+      <outputPortTerminals/>
+      <newInstance>false</newInstance>
+      <type>File Fixed Width</type>
+      <prefix>OFixedWidth</prefix>
+      <category>OUTPUT</category>
+      <ports>
+        <entry>
+          <string>in1</string>
+          <com.bitwise.app.graph.model.Port>
+            <propertyChangeSupport serialization="custom">
+              <java.beans.PropertyChangeSupport>
+                <default>
+                  <source class="com.bitwise.app.graph.model.Port" reference="../../../.."/>
+                  <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                </default>
+                <null/>
+              </java.beans.PropertyChangeSupport>
+            </propertyChangeSupport>
+            <terminal>in1</terminal>
+            <numberOfPortsOfThisType>1</numberOfPortsOfThisType>
+            <portType>in</portType>
+            <sequence>1</sequence>
+            <parent class="com.bitwise.app.graph.model.components.OFixedWidth" reference="../../../.."/>
+            <nameOfPort>in0</nameOfPort>
+          </com.bitwise.app.graph.model.Port>
+        </entry>
+      </ports>
+      <componentName>OFixedWidth</componentName>
+      <portSpecification>
+        <com.bitwise.app.common.component.config.PortSpecification>
+          <typeOfPort>in</typeOfPort>
+          <numberOfPorts>1</numberOfPorts>
+          <sequenceOfPort>1</sequenceOfPort>
+          <allowMultipleLinks>false</allowMultipleLinks>
+          <linkMandatory>true</linkMandatory>
+          <nameOfPort>in0</nameOfPort>
+        </com.bitwise.app.common.component.config.PortSpecification>
+      </portSpecification>
+      <componentLabel>
+        <propertyChangeSupport serialization="custom">
+          <java.beans.PropertyChangeSupport>
+            <default>
+              <source class="com.bitwise.app.graph.model.ComponentLabel" reference="../../../.."/>
+              <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+            </default>
+            <null/>
+          </java.beans.PropertyChangeSupport>
+        </propertyChangeSupport>
+        <componentLabel>OFixedWidth_01</componentLabel>
+      </componentLabel>
+    </com.bitwise.app.graph.model.components.OFixedWidth>
+    <com.bitwise.app.graph.model.components.Filter>
+      <propertyChangeSupport serialization="custom">
+        <java.beans.PropertyChangeSupport>
+          <default>
+            <source class="com.bitwise.app.graph.model.components.Filter" reference="../../../.."/>
+            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+          </default>
+          <null/>
+        </java.beans.PropertyChangeSupport>
+      </propertyChangeSupport>
+      <location>
+        <x>129</x>
+        <y>314</y>
+      </location>
+      <size>
+        <width>100</width>
+        <height>90</height>
+      </size>
+      <properties class="linked-hash-map">
+        <entry>
+          <string>name</string>
+          <string>Filter_01</string>
+        </entry>
+        <entry>
+          <string>phase</string>
+          <string>0</string>
+        </entry>
+        <entry>
+          <string>OPERATION_CLASS</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>filter</string>
+          <null/>
+        </entry>
+        <entry>
+          <string>validityStatus</string>
+          <string>WARN</string>
+        </entry>
+      </properties>
+      <parent reference="../../.."/>
+      <validityStatus>WARN</validityStatus>
+      <inputLinksHash/>
+      <outputLinksHash/>
+      <inputLinks/>
+      <outputLinks/>
+      <inputportTerminals/>
+      <outputPortTerminals/>
+      <newInstance>false</newInstance>
+      <type>Filter</type>
+      <prefix>Filter</prefix>
+      <category>TRANSFORM</category>
+      <ports>
+        <entry>
+          <string>in1</string>
+          <com.bitwise.app.graph.model.Port>
+            <propertyChangeSupport serialization="custom">
+              <java.beans.PropertyChangeSupport>
+                <default>
+                  <source class="com.bitwise.app.graph.model.Port" reference="../../../.."/>
+                  <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                </default>
+                <null/>
+              </java.beans.PropertyChangeSupport>
+            </propertyChangeSupport>
+            <terminal>in1</terminal>
+            <numberOfPortsOfThisType>1</numberOfPortsOfThisType>
+            <portType>in</portType>
+            <sequence>1</sequence>
+            <parent class="com.bitwise.app.graph.model.components.Filter" reference="../../../.."/>
+            <nameOfPort>in0</nameOfPort>
+          </com.bitwise.app.graph.model.Port>
+        </entry>
+        <entry>
+          <string>out2</string>
+          <com.bitwise.app.graph.model.Port>
+            <propertyChangeSupport serialization="custom">
+              <java.beans.PropertyChangeSupport>
+                <default>
+                  <source class="com.bitwise.app.graph.model.Port" reference="../../../.."/>
+                  <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                </default>
+                <null/>
+              </java.beans.PropertyChangeSupport>
+            </propertyChangeSupport>
+            <terminal>out2</terminal>
+            <numberOfPortsOfThisType>2</numberOfPortsOfThisType>
+            <portType>out</portType>
+            <sequence>2</sequence>
+            <parent class="com.bitwise.app.graph.model.components.Filter" reference="../../../.."/>
+            <nameOfPort>unused0</nameOfPort>
+          </com.bitwise.app.graph.model.Port>
+        </entry>
+        <entry>
+          <string>out1</string>
+          <com.bitwise.app.graph.model.Port>
+            <propertyChangeSupport serialization="custom">
+              <java.beans.PropertyChangeSupport>
+                <default>
+                  <source class="com.bitwise.app.graph.model.Port" reference="../../../.."/>
+                  <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+                </default>
+                <null/>
+              </java.beans.PropertyChangeSupport>
+            </propertyChangeSupport>
+            <terminal>out1</terminal>
+            <numberOfPortsOfThisType>2</numberOfPortsOfThisType>
+            <portType>out</portType>
+            <sequence>1</sequence>
+            <parent class="com.bitwise.app.graph.model.components.Filter" reference="../../../.."/>
+            <nameOfPort>out0</nameOfPort>
+          </com.bitwise.app.graph.model.Port>
+        </entry>
+      </ports>
+      <componentName>Filter</componentName>
+      <portSpecification>
+        <com.bitwise.app.common.component.config.PortSpecification>
+          <typeOfPort>in</typeOfPort>
+          <numberOfPorts>1</numberOfPorts>
+          <sequenceOfPort>1</sequenceOfPort>
+          <allowMultipleLinks>false</allowMultipleLinks>
+          <linkMandatory>true</linkMandatory>
+          <nameOfPort>in0</nameOfPort>
+        </com.bitwise.app.common.component.config.PortSpecification>
+        <com.bitwise.app.common.component.config.PortSpecification>
+          <typeOfPort>out</typeOfPort>
+          <numberOfPorts>2</numberOfPorts>
+          <sequenceOfPort>1</sequenceOfPort>
+          <allowMultipleLinks>false</allowMultipleLinks>
+          <linkMandatory>true</linkMandatory>
+          <nameOfPort>out0</nameOfPort>
+        </com.bitwise.app.common.component.config.PortSpecification>
+        <com.bitwise.app.common.component.config.PortSpecification>
+          <typeOfPort>out</typeOfPort>
+          <numberOfPorts>2</numberOfPorts>
+          <sequenceOfPort>2</sequenceOfPort>
+          <allowMultipleLinks>false</allowMultipleLinks>
+          <linkMandatory>false</linkMandatory>
+          <nameOfPort>unused0</nameOfPort>
+        </com.bitwise.app.common.component.config.PortSpecification>
+      </portSpecification>
+      <componentLabel>
+        <propertyChangeSupport serialization="custom">
+          <java.beans.PropertyChangeSupport>
+            <default>
+              <source class="com.bitwise.app.graph.model.ComponentLabel" reference="../../../.."/>
+              <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
+            </default>
+            <null/>
+          </java.beans.PropertyChangeSupport>
+        </propertyChangeSupport>
+        <componentLabel>Filter_01</componentLabel>
+      </componentLabel>
+    </com.bitwise.app.graph.model.components.Filter>
+  </components>
+  <componentNextNameSuffixes>
+    <entry>
+      <string>Filter</string>
+      <int>2</int>
+    </entry>
+    <entry>
+      <string>OFixedWidth</string>
+      <int>2</int>
+    </entry>
+    <entry>
+      <string>IFDelimited</string>
+      <int>2</int>
+    </entry>
+  </componentNextNameSuffixes>
+  <componentNames>
+    <string>IFDelimited_01</string>
+    <string>OFixedWidth_01</string>
+    <string>Filter_01</string>
+  </componentNames>
+</com.bitwise.app.graph.model.Container>
