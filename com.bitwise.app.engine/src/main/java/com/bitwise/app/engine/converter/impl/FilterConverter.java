@@ -8,8 +8,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.engine.converter.PortTypeConstant;
-import com.bitwise.app.engine.converter.PropertyNameConstants;
+import com.bitwise.app.engine.constants.PortTypeConstant;
+import com.bitwise.app.engine.constants.PropertyNameConstants;
 import com.bitwise.app.engine.converter.TransformConverter;
 import com.bitwise.app.engine.exceptions.PhaseException;
 import com.bitwise.app.engine.exceptions.SchemaException;

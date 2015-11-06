@@ -7,8 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.engine.converter.PortTypeConstant;
-import com.bitwise.app.engine.converter.PropertyNameConstants;
+import com.bitwise.app.engine.constants.PortTypeConstant;
+import com.bitwise.app.engine.constants.PropertyNameConstants;
 import com.bitwise.app.engine.converter.StraightPullConverter;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
@@ -37,7 +37,6 @@ public class RemoveDupsConverter extends StraightPullConverter {
 		LOGGER.debug("Genrating XML for : {}", properties.get(NAME));
 		super.prepareForXML();
 		RemoveDups dedup = (RemoveDups) baseComponent;
-		dedup.setRuntimeProperties(getRuntimeProperties());
 		dedup.setKeep(getKeep());
 		dedup.setPrimaryKeys(getPrimaryKeys());
 	}

@@ -63,7 +63,6 @@
           </execution>
           <execution>
             <id>copy-resources-2</id>
-            <!-- here the phase you need -->
             <phase>process-classes</phase>
             <goals>
               <goal>copy-resources</goal>
@@ -79,13 +78,27 @@
           </execution>
            <execution>
             <id>copy-resources-3</id>
-            <!-- here the phase you need -->
             <phase>process-classes</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
             <configuration>
              <outputDirectory>target\products\com.bitwise.app.perspective.ID\linux\gtk\x86_64</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>resources</directory>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+          <execution>
+            <id>copy-resources-4</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+             <outputDirectory>target\products\com.bitwise.app.perspective.ID\macosx\cocoa\x86_64</outputDirectory>
               <resources>          
                 <resource>
                   <directory>resources</directory>

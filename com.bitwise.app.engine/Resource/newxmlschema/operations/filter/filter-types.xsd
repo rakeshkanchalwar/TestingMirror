@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.bitwiseglobal.com/graph/filter"
+  xmlns:cmn="http://www.bitwiseglobal.com/graph/commontypes" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.bitwiseglobal.com/graph/filter"
+  elementFormDefault="unqualified"
+>
+  <xs:import schemaLocation="../../common/common-types.xsd"
+    namespace="http://www.bitwiseglobal.com/graph/commontypes" />
+
+  <xs:complexType name="type-outSocket-as-inSocket-in0">
+    <xs:complexContent>
+      <xs:restriction base="cmn:type-outSocket-as-inSocket">
+        <xs:attribute name="inSocketId" type="xs:string" fixed="in0"
+          use="required" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="type-filter-operation-input-field">
+    <xs:complexContent>
+      <xs:restriction base="cmn:type-input-field">
+        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="inSocketId" type="xs:string" use="required"
+          fixed="in0" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="type-filter-operation-input-fields">
+    <xs:complexContent>
+      <xs:restriction base="cmn:type-operation-input-fields">
+        <xs:sequence>
+          <xs:element name="field" type="type-filter-operation-input-field"
+            maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:simpleType name="types-outSocket-types">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="out" />
+      <xs:enumeration value="unused" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  
+  <xs:complexType name="type-filter-out-socket">
+    <xs:complexContent>
+      <xs:restriction base="cmn:type-operations-out-socket">
+        <xs:choice maxOccurs="1" minOccurs="1">
+          <xs:element name="copyOfInsocket" type="cmn:type-outSocket-as-inSocket" minOccurs="1" maxOccurs="1"/>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:string" use="required" />
+        <xs:attribute name="type" type="types-outSocket-types" use="required"  />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="type-filter-in-socket">
+    <xs:complexContent>
+      <xs:restriction base="cmn:type-base-inSocket">
+        <xs:attribute name="id" type="xs:string" fixed="in0" use="required" />
+        <xs:attribute name="type" type="xs:string" use="optional"
+          fixed="in" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="type-filter-operation">
+    <xs:complexContent>
+      <xs:restriction base="cmn:type-transform-operation">
+        <xs:sequence>
+          <xs:element name="inputFields" type="type-filter-operation-input-fields"
+            minOccurs="0" />
+          <xs:element name="properties" type="cmn:type-properties"
+            minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required" />
+        <xs:attribute name="class" type="xs:string" use="required" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>

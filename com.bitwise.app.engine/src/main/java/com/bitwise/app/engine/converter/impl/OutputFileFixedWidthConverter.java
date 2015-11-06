@@ -8,9 +8,9 @@ import javax.xml.namespace.QName;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
+import com.bitwise.app.engine.constants.PortTypeConstant;
+import com.bitwise.app.engine.constants.PropertyNameConstants;
 import com.bitwise.app.engine.converter.OutputConverter;
-import com.bitwise.app.engine.converter.PortTypeConstant;
-import com.bitwise.app.engine.converter.PropertyNameConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.propertywindow.fixedwidthschema.FixedWidthGridRow;

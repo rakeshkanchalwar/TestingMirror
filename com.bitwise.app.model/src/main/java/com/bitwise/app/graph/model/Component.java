@@ -473,6 +473,6 @@ public abstract class Component extends Model {
 	
 	public void setComponentLabel(String label) {
 		setPropertyValue(Component.Props.NAME_PROP.getValue(), label);
-		componentLabel.setComponentLabel(label);
+		componentLabel.setComponentLabelContents(label);
 	}
 }
