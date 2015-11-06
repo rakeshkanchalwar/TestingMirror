@@ -101,8 +101,16 @@ public class ComponentFigure extends Figure implements Validator{
 			setHeight(totalPortsofInType, totalPortsOfOutType);
 		}
 		
-		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		componentCanvas = getComponentCanvas();
 		attachMouseListener();
+	}
+
+	private ComponentCanvas getComponentCanvas() {
+		
+		if(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor() instanceof ComponentCanvas)
+			return (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		else
+			return null;
 	}
 	
 	private void setInitialColor(){
@@ -201,7 +209,7 @@ public class ComponentFigure extends Figure implements Validator{
 	private void showStatusToolTip(
 			org.eclipse.swt.graphics.Point location) {
 	
-		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		componentCanvas = getComponentCanvas();
 		if(componentCanvas.getComponentTooltip() == null){
 			componentToolTip = getStatusToolTip(componentCanvas.getCanvasControl().getShell(), location);
 			componentBounds = getComponentBounds();			
@@ -246,7 +254,7 @@ public class ComponentFigure extends Figure implements Validator{
 		
 		hideToolTip();
 		
-		componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		componentCanvas = getComponentCanvas();
 		
 		componentToolTip = getToolBarToolTip(componentCanvas.getCanvasControl().getShell(),toltipBounds);
 		componentBounds = getComponentBounds();
@@ -294,7 +302,7 @@ public class ComponentFigure extends Figure implements Validator{
 				final org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
 								
 				//showStatusToolTip(location);
-				componentCanvas = (ComponentCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+				componentCanvas = getComponentCanvas();
 				componentCanvas.getCanvasControl().getShell().getDisplay().timerExec(TOOLTIP_SHOW_DELAY, new Runnable() {
 					public void run() {
 						//if(componentCanvas.isToolTipTimerRunning())
