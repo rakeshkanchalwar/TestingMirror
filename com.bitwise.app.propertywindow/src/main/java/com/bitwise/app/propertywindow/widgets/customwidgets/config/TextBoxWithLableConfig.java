@@ -9,7 +9,7 @@ public class TextBoxWithLableConfig implements WidgetConfig {
 	private String name;
 	private List<Listners> listeners = new ArrayList<>();
 	private boolean grabExcessSpace = false;
-	
+	private int widgetWidth=100;
 	public String getName() {
 		return name;
 	}
@@ -27,5 +27,11 @@ public class TextBoxWithLableConfig implements WidgetConfig {
 	}
 	public void setGrabExcessSpace(boolean grabExcessSpace) {
 		this.grabExcessSpace = grabExcessSpace;
+	}
+	public int getwidgetWidth(){
+		return widgetWidth;
+	}
+	public void setWidgetWidth(int widgetWidth){
+		this.widgetWidth = widgetWidth;
 	}
 }

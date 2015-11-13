@@ -77,7 +77,7 @@ public class TextBoxWithLabelWidget extends AbstractWidget{
 		lableAndTextBox.attachWidget(lable);
 		
 		AbstractELTWidget textBoxWidget = new ELTDefaultTextBox().
-				grabExcessHorizontalSpace(textBoxConfig.getGrabExcessSpace()).textBoxWidth(100);
+				grabExcessHorizontalSpace(textBoxConfig.getGrabExcessSpace()).textBoxWidth(textBoxConfig.getwidgetWidth());
 		lableAndTextBox.attachWidget(textBoxWidget);
 		
 		textBox = (Text) textBoxWidget.getSWTWidgetControl();

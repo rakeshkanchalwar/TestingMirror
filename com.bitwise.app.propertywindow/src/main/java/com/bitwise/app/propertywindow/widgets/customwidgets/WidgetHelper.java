@@ -39,6 +39,7 @@ public class WidgetHelper {
 		textBoxConfig.setName(Constants.PHASE);
 		addTextBoxListeners(textBoxConfig);
 		textBoxConfig.getListeners().add(Listners.VERIFY_NUMERIC);
+		textBoxConfig.setWidgetWidth(78);
 		return textBoxConfig;
 	}
 	

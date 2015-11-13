@@ -45,6 +45,10 @@
 		<tns:property dataType="string" name="COLUMN_NAME" renderer="COLUMN_NAME_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
 			usage="OPTIONAL"/>
+			
+		<tns:property dataType="string" name="SECONDARY_COLUMN_KEYS" renderer="SECONDARY_COLUMN_KEYS_WIDGET" type="USER"
+			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
+			usage="OPTIONAL"/>
 		
 		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="retention_logic"
 			value="First" renderer="RETENTION_LOGIC_WIDGET" type="USER" showAsTooltip="TRUE"

@@ -14,6 +14,7 @@ public enum PropertyNameConstants {
 		OPERATION_CLASS("OPERATION_CLASS"),
 		RETENTION_LOGIC_KEEP("retention_logic"),
 		OPERATION_FILEDS("filter"),
+		SECONDARY_COLUMN_KEYS("SECONDARY_COLUMN_KEYS"),
 		DEDUP_FILEDS("COLUMN_NAME");
 		private final String value;
 

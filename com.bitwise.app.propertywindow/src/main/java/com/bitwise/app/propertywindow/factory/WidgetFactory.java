@@ -24,6 +24,7 @@ import com.bitwise.app.propertywindow.widgets.customwidgets.config.WidgetConfig;
 import com.bitwise.app.propertywindow.widgets.customwidgets.operational.TransformWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
 import com.bitwise.app.propertywindow.widgets.customwidgets.schema.ELTGenericSchemaGridWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.secondarykeys.SecondaryColumnKeysWidget;
 
 /**
  * Factory for creating Widgets
@@ -62,6 +63,7 @@ public class WidgetFactory {
 		SECONDARY_KEYS_WIDGET(SingleColumnWidget.class, WidgetHelper.INSTANCE.getSecondaryKeysConfig()),
 		OPERATIONAL_CLASS_WIDGET(ELTOperationClassWidget.class),
 		RUNTIME_PROPERTIES_WIDGET(ELTRuntimePropertiesWidget.class),
+		SECONDARY_COLUMN_KEYS_WIDGET(SecondaryColumnKeysWidget.class),
 		TRANSFORM_WIDGET(TransformWidget.class);
 		
 		private Class<?> clazz = null;

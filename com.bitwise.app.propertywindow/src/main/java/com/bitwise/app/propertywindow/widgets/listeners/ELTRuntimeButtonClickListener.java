@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.runtimeproperty.ELTRuntimePropertiesWidget;
+import com.bitwise.app.propertywindow.widgets.customwidgets.secondarykeys.SecondaryColumnKeysWidget;
 
 /**
  * The listener interface for receiving ELTRuntimeButtonClick events. The class that is interested in processing a
@@ -29,7 +30,11 @@ public class ELTRuntimeButtonClickListener implements IELTListener {
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
 				if (event.type == SWT.Selection) {
-					((ELTRuntimePropertiesWidget)helpers.object).newWindowLauncher();
+					//((ELTRuntimePropertiesWidget)helpers.object).newWindowLauncher();
+					if(helpers.object instanceof ELTRuntimePropertiesWidget)
+						((ELTRuntimePropertiesWidget)helpers.object).newWindowLauncher();
+					else if(helpers.object instanceof SecondaryColumnKeysWidget) 
+						((SecondaryColumnKeysWidget)helpers.object).newWindowLauncher();
 				}
 
 			}
