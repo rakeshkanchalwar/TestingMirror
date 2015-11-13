@@ -66,7 +66,7 @@ public class ParameterGridDialog extends Dialog {
 		btnAdd.setText("Add");
 		
 		textGrid.attachGrid(container, 10, textGridColumns);
-		
+		//textGrid.setData();
 		container.getParent().addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {

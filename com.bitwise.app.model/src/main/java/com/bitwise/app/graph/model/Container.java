@@ -2,7 +2,9 @@ package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bitwise.app.graph.model.helper.LoggerUtil;
 
@@ -26,8 +28,40 @@ public class Container extends Model {
 	private final Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
 	private ArrayList<String> componentNames = new ArrayList<>();
 	
-
+	private String parameterFileName;
+	private String parameterFileDirectory;
 	
+	public String getParameterFileDirectory() {
+		return parameterFileDirectory;
+	}
+
+	public void setParameterFileDirectory(String parameterFilePath) {
+		this.parameterFileDirectory = parameterFilePath;
+	}
+
+	public String getParameterFileName() {
+		return parameterFileName;
+	}
+	
+	public String getFullParameterFilePath(){
+		return parameterFileDirectory + parameterFileName;
+	}
+
+	public void setParameterFileName(String parameterFileName) {
+		this.parameterFileName = parameterFileName;
+	}
+
+	private List<String> parameterList;
+	
+	public void addParameter(String parameterName){
+		if(parameterList == null){
+			parameterList = new ArrayList<>();
+		}
+		parameterList.add(parameterName);
+	}
+	
+	
+
 	
 	/**
 	 * Add a component to this graph.
@@ -207,4 +241,5 @@ public class Container extends Model {
 	public Hashtable<String, Integer> getComponentNextNameSuffixes() {
 		return componentNextNameSuffixes;
 	}
+
 }

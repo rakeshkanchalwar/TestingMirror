@@ -138,6 +138,11 @@ public class RunJobHandler extends AbstractHandler {
 						+ Messages.PARAM_FILE
 						+"="+getListOfPropertyFiles(project)};
 		
+		String commandx = "";
+		for(int i=0 ;i<command.length ; i++){
+			commandx = commandx + " " + command[i];
+		}
+		System.out.println("+++ executing: " + commandx);
 		
 		ProcessBuilder pb = new ProcessBuilder(command);
 		pb.directory(new File(project.getLocation().toOSString()));

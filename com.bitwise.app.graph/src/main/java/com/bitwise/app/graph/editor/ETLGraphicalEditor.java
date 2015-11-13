@@ -3,6 +3,8 @@ package com.bitwise.app.graph.editor;
 import java.awt.MouseInfo;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,8 +14,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -54,6 +59,7 @@ import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -105,7 +111,9 @@ import org.xml.sax.SAXException;
 
 import com.bitwise.app.common.component.config.CategoryType;
 import com.bitwise.app.common.component.config.Component;
+import com.bitwise.app.common.interfaces.parametergrid.DefaultGEFCanvas;
 import com.bitwise.app.common.interfaces.tooltip.ComponentCanvas;
+import com.bitwise.app.common.util.CanvasDataAdpater;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.engine.exceptions.EngineException;
@@ -118,6 +126,8 @@ import com.bitwise.app.graph.factory.ComponentsEditPartFactory;
 import com.bitwise.app.graph.factory.CustomPaletteEditPartFactory;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
+import com.bitwise.app.parametergrid.utils.ParameterFileManager;
+import com.bitwise.app.project.structure.CustomMessages;
 import com.bitwise.app.tooltip.window.ComponentTooltip;
 import com.thoughtworks.xstream.XStream;
 
@@ -126,7 +136,7 @@ import com.thoughtworks.xstream.XStream;
  * Responsible to render the palette and container.
  * 
  */
-public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette implements ComponentCanvas{
+public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette implements ComponentCanvas, DefaultGEFCanvas{
 
 	private boolean dirty=false;
 	private final Color palatteBackgroundColor= new Color(null,82,84,81);
@@ -141,6 +151,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	
 	private ComponentTooltip componentTooltip;
 	private Rectangle toolTipComponentBounds;
+	private String parameterFilePath;
 	/**
 	 * Instantiates a new ETL graphical editor.
 	 */
@@ -552,21 +563,72 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			logger.error(ce.getMessage());
 		}
 	}
-
+	
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		String METHOD_NAME = "doSave -";
 		logger.debug(METHOD_NAME);
+		//getParameterFile();
+		
 		firePropertyChange(PROP_DIRTY);
 		try {
 			GenrateContainerData genrateContainerData = new GenrateContainerData();
 			genrateContainerData.setEditorInput(getEditorInput(), this);
 			genrateContainerData.storeContainerData();
+			parameterFilePath = container.getFullParameterFilePath();
+			container.setParameterFileName(getPartName().replace(".job", ".properties"));
+			//System.out.println("+++ This is file path: " + container.getFullParameterFilePath());
+			saveParameters();
 
 		} catch (CoreException | IOException ce) {
 			logger.error(METHOD_NAME , ce);
 			MessageDialog.openError(new Shell(), "Error", "Exception occured while saving the graph -\n"+ce.getMessage());
+		}	
+	}
+
+	private void saveParameters() {
+	
+		//get map from file
+		Map<String,String> currentParameterMap = getCurrentParameterMap();
+		List<String> letestParameterList = getLatestParameterList();
+		
+		Map<String,String> newParameterMap = new LinkedHashMap<>();
+		
+		for(int i=0;i<letestParameterList.size();i++){
+			newParameterMap.put(letestParameterList.get(0), "");
 		}
+		
+		for(String parameterName : currentParameterMap.keySet()){
+			newParameterMap.put(parameterName, currentParameterMap.get(parameterName));
+		}
+		
+		ParameterFileManager parameterFileManager = new ParameterFileManager(parameterFilePath);
+		parameterFileManager.storeParameters(newParameterMap);		
+	}
+
+	private List<String> getLatestParameterList() {
+		String canvasData =getXMLString();		
+		CanvasDataAdpater canvasDataAdpater = new CanvasDataAdpater(canvasData);
+		return canvasDataAdpater.getParameterList();
+	}
+
+	private Map<String, String> getCurrentParameterMap() {
+		
+		File parameterFile = new File(parameterFilePath);
+		
+		if(!parameterFile.exists()){
+			try {
+				parameterFile.createNewFile();
+			} catch (IOException e) {
+				System.out.println("Add logger");
+				e.printStackTrace();
+			}
+		}
+		
+		ParameterFileManager parameterFileManager = new ParameterFileManager(parameterFilePath);
+		//System.out.println(parameterFileManager.getParameterMap().toString());
+		
+		return parameterFileManager.getParameterMap();
 	}
 
 	/**
@@ -590,6 +652,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	public void doSaveAs() {
 		
 		IFile file=opeSaveAsDialog();
+		//getParameterFile();
+		setParameterFileLocationInfo(file);
+		
 		if(file!=null){
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
@@ -610,6 +675,11 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 		}
 	}
 
+	private void setParameterFileLocationInfo(IFile file) {
+		container.setParameterFileDirectory(file.getPathVariableManager().getURIValue("PROJECT_LOC").getPath() + "/" +  CustomMessages.ProjectSupport_PARAM + "/");
+		container.setParameterFileName(file.getName().replace("job", "properties"));
+	}
+	
 	@Override
 	public boolean isSaveAsAllowed() {
 		return true;
@@ -768,6 +838,11 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	@Override
 	public ComponentTooltip getComponentTooltip() {
 		return this.componentTooltip;
+	}
+
+	@Override
+	public String getXMLString() {
+		return fromObjectToXML(getContainer());	
 	}
 
 }

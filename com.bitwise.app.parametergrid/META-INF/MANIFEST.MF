@@ -11,4 +11,5 @@ Require-Bundle: org.eclipse.ui,
  org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Export-Package: com.bitwise.app.parametergrid.dialog
+Export-Package: com.bitwise.app.parametergrid.dialog,
+ com.bitwise.app.parametergrid.utils
