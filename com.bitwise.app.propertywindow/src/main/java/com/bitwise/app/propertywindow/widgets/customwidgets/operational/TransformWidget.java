@@ -6,7 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 
-import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProperty;
+import com.bitwise.app.common.datastructure.property.TransformPropertyGrid;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -28,8 +28,9 @@ public class TransformWidget extends AbstractWidget {
 
 	private String propertyName;
 	private LinkedHashMap<String, Object> property = new LinkedHashMap<>();
-	private OperationClassProperty operationClassProperty;
+	private TransformPropertyGrid transformPropertyGrid;
 	private TransformDialog transformDialog;
+	private Object properties;
 
 	/**
 	 * Instantiates a new ELT operation class widget.
@@ -49,9 +50,9 @@ public class TransformWidget extends AbstractWidget {
 				propertyDialogButtonBar);
 		
 
-		this.operationClassProperty = (OperationClassProperty) componentConfigrationProperty.getPropertyValue();
-		if(operationClassProperty == null){
-			operationClassProperty = new OperationClassProperty("", false);
+		this.transformPropertyGrid = (TransformPropertyGrid) componentConfigrationProperty.getPropertyValue();
+		if(transformPropertyGrid == null){
+			transformPropertyGrid = new TransformPropertyGrid();
 		}
 		this.propertyName = componentConfigrationProperty.getPropertyName(); 
 
@@ -78,8 +79,11 @@ public class TransformWidget extends AbstractWidget {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				transformDialog = new TransformDialog(transformComposite.getContainerControl().getShell(), propertyDialogButtonBar,operationClassProperty.clone());
+				transformDialog = new TransformDialog(transformComposite.getContainerControl().getShell(), propertyDialogButtonBar,transformPropertyGrid);
+				transformDialog.setValidationStatus(validationStatus);
 				transformDialog.open();
+					transformPropertyGrid = transformDialog.getTransformProperty();
+					propertyDialogButtonBar.enableApplyButton(true);
 				super.widgetSelected(e);
 			}
 			
@@ -91,7 +95,7 @@ public class TransformWidget extends AbstractWidget {
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {		
 		//operationClassProperty = eltOperationClassDialog.getOperationClassProperty();
-		property.put(propertyName, operationClassProperty);
+		property.put(propertyName, transformPropertyGrid);
 		
 		return property;
 	}

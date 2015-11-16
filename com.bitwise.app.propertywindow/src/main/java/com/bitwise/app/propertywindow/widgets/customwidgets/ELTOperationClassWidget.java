@@ -89,84 +89,12 @@ public class ELTOperationClassWidget extends AbstractWidget {
 					operationClassProperty = eltOperationClassDialog.getOperationClassProperty();
 					propertyDialogButtonBar.enableApplyButton(true);
 				}
-				//operationClassProperty=eltOperationClassDialog.getPropertyValue();
 				super.widgetSelected(e);
 			}
 			
 		});
-		
-		/*try {
-			eltDefaultButton.attachListener(listenerFactory
-					.getListener("ELTRuntimeButtonClickListener"),
-					propertyDialogButtonBar, new ListenerHelper(this.getClass()
-							.getName(), (Object) this), eltDefaultButton
-							.getSWTWidgetControl());
-
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}*/
-		
-		/*ListenerFactory listenerFactory = new ListenerFactory();
-		
-		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
-		eltSuDefaultSubgroupComposite.createContainerWidget();
-		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\nClass");
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
-		
-		AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(200);
-		eltSuDefaultSubgroupComposite.attachWidget(fileNameText);
-		
-		fileName = (Text) fileNameText.getSWTWidgetControl();
-		
-		AbstractELTWidget browseButton = new ELTDefaultButton("...").buttonWidth(20);
-		eltSuDefaultSubgroupComposite.attachWidget(browseButton);
-		
-		
-		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite2 = new ELTDefaultSubgroupComposite(container.getContainerControl());
-		eltSuDefaultSubgroupComposite2.createContainerWidget();
-		
-		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("IsParam");
-		eltSuDefaultSubgroupComposite2.attachWidget(isParameterCheckbox);
-		
-				
-		// Create new button, that use to create operational class
-		AbstractELTWidget createButton = new ELTDefaultButton("Create New").grabExcessHorizontalSpace(true);
-		eltSuDefaultSubgroupComposite2.attachWidget(createButton);
-
-		// Edit new button, that use to edit operational class
-		AbstractELTWidget editButton = new ELTDefaultButton("Edit").grabExcessHorizontalSpace(true);
-		eltSuDefaultSubgroupComposite2.attachWidget(editButton); 
-		
-		btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
 	
-		//container.attchProertySeperator();
-		try { 
-			editButton.attachListener(listenerFactory.getListener("ELTOpenFileEditorListener"),propertyDialogButtonBar, null,fileName);
-			browseButton.attachListener(listenerFactory.getListener("ELTBrowseFileListener"),propertyDialogButtonBar, null,fileName);
-			createButton.attachListener(listenerFactory.getListener("ELTCreateNewClassListener"),propertyDialogButtonBar, null,fileName);
-			fileNameText.attachListener(listenerFactory.getListener("ELTEmptyTextModifyListener"),propertyDialogButtonBar, null,fileName,editButton.getSWTWidgetControl(),isParameterCheckbox.getSWTWidgetControl());
-	//		fileNameText.attachListener(listenerFactory.getListener("ELTCheckFileExtensionListener"),propertyDialogButtonBar, null,fileName,isParameterCheckbox.getSWTWidgetControl());
-			isParameterCheckbox.attachListener(listenerFactory.getListener("ELTEnableButtonListener"),propertyDialogButtonBar, null,btnCheckButton,browseButton.getSWTWidgetControl(),createButton.getSWTWidgetControl());
-			} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} */
-		//populateWidget();
-	} 
-	 
-
-	
-	/*private void populateWidget(){
-		if (properties != null && properties instanceof OperationClassProperty) {
-			operationClassProperty = new OperationClassProperty(((OperationClassProperty)properties).getOperationClassPath(),((OperationClassProperty)properties).isParameter());
-		}
-		else{
-			fileName.setBackground(new Color(Display.getDefault(), 255,
-					255, 204));
-		}
-	}*/
+} 
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {		

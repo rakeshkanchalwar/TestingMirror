@@ -25,9 +25,7 @@ import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
@@ -118,8 +116,8 @@ public class FilterOperationClassUtility {
 	}
 
 public static void createOperationalClass(Composite composite,
-											PropertyDialogButtonBar eltOperationClassDialogButtonBar,Text fileName
-											,Button btnCheckButton,ValidationStatus validationStatus ){
+											PropertyDialogButtonBar eltOperationClassDialogButtonBar,AbstractELTWidget fileNameText
+											,AbstractELTWidget isParameterCheckbox,ValidationStatus validationStatus ){
 	
 	ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(composite);
 	eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -128,15 +126,13 @@ public static void createOperationalClass(Composite composite,
 	AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Operation\nClass");
 	eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 	
-	AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150);
 	eltSuDefaultSubgroupComposite.attachWidget(fileNameText);
 	
-	fileName = (Text) fileNameText.getSWTWidgetControl();
+	Text fileName = (Text) fileNameText.getSWTWidgetControl();
 	
 	AbstractELTWidget browseButton = new ELTDefaultButton("...").buttonWidth(20);
 	eltSuDefaultSubgroupComposite.attachWidget(browseButton);
 	
-	AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("Is Parameter").checkBoxLableWidth(100);
 	eltSuDefaultSubgroupComposite.attachWidget(isParameterCheckbox);
 	
 	
@@ -151,13 +147,13 @@ public static void createOperationalClass(Composite composite,
 			
 	// Create new button, that use to create operational class
 	AbstractELTWidget createButton = new ELTDefaultButton("Create New");
-	eltSuDefaultSubgroupComposite2.attachWidget(createButton);
+	eltSuDefaultSubgroupComposite2.attachWidget(createButton); 
 
 	// Edit new button, that use to edit operational class
 	AbstractELTWidget editButton = new ELTDefaultButton("Edit");
 	eltSuDefaultSubgroupComposite2.attachWidget(editButton); 
 	
-	btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
+	Button btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
 	
 		ListenerHelper helper = new ListenerHelper();
 		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
