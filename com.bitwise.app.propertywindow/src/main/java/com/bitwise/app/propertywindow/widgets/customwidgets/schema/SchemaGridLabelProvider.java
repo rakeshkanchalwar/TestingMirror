@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Display;
  * @author Bitwise
  *
  */
-class SchemaGridLabelProvider implements ITableLabelProvider , ITableColorProvider {
+public class SchemaGridLabelProvider implements ITableLabelProvider , ITableColorProvider {
   /**
    * Returns the image
    * 

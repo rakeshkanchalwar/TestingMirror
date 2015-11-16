@@ -10,7 +10,7 @@ import org.eclipse.jface.viewers.Viewer;
  * This class provides the content for the schemaGrid table
  */
 
-class SchemaGridContentProvider implements IStructuredContentProvider {
+public class SchemaGridContentProvider implements IStructuredContentProvider {
   /**
    * Returns the SchemaGrid objects
    */

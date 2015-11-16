@@ -20,6 +20,9 @@ import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProper
 import com.bitwise.app.propertywindow.messagebox.ConfirmCancelMessageBox;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCheckBox;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 
 // TODO: Auto-generated Javadoc
@@ -90,7 +93,12 @@ public class ELTOperationClassDialog extends Dialog {
 			
 		});
 		
-		FilterOperationClassUtility.createOperationalClass(composite, eltOperationClassDialogButtonBar, fileName, btnCheckButton, validationStatus);
+		AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150);
+		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("Is Parameter").checkBoxLableWidth(100);
+		
+		FilterOperationClassUtility.createOperationalClass(composite, eltOperationClassDialogButtonBar, fileNameText, isParameterCheckbox, validationStatus);
+		fileName=(Text)fileNameText.getSWTWidgetControl();
+		btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
 		populateWidget();
 		return container;
 	}
@@ -165,9 +173,6 @@ public class ELTOperationClassDialog extends Dialog {
 
 	@Override
 	protected void okPressed() {
-		// TODO Auto-generated method stub
-		/*operationClassProperty.setParameter(btnCheckButton.getSelection());
-        operationClassProperty.setOperationClassPath(fileName.getText());*/
         operationClassProperty = new OperationClassProperty(fileName.getText(), btnCheckButton.getSelection());
 		super.okPressed();
 	}
