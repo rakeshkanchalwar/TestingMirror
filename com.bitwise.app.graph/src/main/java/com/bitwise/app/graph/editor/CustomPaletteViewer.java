@@ -82,7 +82,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 					if (searchedString.isEmpty() || "".equals(searchedString)) {
 						showAllContainers(paletteRoot, editor, categoryPaletteConatiner, componentsConfig);
 					} else {
-						matchFound = showMatchingContainers(editor, categoryPaletteConatiner, componentsConfig,
+						matchFound = collectMatchingContainers(editor, categoryPaletteConatiner, componentsConfig,
 								 matchingComponents, searchedString);
 						showMessageWhenComponentNotFound(container, matchFound);
 						showRequiredPaletteContainers(paletteRoot, categoryPaletteConatiner, matchingComponents);
@@ -100,7 +100,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 		}
 	}
 
-	private boolean showMatchingContainers(final ETLGraphicalEditor editor,
+	private boolean collectMatchingContainers(final ETLGraphicalEditor editor,
 			final Map<String, PaletteDrawer> categoryPaletteConatiner, final List<Component> componentsConfig,
 			 List<Component> matchingComponents, String searchedString) {
 		boolean matchFound = false;
