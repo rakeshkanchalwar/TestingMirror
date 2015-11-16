@@ -61,7 +61,6 @@ public class CustomPaletteViewer extends PaletteViewer {
 
 		} catch (RuntimeException|SAXException|IOException exception) {
 			LOGGER.error(exception.getMessage(),exception);
-			throw new RuntimeException(exception);
 		}
 		return container;
 	}
@@ -85,7 +84,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 						matchFound = collectMatchingContainers(editor, categoryPaletteConatiner, componentsConfig,
 								 matchingComponents, searchedString);
 						showMessageWhenComponentNotFound(container, matchFound);
-						showRequiredPaletteContainers(paletteRoot, categoryPaletteConatiner, matchingComponents);
+						showMatchingContainers(paletteRoot, categoryPaletteConatiner, matchingComponents);
 					}
 			}
 		});
@@ -142,7 +141,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 		}
 	}
 
-	private void showRequiredPaletteContainers(PaletteRoot paletteRoot,
+	private void showMatchingContainers(PaletteRoot paletteRoot,
 			Map<String, PaletteDrawer> categoryPaletteConatiner, List<Component> matchingComponents) {
 		List<PaletteContainer> children = paletteRoot.getChildren();
 		for (PaletteContainer paletteContainer : children) {

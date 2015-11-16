@@ -8,7 +8,7 @@ import org.eclipse.gef.ui.palette.PaletteEditPartFactory;
 import org.eclipse.swt.graphics.Color;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * A factory for creating CustomPaletteEditPart objects.
  */
@@ -24,8 +24,7 @@ public class CustomPaletteEditPartFactory extends PaletteEditPartFactory {
 	 * @param entryBackgroundColor
 	 *            the entry background color
 	 */
-    public CustomPaletteEditPartFactory(Color entryForegroundColor,
-                                      Color entryBackgroundColor) {
+    public CustomPaletteEditPartFactory(Color entryBackgroundColor) {
         palatteBackgroundColor = entryBackgroundColor;
     }
     @Override
