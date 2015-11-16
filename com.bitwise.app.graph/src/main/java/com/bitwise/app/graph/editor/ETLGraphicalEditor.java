@@ -568,6 +568,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 		try {
 			GenrateContainerData genrateContainerData = new GenrateContainerData();
 			genrateContainerData.setEditorInput(getEditorInput(), this);
+			
+			//List<String> parameterListBeforeSave = getLatestParameterList();
+			//System.out.println();
 			genrateContainerData.storeContainerData();
 			parameterFilePath = container.getFullParameterFilePath();
 			container.setParameterFileName(getPartName().replace(".job", ".properties"));
@@ -592,16 +595,21 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			newParameterMap.put(letestParameterList.get(i), "");
 		}
 		
-		for(String parameterName : letestParameterList){
+		/*for(String parameterName : letestParameterList){
 			if(currentParameterMap.containsKey(parameterName))
 				newParameterMap.put(parameterName, currentParameterMap.get(parameterName));
+		}*/
+		
+		for(String parameterName : currentParameterMap.keySet()){
+			newParameterMap.put(parameterName, currentParameterMap.get(parameterName));
 		}
 		
 		ParameterFileManager parameterFileManager = new ParameterFileManager(parameterFilePath);
 		parameterFileManager.storeParameters(newParameterMap);		
 	}
 
-	private List<String> getLatestParameterList() {
+	@Override
+	public List<String> getLatestParameterList() {
 		String canvasData =getXMLString();		
 		CanvasDataAdpater canvasDataAdpater = new CanvasDataAdpater(canvasData);
 		return canvasDataAdpater.getParameterList();

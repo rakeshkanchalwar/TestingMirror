@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
@@ -102,6 +103,16 @@ public class ParameterGridDialog extends Dialog {
 		
 		try {
 			textGrid.setData(gridData);
+			
+			System.out.println("++++ latest param list String-   " + getComponentCanvas().getLatestParameterList().toString());
+			List<String> canvasParameterList = getComponentCanvas().getLatestParameterList();
+			for(Composite gridrow: textGrid.getGrid()){
+				//if(((Text)gridrow.getChildren()[0]).getText())
+				if(!canvasParameterList.contains(((Text)gridrow.getChildren()[0]).getText()))
+					((Text)gridrow.getChildren()[0]).setEditable(true);
+			}
+			
+			
 		} catch (Exception indexOutOfBoundsException) {
 			MessageDialog.openError(new Shell(), "Error", "Invaild parameter grid data -\n"+indexOutOfBoundsException.getMessage());
 			getShell().dispose();
