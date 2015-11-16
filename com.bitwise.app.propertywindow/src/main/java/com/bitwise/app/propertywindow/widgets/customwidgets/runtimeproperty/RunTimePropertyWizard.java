@@ -66,8 +66,6 @@ public class RunTimePropertyWizard {
 
 	
 
-	// private boolean firstTimeEdit;
-
 	/**
 	 * Instantiates a new run time property wizard.
 	 */
@@ -207,7 +205,7 @@ public class RunTimePropertyWizard {
 		shell.setSize(506, 542);
 		shell.setLayout(null);
 		shell.setText(Messages.RUNTIME_WINDOW_NAME);
-		//imageShell(shell);
+		imageShell(shell);
 		lblHeader = new Label(shell, SWT.NONE);
 		lblHeader.setBounds(10, 14, 450, 15);
 		lblHeader.setText(Messages.RUNTIME_HEADER);
@@ -340,10 +338,10 @@ private void createIcons(Composite composite){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				index1=table.getSelectionIndex();
-				String text = tableViewer.getTable().getItem(index1).getText(0);
-				String text1 = tableViewer.getTable().getItem(index1).getText(1);
-				   
-				if(index1>0){
+				
+				if(index1 > 0){
+					String text = tableViewer.getTable().getItem(index1).getText(0);
+					String text1 = tableViewer.getTable().getItem(index1).getText(1);
 					index2 = index1 - 1;
 					String data=tableViewer.getTable().getItem(index2).getText(0);
 					String data2=tableViewer.getTable().getItem(index2).getText(1);
@@ -375,10 +373,12 @@ private void createIcons(Composite composite){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				index1=table.getSelectionIndex();
-				String text = tableViewer.getTable().getItem(index1).getText(0);
-				String text1 = tableViewer.getTable().getItem(index1).getText(1);
 				
-				if(index1 < propertyLst.size()){
+				
+				if(index1 < propertyLst.size()-1){
+					String text = tableViewer.getTable().getItem(index1).getText(0);
+					String text1 = tableViewer.getTable().getItem(index1).getText(1);
+					
 					index2 = index1 + 1;
 					
 					String data=tableViewer.getTable().getItem(index2).getText(0);
@@ -614,13 +614,10 @@ private void createIcons(Composite composite){
 
 	}
 	
-	/*public void imageShell(Shell shell){
+	public void imageShell(Shell shell){
 		String image = XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/property_window_icon.png";
 		shell.setImage(new Image(null, image));
-	}*/
-	public static void main(String[] args) {			
-		RunTimePropertyWizard obj=new RunTimePropertyWizard();		
-		obj.launchRuntimeWindow(new Shell(),null);			
 	}
+	
 	
 }
