@@ -1,7 +1,7 @@
 package com.bitwise.app.parametergrid.textgridwidget.columns;
 
 
-public class ColumnData {
+public class TextGridColumnDataLayout {
 	
 	private final int columnWidth;
 	private final boolean enabled;
@@ -39,12 +39,12 @@ public class ColumnData {
 		}
 		
 		
-		public ColumnData build(){
-			return new ColumnData(this);
+		public TextGridColumnDataLayout build(){
+			return new TextGridColumnDataLayout(this);
 		}
 	}
 	
-	private ColumnData(Builder builder){
+	private TextGridColumnDataLayout(Builder builder){
 		this.columnWidth = builder.columnWidth;
 		this.enabled = builder.disabled;
 		this.grabHorizantalAccessSpace = builder.grabHorizantalAccessSpace;
@@ -86,7 +86,7 @@ public class ColumnData {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ColumnData other = (ColumnData) obj;
+		TextGridColumnDataLayout other = (TextGridColumnDataLayout) obj;
 		if (columnWidth != other.columnWidth)
 			return false;
 		if (enabled != other.enabled)

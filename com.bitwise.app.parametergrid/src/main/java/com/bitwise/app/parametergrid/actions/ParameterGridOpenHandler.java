@@ -14,15 +14,13 @@ public class ParameterGridOpenHandler extends AbstractHandler{
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		/*IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		MessageDialog.openInformation(
-				window.getShell(),
-				"Parameter Grid",
-				"We will have parameter grid here");*/
-		
 		ParameterGridDialog parameterGrid = new ParameterGridDialog(Display.getDefault().getActiveShell());
-		parameterGrid.open();
-		
+			try{
+				parameterGrid.open();
+			}catch(Exception e){
+				// Do nothing
+			}
+			
 		return null;
 	}
 

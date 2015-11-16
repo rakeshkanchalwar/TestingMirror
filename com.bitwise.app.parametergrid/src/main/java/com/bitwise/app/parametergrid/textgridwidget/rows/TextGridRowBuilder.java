@@ -8,7 +8,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-import com.bitwise.app.parametergrid.textgridwidget.columns.ColumnData;
+import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridColumnDataLayout;
 import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridColumns;
 
 public class TextGridRowBuilder {
@@ -28,7 +28,7 @@ public class TextGridRowBuilder {
 		gl_composite.verticalSpacing = 1;
 		composite.setLayout(gl_composite);
 				
-		Map<Integer, ColumnData> columns = textGridColumns.getTextGridColumns();
+		Map<Integer, TextGridColumnDataLayout> columns = textGridColumns.getTextGridColumns();
 		for(int columnNumber:columns.keySet()){
 			if(!columns.get(columnNumber).grabHorizantalAccessSpace()){
 				Text text = new Text(composite, SWT.BORDER);		

@@ -1,8 +1,15 @@
 package com.bitwise.app.parametergrid.textgridwidget;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
@@ -21,6 +28,13 @@ public class TextGrid {
 	private TextGridRowBuilder textGridRowBuilder;
 		
 	private Composite lastAddedRow;
+	
+	private List<Composite> textGrid;
+	
+	public TextGrid(){
+		textGrid = new ArrayList<>();
+	}
+	
 	public void attachGrid(Composite container,int numberOfRows,TextGridColumns textGridColumns){
 		this.textGridColumns = textGridColumns;
 		this.numberOfRows = numberOfRows;	
@@ -30,12 +44,13 @@ public class TextGrid {
 		createInitialRows();
 	}
 	
-	public void getGrid(){
-		
+	public List<Composite> getGrid(){
+		return textGrid;
 	}
 		
 	public void addRow(){				
 		lastAddedRow = textGridRowBuilder.addRaw();	
+		textGrid.add(lastAddedRow);
 		
 	}
 	
@@ -78,5 +93,27 @@ public class TextGrid {
 		return textGridColumns;
 	}
 	
+	public void setData(List<String[]> gridData) throws Exception{
+			for(int i=0;i<textGrid.size();i++){
+				Control[] rowColumns = textGrid.get(i).getChildren();
+				String[] rowData = gridData.get(i);
+				for(int j=0;j<rowColumns.length;j++){
+					((Text)rowColumns[j]).setText(rowData[j]);
+				}
+			}		
+	}	
+	
+	public List<String[]> getData(){
+		List<String[]> gridData = new ArrayList<>();
+		for(int i=0;i<textGrid.size();i++){
+			Control[] rowColumns = textGrid.get(i).getChildren();
+			String[] rowData = new String[textGridColumns.getNumberOfColumn()];
+			for(int j=0;j<textGridColumns.getNumberOfColumn();j++){
+				rowData[j] = ((Text)rowColumns[j]).getText();
+			}
+			gridData.add(rowData);
+		}
+		return gridData;
+	}
 	
 }

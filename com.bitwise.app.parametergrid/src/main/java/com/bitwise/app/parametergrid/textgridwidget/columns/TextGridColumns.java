@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class TextGridColumns {
 	int numberOfColumn=0;
-	private Map<Integer,ColumnData> textGridColumns;
+	private Map<Integer,TextGridColumnDataLayout> textGridColumns;
 	
 	public TextGridColumns(){
 		textGridColumns = new LinkedHashMap<>();
 	}
 	
-	public void addColumn(ColumnData columnLayoutData){
+	public void addColumn(TextGridColumnDataLayout columnLayoutData){
 		textGridColumns.put(numberOfColumn, columnLayoutData);
 		numberOfColumn++;
 	}
@@ -20,11 +20,11 @@ public class TextGridColumns {
 		return numberOfColumn;
 	}
 
-	public Map<Integer, ColumnData> getTextGridColumns() {
+	public Map<Integer, TextGridColumnDataLayout> getTextGridColumns() {
 		return textGridColumns;
 	}
 	
-	public void resetColumnData(int columnNumber,ColumnData columnData){
+	public void resetColumnData(int columnNumber,TextGridColumnDataLayout columnData){
 		if(textGridColumns.containsKey(columnNumber)){
 			textGridColumns.put(columnNumber, columnData);
 		}

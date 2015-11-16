@@ -595,11 +595,12 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 		Map<String,String> newParameterMap = new LinkedHashMap<>();
 		
 		for(int i=0;i<letestParameterList.size();i++){
-			newParameterMap.put(letestParameterList.get(0), "");
+			newParameterMap.put(letestParameterList.get(i), "");
 		}
 		
-		for(String parameterName : currentParameterMap.keySet()){
-			newParameterMap.put(parameterName, currentParameterMap.get(parameterName));
+		for(String parameterName : letestParameterList){
+			if(currentParameterMap.containsKey(parameterName))
+				newParameterMap.put(parameterName, currentParameterMap.get(parameterName));
 		}
 		
 		ParameterFileManager parameterFileManager = new ParameterFileManager(parameterFilePath);
@@ -615,7 +616,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	private Map<String, String> getCurrentParameterMap() {
 		
 		File parameterFile = new File(parameterFilePath);
-		
+		//destinationFile.create(new FileInputStream(sourceFile), true, null);
 		if(!parameterFile.exists()){
 			try {
 				parameterFile.createNewFile();
@@ -844,5 +845,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	public String getXMLString() {
 		return fromObjectToXML(getContainer());	
 	}
-
+	
+	@Override
+	public String getParameterFile(){
+		return container.getFullParameterFilePath();
+	}
 }
