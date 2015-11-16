@@ -166,16 +166,9 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 		createToolsGroup(palette);
 		try {
 			createShapesDrawer(palette);
-		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (RuntimeException | SAXException |IOException e) {
+			logger.error(e.getMessage(),e);
+		} 
 		return palette;
 	}
 	protected PaletteRoot getPalettesRoot(){
@@ -310,7 +303,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			@Override
 			protected void configurePaletteViewer(final PaletteViewer viewer) {
 				super.configurePaletteViewer(viewer);
-				viewer.setEditPartFactory(new CustomPaletteEditPartFactory(null,palatteBackgroundColor));
+				viewer.setEditPartFactory(new CustomPaletteEditPartFactory(palatteBackgroundColor));
 				// create a drag source listener for this palette viewer
 				// together with an appropriate transfer drop target listener,
 				// this will enable
@@ -323,6 +316,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 				viewer.getControl().addMouseListener(
 						new PaletteContainerListener(viewer, getGraphicalViewer()));
 			}
+			@Override
 			public PaletteViewer createPaletteViewer(Composite parent) {
 				CustomPaletteViewer pViewer = new CustomPaletteViewer();
 				CustomFigureCanvas figureCanvas=new CustomFigureCanvas(parent,pViewer.getLightweightSys(),pViewer, getPalettesRoot(),editor);
