@@ -37,7 +37,8 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTTable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTTableViewer;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTSchemaSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTSchemaTableComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 import com.bitwise.app.propertywindow.widgets.listeners.grid.ELTGridDetails;
@@ -135,21 +136,22 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 	}
 
 	// Operational class label.
-	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR)
-			.lableWidth(250);
+	AbstractELTWidget fieldError = new ELTDefaultLable(Messages.FIELDNAMEERROR).lableWidth(250);
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
+		
 		ListenerFactory listenerFactory = new ListenerFactory();
-
-		ELTDefaultSubgroupComposite gridSubGroup = new ELTDefaultSubgroupComposite(
-				container.getContainerControl());
+		
+		AbstractELTWidget addButton = getButton("");
+		AbstractELTWidget deleteButton = getButton(""); 
+		addButtonsAndRegisterListners(container, listenerFactory,addButton,deleteButton);
+		
+		ELTSchemaTableComposite gridSubGroup = new ELTSchemaTableComposite(container.getContainerControl());
 		gridSubGroup.createContainerWidget();
-		
-		
 		
 
 		AbstractELTWidget eltTableViewer = new ELTTableViewer(getContentProvider(), getLableProvider());
@@ -185,26 +187,29 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 					propertyDialogButtonBar, helper, table);
 			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),
 					propertyDialogButtonBar, helper, editors[0].getControl());
+			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),
+					propertyDialogButtonBar, helper, table);
+			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),
+					propertyDialogButtonBar, helper, table);
+
 		} catch (Exception e) {
 			// TODO add logger
 			throw new RuntimeException("Failed to attach listeners to table");
 		}
 
-		addButtonsAndRegisterListners(container, listenerFactory, editors);
-		populateWidget();
+		gridListener(editors);
+		populateWidget(); 
 	}
 
 	private void addButtonsAndRegisterListners(
-			AbstractELTContainerWidget container,
-			ListenerFactory listenerFactory, CellEditor[] cellEditors) {
+			AbstractELTContainerWidget container, ListenerFactory listenerFactory,AbstractELTWidget addButton,AbstractELTWidget deleteButton) {
 
-		ELTSubgroupComposite buttonSubGroup = new ELTSubgroupComposite(
+		ELTSchemaSubgroupComposite buttonSubGroup = new ELTSchemaSubgroupComposite(
 				container.getContainerControl());
 		buttonSubGroup.createContainerWidget();
 
 		try {
-			AbstractELTWidget addButton = getButton("");
-			AbstractELTWidget deleteButton = getButton("");
+
 			AbstractELTWidget upButton = getButton("");
 			AbstractELTWidget downButton = getButton("");
 			
@@ -280,10 +285,6 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 				}
 			});
 			
-			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),
-					propertyDialogButtonBar, helper, table);
-			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),
-					propertyDialogButtonBar, helper, table);
 			
 		} catch (Exception e) {
 			// TODO add logger
@@ -291,9 +292,13 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 					e);
 		}
 
+
+	}
+	
+	private void gridListener(CellEditor[] cellEditors){
+		
 		GridChangeListener gridChangeListener = new GridChangeListener(cellEditors, propertyDialogButtonBar);
 		gridChangeListener.attachCellChangeListener();
-
 	}
 
 	private void populateWidget() {
@@ -313,8 +318,7 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 
 	private AbstractELTWidget getButton(String displayName) {
 		// Create browse button.
-		AbstractELTWidget button = new ELTDefaultButton(displayName)
-				.buttonWidth(20);
+		AbstractELTWidget button = new ELTDefaultButton(displayName).buttonWidth(18).buttonHeight(18);
 		return button;
 	}
 
@@ -331,8 +335,5 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		return helper;
 	}
 	
-	private void subgroupComposite(Composite com){
-		Composite comp = new Composite(com, SWT.NONE);
-		com.setBounds(0, 38, 520, 30);
-	}
+	
 }
