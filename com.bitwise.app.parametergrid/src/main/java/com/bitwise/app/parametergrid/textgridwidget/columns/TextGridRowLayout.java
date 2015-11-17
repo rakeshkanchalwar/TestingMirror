@@ -3,16 +3,16 @@ package com.bitwise.app.parametergrid.textgridwidget.columns;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class TextGridColumns {
+public class TextGridRowLayout {
 	int numberOfColumn=0;
-	private Map<Integer,TextGridColumnDataLayout> textGridColumns;
+	private Map<Integer,TextGridColumnLayout> textGridColumns;
 	
-	public TextGridColumns(){
+	public TextGridRowLayout(){
 		textGridColumns = new LinkedHashMap<>();
 	}
 	
-	public void addColumn(TextGridColumnDataLayout columnLayoutData){
-		textGridColumns.put(numberOfColumn, columnLayoutData);
+	public void addColumn(TextGridColumnLayout textGridColumnLayout){
+		textGridColumns.put(numberOfColumn, textGridColumnLayout);
 		numberOfColumn++;
 	}
 
@@ -20,11 +20,11 @@ public class TextGridColumns {
 		return numberOfColumn;
 	}
 
-	public Map<Integer, TextGridColumnDataLayout> getTextGridColumns() {
+	public Map<Integer, TextGridColumnLayout> getTextGridColumns() {
 		return textGridColumns;
 	}
 	
-	public void resetColumnData(int columnNumber,TextGridColumnDataLayout columnData){
+	public void resetColumnData(int columnNumber,TextGridColumnLayout columnData){
 		if(textGridColumns.containsKey(columnNumber)){
 			textGridColumns.put(columnNumber, columnData);
 		}

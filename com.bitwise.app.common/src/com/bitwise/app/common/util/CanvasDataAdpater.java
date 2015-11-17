@@ -1,6 +1,7 @@
 package com.bitwise.app.common.util;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -14,7 +15,8 @@ public class CanvasDataAdpater {
 	
 	public CanvasDataAdpater(String canvasData){
 		this.canvasData = canvasData;
-		parameterList = new ArrayList<>();
+		//parameterList = new ArrayList<>();
+		parameterList = new LinkedList<>();
 	}
 	
 	private void fetchData(){
