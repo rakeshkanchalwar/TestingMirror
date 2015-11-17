@@ -1,14 +1,12 @@
 package com.bitwise.app.parametergrid.dialog;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -18,18 +16,15 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 import com.bitwise.app.common.interfaces.parametergrid.DefaultGEFCanvas;
-import com.bitwise.app.common.interfaces.tooltip.ComponentCanvas;
 import com.bitwise.app.parametergrid.textgridwidget.TextGrid;
-import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridColumnDataLayout;
-import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridColumns;
+import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridColumnLayout;
+import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridRowLayout;
 import com.bitwise.app.parametergrid.utils.ParameterFileManager;
 
 public class ParameterGridDialog extends Dialog {
@@ -64,59 +59,67 @@ public class ParameterGridDialog extends Dialog {
 		cld_composite.heightHint = 30;
 		composite.setLayoutData(cld_composite);
 		
-		final TextGridColumns textGridColumns = new TextGridColumns();
-		textGridColumns.addColumn(new TextGridColumnDataLayout.Builder().columnWidth(90).editable(false).build());
-		textGridColumns.addColumn(new TextGridColumnDataLayout.Builder().grabHorizantalAccessSpace(true).build());
-		textGrid = new TextGrid();
+		textGrid = new TextGrid(container);
 		
 		Button btnAdd = new Button(composite, SWT.NONE);
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				textGridColumns.resetColumnData(0, new TextGridColumnDataLayout.Builder().columnWidth(90).editable(true).build());
-				textGrid.addRow();				
+				TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
+				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(true).build());
+				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
+				textGrid.addEmptyRow(textGridRowLayout);				
 				textGrid.refresh();
 				textGrid.scrollToLastRow();
 			}
 		});
-		
-		
 		btnAdd.setText("Add");
+		
+		Button btnRemove = new Button(composite, SWT.NONE);
+		btnRemove.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				textGrid.removeSelectedRows();
+			}
+		});
+		btnRemove.setText("Remove");
+		
+				
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
 		Map<String, String> parameterMap = parameterFileManager.getParameterMap();
-		List<String[]> gridData =  new ArrayList<>();
+		
+		//List of rows, where each row is list of columns
+		List<List<String>> graphGridData =  new LinkedList<>();
+		List<List<String>> externalGridData =  new LinkedList<>();
+		List<String> canvasParameterList = getComponentCanvas().getLatestParameterList();
 		for(String key: parameterMap.keySet()){
-			String[] rowData = {key,parameterMap.get(key)};
-			gridData.add(rowData);
-		}
-		
-		//textGrid.add
-		
-		textGrid.attachGrid(container, parameterMap.keySet().size(), textGridColumns);
-		
-		/*String[] row1Data = {"aaa","bbb"};
-		String[] row2Data = {"ccc","ddd"};
-		String[] row3Data = {"eee","fff"};
-		gridData.add(row1Data);
-		gridData.add(row2Data);
-		gridData.add(row3Data);*/
-		
-		try {
-			textGrid.setData(gridData);
-			
-			System.out.println("++++ latest param list String-   " + getComponentCanvas().getLatestParameterList().toString());
-			List<String> canvasParameterList = getComponentCanvas().getLatestParameterList();
-			for(Composite gridrow: textGrid.getGrid()){
-				//if(((Text)gridrow.getChildren()[0]).getText())
-				if(!canvasParameterList.contains(((Text)gridrow.getChildren()[0]).getText()))
-					((Text)gridrow.getChildren()[0]).setEditable(true);
+			List<String> rowData = new LinkedList<>();
+			if(canvasParameterList.contains(key)){
+				rowData.add(key);
+				rowData.add(parameterMap.get(key));
+				graphGridData.add(rowData);
+			}else{
+				rowData.add(key);
+				rowData.add(parameterMap.get(key));
+				externalGridData.add(rowData);
 			}
-			
-			
-		} catch (Exception indexOutOfBoundsException) {
-			MessageDialog.openError(new Shell(), "Error", "Invaild parameter grid data -\n"+indexOutOfBoundsException.getMessage());
-			getShell().dispose();
 		}
+		
+		for(List<String> row: graphGridData){
+			TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
+			textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(false).build());
+			textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
+			textGrid.addDisabledRow(textGridRowLayout, row);
+		}
+		
+		
+		for(List<String> row: externalGridData){
+			TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
+			textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(true).build());
+			textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
+			textGrid.addRow(textGridRowLayout, row);
+		}
+		
 		
 		container.getParent().addControlListener(new ControlAdapter() {
 			@Override
@@ -132,14 +135,12 @@ public class ParameterGridDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
-		//System.out.println("+++ This is the data: " + textGrid.getData().toString());
 		Map<String,String> dataMap = new LinkedHashMap<>();
-		for(String[] row: textGrid.getData()){
-			dataMap.put(row[0], row[1]);
+		for(List<String> row: textGrid.getData()){
+			dataMap.put(row.get(0), row.get(1));
 		}
 		
 		parameterFileManager.storeParameters(dataMap);
-		//System.out.println("+++ This is the data: " + dataMap.toString());
 		super.okPressed();
 	}
 
