@@ -2,11 +2,10 @@ package com.bitwise.app.graph.model;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.bitwise.app.graph.model.helper.LoggerUtil;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -27,8 +26,9 @@ public class Container extends Model {
 	private final List<Component> components = new ArrayList<>();
 	private final Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
 	private ArrayList<String> componentNames = new ArrayList<>();
-	
+	@XStreamOmitField
 	private String parameterFileName;
+	@XStreamOmitField
 	private String parameterFileDirectory;
 	
 	public String getParameterFileDirectory() {
