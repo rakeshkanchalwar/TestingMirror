@@ -13,6 +13,7 @@ import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
+import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultButton;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultCombo;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
@@ -67,70 +68,20 @@ public class ELTJoinWidget extends AbstractWidget{
 		ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		eltSuDefaultSubgroupComposite.createContainerWidget();
 		
-		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Join Type");
+		AbstractELTWidget eltDefaultLable = new ELTDefaultLable("Join Editor");
 		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultLable);
 		
 		
-		AbstractELTWidget eltDefaultCombo = new ELTDefaultCombo().defaultText(ITEMS).grabExcessHorizontalSpace(true);
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultCombo);
+		AbstractELTWidget eltDefaultButton = new ELTDefaultButton("Edit");
+		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultButton);
 		
-		combo=(Combo)eltDefaultCombo.getSWTWidgetControl();
-		combo.select(1);
-		
-		ELTDefaultTextBox eltDefaultTextBox = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).grabExcessHorizontalSpace(true);
-		eltSuDefaultSubgroupComposite.attachWidget(eltDefaultTextBox);
-		eltDefaultTextBox.visibility(false);
-		text=(Text)eltDefaultTextBox.getSWTWidgetControl();
-		
-		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
-		
-		ListenerHelper helper = new ListenerHelper();
-		helper.put(HelperType.CONTROL_DECORATION, txtDecorator);
-		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
-		
-		try {
-			
-			eltDefaultCombo.attachListener(ListenerFactory.Listners.SELECTION.getListener(), propertyDialogButtonBar, helper,eltDefaultCombo.getSWTWidgetControl(),eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(), propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.VERIFY_TEXT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_OUT.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.FOCUS_IN.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-			eltDefaultTextBox.attachListener(ListenerFactory.Listners.MODIFY.getListener(), propertyDialogButtonBar,  helper,eltDefaultTextBox.getSWTWidgetControl());
-		} catch (Exception e1) {
-			
-			e1.printStackTrace();
-		}
-		
-		populateWidget();
 	}
 
 	private void populateWidget() {
-		
-		if(this.properties != null){
-			if(this.properties.equalsIgnoreCase("Outer")){
-				combo.select(0);
-			}else if(this.properties.equalsIgnoreCase("Inner")){
-				combo.select(1);
-			}else{
-				combo.select(2);
-				text.setVisible(true);
-				text.setText(this.properties);
-			}
-		}
-		this.properties = text.getText();
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
-
-		if( combo.getText().equalsIgnoreCase("Parameter"))
-		{
-			comboBoxParameter.setOption(text.getText());
-			comboBoxParameter.setOptionValue(text.getText());
-		}else{
-			comboBoxParameter.setOption(combo.getText());
-		}
-		property.put(propertyName,comboBoxParameter.getOption());
 		return property;
 	}
 
