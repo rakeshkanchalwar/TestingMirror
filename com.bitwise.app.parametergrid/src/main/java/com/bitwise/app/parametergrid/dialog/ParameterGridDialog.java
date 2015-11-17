@@ -1,5 +1,6 @@
 package com.bitwise.app.parametergrid.dialog;
 
+
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
@@ -30,7 +33,6 @@ import com.bitwise.app.parametergrid.utils.ParameterFileManager;
 public class ParameterGridDialog extends Dialog {
 	
 	private TextGrid textGrid;
-	
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -84,6 +86,21 @@ public class ParameterGridDialog extends Dialog {
 		});
 		btnRemove.setText("Remove");
 		
+		
+		final Button btnSelectAllRows = new Button(composite, SWT.CHECK);
+		btnSelectAllRows.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				if(btnSelectAllRows.getSelection())
+					textGrid.selectAllRows();
+				else
+					textGrid.clearSelections();
+			}
+			
+		});
+		btnSelectAllRows.setToolTipText("Select/Deselect All Rows");
 				
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
 		Map<String, String> parameterMap = parameterFileManager.getParameterMap();
@@ -124,24 +141,50 @@ public class ParameterGridDialog extends Dialog {
 		container.getParent().addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {
-				textGrid.setHeight(container.getParent().getBounds().height - 120);
+				//textGrid.setHeight(container.getParent().getBounds().height - 120);
+				textGrid.setHeight(container.getParent().getBounds().height - 133);
 			}
 		});
 		
 		textGrid.refresh();
+	
 		return container;
 	}
 	
 	@Override
 	protected void okPressed() {
+		boolean error=false;
+		textGrid.clearSelections();
+		
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
 		Map<String,String> dataMap = new LinkedHashMap<>();
+		int rowId=0;
 		for(List<String> row: textGrid.getData()){
 			dataMap.put(row.get(0), row.get(1));
+			if(row.get(0) == null || row.get(0).equals("")){
+				textGrid.selectRow(rowId);
+				error=true;
+			}
+			rowId++;
 		}
-		
-		parameterFileManager.storeParameters(dataMap);
-		super.okPressed();
+		if(error == false){
+			parameterFileManager.storeParameters(dataMap);
+			super.okPressed();
+		}else{
+			MessageBox messageBox = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL );
+	        
+	        messageBox.setText("Error");
+	        messageBox.setMessage("Parameter name can not be null..please correct selected rows");
+	        int buttonID = messageBox.open();
+	        switch(buttonID) {
+	          case SWT.OK:
+	        	  //Continue...
+	            break;
+	          case SWT.CANCEL:
+	        	super.okPressed();
+	            break;
+	        }
+		}		
 	}
 
 	private DefaultGEFCanvas getComponentCanvas() {		

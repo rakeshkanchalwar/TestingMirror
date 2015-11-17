@@ -22,21 +22,6 @@ import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridRowLayout;
 import com.bitwise.app.parametergrid.textgridwidget.rows.TextGridRowBuilder;
 
 public class TextGrid {
-	/*private Composite container;
-	
-	private int numberOfRows;
-	
-	private Composite innerComposite;	
-	private ScrolledComposite textGridComposite;
-	private ColumnLayoutData textGridCompositeLayoutData;
-	
-	private TextGridRowBuilder textGridRowBuilder;
-		
-	private Composite lastAddedRow;
-	private int usedRows=0;*/
-	
-	//================================
-	
 	private Composite container;
 	private List<Composite> textGrid;
 	private Map<Integer,TextGridRowLayout> rowLayouts;
@@ -143,5 +128,24 @@ public class TextGrid {
 		}
 		
 		refresh();
+	}
+
+
+	public void selectRow(int rowId) {
+		((Button)textGrid.get(rowId).getChildren()[0]).setSelection(true);
+	}
+
+
+	public void clearSelections() {
+		for(Control row : textGrid){
+			((Button)((Composite)row).getChildren()[0]).setSelection(false);
+		}
+	}
+
+
+	public void selectAllRows() {
+		for(Control row : textGrid){
+			((Button)((Composite)row).getChildren()[0]).setSelection(true);
+		}
 	}
 }

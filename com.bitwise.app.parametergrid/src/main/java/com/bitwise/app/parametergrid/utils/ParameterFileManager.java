@@ -22,6 +22,9 @@ public class ParameterFileManager {
 		Map<String, String> parameterMap = new LinkedHashMap<>();
 		InputStream input = null;		
 		try {
+			if(parameterFilePath == null)
+				return new LinkedHashMap<>();
+				
 			input = new FileInputStream(parameterFilePath);
 			// load a properties file
 			prop.load(input);
@@ -50,6 +53,9 @@ public class ParameterFileManager {
 		Properties properties = new Properties();  
 		FileOutputStream parameterFile = null;
 		try {
+			if(parameterFilePath == null)
+				return;
+			
 			parameterFile = new FileOutputStream(parameterFilePath);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block

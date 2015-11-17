@@ -44,6 +44,9 @@ public class Container extends Model {
 	}
 	
 	public String getFullParameterFilePath(){
+		if(parameterFileDirectory == null || parameterFileName==null)
+			return null;
+					
 		return parameterFileDirectory + parameterFileName;
 	}
 
