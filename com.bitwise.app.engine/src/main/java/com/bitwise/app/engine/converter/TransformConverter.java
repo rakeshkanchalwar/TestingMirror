@@ -17,7 +17,7 @@ public abstract class TransformConverter extends Converter {
 		((TypeOperationsComponent) baseComponent).getInSocket().addAll(getInSocket());
 		((TypeOperationsComponent)baseComponent).getOutSocket().addAll(getOutSocket());
 		((TypeOperationsComponent)baseComponent).getOperation().addAll(getOperations());
-		((TypeOperationsComponent)baseComponent).getRuntimeProperties().add(getRuntimeProperties());
+		//((TypeOperationsComponent)baseComponent).getRuntimeProperties().add(getRuntimeProperties());
 	}
 	
 	/**

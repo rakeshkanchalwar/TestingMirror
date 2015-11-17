@@ -8,6 +8,7 @@
 	xmlns:cumulate="http://www.bitwiseglobal.com/graph/cumulate"
 	xmlns:hashjoin="http://www.bitwiseglobal.com/graph/hashjoin"
 	xmlns:normalize="http://www.bitwiseglobal.com/graph/normalize"
+	xmlns:subgraph="http://www.bitwiseglobal.com/graph/subgraph"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.bitwiseglobal.com/graph/operationstypes"
 	elementFormDefault="unqualified">
 	<xs:import schemaLocation="../common/common-types.xsd"
@@ -28,8 +29,10 @@
 		namespace="http://www.bitwiseglobal.com/graph/hashjoin" />
 	<xs:import schemaLocation="./normalize/normalize-types.xsd"
 		namespace="http://www.bitwiseglobal.com/graph/normalize" />
+		<xs:import schemaLocation="./subgraph/subgraph-types.xsd"
+		namespace="http://www.bitwiseglobal.com/graph/subgraph" />
 
-	<xs:complexType name="Transform">
+	<xs:complexType name="transform">
 		<xs:complexContent>
 			<xs:restriction base="cmn:type-operations-component">
 				<xs:sequence>
@@ -40,13 +43,43 @@
 					<xs:element name="outSocket" type="transform:type-transform-out-socket"
 						minOccurs="1" maxOccurs="1" />
 					<xs:element name="runtime_properties" type="cmn:type-properties"
-						minOccurs="0" maxOccurs="unbounded" />
+						minOccurs="0" maxOccurs="1" />
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="Aggregate">
+<!-- 	<xs:complexType name="subgraph">
+		<xs:complexContent>
+			<xs:extension base="subgraph:subgraph-base">
+				<xs:sequence>
+					<xs:element name="runtime_properties" type="cmn:type-properties"
+						minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType> -->
+
+
+	<xs:complexType name="subgraph">
+		<xs:complexContent>
+			<xs:restriction base="cmn:type-operations-component">
+				<xs:sequence>
+					<xs:element name="inSocket" type="subgraph:type-in-socket"
+						minOccurs="1" maxOccurs="unbounded" />
+					<xs:element name="operation" type="cmn:type-transform-operation"
+						minOccurs="0" maxOccurs="0" />
+					<xs:element name="outSocket" type="subgraph:type-out-socket"
+						minOccurs="1" maxOccurs="unbounded" />
+					<xs:element name="runtime_properties" type="cmn:type-properties"
+						minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<xs:complexType name="aggregate">
 		<xs:complexContent>
 			<xs:extension base="aggregate:aggregate-base">
 				<xs:sequence>
@@ -58,7 +91,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="Join">
+	<xs:complexType name="join">
 		<xs:complexContent>
 			<xs:extension base="join:join-base">
 				<xs:sequence>
@@ -69,7 +102,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="Filter">
+	<xs:complexType name="filter">
 		<xs:complexContent>
 			<xs:restriction base="cmn:type-operations-component">
 				<xs:sequence>
@@ -80,14 +113,14 @@
 					<xs:element name="outSocket" type="filter:type-filter-out-socket"
 						minOccurs="1" maxOccurs="2" />
 					<xs:element name="runtime_properties" type="cmn:type-properties"
-						minOccurs="0" maxOccurs="unbounded" />	
+						minOccurs="0" maxOccurs="1" />	
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 
 
-	<xs:complexType name="GenerateSequence">
+	<xs:complexType name="generateSequence">
 		<xs:complexContent>
 			<xs:restriction base="cmn:type-operations-component">
 				<xs:sequence>
@@ -98,14 +131,14 @@
 					<xs:element name="outSocket" type="gen_seq:type-out-socket"
 						minOccurs="1" maxOccurs="1" />
 					<xs:element name="runtime_properties" type="cmn:type-properties"
-						minOccurs="0" maxOccurs="unbounded" />	
+						minOccurs="0" maxOccurs="1" />	
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
 
 
-	<xs:complexType name="Cumulate">
+	<xs:complexType name="cumulate">
 		<xs:complexContent>
 			<xs:extension base="cumulate:cumulate-base">
 				<xs:sequence>
@@ -118,7 +151,7 @@
 	</xs:complexType>
 
 
-	<xs:complexType name="HashJoin">
+	<xs:complexType name="hashJoin">
 		<xs:complexContent>
 			<xs:extension base="hashjoin:hashjoin-base">
 				<xs:sequence>
@@ -130,7 +163,7 @@
 	</xs:complexType>
 
 
-	<xs:complexType name="Normalize">
+	<xs:complexType name="normalize">
 		<xs:complexContent>
 			<xs:restriction base="cmn:type-operations-component">
 				<xs:sequence>
@@ -141,7 +174,7 @@
 					<xs:element name="outSocket" type="normalize:type-out-socket"
 						minOccurs="1" maxOccurs="1" />
 					<xs:element name="runtime_properties" type="cmn:type-properties"
-						minOccurs="0" maxOccurs="unbounded" />	
+						minOccurs="0" maxOccurs="1" />	
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>

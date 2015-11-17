@@ -57,7 +57,7 @@
         </xs:element>
 
 
-        <xs:element name="Operations" type="cmn:type-operations-component">
+        <xs:element name="operations" type="cmn:type-operations-component">
           <xs:key name="operations-keyInSocketId">
             <xs:selector xpath="./inSocket" />
             <xs:field xpath="@id" />

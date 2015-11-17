@@ -20,5 +20,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  
+  <xs:complexType name="subgraph">
+    <xs:complexContent>
+      <xs:extension base="cmn:type-command-component">
+        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 
 </xs:schema>

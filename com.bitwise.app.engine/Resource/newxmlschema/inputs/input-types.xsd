@@ -3,7 +3,8 @@
   xmlns:cmn="http://www.bitwiseglobal.com/graph/commontypes" xmlns:itffw="http://www.bitwiseglobal.com/graph/itffw"
   xmlns:itfd="http://www.bitwiseglobal.com/graph/itfd" xmlns:igr="http://www.bitwiseglobal.com/graph/igr"
   xmlns:ifparquet="http://www.bitwiseglobal.com/graph/ifparquet"  xmlns:ihiveparquet="http://www.bitwiseglobal.com/graph/ihiveparquet" 
-  xmlns:ifMixedScheme="http://www.bitwiseglobal.com/graph/ifmixedscheme" 
+  xmlns:ifMixedScheme="http://www.bitwiseglobal.com/graph/ifmixedscheme"
+  xmlns:ifsubgraph="http://www.bitwiseglobal.com/graph/ifsubgraph" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.bitwiseglobal.com/graph/inputtypes"
   elementFormDefault="unqualified"
 >
@@ -21,6 +22,8 @@
     namespace="http://www.bitwiseglobal.com/graph/ihiveparquet" />
 <xs:import schemaLocation="./text-file-mixedScheme/input-file-mixedScheme-text-types.xsd"
     namespace="http://www.bitwiseglobal.com/graph/ifmixedscheme" />
+    <xs:import schemaLocation="./subgraph/input-subgraph-types.xsd"
+    namespace="http://www.bitwiseglobal.com/graph/ifsubgraph" />
 
   <xs:complexType name="text-file-delimited">
     <xs:complexContent>
@@ -157,5 +160,19 @@
     </xs:complexContent>
   </xs:complexType>
 
-
+  <xs:complexType name="subgraph">
+    <xs:complexContent>
+      <xs:extension base="ifsubgraph:type-input-file-delimited-base">
+        <xs:sequence>
+          <xs:element name="path">
+            <xs:complexType>
+              <xs:attribute name="uri" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+           <xs:element name="runtime_properties" type="cmn:type-properties" minOccurs="0" />
+         </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
 </xs:schema>

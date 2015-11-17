@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.bitwiseglobal.com/graph/subgraph"
+	xmlns:cmn="http://www.bitwiseglobal.com/graph/commontypes" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.bitwiseglobal.com/graph/subgraph"
+	elementFormDefault="unqualified">
+	<xs:import schemaLocation="../../common/common-types.xsd"
+		namespace="http://www.bitwiseglobal.com/graph/commontypes" />
+
+	<xs:complexType name="type-out-socket">
+		<xs:complexContent>
+			<xs:restriction base="cmn:type-operations-out-socket">
+				<xs:choice maxOccurs="1" minOccurs="0">
+					<xs:element name="copyOfInsocket" type="cmn:type-outSocket-as-inSocket" />
+					<xs:choice maxOccurs="unbounded" minOccurs="1">
+						<xs:element name="passThroughfield" type="cmn:type-input-field" />
+						<xs:element name="mapField" type="cmn:type-map-field" />
+					</xs:choice>
+				</xs:choice>
+				<xs:attribute name="id" type="xs:string" use="required" />
+				<xs:attribute name="type" type="xs:string" use="optional" />
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="type-in-socket">
+		<xs:complexContent>
+			<xs:restriction base="cmn:type-base-inSocket">
+				<xs:attribute name="id" type="xs:string" use="required" />
+				<xs:attribute name="type" type="xs:string" use="optional"
+					fixed="in" />
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="subgraph-base">
+		<xs:complexContent>
+			<xs:restriction base="cmn:type-operations-component">
+				<xs:sequence>
+					<xs:element name="inSocket" type="type-in-socket"
+						minOccurs="1" maxOccurs="unbounded" />
+					<xs:element name="outSocket" type="type-out-socket"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
