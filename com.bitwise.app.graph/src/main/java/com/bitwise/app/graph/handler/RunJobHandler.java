@@ -49,6 +49,10 @@ public class RunJobHandler extends AbstractHandler {
 		
 		ParameterGridDialog parameterGrid = new ParameterGridDialog(Display.getDefault().getActiveShell());
 		parameterGrid.open();
+		if(!parameterGrid.canRunGraph()){
+			System.out.println("+++ Not running graph");
+			return null;
+		}
 		
 		try {
 			MessageConsole messageConsole = findConsole(Messages.CONSOLE_NAME);

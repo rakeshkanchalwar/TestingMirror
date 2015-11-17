@@ -145,6 +145,7 @@ public class TextGrid {
 
 	public void selectAllRows() {
 		for(Control row : textGrid){
+			if(((Button)((Composite)row).getChildren()[0]).isEnabled())
 			((Button)((Composite)row).getChildren()[0]).setSelection(true);
 		}
 	}

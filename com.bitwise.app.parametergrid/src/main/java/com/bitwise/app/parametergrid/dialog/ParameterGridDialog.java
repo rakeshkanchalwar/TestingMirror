@@ -13,6 +13,7 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -25,14 +26,18 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 
 import com.bitwise.app.common.interfaces.parametergrid.DefaultGEFCanvas;
+import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.parametergrid.textgridwidget.TextGrid;
 import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridColumnLayout;
 import com.bitwise.app.parametergrid.textgridwidget.columns.TextGridRowLayout;
 import com.bitwise.app.parametergrid.utils.ParameterFileManager;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.GridData;
 
 public class ParameterGridDialog extends Dialog {
 	
 	private TextGrid textGrid;
+	private boolean runGraph;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -40,6 +45,7 @@ public class ParameterGridDialog extends Dialog {
 	public ParameterGridDialog(Shell parentShell) {
 		super(parentShell);
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE | SWT.WRAP | SWT.APPLICATION_MODAL);
+		runGraph=false;
 	}
 
 	/**
@@ -56,14 +62,17 @@ public class ParameterGridDialog extends Dialog {
 		container.getShell().setText("Parameter Grid");
 		
 		Composite composite = new Composite(container, SWT.NONE);
-		composite.setLayout(new ColumnLayout());
+		composite.setLayout(new GridLayout(4, false));
 		ColumnLayoutData cld_composite = new ColumnLayoutData();
+		cld_composite.horizontalAlignment = ColumnLayoutData.RIGHT;
 		cld_composite.heightHint = 30;
 		composite.setLayoutData(cld_composite);
 		
 		textGrid = new TextGrid(container);
 		
 		Button btnAdd = new Button(composite, SWT.NONE);
+		GridData gd_btnAdd = getGridControlButtonLayout();
+		btnAdd.setLayoutData(gd_btnAdd);
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -75,32 +84,43 @@ public class ParameterGridDialog extends Dialog {
 				textGrid.scrollToLastRow();
 			}
 		});
-		btnAdd.setText("Add");
+		btnAdd.setText("");
+		btnAdd.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png"));
 		
 		Button btnRemove = new Button(composite, SWT.NONE);
+		btnRemove.setLayoutData(getGridControlButtonLayout());
 		btnRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				textGrid.removeSelectedRows();
 			}
 		});
-		btnRemove.setText("Remove");
+		btnRemove.setText("");
+		btnRemove.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png"));
 		
-		
-		final Button btnSelectAllRows = new Button(composite, SWT.CHECK);
+		Button btnSelectAllRows = new Button(composite, SWT.NONE);
+		btnSelectAllRows.setLayoutData(getGridControlButtonLayout());
 		btnSelectAllRows.addSelectionListener(new SelectionAdapter() {
-
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				super.widgetSelected(e);
-				if(btnSelectAllRows.getSelection())
-					textGrid.selectAllRows();
-				else
-					textGrid.clearSelections();
+				textGrid.selectAllRows();
 			}
-			
 		});
-		btnSelectAllRows.setToolTipText("Select/Deselect All Rows");
+		btnSelectAllRows.setText("");
+		btnSelectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/selectall.png"));
+		
+		
+		Button btnDeselectAllRows = new Button(composite, SWT.NONE);
+		btnDeselectAllRows.setLayoutData(getGridControlButtonLayout());
+		btnDeselectAllRows.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				textGrid.clearSelections();
+			}
+		});
+		btnDeselectAllRows.setText("");
+		btnDeselectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/deselectall.png"));
+		
 				
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
 		Map<String, String> parameterMap = parameterFileManager.getParameterMap();
@@ -150,6 +170,13 @@ public class ParameterGridDialog extends Dialog {
 	
 		return container;
 	}
+
+	private GridData getGridControlButtonLayout() {
+		GridData gridControlButtonLayout = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gridControlButtonLayout.widthHint = 21;
+		gridControlButtonLayout.heightHint = 19;
+		return gridControlButtonLayout;
+	}
 	
 	@Override
 	protected void okPressed() {
@@ -178,7 +205,7 @@ public class ParameterGridDialog extends Dialog {
 	        int buttonID = messageBox.open();
 	        switch(buttonID) {
 	          case SWT.OK:
-	        	  //Continue...
+	        	  runGraph = true;
 	            break;
 	          case SWT.CANCEL:
 	        	super.okPressed();
@@ -187,6 +214,10 @@ public class ParameterGridDialog extends Dialog {
 		}		
 	}
 
+	public boolean canRunGraph(){
+		return runGraph;
+	}
+	
 	private DefaultGEFCanvas getComponentCanvas() {		
 		if(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor() instanceof DefaultGEFCanvas)
 			return (DefaultGEFCanvas) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
