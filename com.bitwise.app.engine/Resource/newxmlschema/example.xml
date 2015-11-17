@@ -234,7 +234,24 @@
 		<record_count value="3" />
 	</inputs>
 
-	<straight-pulls id="limit" phase="1" xsi:type="spt:Limit">
+	<inputs id="asdf" phase="1" xsi:type="it:subgraph">
+		<outSocket id="out0">
+			<schema name="ads">
+
+			</schema>
+		</outSocket>
+		<path uri="asdfdsf" />
+	</inputs>
+
+	<outputs id="asd" phase="1" xsi:type="ot:subgraph">
+		<inSocket fromComponentId="adf" fromSocketId="in0" id="in0">
+			<schema name="asdf">
+			</schema>
+		</inSocket>
+		<path uri="dfasdf" />
+	</outputs>
+
+	<straight-pulls id="limit" phase="1" xsi:type="spt:limit">
 		<inSocket fromComponentId="ksjdf" fromSocketId="out0" id="in0" />
 		<outSocket id="out0" type="out">
 			<copyOfInsocket inSocketId="in0" />
@@ -245,7 +262,7 @@
 		<max_records value="100" />
 	</straight-pulls>
 
-	<straight-pulls id="gather" xsi:type="spt:UnionAll">
+	<straight-pulls id="gather" xsi:type="spt:unionAll">
 		<inSocket id="dfg" fromComponentId="limit" fromSocketId="out0" />
 		<inSocket id="dfg1" fromComponentId="ksjdk" fromSocketId="out0" />
 		<outSocket id="sdf">
@@ -256,7 +273,7 @@
 		</runtime_properties>
 	</straight-pulls>
 
-	<straight-pulls id="replicate" xsi:type="spt:Clone">
+	<straight-pulls id="replicate" xsi:type="spt:clone">
 		<inSocket id="in0" fromComponentId="limit" fromSocketId="out0" />
 		<outSocket id="out0">
 			<copyOfInsocket inSocketId="in0" />
@@ -269,7 +286,7 @@
 		</runtime_properties>
 	</straight-pulls>
 
-	<Operations id="reformat" xsi:type="op:Transform">
+	<operations id="reformat" xsi:type="op:transform">
 		<inSocket fromComponentId="replicate" fromSocketId="sdf1" id="in0" />
 		<operation id="opt" class="someclass">
 			<inputFields>
@@ -290,9 +307,15 @@
 		<runtime_properties>
 			<property name="fsdf" value="dsf" />
 		</runtime_properties>
-	</Operations>
+	</operations>
 
-	<Operations id="aggregate" xsi:type="op:Aggregate">
+	<operations id="adf" xsi:type="op:subgraph">
+		<inSocket fromComponentId="asdf" fromSocketId="dasf" id="in0" />
+		<outSocket id="asdf">
+		</outSocket>
+	</operations>
+
+	<operations id="aggregate" xsi:type="op:aggregate">
 		<inSocket fromComponentId="reformat" fromSocketId="out0" id="in0" />
 		<operation id="opt" class="someclass">
 			<inputFields>
@@ -320,10 +343,10 @@
 			<field name="dd" order="Asc" />
 			<field name="cc" order="Desc" />
 		</secondary_keys>
-	</Operations>
+	</operations>
 
 
-	<Operations id="join" xsi:type="op:Join">
+	<operations id="join" xsi:type="op:join">
 		<inSocket fromComponentId="reformat" fromSocketId="out0" id="in0" />
 		<inSocket fromComponentId="aggregate" fromSocketId="out0" id="in1" />
 		<outSocket id="out0" type="out">
@@ -334,7 +357,7 @@
 			<copyOfInsocket inSocketId="in0" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
 		<keys inSocketId="in0" joinType="inner">
 			<field name="abc" />
@@ -343,14 +366,18 @@
 			<field name="abc" />
 		</keys>
 
-	</Operations>
+	</operations>
 
 	<commands id="ftpin" xsi:type="ct:ftp-in">
 		<dependsOn componentId="kjgk" />
 		<host name="myname" />
 	</commands>
 
-	<Operations id="filter" phase="1" xsi:type="op:Filter">
+	<commands id="asf" xsi:type="ct:subgraph">
+		<dependsOn componentId="asdf" />
+	</commands>
+
+	<operations id="filter" phase="1" xsi:type="op:filter">
 		<inSocket fromComponentId="join" fromSocketId="unused0" id="in0" />
 		<operation id="opt" class="someclass">
 			<inputFields>
@@ -369,12 +396,12 @@
 			<copyOfInsocket inSocketId="in0" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
-	</Operations>
+	</operations>
 
 
-	<straight-pulls id="dedup" phase="1" xsi:type="spt:RemoveDups">
+	<straight-pulls id="dedup" phase="1" xsi:type="spt:removeDups">
 		<inSocket id="in0" fromComponentId="filter" fromSocketId="out0" />
 		<outSocket id="out0" type="out">
 			<copyOfInsocket inSocketId="in0" />
@@ -383,7 +410,7 @@
 			<copyOfInsocket inSocketId="in0" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
 		<keep value="first" />
 		<primary_keys>
@@ -397,7 +424,7 @@
 
 
 
-	<Operations id="unique1" phase="1" xsi:type="op:GenerateSequence">
+	<operations id="unique1" phase="1" xsi:type="op:generateSequence">
 		<inSocket id="in0" fromComponentId="dedup" fromSocketId="out0" />
 		<operation id="opt">
 			<outputFields>
@@ -409,11 +436,11 @@
 			<operationField name="seq2" operationId="opt" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
-	</Operations>
+	</operations>
 
-	<Operations id="unique2" phase="1" xsi:type="op:GenerateSequence">
+	<operations id="unique2" phase="1" xsi:type="op:generateSequence">
 		<inSocket id="in0" fromComponentId="unique1" fromSocketId="out0" />
 		<operation id="opt">
 			<outputFields>
@@ -426,13 +453,13 @@
 			<operationField name="seq2" operationId="opt" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
-	</Operations>
+	</operations>
 
 
 
-	<Operations id="scan" xsi:type="op:Cumulate">
+	<operations id="scan" xsi:type="op:cumulate">
 		<inSocket id="in0" fromComponentId="unique2" fromSocketId="out0" />
 		<operation id="opt" class="com.bitwiseglobal.cpo.extrnlagt.Scan5">
 			<inputFields>
@@ -453,7 +480,7 @@
 			<operationField name="extrnl_agt_id_orig" operationId="opt" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
 		<primary_keys>
 			<field name="acct_id" />
@@ -463,9 +490,9 @@
 			<field name="xyz" order="Asc" />
 			<field name="pqr" order="Desc" />
 		</secondary_keys>
-	</Operations>
+	</operations>
 
-	<Operations id="lookup" xsi:type="op:HashJoin">
+	<operations id="lookup" xsi:type="op:hashJoin">
 		<inSocket fromComponentId="reformat" fromSocketId="out0" id="in0" />
 		<inSocket fromComponentId="aggregate" fromSocketId="out0" id="in1" />
 		<outSocket id="out0" type="out">
@@ -485,10 +512,10 @@
 			<field name="c4" />
 		</keys>
 
-	</Operations>
+	</operations>
 
 
-	<Operations id="normalize" xsi:type="op:Normalize">
+	<operations id="normalize" xsi:type="op:normalize">
 		<inSocket fromComponentId="reformat" fromSocketId="out0" id="in0" />
 		<operation id="opt" class="someclass">
 			<inputFields>
@@ -506,9 +533,9 @@
 			<operationField name="newfield" operationId="opt" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
-	</Operations>
+	</operations>
 
 
 	<straight-pulls id="partition-by-expression" phase="1"
@@ -518,7 +545,7 @@
 			<copyOfInsocket inSocketId="in0" />
 		</outSocket>
 		<runtime_properties>
-		<property name="fsdf" value="dsf" />
+			<property name="fsdf" value="dsf" />
 		</runtime_properties>
 		<operation id="opt"
 			class="com.bitwiseglobal.functions.PartitionExpressionTransaction">
@@ -531,7 +558,7 @@
 	</straight-pulls>
 
 
-	<outputs id="trash" phase="1" xsi:type="ot:Discard">
+	<outputs id="trash" phase="1" xsi:type="ot:discard">
 		<inSocket fromComponentId="sdf" fromSocketId="out0" id="in0" />
 	</outputs>
 

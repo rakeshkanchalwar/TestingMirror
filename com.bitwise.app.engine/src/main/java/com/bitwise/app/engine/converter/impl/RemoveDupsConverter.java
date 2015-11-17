@@ -3,6 +3,8 @@ package com.bitwise.app.engine.converter.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 
@@ -16,8 +18,11 @@ import com.bitwiseglobal.graph.commontypes.KeepValue;
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeFieldName;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
+import com.bitwiseglobal.graph.commontypes.TypeSortOrder;
 import com.bitwiseglobal.graph.commontypes.TypeStraightPullOutSocket;
 import com.bitwiseglobal.graph.removedups.TypePrimaryKeyFields;
+import com.bitwiseglobal.graph.removedups.TypeSecondaryKeyFields;
+import com.bitwiseglobal.graph.removedups.TypeSecondayKeyFieldsAttributes;
 import com.bitwiseglobal.graph.straightpulltypes.RemoveDups;
 import com.bitwiseglobal.graph.straightpulltypes.RemoveDups.Keep;
 
@@ -39,6 +44,7 @@ public class RemoveDupsConverter extends StraightPullConverter {
 		RemoveDups dedup = (RemoveDups) baseComponent;
 		dedup.setKeep(getKeep());
 		dedup.setPrimaryKeys(getPrimaryKeys());
+		dedup.setSecondaryKeys(getSecondaryKeys());
 	}
 
 	private TypePrimaryKeyFields getPrimaryKeys() {
@@ -57,6 +63,24 @@ public class RemoveDupsConverter extends StraightPullConverter {
 			
 		}
 		return typePrimaryKeyFields;
+	}
+	
+	private TypeSecondaryKeyFields getSecondaryKeys() {
+
+		TreeMap<String,String> fieldValueMap = ((TreeMap<String,String>) properties.get(PropertyNameConstants.SECONDARY_COLUMN_KEYS.value()));
+
+		TypeSecondaryKeyFields  typeSecondaryKeyFields= null;
+		if (fieldValueMap != null) {
+			typeSecondaryKeyFields = new TypeSecondaryKeyFields();
+			List<TypeSecondayKeyFieldsAttributes> fieldNameList = typeSecondaryKeyFields.getField();
+			for (Map.Entry<String, String> entry : fieldValueMap.entrySet()) {
+				TypeSecondayKeyFieldsAttributes field = new TypeSecondayKeyFieldsAttributes();
+				field.setName(entry.getKey());
+				field.setOrder(TypeSortOrder.fromValue(entry.getValue()));
+				fieldNameList.add(field);
+			}
+		}
+		return typeSecondaryKeyFields;
 	}
 
 	private Keep getKeep() {

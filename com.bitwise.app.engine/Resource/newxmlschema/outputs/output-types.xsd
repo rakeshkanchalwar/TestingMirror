@@ -4,6 +4,7 @@
   xmlns:otfd="http://www.bitwiseglobal.com/graph/otfd"  xmlns:otdiscard="http://www.bitwiseglobal.com/graph/otdiscard"
    xmlns:ofparquet="http://www.bitwiseglobal.com/graph/ofparquet"  xmlns:ohiveparquet="http://www.bitwiseglobal.com/graph/ohiveparquet" 
   xmlns:ofMixedScheme="http://www.bitwiseglobal.com/graph/ofmixedscheme"
+  xmlns:ofsubgraph="http://www.bitwiseglobal.com/graph/ofsubgraph"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   targetNamespace="http://www.bitwiseglobal.com/graph/outputtypes"
   elementFormDefault="unqualified"
@@ -21,7 +22,9 @@
    <xs:import schemaLocation="./parquet-hive-file/output-hive-parquet-types.xsd"
     namespace="http://www.bitwiseglobal.com/graph/ohiveparquet" /> 
    <xs:import schemaLocation="./text-file-mixedScheme/output-file-mixedScheme-text-types.xsd"
-    namespace="http://www.bitwiseglobal.com/graph/ofmixedscheme" /> 
+    namespace="http://www.bitwiseglobal.com/graph/ofmixedscheme" />
+    <xs:import schemaLocation="./subgraph/output-subgraph-types.xsd"
+    namespace="http://www.bitwiseglobal.com/graph/ofsubgraph" /> 
     
   <xs:complexType name="text-file-delimited">
     <xs:complexContent>
@@ -87,7 +90,7 @@
 
 
 
-  <xs:complexType name="Discard">
+  <xs:complexType name="discard">
 
     <xs:complexContent>
       <xs:restriction base="cmn:type-output-component">
@@ -158,6 +161,19 @@
     </xs:complexContent>
   </xs:complexType>
 
-
+  <xs:complexType name="subgraph">
+    <xs:complexContent>
+      <xs:extension base="ofsubgraph:type-subgraph-base">
+        <xs:sequence>
+          <xs:element name="path">
+            <xs:complexType>
+              <xs:attribute name="uri" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+             <xs:element name="runtime_properties" type="cmn:type-properties" minOccurs="0" />
+         </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
            
 </xs:schema>

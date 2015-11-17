@@ -19,6 +19,7 @@ import com.bitwise.app.propertywindow.datastructures.filter.OperationClassProper
 import com.bitwiseglobal.graph.commontypes.TypeBaseInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeInputField;
 import com.bitwiseglobal.graph.commontypes.TypeOperationInputFields;
+import com.bitwiseglobal.graph.commontypes.TypeOperationsComponent;
 import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
@@ -42,6 +43,8 @@ public class FilterConverter extends TransformConverter {
 	public void prepareForXML() throws PhaseException, SchemaException {
 		LOGGER.debug("Genrating XML for :{}", properties.get(NAME));
 		super.prepareForXML();
+		Filter filter=(Filter)baseComponent;
+		filter.getOperation().addAll(getOperations());
 	}
 
 

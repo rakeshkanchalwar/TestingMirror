@@ -85,13 +85,13 @@ public class SecondaryColumnKeysWidgetWizard {
 			if (!validate())
 				return;
 			p.setPropertyName(""); //$NON-NLS-1$
-			p.setPropertyValue("ascending"); //$NON-NLS-1$
+			p.setPropertyValue("Asc"); //$NON-NLS-1$
 			propertyLst.add(p);
 			tv.refresh();
 
 		} else {
 			p.setPropertyName(""); //$NON-NLS-1$
-			p.setPropertyValue("ascending"); //$NON-NLS-1$
+			p.setPropertyValue("Asc"); //$NON-NLS-1$
 			propertyLst.add(p);
 			tv.refresh();
 		}
@@ -518,7 +518,7 @@ private void createIcons(Composite composite){
 		for (SecondaryColumnKeysInformation temp : propertyLst) {
 			if (!temp.getPropertyName().trim().isEmpty()
 					&& !temp.getPropertyValue().trim().isEmpty()) {
-				if(!(temp.getPropertyValue().trim().equalsIgnoreCase("ascending") || temp.getPropertyValue().trim().equalsIgnoreCase("descending"))){
+				if(!(temp.getPropertyValue().trim().equalsIgnoreCase("Asc") || temp.getPropertyValue().trim().equalsIgnoreCase("Desc"))){
 					table.setSelection(propertyCounter);
 					lblPropertyError.setVisible(true);
 					lblPropertyError.setText(Messages.INVALID_SORT_ORDER);

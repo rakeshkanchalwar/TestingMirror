@@ -16,7 +16,7 @@
 	<xs:import schemaLocation="./partition-by-expression/partition-by-expression-types.xsd"
 		namespace="http://www.bitwiseglobal.com/graph/partition-by-expression" />
 
-	<xs:complexType name="Limit">
+	<xs:complexType name="limit">
 		<xs:complexContent>
 			<xs:extension base="limit:type-limit-base">
 				<xs:sequence>
@@ -32,7 +32,7 @@
 
 
 
-	<xs:complexType name="RemoveDups">
+	<xs:complexType name="removeDups">
 		<xs:complexContent>
 			<xs:extension base="removedups:type-removedups-base">
 				<xs:sequence>
@@ -51,7 +51,7 @@
 
 
 
-	<xs:complexType name="UnionAll">
+	<xs:complexType name="unionAll">
 		<xs:complexContent>
 			<xs:restriction base="cmn:type-straight-pull-component">
 				<xs:sequence>
@@ -66,7 +66,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 
-	<xs:complexType name="Clone">
+	<xs:complexType name="clone">
 		<xs:complexContent>
 			<xs:restriction base="cmn:type-straight-pull-component">
 				<xs:sequence>
