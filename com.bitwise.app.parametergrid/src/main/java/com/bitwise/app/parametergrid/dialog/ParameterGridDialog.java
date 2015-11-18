@@ -201,7 +201,7 @@ public class ParameterGridDialog extends Dialog {
 			MessageBox messageBox = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK | SWT.CANCEL );
 	        
 	        messageBox.setText("Error");
-	        messageBox.setMessage("Parameter name can not be null..please correct selected rows");
+	        messageBox.setMessage("Parameter name can not be blank..please correct selected rows");
 	        int buttonID = messageBox.open();
 	        switch(buttonID) {
 	          case SWT.OK:
