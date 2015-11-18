@@ -13,8 +13,6 @@ import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
-import com.bitwise.app.propertywindow.widgets.customwidgets.config.TextBoxWithLableConfig;
-import com.bitwise.app.propertywindow.widgets.customwidgets.config.WidgetConfig;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.AbstractELTWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
@@ -26,75 +24,67 @@ import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperTyp
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 /**
- * Widget for showing text box in property window.
+ * Widget for showing phase text box in property window.
  * 
  * @author Bitwise
  */
-public class ELTInputCountWidget extends AbstractWidget{
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(TextBoxWithLabelWidget.class);
+public class ELTInputCountWidget extends AbstractWidget {
+	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTPhaseWidget.class);
+	private static final String PHASE = "Input Count";
+	private static final Listners[] listeners = {Listners.NORMAL_FOCUS_IN, Listners.NORMAL_FOCUS_OUT, Listners.VERIFY_NUMERIC,
+												 Listners.EVENT_CHANGE, Listners.MODIFY};
+	
 	private Text textBox;
 	private String properties;
 	private String propertyName;
 	private ControlDecoration txtDecorator;
-	private TextBoxWithLableConfig textBoxConfig;
-	
+
 	/**
-	 * Instantiates a new text box widget with provided configurations
+	 * Instantiates a new ELT phase widget.
 	 * 
-	 * @param componentConfigProp
+	 * @param componentConfigrationProperty
 	 *            the component configration property
-	 * @param componentMiscProps
+	 * @param componentMiscellaneousProperties
 	 *            the component miscellaneous properties
-	 * @param propDialogButtonBar
+	 * @param propertyDialogButtonBar
 	 *            the property dialog button bar
 	 */
-	public ELTInputCountWidget(ComponentConfigrationProperty componentConfigProp,
-			ComponentMiscellaneousProperties componentMiscProps, PropertyDialogButtonBar propDialogButtonBar) {
-		super(componentConfigProp, componentMiscProps, propDialogButtonBar);
-		this.propertyName = componentConfigProp.getPropertyName();
-		this.properties =  (String) componentConfigProp.getPropertyValue();
+	public ELTInputCountWidget(ComponentConfigrationProperty componentConfigrationProperty,	
+			ComponentMiscellaneousProperties componentMiscellaneousProperties,	PropertyDialogButtonBar propertyDialogButtonBar) {
+		super(componentConfigrationProperty, componentMiscellaneousProperties, propertyDialogButtonBar);
+		
+		this.properties = (String)componentConfigrationProperty.getPropertyValue();
+		this.propertyName = componentConfigrationProperty.getPropertyName();
 	}
-	
-	@Override
-	public LinkedHashMap<String, Object> getProperties() {
-		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
-		property.put(propertyName, textBox.getText());
-		return property;
-	}
-	
-	public void setWidgetConfig(WidgetConfig widgetConfig) {
-		textBoxConfig = (TextBoxWithLableConfig) widgetConfig;
-	}
-	
+
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		
-		//logger.debug("Starting {} textbox creation", textBoxConfig.getName());
+		logger.debug("Starting {} textbox creation", PHASE);
 		ELTDefaultSubgroupComposite lableAndTextBox = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		lableAndTextBox.createContainerWidget();
 		
-		AbstractELTWidget lable = new ELTDefaultLable("Input Count:");
+		AbstractELTWidget lable = new ELTDefaultLable(PHASE + " ");
 		lableAndTextBox.attachWidget(lable);
 		
-		AbstractELTWidget textBoxWidget = new ELTDefaultTextBox().grabExcessHorizontalSpace(textBoxConfig.getGrabExcessSpace()).textBoxWidth(textBoxConfig.getwidgetWidth());
+		AbstractELTWidget textBoxWidget = new ELTDefaultTextBox().textBoxWidth(50).grabExcessHorizontalSpace(false);
 		lableAndTextBox.attachWidget(textBoxWidget);
-		
+
 		textBox = (Text) textBoxWidget.getSWTWidgetControl();
-		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.bind(Messages.EMPTY_FIELD, textBoxConfig.getName()));
-		
+
+		txtDecorator = WidgetUtility.addDecorator(textBox, Messages.bind(Messages.EMPTY_FIELD, PHASE));
+
 		ListenerHelper helper = prepareListenerHelper();
 		
 		try {
-			for (Listners listenerNameConstant : textBoxConfig.getListeners()) {
-				IELTListener listener = listenerNameConstant.getListener();
+			for (int i = 0; i < listeners.length; i++) {
+				IELTListener listener = listeners[i].getListener();
 				textBoxWidget.attachListener(listener, propertyDialogButtonBar, helper, textBoxWidget.getSWTWidgetControl());
 			}
 		} catch (Exception e1) {
-			logger.error("Failed in attaching listeners to {}", textBoxConfig.getName());
+			logger.error("Failed in attaching listeners to {}", PHASE);
 		}
-		
 		populateWidget();
-		//logger.debug("Finished {} textbox creation", textBoxConfig.getName());
+		logger.debug("Finished {} textbox creation", PHASE);
 	}
 
 	private ListenerHelper prepareListenerHelper() {
@@ -103,17 +93,24 @@ public class ELTInputCountWidget extends AbstractWidget{
 		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		return helper;
 	}
+
 	
-	private void populateWidget(){
-		//logger.debug("Populating {} textbox", textBoxConfig.getName());
-		String property = properties;
-		if(StringUtils.isNotBlank(property)){
-			textBox.setText(property);
+	private void populateWidget(){		
+		logger.debug("Populating {} textbox", PHASE);
+		if (StringUtils.isNotBlank(properties)){
+			textBox.setText(properties);
 			txtDecorator.hide();
 		}
 		else{
 			textBox.setText("");
 			txtDecorator.show();
 		}
+	}
+
+	@Override
+	public LinkedHashMap<String, Object> getProperties() {
+		LinkedHashMap<String, Object> property = new LinkedHashMap<>();
+		property.put(propertyName, textBox.getText());
+		return property;
 	}
 }
