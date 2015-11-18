@@ -12,6 +12,7 @@
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 				<tns:nameOfPort>in0</tns:nameOfPort>
+				<tns:labelOfPort>in0</tns:labelOfPort>
 			</tns:portSpecification>
 			
 		</tns:port>

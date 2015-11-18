@@ -31,11 +31,11 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		
 		ComponentFigure componentFigure = ((ComponentEditPart) getParent()).getComponentFigure();
 		PortFigure port = null;
+		
 		Color borderColor = ELTColorConstants.componentBorder;
 		Point portPoint = null;
 		int height = componentFigure.getHeight();
-		
-		port =  new PortFigure(borderColor, getCastedModel().getPortType(), getCastedModel().getSequence(), getCastedModel().getNumberOfPortsOfThisType(),getCastedModel().getNameOfPort());	
+		port =  new PortFigure(borderColor, getCastedModel().getPortType(), getCastedModel().getSequence(), getCastedModel().getNumberOfPortsOfThisType(),getCastedModel().getNameOfPort(),getCastedModel().getLabelOfPort());	
 		
 		//Calling getNameOfPort() method form Port Model
 		String toolTipText = getCastedModel().getNameOfPort();
@@ -46,7 +46,6 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		port.setLocation(portPoint);
 		componentFigure.setAnchors(port.getAnchor());
 		return port;
-		
 	}
 
 	
@@ -62,7 +61,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 			xLocation=0;
 		}
 		else if(type.equalsIgnoreCase("out")){
-			xLocation=width-7;
+			xLocation=width-60;
 		}
 		yLocation=portOffset*sequence - 4 + ELTFigureConstants.componentLabelMargin;
 		p=new Point(xLocation, yLocation);
