@@ -11,6 +11,8 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -70,10 +72,11 @@ public class ParameterGridDialog extends Dialog {
 		
 		textGrid = new TextGrid(container);
 		
-		Button btnAdd = new Button(composite, SWT.NONE);
+		//Button btnAdd = new Button(composite, SWT.NONE);
+		Label btnAdd = new Label(composite, SWT.NONE);
 		GridData gd_btnAdd = getGridControlButtonLayout();
 		btnAdd.setLayoutData(gd_btnAdd);
-		btnAdd.addSelectionListener(new SelectionAdapter() {
+		/*btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
@@ -83,43 +86,131 @@ public class ParameterGridDialog extends Dialog {
 				textGrid.refresh();
 				textGrid.scrollToLastRow();
 			}
+		});*/
+		
+		btnAdd.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {
+				TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
+				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(true).build());
+				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
+				textGrid.addEmptyRow(textGridRowLayout);				
+				textGrid.refresh();
+				textGrid.scrollToLastRow();
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		btnAdd.setText("");
 		btnAdd.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png"));
 		
-		Button btnRemove = new Button(composite, SWT.NONE);
+		//Button btnRemove = new Button(composite, SWT.NONE);
+		Label btnRemove = new Label(composite, SWT.NONE);
 		btnRemove.setLayoutData(getGridControlButtonLayout());
-		btnRemove.addSelectionListener(new SelectionAdapter() {
+		/*btnRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				textGrid.removeSelectedRows();
 			}
+		});*/
+		
+		btnRemove.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO Auto-generated method stub
+				textGrid.removeSelectedRows();
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
+		
 		btnRemove.setText("");
 		btnRemove.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png"));
 		
-		Button btnSelectAllRows = new Button(composite, SWT.NONE);
+		//Button btnSelectAllRows = new Button(composite, SWT.NONE);
+		Label btnSelectAllRows = new Label(composite, SWT.NONE);
 		btnSelectAllRows.setLayoutData(getGridControlButtonLayout());
-		btnSelectAllRows.addSelectionListener(new SelectionAdapter() {
+		/*btnSelectAllRows.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				textGrid.selectAllRows();
 			}
+		});*/
+		btnSelectAllRows.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {
+				textGrid.selectAllRows();
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		btnSelectAllRows.setText("");
-		btnSelectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/selectall.png"));
+		btnSelectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/checkall.png"));
 		
 		
-		Button btnDeselectAllRows = new Button(composite, SWT.NONE);
+		//Button btnDeselectAllRows = new Button(composite, SWT.NONE);
+		Label btnDeselectAllRows = new Label(composite, SWT.NONE);
 		btnDeselectAllRows.setLayoutData(getGridControlButtonLayout());
-		btnDeselectAllRows.addSelectionListener(new SelectionAdapter() {
+		/*btnDeselectAllRows.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				textGrid.clearSelections();
 			}
+		});*/
+		btnDeselectAllRows.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {
+				textGrid.clearSelections();
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 		btnDeselectAllRows.setText("");
-		btnDeselectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/deselectall.png"));
+		btnDeselectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/uncheckall.png"));
 		
 				
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
