@@ -1,6 +1,6 @@
 package com.bitwise.app.common.datastructure.property;
 
-public class OperationSystemProperties {
+public class OperationSystemProperties extends PropertyField{
 	private boolean isChecked;
 	private String opSysValue;
 	
