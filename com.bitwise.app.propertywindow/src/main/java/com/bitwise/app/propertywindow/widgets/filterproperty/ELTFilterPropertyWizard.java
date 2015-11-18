@@ -144,7 +144,7 @@ public class ELTFilterPropertyWizard {
 		
 		tableViewer = new TableViewer(shell, SWT.BORDER|SWT.MULTI);
 		table = tableViewer.getTable();
-		table.setBackground(new Color(Display.getCurrent(),204,204,204));
+		//table.setBackground(new Color(Display.getCurrent(),204,204,204));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
@@ -179,7 +179,7 @@ public class ELTFilterPropertyWizard {
 		tc1.setText("Field Name");
 		tc1.setWidth(460);
 		table.setHeaderVisible(true);
-		
+		table.setLinesVisible(true);
 	}
 
 	/**

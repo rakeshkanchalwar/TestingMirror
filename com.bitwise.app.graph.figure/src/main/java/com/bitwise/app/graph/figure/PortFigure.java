@@ -5,8 +5,12 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * The Class PortFigure.
@@ -19,26 +23,33 @@ public class PortFigure extends Figure {
 	private String terminal;
 	private FixedConnectionAnchor anchor;
 	private TooltipFigure tooltipFigure;
+	private String labelOfPort;
+	private String portType;
 
 	/**
 	 * Instantiates a new port figure.
 	 * 
 	 * @param portColor
 	 *            the port color
+	 * @param labelOfPort 
 	 * @param terminal
 	 *            the terminal
 	 */
 	public PortFigure(Color portColor, String portType, int portSeq,
-			int totalPorts, String nameOfPort) {
+			int totalPorts, String nameOfPort, String labelOfPort) {
 		this.portColor = portColor;
 		this.terminal = portType + portSeq;
 		this.anchor = new FixedConnectionAnchor(this, portType, totalPorts,
 				portSeq);
-		getBounds().setSize(new Dimension(8, 8));
+		this.labelOfPort=labelOfPort;
+		this.portType=portType;
+		getBounds().setSize(new Dimension(60, 16));
 
 		tooltipFigure = new TooltipFigure();
 		setToolTip(tooltipFigure);
 		
+		Font font = new Font(Display.getDefault(),"Times New Roman",8,SWT.NORMAL);
+		setFont(font);
 		//NOTE : to Suppress the component tooltip when user hover the mouse on Port 
 		addMouseMotionListener(new MouseMotionListener() {
 			@Override
@@ -69,8 +80,23 @@ public class PortFigure extends Figure {
 
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
-		graphics.fillRectangle(getBounds().getLocation().x, getBounds()
-				.getLocation().y, r.width, r.height);
+		if(portType.equalsIgnoreCase("in"))
+		{
+			graphics.fillRectangle(getBounds().getLocation().x, getBounds()
+					.getLocation().y, r.width-50, r.height-6);
+			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+12,getBounds()
+					.getLocation().y-2));
+		}
+		else
+		{
+			graphics.fillRectangle(getBounds().getLocation().x+50, getBounds()
+					.getLocation().y, r.width-50, r.height-6);
+			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+28,getBounds()
+					.getLocation().y-2));
+		}
+
+		
+		
 
 	}
 

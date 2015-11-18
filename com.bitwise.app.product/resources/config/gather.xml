@@ -12,6 +12,7 @@
 				<tns:allowMultipleLinks>true</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 				<tns:nameOfPort>in0</tns:nameOfPort>
+				<tns:labelOfPort>in0</tns:labelOfPort>
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
@@ -20,6 +21,7 @@
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 				<tns:nameOfPort>out0</tns:nameOfPort>
+				<tns:labelOfPort>out0</tns:labelOfPort>
 			</tns:portSpecification>
 		</tns:port>
 		<tns:property dataType="string" name="name" renderer="COMPONENT_NAME_WIDGET" type="USER"

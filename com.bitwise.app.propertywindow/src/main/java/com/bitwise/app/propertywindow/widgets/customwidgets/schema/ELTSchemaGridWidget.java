@@ -171,7 +171,7 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		// Set up the table
 		for (int columnIndex = 0, n = table.getColumnCount(); columnIndex < n; columnIndex++) {
 			table.getColumn(columnIndex).pack();
-			table.getColumn(columnIndex).setWidth(80);
+			table.getColumn(columnIndex).setWidth(94);
 		}
 		editors = gridWidgetBuilder.createCellEditorList(table, PROPS.length);
 		tableViewer.setCellEditors(editors);

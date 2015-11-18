@@ -26,9 +26,9 @@ public class Container extends Model {
 	private final List<Component> components = new ArrayList<>();
 	private final Hashtable<String, Integer> componentNextNameSuffixes = new Hashtable<>();
 	private ArrayList<String> componentNames = new ArrayList<>();
-	@XStreamOmitField
+	//@XStreamOmitField
 	private String parameterFileName;
-	@XStreamOmitField
+	//@XStreamOmitField
 	private String parameterFileDirectory;
 	
 	public String getParameterFileDirectory() {

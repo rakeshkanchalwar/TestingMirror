@@ -13,6 +13,7 @@ public class Constants {
 	public static final String STRICT = "Strict";
 	public static final String HAS_HEADER = "Has Header";
 	public static final String SAFE_PROPERTY = "Safe Property ";	
+	public static final String INPUT_COUNT = "Input Count";
 
 	public static final String PARAMETER = "Parameter";
 	public static final String UTF_16 = "UTF-16";

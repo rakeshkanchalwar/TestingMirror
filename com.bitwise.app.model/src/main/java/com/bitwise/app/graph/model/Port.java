@@ -16,6 +16,8 @@ public class Port extends Model{
 	private final int sequence;
 	private final Component parent;
 	private final String nameOfPort;
+	private final String labelOfPort;
+	
 	/**
 	 * Instantiates a new port.
 	 * * @param nameOfPort
@@ -31,13 +33,20 @@ public class Port extends Model{
 	 * @param seq
 	 *            the seq
 	 */
-	public Port(String nameOfPort,String terminal, Component component, int noPortsOfThisType, String type, int seq){
+	public Port(String nameOfPort,String labelOfPort,String terminal, Component component, int noPortsOfThisType, String type, int seq){
 		this.terminal = terminal;
 		this.numberOfPortsOfThisType = noPortsOfThisType;
 		this.portType = type;
 		this.sequence = seq;
 		this.parent =component;
 		this.nameOfPort=nameOfPort;
+		this.labelOfPort=labelOfPort;
+	}
+	
+	
+
+	public String getLabelOfPort() {
+		return labelOfPort;
 	}
 
 	public Component getParent() {

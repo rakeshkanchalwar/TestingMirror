@@ -12,7 +12,7 @@
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 				<tns:nameOfPort>in0</tns:nameOfPort>
-				
+				<tns:labelOfPort>in0</tns:labelOfPort>
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
@@ -21,6 +21,7 @@
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>true</tns:linkMandatory>
 				<tns:nameOfPort>out0</tns:nameOfPort>
+				<tns:labelOfPort>out0</tns:labelOfPort>
 			</tns:portSpecification>
 			<tns:portSpecification>
 				<tns:typeOfPort>out</tns:typeOfPort>
@@ -29,6 +30,7 @@
 				<tns:allowMultipleLinks>false</tns:allowMultipleLinks>
 				<tns:linkMandatory>false</tns:linkMandatory>
 				<tns:nameOfPort>unused0</tns:nameOfPort>
+				<tns:labelOfPort>un0</tns:labelOfPort>
 			</tns:portSpecification>
 		</tns:port>
 		
@@ -46,6 +48,10 @@
 		
 		<tns:property dataType="string" name="filter" renderer="FILTER_PROPERTY_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="LIST"
+			usage="OPTIONAL"/>
+			
+		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET"
+			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
 			usage="OPTIONAL"/>
 		
 	</tns:component>
