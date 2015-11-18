@@ -33,5 +33,23 @@ public class NameValueProperty extends PropertyField{
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NameValueProperty other = (NameValueProperty) obj;
+		if (propertyName == null) {
+			if (other.propertyName != null)
+				return false;
+		} else if (!propertyName.equals(other.propertyName))
+			return false;
+		return true;  
+	}
+
 
 }
