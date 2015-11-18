@@ -212,11 +212,10 @@ public class TransformDialog extends Dialog {
 		leftContainerComposite1.attachWidget(eltPropOuterTable1);
 
 		opSystemPropertiesTabViewer.setInput(operationSystemProperties); 
-		applyDrop(opSystemPropertiesTabViewer, operationSystemProperties, true);
-
+		applyDragFromTableViewer(opSystemPropertiesTabViewer.getTable()); 
 		Composite rightContainerComposite = new Composite(container, SWT.NONE);
 		fd_middleContainerComposite.right = new FormAttachment(rightContainerComposite, -6);
-		FormData fd_rightContainerComposite = new FormData();
+		FormData fd_rightContainerComposite = new FormData(); 
 		fd_rightContainerComposite.right = new FormAttachment(100, -10);
 		fd_rightContainerComposite.left = new FormAttachment(0, 914);
 		fd_rightContainerComposite.top = new FormAttachment(0, 10);
