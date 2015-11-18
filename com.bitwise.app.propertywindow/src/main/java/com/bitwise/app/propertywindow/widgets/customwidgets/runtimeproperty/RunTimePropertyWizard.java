@@ -11,6 +11,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -170,6 +172,7 @@ public class RunTimePropertyWizard {
 				
 			}
 		});
+		
 		//table.setBounds(10, 50, 465, 365);
 		table.setBounds(10, 68, 465, 400);
 		tableViewer.setContentProvider(new PropertyContentProvider());
