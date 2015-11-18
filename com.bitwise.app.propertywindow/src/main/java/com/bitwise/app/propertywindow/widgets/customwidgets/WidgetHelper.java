@@ -43,6 +43,15 @@ public class WidgetHelper {
 		return textBoxConfig;
 	}
 	
+	public WidgetConfig getInputCountWidgetConfig(){
+		TextBoxWithLableConfig textBoxConfig = new TextBoxWithLableConfig();
+		textBoxConfig.setName(Constants.INPUT_COUNT);
+		addTextBoxListeners(textBoxConfig);
+		textBoxConfig.getListeners().add(Listners.VERIFY_NUMERIC);
+		textBoxConfig.setWidgetWidth(78);
+		return textBoxConfig;
+	}
+	
 	public WidgetConfig getSafeWidgetConfig(){
 		DropDownConfig dropDownConfig = populateTrueFalseConfig(Constants.SAFE_PROPERTY);
 		addComboBoxListeners(dropDownConfig);

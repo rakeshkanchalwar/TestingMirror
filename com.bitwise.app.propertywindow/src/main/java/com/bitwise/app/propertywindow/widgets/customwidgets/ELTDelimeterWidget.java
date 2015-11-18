@@ -29,7 +29,7 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
  * @author Bitwise
  */
 public class ELTDelimeterWidget extends AbstractWidget{
-	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTPhaseWidget.class);
+	
 	private static final String DELIMITER = "Delimiter";
 	private static final Listners[] listeners = {Listners.NORMAL_FOCUS_IN,	Listners.NORMAL_FOCUS_OUT, 
 												 Listners.EVENT_CHANGE, Listners.MODIFY};
@@ -58,7 +58,7 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
-		logger.debug("Starting {} textbox creation", DELIMITER);
+		
 		ELTDefaultSubgroupComposite lableAndTextBox = new ELTDefaultSubgroupComposite(container.getContainerControl());
 		lableAndTextBox.createContainerWidget();
 		
@@ -79,11 +79,11 @@ public class ELTDelimeterWidget extends AbstractWidget{
 				textBoxWidget.attachListener(listener, propertyDialogButtonBar, helper, textBoxWidget.getSWTWidgetControl());
 			}
 		} catch (Exception e1) {
-			logger.error("Failed in attaching listeners to {}", DELIMITER);
+			//logger.error("Failed in attaching listeners to {}", DELIMITER);
 		}
 		
 		populateWidget();
-		logger.debug("Finished {} textbox creation", DELIMITER);
+		//logger.debug("Finished {} textbox creation", DELIMITER);
 	}
 
 	private ListenerHelper prepareListenerHelper() {
@@ -94,7 +94,7 @@ public class ELTDelimeterWidget extends AbstractWidget{
 	}
 	
 	private void populateWidget(){
-		logger.debug("Populating {} textbox", DELIMITER);
+		//logger.debug("Populating {} textbox", DELIMITER);
 		String property = properties;
 		if(StringUtils.isNotBlank(property)){
 			textBox.setText(property);

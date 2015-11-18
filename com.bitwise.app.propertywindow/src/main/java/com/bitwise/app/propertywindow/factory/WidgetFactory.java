@@ -67,7 +67,7 @@ public class WidgetFactory {
 		RUNTIME_PROPERTIES_WIDGET(ELTRuntimePropertiesWidget.class),
 		SECONDARY_COLUMN_KEYS_WIDGET(SecondaryColumnKeysWidget.class),
 		TRANSFORM_WIDGET(TransformWidget.class),
-		INPUT_COUNT_WIDGET(ELTInputCountWidget.class),
+		INPUT_COUNT_WIDGET(ELTInputCountWidget.class,WidgetHelper.INSTANCE.getInputCountWidgetConfig()),
 		JOIN_TYPE_WIDGET(ELTJoinWidget.class);
 		
 		private Class<?> clazz = null;
