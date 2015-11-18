@@ -6,9 +6,11 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
@@ -160,6 +162,36 @@ MessageBox messageBox = new MessageBox(shell, SWT.ICON_QUESTION
     return true;
 
 return false;
+}
+
+/**
+ * Adds the text editor.
+ * 
+ * @param table
+ *            the table
+ * @param cellEditor
+ *            the cell editor
+ * @param position
+ *            the position
+ */
+public static void addTextEditor(Table table, CellEditor[] cellEditor, int position){
+	cellEditor[position]=new TextCellEditor(table);
+}
+
+/**
+ * Adds the combo box.
+ * 
+ * @param table
+ *            the table
+ * @param cellEditor
+ *            the cell editor
+ * @param data
+ *            the data
+ * @param position
+ *            the position
+ */
+public static void addComboBox(Table table, CellEditor[] cellEditor, String[] data, int position){
+	cellEditor[position] = new ComboBoxCellEditor(table, data,SWT.READ_ONLY);		
 }
 
 }
