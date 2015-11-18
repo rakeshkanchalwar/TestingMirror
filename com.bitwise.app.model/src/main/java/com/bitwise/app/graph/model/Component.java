@@ -89,7 +89,8 @@ public abstract class Component extends Model {
 	private String componentName;
 	List<PortSpecification> portSpecification;
 	
-	private ComponentLabel componentLabel;
+	//private ComponentLabel componentLabel;
+	private LogicLabel logicLabel;
 	
 	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
@@ -112,7 +113,8 @@ public abstract class Component extends Model {
 		componentName = DynamicClassProcessor.INSTANCE
 				.getClazzName(this.getClass());
 		
-		componentLabel = new ComponentLabel(componentName);
+		//componentLabel = new ComponentLabel(componentName);
+		logicLabel = new LogicLabel(componentName);
 		
 		prefix = XMLConfigUtil.INSTANCE.getComponent(componentName).getDefaultNamePrefix();
 		initPortSettings();
@@ -151,7 +153,8 @@ public abstract class Component extends Model {
 	public List<Model> getChildren() {	
 		
 		List<Model> children = new ArrayList<Model>(ports.values());
-		children.add(componentLabel);
+		//children.add(componentLabel);
+		children.add(logicLabel);
 		
 		return children;
 		
@@ -309,10 +312,13 @@ public abstract class Component extends Model {
 		//tooltipInformation.get(propertyId).setPropertyValue(value);
 	}
 
-
-	public ComponentLabel getComponentLabel() {
-		return componentLabel;
+	public LogicLabel getLogicLabel() {
+		return logicLabel;
 	}
+
+//	public ComponentLabel getComponentLabel() {
+//		return componentLabel;
+//	}
 
 	/**
 	 * Set the Location of this shape.
@@ -473,6 +479,7 @@ public abstract class Component extends Model {
 	
 	public void setComponentLabel(String label) {
 		setPropertyValue(Component.Props.NAME_PROP.getValue(), label);
-		componentLabel.setComponentLabelContents(label);
+		//componentLabel.setComponentLabelContents(label);
+		logicLabel.setLabelContents(label);
 	}
 }

@@ -6,7 +6,6 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 
 import com.bitwise.app.graph.figure.ComponentFigure;
-import com.bitwise.app.graph.figure.ComponentLabelFigure;
 import com.bitwise.app.graph.figure.PortFigure;
 
 /**

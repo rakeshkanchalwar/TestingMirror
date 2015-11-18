@@ -240,12 +240,12 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		
 		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
 		if (!childrenEditParts.isEmpty()){
-			ComponentLabelEditPart cLabelEditPart = null;
+			LogicLabelEditPart lLabelEditPart = null;
 			for(AbstractGraphicalEditPart part:childrenEditParts)
 			{
-				if(part instanceof ComponentLabelEditPart){
-					cLabelEditPart = (ComponentLabelEditPart) part;
-					cLabelEditPart.refreshVisuals();
+				if(part instanceof LogicLabelEditPart){
+					lLabelEditPart = (LogicLabelEditPart) part;
+					lLabelEditPart.refreshVisuals();
 				}
 			}
 			

@@ -74,7 +74,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		text.setFocus();
-		text.setTextLimit(15);
+		text.setTextLimit(30);
 		firstTextWidget = text;
 		ListenerHelper listenerHelper = new ListenerHelper();
 		listenerHelper.put(HelperType.VALIDATION_STATUS, validationStatus);
