@@ -58,6 +58,8 @@ public class ComponentFigure extends Figure implements Validator{
 	private Color selectedBorderColor;	
 	private Color componentColor;
 	private Color selectedComponentColor;
+	private boolean incrementedHeight;
+	private int componentLabelMargin;
 	
 	private String canvasIconPath;
 	private Image canvasIcon;
@@ -82,8 +84,10 @@ public class ComponentFigure extends Figure implements Validator{
 		this.portspecification = portSpecification;
 		this.canvasIconPath = XMLConfigUtil.CONFIG_FILES_PATH + cIconPath;
 		
+		incrementedHeight = false;
 		layout = new XYLayout();
 		setLayoutManager(layout);
+		this.componentLabelMargin = 15;
 		
 		canvasIcon = new Image(null, canvasIconPath);
 		
@@ -125,7 +129,7 @@ public class ComponentFigure extends Figure implements Validator{
 	 */
 	public void setComponentColorAndBorder(){
 		setBackgroundColor(componentColor);
-		setBorder(new ComponentBorder(borderColor));
+		setBorder(new ComponentBorder(borderColor, 0, componentLabelMargin));
 	}
 	
 	/**
@@ -133,7 +137,7 @@ public class ComponentFigure extends Figure implements Validator{
 	 */
 	public void setSelectedComponentColorAndBorder(){
 		setBackgroundColor(selectedComponentColor);
-		setBorder(new ComponentBorder(selectedBorderColor,2));
+		setBorder(new ComponentBorder(selectedBorderColor, 2, componentLabelMargin));
 	}
 	
 	private void setPortCount(PortSpecification p) {
@@ -154,6 +158,14 @@ public class ComponentFigure extends Figure implements Validator{
 	
 	
 	
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
+	}
+
 	private void hideToolTip(){
 		if(componentCanvas != null){
 			if(componentCanvas.getComponentTooltip() != null){
@@ -376,11 +388,12 @@ public class ComponentFigure extends Figure implements Validator{
 	protected void paintFigure(Graphics graphics) {
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
+		//Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
+		Rectangle q = new Rectangle(4, 4+componentLabelMargin, r.width-8, r.height-8-componentLabelMargin);
 		graphics.fillRoundRectangle(q, 5, 5);
 		
 		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
-		graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2-10));
+		graphics.drawImage(canvasIcon, new Point(q.width/2-16, q.height/2+componentLabelMargin-15));
 		drawStatus(graphics);
 	}
 	
@@ -399,7 +412,7 @@ public class ComponentFigure extends Figure implements Validator{
 		}
 		logger.debug("Component has {} status.", getStatus());
 		if(statusImage != null){
-			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8+ELTFigureConstants.componentLabelMargin));
+			graphics.drawImage(statusImage, new Point(rectangle.width - 25, 8+componentLabelMargin));
 		}
 	}
 
@@ -490,4 +503,20 @@ public class ComponentFigure extends Figure implements Validator{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public boolean isIncrementedHeight() {
+		return incrementedHeight;
+	}
+
+	public void setIncrementedHeight(boolean incrementedHeight) {
+		this.incrementedHeight = incrementedHeight;
+	}
+	public int getComponentLabelMargin() {
+		return componentLabelMargin;
+	}
+
+	public void setComponentLabelMargin(int componentLabelMargin) {
+		this.componentLabelMargin = componentLabelMargin;
+	}
+	
 }

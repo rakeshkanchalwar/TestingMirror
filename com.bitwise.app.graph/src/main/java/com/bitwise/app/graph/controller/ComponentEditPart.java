@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.TextUtilities;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
@@ -18,6 +20,9 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
 
@@ -28,7 +33,9 @@ import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.graph.editor.ETLGraphicalEditor;
+import com.bitwise.app.graph.figure.ComponentBorder;
 import com.bitwise.app.graph.figure.ComponentFigure;
+import com.bitwise.app.graph.figure.ELTFigureConstants;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
@@ -237,16 +244,23 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		Component component = getCastedModel();
 		ComponentFigure componentFigure = getComponentFigure();
 				
-		
+		ComponentBorder componentBorder = new ComponentBorder(componentFigure.getBorderColor(), 0, componentFigure.getComponentLabelMargin());
+		componentFigure.setBorder(componentBorder);
 		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
 		if (!childrenEditParts.isEmpty()){
 			LogicLabelEditPart lLabelEditPart = null;
+			PortEditPart portEditPart = null;
 			for(AbstractGraphicalEditPart part:childrenEditParts)
 			{
 				if(part instanceof LogicLabelEditPart){
 					lLabelEditPart = (LogicLabelEditPart) part;
 					lLabelEditPart.refreshVisuals();
 				}
+//				if(part instanceof PortEditPart){
+//					portEditPart = (PortEditPart) part;
+//					//(PortFigure)part.getFigure();
+//					portEditPart.adjustPortFigure(component.getLocation());
+//				}
 			}
 			
 		}
@@ -286,9 +300,23 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			logger.debug("Updated dimentions: " + getCastedModel().getSize().height + ":"
 							+ getCastedModel().getSize().width);
+			adjustComponentFigure(getCastedModel(), (ComponentFigure)getFigure());
 			getCastedModel().setComponentLabel((String) getCastedModel().getPropertyValue(Component.Props.NAME_PROP.getValue()));
 			updateComponentStatus();
 			refreshVisuals();
+			
+			List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
+			PortEditPart portEditPart = null;
+			for(AbstractGraphicalEditPart part:childrenEditParts)
+			{
+				
+				if(part instanceof PortEditPart){
+					portEditPart = (PortEditPart) part;
+					//(PortFigure)part.getFigure();
+					portEditPart.adjustPortFigure(getCastedModel().getLocation());
+				}
+			}
+			portEditPart.adjustPortFigure(getCastedModel().getLocation());
 
 			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			if(eltPropertyWindow.isPropertyChanged()){
@@ -298,6 +326,32 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			super.performRequest(req);
 		}
+	}
+	
+	private void adjustComponentFigure(Component component, ComponentFigure componentFigure){
+		Dimension d = null;
+		String label = (String) component.getPropertyValue(Component.Props.NAME_PROP.getValue());
+		Font font = new Font( Display.getDefault(), "Times New Roman", 10,
+				SWT.NORMAL );
+		int labelLength = TextUtilities.INSTANCE.getStringExtents(label, font).width;
+		component.setComponentLabel(label);
+		if(labelLength >= 98 && !componentFigure.isIncrementedHeight()){
+			component.setSize(new Dimension(component.getSize().width, component.getSize().height +15));
+			componentFigure.setIncrementedHeight(true);
+			componentFigure.setComponentLabelMargin(ELTFigureConstants.componentTwoLineLabelMargin);
+		}else if(labelLength < 98 && componentFigure.isIncrementedHeight()){
+			component.setSize(new Dimension(component.getSize().width, component.getSize().height-15));
+			componentFigure.setIncrementedHeight(false);
+			componentFigure.setComponentLabelMargin(ELTFigureConstants.componentOneLineLabelMargin);
+		}else if(labelLength < 98 ){
+			component.setSize(new Dimension(component.getSize().width, component.getSize().height));
+			//componentFigure.setIncrementedHeight(false);
+			//componentFigure.setComponentLabelMargin(ELTFigureConstants.componentOneLineLabelMargin);
+		}
+		componentFigure.repaint();
+		//component.setSize(new Dimension(100, 95));
+		
+		
 	}
 	
 	private void updateComponentStatus(){
