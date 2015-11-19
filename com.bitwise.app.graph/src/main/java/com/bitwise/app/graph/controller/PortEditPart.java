@@ -62,7 +62,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 			xLocation=0;
 		}
 		else if(type.equalsIgnoreCase("out")){
-			xLocation=width-60;
+			xLocation=width-27;
 		}
 		yLocation=portOffset*sequence - 4 + margin;
 		p=new Point(xLocation, yLocation);
