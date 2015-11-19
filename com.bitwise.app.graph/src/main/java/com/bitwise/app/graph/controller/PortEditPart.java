@@ -82,13 +82,13 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 	}
 	
 	public void adjustPortFigure(Point componentLocation) { 
-		System.out.println("componentLocation.x: "+componentLocation.x+ "componentLocation.y: "+componentLocation.y);
+		
 		ComponentFigure componentFigure = ((ComponentEditPart) getParent()).getComponentFigure();
 		int height = componentFigure.getHeight();
 		int margin = componentFigure.getComponentLabelMargin();
 		Point portPoint = getPortLocation(getCastedModel().getNumberOfPortsOfThisType(), getCastedModel().getPortType(),
 				getCastedModel().getSequence(), height, margin);
-		System.out.println("PortPoint x: "+portPoint.x + "PortPoint y: "+portPoint.y);
+		
 		Point newPortLoc = new Point(portPoint.x+componentLocation.x, portPoint.y+componentLocation.y);
 		componentFigure.translateToAbsolute(newPortLoc);
 		//componentFigure.translateToParent(portPoint);

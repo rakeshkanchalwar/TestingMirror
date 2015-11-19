@@ -240,7 +240,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		 * component.getSize()); ((ContainerEditPart)
 		 * getParent()).setLayoutConstraint(this, getFigure(), bounds);
 		 */
-		System.out.println("ComponentEditPart refreshVisuals called.");
+		
 		Component component = getCastedModel();
 		ComponentFigure componentFigure = getComponentFigure();
 				

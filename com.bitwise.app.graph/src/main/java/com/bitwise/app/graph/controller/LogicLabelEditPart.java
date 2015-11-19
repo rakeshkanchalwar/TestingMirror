@@ -62,7 +62,7 @@ public class LogicLabelEditPart extends AbstractGraphicalEditPart implements Pro
 	}
 
 	protected void refreshVisuals() {
-		System.out.println("LogiclabelEditPart refreshVisuals called.");
+		
 		((LabelFigure) getFigure()).setText(getLogicLabel()
 				.getLabelContents());
 		super.refreshVisuals();
