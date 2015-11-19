@@ -222,7 +222,7 @@ public class RunTimePropertyWizard {
 		shell.addListener(SWT.Close, new Listener() {
 			public void handleEvent(Event event) {
 				if (isOkPressed && isAnyUpdatePerformed) {
-					//propertyDialogButtonBar.enableApplyButton(true);
+					propertyDialogButtonBar.enableApplyButton(true);
 				}
 				if ((isAnyUpdatePerformed && !isOkPressed) &&(table.getItemCount()!=0 || isAnyUpdatePerformed)) {
 
