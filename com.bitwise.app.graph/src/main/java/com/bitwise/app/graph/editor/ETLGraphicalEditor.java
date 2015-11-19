@@ -575,7 +575,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 			parameterFilePath = container.getFullParameterFilePath();
 			container.setParameterFileName(getPartName().replace(".job", ".properties"));
 			//System.out.println("+++ This is file path: " + container.getFullParameterFilePath());
-			saveParameters();
+			if(container.getParameterFileDirectory() !=null)
+				saveParameters();
 
 		} catch (CoreException | IOException ce) {
 			logger.error(METHOD_NAME , ce);
@@ -679,8 +680,11 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	}
 
 	private void setParameterFileLocationInfo(IFile file) {
-		container.setParameterFileDirectory(file.getPathVariableManager().getURIValue("PROJECT_LOC").getPath() + "/" +  CustomMessages.ProjectSupport_PARAM + "/");
-		container.setParameterFileName(file.getName().replace("job", "properties"));
+		if(file!=null){
+			container.setParameterFileDirectory(file.getPathVariableManager().getURIValue("PROJECT_LOC").getPath() + "/" +  CustomMessages.ProjectSupport_PARAM + "/");
+			container.setParameterFileName(file.getName().replace("job", "properties"));
+		}
+		
 	}
 	
 	@Override

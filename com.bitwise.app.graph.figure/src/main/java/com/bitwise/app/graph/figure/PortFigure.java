@@ -25,7 +25,8 @@ public class PortFigure extends Figure {
 	private TooltipFigure tooltipFigure;
 	private String labelOfPort;
 	private String portType;
-
+	public boolean value;
+	public static PortFigure object;
 	/**
 	 * Instantiates a new port figure.
 	 * 
@@ -37,13 +38,14 @@ public class PortFigure extends Figure {
 	 */
 	public PortFigure(Color portColor, String portType, int portSeq,
 			int totalPorts, String nameOfPort, String labelOfPort) {
+		object=this;
 		this.portColor = portColor;
 		this.terminal = portType + portSeq;
 		this.anchor = new FixedConnectionAnchor(this, portType, totalPorts,
 				portSeq);
 		this.labelOfPort=labelOfPort;
 		this.portType=portType;
-		getBounds().setSize(new Dimension(60, 16));
+		getBounds().setSize(new Dimension(27,16));
 
 		tooltipFigure = new TooltipFigure();
 		setToolTip(tooltipFigure);
@@ -74,30 +76,24 @@ public class PortFigure extends Figure {
 		});
 		
 	}
-
-   @Override
+@Override
 	protected void paintFigure(Graphics graphics) {
-
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
 		if(portType.equalsIgnoreCase("in"))
 		{
-			graphics.fillRectangle(getBounds().getLocation().x, getBounds()
-					.getLocation().y, r.width-50, r.height-6);
-			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+12,getBounds()
-					.getLocation().y-2));
+			graphics.fillRectangle(getBounds().getLocation().x-22, getBounds()
+					.getLocation().y, r.width, r.height-3);
+			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+6,getBounds()
+					.getLocation().y));
 		}
 		else
 		{
-			graphics.fillRectangle(getBounds().getLocation().x+50, getBounds()
-					.getLocation().y, r.width-50, r.height-6);
-			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+28,getBounds()
-					.getLocation().y-2));
+			graphics.fillRectangle(getBounds().getLocation().x+23, getBounds()
+					.getLocation().y, r.width, r.height-3);
+			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x,getBounds()
+					.getLocation().y));
 		}
-
-		
-		
-
 	}
 
 	@Override
@@ -172,4 +168,6 @@ public class PortFigure extends Figure {
 	public TooltipFigure getToolTipFigure() {
 		return tooltipFigure;
 	}
+
+
 }

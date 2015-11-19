@@ -82,7 +82,7 @@ public class ComponentCreateCommand extends Command {
 
 		//int defaultWidth = (component.getBasename().length()+3)*7+30;
 		//int defaultHeight = defaultWidth * 6/8;
-		Dimension newSize = new Dimension(component.getSize().width, height + ELTFigureConstants.componentLabelMargin);
+		Dimension newSize = new Dimension(component.getSize().width, height + ELTFigureConstants.componentOneLineLabelMargin);
 		//component.setSize(newSize);
 		this.component = component;
 		this.parent = parent;
