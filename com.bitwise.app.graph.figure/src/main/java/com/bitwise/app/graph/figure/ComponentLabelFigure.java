@@ -1,8 +1,6 @@
 package com.bitwise.app.graph.figure;
 
 
-
-
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.StackLayout;
@@ -16,23 +14,20 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * A Figure with a bent corner and an embedded TextFlow within a FlowPage that
- * contains text.
+ * The Class ComponentLabelFigure.
+ * 
+ * @author Bitwise
  */
-// public class LabelFigure extends BentCornerFigure {
-public class LabelFigure extends Figure {
+
+public class ComponentLabelFigure extends Figure {
 
 
 	/** The inner TextFlow **/
 	private TextFlow textFlow = new TextFlow();
 	FlowPage flowPage;
 
-	/**
-	 * Creates a new LabelFigure with a default MarginBorder size of
-	 * DEFAULT_CORNER_SIZE - 3 and a FlowPage containing a TextFlow with the
-	 * style WORD_WRAP_SOFT.
-	 */
-	public LabelFigure() {
+	
+	public ComponentLabelFigure() {
 
 	}
 
@@ -43,11 +38,9 @@ public class LabelFigure extends Figure {
 	 * @param borderSize
 	 *            the size of the MarginBorder
 	 */
-	public LabelFigure(int borderSize) {
+	public ComponentLabelFigure(int borderSize) {
 		setBorder(new MarginBorder(borderSize));
 		flowPage = new FlowPage();
-
-		//textFlow = new TextFlow();
 
 		textFlow.setLayoutManager(new ParagraphTextLayout(textFlow,
 				ParagraphTextLayout.WORD_WRAP_SOFT));
@@ -56,10 +49,10 @@ public class LabelFigure extends Figure {
 
 		setLayoutManager(new StackLayout());
 		add(flowPage);
-		Font font = new Font( Display.getDefault(), "Times New Roman", 10,
+		Font font = new Font( Display.getDefault(), "Times New Roman", 9,
 				SWT.NORMAL );
 		setFont(font);
-		getBounds().setSize(98, 15);
+		getBounds().setSize(98, ELTFigureConstants.componentOneLineLabelMargin);
 		
 	}
 
@@ -83,12 +76,10 @@ public class LabelFigure extends Figure {
 		Dimension lineDimensions = TextUtilities.INSTANCE.getStringExtents(textFlow.getText(), getFont());
 		if(lineDimensions.width >= 98)
 		{
-			getBounds().setSize(98, 30);
+			getBounds().setSize(98, ELTFigureConstants.componentTwoLineLabelMargin);
 		}else if(lineDimensions.width < 98){
-			getBounds().setSize(98, 15);
+			getBounds().setSize(98, ELTFigureConstants.componentOneLineLabelMargin);
 		}
-		//flowPage.invalidate();
-		//flowPage.getPreferredSize(lineDimensions.width, -1);
 	}
 
 }

@@ -6,12 +6,12 @@ import org.eclipse.gef.EditPartFactory;
 import com.bitwise.app.graph.controller.ComponentEditPart;
 import com.bitwise.app.graph.controller.ContainerEditPart;
 import com.bitwise.app.graph.controller.LinkEditPart;
-import com.bitwise.app.graph.controller.LogicLabelEditPart;
+import com.bitwise.app.graph.controller.ComponentLabelEditPart;
 import com.bitwise.app.graph.controller.PortEditPart;
 import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.Link;
-import com.bitwise.app.graph.model.LogicLabel;
+import com.bitwise.app.graph.model.ComponentLabel;
 import com.bitwise.app.graph.model.Port;
 
 /**
@@ -38,8 +38,8 @@ public class ComponentsEditPartFactory implements EditPartFactory{
 		else if (model instanceof Port){
 			part = new PortEditPart();
 		}
-		else if (model instanceof LogicLabel){
-			part = new LogicLabelEditPart();
+		else if (model instanceof ComponentLabel){
+			part = new ComponentLabelEditPart();
 		}
 		else{
 			//TODO : Add logger

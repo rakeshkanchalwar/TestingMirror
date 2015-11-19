@@ -17,7 +17,7 @@ public class ComponentBorder extends AbstractBorder {
 
 	private Insets insets;
 	private Color borderColor;
-	private int lineWidth = 0;
+	private int lineWidth;
 	private int labelMargin;
 	
 	/**
@@ -31,6 +31,16 @@ public class ComponentBorder extends AbstractBorder {
 		insets=new Insets();
 	}
 	
+	/**
+	 * Instantiates a new component border.
+	 * 
+	 * @param borderColor
+	 *            the border color
+	 * @param lineWidth
+	 *            the line width
+	 * @param margin
+	 *            the margin from component label
+	 */
 	public ComponentBorder(Color borderColor,int lineWidth, int margin){
 		this.borderColor = borderColor;
 		this.lineWidth = lineWidth;

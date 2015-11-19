@@ -90,7 +90,7 @@ public abstract class Component extends Model {
 	List<PortSpecification> portSpecification;
 	
 	//private ComponentLabel componentLabel;
-	private LogicLabel logicLabel;
+	private ComponentLabel logicLabel;
 	
 	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
@@ -114,7 +114,7 @@ public abstract class Component extends Model {
 				.getClazzName(this.getClass());
 		
 		//componentLabel = new ComponentLabel(componentName);
-		logicLabel = new LogicLabel(componentName);
+		logicLabel = new ComponentLabel(componentName);
 		
 		prefix = XMLConfigUtil.INSTANCE.getComponent(componentName).getDefaultNamePrefix();
 		initPortSettings();
@@ -312,7 +312,7 @@ public abstract class Component extends Model {
 		//tooltipInformation.get(propertyId).setPropertyValue(value);
 	}
 
-	public LogicLabel getLogicLabel() {
+	public ComponentLabel getLogicLabel() {
 		return logicLabel;
 	}
 

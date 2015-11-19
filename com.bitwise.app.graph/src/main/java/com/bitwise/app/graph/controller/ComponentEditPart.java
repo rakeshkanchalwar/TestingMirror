@@ -41,10 +41,9 @@ import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 import com.bitwise.app.graph.propertywindow.ELTPropertyWindow;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class ComponentEditPart.
+ * @author Bitwise
  */
 public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		NodeEditPart, PropertyChangeListener {
@@ -248,19 +247,13 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		componentFigure.setBorder(componentBorder);
 		List<AbstractGraphicalEditPart> childrenEditParts = getChildren();
 		if (!childrenEditParts.isEmpty()){
-			LogicLabelEditPart lLabelEditPart = null;
-			PortEditPart portEditPart = null;
+			ComponentLabelEditPart lLabelEditPart = null;
 			for(AbstractGraphicalEditPart part:childrenEditParts)
 			{
-				if(part instanceof LogicLabelEditPart){
-					lLabelEditPart = (LogicLabelEditPart) part;
+				if(part instanceof ComponentLabelEditPart){
+					lLabelEditPart = (ComponentLabelEditPart) part;
 					lLabelEditPart.refreshVisuals();
 				}
-//				if(part instanceof PortEditPart){
-//					portEditPart = (PortEditPart) part;
-//					//(PortFigure)part.getFigure();
-//					portEditPart.adjustPortFigure(component.getLocation());
-//				}
 			}
 			
 		}
@@ -300,7 +293,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			
 			logger.debug("Updated dimentions: " + getCastedModel().getSize().height + ":"
 							+ getCastedModel().getSize().width);
-			adjustComponentFigure(getCastedModel(), (ComponentFigure)getFigure());
+			adjustComponentFigure(getCastedModel(), getComponentFigure());
 			getCastedModel().setComponentLabel((String) getCastedModel().getPropertyValue(Component.Props.NAME_PROP.getValue()));
 			updateComponentStatus();
 			refreshVisuals();
@@ -312,7 +305,6 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 				
 				if(part instanceof PortEditPart){
 					portEditPart = (PortEditPart) part;
-					//(PortFigure)part.getFigure();
 					portEditPart.adjustPortFigure(getCastedModel().getLocation());
 				}
 			}
@@ -345,12 +337,8 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			componentFigure.setComponentLabelMargin(ELTFigureConstants.componentOneLineLabelMargin);
 		}else if(labelLength < 98 ){
 			component.setSize(new Dimension(component.getSize().width, component.getSize().height));
-			//componentFigure.setIncrementedHeight(false);
-			//componentFigure.setComponentLabelMargin(ELTFigureConstants.componentOneLineLabelMargin);
 		}
 		componentFigure.repaint();
-		//component.setSize(new Dimension(100, 95));
-		
 		
 	}
 	
