@@ -62,7 +62,7 @@ public class TransformWidget extends AbstractWidget {
 	 * @wbp.parser.entryPoint
 	 */
 	@Override
-	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
+	public void attachToPropertySubGroup(final AbstractELTContainerWidget container) {
 
 		final ELTDefaultSubgroupComposite transformComposite = new ELTDefaultSubgroupComposite(
 				container.getContainerControl());

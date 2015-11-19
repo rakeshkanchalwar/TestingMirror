@@ -12,6 +12,7 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
@@ -31,6 +32,7 @@ public class TextGrid {
 	private ColumnLayoutData textGridCompositeLayoutData;
 	
 	private Composite lastAddedRow;
+	private Composite headerRow;
 	//---------
 	
 	public TextGrid(Composite container){
@@ -47,16 +49,28 @@ public class TextGrid {
 		 textGrid.add(lastAddedRow);
 	}
 	
-	public void addEmptyRow(TextGridRowLayout rowLayout){
+	public Composite addEmptyRow(TextGridRowLayout rowLayout){
 		 TextGridRowBuilder textGridRowBuilder = new TextGridRowBuilder(innerComposite, rowLayout,null);	
 		 lastAddedRow = textGridRowBuilder.addRaw();
 		 textGrid.add(lastAddedRow);
+		 return lastAddedRow;
 	}
 	
 	public void addDisabledRow(TextGridRowLayout rowLayout,List<String> rowData){
 		 TextGridRowBuilder textGridRowBuilder = new TextGridRowBuilder(innerComposite, rowLayout,rowData,false);	
 		 lastAddedRow = textGridRowBuilder.addRaw();
 		 textGrid.add(lastAddedRow);
+	}
+	
+	public void addHeaderRow(TextGridRowLayout rowLayout,
+			List<String> header) {
+		
+		 TextGridRowBuilder textGridRowBuilder = new TextGridRowBuilder(innerComposite, rowLayout,header);	
+		 headerRow = textGridRowBuilder.addHeader();
+	}
+	
+	public Composite getHeaderComposite(){
+		return headerRow;
 	}
 		
 	public List<Composite> getGrid(){

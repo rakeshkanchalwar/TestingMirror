@@ -40,6 +40,7 @@ public class ParameterGridDialog extends Dialog {
 	
 	private TextGrid textGrid;
 	private boolean runGraph;
+	private Button headerCompositeCheckBox;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -71,23 +72,10 @@ public class ParameterGridDialog extends Dialog {
 		composite.setLayoutData(cld_composite);
 		
 		textGrid = new TextGrid(container);
-		
-		//Button btnAdd = new Button(composite, SWT.NONE);
+	
 		Label btnAdd = new Label(composite, SWT.NONE);
 		GridData gd_btnAdd = getGridControlButtonLayout();
 		btnAdd.setLayoutData(gd_btnAdd);
-		/*btnAdd.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
-				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(true).build());
-				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
-				textGrid.addEmptyRow(textGridRowLayout);				
-				textGrid.refresh();
-				textGrid.scrollToLastRow();
-			}
-		});*/
-		
 		btnAdd.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -95,7 +83,20 @@ public class ParameterGridDialog extends Dialog {
 				TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
 				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(true).build());
 				textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
-				textGrid.addEmptyRow(textGridRowLayout);				
+				Composite emptyRow = textGrid.addEmptyRow(textGridRowLayout);
+				headerCompositeCheckBox.setSelection(false);
+				((Button)emptyRow.getChildren()[0]).addSelectionListener(new SelectionAdapter() {
+
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						// TODO Auto-generated method stub
+						super.widgetSelected(e);
+						changeHeaderCheckboxSelection();
+					}
+					
+				});
+				
+				
 				textGrid.refresh();
 				textGrid.scrollToLastRow();
 			}
@@ -115,16 +116,8 @@ public class ParameterGridDialog extends Dialog {
 		btnAdd.setText("");
 		btnAdd.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/add.png"));
 		
-		//Button btnRemove = new Button(composite, SWT.NONE);
 		Label btnRemove = new Label(composite, SWT.NONE);
 		btnRemove.setLayoutData(getGridControlButtonLayout());
-		/*btnRemove.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				textGrid.removeSelectedRows();
-			}
-		});*/
-		
 		btnRemove.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -149,15 +142,8 @@ public class ParameterGridDialog extends Dialog {
 		btnRemove.setText("");
 		btnRemove.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png"));
 		
-		//Button btnSelectAllRows = new Button(composite, SWT.NONE);
-		Label btnSelectAllRows = new Label(composite, SWT.NONE);
+		/*Label btnSelectAllRows = new Label(composite, SWT.NONE);
 		btnSelectAllRows.setLayoutData(getGridControlButtonLayout());
-		/*btnSelectAllRows.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				textGrid.selectAllRows();
-			}
-		});*/
 		btnSelectAllRows.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -179,17 +165,9 @@ public class ParameterGridDialog extends Dialog {
 		});
 		btnSelectAllRows.setText("");
 		btnSelectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/checkall.png"));
-		
-		
-		//Button btnDeselectAllRows = new Button(composite, SWT.NONE);
+				
 		Label btnDeselectAllRows = new Label(composite, SWT.NONE);
 		btnDeselectAllRows.setLayoutData(getGridControlButtonLayout());
-		/*btnDeselectAllRows.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				textGrid.clearSelections();
-			}
-		});*/
 		btnDeselectAllRows.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -210,7 +188,7 @@ public class ParameterGridDialog extends Dialog {
 			}
 		});
 		btnDeselectAllRows.setText("");
-		btnDeselectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/uncheckall.png"));
+		btnDeselectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/uncheckall.png"));*/
 		
 				
 		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
@@ -233,13 +211,14 @@ public class ParameterGridDialog extends Dialog {
 			}
 		}
 		
+		addGridHeader();
+		
 		for(List<String> row: graphGridData){
 			TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
 			textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).editable(false).build());
 			textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).editable(true).build());
 			textGrid.addDisabledRow(textGridRowLayout, row);
 		}
-		
 		
 		for(List<String> row: externalGridData){
 			TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
@@ -252,14 +231,80 @@ public class ParameterGridDialog extends Dialog {
 		container.getParent().addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {
-				//textGrid.setHeight(container.getParent().getBounds().height - 120);
-				textGrid.setHeight(container.getParent().getBounds().height - 133);
+				textGrid.setHeight(container.getParent().getBounds().height - 120);
+				//textGrid.setHeight(container.getParent().getBounds().height - 133);
 			}
 		});
 		
 		textGrid.refresh();
 	
+		addGridRowSelectionListener();
+		
 		return container;
+	}
+
+	private void changeHeaderCheckboxSelection() {
+		boolean allRowsSelected = true;
+		for(Composite row:textGrid.getGrid()){
+			if(((Button)((Composite)row).getChildren()[0]).isEnabled()){
+				if(!((Button)row.getChildren()[0]).getSelection()){
+					allRowsSelected = false;
+					break;
+				}
+			}
+		}
+		
+		if(allRowsSelected==true){
+			headerCompositeCheckBox.setSelection(true);
+		}else{
+			headerCompositeCheckBox.setSelection(false);
+		}
+	}
+	
+	public void addGridRowSelectionListener(){
+		for(Composite row: textGrid.getGrid()){
+			
+			//((Button)row.getChildren()[0]).
+			
+			((Button)row.getChildren()[0]).addSelectionListener(new SelectionAdapter() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+					super.widgetSelected(e);
+					changeHeaderCheckboxSelection();
+				}
+			});
+		}
+	}
+	
+	private void addGridHeader() {
+		List<String> header= new LinkedList<>();
+		header.add("Name");
+		header.add("Value");
+		TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
+		textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().columnWidth(90).enabled(false).build());
+		textGridRowLayout.addColumn(new TextGridColumnLayout.Builder().grabHorizantalAccessSpace(true).enabled(false).build());
+		textGrid.addHeaderRow(textGridRowLayout, header);
+		
+		
+		((Button)textGrid.getHeaderComposite().getChildren()[0]).addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				super.widgetSelected(e);
+				
+				if(((Button)textGrid.getHeaderComposite().getChildren()[0]).getSelection()){
+					textGrid.selectAllRows();
+				}else{
+					textGrid.clearSelections();
+				}
+			}
+			
+		});
+		
+		headerCompositeCheckBox = ((Button)textGrid.getHeaderComposite().getChildren()[0]);
 	}
 
 	private GridData getGridControlButtonLayout() {
