@@ -41,6 +41,7 @@ import org.slf4j.Logger;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.messages.Messages;
+import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 // TODO: Auto-generated Javadoc
@@ -186,12 +187,12 @@ public class ELTFilterPropertyWizard {
 	 * @return
 	 * @wbp.parser.entryPoint
 	 */
-	public Set<String> launchRuntimeWindow(Shell parentShell) {
+	public Set<String> launchRuntimeWindow(Shell parentShell, final PropertyDialogButtonBar propertyDialogButtonBar) {
 
 		shell = new  Shell(parentShell, SWT.WRAP | SWT.APPLICATION_MODAL);
 		isOkPressed = false;
 		isAnyUpdatePerformed = false;
-		shell.setSize(506, 540);
+		shell.setSize(506, 548);
 		shell.setLayout(null);
 		shell.setText("Properties");
 		imageShell(shell);
@@ -209,15 +210,18 @@ public class ELTFilterPropertyWizard {
 		
 		
 		// Below Event will be fired when user closes the Runtime window
-		shell.addListener(SWT.CLOSE, new Listener() {
+		shell.addListener(SWT.Close, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-			
-				if (table.getItemCount() != 0 && !isOkPressed && isAnyUpdatePerformed) {
+				if (isOkPressed && isAnyUpdatePerformed) {
+					propertyDialogButtonBar.enableApplyButton(true);
+				}
+				if ((isAnyUpdatePerformed && !isOkPressed) &&(table.getItemCount()!=0 || isAnyUpdatePerformed)) {
 					int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
 					MessageBox messageBox = new MessageBox(shell, style);
 					messageBox.setText("Information"); //$NON-NLS-1$
 					messageBox.setMessage(Messages.MessageBeforeClosingWindow);
+					event.doit = messageBox.open() == SWT.YES;
 				}
 				
 			}
@@ -258,7 +262,7 @@ public class ELTFilterPropertyWizard {
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 
 		shell.setLocation(x, y);
-		shell.pack();
+		//shell.pack();
 		shell.open();
 
 		while (!shell.isDisposed()) {

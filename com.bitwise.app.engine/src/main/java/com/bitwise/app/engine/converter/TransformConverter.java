@@ -16,10 +16,8 @@ public abstract class TransformConverter extends Converter {
 		super.prepareForXML();
 		((TypeOperationsComponent) baseComponent).getInSocket().addAll(getInSocket());
 		((TypeOperationsComponent)baseComponent).getOutSocket().addAll(getOutSocket());
+		((TypeOperationsComponent)baseComponent).setRuntimeProperties(getRuntimeProperties()); 
 		
-		/*((TypeOperationsComponent)baseComponent).getRuntimeProperties().add(getRuntimeProperties()); 
-		Temprary commented as new XSD is not supporting runtime properties to be saved in target XML for Transform
-		*/
 	}
 	
 	/**
