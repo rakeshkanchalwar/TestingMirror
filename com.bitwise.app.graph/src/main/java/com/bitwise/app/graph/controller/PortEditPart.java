@@ -35,6 +35,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		Color borderColor = ELTColorConstants.componentBorder;
 		Point portPoint = null;
 		int height = componentFigure.getHeight();
+		int margin = componentFigure.getComponentLabelMargin();
 		port =  new PortFigure(borderColor, getCastedModel().getPortType(), getCastedModel().getSequence(), getCastedModel().getNumberOfPortsOfThisType(),getCastedModel().getNameOfPort(),getCastedModel().getLabelOfPort());	
 		
 		//Calling getNameOfPort() method form Port Model
@@ -42,7 +43,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		port.getToolTipFigure().setMessage(toolTipText);
 		
 		portPoint = getPortLocation(getCastedModel().getNumberOfPortsOfThisType(), getCastedModel().getPortType(),
-				getCastedModel().getSequence(), height);
+				getCastedModel().getSequence(), height, margin);
 		port.setLocation(portPoint);
 		componentFigure.setAnchors(port.getAnchor());
 		return port;
@@ -50,7 +51,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 
 	
 
-	private Point getPortLocation(int totalPortsOfThisType, String type, int sequence, int height) {
+	private Point getPortLocation(int totalPortsOfThisType, String type, int sequence, int height, int margin) {
 		Point p = null ;
 		int width = 100;
 		int portOffsetFactor = totalPortsOfThisType+1;
@@ -63,7 +64,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		else if(type.equalsIgnoreCase("out")){
 			xLocation=width-60;
 		}
-		yLocation=portOffset*sequence - 4 + ELTFigureConstants.componentLabelMargin;
+		yLocation=portOffset*sequence - 4 + margin;
 		p=new Point(xLocation, yLocation);
 		return p;
 	}
@@ -78,6 +79,22 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 	public DragTracker getDragTracker(Request request) {
 		getViewer().select(this);
 		return new ConnectionDragCreationTool();
+	}
+	
+	public void adjustPortFigure(Point componentLocation) { 
+		System.out.println("componentLocation.x: "+componentLocation.x+ "componentLocation.y: "+componentLocation.y);
+		ComponentFigure componentFigure = ((ComponentEditPart) getParent()).getComponentFigure();
+		int height = componentFigure.getHeight();
+		int margin = componentFigure.getComponentLabelMargin();
+		Point portPoint = getPortLocation(getCastedModel().getNumberOfPortsOfThisType(), getCastedModel().getPortType(),
+				getCastedModel().getSequence(), height, margin);
+		System.out.println("PortPoint x: "+portPoint.x + "PortPoint y: "+portPoint.y);
+		Point newPortLoc = new Point(portPoint.x+componentLocation.x, portPoint.y+componentLocation.y);
+		componentFigure.translateToAbsolute(newPortLoc);
+		//componentFigure.translateToParent(portPoint);
+		//componentFigure.translateFromParent(portPoint);
+		getFigure().setLocation(newPortLoc);
+		/*super.refreshVisuals();*/
 	}
 
 }

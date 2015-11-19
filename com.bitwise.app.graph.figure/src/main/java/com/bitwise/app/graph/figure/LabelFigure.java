@@ -59,7 +59,7 @@ public class LabelFigure extends Figure {
 		Font font = new Font( Display.getDefault(), "Times New Roman", 10,
 				SWT.NORMAL );
 		setFont(font);
-		getBounds().setSize(98, 30);
+		getBounds().setSize(98, 15);
 		
 	}
 
@@ -81,9 +81,14 @@ public class LabelFigure extends Figure {
 	public void setText(String newText) {
 		textFlow.setText(newText);
 		Dimension lineDimensions = TextUtilities.INSTANCE.getStringExtents(textFlow.getText(), getFont());
-		
-		flowPage.invalidate();
-		flowPage.getPreferredSize(lineDimensions.width, -1);
+		if(lineDimensions.width >= 98)
+		{
+			getBounds().setSize(98, 30);
+		}else if(lineDimensions.width < 98){
+			getBounds().setSize(98, 15);
+		}
+		//flowPage.invalidate();
+		//flowPage.getPreferredSize(lineDimensions.width, -1);
 	}
 
 }

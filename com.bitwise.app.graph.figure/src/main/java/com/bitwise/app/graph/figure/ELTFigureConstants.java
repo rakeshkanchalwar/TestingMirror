@@ -8,5 +8,6 @@ package com.bitwise.app.graph.figure;
  */
 
 public class ELTFigureConstants {
-	public static final int componentLabelMargin = 15;
+	public static final int componentOneLineLabelMargin = 15;
+	public static final int componentTwoLineLabelMargin = 30;
 }
