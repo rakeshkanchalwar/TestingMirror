@@ -23,9 +23,9 @@ import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Container;
 import com.bitwise.app.graph.model.processor.DynamicClassProcessor;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ComponentCreateCommand.
+ * @author Bitwise
  */
 public class ComponentCreateCommand extends Command {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ComponentCreateCommand.class);
@@ -51,9 +51,6 @@ public class ComponentCreateCommand extends Command {
 
 		String componentName = DynamicClassProcessor.INSTANCE.getClazzName(component.getClass());
 		com.bitwise.app.common.component.config.Component components = XMLConfigUtil.INSTANCE.getComponent(componentName);
-//		component.setProperties(properties);
-//		component.setType(components.getName());
-//		component.setCategory(components.getCategory().value());
 		
 		
 		//attach tooltip information to component
@@ -80,13 +77,10 @@ public class ComponentCreateCommand extends Command {
 
 		setupComponent(component);		
 
-		//int defaultWidth = (component.getBasename().length()+3)*7+30;
-		//int defaultHeight = defaultWidth * 6/8;
 		Dimension newSize = new Dimension(component.getSize().width, height + ELTFigureConstants.componentOneLineLabelMargin);
-		//component.setSize(newSize);
+
 		this.component = component;
 		this.parent = parent;
-		//this.bounds = bounds;
 		Point p = new Point(bounds.x, bounds.y);
 		this.bounds = new Rectangle(p, newSize);
 		setLabel("Component creation");
