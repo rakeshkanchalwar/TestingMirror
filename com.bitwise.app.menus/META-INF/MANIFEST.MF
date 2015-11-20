@@ -16,4 +16,6 @@ Require-Bundle: org.eclipse.ui,
  com.bitwise.app.graph;bundle-version="0.0.1",
  com.bitwise.app.common.interfaces;bundle-version="0.0.1"
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.ui.console
+Import-Package: com.bitwise.app.graph.figure,
+ com.bitwise.app.graph.model,
+ org.eclipse.ui.console

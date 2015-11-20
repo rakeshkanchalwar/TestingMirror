@@ -24,6 +24,14 @@
             id="com.bitwise.window.palette"
             name="Palette">
       </command>
+      <command
+            id="com.bitwise.window.portLabels.show"
+            name="show">
+      </command>
+      <command
+            id="com.bitwise.window.portLabels.hide"
+            name="hide">
+      </command>
    </extension>
 	  <extension
          point="org.eclipse.ui.handlers">
@@ -186,6 +194,14 @@
                </count>
             </with>
          </enabledWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.ShowPortLabelsHandler"
+            commandId="com.bitwise.window.portLabels.show">
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.HidePortLabelsHandler"
+            commandId="com.bitwise.window.portLabels.hide">
       </handler>
    </extension>
    		
@@ -372,6 +388,19 @@
                   label="Preferences"
                   style="push">
             </command>
+            <menu
+                  label="Port labels">
+               <command
+                     commandId="com.bitwise.window.portLabels.show"
+                     label="Show"
+                     style="push">
+               </command>
+               <command
+                     commandId="com.bitwise.window.portLabels.hide"
+                     label="Hide"
+                     style="push">
+               </command>
+            </menu>
             <menu
                   label="Show View">
                <command
