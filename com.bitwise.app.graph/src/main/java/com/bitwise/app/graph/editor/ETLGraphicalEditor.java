@@ -152,6 +152,8 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	private ComponentTooltip componentTooltip;
 	private Rectangle toolTipComponentBounds;
 	private String parameterFilePath;
+	private String currentParameterFilePath=null;
+	
 	/**
 	 * Instantiates a new ETL graphical editor.
 	 */
@@ -855,5 +857,16 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	@Override
 	public String getParameterFile(){
 		return container.getFullParameterFilePath();
+	}
+
+	@Override
+	public String getCurrentParameterFilePath() {
+		// TODO Auto-generated method stub
+		return currentParameterFilePath;
+	}
+
+	@Override
+	public void setCurrentParameterFilePath(String currentParameterFilePath) {
+		this.currentParameterFilePath = currentParameterFilePath;
 	}
 }

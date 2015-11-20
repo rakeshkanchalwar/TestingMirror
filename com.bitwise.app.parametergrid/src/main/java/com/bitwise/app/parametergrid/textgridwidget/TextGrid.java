@@ -163,4 +163,15 @@ public class TextGrid {
 			((Button)((Composite)row).getChildren()[0]).setSelection(true);
 		}
 	}
+
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		for(Control row : textGrid){
+			row.dispose();
+		}
+		
+		textGrid.clear();
+		refresh();
+	}
 }

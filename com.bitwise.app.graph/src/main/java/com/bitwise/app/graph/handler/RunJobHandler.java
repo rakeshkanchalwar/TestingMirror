@@ -53,7 +53,7 @@ public class RunJobHandler extends AbstractHandler {
 			System.out.println("+++ Not running graph");
 			return null;
 		}
-		
+		System.out.println("+++ Use parameter file: " + parameterGrid.getParameterFile());
 		try {
 			MessageConsole messageConsole = findConsole(Messages.CONSOLE_NAME);
 			final MessageConsoleStream out = messageConsole.newMessageStream();
