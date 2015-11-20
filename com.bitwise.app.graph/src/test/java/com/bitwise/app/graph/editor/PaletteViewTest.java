@@ -14,10 +14,10 @@ public void itShouldCreateComponentCategory()
 {
 //given
 String componentCategoryName ="Input";
-ETLGraphicalEditor etlGraphEditor=new ETLGraphicalEditor();
+ELTGraphicalEditor eltGraphEditor=new ELTGraphicalEditor();
 //when
 
-PaletteDrawer p=etlGraphEditor.createPaletteContainer(componentCategoryName);
+PaletteDrawer p=eltGraphEditor.createPaletteContainer(componentCategoryName);
 //
 Assert.assertTrue(p.isVisible());
 }
@@ -27,11 +27,11 @@ public void itShouldAddComponentCategoryToPalette()
 {
 //given
 String componentCategoryName ="Input";
-ETLGraphicalEditor etlGraphEditor=new ETLGraphicalEditor();
-PaletteDrawer p=etlGraphEditor.createPaletteContainer(componentCategoryName);
+ELTGraphicalEditor eltGraphEditor=new ELTGraphicalEditor();
+PaletteDrawer p=eltGraphEditor.createPaletteContainer(componentCategoryName);
 PaletteRoot paletteRoot=new PaletteRoot();
 //when
-etlGraphEditor.addContainerToPalette(paletteRoot,p);
+eltGraphEditor.addContainerToPalette(paletteRoot,p);
 //
 Assert.assertTrue(paletteRoot.getChildren().contains(p));
 }

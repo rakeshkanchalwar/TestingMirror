@@ -32,7 +32,7 @@ public class ComponentLabel extends Model{
 	}
 
 	public Dimension getSize() {
-		return new Dimension(size.width, -1);
+		return size;
 	}
 
 	private void readObject(java.io.ObjectInputStream s) throws IOException,
@@ -41,7 +41,6 @@ public class ComponentLabel extends Model{
 	}
 
 	public void setSize(Dimension d) {
-		d.height = -1;
 		if (size.equals(d))
 			return;
 		size = d;

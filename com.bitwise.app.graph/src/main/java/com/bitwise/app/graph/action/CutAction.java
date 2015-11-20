@@ -61,9 +61,9 @@ public class CutAction extends SelectionAction{
 		Component node = null;
 		Iterator<Object> it = selectedObjects.iterator();
 		while (it.hasNext()) {
-			EditPart ep = (EditPart) it.next();
+			Object ep = it.next();
 			if (ep instanceof ComponentEditPart) {
-				node = (Component) ep.getModel();
+				node = (Component) ((EditPart)ep).getModel();
 			}
 			if (!cutCommand.isCutNode(node))
 				return null;

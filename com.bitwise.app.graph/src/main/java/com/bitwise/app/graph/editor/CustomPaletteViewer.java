@@ -50,7 +50,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 	 * @param editor
 	 * @return Control
 	 */
-	public Control creatSearchTextBox(Composite parent, final PaletteRoot paletteRoot, final ETLGraphicalEditor editor) {
+	public Control creatSearchTextBox(Composite parent, final PaletteRoot paletteRoot, final ELTGraphicalEditor editor) {
 		final Map<String, PaletteDrawer> categoryPaletteConatiner = new HashMap<>();
 		Composite container = createCompositeForSearchTextBox(parent);
 		final Text text = createSearchTextBox(container,SWT.BORDER);
@@ -66,7 +66,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 	}
 
 	private void refreshThePaletteBasedOnSearchString(final PaletteRoot paletteRoot,
-			final ETLGraphicalEditor editor, final Map<String, PaletteDrawer> categoryPaletteConatiner,
+			final ELTGraphicalEditor editor, final Map<String, PaletteDrawer> categoryPaletteConatiner,
 			final Text text, final List<Component> componentsConfig, final Composite container) {
 		text.addVerifyListener(new VerifyListener() {
 			@Override
@@ -99,7 +99,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 		}
 	}
 
-	private boolean collectMatchingContainers(final ETLGraphicalEditor editor,
+	private boolean collectMatchingContainers(final ELTGraphicalEditor editor,
 			final Map<String, PaletteDrawer> categoryPaletteConatiner, final List<Component> componentsConfig,
 			 List<Component> matchingComponents, String searchedString) {
 		boolean matchFound = false;
@@ -120,7 +120,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 		return matchFound;
 	}
 
-	private void showAllContainers(final PaletteRoot paletteRoot, final ETLGraphicalEditor editor,
+	private void showAllContainers(final PaletteRoot paletteRoot, final ELTGraphicalEditor editor,
 			final Map<String, PaletteDrawer> categoryPaletteConatiner, final List<Component> componentsConfig) {
 		for (Component componentConfig : componentsConfig) {
 			CombinedTemplateCreationEntry component = getComponentToAddInContainer(editor,
@@ -159,7 +159,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 	}
 
 	private void createPaletteContainers(PaletteRoot paletteRoot, Map<String, PaletteDrawer> categoryPaletteConatiner,
-			ETLGraphicalEditor eLEtlGraphicalEditor) {
+			ELTGraphicalEditor eLEtlGraphicalEditor) {
 		for (CategoryType category : CategoryType.values()) {
 			PaletteDrawer paletteDrawer = eLEtlGraphicalEditor.createPaletteContainer(category.name());
 			paletteDrawer.setInitialState(PaletteDrawer.INITIAL_STATE_OPEN);
@@ -168,7 +168,7 @@ public class CustomPaletteViewer extends PaletteViewer {
 		}
 	}
 
-	private CombinedTemplateCreationEntry getComponentToAddInContainer(ETLGraphicalEditor eLEtlGraphicalEditor,
+	private CombinedTemplateCreationEntry getComponentToAddInContainer(ELTGraphicalEditor eLEtlGraphicalEditor,
 			Component componentConfig) {
 		Class<?> clazz = DynamicClassProcessor.INSTANCE.createClass(componentConfig);
 

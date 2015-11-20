@@ -1,6 +1,8 @@
 package com.bitwise.app.parametergrid.dialog;
 
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,9 +22,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.ColumnLayoutData;
@@ -41,6 +45,8 @@ public class ParameterGridDialog extends Dialog {
 	private TextGrid textGrid;
 	private boolean runGraph;
 	private Button headerCompositeCheckBox;
+	private Text paramterFileTextBox;
+	private String parameterFile;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -59,6 +65,7 @@ public class ParameterGridDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		final Composite container = (Composite) super.createDialogArea(parent);
 		ColumnLayout cl_container = new ColumnLayout();
+		cl_container.verticalSpacing = 0;
 		cl_container.maxNumColumns = 1;
 		container.setLayout(cl_container);
 		
@@ -71,7 +78,11 @@ public class ParameterGridDialog extends Dialog {
 		cld_composite.heightHint = 30;
 		composite.setLayoutData(cld_composite);
 		
+		addFileParameterFileBrowser(container);
+		
+		
 		textGrid = new TextGrid(container);
+		textGrid.clear();
 	
 		Label btnAdd = new Label(composite, SWT.NONE);
 		GridData gd_btnAdd = getGridControlButtonLayout();
@@ -141,58 +152,40 @@ public class ParameterGridDialog extends Dialog {
 		
 		btnRemove.setText("");
 		btnRemove.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/delete.png"));
+				
 		
-		/*Label btnSelectAllRows = new Label(composite, SWT.NONE);
-		btnSelectAllRows.setLayoutData(getGridControlButtonLayout());
-		btnSelectAllRows.addMouseListener(new MouseListener() {
+		addGridHeader();
+		
+		if(getComponentCanvas().getCurrentParameterFilePath() ==null)
+			parameterFile = getComponentCanvas().getParameterFile();
+		else
+			parameterFile = getComponentCanvas().getCurrentParameterFilePath();
 			
+		loadGridData();
+		
+		container.getParent().addControlListener(new ControlAdapter() {
 			@Override
-			public void mouseUp(MouseEvent e) {
-				textGrid.selectAllRows();
-			}
-			
-			@Override
-			public void mouseDown(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void controlResized(ControlEvent e) {
+				textGrid.setHeight(container.getParent().getBounds().height - 150);
 			}
 		});
-		btnSelectAllRows.setText("");
-		btnSelectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/checkall.png"));
-				
-		Label btnDeselectAllRows = new Label(composite, SWT.NONE);
-		btnDeselectAllRows.setLayoutData(getGridControlButtonLayout());
-		btnDeselectAllRows.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseUp(MouseEvent e) {
-				textGrid.clearSelections();
-			}
-			
-			@Override
-			public void mouseDown(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		btnDeselectAllRows.setText("");
-		btnDeselectAllRows.setImage(new Image(null, XMLConfigUtil.INSTANCE.CONFIG_FILES_PATH + "/icons/uncheckall.png"));*/
 		
-				
-		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
+		
+		
+		return container;
+	}
+
+	private void loadGridData() {
+		ParameterFileManager parameterFileManager = new ParameterFileManager(parameterFile);
 		Map<String, String> parameterMap = parameterFileManager.getParameterMap();
+		
+		if(parameterFile != null){
+			if(parameterFile.contains(":"))
+				paramterFileTextBox.setText(parameterFile.replaceFirst("/", ""));
+			else
+				paramterFileTextBox.setText(parameterFile);
+		}
+			
 		
 		//List of rows, where each row is list of columns
 		List<List<String>> graphGridData =  new LinkedList<>();
@@ -211,7 +204,7 @@ public class ParameterGridDialog extends Dialog {
 			}
 		}
 		
-		addGridHeader();
+		
 		
 		for(List<String> row: graphGridData){
 			TextGridRowLayout textGridRowLayout = new TextGridRowLayout();
@@ -228,21 +221,63 @@ public class ParameterGridDialog extends Dialog {
 		}
 		
 		
-		container.getParent().addControlListener(new ControlAdapter() {
+		textGrid.refresh();
+		
+		addGridRowSelectionListener();
+	}
+	
+	
+	private void loadParameterFile(){
+		if(parameterFile == null){
+			return;
+		}
+		textGrid.clear();
+		loadGridData();
+	}
+	
+	private void addFileParameterFileBrowser(Composite container){
+		Composite composite = new Composite(container, SWT.NONE);
+		composite.setLayout(new GridLayout(3, false));
+		
+		Label lblFile = new Label(composite, SWT.NONE);
+		lblFile.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblFile.setText("Parameter File ");
+		
+		paramterFileTextBox = new Text(composite, SWT.BORDER);
+		GridData gd_text = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		gd_text.widthHint = 179;
+		paramterFileTextBox.setLayoutData(gd_text);
+		
+		final Button btnNewButton = new Button(composite, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void controlResized(ControlEvent e) {
-				textGrid.setHeight(container.getParent().getBounds().height - 120);
-				//textGrid.setHeight(container.getParent().getBounds().height - 133);
+			public void widgetSelected(SelectionEvent e) {
+				FileDialog fd = new FileDialog(btnNewButton.getShell(), SWT.OPEN);
+		        fd.setText("Open");
+		        Path path = Paths.get(parameterFile.replaceFirst("/", ""));
+		        
+		        fd.setFilterPath(path.getParent().toString());
+		        
+		        String[] filterExt = { "*.properties" };
+		        fd.setFilterExtensions(filterExt);
+		        String selected = fd.open();
+		        
+		        if(selected!=null){
+		        	paramterFileTextBox.setText(selected);
+		        }
+		        parameterFile=paramterFileTextBox.getText();
+		        getComponentCanvas().setCurrentParameterFilePath(parameterFile);
+		        loadParameterFile();
 			}
 		});
-		
-		textGrid.refresh();
-	
-		addGridRowSelectionListener();
-		
-		return container;
+		btnNewButton.setText("...");
 	}
 
+	
+	public String getParameterFile(){
+		return parameterFile;
+	}
+	
 	private void changeHeaderCheckboxSelection() {
 		boolean allRowsSelected = true;
 		for(Composite row:textGrid.getGrid()){
@@ -319,7 +354,8 @@ public class ParameterGridDialog extends Dialog {
 		boolean error=false;
 		textGrid.clearSelections();
 		
-		ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
+		//ParameterFileManager parameterFileManager = new ParameterFileManager(getComponentCanvas().getParameterFile());
+		ParameterFileManager parameterFileManager = new ParameterFileManager(parameterFile);
 		Map<String,String> dataMap = new LinkedHashMap<>();
 		int rowId=0;
 		for(List<String> row: textGrid.getData()){

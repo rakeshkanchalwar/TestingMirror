@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
@@ -13,8 +15,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -23,7 +23,6 @@ import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -42,7 +41,6 @@ import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
 import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
-import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -68,7 +66,7 @@ public class ELTFilterPropertyWizard {
 	private Label lblPropertyError;
 	private boolean isOkPressed;
 	private TableViewer tableViewer;
-	private ControlDecoration decorator;
+	//private ControlDecoration decorator;
 	public ControlDecoration scaleDecorator;
 	private Button addButton, okButton, deleteButton, cacelButton, upButton, downButton;
 	private boolean isAnyUpdatePerformed;
@@ -251,7 +249,7 @@ public class ELTFilterPropertyWizard {
 		tableViewer.setCellEditors(editors);
 		
 
-		decorator = WidgetUtility.addDecorator(propertyNameEditor.getControl(), Messages.CHARACTERSET);
+		//decorator = WidgetUtility.addDecorator(propertyNameEditor.getControl(), Messages.CHARACTERSET);
 		loadProperties(tableViewer);
 
 		Monitor primary = shell.getDisplay().getPrimaryMonitor();
@@ -430,8 +428,17 @@ public class ELTFilterPropertyWizard {
 
 		for (ELTFilterProperties temp : propertyLst) {
 			if (!temp.getPropertyname().trim().isEmpty()) {
-				//if(temp.getPropertyname().trim().equalsIgnoreCase(anotherString))
-			} else {
+				String Regex="[\\@]{1}[\\{]{1}[\\w]*[\\}]{1}||[\\w]*";
+				Matcher matchs = Pattern.compile(Regex).matcher(temp.getPropertyname().trim());
+				if(!matchs.matches())
+				{
+					table.setSelection(propertyCounter);
+					lblPropertyError.setVisible(true);
+					lblPropertyError.setText(Messages.ALLOWED_CHARACTERS);
+					//disableButtons();
+					return false;
+				}
+			} else  {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
 				lblPropertyError.setText(Messages.EmptyNameNotification);
@@ -458,13 +465,15 @@ public class ELTFilterPropertyWizard {
 					lblPropertyError.setVisible(true);
 					//disableButtons();
 					return "ERROR"; //$NON-NLS-1$
-				}else if(!valueToValidate.matches("[\\w+]*"))
+				}/*else if(!valueToValidate.matches("[\\w+]*") && !valueToValidate.startsWith("@"))
+						//!(valueToValidate.contains("@") && valueToValidate.contains("}") && valueToValidate.contains("{")))
 				{
-					decorator.show();
+					lblPropertyError.setText(Messages.ALLOWED_CHARACTERS.replace("$", valueToValidate));
+					lblPropertyError.setVisible(true);
 					//disableButtons();
 					 return "Invalid";
-				} else {
-					decorator.hide();
+				} */else {
+					lblPropertyError.setVisible(false);
 					enableButtons();
 				}
 

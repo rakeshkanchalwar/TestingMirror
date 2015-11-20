@@ -50,10 +50,10 @@ public class RunJobHandler extends AbstractHandler {
 		ParameterGridDialog parameterGrid = new ParameterGridDialog(Display.getDefault().getActiveShell());
 		parameterGrid.open();
 		if(parameterGrid.canRunGraph()){
-			System.out.println("+++ Not running graph");
+			logger.debug("Not running graph");
 			return null;
 		}
-		
+		logger.debug("property File :"+parameterGrid.getParameterFile());
 		try {
 			MessageConsole messageConsole = findConsole(Messages.CONSOLE_NAME);
 			final MessageConsoleStream out = messageConsole.newMessageStream();
@@ -61,7 +61,7 @@ public class RunJobHandler extends AbstractHandler {
 			String XML_PATH = "";
 			if (iEditorPart != null) {
 				XML_PATH = iEditorPart.getEditorInput().getToolTipText().replace(Messages.JOBEXTENSION, Messages.XMLEXTENSION);
-				Process process=executeRunJob(XML_PATH);
+				Process process=executeRunJob(XML_PATH,parameterGrid.getParameterFile());
 				final InputStream stream = process.getInputStream();
 
 				/**
@@ -130,7 +130,7 @@ public class RunJobHandler extends AbstractHandler {
 	 * @return the process
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private Process executeRunJob(String XML_PATH) throws IOException{
+	private Process executeRunJob(String XML_PATH,String paramFile) throws IOException{
 		String projectName = XML_PATH.split("/", 2)[0];
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 
@@ -140,7 +140,7 @@ public class RunJobHandler extends AbstractHandler {
 				Messages.GRADLE_RUN + " " + Messages.XMLPATH + "="
 						+ XML_PATH.split("/", 2)[1] + " "
 						+ Messages.PARAM_FILE
-						+"="+getListOfPropertyFiles(project)};
+						+"="+paramFile};
 		
 		String commandx = "";
 		for(int i=0 ;i<command.length ; i++){

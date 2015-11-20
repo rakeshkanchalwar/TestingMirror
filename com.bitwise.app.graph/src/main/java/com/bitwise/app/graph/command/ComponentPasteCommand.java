@@ -12,7 +12,7 @@ import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.graph.editor.ETLGraphicalEditor;
+import com.bitwise.app.graph.editor.ELTGraphicalEditor;
 import com.bitwise.app.graph.model.Component;
 
 // TODO: Auto-generated Javadoc
@@ -51,7 +51,7 @@ public class ComponentPasteCommand extends Command {
 				IWorkbenchPage page = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage();
 					Component clonedComponent =  node.clone();
-					clonedComponent.setParent(((ETLGraphicalEditor) page.getActiveEditor()).getContainer());
+					clonedComponent.setParent(((ELTGraphicalEditor) page.getActiveEditor()).getContainer());
 					Point location = node.getLocation();
 					int incrementedLocation = pasteCounter * 20;
 					clonedComponent.setLocation(new Point(location.getCopy().x + incrementedLocation,

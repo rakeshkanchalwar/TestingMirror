@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -11,8 +13,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -521,9 +521,19 @@ private void createIcons(Composite composite){
 
 		int propertyCounter = 0;
 		for (RuntimeProperties temp : propertyLst) {
-			if (!temp.getPropertyName().trim().isEmpty()
-					&& !temp.getPropertyValue().trim().isEmpty()) {
-
+			if (!temp.getPropertyName().trim().isEmpty()&& !temp.getPropertyValue().trim().isEmpty()) {
+				String Regex="[\\@]{1}[\\{]{1}[\\w]*[\\}]{1}||[\\w]*";
+				Matcher matchName = Pattern.compile(Regex).matcher(temp.getPropertyName());
+				Matcher matchValue = Pattern.compile(Regex).matcher(temp.getPropertyValue());
+				if(!matchName.matches() || !matchValue.matches())
+				{
+					table.setSelection(propertyCounter);
+					lblPropertyError.setVisible(true);
+					lblPropertyError.setText(Messages.ALLOWED_CHARACTERS);
+					//disableButtons();
+					return false;
+				}
+				
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);
@@ -555,7 +565,7 @@ private void createIcons(Composite composite){
 
 				for (RuntimeProperties temp : propertyLst) {
 					if (!currentSelectedFld.equalsIgnoreCase(valueToValidate)
-							&& temp.getPropertyName().trim()
+							&& temp.getPropertyName()
 									.equalsIgnoreCase(valueToValidate)) {
 						lblPropertyError.setText(PROPERTY_EXISTS_ERROR);
 						lblPropertyError.setVisible(true);
