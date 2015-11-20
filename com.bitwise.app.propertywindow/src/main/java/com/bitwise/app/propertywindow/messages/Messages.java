@@ -42,6 +42,8 @@ public class Messages extends NLS {
 	public static String EmptySortOrderNotification;
 	public static String EMPTY_FIELD;
 	public static String INVALID_SORT_ORDER;
+	public static String ALLOWED_CHARACTERS;
+	public static String RUNTIME_NAME_ALLOWED_CHARACTERS;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

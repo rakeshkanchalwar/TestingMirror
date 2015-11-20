@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -516,8 +518,18 @@ private void createIcons(Composite composite){
 
 		int propertyCounter = 0;
 		for (SecondaryColumnKeysInformation temp : propertyLst) {
-			if (!temp.getPropertyName().trim().isEmpty()
-					&& !temp.getPropertyValue().trim().isEmpty()) {
+			if (!temp.getPropertyName().trim().isEmpty()&& !temp.getPropertyValue().trim().isEmpty()) {
+				String Regex="[\\@]{1}[\\{]{1}[\\w]*[\\}]{1}||[\\w]*";
+				Matcher matchName = Pattern.compile(Regex).matcher(temp.getPropertyName());
+				Matcher matchValue = Pattern.compile(Regex).matcher(temp.getPropertyValue());
+				if(!matchName.matches() || !matchValue.matches())
+				{
+					table.setSelection(propertyCounter);
+					lblPropertyError.setVisible(true);
+					lblPropertyError.setText(Messages.ALLOWED_CHARACTERS);
+					//disableButtons();
+					return false;
+				}
 				if(!(temp.getPropertyValue().trim().equalsIgnoreCase("Asc") || temp.getPropertyValue().trim().equalsIgnoreCase("Desc"))){
 					table.setSelection(propertyCounter);
 					lblPropertyError.setVisible(true);
@@ -525,6 +537,7 @@ private void createIcons(Composite composite){
 					disableButtons();
 					return false;
 				}
+				
 			} else {
 				table.setSelection(propertyCounter);
 				lblPropertyError.setVisible(true);

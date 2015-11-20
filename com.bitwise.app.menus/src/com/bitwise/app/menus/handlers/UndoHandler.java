@@ -7,14 +7,14 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.bitwise.app.graph.editor.ETLGraphicalEditor;
+import com.bitwise.app.graph.editor.ELTGraphicalEditor;
 
 public class UndoHandler extends AbstractHandler implements IHandler{
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IEditorPart editor = HandlerUtil.getActiveEditor(event);
-		if(editor instanceof ETLGraphicalEditor)((ETLGraphicalEditor)editor).undoSelection();
+		if(editor instanceof ELTGraphicalEditor)((ELTGraphicalEditor)editor).undoSelection();
 		
 		
 		return null;

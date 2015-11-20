@@ -136,13 +136,13 @@ import com.thoughtworks.xstream.XStream;
  * Responsible to render the palette and container.
  * 
  */
-public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette implements ComponentCanvas, DefaultGEFCanvas{
+public class ELTGraphicalEditor extends GraphicalEditorWithFlyoutPalette implements ComponentCanvas, DefaultGEFCanvas{
 
 	private boolean dirty=false;
 	private final Color palatteBackgroundColor= new Color(null,82,84,81);
 	private PaletteRoot paletteRoot = null;
 
-	Logger logger = LogFactory.INSTANCE.getLogger(ETLGraphicalEditor.class);
+	Logger logger = LogFactory.INSTANCE.getLogger(ELTGraphicalEditor.class);
 	public static final String ID = "com.bitwise.app.graph.etlgraphicaleditor";
 	private Container container;
 	private final Point defaultComponentLocation = new Point(0, 0);
@@ -157,7 +157,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 	/**
 	 * Instantiates a new ETL graphical editor.
 	 */
-	public ETLGraphicalEditor() {
+	public ELTGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 	}
 
@@ -299,7 +299,7 @@ public class ETLGraphicalEditor extends GraphicalEditorWithFlyoutPalette impleme
 
 	@Override
 	protected PaletteViewerProvider createPaletteViewerProvider() {
-		final ETLGraphicalEditor editor = this;
+		final ELTGraphicalEditor editor = this;
 		return new PaletteViewerProvider(getEditDomain()) {
 
 			@Override
