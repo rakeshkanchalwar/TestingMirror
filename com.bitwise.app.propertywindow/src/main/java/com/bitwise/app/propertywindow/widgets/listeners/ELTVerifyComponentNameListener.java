@@ -78,7 +78,7 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 						propertyDialogButtonBar.enableApplyButton(false);
 						txtDecorator.show();
 						setValidationStatus(false);
-					} else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
+					}else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
 						text.setBackground(new Color(Display.getDefault(),255,255,204));
 						text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 						propertyDialogButtonBar.enableOKButton(false);

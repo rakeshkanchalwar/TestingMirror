@@ -13,7 +13,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.bitwise.app.graph.controller.PortEditPart;
-import com.bitwise.app.graph.editor.ETLGraphicalEditor;
+import com.bitwise.app.graph.editor.ELTGraphicalEditor;
 import com.bitwise.app.graph.figure.PortFigure;
 
 public class HidePortLabelsHandler extends AbstractHandler implements IHandler {
@@ -21,7 +21,7 @@ public class HidePortLabelsHandler extends AbstractHandler implements IHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IEditorPart editor = HandlerUtil.getActiveEditor(event);
-		if(editor instanceof ETLGraphicalEditor)
+		if(editor instanceof ELTGraphicalEditor)
 		{
 			GraphicalViewer gv =(GraphicalViewer) ((GraphicalEditor)editor).getAdapter(GraphicalViewer.class);
 			for (Iterator<PortEditPart> ite = gv.getEditPartRegistry().values().iterator(); 

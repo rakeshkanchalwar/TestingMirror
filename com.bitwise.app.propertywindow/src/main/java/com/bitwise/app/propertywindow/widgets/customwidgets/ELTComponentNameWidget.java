@@ -3,11 +3,13 @@ package com.bitwise.app.propertywindow.widgets.customwidgets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
+import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.property.ComponentConfigrationProperty;
 import com.bitwise.app.propertywindow.property.ComponentMiscellaneousProperties;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
@@ -16,10 +18,14 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultTextBox;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTNormalFocusOutListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameListener;
+import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyTextListener;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
+import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ELTComponentNameWidget.
  * 
@@ -38,7 +44,9 @@ public class ELTComponentNameWidget extends AbstractWidget {
 	private String propertyName;
 	
 	private ELTVerifyComponentNameListener listener;
-
+	private ELTVerifyTextListener txtListener;
+	private ELTNormalFocusOutListener focusOutListener;
+	private ControlDecoration txtDecorator;
 	/**
 	 * Instantiates a new ELT component name widget.
 	 * 
@@ -73,14 +81,23 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		text.setFocus();
-		text.setTextLimit(35);
+		text.setTextLimit(30);
 		firstTextWidget = text;
+		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
 		ListenerHelper listenerHelper = new ListenerHelper();
 		listenerHelper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		listenerHelper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		
 		try {
 			listener = (ELTVerifyComponentNameListener)ListenerFactory.Listners.VERIFY_COMPONENT_NAME.getListener();
 			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES));
 			eltDefaultTextBox.attachListener(listener,
+					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
+			txtListener=(ELTVerifyTextListener)ListenerFactory.Listners.VERIFY_TEXT.getListener();
+			eltDefaultTextBox.attachListener(txtListener,
+					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
+			focusOutListener=(ELTNormalFocusOutListener)ListenerFactory.Listners.NORMAL_FOCUS_OUT.getListener();
+			eltDefaultTextBox.attachListener(focusOutListener,
 					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
 		/*	eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
 					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());*/
