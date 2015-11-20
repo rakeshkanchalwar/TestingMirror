@@ -91,10 +91,8 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		
 		Point newPortLoc = new Point(portPoint.x+componentLocation.x, portPoint.y+componentLocation.y);
 		componentFigure.translateToAbsolute(newPortLoc);
-		//componentFigure.translateToParent(portPoint);
-		//componentFigure.translateFromParent(portPoint);
+		
 		getFigure().setLocation(newPortLoc);
-		/*super.refreshVisuals();*/
 	}
 	public PortFigure getPortFigure() {
 		return (PortFigure) getFigure();

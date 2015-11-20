@@ -20,7 +20,6 @@ import com.bitwise.app.propertywindow.widgets.listeners.ELTVerifyComponentNameLi
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper.HelperType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ELTComponentNameWidget.
  * 
@@ -74,7 +73,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 		text = (Text) eltDefaultTextBox.getSWTWidgetControl();
 		text.setFocus();
-		text.setTextLimit(30);
+		text.setTextLimit(35);
 		firstTextWidget = text;
 		ListenerHelper listenerHelper = new ListenerHelper();
 		listenerHelper.put(HelperType.VALIDATION_STATUS, validationStatus);

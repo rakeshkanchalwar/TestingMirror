@@ -59,7 +59,7 @@ public class ELTColumnWidget extends AbstractWidget{
 					setProperties(propertyName, new HashSet<String>());
 				}
 					filterWizardObj.setRuntimePropertySet((HashSet<String>) getProperties().get(propertyName));
-					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(shell));
+					setProperties(propertyName,filterWizardObj.launchRuntimeWindow(shell, propertyDialogButtonBar));
 			
 			}
 		});

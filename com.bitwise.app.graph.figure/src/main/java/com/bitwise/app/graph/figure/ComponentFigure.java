@@ -1,6 +1,8 @@
 package com.bitwise.app.graph.figure;
 
+import java.awt.Dimension;
 import java.awt.MouseInfo;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -235,6 +237,27 @@ public class ComponentFigure extends Figure implements Validator{
 				tooltipSize.x = 300;
 			}
 			componentToolTip.setSize(tooltipSize.x, tooltipSize.y);
+						
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			double width = screenSize.getWidth();
+			double height = screenSize.getHeight();
+			
+			int newX,newY;
+			int offset=10;
+			if((componentToolTip.getBounds().x + componentToolTip.getBounds().width) > width){
+				newX = componentToolTip.getBounds().x - (int) ((componentToolTip.getBounds().x + componentToolTip.getBounds().width) - width) - offset;
+			}else{
+				newX = componentToolTip.getBounds().x;
+			}
+			
+			if((componentToolTip.getBounds().y + componentToolTip.getBounds().height) > height){
+				newY = componentToolTip.getBounds().y - getBounds().height - componentToolTip.getBounds().height - offset;
+			}else{
+				newY= componentToolTip.getBounds().y;
+			}
+			org.eclipse.swt.graphics.Point newLocation = new org.eclipse.swt.graphics.Point(newX, newY);
+			componentToolTip.setLocation(newLocation);
+
 		}
 	}
 
@@ -299,6 +322,15 @@ public class ComponentFigure extends Figure implements Validator{
 		componentToolTip.setFocus();
 	}
 	
+	private org.eclipse.swt.graphics.Point getToolTipLocation(org.eclipse.swt.graphics.Point reletiveMouseLocation,org.eclipse.swt.graphics.Point mouseLocation, Rectangle rectangle) {
+		int subtractFromMouseX,addToMouseY;
+		
+		subtractFromMouseX = reletiveMouseLocation.x - rectangle.x;
+		addToMouseY = (rectangle.y + rectangle.height) - reletiveMouseLocation.y;
+		
+		return new org.eclipse.swt.graphics.Point((mouseLocation.x - subtractFromMouseX) ,( mouseLocation.y + addToMouseY));
+	}
+	
 	private void attachMouseListener() {
 		addMouseMotionListener(new MouseMotionListener() {
 			
@@ -310,6 +342,7 @@ public class ComponentFigure extends Figure implements Validator{
 			@Override
 			public void mouseHover(org.eclipse.draw2d.MouseEvent arg0) {
 				arg0.consume();
+				final org.eclipse.swt.graphics.Point location1 = new org.eclipse.swt.graphics.Point(arg0.x, arg0.y);
 				java.awt.Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 				final org.eclipse.swt.graphics.Point location = new org.eclipse.swt.graphics.Point(mouseLocation.x, mouseLocation.y);
 								
@@ -321,8 +354,13 @@ public class ComponentFigure extends Figure implements Validator{
 						java.awt.Point mouseLocation2 = MouseInfo.getPointerInfo().getLocation();
 						org.eclipse.swt.graphics.Point location2 = new org.eclipse.swt.graphics.Point(mouseLocation2.x, mouseLocation2.y);
 						
-						if(location2.equals(location))
-							showStatusToolTip(location);
+						org.eclipse.swt.graphics.Point perfectToolTipLocation = getToolTipLocation(location1,location2,getBounds());
+						
+						if(location2.equals(location)){
+							showStatusToolTip(perfectToolTipLocation);
+							//showStatusToolTip(location);
+						}
+							
 	                }
 				});
 			}

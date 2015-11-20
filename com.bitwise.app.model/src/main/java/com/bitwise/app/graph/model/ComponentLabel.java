@@ -4,18 +4,21 @@ import java.io.IOException;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.draw2d.geometry.Dimension;
 
-public class LogicLabel extends Model{
+/**
+ * The Class ComponentLabel.
+ * @author Bitwise
+ */
+
+public class ComponentLabel extends Model{
 
 	private static final int DEFAULT_WIDTH = 50;
 	static final long serialVersionUID = 1;
-	//private String text = "Label";
 	private String text;
 	private Dimension size = new Dimension(-1, 15);;
 
 	private static int count;
 
-	public LogicLabel(String compLabel) {
-		//super();
+	public ComponentLabel(String compLabel) {
 		this.size.width = DEFAULT_WIDTH;
 		this.text = compLabel;
 	}
