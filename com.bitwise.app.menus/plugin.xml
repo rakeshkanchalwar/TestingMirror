@@ -24,6 +24,14 @@
             id="com.bitwise.window.palette"
             name="Palette">
       </command>
+      <command
+            id="com.bitwise.window.portLabels.show"
+            name="enable">
+      </command>
+      <command
+            id="com.bitwise.window.portLabels.hide"
+            name="disable">
+      </command>
    </extension>
 	  <extension
          point="org.eclipse.ui.handlers">
@@ -186,6 +194,14 @@
                </count>
             </with>
          </enabledWhen>
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.ShowPortLabelsHandler"
+            commandId="com.bitwise.window.portLabels.show">
+      </handler>
+      <handler
+            class="com.bitwise.app.menus.handlers.HidePortLabelsHandler"
+            commandId="com.bitwise.window.portLabels.hide">
       </handler>
    </extension>
    		
@@ -373,6 +389,19 @@
                   style="push">
             </command>
             <menu
+                  label="Port labels">
+               <command
+                     commandId="com.bitwise.window.portLabels.show"
+                     label="Enable"
+                     style="push">
+               </command>
+               <command
+                     commandId="com.bitwise.window.portLabels.hide"
+                     label="Disable"
+                     style="push">
+               </command>
+            </menu>
+            <menu
                   label="Show View">
                <command
                      commandId="org.eclipse.ui.views.showView"
@@ -416,13 +445,25 @@
             commandId="com.bitwise.window.ETLNavigator"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+M3+E">
+            sequence="M1+M3+N">
       </key>
       <key
             commandId="com.bitwise.window.properties"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M3+T">
+      </key>
+      <key
+            commandId="com.bitwise.window.portLabels.hide"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+D">
+      </key>
+      <key
+            commandId="com.bitwise.window.portLabels.show"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+E">
       </key>
    </extension>
 

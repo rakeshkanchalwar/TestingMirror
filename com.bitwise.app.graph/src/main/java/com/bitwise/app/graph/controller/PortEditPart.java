@@ -94,5 +94,8 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		
 		getFigure().setLocation(newPortLoc);
 	}
+	public PortFigure getPortFigure() {
+		return (PortFigure) getFigure();
+	}
 
 }

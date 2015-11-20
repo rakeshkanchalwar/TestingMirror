@@ -26,7 +26,6 @@ public class PortFigure extends Figure {
 	private String labelOfPort;
 	private String portType;
 	public boolean value;
-	public static PortFigure object;
 	/**
 	 * Instantiates a new port figure.
 	 * 
@@ -38,7 +37,6 @@ public class PortFigure extends Figure {
 	 */
 	public PortFigure(Color portColor, String portType, int portSeq,
 			int totalPorts, String nameOfPort, String labelOfPort) {
-		object=this;
 		this.portColor = portColor;
 		this.terminal = portType + portSeq;
 		this.anchor = new FixedConnectionAnchor(this, portType, totalPorts,
@@ -49,7 +47,7 @@ public class PortFigure extends Figure {
 
 		tooltipFigure = new TooltipFigure();
 		setToolTip(tooltipFigure);
-		
+
 		Font font = new Font(Display.getDefault(),"Times New Roman",8,SWT.NORMAL);
 		setFont(font);
 		//NOTE : to Suppress the component tooltip when user hover the mouse on Port 
@@ -57,26 +55,26 @@ public class PortFigure extends Figure {
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
 			}
-			
+
 			@Override
 			public void mouseHover(MouseEvent arg0) {
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 			}
-			
+
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
 			}
 		});
-		
+
 	}
-@Override
+	@Override
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
 		Rectangle r = getBounds().getCopy();
@@ -84,15 +82,24 @@ public class PortFigure extends Figure {
 		{
 			graphics.fillRectangle(getBounds().getLocation().x-22, getBounds()
 					.getLocation().y, r.width, r.height-3);
-			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+6,getBounds()
-					.getLocation().y));
 		}
 		else
 		{
 			graphics.fillRectangle(getBounds().getLocation().x+23, getBounds()
 					.getLocation().y, r.width, r.height-3);
-			graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x,getBounds()
-					.getLocation().y));
+		}
+		if(value)
+		{
+			if(portType.equalsIgnoreCase("in"))
+			{
+				graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+6,getBounds()
+						.getLocation().y));
+			}
+			else
+			{
+				graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x,getBounds()
+						.getLocation().y));
+			}
 		}
 	}
 
@@ -103,7 +110,7 @@ public class PortFigure extends Figure {
 			if (pf.getParent() == this.getParent()
 					&& pf.getTerminal() == this.getTerminal()
 
-			)
+					)
 				return true;
 		}
 		return false;
@@ -167,6 +174,9 @@ public class PortFigure extends Figure {
 
 	public TooltipFigure getToolTipFigure() {
 		return tooltipFigure;
+	}
+	public void setValue(boolean b) {
+		value=b;
 	}
 
 
