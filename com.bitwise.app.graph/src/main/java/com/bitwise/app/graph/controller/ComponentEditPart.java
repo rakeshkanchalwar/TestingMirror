@@ -32,7 +32,7 @@ import com.bitwise.app.common.component.config.Property;
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
-import com.bitwise.app.graph.editor.ELTGraphicalEditor;
+import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.figure.ComponentBorder;
 import com.bitwise.app.graph.figure.ComponentFigure;
 import com.bitwise.app.graph.figure.ELTFigureConstants;
@@ -318,7 +318,7 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 			}
 			portEditPart.adjustPortFigure(getCastedModel().getLocation());
 
-			ELTGraphicalEditor eltGraphicalEditor=(ELTGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+			ETLGraphicalEditor eltGraphicalEditor=(ETLGraphicalEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			if(eltPropertyWindow.isPropertyChanged()){
 				eltGraphicalEditor.setDirty(true);
 				getCastedModel().updateTooltipInformation();

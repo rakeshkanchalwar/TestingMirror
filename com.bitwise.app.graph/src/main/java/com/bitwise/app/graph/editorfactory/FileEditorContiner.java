@@ -11,7 +11,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.graph.editor.ELTGraphicalEditor;
+import com.bitwise.app.graph.editor.ETLGraphicalEditor;
 import com.bitwise.app.graph.model.Container;
 
 // TODO: Auto-generated Javadoc
@@ -21,7 +21,7 @@ import com.bitwise.app.graph.model.Container;
 public class FileEditorContiner implements IGenrateContainerData {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(FileEditorContiner.class);
 	private final IFileEditorInput ifileEditorInput;
-	private final ELTGraphicalEditor eltGraphicalEditorInstance;
+	private final ETLGraphicalEditor eltGraphicalEditorInstance;
 	
 	/**
 	 * Instantiates a new file editor continer.
@@ -31,7 +31,7 @@ public class FileEditorContiner implements IGenrateContainerData {
 	 * @param eltGraphicalEditorInstance
 	 *            the elt graphical editor instance
 	 */
-	public FileEditorContiner(IEditorInput editorInput, ELTGraphicalEditor eltGraphicalEditorInstance) {
+	public FileEditorContiner(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		this.ifileEditorInput=(IFileEditorInput)editorInput;
 		this.eltGraphicalEditorInstance=eltGraphicalEditorInstance;
 	}

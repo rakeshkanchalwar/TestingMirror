@@ -57,11 +57,11 @@ public class CustomFigureCanvas extends FigureCanvas{
         } 
     }
 
-    public CustomFigureCanvas(Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ELTGraphicalEditor editor) {
+    public CustomFigureCanvas(Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ETLGraphicalEditor editor) {
         this(SWT.DOUBLE_BUFFERED, parent, lws, toolViewer, paletteRoot,editor);
     }
 
-    public CustomFigureCanvas(int style, Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ELTGraphicalEditor editor) {
+    public CustomFigureCanvas(int style, Composite parent, LightweightSystem lws, CustomPaletteViewer toolViewer, PaletteRoot paletteRoot,ETLGraphicalEditor editor) {
         super(style | APPLY_STYLES, parent, lws);
             containerForSearchTextBox = toolViewer.creatSearchTextBox(this, paletteRoot,editor);
         if (containerForSearchTextBox != null && toolViewer != null) {

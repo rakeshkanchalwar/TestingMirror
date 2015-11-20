@@ -8,7 +8,7 @@ import org.eclipse.ui.IPersistableElement;
 /**
  * The Class ETLGraphicalEditorInput.
  */
-public class ELTGraphicalEditorInput implements IEditorInput {
+public class ETLGraphicalEditorInput implements IEditorInput {
 
 	private String name = null;
 
@@ -18,7 +18,7 @@ public class ELTGraphicalEditorInput implements IEditorInput {
 	 * @param name
 	 *            the name
 	 */
-	public ELTGraphicalEditorInput(String name) {
+	public ETLGraphicalEditorInput(String name) {
 		this.name = name;
 	}
 
@@ -34,9 +34,9 @@ public class ELTGraphicalEditorInput implements IEditorInput {
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof ELTGraphicalEditorInput))
+		if (!(o instanceof ETLGraphicalEditorInput))
 			return false;
-		return ((ELTGraphicalEditorInput) o).getName().equals(getName());
+		return ((ETLGraphicalEditorInput) o).getName().equals(getName());
 	}
 
 	@Override

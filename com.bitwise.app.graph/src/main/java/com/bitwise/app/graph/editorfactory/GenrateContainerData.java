@@ -9,8 +9,8 @@ import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.graph.editor.ELTGraphicalEditor;
-import com.bitwise.app.graph.editor.ELTGraphicalEditorInput;
+import com.bitwise.app.graph.editor.ETLGraphicalEditor;
+import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
 import com.bitwise.app.graph.model.Container;
 
 // TODO: Auto-generated Javadoc
@@ -29,9 +29,9 @@ public class GenrateContainerData {
 	 * @param eltGraphicalEditorInstance
 	 *            the elt graphical editor instance
 	 */
-	public void setEditorInput(IEditorInput editorInput, ELTGraphicalEditor eltGraphicalEditorInstance) {
+	public void setEditorInput(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
 		logger.debug("setEditorInput - ");
-		if((ELTGraphicalEditorInput.class).isAssignableFrom(editorInput.getClass()))
+		if((ETLGraphicalEditorInput.class).isAssignableFrom(editorInput.getClass()))
 		{this.editorInput = new GraphicalEditorContiner(editorInput,eltGraphicalEditorInstance);}
 		else{
 			if((IFileEditorInput.class).isAssignableFrom(editorInput.getClass()))

@@ -190,11 +190,11 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="com.bitwise.app.graph.editor.ELTGraphicalEditor"
+            class="com.bitwise.app.graph.editor.ETLGraphicalEditor"
             default="false"
             extensions="job"
             id="com.bitwise.app.graph.etlgraphicaleditor"
-            name="ELT Graphical Editor">
+            name="My Graphical Editor">
       </editor>
    </extension>
    <extension
