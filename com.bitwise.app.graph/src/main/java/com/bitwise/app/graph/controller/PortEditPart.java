@@ -62,7 +62,7 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 			xLocation=0;
 		}
 		else if(type.equalsIgnoreCase("out")){
-			xLocation=width-27;
+			xLocation=width-28;
 		}
 		yLocation=portOffset*sequence - 4 + margin;
 		p=new Point(xLocation, yLocation);
@@ -91,10 +91,8 @@ public class PortEditPart extends AbstractGraphicalEditPart {
 		
 		Point newPortLoc = new Point(portPoint.x+componentLocation.x, portPoint.y+componentLocation.y);
 		componentFigure.translateToAbsolute(newPortLoc);
-		//componentFigure.translateToParent(portPoint);
-		//componentFigure.translateFromParent(portPoint);
+		
 		getFigure().setLocation(newPortLoc);
-		/*super.refreshVisuals();*/
 	}
 
 }

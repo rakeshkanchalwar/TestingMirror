@@ -60,7 +60,7 @@
 					<xs:element name="outSocket" type="cmn:type-straight-pull-out-socket"
 						minOccurs="1" maxOccurs="1" />
 					<xs:element name="runtime_properties" type="cmn:type-properties"
-						minOccurs="0" maxOccurs="unbounded" />		
+						minOccurs="0" maxOccurs="1" />		
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -75,7 +75,7 @@
 					<xs:element name="outSocket" type="clone:type-clone-out-socket"
 						minOccurs="2" maxOccurs="unbounded" />
 					<xs:element name="runtime_properties" type="cmn:type-properties"
-						minOccurs="0" maxOccurs="unbounded" />		
+						minOccurs="0" maxOccurs="1" />		
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
