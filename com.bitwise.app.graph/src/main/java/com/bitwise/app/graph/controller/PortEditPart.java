@@ -13,15 +13,12 @@ import com.bitwise.app.graph.figure.ELTColorConstants;
 import com.bitwise.app.graph.figure.ELTFigureConstants;
 import com.bitwise.app.graph.figure.PortFigure;
 import com.bitwise.app.graph.model.Port;
-
 /**
  * The Class PortEditPart.
  * 
  * @author Bitwise
  */
 public class PortEditPart extends AbstractGraphicalEditPart {
-
-
 	public Port getCastedModel() {
 		return (Port) getModel();
 	}
