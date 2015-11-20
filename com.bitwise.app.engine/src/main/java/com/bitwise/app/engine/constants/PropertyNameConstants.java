@@ -9,7 +9,7 @@ public enum PropertyNameConstants {
 		SCHEMA ("schema"),
 		DELIMITER("delimiter"),
 		RUNTIME_PROPERTIES("runtime_properties"),
-		HAS_HEADER("HAS_HEADER_WIDGET"),
+		HAS_HEADER("has_header"),
 		STRICT("strict"),
 		OPERATION_CLASS("OPERATION_CLASS"),
 		RETENTION_LOGIC_KEEP("retention_logic"),

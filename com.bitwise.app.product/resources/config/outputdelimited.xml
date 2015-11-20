@@ -32,7 +32,7 @@
 			value="|" renderer="DELIMETER_WIDGET" type="USER" showAsTooltip="TRUE" tooltipDataType="TEXT"
 			usage="REQUIRED"/>
 		
-		<tns:property dataType="boolean" group="GENERAL" subGroup="CONFIGURATION" name="HAS_HEADER_WIDGET"
+		<tns:property dataType="boolean" group="GENERAL" subGroup="CONFIGURATION" name="has_header"
 			renderer="HAS_HEADER_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"
 			usage="OPTIONAL"/>
 		
