@@ -80,25 +80,25 @@ public class PortFigure extends Figure {
 		Rectangle r = getBounds().getCopy();
 		if(portType.equalsIgnoreCase("in"))
 		{
-			graphics.fillRectangle(getBounds().getLocation().x-22, getBounds()
-					.getLocation().y, r.width, r.height-3);
+			graphics.fillRectangle(getBounds().getLocation().x-20, getBounds()
+					.getLocation().y, r.width, r.height-8);
 		}
 		else
 		{
-			graphics.fillRectangle(getBounds().getLocation().x+23, getBounds()
-					.getLocation().y, r.width, r.height-3);
+			graphics.fillRectangle(getBounds().getLocation().x+20, getBounds()
+					.getLocation().y, r.width, r.height-8);
 		}
 		if(value)
 		{
 			if(portType.equalsIgnoreCase("in"))
 			{
-				graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+6,getBounds()
-						.getLocation().y));
+				graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x+8,getBounds()
+						.getLocation().y-3));
 			}
 			else
 			{
 				graphics.drawText(labelOfPort,new Point(getBounds().getLocation().x,getBounds()
-						.getLocation().y));
+						.getLocation().y-3));
 			}
 		}
 	}
