@@ -3,6 +3,7 @@ package com.bitwise.app.graph.figure;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -44,8 +45,10 @@ public class ComponentLabelFigure extends Figure {
 
 		textFlow.setLayoutManager(new ParagraphTextLayout(textFlow,
 				ParagraphTextLayout.WORD_WRAP_SOFT));
+		
 
 		flowPage.add(textFlow);
+		flowPage.setHorizontalAligment(PositionConstants.CENTER);
 
 		setLayoutManager(new StackLayout());
 		add(flowPage);
