@@ -4,8 +4,8 @@ import org.eclipse.ui.IEditorInput;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.graph.editor.ETLGraphicalEditor;
-import com.bitwise.app.graph.editor.ETLGraphicalEditorInput;
+import com.bitwise.app.graph.editor.ELTGraphicalEditor;
+import com.bitwise.app.graph.editor.ELTGraphicalEditorInput;
 import com.bitwise.app.graph.model.Container;
 
 // TODO: Auto-generated Javadoc
@@ -14,8 +14,8 @@ import com.bitwise.app.graph.model.Container;
  */
 public class GraphicalEditorContiner implements IGenrateContainerData {
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(GraphicalEditorContiner.class);
-	private final ETLGraphicalEditorInput graphicaleditorInput;
-	private final ETLGraphicalEditor eltGraphicalEditorInstance;
+	private final ELTGraphicalEditorInput graphicaleditorInput;
+	private final ELTGraphicalEditor eltGraphicalEditorInstance;
 	
 	/**
 	 * Instantiates a new graphical editor continer.
@@ -25,8 +25,8 @@ public class GraphicalEditorContiner implements IGenrateContainerData {
 	 * @param eltGraphicalEditorInstance
 	 *            the elt graphical editor instance
 	 */
-	public GraphicalEditorContiner(IEditorInput editorInput, ETLGraphicalEditor eltGraphicalEditorInstance) {
-		this.graphicaleditorInput = (ETLGraphicalEditorInput) editorInput;
+	public GraphicalEditorContiner(IEditorInput editorInput, ELTGraphicalEditor eltGraphicalEditorInstance) {
+		this.graphicaleditorInput = (ELTGraphicalEditorInput) editorInput;
 		this.eltGraphicalEditorInstance=eltGraphicalEditorInstance;
 	}
 

@@ -93,7 +93,7 @@ public class ResourceChangeListener implements IResourceChangeListener,	IResourc
 				Display display = editorPart.getSite().getShell().getDisplay();
 				display.asyncExec(new Runnable() {
 					public void run() {
-						((ETLGraphicalEditor)editorPart).setInput(new FileEditorInput(newFile));
+						((ELTGraphicalEditor)editorPart).setInput(new FileEditorInput(newFile));
 					}
 				});
 			}
