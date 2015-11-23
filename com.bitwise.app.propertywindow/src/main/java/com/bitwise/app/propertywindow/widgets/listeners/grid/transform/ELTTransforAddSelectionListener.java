@@ -28,6 +28,7 @@ public class ELTTransforAddSelectionListener extends GridWidgetCommonBuilder {
 		operationField.setName("Test");
  		if(!grids.contains(operationField)){
 			grids.add(operationField);  
+			tableViewer.setInput(grids);
 			tableViewer.refresh();
 		}	 
 	} 
