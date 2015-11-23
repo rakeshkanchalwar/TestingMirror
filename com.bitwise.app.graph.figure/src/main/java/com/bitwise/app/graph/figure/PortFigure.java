@@ -25,7 +25,7 @@ public class PortFigure extends Figure {
 	private TooltipFigure tooltipFigure;
 	private String labelOfPort;
 	private String portType;
-	public boolean value;
+	public boolean toggleValue;
 	/**
 	 * Instantiates a new port figure.
 	 * 
@@ -43,6 +43,7 @@ public class PortFigure extends Figure {
 				portSeq);
 		this.labelOfPort=labelOfPort;
 		this.portType=portType;
+		toggleValue=false;
 		getBounds().setSize(new Dimension(27,16));
 
 		tooltipFigure = new TooltipFigure();
@@ -74,6 +75,25 @@ public class PortFigure extends Figure {
 		});
 
 	}
+	public Color getPortColor() {
+		return portColor;
+	}
+	public TooltipFigure getTooltipFigure() {
+		return tooltipFigure;
+	}
+	public String getLabelOfPort() {
+		return labelOfPort;
+	}
+	public String getPortType() {
+		return portType;
+	}
+	
+	public boolean getToggleValue() {
+		return toggleValue;
+	}
+	public void setToggleValue(boolean toggleValue) {
+		this.toggleValue = toggleValue;
+	}
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
@@ -88,7 +108,7 @@ public class PortFigure extends Figure {
 			graphics.fillRectangle(getBounds().getLocation().x+20, getBounds()
 					.getLocation().y, r.width, r.height-8);
 		}
-		if(value)
+		if(toggleValue)
 		{
 			if(portType.equalsIgnoreCase("in"))
 			{
@@ -175,9 +195,7 @@ public class PortFigure extends Figure {
 	public TooltipFigure getToolTipFigure() {
 		return tooltipFigure;
 	}
-	public void setValue(boolean b) {
-		value=b;
-	}
+	
 
 
 }
