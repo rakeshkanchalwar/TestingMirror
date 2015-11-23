@@ -4,21 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -36,7 +31,6 @@ import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTDefaultLable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTTable;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.basic.ELTTableViewer;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.AbstractELTContainerWidget;
-import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTDefaultSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTSchemaSubgroupComposite;
 import com.bitwise.app.propertywindow.widgets.gridwidgets.container.ELTSchemaTableComposite;
 import com.bitwise.app.propertywindow.widgets.listeners.ListenerHelper;
@@ -234,19 +228,11 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 					
 					if(index > 0){
 						index2 = index-1;
-						String text = tableViewer.getTable().getItem(index).getText(0);
-						String value = tableViewer.getTable().getItem(index2).getText(0);
-						SchemaGrid grid=new SchemaGrid();
-						grid.setFieldName(text);
-									
-						SchemaGrid grid1=new SchemaGrid();
-						grid1.setFieldName(value);
-						int temp1=schemaGridRowList.indexOf(grid);
-						int temp2=schemaGridRowList.indexOf(grid1);  
-						grid1=(SchemaGrid) schemaGridRowList.get(temp1);
-						grid=(SchemaGrid) schemaGridRowList.get(temp2);
-						schemaGridRowList.set(index2,grid1);
-						schemaGridRowList.set(index, grid);  
+						String text1 = tableViewer.getTable().getItem(index).getText(0);
+						String text2 = tableViewer.getTable().getItem(index2).getText(0);
+						
+						swap(index, index2, text1, text2);
+						 
 						tableViewer.refresh(); 
 						table.setSelection(index-1);
 					}
@@ -265,20 +251,11 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 					
 					
 					if(index < schemaGridRowList.size()-1){
-						String text = tableViewer.getTable().getItem(index).getText(0);
+						String text1 = tableViewer.getTable().getItem(index).getText(0);
 						index2 = index+1;
-						String value = tableViewer.getTable().getItem(index2).getText(0);
-						SchemaGrid grid=new SchemaGrid();
-						grid.setFieldName(text);
-									
-						SchemaGrid grid1=new SchemaGrid();
-						grid1.setFieldName(value);
-						int temp1=schemaGridRowList.indexOf(grid);
-						int temp2=schemaGridRowList.indexOf(grid1);  
-						grid1=(SchemaGrid) schemaGridRowList.get(temp1);
-						grid=(SchemaGrid) schemaGridRowList.get(temp2);
-						schemaGridRowList.set(index2,grid1 );
-						schemaGridRowList.set(index, grid);  
+						String text2 = tableViewer.getTable().getItem(index2).getText(0);
+						
+						swap(index, index2, text1, text2);
 						tableViewer.refresh(); 
 						table.setSelection(index+1);
 					}
@@ -293,6 +270,23 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		}
 
 
+	}
+	
+	private void swap(int index1, int index2, String text1, String text2){
+		GridRow swap1 = null;
+		GridRow swap2 = null;
+		for(int i=0; i< schemaGridRowList.size() ; i++){
+			GridRow grid=(GridRow) schemaGridRowList.get(i);
+			if(grid.getFieldName().equalsIgnoreCase(text1)){
+				swap1 = grid;
+			}
+			if(grid.getFieldName().equalsIgnoreCase(text2)){
+				swap2 = grid;
+			}
+		}
+		
+		schemaGridRowList.set(index2,swap1);
+		schemaGridRowList.set(index1, swap2); 
 	}
 	
 	private void gridListener(CellEditor[] cellEditors){
