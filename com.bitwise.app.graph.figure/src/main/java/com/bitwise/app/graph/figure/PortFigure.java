@@ -49,7 +49,7 @@ public class PortFigure extends Figure {
 		tooltipFigure = new TooltipFigure();
 		setToolTip(tooltipFigure);
 
-		Font font = new Font(Display.getDefault(),"Times New Roman",8,SWT.NORMAL);
+		Font font = new Font(Display.getDefault(),ELTFigureConstants.labelFont, 8, SWT.NORMAL);
 		setFont(font);
 		//NOTE : to Suppress the component tooltip when user hover the mouse on Port 
 		addMouseMotionListener(new MouseMotionListener() {

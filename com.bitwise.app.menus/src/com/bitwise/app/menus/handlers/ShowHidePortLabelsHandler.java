@@ -30,22 +30,34 @@ public class ShowHidePortLabelsHandler extends AbstractHandler implements IHandl
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IEditorPart editor = HandlerUtil.getActiveEditor(event);
+		GraphicalViewer graphicalViewer =(GraphicalViewer) ((GraphicalEditor)editor).getAdapter(GraphicalViewer.class);
+		boolean toggleValue = false;
+		for (Iterator<EditPart> ite = graphicalViewer.getEditPartRegistry().values().iterator(); 
+				ite.hasNext();)
+		{
+			EditPart editPart = (EditPart) ite.next();
+			if(editPart instanceof PortEditPart) 
+			{
+				PortFigure portFigure=((PortEditPart)editPart).getPortFigure();
+				toggleValue=portFigure.getToggleValue();
+				break;
+			}
+		}
 		if(editor instanceof ELTGraphicalEditor)
 		{
-			GraphicalViewer graphicalViewer =(GraphicalViewer) ((GraphicalEditor)editor).getAdapter(GraphicalViewer.class);
-			for (Iterator<PortEditPart> ite = graphicalViewer.getEditPartRegistry().values().iterator(); 
+			graphicalViewer =(GraphicalViewer) ((GraphicalEditor)editor).getAdapter(GraphicalViewer.class);
+			for (Iterator<EditPart> ite = graphicalViewer.getEditPartRegistry().values().iterator(); 
 					ite.hasNext();)
 			{
 				EditPart editPart = (EditPart) ite.next();
 				if(editPart instanceof PortEditPart) 
 				{
 					PortFigure portFigure=((PortEditPart)editPart).getPortFigure();
-					portFigure.setToggleValue(!portFigure.getToggleValue());
+					portFigure.setToggleValue(!toggleValue);
 					portFigure.repaint();
 				}
 			}
 		}
-
 		return null;
 	}
 

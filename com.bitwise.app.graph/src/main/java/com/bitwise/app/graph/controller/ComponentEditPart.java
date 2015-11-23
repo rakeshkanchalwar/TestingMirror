@@ -327,23 +327,23 @@ public class ComponentEditPart extends AbstractGraphicalEditPart implements
 		Dimension d = null;
 		String label = (String) component.getPropertyValue(Component.Props.NAME_PROP.getValue());
 		ComponentLabel componentLabel = component.getComponentLabel();
-		Font font = new Font( Display.getDefault(), "Times New Roman", 10,
+		Font font = new Font( Display.getDefault(), ELTFigureConstants.labelFont, 10,
 				SWT.NORMAL );
 		int labelLength = TextUtilities.INSTANCE.getStringExtents(label, font).width;
 		component.setComponentLabel(label);
-		if(labelLength >= 98 && !componentFigure.isIncrementedHeight()){
+		if(labelLength >= ELTFigureConstants.compLabelOneLineLengthLimit && !componentFigure.isIncrementedHeight()){
 			component.setSize(new Dimension(component.getSize().width, component.getSize().height +15));
 			componentLabel.setSize(new Dimension(componentLabel.getSize().width, componentLabel.getSize().height +15));
 			componentFigure.setIncrementedHeight(true);
 			component.setComponentLabelMargin(ELTFigureConstants.componentTwoLineLabelMargin);
 			componentFigure.setComponentLabelMargin(ELTFigureConstants.componentTwoLineLabelMargin);
-		}else if(labelLength < 98 && componentFigure.isIncrementedHeight()){
+		}else if(labelLength < ELTFigureConstants.compLabelOneLineLengthLimit && componentFigure.isIncrementedHeight()){
 			component.setSize(new Dimension(component.getSize().width, component.getSize().height-15));
 			componentLabel.setSize(new Dimension(componentLabel.getSize().width, componentLabel.getSize().height -15));
 			componentFigure.setIncrementedHeight(false);
 			component.setComponentLabelMargin(ELTFigureConstants.componentOneLineLabelMargin);
 			componentFigure.setComponentLabelMargin(ELTFigureConstants.componentOneLineLabelMargin);
-		}else if(labelLength < 98 ){
+		}else if(labelLength < ELTFigureConstants.compLabelOneLineLengthLimit ){
 			component.setSize(new Dimension(component.getSize().width, component.getSize().height));
 		}
 		componentFigure.repaint();

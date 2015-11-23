@@ -92,15 +92,15 @@ public class ComponentFigure extends Figure implements Validator{
 		layout = new XYLayout();
 		setLayoutManager(layout);
 		
-		Font font = new Font( Display.getDefault(), "Times New Roman", 10,
+		Font font = new Font( Display.getDefault(), ELTFigureConstants.labelFont, 9,
 				SWT.NORMAL );
 		int labelLength = TextUtilities.INSTANCE.getStringExtents(label, font).width;
 
-		if(labelLength >= 98 ){
-			this.componentLabelMargin = 30;
+		if(labelLength >= ELTFigureConstants.compLabelOneLineLengthLimit ){
+			this.componentLabelMargin = ELTFigureConstants.componentTwoLineLabelMargin;
 			this.incrementedHeight = true;
-		}else if(labelLength < 98 ){
-			this.componentLabelMargin = 15;
+		}else if(labelLength < ELTFigureConstants.compLabelOneLineLengthLimit ){
+			this.componentLabelMargin = ELTFigureConstants.componentOneLineLabelMargin;
 			this.incrementedHeight = false;
 		}
 
