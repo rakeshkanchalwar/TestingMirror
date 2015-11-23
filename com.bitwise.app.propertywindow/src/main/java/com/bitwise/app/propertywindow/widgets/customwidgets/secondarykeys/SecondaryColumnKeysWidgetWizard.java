@@ -142,7 +142,7 @@ public class SecondaryColumnKeysWidgetWizard {
 	// Method for creating Table
 	private void createTable() {
 
-		tableViewer = new TableViewer(shell, SWT.BORDER | SWT.MULTI);
+		tableViewer = new TableViewer(shell, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
 		table = tableViewer.getTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
