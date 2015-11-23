@@ -1,6 +1,12 @@
 package com.bitwise.app.parametergrid.dialog;
 
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -181,6 +187,7 @@ public class ParameterGridDialog extends Dialog {
 		
 		if(parameterFile != null){
 			if(parameterFile.contains(":"))
+				if(parameterFile.startsWith("/"))
 				paramterFileTextBox.setText(parameterFile.replaceFirst("/", ""));
 			else
 				paramterFileTextBox.setText(parameterFile);
@@ -232,9 +239,65 @@ public class ParameterGridDialog extends Dialog {
 			return;
 		}
 		textGrid.clear();
+		
+		//isValidParameterFile();
+		
 		loadGridData();
 	}
 	
+	private List<String> getAllLines(String newParameterFile) throws Exception{
+		Path filePath = Paths.get(newParameterFile, "");
+
+		List<String> lines=null;
+		Charset charset = Charset.forName(StandardCharsets.US_ASCII.name());
+
+		lines = Files.readAllLines(filePath, charset);
+		return lines;
+	}
+	private boolean isValidParameterFile(String newParameterFile) {
+		boolean isValidParameterFile = true;
+		try{
+			//System.out.println(getAllLines().toString());
+			List<String> fileContents = getAllLines(newParameterFile);
+			for(String line: fileContents){
+				if(!line.startsWith("#") && !line.isEmpty()){
+					String[] keyvalue=line.split("=");
+					if(keyvalue.length != 2){
+						isValidParameterFile = false;
+						MessageBox messageBox = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK );
+				        
+				        messageBox.setText("Error");
+				        messageBox.setMessage("Unable to load parameter file.\nPlease Check file contents.\nContent should be in key=value format" +
+				        		"\nEach line should have single key=value pair");
+				        messageBox.open();
+					}else{
+						if(keyvalue[0].trim().contains(" ")){
+							isValidParameterFile = false;
+							MessageBox messageBox = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK );
+					        
+					        messageBox.setText("Error");
+					        messageBox.setMessage("Unable to load parameter file.\nPlease Check file contents.\nContent should be in key=value format" +
+					        		"\nEach line should have single key=value pair" +
+					        		"\nParameter key should not contain spaces");
+					        messageBox.open();
+						}
+					}
+				}
+			}
+			
+		}catch(Exception e){
+			isValidParameterFile=false;
+			MessageBox messageBox = new MessageBox(new Shell(), SWT.ICON_ERROR | SWT.OK );
+	        
+	        messageBox.setText("Error");
+	        messageBox.setMessage("Unable to load parameter file.\nPlease Check file format.\nExpected file format - US-ASCII");
+	        messageBox.open();
+		}
+		
+		
+		return isValidParameterFile;
+	}
+
 	private void addFileParameterFileBrowser(Composite container){
 		Composite composite = new Composite(container, SWT.NONE);
 		composite.setLayout(new GridLayout(3, false));
@@ -263,11 +326,15 @@ public class ParameterGridDialog extends Dialog {
 		        String selected = fd.open();
 		        
 		        if(selected!=null){
-		        	paramterFileTextBox.setText(selected);
+		        	if(isValidParameterFile(selected)){
+		        		paramterFileTextBox.setText(selected);
+		        	}
 		        }
-		        parameterFile=paramterFileTextBox.getText();
-		        getComponentCanvas().setCurrentParameterFilePath(parameterFile);
-		        loadParameterFile();
+		        if(!parameterFile.equals(paramterFileTextBox.getText())){
+		        	parameterFile=paramterFileTextBox.getText();
+			        getComponentCanvas().setCurrentParameterFilePath(parameterFile);
+			        loadParameterFile();	
+		        }
 			}
 		});
 		btnNewButton.setText("...");
