@@ -34,5 +34,5 @@ public class Constants {
 	
 	
 	public static final String PROPERTY_COLUMN_NAME = "column_name";
-	public static final String PROPERTY_SECONDARY_KEYS = "secondary_keys";
+	public static final String PROPERTY_SECONDARY_COLUMN_KEYS = "secondary_column_keys";
 }

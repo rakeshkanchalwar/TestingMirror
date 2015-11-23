@@ -43,6 +43,10 @@
 		<tns:property dataType="string" name="charset" value="UTF-8" renderer="CHARACTER_SET_WIDGET"
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
 			usage="REQUIRED"/>
+			
+		<tns:property dataType="string" group="GENERAL" subGroup="CONFIGURATION" name="strict"
+		renderer="STRICT_CLASS_WIDGET" type="USER" showAsTooltip="FALSE" tooltipDataType="NONE"
+		usage="OPTIONAL"/>
 		
 		<tns:property dataType="string" name="runtime_properties" renderer="RUNTIME_PROPERTIES_WIDGET"
 			type="USER" group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="FALSE" tooltipDataType="NONE"
@@ -51,5 +55,6 @@
 		<tns:property dataType="string" name="phase" value="0" renderer="PHASE_WIDGET" type="USER"
 			group="GENERAL" subGroup="CONFIGURATION" showAsTooltip="TRUE" tooltipDataType="TEXT"
 			usage="REQUIRED"/>
+			
 	</tns:component>
 </tns:Config>

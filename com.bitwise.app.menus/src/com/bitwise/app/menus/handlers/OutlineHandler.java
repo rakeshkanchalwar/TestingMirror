@@ -10,10 +10,18 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 
-
+/**
+ *Creates Outline Handler 
+ * @author Bitwise
+ *
+ */
 public class OutlineHandler extends AbstractHandler implements IHandler {
 	private Logger logger=LogFactory.INSTANCE.getLogger(ConsoleHandler.class);
-
+	/**
+	 * open Outline view
+	 * @param event
+	 * @return Object
+	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
 		try {

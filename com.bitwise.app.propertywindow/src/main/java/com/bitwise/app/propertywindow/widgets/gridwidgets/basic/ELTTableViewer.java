@@ -35,7 +35,7 @@ public class ELTTableViewer extends AbstractELTWidget{
 
 	@Override
 	public void attachWidget(Composite container) {
-		TableViewer tableViewer = new TableViewer(container, SWT.BORDER|SWT.CENTER | SWT.MULTI);
+		TableViewer tableViewer = new TableViewer(container, SWT.BORDER|SWT.CENTER | SWT.MULTI | SWT.FULL_SELECTION);
 		tableViewer.setContentProvider(iStructuredContentProvider);
 		tableViewer.setLabelProvider(iTableLabelProvider);
 		jfaceWidgets = tableViewer;

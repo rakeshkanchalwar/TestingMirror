@@ -37,6 +37,7 @@ public class ELTNormalFocusOutListener implements IELTListener {
 		final Widget[] widgetList = widgets;
 		if (helper != null) {
 			txtDecorator = (ControlDecoration) helper.get(HelperType.CONTROL_DECORATION);
+			txtDecorator.hide();
 		}
 
 		Listener listener = new Listener() {

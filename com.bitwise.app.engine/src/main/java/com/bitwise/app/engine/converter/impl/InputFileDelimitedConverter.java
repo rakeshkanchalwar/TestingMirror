@@ -47,6 +47,7 @@ public class InputFileDelimitedConverter extends InputConverter {
 		fileDelimited.setPath(path);
 		fileDelimited.setDelimiter(delimiter);
 		fileDelimited.setHasHeader(getBoolean(PropertyNameConstants.HAS_HEADER.value()));
+		fileDelimited.setStrict(getBoolean(PropertyNameConstants.STRICT.value()));
 		fileDelimited.setSafe(getBoolean(PropertyNameConstants.IS_SAFE.value()));
 		fileDelimited.setCharset(charset);
 		fileDelimited.setRuntimeProperties(getRuntimeProperties());

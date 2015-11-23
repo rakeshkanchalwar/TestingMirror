@@ -31,27 +31,27 @@ import com.bitwiseglobal.graph.commontypes.TypeProperties.Property;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 import com.bitwiseglobal.graph.operationstypes.Transform;
 
-public class TrasformComponentConverter extends TransformConverter {
-	Logger logger = LogFactory.INSTANCE.getLogger(TrasformComponentConverter.class);
+public class TransformComponentConverter extends TransformConverter {
+	Logger logger = LogFactory.INSTANCE.getLogger(TransformComponentConverter.class);
 	TransformPropertyGrid transformPropertyGrid;
 	
-	public TrasformComponentConverter(Component component){
+	public TransformComponentConverter(Component component){
 		super();	
 		this.baseComponent = new Transform();
 		this.component = component;
 		this.properties = component.getProperties();
-		transformPropertyGrid = (TransformPropertyGrid) properties.get("") ;
+		transformPropertyGrid = (TransformPropertyGrid) properties.get("operation") ;
 	}
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("Genrating XML for :{}", properties.get(NAME));
+		logger.debug("Generating XML for :{}", properties.get(NAME));
 		super.prepareForXML();
 	}
 	
 	@Override
 	protected List<TypeTransformOperation> getOperations() {
-		logger.debug("Genrating TypeTransformOperation data :{}", properties.get(NAME));
+		logger.debug("Generating TypeTransformOperation data :{}", properties.get(NAME));
 		if(transformPropertyGrid != null){
 			List<TransformOperation> transformOperations = transformPropertyGrid.getOperation();
 			List<TypeTransformOperation> operationList = new ArrayList<>();
@@ -110,6 +110,12 @@ public class TrasformComponentConverter extends TransformConverter {
 			for (OperationField operationField : operationFields) {
 				 TypeBaseField typeBaseField = new TypeBaseField();
 				 typeBaseField.setName(operationField.getName());
+				 typeBaseField.setDescription(null);
+				 typeBaseField.setFormat(null);
+				 typeBaseField.setPrecision(null);
+				 typeBaseField.setScale(null);
+				 typeBaseField.setScaleType(null);
+				 typeBaseField.setType(null);
 				 outputFields.getField().add(typeBaseField);
 			}
 		}
@@ -120,7 +126,7 @@ public class TrasformComponentConverter extends TransformConverter {
 	
 	@Override
 	protected List<TypeOperationsOutSocket> getOutSocket() {
-		logger.debug("Genrating TypeOperationsOutSocket data for : {}", properties.get(NAME));
+		logger.debug("Generating TypeOperationsOutSocket data for : {}", properties.get(NAME));
 		List<TypeOperationsOutSocket> outSocketList = new ArrayList<TypeOperationsOutSocket>();
 
 		for (Link link : component.getSourceConnections()) {
@@ -219,7 +225,7 @@ public class TrasformComponentConverter extends TransformConverter {
 	
 	@Override
 	public List<TypeBaseInSocket> getInSocket() {
-		logger.debug("Genrating TypeBaseInSocket data for :{}", component.getProperties().get(NAME));
+		logger.debug("Generating TypeBaseInSocket data for :{}", component.getProperties().get(NAME));
 		List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();

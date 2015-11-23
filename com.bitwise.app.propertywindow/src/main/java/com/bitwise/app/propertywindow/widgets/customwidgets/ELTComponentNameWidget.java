@@ -33,7 +33,7 @@ import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
  */
 public class ELTComponentNameWidget extends AbstractWidget {
 	private static final String COMPONENT_NAMES = "componentNames";
-
+	private static final String COMPONENT_NAME = "Component Name";
 	private static final String NAME = "Name";
 
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ELTComponentNameWidget.class);
@@ -83,24 +83,25 @@ public class ELTComponentNameWidget extends AbstractWidget {
 		text.setFocus();
 		text.setTextLimit(30);
 		firstTextWidget = text;
-		txtDecorator = WidgetUtility.addDecorator(text, Messages.CHARACTERSET);
+		txtDecorator = WidgetUtility.addDecorator(text, Messages.FIELD_LABEL_ERROR);
 		ListenerHelper listenerHelper = new ListenerHelper();
 		listenerHelper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		listenerHelper.put(HelperType.CONTROL_DECORATION, txtDecorator);
+		
 		
 		try {
 			listener = (ELTVerifyComponentNameListener)ListenerFactory.Listners.VERIFY_COMPONENT_NAME.getListener();
 			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES));
 			eltDefaultTextBox.attachListener(listener,
 					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
-			txtListener=(ELTVerifyTextListener)ListenerFactory.Listners.VERIFY_TEXT.getListener();
-			eltDefaultTextBox.attachListener(txtListener,
-					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
-			focusOutListener=(ELTNormalFocusOutListener)ListenerFactory.Listners.NORMAL_FOCUS_OUT.getListener();
+			
+			focusOutListener = (ELTNormalFocusOutListener)ListenerFactory.Listners.NORMAL_FOCUS_OUT.getListener();
+			listener.setNames((ArrayList<String>) super.componentMiscellaneousProperties.getComponentMiscellaneousProperty(COMPONENT_NAMES));
 			eltDefaultTextBox.attachListener(focusOutListener,
 					propertyDialogButtonBar,  listenerHelper,eltDefaultTextBox.getSWTWidgetControl());
-		/*	eltDefaultTextBox.attachListener(listenerFactory.getListener("MyCustomWidgetTextChange"),
-					propertyDialogButtonBar,  null,eltDefaultTextBox.getSWTWidgetControl());*/
+			
+			
+
 		} catch (Exception exception) {
 			logger.error("Exception occured", exception);
 		}

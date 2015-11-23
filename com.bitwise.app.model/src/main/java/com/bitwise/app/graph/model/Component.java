@@ -89,8 +89,8 @@ public abstract class Component extends Model {
 	private String componentName;
 	List<PortSpecification> portSpecification;
 	
-	//private ComponentLabel componentLabel;
-	private ComponentLabel logicLabel;
+	private ComponentLabel componentLabel;
+	private int componentLabelMargin;
 	
 	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
@@ -116,8 +116,7 @@ public abstract class Component extends Model {
 		componentName = DynamicClassProcessor.INSTANCE
 				.getClazzName(this.getClass());
 		
-		//componentLabel = new ComponentLabel(componentName);
-		logicLabel = new ComponentLabel(componentName);
+		componentLabel = new ComponentLabel(componentName);
 		
 		prefix = XMLConfigUtil.INSTANCE.getComponent(componentName).getDefaultNamePrefix();
 		initPortSettings();
@@ -164,8 +163,7 @@ public abstract class Component extends Model {
 	public List<Model> getChildren() {	
 		
 		List<Model> children = new ArrayList<Model>(ports.values());
-		//children.add(componentLabel);
-		children.add(logicLabel);
+		children.add(componentLabel);
 		
 		return children;
 		
@@ -324,12 +322,16 @@ public abstract class Component extends Model {
 	}
 
 	public ComponentLabel getLogicLabel() {
-		return logicLabel;
+		return componentLabel;
 	}
 
-//	public ComponentLabel getComponentLabel() {
-//		return componentLabel;
-//	}
+	public ComponentLabel getComponentLabel() {
+		return componentLabel;
+	}
+
+	public void setComponentLabel(ComponentLabel componentLabel) {
+		this.componentLabel = componentLabel;
+	}
 
 	/**
 	 * Set the Location of this shape.
@@ -390,6 +392,15 @@ public abstract class Component extends Model {
 		return size.getCopy();
 	}
 
+	public int getComponentLabelMargin() {
+		return componentLabelMargin;
+	}
+
+	public void setComponentLabelMargin(int componentLabelMargin) {
+		this.componentLabelMargin = componentLabelMargin;
+		firePropertyChange("componentLabelMargin", null, componentLabelMargin);
+	}
+	
 	public Container getParent() {
 		return parent;
 	}
@@ -491,7 +502,6 @@ public abstract class Component extends Model {
 	
 	public void setComponentLabel(String label) {
 		setPropertyValue(Component.Props.NAME_PROP.getValue(), label);
-		//componentLabel.setComponentLabelContents(label);
-		logicLabel.setLabelContents(label);
+		componentLabel.setLabelContents(label);
 	}
 }
