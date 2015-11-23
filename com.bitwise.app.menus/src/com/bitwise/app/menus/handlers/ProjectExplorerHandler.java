@@ -10,16 +10,26 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 
+/**
+ *Creates Project Explorer Handler 
+ * @author Bitwise
+ *
+ */
+
 public class ProjectExplorerHandler extends AbstractHandler implements IHandler {
 	private Logger logger=LogFactory.INSTANCE.getLogger(ConsoleHandler.class);
+	/**
+	 * open Project Explorer view
+	 * @param event
+	 * @return Object
+	 */
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		// TODO Auto-generated method stub
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 			.showView("com.bitwise.app.project.structure.navigator");
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return null;
 	}

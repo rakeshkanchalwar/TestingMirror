@@ -2,6 +2,7 @@ package com.bitwise.app.graph.figure;
 
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
@@ -52,10 +53,9 @@ public class ComponentLabelFigure extends Figure {
 
 		setLayoutManager(new StackLayout());
 		add(flowPage);
-		Font font = new Font( Display.getDefault(), "Times New Roman", 9,
+		Font font = new Font( Display.getDefault(), "Arial", 9,
 				SWT.NORMAL );
 		setFont(font);
-		getBounds().setSize(98, ELTFigureConstants.componentOneLineLabelMargin);
 		
 	}
 
@@ -77,12 +77,13 @@ public class ComponentLabelFigure extends Figure {
 	public void setText(String newText) {
 		textFlow.setText(newText);
 		Dimension lineDimensions = TextUtilities.INSTANCE.getStringExtents(textFlow.getText(), getFont());
-		if(lineDimensions.width >= 98)
+		if(lineDimensions.width >= ELTFigureConstants.compLabelOneLineLengthLimit)
 		{
-			getBounds().setSize(98, ELTFigureConstants.componentTwoLineLabelMargin);
-		}else if(lineDimensions.width < 98){
-			getBounds().setSize(98, ELTFigureConstants.componentOneLineLabelMargin);
+			getBounds().setSize(ELTFigureConstants.compLabelOneLineLengthLimit, ELTFigureConstants.componentTwoLineLabelMargin);
+		}else if(lineDimensions.width < ELTFigureConstants.compLabelOneLineLengthLimit){
+			getBounds().setSize(ELTFigureConstants.compLabelOneLineLengthLimit, ELTFigureConstants.componentOneLineLabelMargin);
 		}
 	}
-
+	
+	
 }

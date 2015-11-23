@@ -10,9 +10,18 @@ import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
-
+/**
+ *Creates Properties Handler 
+ * @author Bitwise
+ *
+ */
 public class PropertiesHandler extends AbstractHandler implements IHandler {
 	private Logger logger=LogFactory.INSTANCE.getLogger(ConsoleHandler.class);
+	/**
+	 * open Properties view
+	 * @param event
+	 * @return Object
+	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		

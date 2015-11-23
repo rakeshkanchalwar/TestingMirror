@@ -11,7 +11,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 public class ComponentLabel extends Model{
 
-	private static final int DEFAULT_WIDTH = 50;
 	static final long serialVersionUID = 1;
 	private String text;
 	private Dimension size = new Dimension(-1, 15);;
@@ -19,7 +18,6 @@ public class ComponentLabel extends Model{
 	private static int count;
 
 	public ComponentLabel(String compLabel) {
-		this.size.width = DEFAULT_WIDTH;
 		this.text = compLabel;
 	}
 
@@ -44,7 +42,7 @@ public class ComponentLabel extends Model{
 		if (size.equals(d))
 			return;
 		size = d;
-		firePropertyChange("size", null, size);
+		firePropertyChange("compLabelSize", null, size);
 	}
 
 	public void setLabelContents(String s) {

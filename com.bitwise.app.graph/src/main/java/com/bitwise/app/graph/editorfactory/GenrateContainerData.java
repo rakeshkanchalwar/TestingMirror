@@ -58,7 +58,6 @@ public class GenrateContainerData {
 	 */
 	public void storeContainerData() throws IOException, CoreException
 	{
-
 		editorInput.storeEditorInput();
 		
 	}

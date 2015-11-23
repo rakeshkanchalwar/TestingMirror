@@ -16,16 +16,20 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.slf4j.Logger;
@@ -81,16 +85,25 @@ public class ComponentFigure extends Figure implements Validator{
 	 * @param cIconPath
 	 *            the canvas icon path
 	 */
-	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath) {
-		
+	public ComponentFigure(List<PortSpecification> portSpecification, String cIconPath, String label) {
 		this.portspecification = portSpecification;
 		this.canvasIconPath = XMLConfigUtil.CONFIG_FILES_PATH + cIconPath;
 		
-		incrementedHeight = false;
 		layout = new XYLayout();
 		setLayoutManager(layout);
-		this.componentLabelMargin = 15;
 		
+		Font font = new Font( Display.getDefault(), ELTFigureConstants.labelFont, 9,
+				SWT.NORMAL );
+		int labelLength = TextUtilities.INSTANCE.getStringExtents(label, font).width;
+
+		if(labelLength >= ELTFigureConstants.compLabelOneLineLengthLimit ){
+			this.componentLabelMargin = ELTFigureConstants.componentTwoLineLabelMargin;
+			this.incrementedHeight = true;
+		}else if(labelLength < ELTFigureConstants.compLabelOneLineLengthLimit ){
+			this.componentLabelMargin = ELTFigureConstants.componentOneLineLabelMargin;
+			this.incrementedHeight = false;
+		}
+
 		canvasIcon = new Image(null, canvasIconPath);
 		
 		connectionAnchors = new HashMap<String, FixedConnectionAnchor>();
@@ -424,13 +437,13 @@ public class ComponentFigure extends Figure implements Validator{
 		
 	@Override
 	protected void paintFigure(Graphics graphics) {
+		
 		Rectangle r = getBounds().getCopy();
 		graphics.translate(r.getLocation());
-		//Rectangle q = new Rectangle(4, 4+ELTFigureConstants.componentLabelMargin, r.width-8, r.height-8-ELTFigureConstants.componentLabelMargin);
+		
 		Rectangle q = new Rectangle(4, 4+componentLabelMargin, r.width-8, r.height-8-componentLabelMargin);
 		graphics.fillRoundRectangle(q, 5, 5);
 		
-		//graphics.drawImage(canvasIcon, new Point(r.width/2-16, r.height/2 - 20));
 		graphics.drawImage(canvasIcon, new Point(q.width/2-16, q.height/2+componentLabelMargin-15));
 		drawStatus(graphics);
 	}

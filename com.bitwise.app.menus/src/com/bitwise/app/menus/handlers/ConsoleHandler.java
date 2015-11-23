@@ -11,10 +11,19 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 import com.bitwise.app.common.util.XMLConfigUtil;
-
+/**
+ *Creates Console Handler 
+ * @author Bitwise
+ *
+ */
 public class ConsoleHandler extends AbstractHandler implements IHandler {
 	private Logger logger=LogFactory.INSTANCE.getLogger(ConsoleHandler.class);
-
+	/**
+	 * open console view
+	 * @param event
+	 * @return Object
+	 */
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 	
 		try {

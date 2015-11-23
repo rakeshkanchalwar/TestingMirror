@@ -11,8 +11,19 @@ import org.slf4j.Logger;
 
 import com.bitwise.app.common.util.LogFactory;
 
+/**
+ *Creates Palette Handler 
+ * @author Bitwise
+ *
+ */
+
 public class PaletteHandler extends AbstractHandler implements IHandler {
 	private Logger logger=LogFactory.INSTANCE.getLogger(ConsoleHandler.class);
+	/**
+	 * open Palette view
+	 * @param event
+	 * @return Object
+	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
