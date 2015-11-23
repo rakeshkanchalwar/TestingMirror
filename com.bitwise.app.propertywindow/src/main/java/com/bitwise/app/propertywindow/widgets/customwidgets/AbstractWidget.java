@@ -25,7 +25,7 @@ public abstract class AbstractWidget {
 	protected ValidationStatus validationStatus = new ValidationStatus();
 	protected Text firstTextWidget=null;
 	protected WidgetConfig widgetConfig;
-	
+	private String toolTipErrorMessage =  null;
 	
 	/**
 	 * Instantiates a new abstract widget.
@@ -86,4 +86,17 @@ public abstract class AbstractWidget {
 	public void setWidgetConfig(WidgetConfig widgetConfig) {
 		this.widgetConfig = widgetConfig;
 	}
+	
+	protected void setToolTipMessage(String toolTipErrorMessage){
+		this.toolTipErrorMessage = toolTipErrorMessage;
+	}
+	
+	public String getToolTipErrorMessage(){
+		return toolTipErrorMessage ;
+	}
+	
+	public String getPropertyName(){
+		return componentConfigrationProperty.getPropertyName();
+	}
+	
 }

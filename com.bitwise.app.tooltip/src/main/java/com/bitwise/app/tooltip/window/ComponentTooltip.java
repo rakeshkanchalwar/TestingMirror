@@ -3,6 +3,7 @@ package com.bitwise.app.tooltip.window;
 import java.util.Map;
 
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.text.AbstractInformationControl;
 import org.eclipse.jface.text.IInformationControlExtension2;
 import org.eclipse.swt.SWT;
@@ -22,6 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.bitwise.app.common.datastructures.tooltip.PropertyToolTipInformation;
 import com.bitwise.app.common.util.WordUtils;
+import com.bitwise.app.propertywindow.messages.Messages;
 import com.bitwise.app.propertywindow.widgets.utility.FilterOperationClassUtility;
 import com.bitwise.app.propertywindow.widgets.utility.WidgetUtility;
 
@@ -130,6 +132,14 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 							lblLinkProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue());
 							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+							
+							if(propertyInfo.getErrorMessage()!=null){
+								//ControlDecoration lblDecorator = new ControlDecoration(lblLinkProperty, SWT.TOP|SWT.LEFT);
+								ControlDecoration lblDecorator = WidgetUtility.addDecorator(lblLinkProperty, propertyInfo.getErrorMessage());
+								lblDecorator.show();
+							}
+								
+							
 						}	
 					}else{
 							Label lblLinkProperty = new Label(container, SWT.NONE);

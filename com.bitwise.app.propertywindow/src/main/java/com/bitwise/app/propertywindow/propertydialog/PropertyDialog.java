@@ -2,6 +2,7 @@ package com.bitwise.app.propertywindow.propertydialog;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -52,13 +53,15 @@ public class PropertyDialog extends Dialog {
 	
 	private boolean isPropertyWindowValid;
 	
+	private Map<String,String> toolTipErrorMessages;
+	
 	/**
 	 * Create the dialog.
 	 * @param parentShell
 	 * @param propertyTree 
 	 * @param ComponentProperties 
 	 */
-	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree,ELTComponenetProperties eltComponenetProperties) {		
+	public PropertyDialog(Shell parentShell, LinkedHashMap<String, LinkedHashMap<String, ArrayList<Property>>> propertyTree,ELTComponenetProperties eltComponenetProperties,Map<String, String> toolTipErrorMessages) {		
 		super(parentShell);
 		this.propertyTree = propertyTree;
 		this.eltComponenetProperties = eltComponenetProperties;
@@ -69,6 +72,8 @@ public class PropertyDialog extends Dialog {
 		 * 	Initialize it with true, if any one of the property is invalid then mark this status as false
 		 */
 		isPropertyWindowValid = true;
+		
+		this.toolTipErrorMessages = toolTipErrorMessages;
 	}
 
 	/**
@@ -167,6 +172,7 @@ public class PropertyDialog extends Dialog {
 					logger.debug("{} is not valid ", customWidget);
 				}
 				savePropertiesInComponentModel(customWidget);
+				toolTipErrorMessages.put(customWidget.getPropertyName(), customWidget.getToolTipErrorMessage());
 			}
 		}
 		propertyChanged=true;
@@ -179,6 +185,10 @@ public class PropertyDialog extends Dialog {
 		for(String propName : tempPropert.keySet()){
 			componentConfigurationProperties.put(propName, tempPropert.get(propName));
 		}
+	}
+	
+	private void setErrorMessagesInToolTip(){
+		
 	}
 	
 	private void disableApplyButton() {
@@ -269,7 +279,8 @@ public class PropertyDialog extends Dialog {
 					logger.debug("{} is not valid ", customWidget);
 					isPropertyWindowValid = false;
 				}
-				savePropertiesInComponentModel(customWidget);	
+				savePropertiesInComponentModel(customWidget);
+				toolTipErrorMessages.put(customWidget.getPropertyName(), customWidget.getToolTipErrorMessage());
 			}
 		}
 		if(applyButton.isEnabled())

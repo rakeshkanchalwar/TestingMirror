@@ -94,6 +94,9 @@ public abstract class Component extends Model {
 	
 	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
+	
+	@XStreamOmitField
+	private Map<String,String> toolTipErrorMessages; //<propertyName,ErrorMessage>
 
 	/**
 	 * Instantiates a new component.
@@ -118,9 +121,17 @@ public abstract class Component extends Model {
 		
 		prefix = XMLConfigUtil.INSTANCE.getComponent(componentName).getDefaultNamePrefix();
 		initPortSettings();
-		
+		toolTipErrorMessages = new LinkedHashMap<>();
 	}
 	
+	public Map<String, String> getToolTipErrorMessages() {
+		return toolTipErrorMessages;
+	}
+
+	public void setToolTipErrorMessages(Map<String, String> toolTipErrorMessages) {
+		this.toolTipErrorMessages = toolTipErrorMessages;
+	}
+
 	private void initPortSettings(){
 		
 		portSpecification = XMLConfigUtil.INSTANCE.getComponent(componentName).getPort().getPortSpecification();
@@ -472,6 +483,7 @@ public abstract class Component extends Model {
 			if(tooltipInformation != null){
 				if(tooltipInformation.get(propertyName) != null){
 					tooltipInformation.get(propertyName).setPropertyValue(properties.get(propertyName));
+					tooltipInformation.get(propertyName).setErrorMessage(toolTipErrorMessages.get(propertyName));
 				}
 			}	
 		}		

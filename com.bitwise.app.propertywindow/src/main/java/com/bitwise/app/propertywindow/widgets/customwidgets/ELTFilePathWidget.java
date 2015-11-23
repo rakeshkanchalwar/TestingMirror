@@ -151,13 +151,27 @@ public class ELTFilePathWidget extends AbstractWidget{
 		else{
 			textBox.setText("");
 			decorator.show();
+			//setToolTipMessage(toolTipErrorMessage)
 		}
 	}
 
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+		if(decorator.isVisible())
+			toolTipErrorMessage = decorator.getDescriptionText();
+		
+		if(txtDecorator.isVisible())
+			toolTipErrorMessage = toolTipErrorMessage + "\n" + txtDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
+	
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 		property.put(propertyName, textBox.getText());
+		setToolTipErrorMessage();
+		
 		return property;
 	}
 
