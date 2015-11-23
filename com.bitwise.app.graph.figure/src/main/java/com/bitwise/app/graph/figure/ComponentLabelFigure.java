@@ -2,6 +2,7 @@ package com.bitwise.app.graph.figure;
 
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
@@ -55,7 +56,6 @@ public class ComponentLabelFigure extends Figure {
 		Font font = new Font( Display.getDefault(), "Times New Roman", 9,
 				SWT.NORMAL );
 		setFont(font);
-		getBounds().setSize(98, ELTFigureConstants.componentOneLineLabelMargin);
 		
 	}
 
@@ -84,5 +84,6 @@ public class ComponentLabelFigure extends Figure {
 			getBounds().setSize(98, ELTFigureConstants.componentOneLineLabelMargin);
 		}
 	}
-
+	
+	
 }

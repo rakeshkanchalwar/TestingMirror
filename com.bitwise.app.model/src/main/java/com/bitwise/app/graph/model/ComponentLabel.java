@@ -44,7 +44,7 @@ public class ComponentLabel extends Model{
 		if (size.equals(d))
 			return;
 		size = d;
-		firePropertyChange("size", null, size);
+		firePropertyChange("compLabelSize", null, size);
 	}
 
 	public void setLabelContents(String s) {
