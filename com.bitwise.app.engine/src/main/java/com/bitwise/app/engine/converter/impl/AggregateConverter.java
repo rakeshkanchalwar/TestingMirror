@@ -3,6 +3,8 @@ package com.bitwise.app.engine.converter.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -35,6 +37,7 @@ import com.bitwiseglobal.graph.commontypes.TypeOperationsOutSocket;
 import com.bitwiseglobal.graph.commontypes.TypeOutSocketAsInSocket;
 import com.bitwiseglobal.graph.commontypes.TypeProperties;
 import com.bitwiseglobal.graph.commontypes.TypeProperties.Property;
+import com.bitwiseglobal.graph.commontypes.TypeSortOrder;
 import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 import com.bitwiseglobal.graph.operationstypes.Aggregate;
 
@@ -47,11 +50,12 @@ public class AggregateConverter extends TransformConverter {
 		this.baseComponent = new Aggregate();
 		this.component = component;
 		this.properties = component.getProperties();
+		transformPropertyGrid = (TransformPropertyGrid) properties.get("operation");
 	}
 	
 	@Override
 	public void prepareForXML() throws PhaseException, SchemaException {
-		logger.debug("Genrating XML for :{}", properties.get(NAME));
+		logger.debug("Generating XML for :{}", properties.get(NAME));
 		super.prepareForXML();
 		
 		Aggregate aggregate = (Aggregate) baseComponent;
@@ -61,7 +65,7 @@ public class AggregateConverter extends TransformConverter {
 	
 	@Override
 	protected List<TypeTransformOperation> getOperations() {
-		logger.debug("Genrating TypeTransformOperation data :{}", properties.get(NAME));
+		logger.debug("Generating TypeTransformOperation data :{}", properties.get(NAME));
 		if(transformPropertyGrid != null){
 			List<TransformOperation> transformOperations = transformPropertyGrid.getOperation();
 			List<TypeTransformOperation> operationList = new ArrayList<>();
@@ -120,6 +124,12 @@ public class AggregateConverter extends TransformConverter {
 			for (OperationField operationField : operationFields) {
 				 TypeBaseField typeBaseField = new TypeBaseField();
 				 typeBaseField.setName(operationField.getName());
+				 typeBaseField.setDescription(null);
+				 typeBaseField.setFormat(null);
+				 typeBaseField.setPrecision(null);
+				 typeBaseField.setScale(null);
+				 typeBaseField.setScaleType(null);
+				 typeBaseField.setType(null);
 				 outputFields.getField().add(typeBaseField);
 			}
 		}
@@ -130,7 +140,7 @@ public class AggregateConverter extends TransformConverter {
 	
 	@Override
 	protected List<TypeOperationsOutSocket> getOutSocket() {
-		logger.debug("Genrating TypeOperationsOutSocket data for : {}", properties.get(NAME));
+		logger.debug("Generating TypeOperationsOutSocket data for : {}", properties.get(NAME));
 		List<TypeOperationsOutSocket> outSocketList = new ArrayList<TypeOperationsOutSocket>();
 
 		for (Link link : component.getSourceConnections()) {
@@ -229,7 +239,7 @@ public class AggregateConverter extends TransformConverter {
 	
 	@Override
 	public List<TypeBaseInSocket> getInSocket() {
-		logger.debug("Genrating TypeBaseInSocket data for :{}", component.getProperties().get(NAME));
+		logger.debug("Generating TypeBaseInSocket data for :{}", component.getProperties().get(NAME));
 		List<TypeBaseInSocket> inSocketsList = new ArrayList<>();
 		for (Link link : component.getTargetConnections()) {
 			TypeBaseInSocket inSocket = new TypeBaseInSocket();
@@ -246,28 +256,31 @@ public class AggregateConverter extends TransformConverter {
 	
 	private void setPrimaryKeys(Aggregate aggregate){
 		Set<String> columnNameProperties = (HashSet<String>) component.getProperties().get(Constants.PROPERTY_COLUMN_NAME);
+		if(columnNameProperties != null){
 		TypePrimaryKeyFields primaryKeyFields = new TypePrimaryKeyFields();
 		aggregate.setPrimaryKeys(primaryKeyFields);
 		List<TypeFieldName> field = primaryKeyFields.getField();
-		for(String columnNameProperty : columnNameProperties){
-			TypeFieldName fieldName = new TypeFieldName(); 
-			fieldName.setName(columnNameProperty);
-			field.add(fieldName);
+			for(String columnNameProperty : columnNameProperties){
+				TypeFieldName fieldName = new TypeFieldName(); 
+				fieldName.setName(columnNameProperty);
+				field.add(fieldName);
+			}
 		}
-		
 	}
 	
 	private void setSecondaryKeys(Aggregate aggregate) {
-		Set<String> columnNameProperties = (HashSet<String>) component.getProperties().get(Constants.PROPERTY_SECONDARY_KEYS);
+		Map<String,String> gridRow = (Map<String,String>) component.getProperties().get(Constants.PROPERTY_SECONDARY_COLUMN_KEYS);
+		if(gridRow != null){
 		TypeSecondaryKeyFields secondaryKeyFields = new TypeSecondaryKeyFields();
 		aggregate.setSecondaryKeys(secondaryKeyFields);
 		List<TypeSecondayKeyFieldsAttributes> field = secondaryKeyFields.getField();
-		for(String columnNameProperty : columnNameProperties){
-			TypeSecondayKeyFieldsAttributes fieldsAttributes = new TypeSecondayKeyFieldsAttributes();
-			//TypeSortOrder order = TypeSortOrder.fromValue("");
-			fieldsAttributes.setName(columnNameProperty);
-			//fieldsAttributes.setOrder(order);
-			field.add(fieldsAttributes);
+			for(Entry<String, String> gridRowEntry : gridRow.entrySet()){
+				TypeSecondayKeyFieldsAttributes fieldsAttributes = new TypeSecondayKeyFieldsAttributes();
+				TypeSortOrder order = TypeSortOrder.fromValue(gridRowEntry.getValue());
+				fieldsAttributes.setName(gridRowEntry.getKey());
+				fieldsAttributes.setOrder(order);
+				field.add(fieldsAttributes);
+			}
 		}
 	}
 }
