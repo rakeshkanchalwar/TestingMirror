@@ -120,6 +120,15 @@ public class ELTStrictWidget extends AbstractWidget{
 		this.properties = text.getText();
 	}
 
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+	
+		if(txtDecorator.isVisible())
+			toolTipErrorMessage = txtDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
+	
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
 		if( combo.getText().equalsIgnoreCase("Parameter"))
@@ -130,6 +139,7 @@ public class ELTStrictWidget extends AbstractWidget{
 			comboBoxParameter.setOption(combo.getText());
 		}
 		property.put(propertyName,comboBoxParameter.getOption());
+		setToolTipErrorMessage();
 		return property;
 	}
 

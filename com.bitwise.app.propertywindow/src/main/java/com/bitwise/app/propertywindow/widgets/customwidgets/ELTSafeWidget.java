@@ -124,6 +124,17 @@ public class ELTSafeWidget extends AbstractWidget{
 			}
 		}
 	}
+	
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+		if(txtDecoratorForEmpty.isVisible())
+			toolTipErrorMessage = txtDecoratorForEmpty.getDescriptionText();
+		
+		if(txtDecorator.isVisible())
+			toolTipErrorMessage = toolTipErrorMessage + "\n" + txtDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
 
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
@@ -135,6 +146,7 @@ public class ELTSafeWidget extends AbstractWidget{
 			comboBoxParameter.setOption(combo.getText());
 		}
 		property.put(propertyName,comboBoxParameter.getOption());
+		setToolTipErrorMessage();
 		return property;
 	}
 

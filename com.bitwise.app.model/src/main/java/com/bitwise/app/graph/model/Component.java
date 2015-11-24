@@ -95,7 +95,7 @@ public abstract class Component extends Model {
 	@XStreamOmitField
 	private Map<String,PropertyToolTipInformation> tooltipInformation;
 	
-	@XStreamOmitField
+	//@XStreamOmitField
 	private Map<String,String> toolTipErrorMessages; //<propertyName,ErrorMessage>
 
 	/**
@@ -494,7 +494,8 @@ public abstract class Component extends Model {
 			if(tooltipInformation != null){
 				if(tooltipInformation.get(propertyName) != null){
 					tooltipInformation.get(propertyName).setPropertyValue(properties.get(propertyName));
-					tooltipInformation.get(propertyName).setErrorMessage(toolTipErrorMessages.get(propertyName));
+					if(toolTipErrorMessages!=null)
+						tooltipInformation.get(propertyName).setErrorMessage(toolTipErrorMessages.get(propertyName));
 				}
 			}	
 		}		
