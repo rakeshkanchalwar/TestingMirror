@@ -126,7 +126,6 @@ public class TransformDialog extends Dialog {
 	public TransformDialog(Shell parentShell,PropertyDialogButtonBar propertyDialogButtonBar,TransformPropertyGrid transformPropertyGrid,ELTFixedWidget eltFixedWidget) {
 		super(parentShell);
 		setShellStyle(SWT.CLOSE | SWT.RESIZE | SWT.TITLE |  SWT.WRAP | SWT.APPLICATION_MODAL);
-		this.propertyDialogButtonBar=propertyDialogButtonBar;
 		this.transformPropertyGrid = transformPropertyGrid;
 		this.eltFixedWidget=eltFixedWidget; 
 	}
@@ -141,6 +140,9 @@ public class TransformDialog extends Dialog {
 
 		container.setLayout(new FormLayout());
 		container.getShell().setText("Transform");
+		
+		propertyDialogButtonBar = new PropertyDialogButtonBar(container);
+		
 		opOutputOuterFields=transformPropertyGrid.getOutputTreeFields()!=null ?transformPropertyGrid.getOutputTreeFields():opOutputOuterFields;
 		opOuterClassProperty=transformPropertyGrid.getNameValueProps()!=null ? transformPropertyGrid.getNameValueProps():opOuterClassProperty;
 		operationSystemProperties=transformPropertyGrid.getOpSysProperties()!=null ? transformPropertyGrid.getOpSysProperties():operationSystemProperties; 
@@ -411,7 +413,9 @@ public class TransformDialog extends Dialog {
 		AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150);
 		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("IsParam").checkBoxLableWidth(100);
 		
+		//Creating operational class widget.
 		FilterOperationClassUtility.createOperationalClass(fileSelectionComposite, propertyDialogButtonBar, fileNameText, isParameterCheckbox, validationStatus);
+
 		fileName=(Text)fileNameText.getSWTWidgetControl(); 
 		btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
 		
