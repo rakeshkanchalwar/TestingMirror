@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
+import com.bitwise.app.common.datastructures.tooltip.TootlTipErrorMessage;
 import com.bitwise.app.propertywindow.factory.ListenerFactory;
 import com.bitwise.app.propertywindow.propertydialog.PropertyDialogButtonBar;
 import com.bitwise.app.propertywindow.widgets.customwidgets.AbstractWidget.ValidationStatus;
@@ -117,7 +118,7 @@ public class FilterOperationClassUtility {
 
 public static void createOperationalClass(Composite composite,
 											PropertyDialogButtonBar eltOperationClassDialogButtonBar,AbstractELTWidget fileNameText
-											,AbstractELTWidget isParameterCheckbox,ValidationStatus validationStatus ){
+											,AbstractELTWidget isParameterCheckbox,ValidationStatus validationStatus,TootlTipErrorMessage tootlTipErrorMessage ){
 	
 	ELTDefaultSubgroupComposite eltSuDefaultSubgroupComposite = new ELTDefaultSubgroupComposite(composite);
 	eltSuDefaultSubgroupComposite.createContainerWidget();
@@ -157,6 +158,7 @@ public static void createOperationalClass(Composite composite,
 	
 		ListenerHelper helper = new ListenerHelper();
 		helper.put(HelperType.VALIDATION_STATUS, validationStatus);
+		helper.put(HelperType.TOOLTIP_ERROR_MESSAGE, tootlTipErrorMessage);
 	try { 						
 		
 		fileNameText.attachListener(ListenerFactory.Listners.EVENT_CHANGE.getListener(),eltOperationClassDialogButtonBar, null,fileName);
