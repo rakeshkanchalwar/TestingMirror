@@ -25,7 +25,7 @@ public class PortFigure extends Figure {
 	private TooltipFigure tooltipFigure;
 	private String labelOfPort;
 	private String portType;
-	public boolean toggleValue;
+	public static boolean toggleValue;
 	/**
 	 * Instantiates a new port figure.
 	 * 
@@ -43,7 +43,7 @@ public class PortFigure extends Figure {
 				portSeq);
 		this.labelOfPort=labelOfPort;
 		this.portType=portType;
-		toggleValue=false;
+		toggleValue=getToggleValue();
 		getBounds().setSize(new Dimension(27,16));
 
 		tooltipFigure = new TooltipFigure();
