@@ -124,6 +124,16 @@ public class ELTHasHeaderWidget extends AbstractWidget{
 		}
 	}
 
+	
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+		
+		if(txtDecorator.isVisible())
+			toolTipErrorMessage =  txtDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
+	
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
 		if( combo.getText().equalsIgnoreCase("Parameter"))

@@ -98,5 +98,5 @@ public abstract class AbstractWidget {
 	public String getPropertyName(){
 		return componentConfigrationProperty.getPropertyName();
 	}
-	
+
 }

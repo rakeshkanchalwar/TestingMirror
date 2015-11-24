@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -86,6 +87,8 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 						lblTextProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue());
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+						
+						showErrors(propertyInfo, lblTextProperty);
 					}else{
 						Label lblTextProperty = new Label(container, SWT.NONE);
 						String propertyName = propertyInfo.getPropertyName();
@@ -94,6 +97,8 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 						lblTextProperty.setText(propertyNameCapitalized + " : ");
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+						
+						showErrors(propertyInfo, lblTextProperty);
 					}
 				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LINK")){
 					if(propertyInfo.getPropertyValue() != null){
@@ -122,7 +127,7 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 									}
 								}
 							});
-							
+							showErrors(propertyInfo, link);
 						}else{
 							Label lblLinkProperty = new Label(container, SWT.NONE);
 							String propertyName = propertyInfo.getPropertyName();
@@ -133,11 +138,7 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
 							
-							if(propertyInfo.getErrorMessage()!=null){
-								//ControlDecoration lblDecorator = new ControlDecoration(lblLinkProperty, SWT.TOP|SWT.LEFT);
-								ControlDecoration lblDecorator = WidgetUtility.addDecorator(lblLinkProperty, propertyInfo.getErrorMessage());
-								lblDecorator.show();
-							}
+							showErrors(propertyInfo, lblLinkProperty);
 								
 							
 						}	
@@ -150,6 +151,7 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 							lblLinkProperty.setText(propertyNameCapitalized + " : ");
 							lblLinkProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 							lblLinkProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+							showErrors(propertyInfo, lblLinkProperty);
 					}
 				}else if(propertyInfo.getTooltipDataType().equalsIgnoreCase("LIST")){
 					if(propertyInfo.getPropertyValue() != null){						
@@ -161,6 +163,7 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 						lblTextProperty.setText(propertyNameCapitalized + " : " + propertyInfo.getPropertyValue().toString());
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+						showErrors(propertyInfo, lblTextProperty);
 					}else{
 						Label lblTextProperty = new Label(container, SWT.NONE);
 						String propertyName = propertyInfo.getPropertyName();
@@ -170,6 +173,7 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 						lblTextProperty.setText(propertyNameCapitalized + " : ");
 						lblTextProperty.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 						lblTextProperty.addListener(SWT.MouseUp, getMouseClickListener(container));
+						showErrors(propertyInfo, lblTextProperty);
 					}
 				}
 			}
@@ -202,6 +206,15 @@ public class ComponentTooltip extends AbstractInformationControl implements IInf
 		
 		scrolledComposite.setContent(container);
 		scrolledComposite.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+	}
+
+	private void showErrors(PropertyToolTipInformation propertyInfo,
+			Control lblLinkProperty) {
+		if(propertyInfo.getErrorMessage()!=null){
+			//ControlDecoration lblDecorator = new ControlDecoration(lblLinkProperty, SWT.TOP|SWT.LEFT);
+			ControlDecoration lblDecorator = WidgetUtility.addDecorator(lblLinkProperty, propertyInfo.getErrorMessage());
+			lblDecorator.show();
+		}
 	}
 
 	private Listener getMouseClickListener(final Composite container) {

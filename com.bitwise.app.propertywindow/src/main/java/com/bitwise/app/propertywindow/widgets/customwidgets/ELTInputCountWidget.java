@@ -55,10 +55,20 @@ public class ELTInputCountWidget extends AbstractWidget{
 		this.properties =  (String) componentConfigProp.getPropertyValue();
 	}
 	
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+
+		if(txtDecorator.isVisible())
+			toolTipErrorMessage = txtDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
+	
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
 		LinkedHashMap<String, Object> property=new LinkedHashMap<>();
 		property.put(propertyName, textBox.getText());
+		setToolTipErrorMessage();
 		return property;
 	}
 	

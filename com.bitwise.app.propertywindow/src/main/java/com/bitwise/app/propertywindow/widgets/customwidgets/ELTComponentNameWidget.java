@@ -117,6 +117,16 @@ public class ELTComponentNameWidget extends AbstractWidget {
 
 	}
 
+	
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+			
+		if(txtDecorator.isVisible())
+			toolTipErrorMessage = txtDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
+	
 	@Override
 	public LinkedHashMap<String, Object> getProperties() {
 		newName = text.getText().trim();
@@ -133,6 +143,7 @@ public class ELTComponentNameWidget extends AbstractWidget {
 			property.put(propertyName, oldName);
 		}
 
+		setToolTipErrorMessage();
 		return property;
 	}
 

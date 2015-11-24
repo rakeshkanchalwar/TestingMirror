@@ -160,9 +160,21 @@ public class ELTFieldSequenceWidget extends AbstractWidget {
 		
 	}
  
+	private void setToolTipErrorMessage(){
+		String toolTipErrorMessage = null;
+		if(fieldNameDecorator.isVisible())
+			toolTipErrorMessage = fieldNameDecorator.getDescriptionText();
+		
+		if(scaleDecorator.isVisible())
+			toolTipErrorMessage = toolTipErrorMessage + "\n" + scaleDecorator.getDescriptionText();
+		
+		setToolTipMessage(toolTipErrorMessage);
+	}
+	
 	@Override
 	public LinkedHashMap<String,Object> getProperties() {
 		property.put(propertyName, fieldSeduence); 
+		setToolTipErrorMessage();
 		return property; 
 	}  
  
