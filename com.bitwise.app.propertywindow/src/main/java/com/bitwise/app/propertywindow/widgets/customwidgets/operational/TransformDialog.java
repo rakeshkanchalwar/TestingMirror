@@ -114,7 +114,6 @@ public class TransformDialog extends Dialog {
 	private PropertyDialogButtonBar propertyDialogButtonBar;
 	private Button btnCheckButton;
 	private ValidationStatus validationStatus;
-
 	private TransformPropertyGrid transformPropertyGrid;
 
 
@@ -417,8 +416,11 @@ public class TransformDialog extends Dialog {
 		AbstractELTWidget fileNameText = new ELTDefaultTextBox().grabExcessHorizontalSpace(true).textBoxWidth(150);
 		AbstractELTWidget isParameterCheckbox = new ELTDefaultCheckBox("IsParam").checkBoxLableWidth(100);
 		
+
+		FilterOperationClassUtility.createOperationalClass(fileSelectionComposite, propertyDialogButtonBar, fileNameText, isParameterCheckbox, validationStatus, null);
+		
 		//Creating operational class widget.
-		FilterOperationClassUtility.createOperationalClass(fileSelectionComposite, propertyDialogButtonBar, fileNameText, isParameterCheckbox, validationStatus);
+		//FilterOperationClassUtility.createOperationalClass(fileSelectionComposite, propertyDialogButtonBar, fileNameText, isParameterCheckbox, validationStatus);
 
 		fileName=(Text)fileNameText.getSWTWidgetControl(); 
 		btnCheckButton=(Button) isParameterCheckbox.getSWTWidgetControl();
