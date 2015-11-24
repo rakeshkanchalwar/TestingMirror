@@ -1,7 +1,9 @@
 package com.bitwise.app.engine.helper;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 
@@ -12,9 +14,9 @@ import com.bitwise.app.common.datastructure.property.TransformOperation;
 import com.bitwise.app.common.datastructure.property.TransformPropertyGrid;
 import com.bitwise.app.common.util.Constants;
 import com.bitwise.app.common.util.LogFactory;
-import com.bitwise.app.engine.converter.Converter;
 import com.bitwise.app.engine.converter.PortTypeConstant;
 import com.bitwise.app.engine.converter.TransformConverter;
+import com.bitwise.app.graph.model.Component;
 import com.bitwise.app.graph.model.Link;
 import com.bitwise.app.propertywindow.fixedwidthschema.FixedWidthGridRow;
 import com.bitwiseglobal.graph.commontypes.FieldDataTypes;
@@ -35,11 +37,16 @@ import com.bitwiseglobal.graph.commontypes.TypeTransformOperation;
 /**
  * This is a helper class for converter implementation. Contains the helper methods for conversion. 
  */
-public class ConverterHelper extends Converter{
-	public static final ConverterHelper INSTANCE = new ConverterHelper();
+public class ConverterHelper{
 	private static final Logger logger = LogFactory.INSTANCE.getLogger(ConverterHelper.class);
+	protected Map<String, Object> properties = new LinkedHashMap<String, Object>();
+	protected Component component = null;
+	protected String componentName = null;
 	
-	private ConverterHelper() {
+	public ConverterHelper(Component component) {
+		this.component = component;
+		this.properties = component.getProperties();
+		this.componentName = (String) properties.get(Constants.NAME);
 	}
 	
 	public List<TypeTransformOperation> getOperations(TransformPropertyGrid transformPropertyGrid) {
