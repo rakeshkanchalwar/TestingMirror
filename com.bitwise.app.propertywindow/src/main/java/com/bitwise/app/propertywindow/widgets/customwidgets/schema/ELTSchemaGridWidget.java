@@ -14,6 +14,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -138,68 +139,16 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 	@Override
 	public void attachToPropertySubGroup(AbstractELTContainerWidget container) {
 		
-		ListenerFactory listenerFactory = new ListenerFactory();
-		
-		AbstractELTWidget addButton = getButton("");
-		AbstractELTWidget deleteButton = getButton(""); 
-		addButtonsAndRegisterListners(container, listenerFactory,addButton,deleteButton);
-		
-		ELTSchemaTableComposite gridSubGroup = new ELTSchemaTableComposite(container.getContainerControl());
-		gridSubGroup.createContainerWidget();
+		createSchemaGrid(container.getContainerControl(),schemaGridRowList);
 		
 
-		AbstractELTWidget eltTableViewer = new ELTTableViewer(getContentProvider(), getLableProvider());
-		gridSubGroup.attachWidget(eltTableViewer);
-
-		// eltTableViewer.getSWTWidgetControl().
-		tableViewer = (TableViewer) eltTableViewer.getJfaceWidgetControl();
-		tableViewer.setInput(schemaGridRowList);
-		// Set the editors, cell modifier, and column properties
-		tableViewer.setColumnProperties(PROPS);
-		tableViewer.setCellModifier(getCellModifier());
-		ELTTable eltTable = new ELTTable(tableViewer);
-		gridSubGroup.attachWidget(eltTable);
-		table = (Table) eltTable.getSWTWidgetControl();
-		// Create Table column
-		WidgetUtility.createTableColumns(table, PROPS);
-		// Set up the table
-		for (int columnIndex = 0, n = table.getColumnCount(); columnIndex < n; columnIndex++) {
-			table.getColumn(columnIndex).pack();
-			table.getColumn(columnIndex).setWidth(94);
-		}
-		editors = gridWidgetBuilder.createCellEditorList(table, PROPS.length);
-		tableViewer.setCellEditors(editors);
-
-		// Adding the decorator to show error message when field name same.
-		setDecorator();
-
-		addValidators();
-
-		helper = getListenerHelper();
-		try {
-			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),
-					propertyDialogButtonBar, helper, table);
-			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),
-					propertyDialogButtonBar, helper, editors[0].getControl());
-			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),
-					propertyDialogButtonBar, helper, table);
-			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),
-					propertyDialogButtonBar, helper, table);
-
-		} catch (Exception e) {
-			// TODO add logger
-			throw new RuntimeException("Failed to attach listeners to table");
-		}
-
-		gridListener(editors);
-		populateWidget(); 
 	}
 
 	private void addButtonsAndRegisterListners(
-			AbstractELTContainerWidget container, ListenerFactory listenerFactory,AbstractELTWidget addButton,AbstractELTWidget deleteButton) {
+			Composite container, ListenerFactory listenerFactory,AbstractELTWidget addButton,AbstractELTWidget deleteButton) {
 
 		ELTSchemaSubgroupComposite buttonSubGroup = new ELTSchemaSubgroupComposite(
-				container.getContainerControl());
+				container);
 		buttonSubGroup.createContainerWidget();
 
 		try {
@@ -316,7 +265,7 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 		return button;
 	}
 
-	private ListenerHelper getListenerHelper() {
+	private ListenerHelper getListenerHelper(List schemaGridRowList) {
 		if (helper == null) {
 			helper = new ListenerHelper();
 			ELTGridDetails value = new ELTGridDetails(schemaGridRowList, tableViewer, 
@@ -327,6 +276,66 @@ public abstract class ELTSchemaGridWidget extends AbstractWidget {
 			helper.put(HelperType.VALIDATION_STATUS, validationStatus);
 		}
 		return helper;
+	}
+	
+	public TableViewer createSchemaGrid(Composite container,List schemaGridRowList){
+		
+		ListenerFactory listenerFactory = new ListenerFactory();
+		
+		AbstractELTWidget addButton = getButton("");
+		AbstractELTWidget deleteButton = getButton(""); 
+		addButtonsAndRegisterListners(container, listenerFactory,addButton,deleteButton);
+		
+		ELTSchemaTableComposite gridSubGroup = new ELTSchemaTableComposite(container);
+		gridSubGroup.createContainerWidget();
+		
+
+		AbstractELTWidget eltTableViewer = new ELTTableViewer(getContentProvider(), getLableProvider());
+		gridSubGroup.attachWidget(eltTableViewer);
+
+		// eltTableViewer.getSWTWidgetControl().
+		tableViewer = (TableViewer) eltTableViewer.getJfaceWidgetControl();
+		tableViewer.setInput(schemaGridRowList);
+		// Set the editors, cell modifier, and column properties
+		tableViewer.setColumnProperties(PROPS);
+		tableViewer.setCellModifier(getCellModifier());
+		ELTTable eltTable = new ELTTable(tableViewer);
+		gridSubGroup.attachWidget(eltTable);
+		table = (Table) eltTable.getSWTWidgetControl();
+		// Create Table column
+		WidgetUtility.createTableColumns(table, PROPS);
+		// Set up the table
+		for (int columnIndex = 0, n = table.getColumnCount(); columnIndex < n; columnIndex++) {
+			table.getColumn(columnIndex).pack();
+			table.getColumn(columnIndex).setWidth(94);
+		}
+		editors = gridWidgetBuilder.createCellEditorList(table, PROPS.length);
+		tableViewer.setCellEditors(editors);
+
+		// Adding the decorator to show error message when field name same.
+		setDecorator();
+
+		addValidators();
+
+		helper = getListenerHelper(schemaGridRowList); 
+		try {
+			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOUBLE_CLICK.getListener(),
+					propertyDialogButtonBar, helper, table);
+			eltTable.attachListener(ListenerFactory.Listners.GRID_MOUSE_DOWN.getListener(),
+					propertyDialogButtonBar, helper, editors[0].getControl());
+			addButton.attachListener(ListenerFactory.Listners.GRID_ADD_SELECTION.getListener(),
+					propertyDialogButtonBar, helper, table);
+			deleteButton.attachListener(ListenerFactory.Listners.GRID_DELETE_SELECTION.getListener(),
+					propertyDialogButtonBar, helper, table);
+
+		} catch (Exception e) {
+			// TODO add logger
+			throw new RuntimeException("Failed to attach listeners to table");
+		}
+
+		gridListener(editors);
+		populateWidget(); 
+		return tableViewer;
 	}
 	
 	

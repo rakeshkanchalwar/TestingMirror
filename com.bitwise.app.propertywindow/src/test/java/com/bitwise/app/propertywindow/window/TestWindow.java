@@ -145,7 +145,7 @@ public class TestWindow extends ApplicationWindow {
 					IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
 
 					PropertyDialog propertyDialog = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),
-							eltComponenetProperties);
+							eltComponenetProperties,null);
 					propertyDialog.open();
 
 

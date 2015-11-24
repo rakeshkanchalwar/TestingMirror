@@ -1,10 +1,11 @@
 package com.bitwise.app.common.datastructures.tooltip;
 
 public class PropertyToolTipInformation {
-	String propertyName;
-	Object propertyValue;
-	String showAsTooltip;
-	String tooltipDataType;
+	private String propertyName;
+	private Object propertyValue;
+	private String showAsTooltip;
+	private String tooltipDataType;
+	private String errorMessage=null;
 	
 	public PropertyToolTipInformation(String propertyName, String showAsTooltip,
 			String tooltipDataType) {
@@ -33,11 +34,21 @@ public class PropertyToolTipInformation {
 	public void setPropertyValue(Object propertyValue) {
 		this.propertyValue = propertyValue;
 	}
+	
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((errorMessage == null) ? 0 : errorMessage.hashCode());
 		result = prime * result
 				+ ((propertyName == null) ? 0 : propertyName.hashCode());
 		result = prime * result
@@ -58,6 +69,11 @@ public class PropertyToolTipInformation {
 		if (getClass() != obj.getClass())
 			return false;
 		PropertyToolTipInformation other = (PropertyToolTipInformation) obj;
+		if (errorMessage == null) {
+			if (other.errorMessage != null)
+				return false;
+		} else if (!errorMessage.equals(other.errorMessage))
+			return false;
 		if (propertyName == null) {
 			if (other.propertyName != null)
 				return false;
@@ -85,6 +101,9 @@ public class PropertyToolTipInformation {
 	public String toString() {
 		return "PropertyToolTipInformation [propertyName=" + propertyName
 				+ ", propertyValue=" + propertyValue + ", showAsTooltip="
-				+ showAsTooltip + ", tooltipDataType=" + tooltipDataType + "]";
+				+ showAsTooltip + ", tooltipDataType=" + tooltipDataType
+				+ ", errorMessage=" + errorMessage + "]";
 	}
+
+	
 }

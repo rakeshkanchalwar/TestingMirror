@@ -3,6 +3,7 @@ package com.bitwise.app.graph.propertywindow;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
@@ -35,6 +36,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 	ELTComponenetProperties eltComponenetProperties;
 	Component component;
 	private boolean propertyChanged = false;
+	private Map<String, String> toolTipErrorMessages;
 
 	
 	/**
@@ -47,6 +49,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 		this.componenetModel = componenetModel;
 		component = getCastedModel();
 		eltComponenetProperties = getELTComponenetProperties();
+		toolTipErrorMessages = component.getToolTipErrorMessages();
 	}
 
 	private Component getCastedModel() {
@@ -94,7 +97,7 @@ public class ELTPropertyWindow implements IELTPropertyWindow{
 			IPropertyTreeBuilder propertyTreeBuilder = new PropertyTreeBuilder(componentProperties);
 
 			PropertyDialog propertyDialog = new PropertyDialog(shell, propertyTreeBuilder.getPropertyTree(),
-					eltComponenetProperties);
+					eltComponenetProperties,toolTipErrorMessages);
 			propertyDialog.open();
 
 			//component.setSize(getNewComponentSize());

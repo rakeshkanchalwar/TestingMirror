@@ -1,13 +1,12 @@
 package com.bitwise.app.propertywindow.widgets.listeners;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.fieldassist.FieldDecoration;
-import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -51,24 +50,22 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 		
 		if(helpers != null){
 			validationStatus = (ValidationStatus) helpers.get(HelperType.VALIDATION_STATUS); 
+			if (helpers != null) {
+				txtDecorator = (ControlDecoration) helpers.get(HelperType.CONTROL_DECORATION);
+				txtDecorator.hide();
+			}
 		}
-		txtDecorator = new ControlDecoration(text, SWT.TOP|SWT.LEFT);
-
-		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry .DEC_ERROR);
-		Image img = fieldDecoration.getImage();
-		txtDecorator.setImage(img);
-		txtDecorator.setDescriptionText(Messages.FIELD_LABEL_ERROR);
-		txtDecorator.hideHover();
+		
 
 		Listener listener = new Listener() {
 
 			@Override
 			public void handleEvent(Event e) {
 				if (e.type == SWT.Verify) {
-
+					logger.debug("<<<<<<<<<<"+e.text.toString()+">>>>>>>>>>>");
 					String currentText = ((Text) e.widget).getText();
 					String newName = (currentText.substring(0, e.start) + e.text + currentText.substring(e.end)).trim();
-
+					Matcher matchName = Pattern.compile("[\\w+]*").matcher(newName.replaceAll("[\\W&&[\\ \\.\\-]]*", ""));
 					logger.debug("new text: {}", newName);
 					if (newName == null || newName.equals("")) {
 						// e.doit=false;
@@ -76,16 +73,24 @@ public class ELTVerifyComponentNameListener implements IELTListener {
 						text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 						propertyDialogButtonBar.enableOKButton(false);
 						propertyDialogButtonBar.enableApplyButton(false);
+						txtDecorator.setDescriptionText(Messages.FIELD_LABEL_ERROR);
 						txtDecorator.show();
 						setValidationStatus(false);
-					}else if (!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
+					}else if(!matchName.matches()){
+						text.setToolTipText(Messages.INVALID_CHARACTERS);
+						txtDecorator.setDescriptionText(Messages.INVALID_CHARACTERS);
+						txtDecorator.show();
+						e.doit=false;
+						setValidationStatus(false);
+					} else if(!newName.equalsIgnoreCase(oldName) && !isUniqueCompName(newName)) {
 						text.setBackground(new Color(Display.getDefault(),255,255,204));
 						text.setToolTipText(Messages.FIELD_LABEL_ERROR);
 						propertyDialogButtonBar.enableOKButton(false);
 						propertyDialogButtonBar.enableApplyButton(false);
+						txtDecorator.setDescriptionText(Messages.FIELD_LABEL_ERROR);
 						txtDecorator.show();
-						setValidationStatus(false);
-					} else {
+						setValidationStatus(false);}
+						else{
 						text.setBackground(null);
 						text.setToolTipText("");
 						text.setMessage("");
